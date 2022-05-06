@@ -114,6 +114,151 @@ class AddDataForApiSourceResponse(TeaModel):
         return self
 
 
+class BatchAddDataForApiSourceRequest(TeaModel):
+    def __init__(self, api_id=None, content_list=None, iot_instance_id=None):
+        self.api_id = api_id  # type: str
+        self.content_list = content_list  # type: dict[str, any]
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchAddDataForApiSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.content_list is not None:
+            result['ContentList'] = self.content_list
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ContentList') is not None:
+            self.content_list = m.get('ContentList')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class BatchAddDataForApiSourceShrinkRequest(TeaModel):
+    def __init__(self, api_id=None, content_list_shrink=None, iot_instance_id=None):
+        self.api_id = api_id  # type: str
+        self.content_list_shrink = content_list_shrink  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchAddDataForApiSourceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.content_list_shrink is not None:
+            result['ContentList'] = self.content_list_shrink
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ContentList') is not None:
+            self.content_list_shrink = m.get('ContentList')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class BatchAddDataForApiSourceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchAddDataForApiSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BatchAddDataForApiSourceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchAddDataForApiSourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchAddDataForApiSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchAddDataForApiSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BatchAddDeviceGroupRelationsRequestDevice(TeaModel):
     def __init__(self, device_name=None, product_key=None):
         self.device_name = device_name  # type: str
@@ -1161,6 +1306,238 @@ class BatchClearEdgeInstanceDeviceConfigResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = BatchClearEdgeInstanceDeviceConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchCreateSoundCodeLabelRequest(TeaModel):
+    def __init__(self, description=None, iot_instance_id=None, schedule_code=None, total=None):
+        self.description = description  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.schedule_code = schedule_code  # type: str
+        self.total = total  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class BatchCreateSoundCodeLabelResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BatchCreateSoundCodeLabelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchCreateSoundCodeLabelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchCreateSoundCodeLabelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchCreateSoundCodeLabelWithLabelsRequest(TeaModel):
+    def __init__(self, description=None, iot_instance_id=None, labels=None, schedule_code=None):
+        self.description = description  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.labels = labels  # type: list[str]
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelWithLabelsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.labels is not None:
+            result['Labels'] = self.labels
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Labels') is not None:
+            self.labels = m.get('Labels')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class BatchCreateSoundCodeLabelWithLabelsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelWithLabelsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BatchCreateSoundCodeLabelWithLabelsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchCreateSoundCodeLabelWithLabelsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchCreateSoundCodeLabelWithLabelsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchCreateSoundCodeLabelWithLabelsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4641,6 +5018,279 @@ class BindGatewayToEdgeInstanceResponse(TeaModel):
         return self
 
 
+class BindLicenseDeviceRequest(TeaModel):
+    def __init__(self, iot_id_list=None, iot_instance_id=None, license_code=None, product_key=None):
+        self.iot_id_list = iot_id_list  # type: list[str]
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.license_code = license_code  # type: str
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindLicenseDeviceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_id_list is not None:
+            result['IotIdList'] = self.iot_id_list
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.license_code is not None:
+            result['LicenseCode'] = self.license_code
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotIdList') is not None:
+            self.iot_id_list = m.get('IotIdList')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('LicenseCode') is not None:
+            self.license_code = m.get('LicenseCode')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class BindLicenseDeviceResponseBodyData(TeaModel):
+    def __init__(self, check_progress_id=None, fail_sum=None, progress=None, result_csv_file=None, success_sum=None):
+        self.check_progress_id = check_progress_id  # type: str
+        self.fail_sum = fail_sum  # type: long
+        self.progress = progress  # type: int
+        self.result_csv_file = result_csv_file  # type: str
+        self.success_sum = success_sum  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindLicenseDeviceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_progress_id is not None:
+            result['CheckProgressId'] = self.check_progress_id
+        if self.fail_sum is not None:
+            result['FailSum'] = self.fail_sum
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.result_csv_file is not None:
+            result['ResultCsvFile'] = self.result_csv_file
+        if self.success_sum is not None:
+            result['SuccessSum'] = self.success_sum
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckProgressId') is not None:
+            self.check_progress_id = m.get('CheckProgressId')
+        if m.get('FailSum') is not None:
+            self.fail_sum = m.get('FailSum')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('ResultCsvFile') is not None:
+            self.result_csv_file = m.get('ResultCsvFile')
+        if m.get('SuccessSum') is not None:
+            self.success_sum = m.get('SuccessSum')
+        return self
+
+
+class BindLicenseDeviceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: BindLicenseDeviceResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(BindLicenseDeviceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = BindLicenseDeviceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BindLicenseDeviceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindLicenseDeviceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindLicenseDeviceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindLicenseDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BindLicenseProductRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, license_code=None, product_key=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.license_code = license_code  # type: str
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindLicenseProductRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.license_code is not None:
+            result['LicenseCode'] = self.license_code
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('LicenseCode') is not None:
+            self.license_code = m.get('LicenseCode')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class BindLicenseProductResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindLicenseProductResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BindLicenseProductResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindLicenseProductResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindLicenseProductResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindLicenseProductResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BindRoleToEdgeInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, iot_instance_id=None, role_arn=None, role_name=None):
         self.instance_id = instance_id  # type: str
@@ -5510,6 +6160,107 @@ class ClearEdgeInstanceDriverConfigsResponse(TeaModel):
         return self
 
 
+class CloseDeviceTunnelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, tunnel_id=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloseDeviceTunnelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        return self
+
+
+class CloseDeviceTunnelResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloseDeviceTunnelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CloseDeviceTunnelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CloseDeviceTunnelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CloseDeviceTunnelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CloseDeviceTunnelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CloseEdgeInstanceDeploymentRequest(TeaModel):
     def __init__(self, instance_id=None, iot_instance_id=None):
         self.instance_id = instance_id  # type: str
@@ -6319,6 +7070,112 @@ class CreateDataAPIServiceResponse(TeaModel):
         return self
 
 
+class CreateDataSourceItemRequest(TeaModel):
+    def __init__(self, data_source_id=None, iot_instance_id=None, topic=None):
+        self.data_source_id = data_source_id  # type: long
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.topic = topic  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDataSourceItemRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
+        return self
+
+
+class CreateDataSourceItemResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDataSourceItemResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateDataSourceItemResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateDataSourceItemResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDataSourceItemResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDataSourceItemResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDeviceDistributeJobRequestTargetInstanceConfig(TeaModel):
     def __init__(self, target_instance_id=None):
         self.target_instance_id = target_instance_id  # type: str
@@ -6483,6 +7340,169 @@ class CreateDeviceDistributeJobResponse(TeaModel):
         return self
 
 
+class CreateDeviceDynamicGroupRequest(TeaModel):
+    def __init__(self, dynamic_group_expression=None, group_desc=None, group_name=None, iot_instance_id=None):
+        self.dynamic_group_expression = dynamic_group_expression  # type: str
+        self.group_desc = group_desc  # type: str
+        self.group_name = group_name  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeviceDynamicGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dynamic_group_expression is not None:
+            result['DynamicGroupExpression'] = self.dynamic_group_expression
+        if self.group_desc is not None:
+            result['GroupDesc'] = self.group_desc
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DynamicGroupExpression') is not None:
+            self.dynamic_group_expression = m.get('DynamicGroupExpression')
+        if m.get('GroupDesc') is not None:
+            self.group_desc = m.get('GroupDesc')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class CreateDeviceDynamicGroupResponseBodyData(TeaModel):
+    def __init__(self, dynamic_group_expression=None, group_desc=None, group_id=None, group_name=None,
+                 utc_create=None):
+        self.dynamic_group_expression = dynamic_group_expression  # type: str
+        self.group_desc = group_desc  # type: str
+        self.group_id = group_id  # type: str
+        self.group_name = group_name  # type: str
+        self.utc_create = utc_create  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeviceDynamicGroupResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dynamic_group_expression is not None:
+            result['DynamicGroupExpression'] = self.dynamic_group_expression
+        if self.group_desc is not None:
+            result['GroupDesc'] = self.group_desc
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.utc_create is not None:
+            result['UtcCreate'] = self.utc_create
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DynamicGroupExpression') is not None:
+            self.dynamic_group_expression = m.get('DynamicGroupExpression')
+        if m.get('GroupDesc') is not None:
+            self.group_desc = m.get('GroupDesc')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('UtcCreate') is not None:
+            self.utc_create = m.get('UtcCreate')
+        return self
+
+
+class CreateDeviceDynamicGroupResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateDeviceDynamicGroupResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateDeviceDynamicGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateDeviceDynamicGroupResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateDeviceDynamicGroupResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateDeviceDynamicGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeviceDynamicGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDeviceDynamicGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDeviceGroupRequest(TeaModel):
     def __init__(self, group_desc=None, group_name=None, iot_instance_id=None, super_group_id=None):
         self.group_desc = group_desc  # type: str
@@ -6636,6 +7656,169 @@ class CreateDeviceGroupResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateDeviceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDeviceTunnelRequest(TeaModel):
+    def __init__(self, description=None, device_name=None, iot_id=None, iot_instance_id=None, product_key=None,
+                 udi=None):
+        self.description = description  # type: str
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.product_key = product_key  # type: str
+        self.udi = udi  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeviceTunnelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.udi is not None:
+            result['Udi'] = self.udi
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Udi') is not None:
+            self.udi = m.get('Udi')
+        return self
+
+
+class CreateDeviceTunnelResponseBodyData(TeaModel):
+    def __init__(self, source_access_token=None, source_uri=None, tunnel_id=None):
+        self.source_access_token = source_access_token  # type: str
+        self.source_uri = source_uri  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeviceTunnelResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_access_token is not None:
+            result['SourceAccessToken'] = self.source_access_token
+        if self.source_uri is not None:
+            result['SourceURI'] = self.source_uri
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SourceAccessToken') is not None:
+            self.source_access_token = m.get('SourceAccessToken')
+        if m.get('SourceURI') is not None:
+            self.source_uri = m.get('SourceURI')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        return self
+
+
+class CreateDeviceTunnelResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateDeviceTunnelResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateDeviceTunnelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateDeviceTunnelResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateDeviceTunnelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateDeviceTunnelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeviceTunnelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDeviceTunnelResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7606,12 +8789,12 @@ class CreateJobRequest(TeaModel):
         self.description = description  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.job_document = job_document  # type: str
-        self.job_file = job_file  # type: str
+        self.job_file = job_file  # type: dict[str, any]
         self.job_name = job_name  # type: str
-        self.rollout_config = rollout_config  # type: str
+        self.rollout_config = rollout_config  # type: dict[str, any]
         self.scheduled_time = scheduled_time  # type: long
-        self.target_config = target_config  # type: str
-        self.timeout_config = timeout_config  # type: str
+        self.target_config = target_config  # type: dict[str, any]
+        self.timeout_config = timeout_config  # type: dict[str, any]
         self.type = type  # type: str
 
     def validate(self):
@@ -7665,6 +8848,77 @@ class CreateJobRequest(TeaModel):
             self.target_config = m.get('TargetConfig')
         if m.get('TimeoutConfig') is not None:
             self.timeout_config = m.get('TimeoutConfig')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class CreateJobShrinkRequest(TeaModel):
+    def __init__(self, description=None, iot_instance_id=None, job_document=None, job_file_shrink=None,
+                 job_name=None, rollout_config_shrink=None, scheduled_time=None, target_config_shrink=None,
+                 timeout_config_shrink=None, type=None):
+        self.description = description  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.job_document = job_document  # type: str
+        self.job_file_shrink = job_file_shrink  # type: str
+        self.job_name = job_name  # type: str
+        self.rollout_config_shrink = rollout_config_shrink  # type: str
+        self.scheduled_time = scheduled_time  # type: long
+        self.target_config_shrink = target_config_shrink  # type: str
+        self.timeout_config_shrink = timeout_config_shrink  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateJobShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.job_document is not None:
+            result['JobDocument'] = self.job_document
+        if self.job_file_shrink is not None:
+            result['JobFile'] = self.job_file_shrink
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.rollout_config_shrink is not None:
+            result['RolloutConfig'] = self.rollout_config_shrink
+        if self.scheduled_time is not None:
+            result['ScheduledTime'] = self.scheduled_time
+        if self.target_config_shrink is not None:
+            result['TargetConfig'] = self.target_config_shrink
+        if self.timeout_config_shrink is not None:
+            result['TimeoutConfig'] = self.timeout_config_shrink
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('JobDocument') is not None:
+            self.job_document = m.get('JobDocument')
+        if m.get('JobFile') is not None:
+            self.job_file_shrink = m.get('JobFile')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('RolloutConfig') is not None:
+            self.rollout_config_shrink = m.get('RolloutConfig')
+        if m.get('ScheduledTime') is not None:
+            self.scheduled_time = m.get('ScheduledTime')
+        if m.get('TargetConfig') is not None:
+            self.target_config_shrink = m.get('TargetConfig')
+        if m.get('TimeoutConfig') is not None:
+            self.timeout_config_shrink = m.get('TimeoutConfig')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -7925,13 +9179,18 @@ class CreateOTADynamicUpgradeJobRequestTag(TeaModel):
 
 
 class CreateOTADynamicUpgradeJobRequest(TeaModel):
-    def __init__(self, dynamic_mode=None, firmware_id=None, iot_instance_id=None, maximum_per_minute=None,
-                 need_confirm=None, need_push=None, overwrite_mode=None, product_key=None, retry_count=None, retry_interval=None,
-                 src_version=None, tag=None, timeout_in_minutes=None):
+    def __init__(self, download_protocol=None, dynamic_mode=None, firmware_id=None, group_id=None, group_type=None,
+                 iot_instance_id=None, maximum_per_minute=None, multi_module_mode=None, need_confirm=None, need_push=None,
+                 overwrite_mode=None, product_key=None, retry_count=None, retry_interval=None, src_version=None, tag=None,
+                 timeout_in_minutes=None):
+        self.download_protocol = download_protocol  # type: str
         self.dynamic_mode = dynamic_mode  # type: int
         self.firmware_id = firmware_id  # type: str
+        self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.maximum_per_minute = maximum_per_minute  # type: int
+        self.multi_module_mode = multi_module_mode  # type: bool
         self.need_confirm = need_confirm  # type: bool
         self.need_push = need_push  # type: bool
         self.overwrite_mode = overwrite_mode  # type: int
@@ -7954,14 +9213,22 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.download_protocol is not None:
+            result['DownloadProtocol'] = self.download_protocol
         if self.dynamic_mode is not None:
             result['DynamicMode'] = self.dynamic_mode
         if self.firmware_id is not None:
             result['FirmwareId'] = self.firmware_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.maximum_per_minute is not None:
             result['MaximumPerMinute'] = self.maximum_per_minute
+        if self.multi_module_mode is not None:
+            result['MultiModuleMode'] = self.multi_module_mode
         if self.need_confirm is not None:
             result['NeedConfirm'] = self.need_confirm
         if self.need_push is not None:
@@ -7986,14 +9253,22 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DownloadProtocol') is not None:
+            self.download_protocol = m.get('DownloadProtocol')
         if m.get('DynamicMode') is not None:
             self.dynamic_mode = m.get('DynamicMode')
         if m.get('FirmwareId') is not None:
             self.firmware_id = m.get('FirmwareId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('MaximumPerMinute') is not None:
             self.maximum_per_minute = m.get('MaximumPerMinute')
+        if m.get('MultiModuleMode') is not None:
+            self.multi_module_mode = m.get('MultiModuleMode')
         if m.get('NeedConfirm') is not None:
             self.need_confirm = m.get('NeedConfirm')
         if m.get('NeedPush') is not None:
@@ -8126,10 +9401,54 @@ class CreateOTADynamicUpgradeJobResponse(TeaModel):
         return self
 
 
+class CreateOTAFirmwareRequestMultiFiles(TeaModel):
+    def __init__(self, file_md_5=None, name=None, sign_value=None, size=None, url=None):
+        self.file_md_5 = file_md_5  # type: str
+        self.name = name  # type: str
+        self.sign_value = sign_value  # type: str
+        self.size = size  # type: int
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOTAFirmwareRequestMultiFiles, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_md_5 is not None:
+            result['FileMd5'] = self.file_md_5
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sign_value is not None:
+            result['SignValue'] = self.sign_value
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileMd5') is not None:
+            self.file_md_5 = m.get('FileMd5')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SignValue') is not None:
+            self.sign_value = m.get('SignValue')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
 class CreateOTAFirmwareRequest(TeaModel):
     def __init__(self, dest_version=None, firmware_desc=None, firmware_name=None, firmware_sign=None,
-                 firmware_size=None, firmware_url=None, iot_instance_id=None, module_name=None, need_to_verify=None,
-                 product_key=None, sign_method=None, src_version=None, type=None, udi=None):
+                 firmware_size=None, firmware_url=None, iot_instance_id=None, module_name=None, multi_files=None,
+                 need_to_verify=None, product_key=None, sign_method=None, src_version=None, type=None, udi=None):
         self.dest_version = dest_version  # type: str
         self.firmware_desc = firmware_desc  # type: str
         self.firmware_name = firmware_name  # type: str
@@ -8138,6 +9457,7 @@ class CreateOTAFirmwareRequest(TeaModel):
         self.firmware_url = firmware_url  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.module_name = module_name  # type: str
+        self.multi_files = multi_files  # type: list[CreateOTAFirmwareRequestMultiFiles]
         self.need_to_verify = need_to_verify  # type: bool
         self.product_key = product_key  # type: str
         self.sign_method = sign_method  # type: str
@@ -8146,7 +9466,10 @@ class CreateOTAFirmwareRequest(TeaModel):
         self.udi = udi  # type: str
 
     def validate(self):
-        pass
+        if self.multi_files:
+            for k in self.multi_files:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateOTAFirmwareRequest, self).to_map()
@@ -8170,6 +9493,10 @@ class CreateOTAFirmwareRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.module_name is not None:
             result['ModuleName'] = self.module_name
+        result['MultiFiles'] = []
+        if self.multi_files is not None:
+            for k in self.multi_files:
+                result['MultiFiles'].append(k.to_map() if k else None)
         if self.need_to_verify is not None:
             result['NeedToVerify'] = self.need_to_verify
         if self.product_key is not None:
@@ -8202,6 +9529,11 @@ class CreateOTAFirmwareRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ModuleName') is not None:
             self.module_name = m.get('ModuleName')
+        self.multi_files = []
+        if m.get('MultiFiles') is not None:
+            for k in m.get('MultiFiles'):
+                temp_model = CreateOTAFirmwareRequestMultiFiles()
+                self.multi_files.append(temp_model.from_map(k))
         if m.get('NeedToVerify') is not None:
             self.need_to_verify = m.get('NeedToVerify')
         if m.get('ProductKey') is not None:
@@ -8471,15 +9803,20 @@ class CreateOTAStaticUpgradeJobRequestTag(TeaModel):
 
 
 class CreateOTAStaticUpgradeJobRequest(TeaModel):
-    def __init__(self, dn_list_file_url=None, firmware_id=None, gray_percent=None, iot_instance_id=None,
-                 maximum_per_minute=None, need_confirm=None, need_push=None, overwrite_mode=None, product_key=None, retry_count=None,
-                 retry_interval=None, schedule_finish_time=None, schedule_time=None, src_version=None, tag=None,
-                 target_device_name=None, target_selection=None, timeout_in_minutes=None):
+    def __init__(self, dn_list_file_url=None, download_protocol=None, firmware_id=None, gray_percent=None,
+                 group_id=None, group_type=None, iot_instance_id=None, maximum_per_minute=None, multi_module_mode=None,
+                 need_confirm=None, need_push=None, overwrite_mode=None, product_key=None, retry_count=None, retry_interval=None,
+                 schedule_finish_time=None, schedule_time=None, src_version=None, tag=None, target_device_name=None,
+                 target_selection=None, timeout_in_minutes=None):
         self.dn_list_file_url = dn_list_file_url  # type: str
+        self.download_protocol = download_protocol  # type: str
         self.firmware_id = firmware_id  # type: str
         self.gray_percent = gray_percent  # type: str
+        self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.maximum_per_minute = maximum_per_minute  # type: int
+        self.multi_module_mode = multi_module_mode  # type: bool
         self.need_confirm = need_confirm  # type: bool
         self.need_push = need_push  # type: bool
         self.overwrite_mode = overwrite_mode  # type: int
@@ -8508,14 +9845,22 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
         result = dict()
         if self.dn_list_file_url is not None:
             result['DnListFileUrl'] = self.dn_list_file_url
+        if self.download_protocol is not None:
+            result['DownloadProtocol'] = self.download_protocol
         if self.firmware_id is not None:
             result['FirmwareId'] = self.firmware_id
         if self.gray_percent is not None:
             result['GrayPercent'] = self.gray_percent
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.maximum_per_minute is not None:
             result['MaximumPerMinute'] = self.maximum_per_minute
+        if self.multi_module_mode is not None:
+            result['MultiModuleMode'] = self.multi_module_mode
         if self.need_confirm is not None:
             result['NeedConfirm'] = self.need_confirm
         if self.need_push is not None:
@@ -8550,14 +9895,22 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
         m = m or dict()
         if m.get('DnListFileUrl') is not None:
             self.dn_list_file_url = m.get('DnListFileUrl')
+        if m.get('DownloadProtocol') is not None:
+            self.download_protocol = m.get('DownloadProtocol')
         if m.get('FirmwareId') is not None:
             self.firmware_id = m.get('FirmwareId')
         if m.get('GrayPercent') is not None:
             self.gray_percent = m.get('GrayPercent')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('MaximumPerMinute') is not None:
             self.maximum_per_minute = m.get('MaximumPerMinute')
+        if m.get('MultiModuleMode') is not None:
+            self.multi_module_mode = m.get('MultiModuleMode')
         if m.get('NeedConfirm') is not None:
             self.need_confirm = m.get('NeedConfirm')
         if m.get('NeedPush') is not None:
@@ -8698,19 +10051,53 @@ class CreateOTAStaticUpgradeJobResponse(TeaModel):
         return self
 
 
+class CreateOTAVerifyJobRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOTAVerifyJobRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateOTAVerifyJobRequest(TeaModel):
-    def __init__(self, firmware_id=None, iot_instance_id=None, need_confirm=None, need_push=None, product_key=None,
-                 target_device_name=None, timeout_in_minutes=None):
+    def __init__(self, download_protocol=None, firmware_id=None, iot_instance_id=None, need_confirm=None,
+                 need_push=None, product_key=None, tag=None, target_device_name=None, timeout_in_minutes=None):
+        self.download_protocol = download_protocol  # type: str
         self.firmware_id = firmware_id  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.need_confirm = need_confirm  # type: bool
         self.need_push = need_push  # type: bool
         self.product_key = product_key  # type: str
+        self.tag = tag  # type: list[CreateOTAVerifyJobRequestTag]
         self.target_device_name = target_device_name  # type: list[str]
         self.timeout_in_minutes = timeout_in_minutes  # type: int
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateOTAVerifyJobRequest, self).to_map()
@@ -8718,6 +10105,8 @@ class CreateOTAVerifyJobRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.download_protocol is not None:
+            result['DownloadProtocol'] = self.download_protocol
         if self.firmware_id is not None:
             result['FirmwareId'] = self.firmware_id
         if self.iot_instance_id is not None:
@@ -8728,6 +10117,10 @@ class CreateOTAVerifyJobRequest(TeaModel):
             result['NeedPush'] = self.need_push
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.target_device_name is not None:
             result['TargetDeviceName'] = self.target_device_name
         if self.timeout_in_minutes is not None:
@@ -8736,6 +10129,8 @@ class CreateOTAVerifyJobRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DownloadProtocol') is not None:
+            self.download_protocol = m.get('DownloadProtocol')
         if m.get('FirmwareId') is not None:
             self.firmware_id = m.get('FirmwareId')
         if m.get('IotInstanceId') is not None:
@@ -8746,6 +10141,11 @@ class CreateOTAVerifyJobRequest(TeaModel):
             self.need_push = m.get('NeedPush')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateOTAVerifyJobRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('TargetDeviceName') is not None:
             self.target_device_name = m.get('TargetDeviceName')
         if m.get('TimeoutInMinutes') is not None:
@@ -9838,112 +11238,6 @@ class CreateRuleActionResponse(TeaModel):
         return self
 
 
-class CreateRulengDistributeJobRequest(TeaModel):
-    def __init__(self, product_key=None, source_instance_id=None, target_instance_id=None):
-        self.product_key = product_key  # type: str
-        self.source_instance_id = source_instance_id  # type: str
-        self.target_instance_id = target_instance_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateRulengDistributeJobRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.source_instance_id is not None:
-            result['SourceInstanceId'] = self.source_instance_id
-        if self.target_instance_id is not None:
-            result['TargetInstanceId'] = self.target_instance_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('SourceInstanceId') is not None:
-            self.source_instance_id = m.get('SourceInstanceId')
-        if m.get('TargetInstanceId') is not None:
-            self.target_instance_id = m.get('TargetInstanceId')
-        return self
-
-
-class CreateRulengDistributeJobResponseBody(TeaModel):
-    def __init__(self, code=None, error_message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.error_message = error_message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateRulengDistributeJobResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class CreateRulengDistributeJobResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateRulengDistributeJobResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateRulengDistributeJobResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateRulengDistributeJobResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateSceneRuleRequest(TeaModel):
     def __init__(self, iot_instance_id=None, rule_content=None, rule_description=None, rule_name=None):
         self.iot_instance_id = iot_instance_id  # type: str
@@ -10060,12 +11354,502 @@ class CreateSceneRuleResponse(TeaModel):
         return self
 
 
+class CreateSchedulePeriodRequest(TeaModel):
+    def __init__(self, description=None, end_time=None, iot_instance_id=None, schedule_code=None,
+                 sound_code_content=None, start_time=None):
+        self.description = description  # type: str
+        self.end_time = end_time  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.schedule_code = schedule_code  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSchedulePeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class CreateSchedulePeriodResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSchedulePeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateSchedulePeriodResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateSchedulePeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSchedulePeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateSchedulePeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateSoundCodeRequest(TeaModel):
+    def __init__(self, duration=None, iot_instance_id=None, name=None, open_type=None, sound_code_content=None):
+        self.duration = duration  # type: int
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.name = name  # type: str
+        self.open_type = open_type  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        return self
+
+
+class CreateSoundCodeResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateSoundCodeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateSoundCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSoundCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateSoundCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateSoundCodeLabelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, label=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.label = label  # type: str
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeLabelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class CreateSoundCodeLabelResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeLabelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateSoundCodeLabelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateSoundCodeLabelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSoundCodeLabelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateSoundCodeLabelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateSoundCodeScheduleRequest(TeaModel):
+    def __init__(self, description=None, end_date=None, iot_instance_id=None, name=None, open_type=None,
+                 start_date=None):
+        self.description = description  # type: str
+        self.end_date = end_date  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.name = name  # type: str
+        self.open_type = open_type  # type: str
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeScheduleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class CreateSoundCodeScheduleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSoundCodeScheduleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateSoundCodeScheduleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateSoundCodeScheduleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSoundCodeScheduleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateSoundCodeScheduleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateSpeechRequest(TeaModel):
-    def __init__(self, biz_code=None, iot_instance_id=None, project_code=None, speech_rate=None, speech_type=None,
-                 text=None, voice=None, volume=None):
+    def __init__(self, audio_format=None, biz_code=None, enable_sound_code=None, iot_instance_id=None,
+                 project_code=None, sound_code_config=None, speech_rate=None, speech_type=None, text=None, voice=None,
+                 volume=None):
+        self.audio_format = audio_format  # type: str
         self.biz_code = biz_code  # type: str
+        self.enable_sound_code = enable_sound_code  # type: bool
         self.iot_instance_id = iot_instance_id  # type: str
         self.project_code = project_code  # type: str
+        self.sound_code_config = sound_code_config  # type: dict[str, any]
         self.speech_rate = speech_rate  # type: int
         self.speech_type = speech_type  # type: str
         self.text = text  # type: str
@@ -10081,12 +11865,18 @@ class CreateSpeechRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
         if self.biz_code is not None:
             result['BizCode'] = self.biz_code
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.project_code is not None:
             result['ProjectCode'] = self.project_code
+        if self.sound_code_config is not None:
+            result['SoundCodeConfig'] = self.sound_code_config
         if self.speech_rate is not None:
             result['SpeechRate'] = self.speech_rate
         if self.speech_type is not None:
@@ -10101,12 +11891,94 @@ class CreateSpeechRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
         if m.get('BizCode') is not None:
             self.biz_code = m.get('BizCode')
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProjectCode') is not None:
             self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config = m.get('SoundCodeConfig')
+        if m.get('SpeechRate') is not None:
+            self.speech_rate = m.get('SpeechRate')
+        if m.get('SpeechType') is not None:
+            self.speech_type = m.get('SpeechType')
+        if m.get('Text') is not None:
+            self.text = m.get('Text')
+        if m.get('Voice') is not None:
+            self.voice = m.get('Voice')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
+        return self
+
+
+class CreateSpeechShrinkRequest(TeaModel):
+    def __init__(self, audio_format=None, biz_code=None, enable_sound_code=None, iot_instance_id=None,
+                 project_code=None, sound_code_config_shrink=None, speech_rate=None, speech_type=None, text=None, voice=None,
+                 volume=None):
+        self.audio_format = audio_format  # type: str
+        self.biz_code = biz_code  # type: str
+        self.enable_sound_code = enable_sound_code  # type: bool
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.project_code = project_code  # type: str
+        self.sound_code_config_shrink = sound_code_config_shrink  # type: str
+        self.speech_rate = speech_rate  # type: int
+        self.speech_type = speech_type  # type: str
+        self.text = text  # type: str
+        self.voice = voice  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSpeechShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.project_code is not None:
+            result['ProjectCode'] = self.project_code
+        if self.sound_code_config_shrink is not None:
+            result['SoundCodeConfig'] = self.sound_code_config_shrink
+        if self.speech_rate is not None:
+            result['SpeechRate'] = self.speech_rate
+        if self.speech_type is not None:
+            result['SpeechType'] = self.speech_type
+        if self.text is not None:
+            result['Text'] = self.text
+        if self.voice is not None:
+            result['Voice'] = self.voice
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProjectCode') is not None:
+            self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config_shrink = m.get('SoundCodeConfig')
         if m.get('SpeechRate') is not None:
             self.speech_rate = m.get('SpeechRate')
         if m.get('SpeechType') is not None:
@@ -10807,7 +12679,7 @@ class CreateTopicRouteTableRequest(TeaModel):
 
 class CreateTopicRouteTableResponseBodyFailureTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[str, str]]
+        self.topic = topic  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -10910,6 +12782,107 @@ class CreateTopicRouteTableResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateTopicRouteTableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteClientIdsRequest(TeaModel):
+    def __init__(self, iot_id=None, iot_instance_id=None):
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteClientIdsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class DeleteClientIdsResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteClientIdsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteClientIdsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteClientIdsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteClientIdsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteClientIdsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -11328,6 +13301,107 @@ class DeleteDeviceDistributeJobResponse(TeaModel):
         return self
 
 
+class DeleteDeviceDynamicGroupRequest(TeaModel):
+    def __init__(self, group_id=None, iot_instance_id=None):
+        self.group_id = group_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceDynamicGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class DeleteDeviceDynamicGroupResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceDynamicGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteDeviceDynamicGroupResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDeviceDynamicGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeviceDynamicGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDeviceDynamicGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteDeviceFileRequest(TeaModel):
     def __init__(self, device_name=None, file_id=None, iot_id=None, iot_instance_id=None, product_key=None):
         self.device_name = device_name  # type: str
@@ -11657,6 +13731,250 @@ class DeleteDevicePropResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteDevicePropResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDeviceSpeechRequestDeviceSpeechList(TeaModel):
+    def __init__(self, audio_format=None, biz_code=None):
+        self.audio_format = audio_format  # type: str
+        self.biz_code = biz_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceSpeechRequestDeviceSpeechList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        return self
+
+
+class DeleteDeviceSpeechRequest(TeaModel):
+    def __init__(self, device_speech_list=None, iot_id=None, iot_instance_id=None):
+        self.device_speech_list = device_speech_list  # type: list[DeleteDeviceSpeechRequestDeviceSpeechList]
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        if self.device_speech_list:
+            for k in self.device_speech_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeviceSpeechRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DeviceSpeechList'] = []
+        if self.device_speech_list is not None:
+            for k in self.device_speech_list:
+                result['DeviceSpeechList'].append(k.to_map() if k else None)
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.device_speech_list = []
+        if m.get('DeviceSpeechList') is not None:
+            for k in m.get('DeviceSpeechList'):
+                temp_model = DeleteDeviceSpeechRequestDeviceSpeechList()
+                self.device_speech_list.append(temp_model.from_map(k))
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class DeleteDeviceSpeechResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceSpeechResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteDeviceSpeechResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDeviceSpeechResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeviceSpeechResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDeviceSpeechResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDeviceTunnelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, tunnel_id=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceTunnelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        return self
+
+
+class DeleteDeviceTunnelResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeviceTunnelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteDeviceTunnelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDeviceTunnelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeviceTunnelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDeviceTunnelResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -12994,6 +15312,410 @@ class DeleteSceneRuleResponse(TeaModel):
         return self
 
 
+class DeleteSchedulePeriodRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, period_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.period_code = period_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSchedulePeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.period_code is not None:
+            result['PeriodCode'] = self.period_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PeriodCode') is not None:
+            self.period_code = m.get('PeriodCode')
+        return self
+
+
+class DeleteSchedulePeriodResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSchedulePeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteSchedulePeriodResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteSchedulePeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteSchedulePeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteSchedulePeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteSoundCodeRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, sound_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.sound_code = sound_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        return self
+
+
+class DeleteSoundCodeResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteSoundCodeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteSoundCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteSoundCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteSoundCodeLabelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, sound_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.sound_code = sound_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeLabelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        return self
+
+
+class DeleteSoundCodeLabelResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeLabelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteSoundCodeLabelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteSoundCodeLabelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeLabelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteSoundCodeLabelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteSoundCodeScheduleRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeScheduleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class DeleteSoundCodeScheduleResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeScheduleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteSoundCodeScheduleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteSoundCodeScheduleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteSoundCodeScheduleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteSoundCodeScheduleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteSpeechRequest(TeaModel):
     def __init__(self, iot_instance_id=None, speech_code_list=None):
         self.iot_instance_id = iot_instance_id  # type: str
@@ -13480,7 +16202,7 @@ class DeleteTopicRouteTableRequest(TeaModel):
 
 class DeleteTopicRouteTableResponseBodyFailureTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[str, str]]
+        self.topic = topic  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -17230,159 +19952,6 @@ class GetLoraNodesTaskResponse(TeaModel):
         return self
 
 
-class GetNodesAddingTaskRequest(TeaModel):
-    def __init__(self, iot_instance_id=None, task_id=None):
-        self.iot_instance_id = iot_instance_id  # type: str
-        self.task_id = task_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetNodesAddingTaskRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        return self
-
-
-class GetNodesAddingTaskResponseBodySuccessDevEuis(TeaModel):
-    def __init__(self, success_dev_eui=None):
-        self.success_dev_eui = success_dev_eui  # type: list[str]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetNodesAddingTaskResponseBodySuccessDevEuis, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.success_dev_eui is not None:
-            result['SuccessDevEui'] = self.success_dev_eui
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SuccessDevEui') is not None:
-            self.success_dev_eui = m.get('SuccessDevEui')
-        return self
-
-
-class GetNodesAddingTaskResponseBody(TeaModel):
-    def __init__(self, code=None, error_message=None, request_id=None, success=None, success_count=None,
-                 success_dev_euis=None, task_id=None, task_state=None, total_count=None):
-        self.code = code  # type: str
-        self.error_message = error_message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-        self.success_count = success_count  # type: long
-        self.success_dev_euis = success_dev_euis  # type: GetNodesAddingTaskResponseBodySuccessDevEuis
-        self.task_id = task_id  # type: str
-        self.task_state = task_state  # type: str
-        self.total_count = total_count  # type: long
-
-    def validate(self):
-        if self.success_dev_euis:
-            self.success_dev_euis.validate()
-
-    def to_map(self):
-        _map = super(GetNodesAddingTaskResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.success_count is not None:
-            result['SuccessCount'] = self.success_count
-        if self.success_dev_euis is not None:
-            result['SuccessDevEuis'] = self.success_dev_euis.to_map()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.task_state is not None:
-            result['TaskState'] = self.task_state
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('SuccessCount') is not None:
-            self.success_count = m.get('SuccessCount')
-        if m.get('SuccessDevEuis') is not None:
-            temp_model = GetNodesAddingTaskResponseBodySuccessDevEuis()
-            self.success_dev_euis = temp_model.from_map(m['SuccessDevEuis'])
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('TaskState') is not None:
-            self.task_state = m.get('TaskState')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class GetNodesAddingTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetNodesAddingTaskResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetNodesAddingTaskResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetNodesAddingTaskResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetRuleRequest(TeaModel):
     def __init__(self, iot_instance_id=None, rule_id=None):
         self.iot_instance_id = iot_instance_id  # type: str
@@ -17898,6 +20467,479 @@ class GetSceneRuleResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetSceneRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSoundCodeAudioRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, sound_code_list=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.sound_code_list = sound_code_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSoundCodeAudioRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.sound_code_list is not None:
+            result['SoundCodeList'] = self.sound_code_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('SoundCodeList') is not None:
+            self.sound_code_list = m.get('SoundCodeList')
+        return self
+
+
+class GetSoundCodeAudioResponseBodyData(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSoundCodeAudioResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            self.items = m.get('Items')
+        return self
+
+
+class GetSoundCodeAudioResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetSoundCodeAudioResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetSoundCodeAudioResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetSoundCodeAudioResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetSoundCodeAudioResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetSoundCodeAudioResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSoundCodeAudioResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetSoundCodeAudioResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSoundCodeScheduleRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSoundCodeScheduleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class GetSoundCodeScheduleResponseBodyData(TeaModel):
+    def __init__(self, description=None, end_date=None, end_time=None, gmt_create=None, name=None, open_type=None,
+                 schedule_code=None, start_date=None, start_time=None, status=None):
+        self.description = description  # type: str
+        self.end_date = end_date  # type: str
+        self.end_time = end_time  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.name = name  # type: str
+        self.open_type = open_type  # type: str
+        self.schedule_code = schedule_code  # type: str
+        self.start_date = start_date  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSoundCodeScheduleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetSoundCodeScheduleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetSoundCodeScheduleResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetSoundCodeScheduleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetSoundCodeScheduleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetSoundCodeScheduleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetSoundCodeScheduleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSoundCodeScheduleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetSoundCodeScheduleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSpeechDeviceDetailRequest(TeaModel):
+    def __init__(self, iot_id=None, iot_instance_id=None):
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSpeechDeviceDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class GetSpeechDeviceDetailResponseBodyData(TeaModel):
+    def __init__(self, available_space=None, device_name=None, iot_id=None, product_key=None,
+                 speech_list_update_time=None, status=None, total_space=None):
+        self.available_space = available_space  # type: float
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.product_key = product_key  # type: str
+        self.speech_list_update_time = speech_list_update_time  # type: long
+        self.status = status  # type: str
+        self.total_space = total_space  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSpeechDeviceDetailResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_space is not None:
+            result['AvailableSpace'] = self.available_space
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.speech_list_update_time is not None:
+            result['SpeechListUpdateTime'] = self.speech_list_update_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_space is not None:
+            result['TotalSpace'] = self.total_space
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableSpace') is not None:
+            self.available_space = m.get('AvailableSpace')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('SpeechListUpdateTime') is not None:
+            self.speech_list_update_time = m.get('SpeechListUpdateTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalSpace') is not None:
+            self.total_space = m.get('TotalSpace')
+        return self
+
+
+class GetSpeechDeviceDetailResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetSpeechDeviceDetailResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetSpeechDeviceDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetSpeechDeviceDetailResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetSpeechDeviceDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetSpeechDeviceDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSpeechDeviceDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetSpeechDeviceDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -19067,6 +22109,427 @@ class GetThingTopoResponse(TeaModel):
         return self
 
 
+class GisQueryDeviceLocationRequestThingList(TeaModel):
+    def __init__(self, device_name=None, product_key=None):
+        self.device_name = device_name  # type: str
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GisQueryDeviceLocationRequestThingList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class GisQueryDeviceLocationRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, thing_list=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.thing_list = thing_list  # type: list[GisQueryDeviceLocationRequestThingList]
+
+    def validate(self):
+        if self.thing_list:
+            for k in self.thing_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GisQueryDeviceLocationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        result['ThingList'] = []
+        if self.thing_list is not None:
+            for k in self.thing_list:
+                result['ThingList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        self.thing_list = []
+        if m.get('ThingList') is not None:
+            for k in m.get('ThingList'):
+                temp_model = GisQueryDeviceLocationRequestThingList()
+                self.thing_list.append(temp_model.from_map(k))
+        return self
+
+
+class GisQueryDeviceLocationResponseBodyData(TeaModel):
+    def __init__(self, adcode=None, city=None, coordinate_system=None, country=None, device_name=None, ip=None,
+                 latitude=None, longitude=None, product_key=None, province=None):
+        self.adcode = adcode  # type: long
+        self.city = city  # type: str
+        self.coordinate_system = coordinate_system  # type: int
+        self.country = country  # type: str
+        self.device_name = device_name  # type: str
+        self.ip = ip  # type: str
+        self.latitude = latitude  # type: float
+        self.longitude = longitude  # type: float
+        self.product_key = product_key  # type: str
+        self.province = province  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GisQueryDeviceLocationResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adcode is not None:
+            result['Adcode'] = self.adcode
+        if self.city is not None:
+            result['City'] = self.city
+        if self.coordinate_system is not None:
+            result['CoordinateSystem'] = self.coordinate_system
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.latitude is not None:
+            result['Latitude'] = self.latitude
+        if self.longitude is not None:
+            result['Longitude'] = self.longitude
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.province is not None:
+            result['Province'] = self.province
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Adcode') is not None:
+            self.adcode = m.get('Adcode')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('CoordinateSystem') is not None:
+            self.coordinate_system = m.get('CoordinateSystem')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('Latitude') is not None:
+            self.latitude = m.get('Latitude')
+        if m.get('Longitude') is not None:
+            self.longitude = m.get('Longitude')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        return self
+
+
+class GisQueryDeviceLocationResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[GisQueryDeviceLocationResponseBodyData]
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GisQueryDeviceLocationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GisQueryDeviceLocationResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GisQueryDeviceLocationResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GisQueryDeviceLocationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GisQueryDeviceLocationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GisQueryDeviceLocationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GisSearchDeviceTraceRequest(TeaModel):
+    def __init__(self, device_name=None, end_time=None, iot_instance_id=None, map_match=None, product_key=None,
+                 start_time=None):
+        self.device_name = device_name  # type: str
+        self.end_time = end_time  # type: long
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.map_match = map_match  # type: int
+        self.product_key = product_key  # type: str
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GisSearchDeviceTraceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.map_match is not None:
+            result['MapMatch'] = self.map_match
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('MapMatch') is not None:
+            self.map_match = m.get('MapMatch')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GisSearchDeviceTraceResponseBodyDataPoints(TeaModel):
+    def __init__(self, locate_time=None, location=None):
+        self.locate_time = locate_time  # type: long
+        self.location = location  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GisSearchDeviceTraceResponseBodyDataPoints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.locate_time is not None:
+            result['LocateTime'] = self.locate_time
+        if self.location is not None:
+            result['Location'] = self.location
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LocateTime') is not None:
+            self.locate_time = m.get('LocateTime')
+        if m.get('Location') is not None:
+            self.location = m.get('Location')
+        return self
+
+
+class GisSearchDeviceTraceResponseBodyData(TeaModel):
+    def __init__(self, device_name=None, points=None, product_key=None):
+        self.device_name = device_name  # type: str
+        self.points = points  # type: list[GisSearchDeviceTraceResponseBodyDataPoints]
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        if self.points:
+            for k in self.points:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GisSearchDeviceTraceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        result['Points'] = []
+        if self.points is not None:
+            for k in self.points:
+                result['Points'].append(k.to_map() if k else None)
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        self.points = []
+        if m.get('Points') is not None:
+            for k in m.get('Points'):
+                temp_model = GisSearchDeviceTraceResponseBodyDataPoints()
+                self.points.append(temp_model.from_map(k))
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class GisSearchDeviceTraceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GisSearchDeviceTraceResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GisSearchDeviceTraceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GisSearchDeviceTraceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GisSearchDeviceTraceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GisSearchDeviceTraceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GisSearchDeviceTraceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GisSearchDeviceTraceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ImportThingModelTslRequest(TeaModel):
     def __init__(self, function_block_id=None, function_block_name=None, iot_instance_id=None, product_key=None,
                  resource_group_id=None, tsl_str=None, tsl_url=None):
@@ -19307,7 +22770,7 @@ class InvokeDataAPIServiceResponseBodyDataFieldNameList(TeaModel):
 
 class InvokeDataAPIServiceResponseBodyDataResultList(TeaModel):
     def __init__(self, result_list=None):
-        self.result_list = result_list  # type: list[dict[str, str]]
+        self.result_list = result_list  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -19330,12 +22793,14 @@ class InvokeDataAPIServiceResponseBodyDataResultList(TeaModel):
 
 
 class InvokeDataAPIServiceResponseBodyData(TeaModel):
-    def __init__(self, api_srn=None, field_name_list=None, page_no=None, page_size=None, result_list=None):
+    def __init__(self, api_srn=None, field_name_list=None, page_no=None, page_size=None, result_list=None,
+                 total_size=None):
         self.api_srn = api_srn  # type: str
         self.field_name_list = field_name_list  # type: InvokeDataAPIServiceResponseBodyDataFieldNameList
         self.page_no = page_no  # type: int
         self.page_size = page_size  # type: int
         self.result_list = result_list  # type: InvokeDataAPIServiceResponseBodyDataResultList
+        self.total_size = total_size  # type: int
 
     def validate(self):
         if self.field_name_list:
@@ -19359,6 +22824,8 @@ class InvokeDataAPIServiceResponseBodyData(TeaModel):
             result['PageSize'] = self.page_size
         if self.result_list is not None:
             result['ResultList'] = self.result_list.to_map()
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
         return result
 
     def from_map(self, m=None):
@@ -19375,6 +22842,8 @@ class InvokeDataAPIServiceResponseBodyData(TeaModel):
         if m.get('ResultList') is not None:
             temp_model = InvokeDataAPIServiceResponseBodyDataResultList()
             self.result_list = temp_model.from_map(m['ResultList'])
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
         return self
 
 
@@ -19956,12 +23425,214 @@ class ListAnalyticsDataResponse(TeaModel):
         return self
 
 
+class ListDataSourceItemRequest(TeaModel):
+    def __init__(self, data_source_id=None, iot_instance_id=None, page=None, page_size=None, search_name=None):
+        self.data_source_id = data_source_id  # type: long
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.search_name = search_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceItemRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.search_name is not None:
+            result['SearchName'] = self.search_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SearchName') is not None:
+            self.search_name = m.get('SearchName')
+        return self
+
+
+class ListDataSourceItemResponseBodyDataSourceItemsDataSourceItem(TeaModel):
+    def __init__(self, data_source_item_id=None, topic=None):
+        self.data_source_item_id = data_source_item_id  # type: long
+        self.topic = topic  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceItemResponseBodyDataSourceItemsDataSourceItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_item_id is not None:
+            result['DataSourceItemId'] = self.data_source_item_id
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceItemId') is not None:
+            self.data_source_item_id = m.get('DataSourceItemId')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
+        return self
+
+
+class ListDataSourceItemResponseBodyDataSourceItems(TeaModel):
+    def __init__(self, data_source_item=None):
+        self.data_source_item = data_source_item  # type: list[ListDataSourceItemResponseBodyDataSourceItemsDataSourceItem]
+
+    def validate(self):
+        if self.data_source_item:
+            for k in self.data_source_item:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceItemResponseBodyDataSourceItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['dataSourceItem'] = []
+        if self.data_source_item is not None:
+            for k in self.data_source_item:
+                result['dataSourceItem'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_source_item = []
+        if m.get('dataSourceItem') is not None:
+            for k in m.get('dataSourceItem'):
+                temp_model = ListDataSourceItemResponseBodyDataSourceItemsDataSourceItem()
+                self.data_source_item.append(temp_model.from_map(k))
+        return self
+
+
+class ListDataSourceItemResponseBody(TeaModel):
+    def __init__(self, code=None, data_source_items=None, error_message=None, page=None, page_size=None,
+                 request_id=None, success=None, total=None):
+        self.code = code  # type: str
+        self.data_source_items = data_source_items  # type: ListDataSourceItemResponseBodyDataSourceItems
+        self.error_message = error_message  # type: str
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.data_source_items:
+            self.data_source_items.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceItemResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data_source_items is not None:
+            result['DataSourceItems'] = self.data_source_items.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('DataSourceItems') is not None:
+            temp_model = ListDataSourceItemResponseBodyDataSourceItems()
+            self.data_source_items = temp_model.from_map(m['DataSourceItems'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListDataSourceItemResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListDataSourceItemResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceItemResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDataSourceItemResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListDeviceDistributeJobRequest(TeaModel):
-    def __init__(self, current_page=None, job_id=None, next_token=None, page_size=None, status=None, target_uid=None):
+    def __init__(self, current_page=None, job_id=None, next_token=None, page_size=None, product_key=None,
+                 status=None, target_uid=None):
         self.current_page = current_page  # type: int
         self.job_id = job_id  # type: str
         self.next_token = next_token  # type: str
         self.page_size = page_size  # type: int
+        self.product_key = product_key  # type: str
         self.status = status  # type: int
         self.target_uid = target_uid  # type: str
 
@@ -19982,6 +23653,8 @@ class ListDeviceDistributeJobRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
         if self.status is not None:
             result['Status'] = self.status
         if self.target_uid is not None:
@@ -19998,6 +23671,8 @@ class ListDeviceDistributeJobRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TargetUid') is not None:
@@ -20633,7 +24308,7 @@ class ListDistributedProductResponseBodyDataInfoItems(TeaModel):
     def __init__(self, gmt_create=None, product_key=None, source_instance_id=None, source_instance_name=None,
                  source_region=None, source_uid=None, target_aliyun_id=None, target_instance_id=None, target_instance_name=None,
                  target_region=None, target_uid=None):
-        self.gmt_create = gmt_create  # type: int
+        self.gmt_create = gmt_create  # type: long
         self.product_key = product_key  # type: str
         self.source_instance_id = source_instance_id  # type: str
         self.source_instance_name = source_instance_name  # type: str
@@ -23749,7 +27424,7 @@ class ListRuleActionsResponse(TeaModel):
 
 class ListTaskRequest(TeaModel):
     def __init__(self, device=None, iot_instance_id=None, job_id=None, limit=None, next_token=None, status=None):
-        self.device = device  # type: str
+        self.device = device  # type: dict[str, any]
         self.iot_instance_id = iot_instance_id  # type: str
         self.job_id = job_id  # type: str
         self.limit = limit  # type: int
@@ -23783,6 +27458,56 @@ class ListTaskRequest(TeaModel):
         m = m or dict()
         if m.get('Device') is not None:
             self.device = m.get('Device')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Limit') is not None:
+            self.limit = m.get('Limit')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListTaskShrinkRequest(TeaModel):
+    def __init__(self, device_shrink=None, iot_instance_id=None, job_id=None, limit=None, next_token=None,
+                 status=None):
+        self.device_shrink = device_shrink  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.job_id = job_id  # type: str
+        self.limit = limit  # type: int
+        self.next_token = next_token  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTaskShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_shrink is not None:
+            result['Device'] = self.device_shrink
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.limit is not None:
+            result['Limit'] = self.limit
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Device') is not None:
+            self.device_shrink = m.get('Device')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('JobId') is not None:
@@ -23978,279 +27703,6 @@ class ListTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListTaskResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListTaskByPageRequest(TeaModel):
-    def __init__(self, device=None, device_name=None, iot_instance_id=None, job_id=None, job_name=None, page_no=None,
-                 page_size=None, status=None):
-        self.device = device  # type: str
-        self.device_name = device_name  # type: str
-        self.iot_instance_id = iot_instance_id  # type: str
-        self.job_id = job_id  # type: str
-        self.job_name = job_name  # type: str
-        self.page_no = page_no  # type: str
-        self.page_size = page_size  # type: str
-        self.status = status  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListTaskByPageRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.device is not None:
-            result['Device'] = self.device
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.job_id is not None:
-            result['JobId'] = self.job_id
-        if self.job_name is not None:
-            result['JobName'] = self.job_name
-        if self.page_no is not None:
-            result['PageNo'] = self.page_no
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.status is not None:
-            result['Status'] = self.status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Device') is not None:
-            self.device = m.get('Device')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('JobId') is not None:
-            self.job_id = m.get('JobId')
-        if m.get('JobName') is not None:
-            self.job_name = m.get('JobName')
-        if m.get('PageNo') is not None:
-            self.page_no = m.get('PageNo')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        return self
-
-
-class ListTaskByPageResponseBodyDataData(TeaModel):
-    def __init__(self, device_name=None, iot_id=None, job_id=None, job_name=None, product_key=None,
-                 product_name=None, progress=None, status=None, status_detail=None, task_id=None, utc_modified=None,
-                 utc_queue_time=None):
-        self.device_name = device_name  # type: str
-        self.iot_id = iot_id  # type: str
-        self.job_id = job_id  # type: str
-        self.job_name = job_name  # type: str
-        self.product_key = product_key  # type: str
-        self.product_name = product_name  # type: str
-        self.progress = progress  # type: int
-        self.status = status  # type: str
-        self.status_detail = status_detail  # type: str
-        self.task_id = task_id  # type: str
-        self.utc_modified = utc_modified  # type: str
-        self.utc_queue_time = utc_queue_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListTaskByPageResponseBodyDataData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
-        if self.job_id is not None:
-            result['JobId'] = self.job_id
-        if self.job_name is not None:
-            result['JobName'] = self.job_name
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.product_name is not None:
-            result['ProductName'] = self.product_name
-        if self.progress is not None:
-            result['Progress'] = self.progress
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.status_detail is not None:
-            result['StatusDetail'] = self.status_detail
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.utc_modified is not None:
-            result['UtcModified'] = self.utc_modified
-        if self.utc_queue_time is not None:
-            result['UtcQueueTime'] = self.utc_queue_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
-        if m.get('JobId') is not None:
-            self.job_id = m.get('JobId')
-        if m.get('JobName') is not None:
-            self.job_name = m.get('JobName')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('ProductName') is not None:
-            self.product_name = m.get('ProductName')
-        if m.get('Progress') is not None:
-            self.progress = m.get('Progress')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('StatusDetail') is not None:
-            self.status_detail = m.get('StatusDetail')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('UtcModified') is not None:
-            self.utc_modified = m.get('UtcModified')
-        if m.get('UtcQueueTime') is not None:
-            self.utc_queue_time = m.get('UtcQueueTime')
-        return self
-
-
-class ListTaskByPageResponseBodyData(TeaModel):
-    def __init__(self, data=None):
-        self.data = data  # type: list[ListTaskByPageResponseBodyDataData]
-
-    def validate(self):
-        if self.data:
-            for k in self.data:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListTaskByPageResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['data'] = []
-        if self.data is not None:
-            for k in self.data:
-                result['data'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.data = []
-        if m.get('data') is not None:
-            for k in m.get('data'):
-                temp_model = ListTaskByPageResponseBodyDataData()
-                self.data.append(temp_model.from_map(k))
-        return self
-
-
-class ListTaskByPageResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, error_message=None, page=None, page_count=None, page_size=None,
-                 request_id=None, success=None, total=None):
-        self.code = code  # type: str
-        self.data = data  # type: ListTaskByPageResponseBodyData
-        self.error_message = error_message  # type: str
-        self.page = page  # type: int
-        self.page_count = page_count  # type: int
-        self.page_size = page_size  # type: int
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-        self.total = total  # type: int
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(ListTaskByPageResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.page is not None:
-            result['Page'] = self.page
-        if self.page_count is not None:
-            result['PageCount'] = self.page_count
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.total is not None:
-            result['Total'] = self.total
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = ListTaskByPageResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Page') is not None:
-            self.page = m.get('Page')
-        if m.get('PageCount') is not None:
-            self.page_count = m.get('PageCount')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Total') is not None:
-            self.total = m.get('Total')
-        return self
-
-
-class ListTaskByPageResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ListTaskByPageResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListTaskByPageResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ListTaskByPageResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -24801,15 +28253,121 @@ class OpenIotServiceResponse(TeaModel):
         return self
 
 
+class PackageSoundCodeLabelBatchAudioRequest(TeaModel):
+    def __init__(self, batch_code=None, iot_instance_id=None):
+        self.batch_code = batch_code  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PackageSoundCodeLabelBatchAudioRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_code is not None:
+            result['BatchCode'] = self.batch_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchCode') is not None:
+            self.batch_code = m.get('BatchCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class PackageSoundCodeLabelBatchAudioResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PackageSoundCodeLabelBatchAudioResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class PackageSoundCodeLabelBatchAudioResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PackageSoundCodeLabelBatchAudioResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PackageSoundCodeLabelBatchAudioResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PackageSoundCodeLabelBatchAudioResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PrintByTemplateRequest(TeaModel):
-    def __init__(self, device_name=None, iot_id=None, iot_instance_id=None, params_json_string=None,
-                 product_key=None, project_code=None, template_biz_code=None):
+    def __init__(self, device_name=None, history_print_topic=None, iot_id=None, iot_instance_id=None,
+                 params_json_string=None, product_key=None, template_biz_code=None):
         self.device_name = device_name  # type: str
+        self.history_print_topic = history_print_topic  # type: bool
         self.iot_id = iot_id  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.params_json_string = params_json_string  # type: str
         self.product_key = product_key  # type: str
-        self.project_code = project_code  # type: str
         self.template_biz_code = template_biz_code  # type: str
 
     def validate(self):
@@ -24823,6 +28381,8 @@ class PrintByTemplateRequest(TeaModel):
         result = dict()
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
+        if self.history_print_topic is not None:
+            result['HistoryPrintTopic'] = self.history_print_topic
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
         if self.iot_instance_id is not None:
@@ -24831,8 +28391,6 @@ class PrintByTemplateRequest(TeaModel):
             result['ParamsJsonString'] = self.params_json_string
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
-        if self.project_code is not None:
-            result['ProjectCode'] = self.project_code
         if self.template_biz_code is not None:
             result['TemplateBizCode'] = self.template_biz_code
         return result
@@ -24841,6 +28399,8 @@ class PrintByTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
+        if m.get('HistoryPrintTopic') is not None:
+            self.history_print_topic = m.get('HistoryPrintTopic')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
         if m.get('IotInstanceId') is not None:
@@ -24849,8 +28409,6 @@ class PrintByTemplateRequest(TeaModel):
             self.params_json_string = m.get('ParamsJsonString')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
-        if m.get('ProjectCode') is not None:
-            self.project_code = m.get('ProjectCode')
         if m.get('TemplateBizCode') is not None:
             self.template_biz_code = m.get('TemplateBizCode')
         return self
@@ -25645,311 +29203,6 @@ class PushSpeechResponse(TeaModel):
         return self
 
 
-class QueryAppDeviceListRequestTagList(TeaModel):
-    def __init__(self, tag_name=None, tag_value=None):
-        self.tag_name = tag_name  # type: str
-        self.tag_value = tag_value  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListRequestTagList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.tag_name is not None:
-            result['TagName'] = self.tag_name
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagName') is not None:
-            self.tag_name = m.get('TagName')
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
-        return self
-
-
-class QueryAppDeviceListRequest(TeaModel):
-    def __init__(self, app_key=None, category_key_list=None, current_page=None, iot_instance_id=None,
-                 page_size=None, product_key_list=None, tag_list=None):
-        self.app_key = app_key  # type: str
-        self.category_key_list = category_key_list  # type: list[str]
-        self.current_page = current_page  # type: int
-        self.iot_instance_id = iot_instance_id  # type: str
-        self.page_size = page_size  # type: int
-        self.product_key_list = product_key_list  # type: list[str]
-        self.tag_list = tag_list  # type: list[QueryAppDeviceListRequestTagList]
-
-    def validate(self):
-        if self.tag_list:
-            for k in self.tag_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.app_key is not None:
-            result['AppKey'] = self.app_key
-        if self.category_key_list is not None:
-            result['CategoryKeyList'] = self.category_key_list
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.product_key_list is not None:
-            result['ProductKeyList'] = self.product_key_list
-        result['TagList'] = []
-        if self.tag_list is not None:
-            for k in self.tag_list:
-                result['TagList'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AppKey') is not None:
-            self.app_key = m.get('AppKey')
-        if m.get('CategoryKeyList') is not None:
-            self.category_key_list = m.get('CategoryKeyList')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('ProductKeyList') is not None:
-            self.product_key_list = m.get('ProductKeyList')
-        self.tag_list = []
-        if m.get('TagList') is not None:
-            for k in m.get('TagList'):
-                temp_model = QueryAppDeviceListRequestTagList()
-                self.tag_list.append(temp_model.from_map(k))
-        return self
-
-
-class QueryAppDeviceListResponseBodyDataData(TeaModel):
-    def __init__(self, active_time=None, child_device_count=None, create_time=None, device_name=None,
-                 last_online_time=None, node_type=None, product_key=None, product_name=None, status=None, utc_active_time=None,
-                 utc_create_time=None, utc_last_online_time=None):
-        self.active_time = active_time  # type: str
-        self.child_device_count = child_device_count  # type: long
-        self.create_time = create_time  # type: str
-        self.device_name = device_name  # type: str
-        self.last_online_time = last_online_time  # type: str
-        self.node_type = node_type  # type: int
-        self.product_key = product_key  # type: str
-        self.product_name = product_name  # type: str
-        self.status = status  # type: str
-        self.utc_active_time = utc_active_time  # type: str
-        self.utc_create_time = utc_create_time  # type: str
-        self.utc_last_online_time = utc_last_online_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListResponseBodyDataData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.active_time is not None:
-            result['ActiveTime'] = self.active_time
-        if self.child_device_count is not None:
-            result['ChildDeviceCount'] = self.child_device_count
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
-        if self.last_online_time is not None:
-            result['LastOnlineTime'] = self.last_online_time
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.product_name is not None:
-            result['ProductName'] = self.product_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.utc_active_time is not None:
-            result['UtcActiveTime'] = self.utc_active_time
-        if self.utc_create_time is not None:
-            result['UtcCreateTime'] = self.utc_create_time
-        if self.utc_last_online_time is not None:
-            result['UtcLastOnlineTime'] = self.utc_last_online_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ActiveTime') is not None:
-            self.active_time = m.get('ActiveTime')
-        if m.get('ChildDeviceCount') is not None:
-            self.child_device_count = m.get('ChildDeviceCount')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
-        if m.get('LastOnlineTime') is not None:
-            self.last_online_time = m.get('LastOnlineTime')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('ProductName') is not None:
-            self.product_name = m.get('ProductName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('UtcActiveTime') is not None:
-            self.utc_active_time = m.get('UtcActiveTime')
-        if m.get('UtcCreateTime') is not None:
-            self.utc_create_time = m.get('UtcCreateTime')
-        if m.get('UtcLastOnlineTime') is not None:
-            self.utc_last_online_time = m.get('UtcLastOnlineTime')
-        return self
-
-
-class QueryAppDeviceListResponseBodyData(TeaModel):
-    def __init__(self, data=None):
-        self.data = data  # type: list[QueryAppDeviceListResponseBodyDataData]
-
-    def validate(self):
-        if self.data:
-            for k in self.data:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Data'] = []
-        if self.data is not None:
-            for k in self.data:
-                result['Data'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.data = []
-        if m.get('Data') is not None:
-            for k in m.get('Data'):
-                temp_model = QueryAppDeviceListResponseBodyDataData()
-                self.data.append(temp_model.from_map(k))
-        return self
-
-
-class QueryAppDeviceListResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, error_message=None, page=None, page_count=None, page_size=None,
-                 request_id=None, success=None, total=None):
-        self.code = code  # type: str
-        self.data = data  # type: QueryAppDeviceListResponseBodyData
-        self.error_message = error_message  # type: str
-        self.page = page  # type: int
-        self.page_count = page_count  # type: int
-        self.page_size = page_size  # type: int
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-        self.total = total  # type: int
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.page is not None:
-            result['Page'] = self.page
-        if self.page_count is not None:
-            result['PageCount'] = self.page_count
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.total is not None:
-            result['Total'] = self.total
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = QueryAppDeviceListResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Page') is not None:
-            self.page = m.get('Page')
-        if m.get('PageCount') is not None:
-            self.page_count = m.get('PageCount')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Total') is not None:
-            self.total = m.get('Total')
-        return self
-
-
-class QueryAppDeviceListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: QueryAppDeviceListResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(QueryAppDeviceListResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = QueryAppDeviceListResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class QueryBatchRegisterDeviceStatusRequest(TeaModel):
     def __init__(self, apply_id=None, iot_instance_id=None, product_key=None):
         self.apply_id = apply_id  # type: long
@@ -26252,6 +29505,180 @@ class QueryCertUrlByApplyIdResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = QueryCertUrlByApplyIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryClientIdsRequest(TeaModel):
+    def __init__(self, iot_id=None, iot_instance_id=None):
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryClientIdsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class QueryClientIdsResponseBodyDataDynamicRegClientIds(TeaModel):
+    def __init__(self, client_id=None, create_time=None):
+        self.client_id = client_id  # type: str
+        self.create_time = create_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryClientIdsResponseBodyDataDynamicRegClientIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_id is not None:
+            result['ClientId'] = self.client_id
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientId') is not None:
+            self.client_id = m.get('ClientId')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        return self
+
+
+class QueryClientIdsResponseBodyData(TeaModel):
+    def __init__(self, dynamic_reg_client_ids=None, iot_id=None):
+        self.dynamic_reg_client_ids = dynamic_reg_client_ids  # type: list[QueryClientIdsResponseBodyDataDynamicRegClientIds]
+        self.iot_id = iot_id  # type: str
+
+    def validate(self):
+        if self.dynamic_reg_client_ids:
+            for k in self.dynamic_reg_client_ids:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryClientIdsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DynamicRegClientIds'] = []
+        if self.dynamic_reg_client_ids is not None:
+            for k in self.dynamic_reg_client_ids:
+                result['DynamicRegClientIds'].append(k.to_map() if k else None)
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dynamic_reg_client_ids = []
+        if m.get('DynamicRegClientIds') is not None:
+            for k in m.get('DynamicRegClientIds'):
+                temp_model = QueryClientIdsResponseBodyDataDynamicRegClientIds()
+                self.dynamic_reg_client_ids.append(temp_model.from_map(k))
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        return self
+
+
+class QueryClientIdsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryClientIdsResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryClientIdsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryClientIdsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryClientIdsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryClientIdsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryClientIdsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryClientIdsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -29737,10 +33164,11 @@ class QueryDeviceGroupByDeviceRequest(TeaModel):
 
 
 class QueryDeviceGroupByDeviceResponseBodyGroupInfosGroupInfo(TeaModel):
-    def __init__(self, group_desc=None, group_id=None, group_name=None, utc_create=None):
+    def __init__(self, group_desc=None, group_id=None, group_name=None, group_type=None, utc_create=None):
         self.group_desc = group_desc  # type: str
         self.group_id = group_id  # type: str
         self.group_name = group_name  # type: str
+        self.group_type = group_type  # type: str
         self.utc_create = utc_create  # type: str
 
     def validate(self):
@@ -29758,6 +33186,8 @@ class QueryDeviceGroupByDeviceResponseBodyGroupInfosGroupInfo(TeaModel):
             result['GroupId'] = self.group_id
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.utc_create is not None:
             result['UtcCreate'] = self.utc_create
         return result
@@ -29770,6 +33200,8 @@ class QueryDeviceGroupByDeviceResponseBodyGroupInfosGroupInfo(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('UtcCreate') is not None:
             self.utc_create = m.get('UtcCreate')
         return self
@@ -30124,8 +33556,9 @@ class QueryDeviceGroupByTagsResponse(TeaModel):
 
 
 class QueryDeviceGroupInfoRequest(TeaModel):
-    def __init__(self, group_id=None, iot_instance_id=None):
+    def __init__(self, group_id=None, group_type=None, iot_instance_id=None):
         self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
 
     def validate(self):
@@ -30139,6 +33572,8 @@ class QueryDeviceGroupInfoRequest(TeaModel):
         result = dict()
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         return result
@@ -30147,17 +33582,20 @@ class QueryDeviceGroupInfoRequest(TeaModel):
         m = m or dict()
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         return self
 
 
 class QueryDeviceGroupInfoResponseBodyData(TeaModel):
-    def __init__(self, device_active=None, device_count=None, device_online=None, group_desc=None, group_id=None,
-                 group_name=None, utc_create=None):
+    def __init__(self, device_active=None, device_count=None, device_online=None, dynamic_group_expression=None,
+                 group_desc=None, group_id=None, group_name=None, utc_create=None):
         self.device_active = device_active  # type: int
         self.device_count = device_count  # type: int
         self.device_online = device_online  # type: int
+        self.dynamic_group_expression = dynamic_group_expression  # type: str
         self.group_desc = group_desc  # type: str
         self.group_id = group_id  # type: str
         self.group_name = group_name  # type: str
@@ -30178,6 +33616,8 @@ class QueryDeviceGroupInfoResponseBodyData(TeaModel):
             result['DeviceCount'] = self.device_count
         if self.device_online is not None:
             result['DeviceOnline'] = self.device_online
+        if self.dynamic_group_expression is not None:
+            result['DynamicGroupExpression'] = self.dynamic_group_expression
         if self.group_desc is not None:
             result['GroupDesc'] = self.group_desc
         if self.group_id is not None:
@@ -30196,6 +33636,8 @@ class QueryDeviceGroupInfoResponseBodyData(TeaModel):
             self.device_count = m.get('DeviceCount')
         if m.get('DeviceOnline') is not None:
             self.device_online = m.get('DeviceOnline')
+        if m.get('DynamicGroupExpression') is not None:
+            self.dynamic_group_expression = m.get('DynamicGroupExpression')
         if m.get('GroupDesc') is not None:
             self.group_desc = m.get('GroupDesc')
         if m.get('GroupId') is not None:
@@ -30287,10 +33729,11 @@ class QueryDeviceGroupInfoResponse(TeaModel):
 
 
 class QueryDeviceGroupListRequest(TeaModel):
-    def __init__(self, current_page=None, group_name=None, iot_instance_id=None, page_size=None,
+    def __init__(self, current_page=None, group_name=None, group_types=None, iot_instance_id=None, page_size=None,
                  super_group_id=None):
         self.current_page = current_page  # type: int
         self.group_name = group_name  # type: str
+        self.group_types = group_types  # type: list[str]
         self.iot_instance_id = iot_instance_id  # type: str
         self.page_size = page_size  # type: int
         self.super_group_id = super_group_id  # type: str
@@ -30308,6 +33751,8 @@ class QueryDeviceGroupListRequest(TeaModel):
             result['CurrentPage'] = self.current_page
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.group_types is not None:
+            result['GroupTypes'] = self.group_types
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.page_size is not None:
@@ -30322,6 +33767,8 @@ class QueryDeviceGroupListRequest(TeaModel):
             self.current_page = m.get('CurrentPage')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('GroupTypes') is not None:
+            self.group_types = m.get('GroupTypes')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('PageSize') is not None:
@@ -30332,10 +33779,11 @@ class QueryDeviceGroupListRequest(TeaModel):
 
 
 class QueryDeviceGroupListResponseBodyDataGroupInfo(TeaModel):
-    def __init__(self, group_desc=None, group_id=None, group_name=None, utc_create=None):
+    def __init__(self, group_desc=None, group_id=None, group_name=None, group_type=None, utc_create=None):
         self.group_desc = group_desc  # type: str
         self.group_id = group_id  # type: str
         self.group_name = group_name  # type: str
+        self.group_type = group_type  # type: str
         self.utc_create = utc_create  # type: str
 
     def validate(self):
@@ -30353,6 +33801,8 @@ class QueryDeviceGroupListResponseBodyDataGroupInfo(TeaModel):
             result['GroupId'] = self.group_id
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.utc_create is not None:
             result['UtcCreate'] = self.utc_create
         return result
@@ -30365,6 +33815,8 @@ class QueryDeviceGroupListResponseBodyDataGroupInfo(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('UtcCreate') is not None:
             self.utc_create = m.get('UtcCreate')
         return self
@@ -30503,8 +33955,9 @@ class QueryDeviceGroupListResponse(TeaModel):
 
 
 class QueryDeviceGroupTagListRequest(TeaModel):
-    def __init__(self, group_id=None, iot_instance_id=None):
+    def __init__(self, group_id=None, group_type=None, iot_instance_id=None):
         self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
 
     def validate(self):
@@ -30518,6 +33971,8 @@ class QueryDeviceGroupTagListRequest(TeaModel):
         result = dict()
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         return result
@@ -30526,6 +33981,8 @@ class QueryDeviceGroupTagListRequest(TeaModel):
         m = m or dict()
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         return self
@@ -33170,6 +36627,231 @@ class QueryDeviceServiceDataResponse(TeaModel):
         return self
 
 
+class QueryDeviceSpeechRequest(TeaModel):
+    def __init__(self, iot_id=None, iot_instance_id=None, page_id=None, page_size=None):
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class QueryDeviceSpeechResponseBodyDataListItems(TeaModel):
+    def __init__(self, audio_format=None, biz_code=None, size=None):
+        self.audio_format = audio_format  # type: str
+        self.biz_code = biz_code  # type: str
+        self.size = size  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
+class QueryDeviceSpeechResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QueryDeviceSpeechResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QueryDeviceSpeechResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDeviceSpeechResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QueryDeviceSpeechResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QueryDeviceSpeechResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QueryDeviceSpeechResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryDeviceSpeechResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryDeviceSpeechResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryDeviceSpeechResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDeviceSpeechResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceSpeechResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceSpeechResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryDeviceStatisticsRequest(TeaModel):
     def __init__(self, group_id=None, iot_instance_id=None, product_key=None):
         self.group_id = group_id  # type: str
@@ -33317,6 +36999,478 @@ class QueryDeviceStatisticsResponse(TeaModel):
         return self
 
 
+class QueryDeviceTunnelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, tunnel_id=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceTunnelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        return self
+
+
+class QueryDeviceTunnelResponseBodyData(TeaModel):
+    def __init__(self, description=None, device_conn_state=None, device_name=None, iot_id=None, product_key=None,
+                 product_name=None, source_conn_state=None, tunnel_id=None, tunnel_state=None, udi=None, utc_closed=None,
+                 utc_created=None):
+        self.description = description  # type: str
+        self.device_conn_state = device_conn_state  # type: str
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.product_key = product_key  # type: str
+        self.product_name = product_name  # type: str
+        self.source_conn_state = source_conn_state  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+        self.tunnel_state = tunnel_state  # type: str
+        self.udi = udi  # type: str
+        self.utc_closed = utc_closed  # type: str
+        self.utc_created = utc_created  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceTunnelResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.device_conn_state is not None:
+            result['DeviceConnState'] = self.device_conn_state
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.source_conn_state is not None:
+            result['SourceConnState'] = self.source_conn_state
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        if self.tunnel_state is not None:
+            result['TunnelState'] = self.tunnel_state
+        if self.udi is not None:
+            result['Udi'] = self.udi
+        if self.utc_closed is not None:
+            result['UtcClosed'] = self.utc_closed
+        if self.utc_created is not None:
+            result['UtcCreated'] = self.utc_created
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DeviceConnState') is not None:
+            self.device_conn_state = m.get('DeviceConnState')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('SourceConnState') is not None:
+            self.source_conn_state = m.get('SourceConnState')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        if m.get('TunnelState') is not None:
+            self.tunnel_state = m.get('TunnelState')
+        if m.get('Udi') is not None:
+            self.udi = m.get('Udi')
+        if m.get('UtcClosed') is not None:
+            self.utc_closed = m.get('UtcClosed')
+        if m.get('UtcCreated') is not None:
+            self.utc_created = m.get('UtcCreated')
+        return self
+
+
+class QueryDeviceTunnelResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryDeviceTunnelResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceTunnelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryDeviceTunnelResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryDeviceTunnelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDeviceTunnelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceTunnelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceTunnelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDynamicGroupDevicesRequest(TeaModel):
+    def __init__(self, current_page=None, device_name=None, fuzzy_name=None, group_id=None, iot_instance_id=None,
+                 next_token=None, page_size=None, product_key=None, status=None):
+        self.current_page = current_page  # type: int
+        self.device_name = device_name  # type: str
+        self.fuzzy_name = fuzzy_name  # type: bool
+        self.group_id = group_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+        self.product_key = product_key  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDynamicGroupDevicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.fuzzy_name is not None:
+            result['FuzzyName'] = self.fuzzy_name
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('FuzzyName') is not None:
+            self.fuzzy_name = m.get('FuzzyName')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class QueryDynamicGroupDevicesResponseBodyDataSimpleDeviceInfo(TeaModel):
+    def __init__(self, active_time=None, category_key=None, device_name=None, iot_id=None, last_online_time=None,
+                 nickname=None, node_type=None, product_key=None, product_name=None, status=None, utc_active_time=None,
+                 utc_last_online_time=None):
+        self.active_time = active_time  # type: str
+        self.category_key = category_key  # type: str
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.last_online_time = last_online_time  # type: str
+        self.nickname = nickname  # type: str
+        self.node_type = node_type  # type: int
+        self.product_key = product_key  # type: str
+        self.product_name = product_name  # type: str
+        self.status = status  # type: str
+        self.utc_active_time = utc_active_time  # type: str
+        self.utc_last_online_time = utc_last_online_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDynamicGroupDevicesResponseBodyDataSimpleDeviceInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_time is not None:
+            result['ActiveTime'] = self.active_time
+        if self.category_key is not None:
+            result['CategoryKey'] = self.category_key
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.last_online_time is not None:
+            result['LastOnlineTime'] = self.last_online_time
+        if self.nickname is not None:
+            result['Nickname'] = self.nickname
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.utc_active_time is not None:
+            result['UtcActiveTime'] = self.utc_active_time
+        if self.utc_last_online_time is not None:
+            result['UtcLastOnlineTime'] = self.utc_last_online_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveTime') is not None:
+            self.active_time = m.get('ActiveTime')
+        if m.get('CategoryKey') is not None:
+            self.category_key = m.get('CategoryKey')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('LastOnlineTime') is not None:
+            self.last_online_time = m.get('LastOnlineTime')
+        if m.get('Nickname') is not None:
+            self.nickname = m.get('Nickname')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UtcActiveTime') is not None:
+            self.utc_active_time = m.get('UtcActiveTime')
+        if m.get('UtcLastOnlineTime') is not None:
+            self.utc_last_online_time = m.get('UtcLastOnlineTime')
+        return self
+
+
+class QueryDynamicGroupDevicesResponseBodyData(TeaModel):
+    def __init__(self, simple_device_info=None):
+        self.simple_device_info = simple_device_info  # type: list[QueryDynamicGroupDevicesResponseBodyDataSimpleDeviceInfo]
+
+    def validate(self):
+        if self.simple_device_info:
+            for k in self.simple_device_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryDynamicGroupDevicesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SimpleDeviceInfo'] = []
+        if self.simple_device_info is not None:
+            for k in self.simple_device_info:
+                result['SimpleDeviceInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.simple_device_info = []
+        if m.get('SimpleDeviceInfo') is not None:
+            for k in m.get('SimpleDeviceInfo'):
+                temp_model = QueryDynamicGroupDevicesResponseBodyDataSimpleDeviceInfo()
+                self.simple_device_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDynamicGroupDevicesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, next_token=None, page=None, page_count=None,
+                 page_size=None, request_id=None, success=None, total=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryDynamicGroupDevicesResponseBodyData
+        self.error_message = error_message  # type: str
+        self.next_token = next_token  # type: str
+        self.page = page  # type: int
+        self.page_count = page_count  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryDynamicGroupDevicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_count is not None:
+            result['PageCount'] = self.page_count
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryDynamicGroupDevicesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageCount') is not None:
+            self.page_count = m.get('PageCount')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QueryDynamicGroupDevicesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDynamicGroupDevicesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDynamicGroupDevicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDynamicGroupDevicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryEdgeDriverRequest(TeaModel):
     def __init__(self, current_page=None, driver_name=None, iot_instance_id=None, page_size=None, type=None):
         self.current_page = current_page  # type: int
@@ -33363,13 +37517,14 @@ class QueryEdgeDriverRequest(TeaModel):
 
 class QueryEdgeDriverResponseBodyDataDriverList(TeaModel):
     def __init__(self, cpu_arch=None, driver_id=None, driver_name=None, driver_protocol=None,
-                 gmt_create_timestamp=None, gmt_modified_timestamp=None, is_built_in=None, runtime=None, type=None):
+                 gmt_create_timestamp=None, gmt_modified_timestamp=None, is_apply=None, is_built_in=None, runtime=None, type=None):
         self.cpu_arch = cpu_arch  # type: str
         self.driver_id = driver_id  # type: str
         self.driver_name = driver_name  # type: str
         self.driver_protocol = driver_protocol  # type: str
         self.gmt_create_timestamp = gmt_create_timestamp  # type: long
         self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
+        self.is_apply = is_apply  # type: bool
         self.is_built_in = is_built_in  # type: bool
         self.runtime = runtime  # type: str
         self.type = type  # type: int
@@ -33395,6 +37550,8 @@ class QueryEdgeDriverResponseBodyDataDriverList(TeaModel):
             result['GmtCreateTimestamp'] = self.gmt_create_timestamp
         if self.gmt_modified_timestamp is not None:
             result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.is_apply is not None:
+            result['IsApply'] = self.is_apply
         if self.is_built_in is not None:
             result['IsBuiltIn'] = self.is_built_in
         if self.runtime is not None:
@@ -33417,6 +37574,8 @@ class QueryEdgeDriverResponseBodyDataDriverList(TeaModel):
             self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
         if m.get('GmtModifiedTimestamp') is not None:
             self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('IsApply') is not None:
+            self.is_apply = m.get('IsApply')
         if m.get('IsBuiltIn') is not None:
             self.is_built_in = m.get('IsBuiltIn')
         if m.get('Runtime') is not None:
@@ -36021,8 +40180,9 @@ class QueryJobResponseBodyDataJobFile(TeaModel):
 
 
 class QueryJobResponseBodyDataRolloutConfig(TeaModel):
-    def __init__(self, maximum_per_minute=None):
+    def __init__(self, maximum_per_minute=None, message_qo_s=None):
         self.maximum_per_minute = maximum_per_minute  # type: int
+        self.message_qo_s = message_qo_s  # type: str
 
     def validate(self):
         pass
@@ -36035,12 +40195,16 @@ class QueryJobResponseBodyDataRolloutConfig(TeaModel):
         result = dict()
         if self.maximum_per_minute is not None:
             result['MaximumPerMinute'] = self.maximum_per_minute
+        if self.message_qo_s is not None:
+            result['MessageQoS'] = self.message_qo_s
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('MaximumPerMinute') is not None:
             self.maximum_per_minute = m.get('MaximumPerMinute')
+        if m.get('MessageQoS') is not None:
+            self.message_qo_s = m.get('MessageQoS')
         return self
 
 
@@ -36929,11 +41093,55 @@ class QueryOTAFirmwareRequest(TeaModel):
         return self
 
 
+class QueryOTAFirmwareResponseBodyFirmwareInfoMultiFiles(TeaModel):
+    def __init__(self, file_md_5=None, name=None, sign_value=None, size=None, url=None):
+        self.file_md_5 = file_md_5  # type: str
+        self.name = name  # type: str
+        self.sign_value = sign_value  # type: str
+        self.size = size  # type: int
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOTAFirmwareResponseBodyFirmwareInfoMultiFiles, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_md_5 is not None:
+            result['FileMd5'] = self.file_md_5
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sign_value is not None:
+            result['SignValue'] = self.sign_value
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileMd5') is not None:
+            self.file_md_5 = m.get('FileMd5')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SignValue') is not None:
+            self.sign_value = m.get('SignValue')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
 class QueryOTAFirmwareResponseBodyFirmwareInfo(TeaModel):
     def __init__(self, dest_version=None, firmware_desc=None, firmware_id=None, firmware_name=None,
-                 firmware_sign=None, firmware_size=None, firmware_url=None, module_name=None, product_key=None, product_name=None,
-                 sign_method=None, src_version=None, status=None, type=None, udi=None, utc_create=None, utc_modified=None,
-                 verify_progress=None):
+                 firmware_sign=None, firmware_size=None, firmware_url=None, module_name=None, multi_files=None, product_key=None,
+                 product_name=None, sign_method=None, src_version=None, status=None, type=None, udi=None, utc_create=None,
+                 utc_modified=None, verify_progress=None):
         self.dest_version = dest_version  # type: str
         self.firmware_desc = firmware_desc  # type: str
         self.firmware_id = firmware_id  # type: str
@@ -36942,6 +41150,7 @@ class QueryOTAFirmwareResponseBodyFirmwareInfo(TeaModel):
         self.firmware_size = firmware_size  # type: int
         self.firmware_url = firmware_url  # type: str
         self.module_name = module_name  # type: str
+        self.multi_files = multi_files  # type: list[QueryOTAFirmwareResponseBodyFirmwareInfoMultiFiles]
         self.product_key = product_key  # type: str
         self.product_name = product_name  # type: str
         self.sign_method = sign_method  # type: str
@@ -36954,7 +41163,10 @@ class QueryOTAFirmwareResponseBodyFirmwareInfo(TeaModel):
         self.verify_progress = verify_progress  # type: int
 
     def validate(self):
-        pass
+        if self.multi_files:
+            for k in self.multi_files:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(QueryOTAFirmwareResponseBodyFirmwareInfo, self).to_map()
@@ -36978,6 +41190,10 @@ class QueryOTAFirmwareResponseBodyFirmwareInfo(TeaModel):
             result['FirmwareUrl'] = self.firmware_url
         if self.module_name is not None:
             result['ModuleName'] = self.module_name
+        result['MultiFiles'] = []
+        if self.multi_files is not None:
+            for k in self.multi_files:
+                result['MultiFiles'].append(k.to_map() if k else None)
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.product_name is not None:
@@ -37018,6 +41234,11 @@ class QueryOTAFirmwareResponseBodyFirmwareInfo(TeaModel):
             self.firmware_url = m.get('FirmwareUrl')
         if m.get('ModuleName') is not None:
             self.module_name = m.get('ModuleName')
+        self.multi_files = []
+        if m.get('MultiFiles') is not None:
+            for k in m.get('MultiFiles'):
+                temp_model = QueryOTAFirmwareResponseBodyFirmwareInfoMultiFiles()
+                self.multi_files.append(temp_model.from_map(k))
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('ProductName') is not None:
@@ -37235,21 +41456,25 @@ class QueryOTAJobResponseBodyDataTags(TeaModel):
 
 
 class QueryOTAJobResponseBodyData(TeaModel):
-    def __init__(self, dest_version=None, dynamic_mode=None, firmware_id=None, gray_percent=None, job_desc=None,
-                 job_id=None, job_status=None, job_type=None, maximum_per_minute=None, name=None, need_confirm=None,
-                 need_push=None, overwrite_mode=None, product_key=None, retry_count=None, retry_interval=None,
-                 selection_type=None, src_versions=None, tags=None, target_selection=None, timeout_in_minutes=None,
-                 utc_create=None, utc_end_time=None, utc_modified=None, utc_schedule_finish_time=None, utc_schedule_time=None,
-                 utc_start_time=None):
+    def __init__(self, dest_version=None, download_protocol=None, dynamic_mode=None, firmware_id=None,
+                 gray_percent=None, group_id=None, group_name=None, job_desc=None, job_id=None, job_status=None, job_type=None,
+                 maximum_per_minute=None, multi_module_mode=None, name=None, need_confirm=None, need_push=None, overwrite_mode=None,
+                 product_key=None, retry_count=None, retry_interval=None, selection_type=None, src_versions=None, tags=None,
+                 target_selection=None, timeout_in_minutes=None, utc_create=None, utc_end_time=None, utc_modified=None,
+                 utc_schedule_finish_time=None, utc_schedule_time=None, utc_start_time=None):
         self.dest_version = dest_version  # type: str
+        self.download_protocol = download_protocol  # type: str
         self.dynamic_mode = dynamic_mode  # type: int
         self.firmware_id = firmware_id  # type: str
         self.gray_percent = gray_percent  # type: str
+        self.group_id = group_id  # type: str
+        self.group_name = group_name  # type: str
         self.job_desc = job_desc  # type: str
         self.job_id = job_id  # type: str
         self.job_status = job_status  # type: str
         self.job_type = job_type  # type: str
         self.maximum_per_minute = maximum_per_minute  # type: int
+        self.multi_module_mode = multi_module_mode  # type: bool
         self.name = name  # type: str
         self.need_confirm = need_confirm  # type: bool
         self.need_push = need_push  # type: bool
@@ -37283,12 +41508,18 @@ class QueryOTAJobResponseBodyData(TeaModel):
         result = dict()
         if self.dest_version is not None:
             result['DestVersion'] = self.dest_version
+        if self.download_protocol is not None:
+            result['DownloadProtocol'] = self.download_protocol
         if self.dynamic_mode is not None:
             result['DynamicMode'] = self.dynamic_mode
         if self.firmware_id is not None:
             result['FirmwareId'] = self.firmware_id
         if self.gray_percent is not None:
             result['GrayPercent'] = self.gray_percent
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
         if self.job_desc is not None:
             result['JobDesc'] = self.job_desc
         if self.job_id is not None:
@@ -37299,6 +41530,8 @@ class QueryOTAJobResponseBodyData(TeaModel):
             result['JobType'] = self.job_type
         if self.maximum_per_minute is not None:
             result['MaximumPerMinute'] = self.maximum_per_minute
+        if self.multi_module_mode is not None:
+            result['MultiModuleMode'] = self.multi_module_mode
         if self.name is not None:
             result['Name'] = self.name
         if self.need_confirm is not None:
@@ -37341,12 +41574,18 @@ class QueryOTAJobResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('DestVersion') is not None:
             self.dest_version = m.get('DestVersion')
+        if m.get('DownloadProtocol') is not None:
+            self.download_protocol = m.get('DownloadProtocol')
         if m.get('DynamicMode') is not None:
             self.dynamic_mode = m.get('DynamicMode')
         if m.get('FirmwareId') is not None:
             self.firmware_id = m.get('FirmwareId')
         if m.get('GrayPercent') is not None:
             self.gray_percent = m.get('GrayPercent')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
         if m.get('JobDesc') is not None:
             self.job_desc = m.get('JobDesc')
         if m.get('JobId') is not None:
@@ -37357,6 +41596,8 @@ class QueryOTAJobResponseBodyData(TeaModel):
             self.job_type = m.get('JobType')
         if m.get('MaximumPerMinute') is not None:
             self.maximum_per_minute = m.get('MaximumPerMinute')
+        if m.get('MultiModuleMode') is not None:
+            self.multi_module_mode = m.get('MultiModuleMode')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('NeedConfirm') is not None:
@@ -38700,6 +42941,241 @@ class QuerySceneRuleResponse(TeaModel):
         return self
 
 
+class QuerySchedulePeriodListRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, page_id=None, page_size=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class QuerySchedulePeriodListResponseBodyDataListItems(TeaModel):
+    def __init__(self, description=None, end_time=None, period_code=None, sound_code_content=None, start_time=None):
+        self.description = description  # type: str
+        self.end_time = end_time  # type: str
+        self.period_code = period_code  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.period_code is not None:
+            result['PeriodCode'] = self.period_code
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('PeriodCode') is not None:
+            self.period_code = m.get('PeriodCode')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class QuerySchedulePeriodListResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySchedulePeriodListResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySchedulePeriodListResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySchedulePeriodListResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySchedulePeriodListResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySchedulePeriodListResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySchedulePeriodListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySchedulePeriodListResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySchedulePeriodListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySchedulePeriodListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySchedulePeriodListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySchedulePeriodListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySchedulePeriodListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QuerySolutionDeviceGroupPageRequest(TeaModel):
     def __init__(self, fuzzy_group_name=None, iot_instance_id=None, page_id=None, page_size=None, project_code=None):
         self.fuzzy_group_name = fuzzy_group_name  # type: str
@@ -38946,6 +43422,1132 @@ class QuerySolutionDeviceGroupPageResponse(TeaModel):
         return self
 
 
+class QuerySoundCodeLabelBatchFailedResultRequest(TeaModel):
+    def __init__(self, batch_code=None, iot_instance_id=None):
+        self.batch_code = batch_code  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchFailedResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_code is not None:
+            result['BatchCode'] = self.batch_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchCode') is not None:
+            self.batch_code = m.get('BatchCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class QuerySoundCodeLabelBatchFailedResultResponseBodyDataItems(TeaModel):
+    def __init__(self, error_message=None, label=None, result_code=None):
+        self.error_message = error_message  # type: str
+        self.label = label  # type: str
+        self.result_code = result_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchFailedResultResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.result_code is not None:
+            result['ResultCode'] = self.result_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('ResultCode') is not None:
+            self.result_code = m.get('ResultCode')
+        return self
+
+
+class QuerySoundCodeLabelBatchFailedResultResponseBodyData(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySoundCodeLabelBatchFailedResultResponseBodyDataItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchFailedResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySoundCodeLabelBatchFailedResultResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySoundCodeLabelBatchFailedResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySoundCodeLabelBatchFailedResultResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchFailedResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySoundCodeLabelBatchFailedResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySoundCodeLabelBatchFailedResultResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySoundCodeLabelBatchFailedResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchFailedResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySoundCodeLabelBatchFailedResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QuerySoundCodeLabelBatchListRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, page_id=None, page_size=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class QuerySoundCodeLabelBatchListResponseBodyDataListItems(TeaModel):
+    def __init__(self, batch_code=None, description=None, gmt_create=None, status=None, success_num=None, total=None):
+        self.batch_code = batch_code  # type: str
+        self.description = description  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.status = status  # type: str
+        self.success_num = success_num  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_code is not None:
+            result['BatchCode'] = self.batch_code
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.success_num is not None:
+            result['SuccessNum'] = self.success_num
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchCode') is not None:
+            self.batch_code = m.get('BatchCode')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SuccessNum') is not None:
+            self.success_num = m.get('SuccessNum')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySoundCodeLabelBatchListResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySoundCodeLabelBatchListResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySoundCodeLabelBatchListResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySoundCodeLabelBatchListResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySoundCodeLabelBatchListResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySoundCodeLabelBatchListResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySoundCodeLabelBatchListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySoundCodeLabelBatchListResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySoundCodeLabelBatchListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySoundCodeLabelBatchListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySoundCodeLabelBatchListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelBatchListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySoundCodeLabelBatchListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QuerySoundCodeLabelListRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, page_id=None, page_size=None, schedule_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.schedule_code = schedule_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        return self
+
+
+class QuerySoundCodeLabelListResponseBodyDataListItems(TeaModel):
+    def __init__(self, label=None, sound_code=None):
+        self.label = label  # type: str
+        self.sound_code = sound_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        return self
+
+
+class QuerySoundCodeLabelListResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySoundCodeLabelListResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySoundCodeLabelListResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySoundCodeLabelListResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySoundCodeLabelListResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySoundCodeLabelListResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySoundCodeLabelListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySoundCodeLabelListResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySoundCodeLabelListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySoundCodeLabelListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySoundCodeLabelListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeLabelListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySoundCodeLabelListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QuerySoundCodeListRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, page_id=None, page_size=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class QuerySoundCodeListResponseBodyDataListItems(TeaModel):
+    def __init__(self, duration=None, gmt_create=None, name=None, open_type=None, sound_code=None,
+                 sound_code_content=None):
+        self.duration = duration  # type: int
+        self.gmt_create = gmt_create  # type: long
+        self.name = name  # type: str
+        self.open_type = open_type  # type: str
+        self.sound_code = sound_code  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        return self
+
+
+class QuerySoundCodeListResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySoundCodeListResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySoundCodeListResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySoundCodeListResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySoundCodeListResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySoundCodeListResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySoundCodeListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySoundCodeListResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySoundCodeListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySoundCodeListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySoundCodeListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySoundCodeListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QuerySoundCodeScheduleListRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, page_id=None, page_size=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class QuerySoundCodeScheduleListResponseBodyDataListItems(TeaModel):
+    def __init__(self, description=None, end_date=None, end_time=None, gmt_create=None, name=None, open_type=None,
+                 schedule_code=None, start_date=None, start_time=None, status=None):
+        self.description = description  # type: str
+        self.end_date = end_date  # type: str
+        self.end_time = end_time  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.name = name  # type: str
+        self.open_type = open_type  # type: str
+        self.schedule_code = schedule_code  # type: str
+        self.start_date = start_date  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class QuerySoundCodeScheduleListResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySoundCodeScheduleListResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySoundCodeScheduleListResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySoundCodeScheduleListResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySoundCodeScheduleListResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySoundCodeScheduleListResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySoundCodeScheduleListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySoundCodeScheduleListResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySoundCodeScheduleListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySoundCodeScheduleListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySoundCodeScheduleListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySoundCodeScheduleListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySoundCodeScheduleListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QuerySpeechRequest(TeaModel):
     def __init__(self, iot_instance_id=None, speech_code=None):
         self.iot_instance_id = iot_instance_id  # type: str
@@ -38975,11 +44577,42 @@ class QuerySpeechRequest(TeaModel):
         return self
 
 
+class QuerySpeechResponseBodyDataSoundCodeConfig(TeaModel):
+    def __init__(self, additional_duration=None, sound_code_content=None):
+        self.additional_duration = additional_duration  # type: int
+        self.sound_code_content = sound_code_content  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySpeechResponseBodyDataSoundCodeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.additional_duration is not None:
+            result['AdditionalDuration'] = self.additional_duration
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdditionalDuration') is not None:
+            self.additional_duration = m.get('AdditionalDuration')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        return self
+
+
 class QuerySpeechResponseBodyData(TeaModel):
-    def __init__(self, audio_format=None, biz_code=None, speech_code=None, speech_rate=None, speech_type=None,
-                 text=None, voice=None, volume=None):
+    def __init__(self, audio_format=None, biz_code=None, enable_sound_code=None, sound_code_config=None,
+                 speech_code=None, speech_rate=None, speech_type=None, text=None, voice=None, volume=None):
         self.audio_format = audio_format  # type: str
         self.biz_code = biz_code  # type: str
+        self.enable_sound_code = enable_sound_code  # type: bool
+        self.sound_code_config = sound_code_config  # type: QuerySpeechResponseBodyDataSoundCodeConfig
         self.speech_code = speech_code  # type: str
         self.speech_rate = speech_rate  # type: int
         self.speech_type = speech_type  # type: str
@@ -38988,7 +44621,8 @@ class QuerySpeechResponseBodyData(TeaModel):
         self.volume = volume  # type: int
 
     def validate(self):
-        pass
+        if self.sound_code_config:
+            self.sound_code_config.validate()
 
     def to_map(self):
         _map = super(QuerySpeechResponseBodyData, self).to_map()
@@ -39000,6 +44634,10 @@ class QuerySpeechResponseBodyData(TeaModel):
             result['AudioFormat'] = self.audio_format
         if self.biz_code is not None:
             result['BizCode'] = self.biz_code
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
+        if self.sound_code_config is not None:
+            result['SoundCodeConfig'] = self.sound_code_config.to_map()
         if self.speech_code is not None:
             result['SpeechCode'] = self.speech_code
         if self.speech_rate is not None:
@@ -39020,6 +44658,11 @@ class QuerySpeechResponseBodyData(TeaModel):
             self.audio_format = m.get('AudioFormat')
         if m.get('BizCode') is not None:
             self.biz_code = m.get('BizCode')
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
+        if m.get('SoundCodeConfig') is not None:
+            temp_model = QuerySpeechResponseBodyDataSoundCodeConfig()
+            self.sound_code_config = temp_model.from_map(m['SoundCodeConfig'])
         if m.get('SpeechCode') is not None:
             self.speech_code = m.get('SpeechCode')
         if m.get('SpeechRate') is not None:
@@ -39114,8 +44757,255 @@ class QuerySpeechResponse(TeaModel):
         return self
 
 
+class QuerySpeechDeviceRequest(TeaModel):
+    def __init__(self, available_space=None, available_space_scope=None, device_name=None, iot_instance_id=None,
+                 page_id=None, page_size=None, project_code=None):
+        self.available_space = available_space  # type: str
+        self.available_space_scope = available_space_scope  # type: str
+        self.device_name = device_name  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.project_code = project_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_space is not None:
+            result['AvailableSpace'] = self.available_space
+        if self.available_space_scope is not None:
+            result['AvailableSpaceScope'] = self.available_space_scope
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.project_code is not None:
+            result['ProjectCode'] = self.project_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableSpace') is not None:
+            self.available_space = m.get('AvailableSpace')
+        if m.get('AvailableSpaceScope') is not None:
+            self.available_space_scope = m.get('AvailableSpaceScope')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProjectCode') is not None:
+            self.project_code = m.get('ProjectCode')
+        return self
+
+
+class QuerySpeechDeviceResponseBodyDataListItems(TeaModel):
+    def __init__(self, available_space=None, device_name=None, iot_id=None, product_key=None):
+        self.available_space = available_space  # type: float
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceResponseBodyDataListItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_space is not None:
+            result['AvailableSpace'] = self.available_space
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableSpace') is not None:
+            self.available_space = m.get('AvailableSpace')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class QuerySpeechDeviceResponseBodyDataList(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[QuerySpeechDeviceResponseBodyDataListItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySpeechDeviceResponseBodyDataListItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySpeechDeviceResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_id=None, page_size=None, total=None):
+        self.list = list  # type: QuerySpeechDeviceResponseBodyDataList
+        self.page_id = page_id  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.list is not None:
+            result['List'] = self.list.to_map()
+        if self.page_id is not None:
+            result['PageId'] = self.page_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('List') is not None:
+            temp_model = QuerySpeechDeviceResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
+        if m.get('PageId') is not None:
+            self.page_id = m.get('PageId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class QuerySpeechDeviceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QuerySpeechDeviceResponseBodyData
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySpeechDeviceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySpeechDeviceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QuerySpeechDeviceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySpeechDeviceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QuerySpeechDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QuerySpeechListRequest(TeaModel):
-    def __init__(self, iot_instance_id=None, page_id=None, page_size=None, project_code=None):
+    def __init__(self, audio_format=None, iot_instance_id=None, page_id=None, page_size=None, project_code=None):
+        self.audio_format = audio_format  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.page_id = page_id  # type: int
         self.page_size = page_size  # type: int
@@ -39130,6 +45020,8 @@ class QuerySpeechListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.page_id is not None:
@@ -39142,6 +45034,8 @@ class QuerySpeechListRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('PageId') is not None:
@@ -39225,7 +45119,9 @@ class QuerySpeechListResponseBodyDataListItemsSpeechList(TeaModel):
 
 
 class QuerySpeechListResponseBodyDataListItems(TeaModel):
-    def __init__(self, biz_code=None, speech_code=None, speech_list=None, speech_type=None, text=None, voice=None):
+    def __init__(self, audio_format=None, biz_code=None, speech_code=None, speech_list=None, speech_type=None,
+                 text=None, voice=None):
+        self.audio_format = audio_format  # type: str
         self.biz_code = biz_code  # type: str
         self.speech_code = speech_code  # type: str
         self.speech_list = speech_list  # type: QuerySpeechListResponseBodyDataListItemsSpeechList
@@ -39243,6 +45139,8 @@ class QuerySpeechListResponseBodyDataListItems(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
         if self.biz_code is not None:
             result['BizCode'] = self.biz_code
         if self.speech_code is not None:
@@ -39259,6 +45157,8 @@ class QuerySpeechListResponseBodyDataListItems(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
         if m.get('BizCode') is not None:
             self.biz_code = m.get('BizCode')
         if m.get('SpeechCode') is not None:
@@ -42743,7 +48643,7 @@ class QueryTopicReverseRouteTableRequest(TeaModel):
 
 class QueryTopicReverseRouteTableResponseBodySrcTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[str, str]]
+        self.topic = topic  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -42875,7 +48775,7 @@ class QueryTopicRouteTableRequest(TeaModel):
 
 class QueryTopicRouteTableResponseBodyDstTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[str, str]]
+        self.topic = topic  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -43110,6 +49010,208 @@ class RRpcResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = RRpcResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RecognizeCarNumRequest(TeaModel):
+    def __init__(self, url=None):
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizeCarNumRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class RecognizeCarNumResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizeCarNumResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class RecognizeCarNumResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RecognizeCarNumResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RecognizeCarNumResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RecognizeCarNumResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RecognizePictureGeneralRequest(TeaModel):
+    def __init__(self, url=None):
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizePictureGeneralRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class RecognizePictureGeneralResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizePictureGeneralResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class RecognizePictureGeneralResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RecognizePictureGeneralResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RecognizePictureGeneralResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RecognizePictureGeneralResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -44328,6 +50430,213 @@ class ResetThingResponse(TeaModel):
         return self
 
 
+class RetrySoundCodeLabelBatchRequest(TeaModel):
+    def __init__(self, batch_code=None, iot_instance_id=None):
+        self.batch_code = batch_code  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetrySoundCodeLabelBatchRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_code is not None:
+            result['BatchCode'] = self.batch_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchCode') is not None:
+            self.batch_code = m.get('BatchCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class RetrySoundCodeLabelBatchResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetrySoundCodeLabelBatchResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class RetrySoundCodeLabelBatchResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RetrySoundCodeLabelBatchResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RetrySoundCodeLabelBatchResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RetrySoundCodeLabelBatchResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReupgradeOTATaskRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, job_id=None, task_id=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.job_id = job_id  # type: str
+        self.task_id = task_id  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReupgradeOTATaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ReupgradeOTATaskResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReupgradeOTATaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ReupgradeOTATaskResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ReupgradeOTATaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReupgradeOTATaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ReupgradeOTATaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SaveDevicePropRequest(TeaModel):
     def __init__(self, device_name=None, iot_id=None, iot_instance_id=None, product_key=None, props=None):
         self.device_name = device_name  # type: str
@@ -44603,8 +50912,9 @@ class SetDeviceDesiredPropertyResponse(TeaModel):
 
 
 class SetDeviceGroupTagsRequest(TeaModel):
-    def __init__(self, group_id=None, iot_instance_id=None, tag_string=None):
+    def __init__(self, group_id=None, group_type=None, iot_instance_id=None, tag_string=None):
         self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.tag_string = tag_string  # type: str
 
@@ -44619,6 +50929,8 @@ class SetDeviceGroupTagsRequest(TeaModel):
         result = dict()
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.tag_string is not None:
@@ -44629,6 +50941,8 @@ class SetDeviceGroupTagsRequest(TeaModel):
         m = m or dict()
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('TagString') is not None:
@@ -45525,12 +51839,15 @@ class SetupStudioAppAuthModeOpenResponse(TeaModel):
 
 
 class SpeechByCombinationRequest(TeaModel):
-    def __init__(self, combination_list=None, device_name=None, iot_id=None, iot_instance_id=None, product_key=None):
+    def __init__(self, audio_format=None, combination_list=None, device_name=None, iot_id=None,
+                 iot_instance_id=None, product_key=None, speech_id=None):
+        self.audio_format = audio_format  # type: str
         self.combination_list = combination_list  # type: list[str]
         self.device_name = device_name  # type: str
         self.iot_id = iot_id  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.product_key = product_key  # type: str
+        self.speech_id = speech_id  # type: str
 
     def validate(self):
         pass
@@ -45541,6 +51858,8 @@ class SpeechByCombinationRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
         if self.combination_list is not None:
             result['CombinationList'] = self.combination_list
         if self.device_name is not None:
@@ -45551,10 +51870,14 @@ class SpeechByCombinationRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        if self.speech_id is not None:
+            result['SpeechId'] = self.speech_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
         if m.get('CombinationList') is not None:
             self.combination_list = m.get('CombinationList')
         if m.get('DeviceName') is not None:
@@ -45565,6 +51888,8 @@ class SpeechByCombinationRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        if m.get('SpeechId') is not None:
+            self.speech_id = m.get('SpeechId')
         return self
 
 
@@ -45636,6 +51961,148 @@ class SpeechByCombinationResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = SpeechByCombinationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SpeechBySynthesisRequest(TeaModel):
+    def __init__(self, audio_format=None, device_name=None, iot_id=None, iot_instance_id=None, product_key=None,
+                 speech_id=None, speech_rate=None, text=None, voice=None, volume=None):
+        self.audio_format = audio_format  # type: str
+        self.device_name = device_name  # type: str
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.product_key = product_key  # type: str
+        self.speech_id = speech_id  # type: str
+        self.speech_rate = speech_rate  # type: int
+        self.text = text  # type: str
+        self.voice = voice  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SpeechBySynthesisRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.speech_id is not None:
+            result['SpeechId'] = self.speech_id
+        if self.speech_rate is not None:
+            result['SpeechRate'] = self.speech_rate
+        if self.text is not None:
+            result['Text'] = self.text
+        if self.voice is not None:
+            result['Voice'] = self.voice
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('SpeechId') is not None:
+            self.speech_id = m.get('SpeechId')
+        if m.get('SpeechRate') is not None:
+            self.speech_rate = m.get('SpeechRate')
+        if m.get('Text') is not None:
+            self.text = m.get('Text')
+        if m.get('Voice') is not None:
+            self.voice = m.get('Voice')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
+        return self
+
+
+class SpeechBySynthesisResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SpeechBySynthesisResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SpeechBySynthesisResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SpeechBySynthesisResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SpeechBySynthesisResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SpeechBySynthesisResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -45994,13 +52461,127 @@ class StopRuleResponse(TeaModel):
         return self
 
 
+class SubscribeTopicRequest(TeaModel):
+    def __init__(self, device_name=None, iot_instance_id=None, product_key=None, topic=None):
+        self.device_name = device_name  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.product_key = product_key  # type: str
+        self.topic = topic  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubscribeTopicRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
+        return self
+
+
+class SubscribeTopicResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubscribeTopicResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SubscribeTopicResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SubscribeTopicResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubscribeTopicResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SubscribeTopicResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SyncSpeechByCombinationRequest(TeaModel):
-    def __init__(self, combination_list=None, device_name=None, iot_id=None, iot_instance_id=None, product_key=None):
+    def __init__(self, audio_format=None, combination_list=None, device_name=None, iot_id=None,
+                 iot_instance_id=None, product_key=None, speech_id=None):
+        self.audio_format = audio_format  # type: str
         self.combination_list = combination_list  # type: list[str]
         self.device_name = device_name  # type: str
         self.iot_id = iot_id  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.product_key = product_key  # type: str
+        self.speech_id = speech_id  # type: str
 
     def validate(self):
         pass
@@ -46011,6 +52592,8 @@ class SyncSpeechByCombinationRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
         if self.combination_list is not None:
             result['CombinationList'] = self.combination_list
         if self.device_name is not None:
@@ -46021,10 +52604,14 @@ class SyncSpeechByCombinationRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        if self.speech_id is not None:
+            result['SpeechId'] = self.speech_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
         if m.get('CombinationList') is not None:
             self.combination_list = m.get('CombinationList')
         if m.get('DeviceName') is not None:
@@ -46035,12 +52622,15 @@ class SyncSpeechByCombinationRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        if m.get('SpeechId') is not None:
+            self.speech_id = m.get('SpeechId')
         return self
 
 
 class SyncSpeechByCombinationResponseBodyData(TeaModel):
-    def __init__(self, device_error_code=None, device_error_message=None, id=None, max_retry_count=None,
-                 retry_count=None, success=None):
+    def __init__(self, detail=None, device_error_code=None, device_error_message=None, id=None,
+                 max_retry_count=None, retry_count=None, success=None):
+        self.detail = detail  # type: str
         self.device_error_code = device_error_code  # type: str
         self.device_error_message = device_error_message  # type: str
         self.id = id  # type: str
@@ -46057,6 +52647,8 @@ class SyncSpeechByCombinationResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.detail is not None:
+            result['Detail'] = self.detail
         if self.device_error_code is not None:
             result['DeviceErrorCode'] = self.device_error_code
         if self.device_error_message is not None:
@@ -46073,6 +52665,8 @@ class SyncSpeechByCombinationResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Detail') is not None:
+            self.detail = m.get('Detail')
         if m.get('DeviceErrorCode') is not None:
             self.device_error_code = m.get('DeviceErrorCode')
         if m.get('DeviceErrorMessage') is not None:
@@ -46168,10 +52762,13 @@ class SyncSpeechByCombinationResponse(TeaModel):
 
 
 class TestSpeechRequest(TeaModel):
-    def __init__(self, iot_instance_id=None, project_code=None, speech_rate=None, speech_type=None, text=None,
-                 voice=None, volume=None):
+    def __init__(self, audio_format=None, enable_sound_code=None, iot_instance_id=None, project_code=None,
+                 sound_code_config=None, speech_rate=None, speech_type=None, text=None, voice=None, volume=None):
+        self.audio_format = audio_format  # type: str
+        self.enable_sound_code = enable_sound_code  # type: bool
         self.iot_instance_id = iot_instance_id  # type: str
         self.project_code = project_code  # type: str
+        self.sound_code_config = sound_code_config  # type: dict[str, any]
         self.speech_rate = speech_rate  # type: int
         self.speech_type = speech_type  # type: str
         self.text = text  # type: str
@@ -46187,10 +52784,16 @@ class TestSpeechRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.project_code is not None:
             result['ProjectCode'] = self.project_code
+        if self.sound_code_config is not None:
+            result['SoundCodeConfig'] = self.sound_code_config
         if self.speech_rate is not None:
             result['SpeechRate'] = self.speech_rate
         if self.speech_type is not None:
@@ -46205,10 +52808,86 @@ class TestSpeechRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProjectCode') is not None:
             self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config = m.get('SoundCodeConfig')
+        if m.get('SpeechRate') is not None:
+            self.speech_rate = m.get('SpeechRate')
+        if m.get('SpeechType') is not None:
+            self.speech_type = m.get('SpeechType')
+        if m.get('Text') is not None:
+            self.text = m.get('Text')
+        if m.get('Voice') is not None:
+            self.voice = m.get('Voice')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
+        return self
+
+
+class TestSpeechShrinkRequest(TeaModel):
+    def __init__(self, audio_format=None, enable_sound_code=None, iot_instance_id=None, project_code=None,
+                 sound_code_config_shrink=None, speech_rate=None, speech_type=None, text=None, voice=None, volume=None):
+        self.audio_format = audio_format  # type: str
+        self.enable_sound_code = enable_sound_code  # type: bool
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.project_code = project_code  # type: str
+        self.sound_code_config_shrink = sound_code_config_shrink  # type: str
+        self.speech_rate = speech_rate  # type: int
+        self.speech_type = speech_type  # type: str
+        self.text = text  # type: str
+        self.voice = voice  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TestSpeechShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audio_format is not None:
+            result['AudioFormat'] = self.audio_format
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.project_code is not None:
+            result['ProjectCode'] = self.project_code
+        if self.sound_code_config_shrink is not None:
+            result['SoundCodeConfig'] = self.sound_code_config_shrink
+        if self.speech_rate is not None:
+            result['SpeechRate'] = self.speech_rate
+        if self.speech_type is not None:
+            result['SpeechType'] = self.speech_type
+        if self.text is not None:
+            result['Text'] = self.text
+        if self.voice is not None:
+            result['Voice'] = self.voice
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AudioFormat') is not None:
+            self.audio_format = m.get('AudioFormat')
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProjectCode') is not None:
+            self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config_shrink = m.get('SoundCodeConfig')
         if m.get('SpeechRate') is not None:
             self.speech_rate = m.get('SpeechRate')
         if m.get('SpeechType') is not None:
@@ -46321,6 +53000,112 @@ class TestSpeechResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = TestSpeechResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TransformClientIdRequest(TeaModel):
+    def __init__(self, client_id=None, iot_id=None, iot_instance_id=None):
+        self.client_id = client_id  # type: str
+        self.iot_id = iot_id  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransformClientIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_id is not None:
+            result['ClientId'] = self.client_id
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientId') is not None:
+            self.client_id = m.get('ClientId')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        return self
+
+
+class TransformClientIdResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransformClientIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class TransformClientIdResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: TransformClientIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TransformClientIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = TransformClientIdResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -46643,6 +53428,117 @@ class UnbindDriverFromEdgeInstanceResponse(TeaModel):
         return self
 
 
+class UnbindLicenseProductRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, license_code=None, product_key=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.license_code = license_code  # type: str
+        self.product_key = product_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindLicenseProductRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.license_code is not None:
+            result['LicenseCode'] = self.license_code
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('LicenseCode') is not None:
+            self.license_code = m.get('LicenseCode')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        return self
+
+
+class UnbindLicenseProductResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindLicenseProductResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UnbindLicenseProductResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UnbindLicenseProductResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindLicenseProductResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UnbindLicenseProductResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UnbindRoleFromEdgeInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, iot_instance_id=None):
         self.instance_id = instance_id  # type: str
@@ -46957,9 +53853,10 @@ class UpdateConsumerGroupResponse(TeaModel):
 
 
 class UpdateDeviceGroupRequest(TeaModel):
-    def __init__(self, group_desc=None, group_id=None, iot_instance_id=None):
+    def __init__(self, group_desc=None, group_id=None, group_type=None, iot_instance_id=None):
         self.group_desc = group_desc  # type: str
         self.group_id = group_id  # type: str
+        self.group_type = group_type  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
 
     def validate(self):
@@ -46975,6 +53872,8 @@ class UpdateDeviceGroupRequest(TeaModel):
             result['GroupDesc'] = self.group_desc
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         return result
@@ -46985,6 +53884,8 @@ class UpdateDeviceGroupRequest(TeaModel):
             self.group_desc = m.get('GroupDesc')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         return self
@@ -47755,8 +54656,8 @@ class UpdateJobRequest(TeaModel):
         self.description = description  # type: str
         self.iot_instance_id = iot_instance_id  # type: str
         self.job_id = job_id  # type: str
-        self.rollout_config = rollout_config  # type: str
-        self.timeout_config = timeout_config  # type: str
+        self.rollout_config = rollout_config  # type: dict[str, any]
+        self.timeout_config = timeout_config  # type: dict[str, any]
 
     def validate(self):
         pass
@@ -47791,6 +54692,51 @@ class UpdateJobRequest(TeaModel):
             self.rollout_config = m.get('RolloutConfig')
         if m.get('TimeoutConfig') is not None:
             self.timeout_config = m.get('TimeoutConfig')
+        return self
+
+
+class UpdateJobShrinkRequest(TeaModel):
+    def __init__(self, description=None, iot_instance_id=None, job_id=None, rollout_config_shrink=None,
+                 timeout_config_shrink=None):
+        self.description = description  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.job_id = job_id  # type: str
+        self.rollout_config_shrink = rollout_config_shrink  # type: str
+        self.timeout_config_shrink = timeout_config_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateJobShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.rollout_config_shrink is not None:
+            result['RolloutConfig'] = self.rollout_config_shrink
+        if self.timeout_config_shrink is not None:
+            result['TimeoutConfig'] = self.timeout_config_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('RolloutConfig') is not None:
+            self.rollout_config_shrink = m.get('RolloutConfig')
+        if m.get('TimeoutConfig') is not None:
+            self.timeout_config_shrink = m.get('TimeoutConfig')
         return self
 
 
@@ -48901,11 +55847,494 @@ class UpdateSceneRuleResponse(TeaModel):
         return self
 
 
+class UpdateSchedulePeriodRequest(TeaModel):
+    def __init__(self, description=None, end_time=None, iot_instance_id=None, period_code=None,
+                 sound_code_content=None, start_time=None):
+        self.description = description  # type: str
+        self.end_time = end_time  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.period_code = period_code  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSchedulePeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.period_code is not None:
+            result['PeriodCode'] = self.period_code
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('PeriodCode') is not None:
+            self.period_code = m.get('PeriodCode')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class UpdateSchedulePeriodResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSchedulePeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateSchedulePeriodResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateSchedulePeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateSchedulePeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateSchedulePeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateSoundCodeRequest(TeaModel):
+    def __init__(self, duration=None, iot_instance_id=None, name=None, sound_code=None, sound_code_content=None):
+        self.duration = duration  # type: int
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.name = name  # type: str
+        self.sound_code = sound_code  # type: str
+        self.sound_code_content = sound_code_content  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        if self.sound_code_content is not None:
+            result['SoundCodeContent'] = self.sound_code_content
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        if m.get('SoundCodeContent') is not None:
+            self.sound_code_content = m.get('SoundCodeContent')
+        return self
+
+
+class UpdateSoundCodeResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateSoundCodeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateSoundCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateSoundCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateSoundCodeLabelRequest(TeaModel):
+    def __init__(self, iot_instance_id=None, label=None, sound_code=None):
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.label = label  # type: str
+        self.sound_code = sound_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeLabelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.sound_code is not None:
+            result['SoundCode'] = self.sound_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('SoundCode') is not None:
+            self.sound_code = m.get('SoundCode')
+        return self
+
+
+class UpdateSoundCodeLabelResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeLabelResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateSoundCodeLabelResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateSoundCodeLabelResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeLabelResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateSoundCodeLabelResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateSoundCodeScheduleRequest(TeaModel):
+    def __init__(self, description=None, end_date=None, end_time=None, iot_instance_id=None, name=None,
+                 schedule_code=None, start_date=None, start_time=None, status=None):
+        self.description = description  # type: str
+        self.end_date = end_date  # type: str
+        self.end_time = end_time  # type: str
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.name = name  # type: str
+        self.schedule_code = schedule_code  # type: str
+        self.start_date = start_date  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeScheduleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.schedule_code is not None:
+            result['ScheduleCode'] = self.schedule_code
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ScheduleCode') is not None:
+            self.schedule_code = m.get('ScheduleCode')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpdateSoundCodeScheduleResponseBody(TeaModel):
+    def __init__(self, code=None, error_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeScheduleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateSoundCodeScheduleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateSoundCodeScheduleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateSoundCodeScheduleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateSoundCodeScheduleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateSpeechRequest(TeaModel):
-    def __init__(self, iot_instance_id=None, project_code=None, speech_code=None, speech_rate=None, voice=None,
-                 volume=None):
+    def __init__(self, enable_sound_code=None, iot_instance_id=None, project_code=None, sound_code_config=None,
+                 speech_code=None, speech_rate=None, voice=None, volume=None):
+        self.enable_sound_code = enable_sound_code  # type: bool
         self.iot_instance_id = iot_instance_id  # type: str
         self.project_code = project_code  # type: str
+        self.sound_code_config = sound_code_config  # type: dict[str, any]
         self.speech_code = speech_code  # type: str
         self.speech_rate = speech_rate  # type: int
         self.voice = voice  # type: str
@@ -48920,10 +56349,14 @@ class UpdateSpeechRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.project_code is not None:
             result['ProjectCode'] = self.project_code
+        if self.sound_code_config is not None:
+            result['SoundCodeConfig'] = self.sound_code_config
         if self.speech_code is not None:
             result['SpeechCode'] = self.speech_code
         if self.speech_rate is not None:
@@ -48936,10 +56369,74 @@ class UpdateSpeechRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProjectCode') is not None:
             self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config = m.get('SoundCodeConfig')
+        if m.get('SpeechCode') is not None:
+            self.speech_code = m.get('SpeechCode')
+        if m.get('SpeechRate') is not None:
+            self.speech_rate = m.get('SpeechRate')
+        if m.get('Voice') is not None:
+            self.voice = m.get('Voice')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
+        return self
+
+
+class UpdateSpeechShrinkRequest(TeaModel):
+    def __init__(self, enable_sound_code=None, iot_instance_id=None, project_code=None,
+                 sound_code_config_shrink=None, speech_code=None, speech_rate=None, voice=None, volume=None):
+        self.enable_sound_code = enable_sound_code  # type: bool
+        self.iot_instance_id = iot_instance_id  # type: str
+        self.project_code = project_code  # type: str
+        self.sound_code_config_shrink = sound_code_config_shrink  # type: str
+        self.speech_code = speech_code  # type: str
+        self.speech_rate = speech_rate  # type: int
+        self.voice = voice  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSpeechShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_sound_code is not None:
+            result['EnableSoundCode'] = self.enable_sound_code
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
+        if self.project_code is not None:
+            result['ProjectCode'] = self.project_code
+        if self.sound_code_config_shrink is not None:
+            result['SoundCodeConfig'] = self.sound_code_config_shrink
+        if self.speech_code is not None:
+            result['SpeechCode'] = self.speech_code
+        if self.speech_rate is not None:
+            result['SpeechRate'] = self.speech_rate
+        if self.voice is not None:
+            result['Voice'] = self.voice
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableSoundCode') is not None:
+            self.enable_sound_code = m.get('EnableSoundCode')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProjectCode') is not None:
+            self.project_code = m.get('ProjectCode')
+        if m.get('SoundCodeConfig') is not None:
+            self.sound_code_config_shrink = m.get('SoundCodeConfig')
         if m.get('SpeechCode') is not None:
             self.speech_code = m.get('SpeechCode')
         if m.get('SpeechRate') is not None:
@@ -49310,112 +56807,6 @@ class UpdateThingModelResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = UpdateThingModelResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class UpdateThingModelValidationConfigRequest(TeaModel):
-    def __init__(self, iot_instance_id=None, product_key=None, validate_type=None):
-        self.iot_instance_id = iot_instance_id  # type: str
-        self.product_key = product_key  # type: str
-        self.validate_type = validate_type  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateThingModelValidationConfigRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.validate_type is not None:
-            result['ValidateType'] = self.validate_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('ValidateType') is not None:
-            self.validate_type = m.get('ValidateType')
-        return self
-
-
-class UpdateThingModelValidationConfigResponseBody(TeaModel):
-    def __init__(self, code=None, error_message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.error_message = error_message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateThingModelValidationConfigResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class UpdateThingModelValidationConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: UpdateThingModelValidationConfigResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(UpdateThingModelValidationConfigResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = UpdateThingModelValidationConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

@@ -111,6 +111,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_data_for_api_source_with_options(request, runtime)
 
+    def batch_add_data_for_api_source_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.BatchAddDataForApiSourceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.content_list):
+            request.content_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.content_list, 'ContentList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.content_list_shrink):
+            query['ContentList'] = request.content_list_shrink
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchAddDataForApiSource',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.BatchAddDataForApiSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_add_data_for_api_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_add_data_for_api_source_with_options(request, runtime)
+
     def batch_add_device_group_relations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -213,8 +249,15 @@ class Client(OpenApiClient):
 
     def batch_bind_devices_into_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.devices):
+            body['Devices'] = request.devices
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.devices
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='BatchBindDevicesIntoProject',
@@ -238,8 +281,15 @@ class Client(OpenApiClient):
 
     def batch_bind_products_into_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_keys):
+            body['ProductKeys'] = request.product_keys
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='BatchBindProductsIntoProject',
@@ -326,6 +376,74 @@ class Client(OpenApiClient):
     def batch_clear_edge_instance_device_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_clear_edge_instance_device_config_with_options(request, runtime)
+
+    def batch_create_sound_code_label_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        if not UtilClient.is_unset(request.total):
+            body['Total'] = request.total
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchCreateSoundCodeLabel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.BatchCreateSoundCodeLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_create_sound_code_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_create_sound_code_label_with_options(request, runtime)
+
+    def batch_create_sound_code_label_with_labels_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.labels):
+            body['Labels'] = request.labels
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchCreateSoundCodeLabelWithLabels',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.BatchCreateSoundCodeLabelWithLabelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_create_sound_code_label_with_labels(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_create_sound_code_label_with_labels_with_options(request, runtime)
 
     def batch_delete_device_group_relations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -887,8 +1005,15 @@ class Client(OpenApiClient):
 
     def batch_unbind_project_devices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.devices):
+            body['Devices'] = request.devices
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.devices
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='BatchUnbindProjectDevices',
@@ -912,8 +1037,15 @@ class Client(OpenApiClient):
 
     def batch_unbind_project_products_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_keys):
+            body['ProductKeys'] = request.product_keys
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='BatchUnbindProjectProducts',
@@ -1070,6 +1202,72 @@ class Client(OpenApiClient):
     def bind_gateway_to_edge_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.bind_gateway_to_edge_instance_with_options(request, runtime)
+
+    def bind_license_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_id_list):
+            query['IotIdList'] = request.iot_id_list
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.license_code):
+            query['LicenseCode'] = request.license_code
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindLicenseDevice',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.BindLicenseDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_license_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_license_device_with_options(request, runtime)
+
+    def bind_license_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.license_code):
+            query['LicenseCode'] = request.license_code
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindLicenseProduct',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.BindLicenseProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_license_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_license_product_with_options(request, runtime)
 
     def bind_role_to_edge_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1335,6 +1533,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.clear_edge_instance_driver_configs_with_options(request, runtime)
 
+    def close_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.tunnel_id):
+            query['TunnelId'] = request.tunnel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloseDeviceTunnel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CloseDeviceTunnelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def close_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.close_device_tunnel_with_options(request, runtime)
+
     def close_edge_instance_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1495,8 +1723,25 @@ class Client(OpenApiClient):
 
     def create_data_apiservice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_path):
+            body['ApiPath'] = request.api_path
+        if not UtilClient.is_unset(request.desc):
+            body['Desc'] = request.desc
+        if not UtilClient.is_unset(request.display_name):
+            body['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.origin_sql):
+            body['OriginSql'] = request.origin_sql
+        if not UtilClient.is_unset(request.request_param):
+            body['RequestParam'] = request.request_param
+        if not UtilClient.is_unset(request.response_param):
+            body['ResponseParam'] = request.response_param
+        if not UtilClient.is_unset(request.template_sql):
+            body['TemplateSql'] = request.template_sql
         req = open_api_models.OpenApiRequest(
-            body=request.api_path
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDataAPIService',
@@ -1518,10 +1763,57 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_data_apiservice_with_options(request, runtime)
 
+    def create_data_source_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.topic):
+            query['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSourceItem',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDataSourceItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_data_source_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_source_item_with_options(request, runtime)
+
     def create_device_distribute_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.source_instance_id):
+            body['SourceInstanceId'] = request.source_instance_id
+        if not UtilClient.is_unset(request.strategy):
+            body['Strategy'] = request.strategy
+        if not UtilClient.is_unset(request.target_aliyun_id):
+            body['TargetAliyunId'] = request.target_aliyun_id
+        if not UtilClient.is_unset(request.target_instance_config):
+            body['TargetInstanceConfig'] = request.target_instance_config
+        if not UtilClient.is_unset(request.target_uid):
+            body['TargetUid'] = request.target_uid
         req = open_api_models.OpenApiRequest(
-            body=request.device_name
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDeviceDistributeJob',
@@ -1542,6 +1834,40 @@ class Client(OpenApiClient):
     def create_device_distribute_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_device_distribute_job_with_options(request, runtime)
+
+    def create_device_dynamic_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dynamic_group_expression):
+            query['DynamicGroupExpression'] = request.dynamic_group_expression
+        if not UtilClient.is_unset(request.group_desc):
+            query['GroupDesc'] = request.group_desc
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDeviceDynamicGroup',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDeviceDynamicGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_device_dynamic_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_device_dynamic_group_with_options(request, runtime)
 
     def create_device_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1576,6 +1902,44 @@ class Client(OpenApiClient):
     def create_device_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_device_group_with_options(request, runtime)
+
+    def create_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.udi):
+            query['Udi'] = request.udi
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDeviceTunnel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDeviceTunnelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_device_tunnel_with_options(request, runtime)
 
     def create_edge_driver_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1845,8 +2209,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_edge_oss_pre_signed_address_with_options(request, runtime)
 
-    def create_job_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_job_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.CreateJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.job_file):
+            request.job_file_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_file, 'JobFile', 'json')
+        if not UtilClient.is_unset(tmp_req.rollout_config):
+            request.rollout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rollout_config, 'RolloutConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.target_config):
+            request.target_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target_config, 'TargetConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.timeout_config):
+            request.timeout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.timeout_config, 'TimeoutConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
@@ -1854,18 +2228,18 @@ class Client(OpenApiClient):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.job_document):
             query['JobDocument'] = request.job_document
-        if not UtilClient.is_unset(request.job_file):
-            query['JobFile'] = request.job_file
+        if not UtilClient.is_unset(request.job_file_shrink):
+            query['JobFile'] = request.job_file_shrink
         if not UtilClient.is_unset(request.job_name):
             query['JobName'] = request.job_name
-        if not UtilClient.is_unset(request.rollout_config):
-            query['RolloutConfig'] = request.rollout_config
+        if not UtilClient.is_unset(request.rollout_config_shrink):
+            query['RolloutConfig'] = request.rollout_config_shrink
         if not UtilClient.is_unset(request.scheduled_time):
             query['ScheduledTime'] = request.scheduled_time
-        if not UtilClient.is_unset(request.target_config):
-            query['TargetConfig'] = request.target_config
-        if not UtilClient.is_unset(request.timeout_config):
-            query['TimeoutConfig'] = request.timeout_config
+        if not UtilClient.is_unset(request.target_config_shrink):
+            query['TargetConfig'] = request.target_config_shrink
+        if not UtilClient.is_unset(request.timeout_config_shrink):
+            query['TimeoutConfig'] = request.timeout_config_shrink
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -1926,14 +2300,22 @@ class Client(OpenApiClient):
     def create_otadynamic_upgrade_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.download_protocol):
+            query['DownloadProtocol'] = request.download_protocol
         if not UtilClient.is_unset(request.dynamic_mode):
             query['DynamicMode'] = request.dynamic_mode
         if not UtilClient.is_unset(request.firmware_id):
             query['FirmwareId'] = request.firmware_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.maximum_per_minute):
             query['MaximumPerMinute'] = request.maximum_per_minute
+        if not UtilClient.is_unset(request.multi_module_mode):
+            query['MultiModuleMode'] = request.multi_module_mode
         if not UtilClient.is_unset(request.need_confirm):
             query['NeedConfirm'] = request.need_confirm
         if not UtilClient.is_unset(request.need_push):
@@ -1994,6 +2376,8 @@ class Client(OpenApiClient):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.module_name):
             query['ModuleName'] = request.module_name
+        if not UtilClient.is_unset(request.multi_files):
+            query['MultiFiles'] = request.multi_files
         if not UtilClient.is_unset(request.need_to_verify):
             query['NeedToVerify'] = request.need_to_verify
         if not UtilClient.is_unset(request.product_key):
@@ -2070,14 +2454,22 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dn_list_file_url):
             query['DnListFileUrl'] = request.dn_list_file_url
+        if not UtilClient.is_unset(request.download_protocol):
+            query['DownloadProtocol'] = request.download_protocol
         if not UtilClient.is_unset(request.firmware_id):
             query['FirmwareId'] = request.firmware_id
         if not UtilClient.is_unset(request.gray_percent):
             query['GrayPercent'] = request.gray_percent
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.maximum_per_minute):
             query['MaximumPerMinute'] = request.maximum_per_minute
+        if not UtilClient.is_unset(request.multi_module_mode):
+            query['MultiModuleMode'] = request.multi_module_mode
         if not UtilClient.is_unset(request.need_confirm):
             query['NeedConfirm'] = request.need_confirm
         if not UtilClient.is_unset(request.need_push):
@@ -2130,6 +2522,8 @@ class Client(OpenApiClient):
     def create_otaverify_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.download_protocol):
+            query['DownloadProtocol'] = request.download_protocol
         if not UtilClient.is_unset(request.firmware_id):
             query['FirmwareId'] = request.firmware_id
         if not UtilClient.is_unset(request.iot_instance_id):
@@ -2140,6 +2534,8 @@ class Client(OpenApiClient):
             query['NeedPush'] = request.need_push
         if not UtilClient.is_unset(request.product_key):
             query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.target_device_name):
             query['TargetDeviceName'] = request.target_device_name
         if not UtilClient.is_unset(request.timeout_in_minutes):
@@ -2411,38 +2807,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_rule_action_with_options(request, runtime)
 
-    def create_ruleng_distribute_job_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.product_key):
-            query['ProductKey'] = request.product_key
-        if not UtilClient.is_unset(request.source_instance_id):
-            query['SourceInstanceId'] = request.source_instance_id
-        if not UtilClient.is_unset(request.target_instance_id):
-            query['TargetInstanceId'] = request.target_instance_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateRulengDistributeJob',
-            version='2018-01-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            iot_20180120_models.CreateRulengDistributeJobResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_ruleng_distribute_job(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_ruleng_distribute_job_with_options(request, runtime)
-
     def create_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2477,10 +2841,181 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_scene_rule_with_options(request, runtime)
 
-    def create_speech_with_options(self, request, runtime):
+    def create_schedule_period_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        if not UtilClient.is_unset(request.sound_code_content):
+            body['SoundCodeContent'] = request.sound_code_content
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=request.biz_code
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSchedulePeriod',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSchedulePeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_schedule_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_schedule_period_with_options(request, runtime)
+
+    def create_sound_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.duration):
+            body['Duration'] = request.duration
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.open_type):
+            body['OpenType'] = request.open_type
+        if not UtilClient.is_unset(request.sound_code_content):
+            body['SoundCodeContent'] = request.sound_code_content
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSoundCode',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSoundCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_sound_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_sound_code_with_options(request, runtime)
+
+    def create_sound_code_label_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.label):
+            body['Label'] = request.label
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSoundCodeLabel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSoundCodeLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_sound_code_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_sound_code_label_with_options(request, runtime)
+
+    def create_sound_code_schedule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.open_type):
+            body['OpenType'] = request.open_type
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSoundCodeSchedule',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSoundCodeScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_sound_code_schedule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_sound_code_schedule_with_options(request, runtime)
+
+    def create_speech_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.CreateSpeechShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.sound_code_config):
+            request.sound_code_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sound_code_config, 'SoundCodeConfig', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.biz_code):
+            body['BizCode'] = request.biz_code
+        if not UtilClient.is_unset(request.enable_sound_code):
+            body['EnableSoundCode'] = request.enable_sound_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        if not UtilClient.is_unset(request.sound_code_config_shrink):
+            body['SoundCodeConfig'] = request.sound_code_config_shrink
+        if not UtilClient.is_unset(request.speech_rate):
+            body['SpeechRate'] = request.speech_rate
+        if not UtilClient.is_unset(request.speech_type):
+            body['SpeechType'] = request.speech_type
+        if not UtilClient.is_unset(request.text):
+            body['Text'] = request.text
+        if not UtilClient.is_unset(request.voice):
+            body['Voice'] = request.voice
+        if not UtilClient.is_unset(request.volume):
+            body['Volume'] = request.volume
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateSpeech',
@@ -2504,8 +3039,19 @@ class Client(OpenApiClient):
 
     def create_studio_app_domain_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.host):
+            body['Host'] = request.host
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.protocol):
+            body['Protocol'] = request.protocol
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateStudioAppDomainOpen',
@@ -2685,6 +3231,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_topic_route_table_with_options(request, runtime)
 
+    def delete_client_ids_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteClientIds',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteClientIdsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_client_ids(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_client_ids_with_options(request, runtime)
+
     def delete_consumer_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2809,6 +3385,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_device_distribute_job_with_options(request, runtime)
 
+    def delete_device_dynamic_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDeviceDynamicGroup',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceDynamicGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_device_dynamic_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_device_dynamic_group_with_options(request, runtime)
+
     def delete_device_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2910,6 +3516,68 @@ class Client(OpenApiClient):
     def delete_device_prop(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_device_prop_with_options(request, runtime)
+
+    def delete_device_speech_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.device_speech_list):
+            body['DeviceSpeechList'] = request.device_speech_list
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDeviceSpeech',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceSpeechResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_device_speech(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_device_speech_with_options(request, runtime)
+
+    def delete_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.tunnel_id):
+            query['TunnelId'] = request.tunnel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDeviceTunnel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceTunnelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_device_tunnel_with_options(request, runtime)
 
     def delete_edge_driver_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3309,10 +3977,135 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_scene_rule_with_options(request, runtime)
 
+    def delete_schedule_period_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.period_code):
+            body['PeriodCode'] = request.period_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteSchedulePeriod',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSchedulePeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_schedule_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_schedule_period_with_options(request, runtime)
+
+    def delete_sound_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.sound_code):
+            body['SoundCode'] = request.sound_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteSoundCode',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSoundCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_sound_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_sound_code_with_options(request, runtime)
+
+    def delete_sound_code_label_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.sound_code):
+            body['SoundCode'] = request.sound_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteSoundCodeLabel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSoundCodeLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_sound_code_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_sound_code_label_with_options(request, runtime)
+
+    def delete_sound_code_schedule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteSoundCodeSchedule',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSoundCodeScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_sound_code_schedule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_sound_code_schedule_with_options(request, runtime)
+
     def delete_speech_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.speech_code_list):
+            body['SpeechCodeList'] = request.speech_code_list
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteSpeech',
@@ -3336,8 +4129,17 @@ class Client(OpenApiClient):
 
     def delete_studio_app_domain_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.domain_id):
+            body['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteStudioAppDomainOpen',
@@ -3813,8 +4615,13 @@ class Client(OpenApiClient):
 
     def get_data_apiservice_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_srn):
+            body['ApiSrn'] = request.api_srn
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
         req = open_api_models.OpenApiRequest(
-            body=request.api_srn
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataAPIServiceDetail',
@@ -4156,36 +4963,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_lora_nodes_task_with_options(request, runtime)
 
-    def get_nodes_adding_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.iot_instance_id):
-            query['IotInstanceId'] = request.iot_instance_id
-        if not UtilClient.is_unset(request.task_id):
-            query['TaskId'] = request.task_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetNodesAddingTask',
-            version='2018-01-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            iot_20180120_models.GetNodesAddingTaskResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_nodes_adding_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_nodes_adding_task_with_options(request, runtime)
-
     def get_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4276,6 +5053,96 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_scene_rule_with_options(request, runtime)
 
+    def get_sound_code_audio_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.sound_code_list):
+            body['SoundCodeList'] = request.sound_code_list
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetSoundCodeAudio',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetSoundCodeAudioResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_sound_code_audio(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_sound_code_audio_with_options(request, runtime)
+
+    def get_sound_code_schedule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetSoundCodeSchedule',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetSoundCodeScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_sound_code_schedule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_sound_code_schedule_with_options(request, runtime)
+
+    def get_speech_device_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetSpeechDeviceDetail',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetSpeechDeviceDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_speech_device_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_speech_device_detail_with_options(request, runtime)
+
     def get_speech_voice_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -4300,8 +5167,15 @@ class Client(OpenApiClient):
 
     def get_studio_app_token_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetStudioAppTokenOpen',
@@ -4497,6 +5371,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_thing_topo_with_options(request, runtime)
 
+    def gis_query_device_location_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.thing_list):
+            query['ThingList'] = request.thing_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GisQueryDeviceLocation',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GisQueryDeviceLocationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def gis_query_device_location(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.gis_query_device_location_with_options(request, runtime)
+
+    def gis_search_device_trace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.map_match):
+            query['MapMatch'] = request.map_match
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GisSearchDeviceTrace',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GisSearchDeviceTraceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def gis_search_device_trace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.gis_search_device_trace_with_options(request, runtime)
+
     def import_thing_model_tsl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4539,8 +5481,15 @@ class Client(OpenApiClient):
 
     def invoke_data_apiservice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_srn):
+            body['ApiSrn'] = request.api_srn
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.param):
+            body['Param'] = request.param
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_array(request.api_srn)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='InvokeDataAPIService',
@@ -4674,6 +5623,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_analytics_data_with_options(request, runtime)
 
+    def list_data_source_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page):
+            query['Page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_name):
+            query['SearchName'] = request.search_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSourceItem',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.ListDataSourceItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_data_source_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_source_item_with_options(request, runtime)
+
     def list_device_distribute_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4683,13 +5668,18 @@ class Client(OpenApiClient):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.target_uid):
             query['TargetUid'] = request.target_uid
+        body = {}
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.job_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDeviceDistributeJob',
@@ -5197,11 +6187,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_rule_actions_with_options(request, runtime)
 
-    def list_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def list_task_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.ListTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.device):
+            request.device_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.device, 'Device', 'json')
         query = {}
-        if not UtilClient.is_unset(request.device):
-            query['Device'] = request.device
+        if not UtilClient.is_unset(request.device_shrink):
+            query['Device'] = request.device_shrink
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.job_id):
@@ -5234,48 +6228,6 @@ class Client(OpenApiClient):
     def list_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_task_with_options(request, runtime)
-
-    def list_task_by_page_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.device):
-            query['Device'] = request.device
-        if not UtilClient.is_unset(request.device_name):
-            query['DeviceName'] = request.device_name
-        if not UtilClient.is_unset(request.iot_instance_id):
-            query['IotInstanceId'] = request.iot_instance_id
-        if not UtilClient.is_unset(request.job_id):
-            query['JobId'] = request.job_id
-        if not UtilClient.is_unset(request.job_name):
-            query['JobName'] = request.job_name
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.status):
-            query['Status'] = request.status
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListTaskByPage',
-            version='2018-01-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            iot_20180120_models.ListTaskByPageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_task_by_page(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_task_by_page_with_options(request, runtime)
 
     def list_thing_model_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5399,10 +6351,55 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.open_iot_service_with_options(request, runtime)
 
+    def package_sound_code_label_batch_audio_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.batch_code):
+            body['BatchCode'] = request.batch_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PackageSoundCodeLabelBatchAudio',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.PackageSoundCodeLabelBatchAudioResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def package_sound_code_label_batch_audio(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.package_sound_code_label_batch_audio_with_options(request, runtime)
+
     def print_by_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.history_print_topic):
+            body['HistoryPrintTopic'] = request.history_print_topic
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.params_json_string):
+            body['ParamsJsonString'] = request.params_json_string
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.template_biz_code):
+            body['TemplateBizCode'] = request.template_biz_code
         req = open_api_models.OpenApiRequest(
-            body=request.device_name
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PrintByTemplate',
@@ -5502,8 +6499,17 @@ class Client(OpenApiClient):
 
     def publish_studio_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PublishStudioApp',
@@ -5566,9 +6572,24 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        body = {}
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        if not UtilClient.is_unset(request.push_mode):
+            body['PushMode'] = request.push_mode
+        if not UtilClient.is_unset(request.speech_code_list):
+            body['SpeechCodeList'] = request.speech_code_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.device_name
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PushSpeech',
@@ -5589,46 +6610,6 @@ class Client(OpenApiClient):
     def push_speech(self, request):
         runtime = util_models.RuntimeOptions()
         return self.push_speech_with_options(request, runtime)
-
-    def query_app_device_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_key):
-            query['AppKey'] = request.app_key
-        if not UtilClient.is_unset(request.category_key_list):
-            query['CategoryKeyList'] = request.category_key_list
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.iot_instance_id):
-            query['IotInstanceId'] = request.iot_instance_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.product_key_list):
-            query['ProductKeyList'] = request.product_key_list
-        if not UtilClient.is_unset(request.tag_list):
-            query['TagList'] = request.tag_list
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryAppDeviceList',
-            version='2018-01-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            iot_20180120_models.QueryAppDeviceListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_app_device_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_app_device_list_with_options(request, runtime)
 
     def query_batch_register_device_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5691,6 +6672,36 @@ class Client(OpenApiClient):
     def query_cert_url_by_apply_id(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_cert_url_by_apply_id_with_options(request, runtime)
+
+    def query_client_ids_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryClientIds',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryClientIdsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_client_ids(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_client_ids_with_options(request, runtime)
 
     def query_consumer_group_by_group_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6317,6 +7328,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         req = open_api_models.OpenApiRequest(
@@ -6349,6 +7362,8 @@ class Client(OpenApiClient):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_types):
+            query['GroupTypes'] = request.group_types
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.page_size):
@@ -6383,6 +7398,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         req = open_api_models.OpenApiRequest(
@@ -6856,6 +7873,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_device_service_data_with_options(request, runtime)
 
+    def query_device_speech_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceSpeech',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceSpeechResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_device_speech(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_speech_with_options(request, runtime)
+
     def query_device_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6887,6 +7938,80 @@ class Client(OpenApiClient):
     def query_device_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_device_statistics_with_options(request, runtime)
+
+    def query_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.tunnel_id):
+            query['TunnelId'] = request.tunnel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceTunnel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceTunnelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_tunnel_with_options(request, runtime)
+
+    def query_dynamic_group_devices_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.fuzzy_name):
+            query['FuzzyName'] = request.fuzzy_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDynamicGroupDevices',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDynamicGroupDevicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_dynamic_group_devices(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_dynamic_group_devices_with_options(request, runtime)
 
     def query_edge_driver_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7644,6 +8769,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_scene_rule_with_options(request, runtime)
 
+    def query_schedule_period_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySchedulePeriodList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySchedulePeriodListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_schedule_period_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_schedule_period_list_with_options(request, runtime)
+
     def query_solution_device_group_page_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -7680,10 +8839,177 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_solution_device_group_page_with_options(request, runtime)
 
+    def query_sound_code_label_batch_failed_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.batch_code):
+            body['BatchCode'] = request.batch_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySoundCodeLabelBatchFailedResult',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySoundCodeLabelBatchFailedResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_sound_code_label_batch_failed_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_sound_code_label_batch_failed_result_with_options(request, runtime)
+
+    def query_sound_code_label_batch_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySoundCodeLabelBatchList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySoundCodeLabelBatchListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_sound_code_label_batch_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_sound_code_label_batch_list_with_options(request, runtime)
+
+    def query_sound_code_label_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySoundCodeLabelList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySoundCodeLabelListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_sound_code_label_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_sound_code_label_list_with_options(request, runtime)
+
+    def query_sound_code_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySoundCodeList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySoundCodeListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_sound_code_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_sound_code_list_with_options(request, runtime)
+
+    def query_sound_code_schedule_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySoundCodeScheduleList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySoundCodeScheduleListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_sound_code_schedule_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_sound_code_schedule_list_with_options(request, runtime)
+
     def query_speech_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.speech_code):
+            body['SpeechCode'] = request.speech_code
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QuerySpeech',
@@ -7705,10 +9031,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_speech_with_options(request, runtime)
 
+    def query_speech_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.available_space):
+            body['AvailableSpace'] = request.available_space
+        if not UtilClient.is_unset(request.available_space_scope):
+            body['AvailableSpaceScope'] = request.available_space_scope
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySpeechDevice',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySpeechDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_speech_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_speech_device_with_options(request, runtime)
+
     def query_speech_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QuerySpeechList',
@@ -7735,9 +9112,22 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.job_code):
             query['JobCode'] = request.job_code
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        if not UtilClient.is_unset(request.push_mode):
+            body['PushMode'] = request.push_mode
+        if not UtilClient.is_unset(request.status_list):
+            body['StatusList'] = request.status_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QuerySpeechPushJob',
@@ -7761,8 +9151,21 @@ class Client(OpenApiClient):
 
     def query_speech_push_job_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_code):
+            body['JobCode'] = request.job_code
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=request.device_name
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QuerySpeechPushJobDevice',
@@ -7786,8 +9189,17 @@ class Client(OpenApiClient):
 
     def query_speech_push_job_speech_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_code):
+            body['JobCode'] = request.job_code
+        if not UtilClient.is_unset(request.page_id):
+            body['PageId'] = request.page_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QuerySpeechPushJobSpeech',
@@ -7811,8 +9223,15 @@ class Client(OpenApiClient):
 
     def query_studio_app_domain_list_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QueryStudioAppDomainListOpen',
@@ -7836,8 +9255,21 @@ class Client(OpenApiClient):
 
     def query_studio_app_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.fuzzy_name):
+            body['FuzzyName'] = request.fuzzy_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_no):
+            body['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.types):
+            body['Types'] = request.types
         req = open_api_models.OpenApiRequest(
-            body=request.fuzzy_name
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QueryStudioAppList',
@@ -7861,8 +9293,21 @@ class Client(OpenApiClient):
 
     def query_studio_app_page_list_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.is_release):
+            body['IsRelease'] = request.is_release
+        if not UtilClient.is_unset(request.page_no):
+            body['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QueryStudioAppPageListOpen',
@@ -7886,8 +9331,17 @@ class Client(OpenApiClient):
 
     def query_studio_project_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.page_no):
+            body['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QueryStudioProjectList',
@@ -8283,6 +9737,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.r_rpc_with_options(request, runtime)
 
+    def recognize_car_num_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RecognizeCarNum',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.RecognizeCarNumResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_car_num(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_car_num_with_options(request, runtime)
+
+    def recognize_picture_general_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RecognizePictureGeneral',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.RecognizePictureGeneralResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_picture_general(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_picture_general_with_options(request, runtime)
+
     def refresh_device_tunnel_share_password_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8317,8 +9827,15 @@ class Client(OpenApiClient):
 
     def refresh_studio_app_token_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RefreshStudioAppTokenOpen',
@@ -8608,6 +10125,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.reset_thing_with_options(request, runtime)
 
+    def retry_sound_code_label_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.batch_code):
+            body['BatchCode'] = request.batch_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RetrySoundCodeLabelBatch',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.RetrySoundCodeLabelBatchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_sound_code_label_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_sound_code_label_batch_with_options(request, runtime)
+
+    def reupgrade_otatask_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReupgradeOTATask',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.ReupgradeOTATaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reupgrade_otatask(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reupgrade_otatask_with_options(request, runtime)
+
     def save_device_prop_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8687,6 +10266,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.tag_string):
@@ -8852,8 +10433,13 @@ class Client(OpenApiClient):
 
     def set_studio_project_cooperation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SetStudioProjectCooperation',
@@ -8877,8 +10463,17 @@ class Client(OpenApiClient):
 
     def setup_studio_app_auth_mode_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.auth_mode):
+            body['AuthMode'] = request.auth_mode
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=request.app_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SetupStudioAppAuthModeOpen',
@@ -8902,8 +10497,23 @@ class Client(OpenApiClient):
 
     def speech_by_combination_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.combination_list):
+            body['CombinationList'] = request.combination_list
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.speech_id):
+            body['SpeechId'] = request.speech_id
         req = open_api_models.OpenApiRequest(
-            body=request.combination_list
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SpeechByCombination',
@@ -8924,6 +10534,52 @@ class Client(OpenApiClient):
     def speech_by_combination(self, request):
         runtime = util_models.RuntimeOptions()
         return self.speech_by_combination_with_options(request, runtime)
+
+    def speech_by_synthesis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.speech_id):
+            body['SpeechId'] = request.speech_id
+        if not UtilClient.is_unset(request.speech_rate):
+            body['SpeechRate'] = request.speech_rate
+        if not UtilClient.is_unset(request.text):
+            body['Text'] = request.text
+        if not UtilClient.is_unset(request.voice):
+            body['Voice'] = request.voice
+        if not UtilClient.is_unset(request.volume):
+            body['Volume'] = request.volume
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SpeechBySynthesis',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.SpeechBySynthesisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def speech_by_synthesis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.speech_by_synthesis_with_options(request, runtime)
 
     def start_cpu_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -9017,10 +10673,59 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.stop_rule_with_options(request, runtime)
 
+    def subscribe_topic_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.topic):
+            query['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubscribeTopic',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.SubscribeTopicResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def subscribe_topic(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.subscribe_topic_with_options(request, runtime)
+
     def sync_speech_by_combination_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.combination_list):
+            body['CombinationList'] = request.combination_list
+        if not UtilClient.is_unset(request.device_name):
+            body['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            body['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.speech_id):
+            body['SpeechId'] = request.speech_id
         req = open_api_models.OpenApiRequest(
-            body=request.combination_list
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SyncSpeechByCombination',
@@ -9042,10 +10747,35 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.sync_speech_by_combination_with_options(request, runtime)
 
-    def test_speech_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def test_speech_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.TestSpeechShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.sound_code_config):
+            request.sound_code_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sound_code_config, 'SoundCodeConfig', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.audio_format):
+            body['AudioFormat'] = request.audio_format
+        if not UtilClient.is_unset(request.enable_sound_code):
+            body['EnableSoundCode'] = request.enable_sound_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        if not UtilClient.is_unset(request.sound_code_config_shrink):
+            body['SoundCodeConfig'] = request.sound_code_config_shrink
+        if not UtilClient.is_unset(request.speech_rate):
+            body['SpeechRate'] = request.speech_rate
+        if not UtilClient.is_unset(request.speech_type):
+            body['SpeechType'] = request.speech_type
+        if not UtilClient.is_unset(request.text):
+            body['Text'] = request.text
+        if not UtilClient.is_unset(request.voice):
+            body['Voice'] = request.voice
+        if not UtilClient.is_unset(request.volume):
+            body['Volume'] = request.volume
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='TestSpeech',
@@ -9066,6 +10796,38 @@ class Client(OpenApiClient):
     def test_speech(self, request):
         runtime = util_models.RuntimeOptions()
         return self.test_speech_with_options(request, runtime)
+
+    def transform_client_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_id):
+            query['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TransformClientId',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.TransformClientIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def transform_client_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.transform_client_id_with_options(request, runtime)
 
     def trigger_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -9162,6 +10924,38 @@ class Client(OpenApiClient):
     def unbind_driver_from_edge_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unbind_driver_from_edge_instance_with_options(request, runtime)
+
+    def unbind_license_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.license_code):
+            query['LicenseCode'] = request.license_code
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindLicenseProduct',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UnbindLicenseProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unbind_license_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.unbind_license_product_with_options(request, runtime)
 
     def unbind_role_from_edge_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -9264,6 +11058,8 @@ class Client(OpenApiClient):
             query['GroupDesc'] = request.group_desc
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
         if not UtilClient.is_unset(request.iot_instance_id):
             query['IotInstanceId'] = request.iot_instance_id
         req = open_api_models.OpenApiRequest(
@@ -9493,8 +11289,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_edge_instance_message_routing_with_options(request, runtime)
 
-    def update_job_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def update_job_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.UpdateJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.rollout_config):
+            request.rollout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rollout_config, 'RolloutConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.timeout_config):
+            request.timeout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.timeout_config, 'TimeoutConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
@@ -9502,10 +11304,10 @@ class Client(OpenApiClient):
             query['IotInstanceId'] = request.iot_instance_id
         if not UtilClient.is_unset(request.job_id):
             query['JobId'] = request.job_id
-        if not UtilClient.is_unset(request.rollout_config):
-            query['RolloutConfig'] = request.rollout_config
-        if not UtilClient.is_unset(request.timeout_config):
-            query['TimeoutConfig'] = request.timeout_config
+        if not UtilClient.is_unset(request.rollout_config_shrink):
+            query['RolloutConfig'] = request.rollout_config_shrink
+        if not UtilClient.is_unset(request.timeout_config_shrink):
+            query['TimeoutConfig'] = request.timeout_config_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -9817,10 +11619,181 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_scene_rule_with_options(request, runtime)
 
-    def update_speech_with_options(self, request, runtime):
+    def update_schedule_period_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.period_code):
+            body['PeriodCode'] = request.period_code
+        if not UtilClient.is_unset(request.sound_code_content):
+            body['SoundCodeContent'] = request.sound_code_content
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=request.iot_instance_id
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSchedulePeriod',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSchedulePeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_schedule_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_schedule_period_with_options(request, runtime)
+
+    def update_sound_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.duration):
+            body['Duration'] = request.duration
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.sound_code):
+            body['SoundCode'] = request.sound_code
+        if not UtilClient.is_unset(request.sound_code_content):
+            body['SoundCodeContent'] = request.sound_code_content
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSoundCode',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSoundCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_sound_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_sound_code_with_options(request, runtime)
+
+    def update_sound_code_label_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.label):
+            body['Label'] = request.label
+        if not UtilClient.is_unset(request.sound_code):
+            body['SoundCode'] = request.sound_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSoundCodeLabel',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSoundCodeLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_sound_code_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_sound_code_label_with_options(request, runtime)
+
+    def update_sound_code_schedule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.schedule_code):
+            body['ScheduleCode'] = request.schedule_code
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSoundCodeSchedule',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSoundCodeScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_sound_code_schedule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_sound_code_schedule_with_options(request, runtime)
+
+    def update_speech_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = iot_20180120_models.UpdateSpeechShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.sound_code_config):
+            request.sound_code_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sound_code_config, 'SoundCodeConfig', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.enable_sound_code):
+            body['EnableSoundCode'] = request.enable_sound_code
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.project_code):
+            body['ProjectCode'] = request.project_code
+        if not UtilClient.is_unset(request.sound_code_config_shrink):
+            body['SoundCodeConfig'] = request.sound_code_config_shrink
+        if not UtilClient.is_unset(request.speech_code):
+            body['SpeechCode'] = request.speech_code
+        if not UtilClient.is_unset(request.speech_rate):
+            body['SpeechRate'] = request.speech_rate
+        if not UtilClient.is_unset(request.voice):
+            body['Voice'] = request.voice
+        if not UtilClient.is_unset(request.volume):
+            body['Volume'] = request.volume
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateSpeech',
@@ -9935,38 +11908,6 @@ class Client(OpenApiClient):
     def update_thing_model(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_thing_model_with_options(request, runtime)
-
-    def update_thing_model_validation_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.iot_instance_id):
-            query['IotInstanceId'] = request.iot_instance_id
-        if not UtilClient.is_unset(request.product_key):
-            query['ProductKey'] = request.product_key
-        if not UtilClient.is_unset(request.validate_type):
-            query['ValidateType'] = request.validate_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateThingModelValidationConfig',
-            version='2018-01-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            iot_20180120_models.UpdateThingModelValidationConfigResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_thing_model_validation_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_thing_model_validation_config_with_options(request, runtime)
 
     def update_thing_script_with_options(self, request, runtime):
         UtilClient.validate_model(request)
