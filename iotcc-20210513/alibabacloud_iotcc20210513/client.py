@@ -448,6 +448,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_io_tcloud_connector_with_options(request, runtime)
 
+    def create_io_tcloud_connector_backhaul_route_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateIoTCloudConnectorBackhaulRoute',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.CreateIoTCloudConnectorBackhaulRouteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_io_tcloud_connector_backhaul_route(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_io_tcloud_connector_backhaul_route_with_options(request, runtime)
+
     def create_io_tcloud_connector_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -813,6 +847,40 @@ class Client(OpenApiClient):
     def delete_io_tcloud_connector_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_io_tcloud_connector_group_with_options(request, runtime)
+
+    def delete_io_tcloud_connetor_backhaul_route_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteIoTCloudConnetorBackhaulRoute',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteIoTCloudConnetorBackhaulRouteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_io_tcloud_connetor_backhaul_route(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_io_tcloud_connetor_backhaul_route_with_options(request, runtime)
 
     def delete_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1735,6 +1803,40 @@ class Client(OpenApiClient):
     def list_io_tcloud_connectors(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_io_tcloud_connectors_with_options(request, runtime)
+
+    def list_io_tcoud_connector_backhaul_route_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListIoTCoudConnectorBackhaulRoute',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListIoTCoudConnectorBackhaulRouteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_io_tcoud_connector_backhaul_route(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_io_tcoud_connector_backhaul_route_with_options(request, runtime)
 
     def list_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
