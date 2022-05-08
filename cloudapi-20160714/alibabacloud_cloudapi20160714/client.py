@@ -4859,6 +4859,8 @@ class Client(OpenApiClient):
             query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ssl_verify_depth):
+            query['SslVerifyDepth'] = request.ssl_verify_depth
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
