@@ -629,6 +629,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_oss_policy_with_options(request, runtime)
 
+    def get_pack_scene_task_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPackSceneTaskStatus',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.GetPackSceneTaskStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_pack_scene_task_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_pack_scene_task_status_with_options(request, runtime)
+
     def get_rectify_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -684,6 +714,34 @@ class Client(OpenApiClient):
     def get_scene_build_task_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_scene_build_task_status_with_options(request, runtime)
+
+    def get_scene_pack_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetScenePackUrl',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.GetScenePackUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_scene_pack_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_scene_pack_url_with_options(request, runtime)
 
     def get_scene_preview_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1082,6 +1140,36 @@ class Client(OpenApiClient):
     def optimize_right_angle(self, request):
         runtime = util_models.RuntimeOptions()
         return self.optimize_right_angle_with_options(request, runtime)
+
+    def pack_scene_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PackScene',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.PackSceneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def pack_scene(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.pack_scene_with_options(request, runtime)
 
     def pred_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
