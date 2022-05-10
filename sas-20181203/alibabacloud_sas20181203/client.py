@@ -732,6 +732,8 @@ class Client(OpenApiClient):
             query['From'] = request.from_
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.levels):
@@ -4036,6 +4038,8 @@ class Client(OpenApiClient):
             query['From'] = request.from_
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.levels):
@@ -6257,6 +6261,124 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.pause_client_with_options(request, runtime)
 
+    def public_create_image_scan_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.digests):
+            query['Digests'] = request.digests
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.region_ids):
+            query['RegionIds'] = request.region_ids
+        if not UtilClient.is_unset(request.registry_types):
+            query['RegistryTypes'] = request.registry_types
+        if not UtilClient.is_unset(request.repo_ids):
+            query['RepoIds'] = request.repo_ids
+        if not UtilClient.is_unset(request.repo_names):
+            query['RepoNames'] = request.repo_names
+        if not UtilClient.is_unset(request.repo_namespaces):
+            query['RepoNamespaces'] = request.repo_namespaces
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PublicCreateImageScanTask',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.PublicCreateImageScanTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def public_create_image_scan_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.public_create_image_scan_task_with_options(request, runtime)
+
+    def public_pre_check_image_scan_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.digests):
+            query['Digests'] = request.digests
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.region_ids):
+            query['RegionIds'] = request.region_ids
+        if not UtilClient.is_unset(request.registry_types):
+            query['RegistryTypes'] = request.registry_types
+        if not UtilClient.is_unset(request.repo_ids):
+            query['RepoIds'] = request.repo_ids
+        if not UtilClient.is_unset(request.repo_names):
+            query['RepoNames'] = request.repo_names
+        if not UtilClient.is_unset(request.repo_namespaces):
+            query['RepoNamespaces'] = request.repo_namespaces
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PublicPreCheckImageScanTask',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.PublicPreCheckImageScanTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def public_pre_check_image_scan_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.public_pre_check_image_scan_task_with_options(request, runtime)
+
+    def public_sync_and_create_image_scan_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.images):
+            query['Images'] = request.images
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PublicSyncAndCreateImageScanTask',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.PublicSyncAndCreateImageScanTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def public_sync_and_create_image_scan_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.public_sync_and_create_image_scan_task_with_options(request, runtime)
+
     def query_group_id_by_group_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6301,8 +6423,6 @@ class Client(OpenApiClient):
             body['From'] = request.from_
         if not UtilClient.is_unset(request.lang):
             body['Lang'] = request.lang
-        if not UtilClient.is_unset(request.max_id):
-            body['MaxId'] = request.max_id
         if not UtilClient.is_unset(request.page_size):
             body['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.remark):
@@ -6482,52 +6602,6 @@ class Client(OpenApiClient):
     def start_baseline_security_check(self, request):
         runtime = util_models.RuntimeOptions()
         return self.start_baseline_security_check_with_options(request, runtime)
-
-    def start_image_vul_scan_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.image_digest):
-            query['ImageDigest'] = request.image_digest
-        if not UtilClient.is_unset(request.image_layer):
-            query['ImageLayer'] = request.image_layer
-        if not UtilClient.is_unset(request.image_tag):
-            query['ImageTag'] = request.image_tag
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.registry_types):
-            query['RegistryTypes'] = request.registry_types
-        if not UtilClient.is_unset(request.rep_name):
-            query['RepName'] = request.rep_name
-        if not UtilClient.is_unset(request.repo_id):
-            query['RepoId'] = request.repo_id
-        if not UtilClient.is_unset(request.repo_instance_id):
-            query['RepoInstanceId'] = request.repo_instance_id
-        if not UtilClient.is_unset(request.repo_namespace):
-            query['RepoNamespace'] = request.repo_namespace
-        if not UtilClient.is_unset(request.repo_region_id):
-            query['RepoRegionId'] = request.repo_region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='StartImageVulScan',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.StartImageVulScanResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def start_image_vul_scan(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.start_image_vul_scan_with_options(request, runtime)
 
     def start_virus_scan_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
