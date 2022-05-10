@@ -2726,7 +2726,7 @@ class GetPackSceneTaskStatusRequest(TeaModel):
 class GetPackSceneTaskStatusResponseBodyData(TeaModel):
     def __init__(self, progress=None, status=None):
         # 任务进度
-        self.progress = progress  # type: str
+        self.progress = progress  # type: long
         # 任务状态
         self.status = status  # type: str
 
@@ -3120,7 +3120,7 @@ class GetScenePackUrlResponseBodyData(TeaModel):
         # 打包文件地址
         self.url = url  # type: str
         # 是否有效
-        self.valid = valid  # type: str
+        self.valid = valid  # type: bool
 
     def validate(self):
         pass
