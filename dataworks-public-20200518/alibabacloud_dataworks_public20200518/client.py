@@ -5477,6 +5477,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_meta_dbwith_options(request, runtime)
 
+    def list_migrations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.migration_type):
+            body['MigrationType'] = request.migration_type
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListMigrations',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListMigrationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_migrations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_migrations_with_options(request, runtime)
+
     def list_node_iowith_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
