@@ -834,11 +834,11 @@ class Client(OpenApiClient):
 
     def modify_pts_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = {}
+        body = {}
         if not UtilClient.is_unset(request.scene):
-            query['Scene'] = request.scene
+            body['Scene'] = request.scene
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ModifyPtsScene',
