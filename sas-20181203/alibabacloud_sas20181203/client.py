@@ -1620,6 +1620,8 @@ class Client(OpenApiClient):
     def describe_emg_vul_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.check_type):
+            query['CheckType'] = request.check_type
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.lang):

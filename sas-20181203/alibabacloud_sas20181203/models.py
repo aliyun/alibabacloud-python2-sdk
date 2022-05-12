@@ -7582,7 +7582,10 @@ class DescribeDomainListResponse(TeaModel):
 
 
 class DescribeEmgVulItemRequest(TeaModel):
-    def __init__(self, current_page=None, lang=None, page_size=None, risk_status=None, scan_type=None, vul_name=None):
+    def __init__(self, check_type=None, current_page=None, lang=None, page_size=None, risk_status=None,
+                 scan_type=None, vul_name=None):
+        # 检测方式
+        self.check_type = check_type  # type: int
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
         self.page_size = page_size  # type: int
@@ -7599,6 +7602,8 @@ class DescribeEmgVulItemRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.check_type is not None:
+            result['CheckType'] = self.check_type
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.lang is not None:
@@ -7615,6 +7620,8 @@ class DescribeEmgVulItemRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CheckType') is not None:
+            self.check_type = m.get('CheckType')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('Lang') is not None:
@@ -7631,9 +7638,10 @@ class DescribeEmgVulItemRequest(TeaModel):
 
 
 class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
-    def __init__(self, alias_name=None, gmt_last_check=None, gmt_publish=None, name=None, pending_count=None,
-                 progress=None, status=None, type=None):
+    def __init__(self, alias_name=None, check_type=None, gmt_last_check=None, gmt_publish=None, name=None,
+                 pending_count=None, progress=None, status=None, type=None):
         self.alias_name = alias_name  # type: str
+        self.check_type = check_type  # type: int
         self.gmt_last_check = gmt_last_check  # type: long
         self.gmt_publish = gmt_publish  # type: long
         self.name = name  # type: str
@@ -7653,6 +7661,8 @@ class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
         result = dict()
         if self.alias_name is not None:
             result['AliasName'] = self.alias_name
+        if self.check_type is not None:
+            result['CheckType'] = self.check_type
         if self.gmt_last_check is not None:
             result['GmtLastCheck'] = self.gmt_last_check
         if self.gmt_publish is not None:
@@ -7673,6 +7683,8 @@ class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
         m = m or dict()
         if m.get('AliasName') is not None:
             self.alias_name = m.get('AliasName')
+        if m.get('CheckType') is not None:
+            self.check_type = m.get('CheckType')
         if m.get('GmtLastCheck') is not None:
             self.gmt_last_check = m.get('GmtLastCheck')
         if m.get('GmtPublish') is not None:
