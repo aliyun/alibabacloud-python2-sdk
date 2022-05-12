@@ -67,12 +67,14 @@ class AcceptVpcPeerConnectionResponseBody(TeaModel):
 
 
 class AcceptVpcPeerConnectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AcceptVpcPeerConnectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -85,6 +87,8 @@ class AcceptVpcPeerConnectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -93,6 +97,8 @@ class AcceptVpcPeerConnectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AcceptVpcPeerConnectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -194,12 +200,14 @@ class CreateVpcPeerConnectionResponseBody(TeaModel):
 
 
 class CreateVpcPeerConnectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateVpcPeerConnectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -212,6 +220,8 @@ class CreateVpcPeerConnectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -220,6 +230,8 @@ class CreateVpcPeerConnectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateVpcPeerConnectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -291,12 +303,14 @@ class DeleteVpcPeerConnectionResponseBody(TeaModel):
 
 
 class DeleteVpcPeerConnectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteVpcPeerConnectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -309,6 +323,8 @@ class DeleteVpcPeerConnectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -317,6 +333,8 @@ class DeleteVpcPeerConnectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteVpcPeerConnectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -423,7 +441,7 @@ class GetVpcPeerConnectionAttributeResponseBodyVpc(TeaModel):
 class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
     def __init__(self, accepting_owner_uid=None, accepting_region_id=None, accepting_vpc=None, bandwidth=None,
                  biz_status=None, description=None, gmt_create=None, gmt_expired=None, gmt_modified=None, instance_id=None,
-                 name=None, owner_id=None, region_id=None, request_id=None, resource_group_id=None, status=None, vpc=None):
+                 name=None, owner_id=None, region_id=None, request_id=None, status=None, vpc=None):
         self.accepting_owner_uid = accepting_owner_uid  # type: long
         self.accepting_region_id = accepting_region_id  # type: str
         self.accepting_vpc = accepting_vpc  # type: GetVpcPeerConnectionAttributeResponseBodyAcceptingVpc
@@ -438,7 +456,6 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
         self.request_id = request_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.vpc = vpc  # type: GetVpcPeerConnectionAttributeResponseBodyVpc
 
@@ -482,8 +499,6 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             result['RegionId'] = self.region_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         if self.vpc is not None:
@@ -521,8 +536,6 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Vpc') is not None:
@@ -532,12 +545,14 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
 
 
 class GetVpcPeerConnectionAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetVpcPeerConnectionAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -550,6 +565,8 @@ class GetVpcPeerConnectionAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -558,6 +575,8 @@ class GetVpcPeerConnectionAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetVpcPeerConnectionAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -736,7 +755,7 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnectsVpc(TeaModel):
 class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
     def __init__(self, accepting_owner_uid=None, accepting_region_id=None, accepting_vpc=None, bandwidth=None,
                  biz_status=None, description=None, gmt_create=None, gmt_expired=None, gmt_modified=None, instance_id=None,
-                 name=None, owner_id=None, region_id=None, resource_group_id=None, status=None, vpc=None):
+                 name=None, owner_id=None, region_id=None, status=None, vpc=None):
         self.accepting_owner_uid = accepting_owner_uid  # type: int
         self.accepting_region_id = accepting_region_id  # type: str
         self.accepting_vpc = accepting_vpc  # type: ListVpcPeerConnectionsResponseBodyVpcPeerConnectsAcceptingVpc
@@ -750,7 +769,6 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
         self.name = name  # type: str
         self.owner_id = owner_id  # type: int
         self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.vpc = vpc  # type: ListVpcPeerConnectionsResponseBodyVpcPeerConnectsVpc
 
@@ -792,8 +810,6 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         if self.vpc is not None:
@@ -829,8 +845,6 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Vpc') is not None:
@@ -892,12 +906,14 @@ class ListVpcPeerConnectionsResponseBody(TeaModel):
 
 
 class ListVpcPeerConnectionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListVpcPeerConnectionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -910,6 +926,8 @@ class ListVpcPeerConnectionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -918,6 +936,8 @@ class ListVpcPeerConnectionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListVpcPeerConnectionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -993,12 +1013,14 @@ class ModifyVpcPeerConnectionResponseBody(TeaModel):
 
 
 class ModifyVpcPeerConnectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyVpcPeerConnectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1011,6 +1033,8 @@ class ModifyVpcPeerConnectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1019,6 +1043,8 @@ class ModifyVpcPeerConnectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyVpcPeerConnectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1089,12 +1115,14 @@ class RejectVpcPeerConnectionResponseBody(TeaModel):
 
 
 class RejectVpcPeerConnectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RejectVpcPeerConnectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1107,6 +1135,8 @@ class RejectVpcPeerConnectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1115,6 +1145,8 @@ class RejectVpcPeerConnectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RejectVpcPeerConnectionResponseBody()
             self.body = temp_model.from_map(m['body'])
