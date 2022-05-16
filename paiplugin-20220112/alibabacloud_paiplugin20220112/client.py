@@ -31,6 +31,196 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def create_campaign(self, request):
+        """
+        注册运营活动。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_campaign_with_options(request, headers, runtime)
+
+    def create_campaign_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateCampaign',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/campaigns',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.CreateCampaignResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_group(self, request):
+        """
+        注册人群。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_group_with_options(request, headers, runtime)
+
+    def create_group_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.algorithm):
+            body['Algorithm'] = request.algorithm
+        if not UtilClient.is_unset(request.column):
+            body['Column'] = request.column
+        if not UtilClient.is_unset(request.filter):
+            body['Filter'] = request.filter
+        if not UtilClient.is_unset(request.inference_job_id):
+            body['InferenceJobId'] = request.inference_job_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.project):
+            body['Project'] = request.project
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        if not UtilClient.is_unset(request.source):
+            body['Source'] = request.source
+        if not UtilClient.is_unset(request.table):
+            body['Table'] = request.table
+        if not UtilClient.is_unset(request.text):
+            body['Text'] = request.text
+        if not UtilClient.is_unset(request.uri):
+            body['Uri'] = request.uri
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateGroup',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/groups',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.CreateGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_inference_job(self, request):
+        """
+        注册预测任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inference_job_with_options(request, headers, runtime)
+
+    def create_inference_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.algorithm):
+            body['Algorithm'] = request.algorithm
+        if not UtilClient.is_unset(request.campaign_id):
+            body['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.data_path):
+            body['DataPath'] = request.data_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        if not UtilClient.is_unset(request.target_path):
+            body['TargetPath'] = request.target_path
+        if not UtilClient.is_unset(request.training_job_id):
+            body['TrainingJobId'] = request.training_job_id
+        if not UtilClient.is_unset(request.user_config):
+            body['UserConfig'] = request.user_config
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateInferenceJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/inference/jobs',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.CreateInferenceJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_schedule(self, request):
+        """
+        注册触达计划。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_schedule_with_options(request, headers, runtime)
+
+    def create_schedule_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.execute_time):
+            body['ExecuteTime'] = request.execute_time
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.repeat_cycle):
+            body['RepeatCycle'] = request.repeat_cycle
+        if not UtilClient.is_unset(request.repeat_cycle_unit):
+            body['RepeatCycleUnit'] = request.repeat_cycle_unit
+        if not UtilClient.is_unset(request.repeat_times):
+            body['RepeatTimes'] = request.repeat_times
+        if not UtilClient.is_unset(request.sign_name):
+            body['SignName'] = request.sign_name
+        if not UtilClient.is_unset(request.signature_id):
+            body['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_id):
+            body['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSchedule',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/schedules',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.CreateScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_signature(self, request):
         """
         注册签名。
@@ -109,6 +299,165 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_training_job(self, request):
+        """
+        注册训练任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_training_job_with_options(request, headers, runtime)
+
+    def create_training_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.algorithm):
+            body['Algorithm'] = request.algorithm
+        if not UtilClient.is_unset(request.campaign_id):
+            body['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.data_path):
+            body['DataPath'] = request.data_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        if not UtilClient.is_unset(request.user_config):
+            body['UserConfig'] = request.user_config
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTrainingJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/training/jobs',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.CreateTrainingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_campaign(self, id):
+        """
+        删除运营活动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_campaign_with_options(id, headers, runtime)
+
+    def delete_campaign_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteCampaign',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.DeleteCampaignResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_group(self, id):
+        """
+        删除人群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_group_with_options(id, headers, runtime)
+
+    def delete_group_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteGroup',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.DeleteGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_inference_job(self, id):
+        """
+        删除预测任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inference_job_with_options(id, headers, runtime)
+
+    def delete_inference_job_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteInferenceJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.DeleteInferenceJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_schedule(self, id):
+        """
+        删除触达计划。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_schedule_with_options(id, headers, runtime)
+
+    def delete_schedule_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteSchedule',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.DeleteScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_signature(self, id):
         """
         删除签名。
@@ -167,6 +516,151 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_training_job(self, id):
+        """
+        删除训练任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_training_job_with_options(id, headers, runtime)
+
+    def delete_training_job_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteTrainingJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.DeleteTrainingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_algorithm(self, id):
+        """
+        获取算法详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_algorithm_with_options(id, headers, runtime)
+
+    def get_algorithm_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAlgorithm',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/algorithms/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetAlgorithmResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_campaign(self, id):
+        """
+        获取运营活动详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_campaign_with_options(id, headers, runtime)
+
+    def get_campaign_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetCampaign',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetCampaignResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_group(self, id):
+        """
+        获取人群详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_group_with_options(id, headers, runtime)
+
+    def get_group_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetGroup',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_inference_job(self, id):
+        """
+        获取预测任务详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inference_job_with_options(id, headers, runtime)
+
+    def get_inference_job_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetInferenceJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetInferenceJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_message_config(self):
         """
         获取短信配置。
@@ -192,6 +686,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_plugin_20220112_models.GetMessageConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_schedule(self, id):
+        """
+        获取触达计划详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_schedule_with_options(id, headers, runtime)
+
+    def get_schedule_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetSchedule',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetScheduleResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -253,6 +776,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_training_job(self, id):
+        """
+        获取训练任务详情。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_training_job_with_options(id, headers, runtime)
+
+    def get_training_job_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetTrainingJob',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetTrainingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_user(self):
         """
         获取账号状态。
@@ -281,9 +833,177 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_algorithms(self, request):
+        """
+        获取算法列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_algorithms_with_options(request, headers, runtime)
+
+    def list_algorithms_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAlgorithms',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/algorithms',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListAlgorithmsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_campaigns(self, request):
+        """
+        获取运营活动列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_campaigns_with_options(request, headers, runtime)
+
+    def list_campaigns_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCampaigns',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/campaigns',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListCampaignsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_groups(self, request):
+        """
+        获取人群列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_groups_with_options(request, headers, runtime)
+
+    def list_groups_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroups',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/groups',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_inference_jobs(self, request):
+        """
+        获取预测任务列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_inference_jobs_with_options(request, headers, runtime)
+
+    def list_inference_jobs_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInferenceJobs',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/inference/jobs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListInferenceJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_message_metrics(self, request):
         """
         获取短信发送统计列表。
+        获取短信发送统计数据，可按指定条件获取分类别详细数据，返回数据按日期顺序排列，发送统计为空的日期默认不返回。
+        发送数据在48小时内会随实际短信发送状态不断更新，最终数据以48小时后数据为准。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -395,6 +1115,45 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_schedules(self, request):
+        """
+        获取触达计划列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_schedules_with_options(request, headers, runtime)
+
+    def list_schedules_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSchedules',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/schedules',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListSchedulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_signatures(self, request):
         """
         获取签名列表。
@@ -474,6 +1233,49 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_plugin_20220112_models.ListTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_training_jobs(self, request):
+        """
+        获取训练任务列表。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_training_jobs_with_options(request, headers, runtime)
+
+    def list_training_jobs_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTrainingJobs',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/training/jobs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListTrainingJobsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -585,6 +1387,42 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_plugin_20220112_models.SmsUpResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_campaign(self, id, request):
+        """
+        更新运营活动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_campaign_with_options(id, request, headers, runtime)
+
+    def update_campaign_with_options(self, id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        id = OpenApiUtilClient.get_encode_param(id)
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCampaign',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.UpdateCampaignResponse(),
             self.call_api(params, req, runtime)
         )
 
