@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_pai-dsw20220101_py2.
 
-Created on 28/03/2022
+Created on 18/05/2022
 
 @author: Alibaba Cloud SDK
 """
