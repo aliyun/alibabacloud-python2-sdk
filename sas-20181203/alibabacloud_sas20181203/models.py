@@ -893,6 +893,118 @@ class CreateSimilarSecurityEventsQueryTaskResponse(TeaModel):
         return self
 
 
+class CreateSuspEventNoteRequest(TeaModel):
+    def __init__(self, event_id=None, note=None):
+        self.event_id = event_id  # type: long
+        self.note = note  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSuspEventNoteRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_id is not None:
+            result['EventId'] = self.event_id
+        if self.note is not None:
+            result['Note'] = self.note
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventId') is not None:
+            self.event_id = m.get('EventId')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        return self
+
+
+class CreateSuspEventNoteResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSuspEventNoteResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateSuspEventNoteResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateSuspEventNoteResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSuspEventNoteResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateSuspEventNoteResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateVulAutoRepairConfigRequestVulAutoRepairConfigList(TeaModel):
     def __init__(self, alias_name=None, name=None):
         # 漏洞别名
@@ -12337,10 +12449,11 @@ class DescribeImageVulListResponseBodyVulRecordsExtendContentJson(TeaModel):
 
 
 class DescribeImageVulListResponseBodyVulRecords(TeaModel):
-    def __init__(self, alias_name=None, can_update=None, extend_content_json=None, first_ts=None, image_digest=None,
-                 last_ts=None, layers=None, modify_ts=None, name=None, necessity=None, primary_id=None, related=None,
-                 repo_name=None, repo_namespace=None, status=None, tag=None, type=None, uuid=None):
+    def __init__(self, alias_name=None, can_fix=None, can_update=None, extend_content_json=None, first_ts=None,
+                 image_digest=None, last_ts=None, layers=None, modify_ts=None, name=None, necessity=None, primary_id=None,
+                 related=None, repo_name=None, repo_namespace=None, status=None, tag=None, type=None, uuid=None):
         self.alias_name = alias_name  # type: str
+        self.can_fix = can_fix  # type: str
         self.can_update = can_update  # type: bool
         self.extend_content_json = extend_content_json  # type: DescribeImageVulListResponseBodyVulRecordsExtendContentJson
         self.first_ts = first_ts  # type: long
@@ -12371,6 +12484,8 @@ class DescribeImageVulListResponseBodyVulRecords(TeaModel):
         result = dict()
         if self.alias_name is not None:
             result['AliasName'] = self.alias_name
+        if self.can_fix is not None:
+            result['CanFix'] = self.can_fix
         if self.can_update is not None:
             result['CanUpdate'] = self.can_update
         if self.extend_content_json is not None:
@@ -12411,6 +12526,8 @@ class DescribeImageVulListResponseBodyVulRecords(TeaModel):
         m = m or dict()
         if m.get('AliasName') is not None:
             self.alias_name = m.get('AliasName')
+        if m.get('CanFix') is not None:
+            self.can_fix = m.get('CanFix')
         if m.get('CanUpdate') is not None:
             self.can_update = m.get('CanUpdate')
         if m.get('ExtendContentJson') is not None:
@@ -13825,6 +13942,244 @@ class DescribeNoticeConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeNoticeConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeOnceTaskRequest(TeaModel):
+    def __init__(self, current_page=None, end_time_query=None, page_size=None, root_task_id=None,
+                 start_time_query=None, task_type=None):
+        self.current_page = current_page  # type: int
+        self.end_time_query = end_time_query  # type: long
+        self.page_size = page_size  # type: int
+        self.root_task_id = root_task_id  # type: str
+        self.start_time_query = start_time_query  # type: long
+        self.task_type = task_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeOnceTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.end_time_query is not None:
+            result['EndTimeQuery'] = self.end_time_query
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.root_task_id is not None:
+            result['RootTaskId'] = self.root_task_id
+        if self.start_time_query is not None:
+            result['StartTimeQuery'] = self.start_time_query
+        if self.task_type is not None:
+            result['TaskType'] = self.task_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('EndTimeQuery') is not None:
+            self.end_time_query = m.get('EndTimeQuery')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RootTaskId') is not None:
+            self.root_task_id = m.get('RootTaskId')
+        if m.get('StartTimeQuery') is not None:
+            self.start_time_query = m.get('StartTimeQuery')
+        if m.get('TaskType') is not None:
+            self.task_type = m.get('TaskType')
+        return self
+
+
+class DescribeOnceTaskResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeOnceTaskResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeOnceTaskResponseBodyTaskManageResponseList(TeaModel):
+    def __init__(self, detail_data=None, progress=None, task_end_time=None, task_id=None, task_name=None,
+                 task_start_time=None, task_status=None, task_status_text=None, task_type=None):
+        self.detail_data = detail_data  # type: str
+        self.progress = progress  # type: str
+        self.task_end_time = task_end_time  # type: long
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+        self.task_start_time = task_start_time  # type: long
+        self.task_status = task_status  # type: int
+        self.task_status_text = task_status_text  # type: str
+        self.task_type = task_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeOnceTaskResponseBodyTaskManageResponseList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.detail_data is not None:
+            result['DetailData'] = self.detail_data
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.task_end_time is not None:
+            result['TaskEndTime'] = self.task_end_time
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        if self.task_start_time is not None:
+            result['TaskStartTime'] = self.task_start_time
+        if self.task_status is not None:
+            result['TaskStatus'] = self.task_status
+        if self.task_status_text is not None:
+            result['TaskStatusText'] = self.task_status_text
+        if self.task_type is not None:
+            result['TaskType'] = self.task_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DetailData') is not None:
+            self.detail_data = m.get('DetailData')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('TaskEndTime') is not None:
+            self.task_end_time = m.get('TaskEndTime')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        if m.get('TaskStartTime') is not None:
+            self.task_start_time = m.get('TaskStartTime')
+        if m.get('TaskStatus') is not None:
+            self.task_status = m.get('TaskStatus')
+        if m.get('TaskStatusText') is not None:
+            self.task_status_text = m.get('TaskStatusText')
+        if m.get('TaskType') is not None:
+            self.task_type = m.get('TaskType')
+        return self
+
+
+class DescribeOnceTaskResponseBody(TeaModel):
+    def __init__(self, page_info=None, request_id=None, task_manage_response_list=None):
+        self.page_info = page_info  # type: DescribeOnceTaskResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.task_manage_response_list = task_manage_response_list  # type: list[DescribeOnceTaskResponseBodyTaskManageResponseList]
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.task_manage_response_list:
+            for k in self.task_manage_response_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeOnceTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['TaskManageResponseList'] = []
+        if self.task_manage_response_list is not None:
+            for k in self.task_manage_response_list:
+                result['TaskManageResponseList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageInfo') is not None:
+            temp_model = DescribeOnceTaskResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.task_manage_response_list = []
+        if m.get('TaskManageResponseList') is not None:
+            for k in m.get('TaskManageResponseList'):
+                temp_model = DescribeOnceTaskResponseBodyTaskManageResponseList()
+                self.task_manage_response_list.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeOnceTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeOnceTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeOnceTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeOnceTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
