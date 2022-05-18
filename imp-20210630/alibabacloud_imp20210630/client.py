@@ -905,6 +905,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_sensitive_word_with_options(request, runtime)
 
+    def describe_meter_imp_play_back_time_by_live_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.end_ts):
+            query['EndTs'] = request.end_ts
+        if not UtilClient.is_unset(request.live_id):
+            query['LiveId'] = request.live_id
+        if not UtilClient.is_unset(request.start_ts):
+            query['StartTs'] = request.start_ts
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMeterImpPlayBackTimeByLiveId',
+            version='2021-06-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.DescribeMeterImpPlayBackTimeByLiveIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_meter_imp_play_back_time_by_live_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_meter_imp_play_back_time_by_live_id_with_options(request, runtime)
+
+    def describe_meter_imp_watch_live_time_by_live_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.live_id):
+            query['LiveId'] = request.live_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMeterImpWatchLiveTimeByLiveId',
+            version='2021-06-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.DescribeMeterImpWatchLiveTimeByLiveIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_meter_imp_watch_live_time_by_live_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_meter_imp_watch_live_time_by_live_id_with_options(request, runtime)
+
     def get_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
