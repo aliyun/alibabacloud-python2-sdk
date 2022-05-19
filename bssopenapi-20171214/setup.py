@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_bssopenapi20171214_py2.
 
-Created on 25/06/2021
+Created on 19/05/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -38,10 +38,10 @@ AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/aliyun/alibabacloud-python2-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
-    "alibabacloud_tea_util_py2>=0.0.2, <1.0.0",
-    "alibabacloud_tea_openapi_py2>=0.0.2, <1.0.0",
-    "alibabacloud_openapi_util_py2>=0.0.4, <1.0.0",
-    "alibabacloud_endpoint_util_py2>=0.0.1, <1.0.0"
+    "alibabacloud_tea_util_py2>=0.0.5, <1.0.0",
+    "alibabacloud_tea_openapi_py2>=0.1.1, <1.0.0",
+    "alibabacloud_openapi_util_py2>=0.0.8, <1.0.0",
+    "alibabacloud_endpoint_util_py2>=0.0.2, <1.0.0"
 ]
 
 LONG_DESCRIPTION = ''

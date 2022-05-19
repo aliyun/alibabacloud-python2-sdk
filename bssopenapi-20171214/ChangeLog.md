@@ -1,3 +1,6 @@
+2022-05-19 Version: 1.0.7
+- Update SubscribeBillToOSS and QueryBillToOSSSubscription to support BucketPath.
+
 2021-06-25 Version: 1.0.6
 - AMP Version Change.
 
