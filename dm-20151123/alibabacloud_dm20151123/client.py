@@ -30,6 +30,40 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_ipfilter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ip_address):
+            query['IpAddress'] = request.ip_address
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddIpfilter',
+            version='2015-11-23',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20151123_models.AddIpfilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_ipfilter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_ipfilter_with_options(request, runtime)
+
     def approve_reply_mail_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -362,6 +396,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_domain_with_options(request, runtime)
 
+    def delete_ipfilter_by_edm_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.from_type):
+            query['FromType'] = request.from_type
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteIpfilterByEdmId',
+            version='2015-11-23',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20151123_models.DeleteIpfilterByEdmIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_ipfilter_by_edm_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_ipfilter_by_edm_id_with_options(request, runtime)
+
     def delete_mail_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -565,6 +635,70 @@ class Client(OpenApiClient):
     def desc_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.desc_domain_with_options(request, runtime)
+
+    def get_ip_protection_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetIpProtection',
+            version='2015-11-23',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20151123_models.GetIpProtectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_ip_protection(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_ip_protection_with_options(request, runtime)
+
+    def get_ipfilter_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetIpfilterList',
+            version='2015-11-23',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20151123_models.GetIpfilterListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_ipfilter_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_ipfilter_list_with_options(request, runtime)
 
     def get_track_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1279,6 +1413,40 @@ class Client(OpenApiClient):
     def single_send_mail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.single_send_mail_with_options(request, runtime)
+
+    def update_ip_protection_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ip_protection):
+            query['IpProtection'] = request.ip_protection
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateIpProtection',
+            version='2015-11-23',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20151123_models.UpdateIpProtectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_ip_protection(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_ip_protection_with_options(request, runtime)
 
     def update_mail_address_msg_call_back_url_with_options(self, request, runtime):
         UtilClient.validate_model(request)
