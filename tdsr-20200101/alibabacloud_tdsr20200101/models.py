@@ -5031,10 +5031,20 @@ class GetWindowConfigResponse(TeaModel):
 
 
 class LabelBuildRequest(TeaModel):
-    def __init__(self, mode=None, scene_id=None):
+    def __init__(self, mode=None, optimize_model_effect=None, optimize_wall_width=None, plan_style=None,
+                 scene_id=None, wall_height=None):
+        # 重建模式：MANUAL：手动（云端），默认，SEMI_AUTOMATIC：半自动（移动端）
         self.mode = mode  # type: str
+        # 模型效果 PASTER：切片模型（默认） DEPTH：深度模型 VIRTUAL：虚拟模型 MOBILE：移动重建模型
+        self.optimize_model_effect = optimize_model_effect  # type: str
+        # 墙宽优化，SHUTDOWN:关闭（默认） STANDARD：标准 DEPTH：深度
+        self.optimize_wall_width = optimize_wall_width  # type: str
+        # 户型图，DEFAULT（默认），STANDARD（标准）
+        self.plan_style = plan_style  # type: str
         # 场景ID
         self.scene_id = scene_id  # type: str
+        # 墙高，默认0不设置，范围200-1000. 单位cm
+        self.wall_height = wall_height  # type: long
 
     def validate(self):
         pass
@@ -5047,16 +5057,32 @@ class LabelBuildRequest(TeaModel):
         result = dict()
         if self.mode is not None:
             result['Mode'] = self.mode
+        if self.optimize_model_effect is not None:
+            result['OptimizeModelEffect'] = self.optimize_model_effect
+        if self.optimize_wall_width is not None:
+            result['OptimizeWallWidth'] = self.optimize_wall_width
+        if self.plan_style is not None:
+            result['PlanStyle'] = self.plan_style
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
+        if self.wall_height is not None:
+            result['WallHeight'] = self.wall_height
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Mode') is not None:
             self.mode = m.get('Mode')
+        if m.get('OptimizeModelEffect') is not None:
+            self.optimize_model_effect = m.get('OptimizeModelEffect')
+        if m.get('OptimizeWallWidth') is not None:
+            self.optimize_wall_width = m.get('OptimizeWallWidth')
+        if m.get('PlanStyle') is not None:
+            self.plan_style = m.get('PlanStyle')
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
+        if m.get('WallHeight') is not None:
+            self.wall_height = m.get('WallHeight')
         return self
 
 
@@ -8347,6 +8373,7 @@ class UpdateSubSceneRequest(TeaModel):
         self.id = id  # type: str
         # 子场景名称
         self.name = name  # type: str
+        # 视角坐标，目前支持3元坐标，4元坐标，例如：[0.94005,0.13397,-0.3136,0.782992]
         self.view_point = view_point  # type: list[float]
 
     def validate(self):
@@ -8383,6 +8410,7 @@ class UpdateSubSceneShrinkRequest(TeaModel):
         self.id = id  # type: str
         # 子场景名称
         self.name = name  # type: str
+        # 视角坐标，目前支持3元坐标，4元坐标，例如：[0.94005,0.13397,-0.3136,0.782992]
         self.view_point_shrink = view_point_shrink  # type: str
 
     def validate(self):
