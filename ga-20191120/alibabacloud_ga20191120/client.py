@@ -461,6 +461,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
             query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_duration):
+            query['AutoRenewDuration'] = request.auto_renew_duration
         if not UtilClient.is_unset(request.auto_use_coupon):
             query['AutoUseCoupon'] = request.auto_use_coupon
         if not UtilClient.is_unset(request.bandwidth):
@@ -1459,6 +1463,36 @@ class Client(OpenApiClient):
     def describe_bandwidth_package(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_bandwidth_package_with_options(request, runtime)
+
+    def describe_bandwidth_package_auto_renew_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBandwidthPackageAutoRenewAttribute',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeBandwidthPackageAutoRenewAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_bandwidth_package_auto_renew_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_bandwidth_package_auto_renew_attribute_with_options(request, runtime)
 
     def describe_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2893,6 +2927,46 @@ class Client(OpenApiClient):
     def update_application_monitor(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_application_monitor_with_options(request, runtime)
+
+    def update_bandwidth_packaga_auto_renew_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_duration):
+            query['AutoRenewDuration'] = request.auto_renew_duration
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.renewal_status):
+            query['RenewalStatus'] = request.renewal_status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateBandwidthPackagaAutoRenewAttribute',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateBandwidthPackagaAutoRenewAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_bandwidth_packaga_auto_renew_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_bandwidth_packaga_auto_renew_attribute_with_options(request, runtime)
 
     def update_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
