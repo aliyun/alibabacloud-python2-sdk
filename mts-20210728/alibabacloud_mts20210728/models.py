@@ -201,12 +201,14 @@ class QueryCopyrightResponseBody(TeaModel):
 
 
 class QueryCopyrightResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCopyrightResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -219,6 +221,8 @@ class QueryCopyrightResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -227,6 +231,8 @@ class QueryCopyrightResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCopyrightResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -327,12 +333,14 @@ class QueryCopyrightExtractResponseBody(TeaModel):
 
 
 class QueryCopyrightExtractResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCopyrightExtractResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -345,6 +353,8 @@ class QueryCopyrightExtractResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -353,6 +363,8 @@ class QueryCopyrightExtractResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCopyrightExtractResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -534,12 +546,14 @@ class QueryTraceAbResponseBody(TeaModel):
 
 
 class QueryTraceAbResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryTraceAbResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -552,6 +566,8 @@ class QueryTraceAbResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -560,6 +576,8 @@ class QueryTraceAbResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryTraceAbResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -660,12 +678,14 @@ class QueryTraceExtractResponseBody(TeaModel):
 
 
 class QueryTraceExtractResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryTraceExtractResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -678,6 +698,8 @@ class QueryTraceExtractResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -686,6 +708,8 @@ class QueryTraceExtractResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryTraceExtractResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -886,12 +910,14 @@ class QueryTraceMuResponseBody(TeaModel):
 
 
 class QueryTraceMuResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryTraceMuResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -904,6 +930,8 @@ class QueryTraceMuResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -912,6 +940,8 @@ class QueryTraceMuResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryTraceMuResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1030,12 +1060,14 @@ class SubmitCopyrightExtractResponseBody(TeaModel):
 
 
 class SubmitCopyrightExtractResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitCopyrightExtractResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1048,6 +1080,8 @@ class SubmitCopyrightExtractResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1056,6 +1090,8 @@ class SubmitCopyrightExtractResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitCopyrightExtractResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1064,7 +1100,7 @@ class SubmitCopyrightExtractResponse(TeaModel):
 
 class SubmitCopyrightJobRequest(TeaModel):
     def __init__(self, call_back=None, description=None, input=None, level=None, message=None, output=None,
-                 start_time=None, total_time=None, url=None, user_data=None):
+                 start_time=None, total_time=None, url=None, user_data=None, visible_message=None):
         # 任务结果回调url
         self.call_back = call_back  # type: str
         # 水印信息描述
@@ -1085,6 +1121,8 @@ class SubmitCopyrightJobRequest(TeaModel):
         self.url = url  # type: str
         # 用户自定义数据
         self.user_data = user_data  # type: str
+        # 可见水印(必须是英文字符)
+        self.visible_message = visible_message  # type: str
 
     def validate(self):
         pass
@@ -1115,6 +1153,8 @@ class SubmitCopyrightJobRequest(TeaModel):
             result['Url'] = self.url
         if self.user_data is not None:
             result['UserData'] = self.user_data
+        if self.visible_message is not None:
+            result['VisibleMessage'] = self.visible_message
         return result
 
     def from_map(self, m=None):
@@ -1139,6 +1179,8 @@ class SubmitCopyrightJobRequest(TeaModel):
             self.url = m.get('Url')
         if m.get('UserData') is not None:
             self.user_data = m.get('UserData')
+        if m.get('VisibleMessage') is not None:
+            self.visible_message = m.get('VisibleMessage')
         return self
 
 
@@ -1213,12 +1255,14 @@ class SubmitCopyrightJobResponseBody(TeaModel):
 
 
 class SubmitCopyrightJobResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitCopyrightJobResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1231,6 +1275,8 @@ class SubmitCopyrightJobResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1239,6 +1285,8 @@ class SubmitCopyrightJobResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitCopyrightJobResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1365,12 +1413,14 @@ class SubmitImageCopyrightResponseBody(TeaModel):
 
 
 class SubmitImageCopyrightResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitImageCopyrightResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1383,6 +1433,8 @@ class SubmitImageCopyrightResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1391,6 +1443,8 @@ class SubmitImageCopyrightResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitImageCopyrightResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1548,12 +1602,14 @@ class SubmitTraceAbResponseBody(TeaModel):
 
 
 class SubmitTraceAbResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitTraceAbResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1566,6 +1622,8 @@ class SubmitTraceAbResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1574,6 +1632,8 @@ class SubmitTraceAbResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitTraceAbResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1692,12 +1752,14 @@ class SubmitTraceExtractResponseBody(TeaModel):
 
 
 class SubmitTraceExtractResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitTraceExtractResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1710,6 +1772,8 @@ class SubmitTraceExtractResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1718,6 +1782,8 @@ class SubmitTraceExtractResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitTraceExtractResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1844,12 +1910,14 @@ class SubmitTracemuResponseBody(TeaModel):
 
 
 class SubmitTracemuResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitTracemuResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1862,6 +1930,8 @@ class SubmitTracemuResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1870,6 +1940,8 @@ class SubmitTracemuResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitTracemuResponseBody()
             self.body = temp_model.from_map(m['body'])
