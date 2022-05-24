@@ -176,6 +176,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def cancel_task(self, task_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_task_with_options(task_id, headers, runtime)
+
+    def cancel_task_with_options(self, task_id, headers, runtime):
+        task_id = OpenApiUtilClient.get_encode_param(task_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CancelTask',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/tasks/%s/cancel' % TeaConverter.to_unicode(task_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.CancelTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def cancel_workflow(self, workflow_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1719,6 +1745,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_node_pool_vuls(self, cluster_id, nodepool_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_node_pool_vuls_with_options(cluster_id, nodepool_id, headers, runtime)
+
+    def describe_node_pool_vuls_with_options(self, cluster_id, nodepool_id, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeNodePoolVuls',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/nodepools/%s/vuls' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeNodePoolVulsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def describe_policies(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2092,6 +2145,42 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             cs20151215_models.EdgeClusterAddEdgeMachineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def fix_node_pool_vuls(self, cluster_id, nodepool_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.fix_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
+
+    def fix_node_pool_vuls_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
+        body = {}
+        if not UtilClient.is_unset(request.nodes):
+            body['nodes'] = request.nodes
+        if not UtilClient.is_unset(request.rollout_policy):
+            body['rollout_policy'] = request.rollout_policy
+        if not UtilClient.is_unset(request.vul_list):
+            body['vul_list'] = request.vul_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='FixNodePoolVuls',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/nodepools/%s/vuls/fix' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.FixNodePoolVulsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2587,6 +2676,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def pause_task(self, task_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pause_task_with_options(task_id, headers, runtime)
+
+    def pause_task_with_options(self, task_id, headers, runtime):
+        task_id = OpenApiUtilClient.get_encode_param(task_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='PauseTask',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/tasks/%s/pause' % TeaConverter.to_unicode(task_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.PauseTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def remove_cluster_nodes(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2704,6 +2819,32 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             cs20151215_models.ResumeComponentUpgradeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def resume_task(self, task_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resume_task_with_options(task_id, headers, runtime)
+
+    def resume_task_with_options(self, task_id, headers, runtime):
+        task_id = OpenApiUtilClient.get_encode_param(task_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ResumeTask',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/tasks/%s/resume' % TeaConverter.to_unicode(task_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ResumeTaskResponse(),
             self.call_api(params, req, runtime)
         )
 
