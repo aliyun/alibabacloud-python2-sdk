@@ -443,9 +443,7 @@ class DeleteUserResponse(TeaModel):
 
 
 class GenerateDeviceCodeRequest(TeaModel):
-    def __init__(self, client_id=None, scope=None):
-        # 客户端ID
-        self.client_id = client_id  # type: str
+    def __init__(self, scope=None):
         # scope范围
         self.scope = scope  # type: str
 
@@ -458,16 +456,12 @@ class GenerateDeviceCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.client_id is not None:
-            result['client_id'] = self.client_id
         if self.scope is not None:
             result['scope'] = self.scope
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('client_id') is not None:
-            self.client_id = m.get('client_id')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         return self
