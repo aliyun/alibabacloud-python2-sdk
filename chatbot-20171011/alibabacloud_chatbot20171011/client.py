@@ -320,38 +320,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_core_word_with_options(request, runtime)
 
-    def create_dsentity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.entity_name):
-            query['EntityName'] = request.entity_name
-        if not UtilClient.is_unset(request.entity_type):
-            query['EntityType'] = request.entity_type
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateDSEntity',
-            version='2017-10-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            chatbot_20171011_models.CreateDSEntityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_dsentity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dsentity_with_options(request, runtime)
-
     def create_dialog_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -739,6 +707,36 @@ class Client(OpenApiClient):
     def delete_knowledge(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_knowledge_with_options(request, runtime)
+
+    def delete_perspective_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.perspective_id):
+            query['PerspectiveId'] = request.perspective_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeletePerspective',
+            version='2017-10-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20171011_models.DeletePerspectiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_perspective(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_perspective_with_options(request, runtime)
 
     def describe_bot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1629,40 +1627,6 @@ class Client(OpenApiClient):
     def list_conversation_logs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_conversation_logs_with_options(request, runtime)
-
-    def list_dsentity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.keyword):
-            query['Keyword'] = request.keyword
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListDSEntity',
-            version='2017-10-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            chatbot_20171011_models.ListDSEntityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_dsentity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_dsentity_with_options(request, runtime)
 
     def move_knowledge_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
