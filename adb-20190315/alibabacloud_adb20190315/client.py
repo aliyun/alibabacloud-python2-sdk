@@ -114,6 +114,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.allocate_cluster_public_connection_with_options(request, runtime)
 
+    def bind_dbresource_group_with_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_user):
+            query['GroupUser'] = request.group_user
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindDBResourceGroupWithUser',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.BindDBResourceGroupWithUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_dbresource_group_with_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_dbresource_group_with_user_with_options(request, runtime)
+
     def bind_dbresource_pool_with_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -283,6 +323,48 @@ class Client(OpenApiClient):
     def create_dbcluster(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_dbcluster_with_options(request, runtime)
+
+    def create_dbresource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
+        if not UtilClient.is_unset(request.node_num):
+            query['NodeNum'] = request.node_num
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBResourceGroup',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.CreateDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbresource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbresource_group_with_options(request, runtime)
 
     def create_dbresource_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -455,6 +537,44 @@ class Client(OpenApiClient):
     def delete_dbcluster(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dbcluster_with_options(request, runtime)
+
+    def delete_dbresource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBResourceGroup',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DeleteDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbresource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbresource_group_with_options(request, runtime)
 
     def delete_dbresource_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1301,6 +1421,44 @@ class Client(OpenApiClient):
     def describe_dbclusters(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbclusters_with_options(request, runtime)
+
+    def describe_dbresource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBResourceGroup',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbresource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbresource_group_with_options(request, runtime)
 
     def describe_dbresource_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3000,6 +3158,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbcluster_maintain_time_with_options(request, runtime)
 
+    def modify_dbcluster_pay_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.db_cluster_id):
+            query['DbClusterId'] = request.db_cluster_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBClusterPayType',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.ModifyDBClusterPayTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbcluster_pay_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbcluster_pay_type_with_options(request, runtime)
+
     def modify_dbcluster_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3037,6 +3229,48 @@ class Client(OpenApiClient):
     def modify_dbcluster_resource_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbcluster_resource_group_with_options(request, runtime)
+
+    def modify_dbresource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_type):
+            query['GroupType'] = request.group_type
+        if not UtilClient.is_unset(request.node_num):
+            query['NodeNum'] = request.node_num
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBResourceGroup',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.ModifyDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbresource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbresource_group_with_options(request, runtime)
 
     def modify_dbresource_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3369,6 +3603,46 @@ class Client(OpenApiClient):
     def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
+
+    def unbind_dbresource_group_with_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_user):
+            query['GroupUser'] = request.group_user
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindDBResourceGroupWithUser',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.UnbindDBResourceGroupWithUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unbind_dbresource_group_with_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.unbind_dbresource_group_with_user_with_options(request, runtime)
 
     def unbind_dbresource_pool_with_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
