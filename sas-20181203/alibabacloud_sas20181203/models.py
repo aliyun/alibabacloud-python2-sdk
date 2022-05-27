@@ -1821,6 +1821,191 @@ class DeleteVpcHoneyPotResponse(TeaModel):
         return self
 
 
+class DescribeAccessKeyLeakDetailRequest(TeaModel):
+    def __init__(self, id=None):
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessKeyLeakDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        return self
+
+
+class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
+    def __init__(self, accesskey_id=None, asset=None, code=None, deal_time=None, deal_type=None,
+                 github_file_name=None, github_file_type=None, github_file_update_time=None, github_file_url=None,
+                 github_repo_name=None, github_repo_url=None, github_user=None, github_user_pic_url=None, gmt_create=None,
+                 gmt_modified=None, remark=None, request_id=None, source=None, type=None, whitelist_status=None):
+        self.accesskey_id = accesskey_id  # type: str
+        self.asset = asset  # type: str
+        self.code = code  # type: str
+        self.deal_time = deal_time  # type: str
+        self.deal_type = deal_type  # type: str
+        self.github_file_name = github_file_name  # type: str
+        self.github_file_type = github_file_type  # type: str
+        self.github_file_update_time = github_file_update_time  # type: str
+        self.github_file_url = github_file_url  # type: str
+        self.github_repo_name = github_repo_name  # type: str
+        self.github_repo_url = github_repo_url  # type: str
+        self.github_user = github_user  # type: str
+        self.github_user_pic_url = github_user_pic_url  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.remark = remark  # type: str
+        self.request_id = request_id  # type: str
+        self.source = source  # type: str
+        self.type = type  # type: str
+        self.whitelist_status = whitelist_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessKeyLeakDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accesskey_id is not None:
+            result['AccesskeyId'] = self.accesskey_id
+        if self.asset is not None:
+            result['Asset'] = self.asset
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.deal_time is not None:
+            result['DealTime'] = self.deal_time
+        if self.deal_type is not None:
+            result['DealType'] = self.deal_type
+        if self.github_file_name is not None:
+            result['GithubFileName'] = self.github_file_name
+        if self.github_file_type is not None:
+            result['GithubFileType'] = self.github_file_type
+        if self.github_file_update_time is not None:
+            result['GithubFileUpdateTime'] = self.github_file_update_time
+        if self.github_file_url is not None:
+            result['GithubFileUrl'] = self.github_file_url
+        if self.github_repo_name is not None:
+            result['GithubRepoName'] = self.github_repo_name
+        if self.github_repo_url is not None:
+            result['GithubRepoUrl'] = self.github_repo_url
+        if self.github_user is not None:
+            result['GithubUser'] = self.github_user
+        if self.github_user_pic_url is not None:
+            result['GithubUserPicUrl'] = self.github_user_pic_url
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.whitelist_status is not None:
+            result['WhitelistStatus'] = self.whitelist_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccesskeyId') is not None:
+            self.accesskey_id = m.get('AccesskeyId')
+        if m.get('Asset') is not None:
+            self.asset = m.get('Asset')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('DealTime') is not None:
+            self.deal_time = m.get('DealTime')
+        if m.get('DealType') is not None:
+            self.deal_type = m.get('DealType')
+        if m.get('GithubFileName') is not None:
+            self.github_file_name = m.get('GithubFileName')
+        if m.get('GithubFileType') is not None:
+            self.github_file_type = m.get('GithubFileType')
+        if m.get('GithubFileUpdateTime') is not None:
+            self.github_file_update_time = m.get('GithubFileUpdateTime')
+        if m.get('GithubFileUrl') is not None:
+            self.github_file_url = m.get('GithubFileUrl')
+        if m.get('GithubRepoName') is not None:
+            self.github_repo_name = m.get('GithubRepoName')
+        if m.get('GithubRepoUrl') is not None:
+            self.github_repo_url = m.get('GithubRepoUrl')
+        if m.get('GithubUser') is not None:
+            self.github_user = m.get('GithubUser')
+        if m.get('GithubUserPicUrl') is not None:
+            self.github_user_pic_url = m.get('GithubUserPicUrl')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('WhitelistStatus') is not None:
+            self.whitelist_status = m.get('WhitelistStatus')
+        return self
+
+
+class DescribeAccessKeyLeakDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAccessKeyLeakDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessKeyLeakDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAccessKeyLeakDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeAccesskeyLeakListRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None, query=None, start_ts=None, status=None):
         self.current_page = current_page  # type: int
@@ -2713,7 +2898,7 @@ class DescribeAlarmEventDetailResponse(TeaModel):
 class DescribeAlarmEventListRequest(TeaModel):
     def __init__(self, alarm_event_name=None, alarm_event_type=None, current_page=None, dealed=None, from_=None,
                  group_id=None, id=None, lang=None, levels=None, operate_error_code_list=None, page_size=None, remark=None,
-                 source_ip=None, tactic_id=None):
+                 source_ip=None, tactic_id=None, unique_info=None):
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_type = alarm_event_type  # type: str
         self.current_page = current_page  # type: int
@@ -2728,6 +2913,7 @@ class DescribeAlarmEventListRequest(TeaModel):
         self.remark = remark  # type: str
         self.source_ip = source_ip  # type: str
         self.tactic_id = tactic_id  # type: str
+        self.unique_info = unique_info  # type: str
 
     def validate(self):
         pass
@@ -2766,6 +2952,8 @@ class DescribeAlarmEventListRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.tactic_id is not None:
             result['TacticId'] = self.tactic_id
+        if self.unique_info is not None:
+            result['UniqueInfo'] = self.unique_info
         return result
 
     def from_map(self, m=None):
@@ -2798,6 +2986,8 @@ class DescribeAlarmEventListRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('TacticId') is not None:
             self.tactic_id = m.get('TacticId')
+        if m.get('UniqueInfo') is not None:
+            self.unique_info = m.get('UniqueInfo')
         return self
 
 
@@ -25141,11 +25331,14 @@ class DescribeVulListResponseBodyVulRecordsExtendContentJson(TeaModel):
 
 
 class DescribeVulListResponseBodyVulRecords(TeaModel):
-    def __init__(self, alias_name=None, extend_content_json=None, first_ts=None, group_id=None, instance_id=None,
-                 instance_name=None, internet_ip=None, intranet_ip=None, last_ts=None, modify_ts=None, name=None, necessity=None,
-                 online=None, os_version=None, primary_id=None, region_id=None, related=None, repair_ts=None,
-                 result_code=None, result_message=None, status=None, tag=None, type=None, uuid=None):
+    def __init__(self, alias_name=None, auth_version=None, bind=None, extend_content_json=None, first_ts=None,
+                 group_id=None, instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None, last_ts=None,
+                 modify_ts=None, name=None, necessity=None, online=None, os_name=None, os_version=None, primary_id=None,
+                 region_id=None, related=None, repair_ts=None, result_code=None, result_message=None, status=None, tag=None,
+                 type=None, uuid=None):
         self.alias_name = alias_name  # type: str
+        self.auth_version = auth_version  # type: str
+        self.bind = bind  # type: bool
         self.extend_content_json = extend_content_json  # type: DescribeVulListResponseBodyVulRecordsExtendContentJson
         self.first_ts = first_ts  # type: long
         self.group_id = group_id  # type: int
@@ -25158,6 +25351,7 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         self.name = name  # type: str
         self.necessity = necessity  # type: str
         self.online = online  # type: bool
+        self.os_name = os_name  # type: str
         self.os_version = os_version  # type: str
         self.primary_id = primary_id  # type: long
         self.region_id = region_id  # type: str
@@ -25182,6 +25376,10 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         result = dict()
         if self.alias_name is not None:
             result['AliasName'] = self.alias_name
+        if self.auth_version is not None:
+            result['AuthVersion'] = self.auth_version
+        if self.bind is not None:
+            result['Bind'] = self.bind
         if self.extend_content_json is not None:
             result['ExtendContentJson'] = self.extend_content_json.to_map()
         if self.first_ts is not None:
@@ -25206,6 +25404,8 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
             result['Necessity'] = self.necessity
         if self.online is not None:
             result['Online'] = self.online
+        if self.os_name is not None:
+            result['OsName'] = self.os_name
         if self.os_version is not None:
             result['OsVersion'] = self.os_version
         if self.primary_id is not None:
@@ -25234,6 +25434,10 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         m = m or dict()
         if m.get('AliasName') is not None:
             self.alias_name = m.get('AliasName')
+        if m.get('AuthVersion') is not None:
+            self.auth_version = m.get('AuthVersion')
+        if m.get('Bind') is not None:
+            self.bind = m.get('Bind')
         if m.get('ExtendContentJson') is not None:
             temp_model = DescribeVulListResponseBodyVulRecordsExtendContentJson()
             self.extend_content_json = temp_model.from_map(m['ExtendContentJson'])
@@ -25259,6 +25463,8 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
             self.necessity = m.get('Necessity')
         if m.get('Online') is not None:
             self.online = m.get('Online')
+        if m.get('OsName') is not None:
+            self.os_name = m.get('OsName')
         if m.get('OsVersion') is not None:
             self.os_version = m.get('OsVersion')
         if m.get('PrimaryId') is not None:

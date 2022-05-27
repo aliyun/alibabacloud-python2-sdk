@@ -625,6 +625,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_honey_pot_with_options(request, runtime)
 
+    def describe_access_key_leak_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccessKeyLeakDetail',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeAccessKeyLeakDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_access_key_leak_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_access_key_leak_detail_with_options(request, runtime)
+
     def describe_accesskey_leak_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -778,6 +806,8 @@ class Client(OpenApiClient):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.tactic_id):
             query['TacticId'] = request.tactic_id
+        if not UtilClient.is_unset(request.unique_info):
+            query['UniqueInfo'] = request.unique_info
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
