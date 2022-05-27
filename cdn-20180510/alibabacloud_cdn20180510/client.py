@@ -1315,6 +1315,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cdn_https_domain_list_with_options(request, runtime)
 
+    def describe_cdn_order_commodity_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.commodity_code):
+            query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCdnOrderCommodityCode',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeCdnOrderCommodityCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cdn_order_commodity_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cdn_order_commodity_code_with_options(request, runtime)
+
     def describe_cdn_region_and_isp_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
