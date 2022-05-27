@@ -349,43 +349,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_organizational_unit_id_by_external_id(self, instance_id, application_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetOrganizationalUnitIdByExternalIdHeaders()
-        return self.get_organizational_unit_id_by_external_id_with_options(instance_id, application_id, request, headers, runtime)
-
-    def get_organizational_unit_id_by_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
-        UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        body = {}
-        if not UtilClient.is_unset(request.organizational_unit_external_id):
-            body['organizationalUnitExternalId'] = request.organizational_unit_external_id
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.authorization):
-            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='GetOrganizationalUnitIdByExternalId',
-            version='2022-02-25',
-            protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/_/actions/getOrganizationalUnitIdByExternalId' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
-            method='POST',
-            auth_type='Anonymous',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eiam_developerapi_20220225_models.GetOrganizationalUnitIdByExternalIdResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def get_user(self, instance_id, application_id, user_id):
         runtime = util_models.RuntimeOptions()
         headers = eiam_developerapi_20220225_models.GetUserHeaders()
@@ -416,43 +379,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eiam_developerapi_20220225_models.GetUserResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_user_id_by_external_id(self, instance_id, application_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserIdByExternalIdHeaders()
-        return self.get_user_id_by_external_id_with_options(instance_id, application_id, request, headers, runtime)
-
-    def get_user_id_by_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
-        UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        body = {}
-        if not UtilClient.is_unset(request.user_external_id):
-            body['userExternalId'] = request.user_external_id
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.authorization):
-            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='GetUserIdByExternalId',
-            version='2022-02-25',
-            protocol='HTTPS',
-            pathname='/v2/%s/%s/users/_/actions/getUserIdByExternalId' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
-            method='POST',
-            auth_type='Anonymous',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eiam_developerapi_20220225_models.GetUserIdByExternalIdResponse(),
             self.call_api(params, req, runtime)
         )
 
