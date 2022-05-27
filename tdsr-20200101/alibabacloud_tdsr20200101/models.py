@@ -1219,10 +1219,13 @@ class DetailSceneRequest(TeaModel):
 
 
 class DetailSceneResponseBody(TeaModel):
-    def __init__(self, code=None, gmt_create=None, gmt_modified=None, id=None, message=None, name=None,
-                 preview_token=None, published=None, request_id=None, source_num=None, sub_scene_num=None, success=None, type=None):
+    def __init__(self, code=None, cover_url=None, gmt_create=None, gmt_modified=None, id=None, message=None,
+                 name=None, preview_token=None, published=None, request_id=None, source_num=None, sub_scene_num=None,
+                 success=None, type=None):
         # 返回码
         self.code = code  # type: long
+        # 封面地址
+        self.cover_url = cover_url  # type: str
         # 创建时间
         self.gmt_create = gmt_create  # type: long
         # 最后修改时间
@@ -1259,6 +1262,8 @@ class DetailSceneResponseBody(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        if self.cover_url is not None:
+            result['CoverUrl'] = self.cover_url
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -1289,6 +1294,8 @@ class DetailSceneResponseBody(TeaModel):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        if m.get('CoverUrl') is not None:
+            self.cover_url = m.get('CoverUrl')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -5720,8 +5727,10 @@ class ListSceneRequest(TeaModel):
 
 
 class ListSceneResponseBodyList(TeaModel):
-    def __init__(self, gmt_create=None, gmt_modified=None, id=None, name=None, preview_token=None, published=None,
-                 source_num=None, sub_scene_num=None, type=None):
+    def __init__(self, cover_url=None, gmt_create=None, gmt_modified=None, id=None, name=None, preview_token=None,
+                 published=None, source_num=None, sub_scene_num=None, type=None):
+        # 封面地址
+        self.cover_url = cover_url  # type: str
         # 创建时间
         self.gmt_create = gmt_create  # type: long
         # 最后修改时间
@@ -5750,6 +5759,8 @@ class ListSceneResponseBodyList(TeaModel):
             return _map
 
         result = dict()
+        if self.cover_url is not None:
+            result['CoverUrl'] = self.cover_url
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -5772,6 +5783,8 @@ class ListSceneResponseBodyList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CoverUrl') is not None:
+            self.cover_url = m.get('CoverUrl')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
