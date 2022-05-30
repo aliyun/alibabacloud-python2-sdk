@@ -2131,6 +2131,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_security_ips_with_options(request, runtime)
 
+    def rebalance_dbinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RebalanceDBInstance',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.RebalanceDBInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rebalance_dbinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.rebalance_dbinstance_with_options(request, runtime)
+
     def release_instance_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
