@@ -166,7 +166,8 @@ class SavedSearch(TeaModel):
 
 class Logstore(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, create_time=None, enable_tracking=None, encrypt_conf=None,
-                 last_modify_time=None, logstore_name=None, max_split_shard=None, shard_count=None, telemetry_type=None, ttl=None):
+                 hot_ttl=None, last_modify_time=None, logstore_name=None, max_split_shard=None, shard_count=None,
+                 telemetry_type=None, ttl=None):
         # append client ip and receive time
         self.append_meta = append_meta  # type: bool
         # auto spilt shard
@@ -177,6 +178,8 @@ class Logstore(TeaModel):
         self.enable_tracking = enable_tracking  # type: bool
         # Encrypt configuration
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
+        # hot ttl
+        self.hot_ttl = hot_ttl  # type: int
         # last modify time
         self.last_modify_time = last_modify_time  # type: int
         # logstore name
@@ -210,6 +213,8 @@ class Logstore(TeaModel):
             result['enable_tracking'] = self.enable_tracking
         if self.encrypt_conf is not None:
             result['encrypt_conf'] = self.encrypt_conf.to_map()
+        if self.hot_ttl is not None:
+            result['hot_ttl'] = self.hot_ttl
         if self.last_modify_time is not None:
             result['lastModifyTime'] = self.last_modify_time
         if self.logstore_name is not None:
@@ -237,6 +242,8 @@ class Logstore(TeaModel):
         if m.get('encrypt_conf') is not None:
             temp_model = EncryptConf()
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
+        if m.get('hot_ttl') is not None:
+            self.hot_ttl = m.get('hot_ttl')
         if m.get('lastModifyTime') is not None:
             self.last_modify_time = m.get('lastModifyTime')
         if m.get('logstoreName') is not None:
@@ -399,11 +406,13 @@ class CreateConsumerGroupRequest(TeaModel):
 
 
 class CreateConsumerGroupResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(CreateConsumerGroupResponse, self).to_map()
@@ -413,25 +422,31 @@ class CreateConsumerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class CreateLogStoreRequest(TeaModel):
-    def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None,
-                 logstore_name=None, max_split_shard=None, shard_count=None, ttl=None):
+    def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
+                 logstore_name=None, max_split_shard=None, shard_count=None, telemetry_type=None, ttl=None):
         self.append_meta = append_meta  # type: bool
         self.auto_split = auto_split  # type: bool
         self.enable_tracking = enable_tracking  # type: bool
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
+        self.hot_ttl = hot_ttl  # type: int
         self.logstore_name = logstore_name  # type: str
         self.max_split_shard = max_split_shard  # type: int
         self.shard_count = shard_count  # type: int
+        self.telemetry_type = telemetry_type  # type: str
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -452,12 +467,16 @@ class CreateLogStoreRequest(TeaModel):
             result['enable_tracking'] = self.enable_tracking
         if self.encrypt_conf is not None:
             result['encrypt_conf'] = self.encrypt_conf.to_map()
+        if self.hot_ttl is not None:
+            result['hot_ttl'] = self.hot_ttl
         if self.logstore_name is not None:
             result['logstoreName'] = self.logstore_name
         if self.max_split_shard is not None:
             result['maxSplitShard'] = self.max_split_shard
         if self.shard_count is not None:
             result['shardCount'] = self.shard_count
+        if self.telemetry_type is not None:
+            result['telemetryType'] = self.telemetry_type
         if self.ttl is not None:
             result['ttl'] = self.ttl
         return result
@@ -473,23 +492,29 @@ class CreateLogStoreRequest(TeaModel):
         if m.get('encrypt_conf') is not None:
             temp_model = EncryptConf()
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
+        if m.get('hot_ttl') is not None:
+            self.hot_ttl = m.get('hot_ttl')
         if m.get('logstoreName') is not None:
             self.logstore_name = m.get('logstoreName')
         if m.get('maxSplitShard') is not None:
             self.max_split_shard = m.get('maxSplitShard')
         if m.get('shardCount') is not None:
             self.shard_count = m.get('shardCount')
+        if m.get('telemetryType') is not None:
+            self.telemetry_type = m.get('telemetryType')
         if m.get('ttl') is not None:
             self.ttl = m.get('ttl')
         return self
 
 
 class CreateLogStoreResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(CreateLogStoreResponse, self).to_map()
@@ -499,12 +524,16 @@ class CreateLogStoreResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
@@ -538,11 +567,13 @@ class CreateProjectRequest(TeaModel):
 
 
 class CreateProjectResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(CreateProjectResponse, self).to_map()
@@ -552,12 +583,16 @@ class CreateProjectResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
@@ -606,11 +641,13 @@ class CreateSavedSearchRequest(TeaModel):
 
 
 class CreateSavedSearchResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(CreateSavedSearchResponse, self).to_map()
@@ -620,21 +657,27 @@ class CreateSavedSearchResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class DeleteConsumerGroupResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(DeleteConsumerGroupResponse, self).to_map()
@@ -644,21 +687,27 @@ class DeleteConsumerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class DeleteProjectResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(DeleteProjectResponse, self).to_map()
@@ -668,21 +717,27 @@ class DeleteProjectResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class DeleteSavedSearchResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(DeleteSavedSearchResponse, self).to_map()
@@ -692,22 +747,28 @@ class DeleteSavedSearchResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class GetLogStoreResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: Logstore
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -720,6 +781,8 @@ class GetLogStoreResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -728,6 +791,8 @@ class GetLogStoreResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = Logstore()
             self.body = temp_model.from_map(m['body'])
@@ -735,12 +800,14 @@ class GetLogStoreResponse(TeaModel):
 
 
 class GetProjectResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: Project
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -753,6 +820,8 @@ class GetProjectResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -761,6 +830,8 @@ class GetProjectResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = Project()
             self.body = temp_model.from_map(m['body'])
@@ -768,12 +839,14 @@ class GetProjectResponse(TeaModel):
 
 
 class GetSavedSearchResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SavedSearch
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -786,6 +859,8 @@ class GetSavedSearchResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -794,6 +869,8 @@ class GetSavedSearchResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SavedSearch()
             self.body = temp_model.from_map(m['body'])
@@ -801,12 +878,14 @@ class GetSavedSearchResponse(TeaModel):
 
 
 class ListConsumerGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: list[ConsumerGroup]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             for k in self.body:
@@ -821,6 +900,8 @@ class ListConsumerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         result['body'] = []
         if self.body is not None:
             for k in self.body:
@@ -831,6 +912,8 @@ class ListConsumerGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         self.body = []
         if m.get('body') is not None:
             for k in m.get('body'):
@@ -908,12 +991,14 @@ class ListLogStoresResponseBody(TeaModel):
 
 
 class ListLogStoresResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListLogStoresResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -926,6 +1011,8 @@ class ListLogStoresResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -934,6 +1021,8 @@ class ListLogStoresResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListLogStoresResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1017,12 +1106,14 @@ class ListProjectResponseBody(TeaModel):
 
 
 class ListProjectResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListProjectResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1035,6 +1126,8 @@ class ListProjectResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1043,6 +1136,8 @@ class ListProjectResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListProjectResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1121,12 +1216,14 @@ class ListSavedSearchResponseBody(TeaModel):
 
 
 class ListSavedSearchResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListSavedSearchResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1139,6 +1236,8 @@ class ListSavedSearchResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1147,6 +1246,8 @@ class ListSavedSearchResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListSavedSearchResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1183,11 +1284,13 @@ class UpdateConsumerGroupRequest(TeaModel):
 
 
 class UpdateConsumerGroupResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(UpdateConsumerGroupResponse, self).to_map()
@@ -1197,26 +1300,31 @@ class UpdateConsumerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
 class UpdateLogStoreRequest(TeaModel):
-    def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, logstore=None,
-                 logstore_name=None, max_split_shard=None, shard_count=None, ttl=None):
+    def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
+                 logstore_name=None, max_split_shard=None, shard_count=None, telemetry_type=None, ttl=None):
         self.append_meta = append_meta  # type: bool
         self.auto_split = auto_split  # type: bool
         self.enable_tracking = enable_tracking  # type: bool
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
-        self.logstore = logstore  # type: str
+        self.hot_ttl = hot_ttl  # type: int
         self.logstore_name = logstore_name  # type: str
         self.max_split_shard = max_split_shard  # type: int
         self.shard_count = shard_count  # type: int
+        self.telemetry_type = telemetry_type  # type: str
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -1237,14 +1345,16 @@ class UpdateLogStoreRequest(TeaModel):
             result['enable_tracking'] = self.enable_tracking
         if self.encrypt_conf is not None:
             result['encrypt_conf'] = self.encrypt_conf.to_map()
-        if self.logstore is not None:
-            result['logstore'] = self.logstore
+        if self.hot_ttl is not None:
+            result['hot_ttl'] = self.hot_ttl
         if self.logstore_name is not None:
             result['logstoreName'] = self.logstore_name
         if self.max_split_shard is not None:
             result['maxSplitShard'] = self.max_split_shard
         if self.shard_count is not None:
             result['shardCount'] = self.shard_count
+        if self.telemetry_type is not None:
+            result['telemetryType'] = self.telemetry_type
         if self.ttl is not None:
             result['ttl'] = self.ttl
         return result
@@ -1260,25 +1370,29 @@ class UpdateLogStoreRequest(TeaModel):
         if m.get('encrypt_conf') is not None:
             temp_model = EncryptConf()
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
-        if m.get('logstore') is not None:
-            self.logstore = m.get('logstore')
+        if m.get('hot_ttl') is not None:
+            self.hot_ttl = m.get('hot_ttl')
         if m.get('logstoreName') is not None:
             self.logstore_name = m.get('logstoreName')
         if m.get('maxSplitShard') is not None:
             self.max_split_shard = m.get('maxSplitShard')
         if m.get('shardCount') is not None:
             self.shard_count = m.get('shardCount')
+        if m.get('telemetryType') is not None:
+            self.telemetry_type = m.get('telemetryType')
         if m.get('ttl') is not None:
             self.ttl = m.get('ttl')
         return self
 
 
 class UpdateLogStoreResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(UpdateLogStoreResponse, self).to_map()
@@ -1288,12 +1402,16 @@ class UpdateLogStoreResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
@@ -1323,11 +1441,13 @@ class UpdateProjectRequest(TeaModel):
 
 
 class UpdateProjectResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
 
     def to_map(self):
         _map = super(UpdateProjectResponse, self).to_map()
@@ -1337,12 +1457,16 @@ class UpdateProjectResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         return self
 
 
