@@ -1,3 +1,6 @@
+2022-06-06 Version: 1.1.6
+- Phase IV.
+
 2022-03-29 Version: 1.1.4
 - Phase III Fix MultiLanguage.
 

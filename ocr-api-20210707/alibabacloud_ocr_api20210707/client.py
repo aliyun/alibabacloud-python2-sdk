@@ -106,6 +106,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recognize_air_itinerary_with_options(request, runtime)
 
+    def recognize_bank_acceptance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeBankAcceptance',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeBankAcceptanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_bank_acceptance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_bank_acceptance_with_options(request, runtime)
+
     def recognize_bank_account_license_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -303,8 +333,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
-        if not UtilClient.is_unset(request.workflow_op):
-            query['WorkflowOp'] = request.workflow_op
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=request.body,
@@ -365,8 +393,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
-        if not UtilClient.is_unset(request.workflow_op):
-            query['WorkflowOp'] = request.workflow_op
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=request.body,
@@ -513,6 +539,36 @@ class Client(OpenApiClient):
     def recognize_cosmetic_produce_license(self, request):
         runtime = util_models.RuntimeOptions()
         return self.recognize_cosmetic_produce_license_with_options(request, runtime)
+
+    def recognize_covid_test_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeCovidTestReport',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeCovidTestReportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_covid_test_report(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_covid_test_report_with_options(request, runtime)
 
     def recognize_ctwo_medical_device_manage_license_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1122,6 +1178,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recognize_handwriting_with_options(request, runtime)
 
+    def recognize_health_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeHealthCode',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeHealthCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_health_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_health_code_with_options(request, runtime)
+
     def recognize_hotel_consume_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1155,6 +1241,8 @@ class Client(OpenApiClient):
     def recognize_household_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.is_resident_page):
+            query['IsResidentPage'] = request.is_resident_page
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
         req = open_api_models.OpenApiRequest(
@@ -1189,8 +1277,6 @@ class Client(OpenApiClient):
             query['OutputFigure'] = request.output_figure
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
-        if not UtilClient.is_unset(request.workflow_op):
-            query['WorkflowOp'] = request.workflow_op
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=request.body,
@@ -1734,6 +1820,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recognize_russian_with_options(request, runtime)
 
+    def recognize_shopping_receipt_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeShoppingReceipt',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeShoppingReceiptResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_shopping_receipt(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_shopping_receipt_with_options(request, runtime)
+
     def recognize_social_security_card_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1763,6 +1879,36 @@ class Client(OpenApiClient):
     def recognize_social_security_card(self, request):
         runtime = util_models.RuntimeOptions()
         return self.recognize_social_security_card_with_options(request, runtime)
+
+    def recognize_social_security_card_version_iiwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeSocialSecurityCardVersionII',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeSocialSecurityCardVersionIIResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_social_security_card_version_ii(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_social_security_card_version_iiwith_options(request, runtime)
 
     def recognize_table_ocr_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1986,6 +2132,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recognize_train_invoice_with_options(request, runtime)
 
+    def recognize_travel_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=request.body,
+            stream=request.body
+        )
+        params = open_api_models.Params(
+            action='RecognizeTravelCard',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.RecognizeTravelCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recognize_travel_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recognize_travel_card_with_options(request, runtime)
+
     def recognize_used_car_invoice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2051,8 +2227,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
-        if not UtilClient.is_unset(request.workflow_op):
-            query['WorkflowOp'] = request.workflow_op
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=request.body,
