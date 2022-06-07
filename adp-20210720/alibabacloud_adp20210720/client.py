@@ -90,6 +90,37 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def add_environment_product_versions(self, uid, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_environment_product_versions_with_options(uid, request, headers, runtime)
+
+    def add_environment_product_versions_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        uid = OpenApiUtilClient.get_encode_param(uid)
+        body = {}
+        if not UtilClient.is_unset(request.product_version_uidlist):
+            body['productVersionUIDList'] = request.product_version_uidlist
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddEnvironmentProductVersions',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/environments/%s/product-versions' % TeaConverter.to_unicode(uid),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.AddEnvironmentProductVersionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def add_product_component_version(self, uid, component_version_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -163,6 +194,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def add_resource_snapshot(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_resource_snapshot_with_options(request, headers, runtime)
+
+    def add_resource_snapshot_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_uid):
+            query['clusterUID'] = request.cluster_uid
+        if not UtilClient.is_unset(request.product_version_uid):
+            query['productVersionUID'] = request.product_version_uid
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddResourceSnapshot',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/resource-snapshots',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.AddResourceSnapshotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def batch_add_environment_nodes(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -174,6 +237,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.instance_list):
             body['instanceList'] = request.instance_list
+        if not UtilClient.is_unset(request.overwrite):
+            body['overwrite'] = request.overwrite
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -241,6 +306,8 @@ class Client(OpenApiClient):
             body['name'] = request.name
         if not UtilClient.is_unset(request.platform):
             body['platform'] = request.platform
+        if not UtilClient.is_unset(request.platform_list):
+            body['platformList'] = request.platform_list
         if not UtilClient.is_unset(request.product_version_uid):
             body['productVersionUID'] = request.product_version_uid
         if not UtilClient.is_unset(request.type):
@@ -287,10 +354,18 @@ class Client(OpenApiClient):
             body['companyName'] = request.company_name
         if not UtilClient.is_unset(request.contact):
             body['contact'] = request.contact
+        if not UtilClient.is_unset(request.license_quota):
+            body['licenseQuota'] = request.license_quota
         if not UtilClient.is_unset(request.machine_fingerprint):
             body['machineFingerprint'] = request.machine_fingerprint
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.product_version_uid):
+            body['productVersionUID'] = request.product_version_uid
         if not UtilClient.is_unset(request.scenario):
             body['scenario'] = request.scenario
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
         if not UtilClient.is_unset(request.type):
             body['type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -394,8 +469,12 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.environment_uid):
             body['environmentUID'] = request.environment_uid
+        if not UtilClient.is_unset(request.namespace):
+            body['namespace'] = request.namespace
         if not UtilClient.is_unset(request.old_product_version_uid):
             body['oldProductVersionUID'] = request.old_product_version_uid
+        if not UtilClient.is_unset(request.package_config):
+            body['packageConfig'] = request.package_config
         if not UtilClient.is_unset(request.package_uid):
             body['packageUID'] = request.package_uid
         if not UtilClient.is_unset(request.product_version_uid):
@@ -420,15 +499,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_product_version(self, uid):
+    def create_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_product_version_with_options(uid, headers, runtime)
+        return self.create_product_version_with_options(uid, request, headers, runtime)
 
-    def create_product_version_with_options(self, uid, headers, runtime):
+    def create_product_version_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
         uid = OpenApiUtilClient.get_encode_param(uid)
+        query = {}
+        if not UtilClient.is_unset(request.base_product_version_uid):
+            query['baseProductVersionUID'] = request.base_product_version_uid
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateProductVersion',
@@ -455,10 +539,14 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
+        if not UtilClient.is_unset(request.cluster_engine_type):
+            query['clusterEngineType'] = request.cluster_engine_type
         if not UtilClient.is_unset(request.old_product_version_uid):
             query['oldProductVersionUID'] = request.old_product_version_uid
         if not UtilClient.is_unset(request.package_content_type):
             query['packageContentType'] = request.package_content_type
+        if not UtilClient.is_unset(request.package_tool_type):
+            query['packageToolType'] = request.package_tool_type
         if not UtilClient.is_unset(request.package_type):
             query['packageType'] = request.package_type
         if not UtilClient.is_unset(request.platform):
@@ -511,6 +599,33 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             adp_20210720_models.DeleteEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_environment_license(self, uid, license_uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_environment_license_with_options(uid, license_uid, headers, runtime)
+
+    def delete_environment_license_with_options(self, uid, license_uid, headers, runtime):
+        uid = OpenApiUtilClient.get_encode_param(uid)
+        license_uid = OpenApiUtilClient.get_encode_param(license_uid)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvironmentLicense',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/environments/%s/licenses/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(license_uid)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.DeleteEnvironmentLicenseResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -717,6 +832,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.environment_uid):
             body['environmentUID'] = request.environment_uid
+        if not UtilClient.is_unset(request.package_uid):
+            body['packageUID'] = request.package_uid
         if not UtilClient.is_unset(request.product_version_uid):
             body['productVersionUID'] = request.product_version_uid
         req = open_api_models.OpenApiRequest(
@@ -765,16 +882,21 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_component_version(self, uid, version_uid):
+    def get_component_version(self, uid, version_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_component_version_with_options(uid, version_uid, headers, runtime)
+        return self.get_component_version_with_options(uid, version_uid, request, headers, runtime)
 
-    def get_component_version_with_options(self, uid, version_uid, headers, runtime):
+    def get_component_version_with_options(self, uid, version_uid, request, headers, runtime):
+        UtilClient.validate_model(request)
         uid = OpenApiUtilClient.get_encode_param(uid)
         version_uid = OpenApiUtilClient.get_encode_param(version_uid)
+        query = {}
+        if not UtilClient.is_unset(request.without_chart_content):
+            query['withoutChartContent'] = request.without_chart_content
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetComponentVersion',
@@ -792,15 +914,24 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_environment(self, uid):
+    def get_environment(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_environment_with_options(uid, headers, runtime)
+        return self.get_environment_with_options(uid, request, headers, runtime)
 
-    def get_environment_with_options(self, uid, headers, runtime):
+    def get_environment_with_options(self, uid, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
         uid = OpenApiUtilClient.get_encode_param(uid)
+        request = adp_20210720_models.GetEnvironmentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.options):
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.options_shrink):
+            query['options'] = request.options_shrink
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetEnvironment',
@@ -818,16 +949,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_environment_license(self, uid, license_uid):
+    def get_environment_license(self, uid, license_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_environment_license_with_options(uid, license_uid, headers, runtime)
+        return self.get_environment_license_with_options(uid, license_uid, request, headers, runtime)
 
-    def get_environment_license_with_options(self, uid, license_uid, headers, runtime):
+    def get_environment_license_with_options(self, uid, license_uid, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
         uid = OpenApiUtilClient.get_encode_param(uid)
         license_uid = OpenApiUtilClient.get_encode_param(license_uid)
+        request = adp_20210720_models.GetEnvironmentLicenseShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.options):
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.options_shrink):
+            query['options'] = request.options_shrink
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetEnvironmentLicense',
@@ -896,6 +1036,32 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             adp_20210720_models.GetFoundationComponentReferenceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_foundation_reference(self, uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_foundation_reference_with_options(uid, headers, runtime)
+
+    def get_foundation_reference_with_options(self, uid, headers, runtime):
+        uid = OpenApiUtilClient.get_encode_param(uid)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetFoundationReference',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/foundation-references/%s/info' % TeaConverter.to_unicode(uid),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.GetFoundationReferenceResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1112,6 +1278,36 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_resource_snapshot(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_resource_snapshot_with_options(request, headers, runtime)
+
+    def get_resource_snapshot_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.product_version_uid):
+            query['productVersionUID'] = request.product_version_uid
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceSnapshot',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/resource-snapshots',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.GetResourceSnapshotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_workflow_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1271,6 +1467,8 @@ class Client(OpenApiClient):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.scope):
+            query['scope'] = request.scope
         if not UtilClient.is_unset(request.type):
             query['type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -1432,6 +1630,8 @@ class Client(OpenApiClient):
     def list_foundation_reference_components_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.foundation_reference_uid):
+            query['foundationReferenceUID'] = request.foundation_reference_uid
         if not UtilClient.is_unset(request.foundation_version_uid):
             query['foundationVersionUID'] = request.foundation_version_uid
         if not UtilClient.is_unset(request.only_enabled):
@@ -1596,6 +1796,32 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             adp_20210720_models.ListProductEnvironmentsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_product_foundation_references(self, uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_product_foundation_references_with_options(uid, headers, runtime)
+
+    def list_product_foundation_references_with_options(self, uid, headers, runtime):
+        uid = OpenApiUtilClient.get_encode_param(uid)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListProductFoundationReferences',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/product-versions/%s/foundation-references' % TeaConverter.to_unicode(uid),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.ListProductFoundationReferencesResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2097,6 +2323,37 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             adp_20210720_models.UpdateFoundationComponentReferenceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_foundation_reference(self, uid, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_foundation_reference_with_options(uid, request, headers, runtime)
+
+    def update_foundation_reference_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        uid = OpenApiUtilClient.get_encode_param(uid)
+        body = {}
+        if not UtilClient.is_unset(request.cluster_config):
+            body['clusterConfig'] = request.cluster_config
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateFoundationReference',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/foundation-references/%s' % TeaConverter.to_unicode(uid),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.UpdateFoundationReferenceResponse(),
             self.call_api(params, req, runtime)
         )
 
