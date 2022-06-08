@@ -2008,7 +2008,8 @@ class OrderFreeFlowProductRequest(TeaModel):
 
 
 class OrderFreeFlowProductResponseBodyData(TeaModel):
-    def __init__(self, customer_flow_order_id=None, customer_flow_request_id=None, status=None):
+    def __init__(self, biz_code=None, customer_flow_order_id=None, customer_flow_request_id=None, status=None):
+        self.biz_code = biz_code  # type: str
         # C端免流订单ID
         self.customer_flow_order_id = customer_flow_order_id  # type: str
         self.customer_flow_request_id = customer_flow_request_id  # type: str
@@ -2024,6 +2025,8 @@ class OrderFreeFlowProductResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
         if self.customer_flow_order_id is not None:
             result['CustomerFlowOrderId'] = self.customer_flow_order_id
         if self.customer_flow_request_id is not None:
@@ -2034,6 +2037,8 @@ class OrderFreeFlowProductResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
         if m.get('CustomerFlowOrderId') is not None:
             self.customer_flow_order_id = m.get('CustomerFlowOrderId')
         if m.get('CustomerFlowRequestId') is not None:
@@ -2283,17 +2288,17 @@ class SaveApplicationInfoResponse(TeaModel):
 
 
 class ValidateStatusRequest(TeaModel):
-    def __init__(self, ali_uid=None, app_id=None, mobile_number=None, operator=None, product_code=None):
+    def __init__(self, ali_uid=None, app_id=None, credential_type=None, credential_value=None, operator=None):
         # 阿里UID
         self.ali_uid = ali_uid  # type: long
         # 应用名称
         self.app_id = app_id  # type: str
-        # C端手机号
-        self.mobile_number = mobile_number  # type: str
+        # 凭证类型
+        self.credential_type = credential_type  # type: str
+        # mobile=150xxxx4661
+        self.credential_value = credential_value  # type: str
         # 取值包括cm（中国移动）/ct（中国电信）/cu（中国联通）
         self.operator = operator  # type: str
-        # 运营商伪码
-        self.product_code = product_code  # type: str
 
     def validate(self):
         pass
@@ -2308,12 +2313,12 @@ class ValidateStatusRequest(TeaModel):
             result['AliUid'] = self.ali_uid
         if self.app_id is not None:
             result['AppId'] = self.app_id
-        if self.mobile_number is not None:
-            result['MobileNumber'] = self.mobile_number
+        if self.credential_type is not None:
+            result['CredentialType'] = self.credential_type
+        if self.credential_value is not None:
+            result['CredentialValue'] = self.credential_value
         if self.operator is not None:
             result['Operator'] = self.operator
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
         return result
 
     def from_map(self, m=None):
@@ -2322,12 +2327,12 @@ class ValidateStatusRequest(TeaModel):
             self.ali_uid = m.get('AliUid')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
-        if m.get('MobileNumber') is not None:
-            self.mobile_number = m.get('MobileNumber')
+        if m.get('CredentialType') is not None:
+            self.credential_type = m.get('CredentialType')
+        if m.get('CredentialValue') is not None:
+            self.credential_value = m.get('CredentialValue')
         if m.get('Operator') is not None:
             self.operator = m.get('Operator')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
         return self
 
 
