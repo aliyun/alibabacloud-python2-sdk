@@ -2132,6 +2132,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_ipa_bps_data_with_options(request, runtime)
 
+    def describe_dcdn_domain_ipa_conn_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.split_by):
+            query['SplitBy'] = request.split_by
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainIpaConnData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainIpaConnDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_ipa_conn_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_ipa_conn_data_with_options(request, runtime)
+
     def describe_dcdn_domain_ipa_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5869,6 +5905,42 @@ class Client(OpenApiClient):
     def set_dcdn_domain_staging_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_dcdn_domain_staging_config_with_options(request, runtime)
+
+    def set_dcdn_full_domains_block_ipwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.block_interval):
+            body['BlockInterval'] = request.block_interval
+        if not UtilClient.is_unset(request.iplist):
+            body['IPList'] = request.iplist
+        if not UtilClient.is_unset(request.operation_type):
+            body['OperationType'] = request.operation_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnFullDomainsBlockIP',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnFullDomainsBlockIPResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_full_domains_block_ip(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_full_domains_block_ipwith_options(request, runtime)
 
     def set_dcdn_user_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
