@@ -1,3 +1,6 @@
+2022-06-09 Version: 0.0.7
+ - Update DescribeCdnDomainConfigs.
+
 2022-05-27 Version: 0.0.6
  - Update SetDcdnFullDomainsBlockIP.
 
