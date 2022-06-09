@@ -6873,6 +6873,195 @@ class SkipTrialPolicyResponse(TeaModel):
         return self
 
 
+class StartGameLiveRequest(TeaModel):
+    def __init__(self, game_session=None, video_push_address=None):
+        self.game_session = game_session  # type: str
+        self.video_push_address = video_push_address  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartGameLiveRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.video_push_address is not None:
+            result['VideoPushAddress'] = self.video_push_address
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('VideoPushAddress') is not None:
+            self.video_push_address = m.get('VideoPushAddress')
+        return self
+
+
+class StartGameLiveResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartGameLiveResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StartGameLiveResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartGameLiveResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartGameLiveResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartGameLiveResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopGameLiveRequest(TeaModel):
+    def __init__(self, game_session=None):
+        self.game_session = game_session  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopGameLiveRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        return self
+
+
+class StopGameLiveResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopGameLiveResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StopGameLiveResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StopGameLiveResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopGameLiveResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StopGameLiveResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StopGameSessionRequest(TeaModel):
     def __init__(self, access_key=None, biz_param=None, game_id=None, game_session=None, reason=None, user_id=None):
         self.access_key = access_key  # type: str

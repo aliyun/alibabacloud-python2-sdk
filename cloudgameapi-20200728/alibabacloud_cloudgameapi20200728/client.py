@@ -1500,6 +1500,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.skip_trial_policy_with_options(request, runtime)
 
+    def start_game_live_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.game_session):
+            query['GameSession'] = request.game_session
+        if not UtilClient.is_unset(request.video_push_address):
+            query['VideoPushAddress'] = request.video_push_address
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartGameLive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.StartGameLiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_game_live(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_game_live_with_options(request, runtime)
+
+    def stop_game_live_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.game_session):
+            query['GameSession'] = request.game_session
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopGameLive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.StopGameLiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_game_live(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_game_live_with_options(request, runtime)
+
     def stop_game_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
