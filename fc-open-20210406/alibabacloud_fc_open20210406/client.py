@@ -1621,6 +1621,47 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_instances(self, service_name, function_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = fc__open_20210406_models.ListInstancesHeaders()
+        return self.list_instances_with_options(service_name, function_name, request, headers, runtime)
+
+    def list_instances_with_options(self, service_name, function_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        service_name = OpenApiUtilClient.get_encode_param(service_name)
+        function_name = OpenApiUtilClient.get_encode_param(function_name)
+        query = {}
+        if not UtilClient.is_unset(request.instance_ids):
+            query['instanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.limit):
+            query['limit'] = request.limit
+        if not UtilClient.is_unset(request.qualifier):
+            query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstances',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc__open_20210406_models.ListInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_layer_versions(self, layer_name, request):
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.ListLayerVersionsHeaders()
@@ -2508,7 +2549,7 @@ class Client(OpenApiClient):
             version='2021-04-06',
             protocol='HTTPS',
             pathname='/2021-04-06/tag',
-            method='DELETE',
+            method='PUT',
             auth_type='AK',
             style='ROA',
             req_body_type='json',
