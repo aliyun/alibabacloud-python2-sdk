@@ -20,6 +20,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = 'regional'
         self.check_config(config)
         self._endpoint = self.get_endpoint('elasticsearch', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -44,7 +45,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ActivateZones',
@@ -75,7 +77,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='AddConnectableCluster',
@@ -93,15 +96,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_snapshot_repo(self, instance_id):
+    def add_snapshot_repo(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_snapshot_repo_with_options(instance_id, headers, runtime)
+        return self.add_snapshot_repo_with_options(instance_id, request, headers, runtime)
 
-    def add_snapshot_repo_with_options(self, instance_id, headers, runtime):
+    def add_snapshot_repo_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='AddSnapshotRepo',
@@ -132,7 +137,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CancelDeletion',
@@ -163,7 +169,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CancelLogstashDeletion',
@@ -196,7 +203,8 @@ class Client(OpenApiClient):
             query['taskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CancelTask',
@@ -265,7 +273,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CloseDiagnosis',
@@ -296,7 +305,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CloseHttps',
@@ -328,7 +338,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CloseManagedIndex',
@@ -358,7 +369,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateCollector',
@@ -423,7 +435,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateDataStream',
@@ -454,7 +467,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateDataTasks',
@@ -485,7 +499,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateILMPolicy',
@@ -516,7 +531,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateIndexTemplate',
@@ -595,7 +611,8 @@ class Client(OpenApiClient):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreatePipelines',
@@ -626,7 +643,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateSnapshot',
@@ -696,7 +714,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeactivateZones',
@@ -727,7 +746,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteCollector',
@@ -745,16 +765,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_component_index(self, instance_id, name):
+    def delete_component_index(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_component_index_with_options(instance_id, name, headers, runtime)
+        return self.delete_component_index_with_options(instance_id, name, request, headers, runtime)
 
-    def delete_component_index_with_options(self, instance_id, name, headers, runtime):
+    def delete_component_index_with_options(self, instance_id, name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteComponentIndex',
@@ -787,7 +809,8 @@ class Client(OpenApiClient):
             query['connectedInstanceId'] = request.connected_instance_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteConnectedCluster',
@@ -819,7 +842,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteDataStream',
@@ -852,7 +876,8 @@ class Client(OpenApiClient):
             query['taskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteDataTask',
@@ -870,16 +895,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_deprecated_template(self, instance_id, name):
+    def delete_deprecated_template(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_deprecated_template_with_options(instance_id, name, headers, runtime)
+        return self.delete_deprecated_template_with_options(instance_id, name, request, headers, runtime)
 
-    def delete_deprecated_template_with_options(self, instance_id, name, headers, runtime):
+    def delete_deprecated_template_with_options(self, instance_id, name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteDeprecatedTemplate',
@@ -897,16 +924,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_ilmpolicy(self, instance_id, policy_name):
+    def delete_ilmpolicy(self, instance_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
+        return self.delete_ilmpolicy_with_options(instance_id, policy_name, request, headers, runtime)
 
-    def delete_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
+    def delete_ilmpolicy_with_options(self, instance_id, policy_name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteILMPolicy',
@@ -924,16 +953,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_index_template(self, instance_id, index_template):
+    def delete_index_template(self, instance_id, index_template, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_index_template_with_options(instance_id, index_template, headers, runtime)
+        return self.delete_index_template_with_options(instance_id, index_template, request, headers, runtime)
 
-    def delete_index_template_with_options(self, instance_id, index_template, headers, runtime):
+    def delete_index_template_with_options(self, instance_id, index_template, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         index_template = OpenApiUtilClient.get_encode_param(index_template)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteIndexTemplate',
@@ -966,7 +997,8 @@ class Client(OpenApiClient):
             query['deleteType'] = request.delete_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteInstance',
@@ -999,7 +1031,8 @@ class Client(OpenApiClient):
             query['deleteType'] = request.delete_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteLogstash',
@@ -1032,7 +1065,8 @@ class Client(OpenApiClient):
             query['pipelineIds'] = request.pipeline_ids
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeletePipelines',
@@ -1065,7 +1099,8 @@ class Client(OpenApiClient):
             query['repoPath'] = request.repo_path
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteSnapshotRepo',
@@ -1097,7 +1132,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DeleteVpcEndpoint',
@@ -1115,15 +1151,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ack_operator(self, cluster_id):
+    def describe_ack_operator(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ack_operator_with_options(cluster_id, headers, runtime)
+        return self.describe_ack_operator_with_options(cluster_id, request, headers, runtime)
 
-    def describe_ack_operator_with_options(self, cluster_id, headers, runtime):
+    def describe_ack_operator_with_options(self, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeAckOperator',
@@ -1141,15 +1179,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_apm(self, instance_id):
+    def describe_apm(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_apm_with_options(instance_id, headers, runtime)
+        return self.describe_apm_with_options(instance_id, request, headers, runtime)
 
-    def describe_apm_with_options(self, instance_id, headers, runtime):
+    def describe_apm_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeApm',
@@ -1167,15 +1207,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_collector(self, res_id):
+    def describe_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_collector_with_options(res_id, headers, runtime)
+        return self.describe_collector_with_options(res_id, request, headers, runtime)
 
-    def describe_collector_with_options(self, res_id, headers, runtime):
+    def describe_collector_with_options(self, res_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         res_id = OpenApiUtilClient.get_encode_param(res_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeCollector',
@@ -1193,16 +1235,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_component_index(self, instance_id, name):
+    def describe_component_index(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_component_index_with_options(instance_id, name, headers, runtime)
+        return self.describe_component_index_with_options(instance_id, name, request, headers, runtime)
 
-    def describe_component_index_with_options(self, instance_id, name, headers, runtime):
+    def describe_component_index_with_options(self, instance_id, name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeComponentIndex',
@@ -1233,7 +1277,8 @@ class Client(OpenApiClient):
             query['alreadySetItems'] = request.already_set_items
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeConnectableClusters',
@@ -1251,16 +1296,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_deprecated_template(self, instance_id, name):
+    def describe_deprecated_template(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_deprecated_template_with_options(instance_id, name, headers, runtime)
+        return self.describe_deprecated_template_with_options(instance_id, name, request, headers, runtime)
 
-    def describe_deprecated_template_with_options(self, instance_id, name, headers, runtime):
+    def describe_deprecated_template_with_options(self, instance_id, name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeDeprecatedTemplate',
@@ -1292,7 +1339,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeDiagnoseReport',
@@ -1323,7 +1371,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeDiagnosisSettings',
@@ -1341,15 +1390,45 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_elasticsearch_health(self, instance_id):
+    def describe_dynamic_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_elasticsearch_health_with_options(instance_id, headers, runtime)
+        return self.describe_dynamic_settings_with_options(instance_id, request, headers, runtime)
 
-    def describe_elasticsearch_health_with_options(self, instance_id, headers, runtime):
+    def describe_dynamic_settings_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='DescribeDynamicSettings',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/dynamic-settings' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.DescribeDynamicSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_elasticsearch_health(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_elasticsearch_health_with_options(instance_id, request, headers, runtime)
+
+    def describe_elasticsearch_health_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeElasticsearchHealth',
@@ -1367,16 +1446,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ilmpolicy(self, instance_id, policy_name):
+    def describe_ilmpolicy(self, instance_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
+        return self.describe_ilmpolicy_with_options(instance_id, policy_name, request, headers, runtime)
 
-    def describe_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
+    def describe_ilmpolicy_with_options(self, instance_id, policy_name, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeILMPolicy',
@@ -1394,16 +1475,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_index_template(self, instance_id, index_template):
+    def describe_index_template(self, instance_id, index_template, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_index_template_with_options(instance_id, index_template, headers, runtime)
+        return self.describe_index_template_with_options(instance_id, index_template, request, headers, runtime)
 
-    def describe_index_template_with_options(self, instance_id, index_template, headers, runtime):
+    def describe_index_template_with_options(self, instance_id, index_template, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         index_template = OpenApiUtilClient.get_encode_param(index_template)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeIndexTemplate',
@@ -1421,15 +1504,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_instance(self, instance_id):
+    def describe_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_instance_with_options(instance_id, headers, runtime)
+        return self.describe_instance_with_options(instance_id, request, headers, runtime)
 
-    def describe_instance_with_options(self, instance_id, headers, runtime):
+    def describe_instance_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeInstance',
@@ -1447,15 +1532,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_kibana_settings(self, instance_id):
+    def describe_kibana_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_kibana_settings_with_options(instance_id, headers, runtime)
+        return self.describe_kibana_settings_with_options(instance_id, request, headers, runtime)
 
-    def describe_kibana_settings_with_options(self, instance_id, headers, runtime):
+    def describe_kibana_settings_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeKibanaSettings',
@@ -1473,15 +1560,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_logstash(self, instance_id):
+    def describe_logstash(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_logstash_with_options(instance_id, headers, runtime)
+        return self.describe_logstash_with_options(instance_id, request, headers, runtime)
 
-    def describe_logstash_with_options(self, instance_id, headers, runtime):
+    def describe_logstash_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeLogstash',
@@ -1499,16 +1588,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_pipeline(self, instance_id, pipeline_id):
+    def describe_pipeline(self, instance_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_pipeline_with_options(instance_id, pipeline_id, headers, runtime)
+        return self.describe_pipeline_with_options(instance_id, pipeline_id, request, headers, runtime)
 
-    def describe_pipeline_with_options(self, instance_id, pipeline_id, headers, runtime):
+    def describe_pipeline_with_options(self, instance_id, pipeline_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribePipeline',
@@ -1539,7 +1630,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribePipelineManagementConfig',
@@ -1557,14 +1649,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def describe_regions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(headers, runtime)
+        return self.describe_regions_with_options(request, headers, runtime)
 
-    def describe_regions_with_options(self, headers, runtime):
+    def describe_regions_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeRegions',
@@ -1582,15 +1676,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_snapshot_setting(self, instance_id):
+    def describe_snapshot_setting(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_snapshot_setting_with_options(instance_id, headers, runtime)
+        return self.describe_snapshot_setting_with_options(instance_id, request, headers, runtime)
 
-    def describe_snapshot_setting_with_options(self, instance_id, headers, runtime):
+    def describe_snapshot_setting_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeSnapshotSetting',
@@ -1608,15 +1704,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_templates(self, instance_id):
+    def describe_templates(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_templates_with_options(instance_id, headers, runtime)
+        return self.describe_templates_with_options(instance_id, request, headers, runtime)
 
-    def describe_templates_with_options(self, instance_id, headers, runtime):
+    def describe_templates_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeTemplates',
@@ -1634,15 +1732,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_xpack_monitor_config(self, instance_id):
+    def describe_xpack_monitor_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_xpack_monitor_config_with_options(instance_id, headers, runtime)
+        return self.describe_xpack_monitor_config_with_options(instance_id, request, headers, runtime)
 
-    def describe_xpack_monitor_config_with_options(self, instance_id, headers, runtime):
+    def describe_xpack_monitor_config_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='DescribeXpackMonitorConfig',
@@ -1675,7 +1775,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='DiagnoseInstance',
@@ -1706,7 +1807,8 @@ class Client(OpenApiClient):
             query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='EstimatedLogstashRestartTime',
@@ -1737,7 +1839,8 @@ class Client(OpenApiClient):
             query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='EstimatedRestartTime',
@@ -1755,14 +1858,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_cluster_data_information(self):
+    def get_cluster_data_information(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_cluster_data_information_with_options(headers, runtime)
+        return self.get_cluster_data_information_with_options(request, headers, runtime)
 
-    def get_cluster_data_information_with_options(self, headers, runtime):
+    def get_cluster_data_information_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetClusterDataInformation',
@@ -1780,15 +1885,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_elastictask(self, instance_id):
+    def get_elastictask(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_elastictask_with_options(instance_id, headers, runtime)
+        return self.get_elastictask_with_options(instance_id, request, headers, runtime)
 
-    def get_elastictask_with_options(self, instance_id, headers, runtime):
+    def get_elastictask_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetElastictask',
@@ -1806,15 +1913,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_grafana_alerts(self, project_id):
+    def get_emon_grafana_alerts(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_grafana_alerts_with_options(project_id, headers, runtime)
+        return self.get_emon_grafana_alerts_with_options(project_id, request, headers, runtime)
 
-    def get_emon_grafana_alerts_with_options(self, project_id, headers, runtime):
+    def get_emon_grafana_alerts_with_options(self, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         project_id = OpenApiUtilClient.get_encode_param(project_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetEmonGrafanaAlerts',
@@ -1832,15 +1941,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_grafana_dashboards(self, project_id):
+    def get_emon_grafana_dashboards(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_grafana_dashboards_with_options(project_id, headers, runtime)
+        return self.get_emon_grafana_dashboards_with_options(project_id, request, headers, runtime)
 
-    def get_emon_grafana_dashboards_with_options(self, project_id, headers, runtime):
+    def get_emon_grafana_dashboards_with_options(self, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         project_id = OpenApiUtilClient.get_encode_param(project_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetEmonGrafanaDashboards',
@@ -1858,15 +1969,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_monitor_data(self, project_id):
+    def get_emon_monitor_data(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_monitor_data_with_options(project_id, headers, runtime)
+        return self.get_emon_monitor_data_with_options(project_id, request, headers, runtime)
 
-    def get_emon_monitor_data_with_options(self, project_id, headers, runtime):
+    def get_emon_monitor_data_with_options(self, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         project_id = OpenApiUtilClient.get_encode_param(project_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetEmonMonitorData',
@@ -1884,15 +1997,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_open_store_usage(self, instance_id):
+    def get_open_store_usage(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_open_store_usage_with_options(instance_id, headers, runtime)
+        return self.get_open_store_usage_with_options(instance_id, request, headers, runtime)
 
-    def get_open_store_usage_with_options(self, instance_id, headers, runtime):
+    def get_open_store_usage_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetOpenStoreUsage',
@@ -1922,7 +2037,8 @@ class Client(OpenApiClient):
             query['zoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetRegionConfiguration',
@@ -1957,7 +2073,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetSuggestShrinkableNodes',
@@ -1990,7 +2107,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='GetTransferableNodes',
@@ -2020,7 +2138,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InitializeOperationRole',
@@ -2051,7 +2170,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InstallAckOperator',
@@ -2082,7 +2202,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InstallKibanaSystemPlugin',
@@ -2113,7 +2234,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InstallLogstashSystemPlugin',
@@ -2144,7 +2266,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InstallSystemPlugin',
@@ -2162,15 +2285,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_user_plugins(self, instance_id):
+    def install_user_plugins(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_user_plugins_with_options(instance_id, headers, runtime)
+        return self.install_user_plugins_with_options(instance_id, request, headers, runtime)
 
-    def install_user_plugins_with_options(self, instance_id, headers, runtime):
+    def install_user_plugins_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='InstallUserPlugins',
@@ -2201,7 +2326,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InterruptElasticsearchTask',
@@ -2232,7 +2358,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='InterruptLogstashTask',
@@ -2266,7 +2393,8 @@ class Client(OpenApiClient):
             query['vpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListAckClusters',
@@ -2299,7 +2427,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListAckNamespaces',
@@ -2317,6 +2446,52 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_action_records(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_action_records_with_options(instance_id, request, headers, runtime)
+
+    def list_action_records_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        query = {}
+        if not UtilClient.is_unset(request.action_names):
+            query['actionNames'] = request.action_names
+        if not UtilClient.is_unset(request.end_time):
+            query['endTime'] = request.end_time
+        if not UtilClient.is_unset(request.filter):
+            query['filter'] = request.filter
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.request_id):
+            query['requestId'] = request.request_id
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        if not UtilClient.is_unset(request.start_time):
+            query['startTime'] = request.start_time
+        if not UtilClient.is_unset(request.user_id):
+            query['userId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='ListActionRecords',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/action-records' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.ListActionRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_all_node(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2330,7 +2505,8 @@ class Client(OpenApiClient):
             query['extended'] = request.extended
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListAllNode',
@@ -2361,7 +2537,8 @@ class Client(OpenApiClient):
             query['alreadySetItems'] = request.already_set_items
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListAlternativeSnapshotRepos',
@@ -2399,7 +2576,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListApm',
@@ -2417,15 +2595,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_available_es_instance_ids(self, instance_id):
+    def list_available_es_instance_ids(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_available_es_instance_ids_with_options(instance_id, headers, runtime)
+        return self.list_available_es_instance_ids_with_options(instance_id, request, headers, runtime)
 
-    def list_available_es_instance_ids_with_options(self, instance_id, headers, runtime):
+    def list_available_es_instance_ids_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListAvailableEsInstanceIds',
@@ -2465,7 +2645,8 @@ class Client(OpenApiClient):
             query['sourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListCollectors',
@@ -2500,7 +2681,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListComponentIndices',
@@ -2518,15 +2700,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_connected_clusters(self, instance_id):
+    def list_connected_clusters(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_connected_clusters_with_options(instance_id, headers, runtime)
+        return self.list_connected_clusters_with_options(instance_id, request, headers, runtime)
 
-    def list_connected_clusters_with_options(self, instance_id, headers, runtime):
+    def list_connected_clusters_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListConnectedClusters',
@@ -2559,7 +2743,8 @@ class Client(OpenApiClient):
             query['name'] = request.name
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDataStreams',
@@ -2577,15 +2762,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_tasks(self, instance_id):
+    def list_data_tasks(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_tasks_with_options(instance_id, headers, runtime)
+        return self.list_data_tasks_with_options(instance_id, request, headers, runtime)
 
-    def list_data_tasks_with_options(self, instance_id, headers, runtime):
+    def list_data_tasks_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDataTasks',
@@ -2619,7 +2806,8 @@ class Client(OpenApiClient):
             query['sourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDefaultCollectorConfigurations',
@@ -2654,7 +2842,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDeprecatedTemplates',
@@ -2685,7 +2874,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDiagnoseIndices',
@@ -2728,7 +2918,8 @@ class Client(OpenApiClient):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDiagnoseReport',
@@ -2769,7 +2960,8 @@ class Client(OpenApiClient):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDiagnoseReportIds',
@@ -2804,7 +2996,8 @@ class Client(OpenApiClient):
             query['key'] = request.key
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDictInformation',
@@ -2837,7 +3030,8 @@ class Client(OpenApiClient):
             query['name'] = request.name
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListDicts',
@@ -2877,7 +3071,8 @@ class Client(OpenApiClient):
             query['vpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListEcsInstances',
@@ -2895,15 +3090,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_extendfiles(self, instance_id):
+    def list_extendfiles(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_extendfiles_with_options(instance_id, headers, runtime)
+        return self.list_extendfiles_with_options(instance_id, request, headers, runtime)
 
-    def list_extendfiles_with_options(self, instance_id, headers, runtime):
+    def list_extendfiles_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListExtendfiles',
@@ -2934,7 +3131,8 @@ class Client(OpenApiClient):
             query['policyName'] = request.policy_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListILMPolicies',
@@ -2969,7 +3167,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListIndexTemplates',
@@ -3019,7 +3218,8 @@ class Client(OpenApiClient):
             query['zoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListInstance',
@@ -3034,55 +3234,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             elasticsearch_20170613_models.ListInstanceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_instance_history_events(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_instance_history_events_with_options(request, headers, runtime)
-
-    def list_instance_history_events_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.event_create_end_time):
-            query['eventCreateEndTime'] = request.event_create_end_time
-        if not UtilClient.is_unset(request.event_create_start_time):
-            query['eventCreateStartTime'] = request.event_create_start_time
-        if not UtilClient.is_unset(request.event_execute_end_time):
-            query['eventExecuteEndTime'] = request.event_execute_end_time
-        if not UtilClient.is_unset(request.event_execute_start_time):
-            query['eventExecuteStartTime'] = request.event_execute_start_time
-        if not UtilClient.is_unset(request.event_finash_end_time):
-            query['eventFinashEndTime'] = request.event_finash_end_time
-        if not UtilClient.is_unset(request.event_finash_start_time):
-            query['eventFinashStartTime'] = request.event_finash_start_time
-        if not UtilClient.is_unset(request.event_level):
-            query['eventLevel'] = request.event_level
-        if not UtilClient.is_unset(request.event_type):
-            query['eventType'] = request.event_type
-        if not UtilClient.is_unset(request.instance_id):
-            query['instanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.node_ip):
-            query['nodeIP'] = request.node_ip
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_array(request.body)
-        )
-        params = open_api_models.Params(
-            action='ListInstanceHistoryEvents',
-            version='2017-06-13',
-            protocol='HTTPS',
-            pathname='/openapi/events',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            elasticsearch_20170613_models.ListInstanceHistoryEventsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -3109,7 +3260,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListInstanceIndices',
@@ -3142,7 +3294,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListKibanaPlugins',
@@ -3184,7 +3337,8 @@ class Client(OpenApiClient):
             query['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListLogstash',
@@ -3225,7 +3379,8 @@ class Client(OpenApiClient):
             query['type'] = request.type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListLogstashLog',
@@ -3262,7 +3417,8 @@ class Client(OpenApiClient):
             query['source'] = request.source
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListLogstashPlugins',
@@ -3301,7 +3457,8 @@ class Client(OpenApiClient):
             query['tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListNodes',
@@ -3336,7 +3493,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListPipeline',
@@ -3354,15 +3512,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_ids(self, instance_id):
+    def list_pipeline_ids(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_ids_with_options(instance_id, headers, runtime)
+        return self.list_pipeline_ids_with_options(instance_id, request, headers, runtime)
 
-    def list_pipeline_ids_with_options(self, instance_id, headers, runtime):
+    def list_pipeline_ids_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListPipelineIds',
@@ -3399,7 +3559,8 @@ class Client(OpenApiClient):
             query['source'] = request.source
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListPlugins',
@@ -3440,7 +3601,8 @@ class Client(OpenApiClient):
             query['type'] = request.type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListSearchLog',
@@ -3471,7 +3633,8 @@ class Client(OpenApiClient):
             query['activeOnly'] = request.active_only
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListShardRecoveries',
@@ -3489,15 +3652,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_snapshot_repos_by_instance_id(self, instance_id):
+    def list_snapshot_repos_by_instance_id(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_snapshot_repos_by_instance_id_with_options(instance_id, headers, runtime)
+        return self.list_snapshot_repos_by_instance_id_with_options(instance_id, request, headers, runtime)
 
-    def list_snapshot_repos_by_instance_id_with_options(self, instance_id, headers, runtime):
+    def list_snapshot_repos_by_instance_id_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListSnapshotReposByInstanceId',
@@ -3537,7 +3702,8 @@ class Client(OpenApiClient):
             query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListTagResources',
@@ -3569,7 +3735,8 @@ class Client(OpenApiClient):
             query['resourceType'] = request.resource_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListTags',
@@ -3602,7 +3769,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ListVpcEndpoints',
@@ -3633,7 +3801,8 @@ class Client(OpenApiClient):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='MigrateToOtherZone',
@@ -3664,7 +3833,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ModifyDeployMachine',
@@ -3682,15 +3852,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_elastictask(self, instance_id):
+    def modify_elastictask(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_elastictask_with_options(instance_id, headers, runtime)
+        return self.modify_elastictask_with_options(instance_id, request, headers, runtime)
 
-    def modify_elastictask_with_options(self, instance_id, headers, runtime):
+    def modify_elastictask_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ModifyElastictask',
@@ -3721,7 +3893,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ModifyInstanceMaintainTime',
@@ -3793,13 +3966,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        body = {}
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='MoveResourceGroup',
@@ -3832,7 +4002,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='OpenDiagnosis',
@@ -3863,7 +4034,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='OpenHttps',
@@ -3881,16 +4053,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def post_emon_try_alarm_rule(self, project_id, alarm_group_id):
+    def post_emon_try_alarm_rule(self, project_id, alarm_group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.post_emon_try_alarm_rule_with_options(project_id, alarm_group_id, headers, runtime)
+        return self.post_emon_try_alarm_rule_with_options(project_id, alarm_group_id, request, headers, runtime)
 
-    def post_emon_try_alarm_rule_with_options(self, project_id, alarm_group_id, headers, runtime):
+    def post_emon_try_alarm_rule_with_options(self, project_id, alarm_group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         project_id = OpenApiUtilClient.get_encode_param(project_id)
         alarm_group_id = OpenApiUtilClient.get_encode_param(alarm_group_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='PostEmonTryAlarmRule',
@@ -3921,7 +4095,8 @@ class Client(OpenApiClient):
             query['usageScenario'] = request.usage_scenario
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RecommendTemplates',
@@ -3952,7 +4127,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ReinstallCollector',
@@ -3970,15 +4146,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_apm(self, instance_id):
+    def remove_apm(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_apm_with_options(instance_id, headers, runtime)
+        return self.remove_apm_with_options(instance_id, request, headers, runtime)
 
-    def remove_apm_with_options(self, instance_id, headers, runtime):
+    def remove_apm_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='RemoveApm',
@@ -4009,7 +4187,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RenewInstance',
@@ -4040,7 +4219,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RenewLogstash',
@@ -4071,7 +4251,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RestartCollector',
@@ -4104,7 +4285,8 @@ class Client(OpenApiClient):
             query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RestartInstance',
@@ -4137,7 +4319,8 @@ class Client(OpenApiClient):
             query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RestartLogstash',
@@ -4168,7 +4351,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ResumeElasticsearchTask',
@@ -4199,7 +4383,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ResumeLogstashTask',
@@ -4231,7 +4416,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RolloverDataStream',
@@ -4262,7 +4448,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='RunPipelines',
@@ -4316,15 +4503,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_apm(self, instance_id):
+    def start_apm(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_apm_with_options(instance_id, headers, runtime)
+        return self.start_apm_with_options(instance_id, request, headers, runtime)
 
-    def start_apm_with_options(self, instance_id, headers, runtime):
+    def start_apm_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='StartApm',
@@ -4355,7 +4544,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='StartCollector',
@@ -4373,15 +4563,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_apm(self, instance_id):
+    def stop_apm(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_apm_with_options(instance_id, headers, runtime)
+        return self.stop_apm_with_options(instance_id, request, headers, runtime)
 
-    def stop_apm_with_options(self, instance_id, headers, runtime):
+    def stop_apm_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='StopApm',
@@ -4412,7 +4604,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='StopCollector',
@@ -4443,7 +4636,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='StopPipelines',
@@ -4468,16 +4662,9 @@ class Client(OpenApiClient):
 
     def tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.resource_ids):
-            body['ResourceIds'] = request.resource_ids
-        if not UtilClient.is_unset(request.resource_type):
-            body['ResourceType'] = request.resource_type
-        if not UtilClient.is_unset(request.tags):
-            body['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='TagResources',
@@ -4581,7 +4768,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UninstallKibanaPlugin',
@@ -4612,7 +4800,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UninstallLogstashPlugin',
@@ -4643,7 +4832,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UninstallPlugin',
@@ -4679,7 +4869,8 @@ class Client(OpenApiClient):
             query['TagKeys'] = request.tag_keys
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UntagResources',
@@ -4710,7 +4901,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateAdminPassword',
@@ -4741,7 +4933,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateAdvancedSetting',
@@ -4772,7 +4965,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateAliwsDict',
@@ -4877,7 +5071,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateCollector',
@@ -4908,7 +5103,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateCollectorName',
@@ -5010,7 +5206,8 @@ class Client(OpenApiClient):
             query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateDiagnosisSettings',
@@ -5041,7 +5238,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateDict',
@@ -5059,6 +5257,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_dynamic_settings(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_dynamic_settings_with_options(instance_id, request, headers, runtime)
+
+    def update_dynamic_settings_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.mode):
+            query['mode'] = request.mode
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdateDynamicSettings',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/dynamic-settings' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.UpdateDynamicSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_extend_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5072,7 +5306,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateExtendConfig',
@@ -5103,7 +5338,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateExtendfiles',
@@ -5134,7 +5370,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateHotIkDicts',
@@ -5166,7 +5403,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateILMPolicy',
@@ -5198,7 +5436,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateIndexTemplate',
@@ -5227,13 +5466,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        if not UtilClient.is_unset(request.ignore_status):
-            query['ignoreStatus'] = request.ignore_status
         if not UtilClient.is_unset(request.order_action_type):
             query['orderActionType'] = request.order_action_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateInstance',
@@ -5264,7 +5502,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateInstanceChargeType',
@@ -5295,7 +5534,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateInstanceSettings',
@@ -5326,7 +5566,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateKibanaSettings',
@@ -5359,7 +5600,8 @@ class Client(OpenApiClient):
             query['modifyMode'] = request.modify_mode
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateKibanaWhiteIps',
@@ -5388,17 +5630,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        body = {}
-        if not UtilClient.is_unset(request.description):
-            body['description'] = request.description
-        if not UtilClient.is_unset(request.node_amount):
-            body['nodeAmount'] = request.node_amount
-        if not UtilClient.is_unset(request.node_spec):
-            body['nodeSpec'] = request.node_spec
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateLogstash',
@@ -5427,15 +5662,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        body = {}
-        if not UtilClient.is_unset(request.payment_info):
-            body['paymentInfo'] = request.payment_info
-        if not UtilClient.is_unset(request.payment_type):
-            body['paymentType'] = request.payment_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateLogstashChargeType',
@@ -5464,13 +5694,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        body = {}
-        if not UtilClient.is_unset(request.description):
-            body['description'] = request.description
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateLogstashDescription',
@@ -5499,13 +5726,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
-        body = {}
-        if not UtilClient.is_unset(request.body):
-            body['body'] = request.body
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateLogstashSettings',
@@ -5536,7 +5760,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdatePipelineManagementConfig',
@@ -5569,7 +5794,8 @@ class Client(OpenApiClient):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdatePipelines',
@@ -5602,7 +5828,8 @@ class Client(OpenApiClient):
             query['modifyMode'] = request.modify_mode
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdatePrivateNetworkWhiteIps',
@@ -5633,7 +5860,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdatePublicNetwork',
@@ -5666,7 +5894,8 @@ class Client(OpenApiClient):
             query['modifyMode'] = request.modify_mode
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdatePublicWhiteIps',
@@ -5697,7 +5926,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateReadWritePolicy',
@@ -5715,15 +5945,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_snapshot_setting(self, instance_id):
+    def update_snapshot_setting(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_snapshot_setting_with_options(instance_id, headers, runtime)
+        return self.update_snapshot_setting_with_options(instance_id, request, headers, runtime)
 
-    def update_snapshot_setting_with_options(self, instance_id, headers, runtime):
+    def update_snapshot_setting_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateSnapshotSetting',
@@ -5754,7 +5986,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateSynonymsDicts',
@@ -5786,7 +6019,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateTemplate',
@@ -5856,7 +6090,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateXpackMonitorConfig',
@@ -5926,7 +6161,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ValidateConnection',
@@ -5992,7 +6228,8 @@ class Client(OpenApiClient):
             query['rolename'] = request.rolename
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ValidateSlrPermission',
@@ -6054,7 +6291,8 @@ class Client(OpenApiClient):
             query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='createInstance',
