@@ -19,66 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
-        self._endpoint_rule = 'regional'
-        self._endpoint_map = {
-            'cn-qingdao': 'mongodb.aliyuncs.com',
-            'cn-beijing': 'mongodb.aliyuncs.com',
-            'cn-chengdu': 'mongodb.cn-chengdu.aliyuncs.com',
-            'cn-zhangjiakou': 'mongodb.cn-zhangjiakou.aliyuncs.com',
-            'cn-huhehaote': 'mongodb.cn-huhehaote.aliyuncs.com',
-            'cn-hangzhou': 'mongodb.aliyuncs.com',
-            'cn-shanghai': 'mongodb.aliyuncs.com',
-            'cn-shenzhen': 'mongodb.aliyuncs.com',
-            'cn-heyuan': 'mongodb.aliyuncs.com',
-            'cn-hongkong': 'mongodb.aliyuncs.com',
-            'ap-southeast-1': 'mongodb.aliyuncs.com',
-            'ap-southeast-2': 'mongodb.ap-southeast-2.aliyuncs.com',
-            'ap-southeast-3': 'mongodb.ap-southeast-3.aliyuncs.com',
-            'ap-southeast-5': 'mongodb.ap-southeast-5.aliyuncs.com',
-            'ap-northeast-1': 'mongodb.ap-northeast-1.aliyuncs.com',
-            'eu-west-1': 'mongodb.eu-west-1.aliyuncs.com',
-            'us-west-1': 'mongodb.aliyuncs.com',
-            'us-east-1': 'mongodb.aliyuncs.com',
-            'eu-central-1': 'mongodb.eu-central-1.aliyuncs.com',
-            'me-east-1': 'mongodb.me-east-1.aliyuncs.com',
-            'ap-south-1': 'mongodb.ap-south-1.aliyuncs.com',
-            'cn-hangzhou-finance': 'mongodb.aliyuncs.com',
-            'cn-shanghai-finance-1': 'mongodb.aliyuncs.com',
-            'cn-shenzhen-finance-1': 'mongodb.aliyuncs.com',
-            'cn-north-2-gov-1': 'mongodb.aliyuncs.com',
-            'ap-northeast-2-pop': 'mongodb.aliyuncs.com',
-            'cn-beijing-finance-1': 'mongodb.aliyuncs.com',
-            'cn-beijing-finance-pop': 'mongodb.aliyuncs.com',
-            'cn-beijing-gov-1': 'mongodb.aliyuncs.com',
-            'cn-beijing-nu16-b01': 'mongodb.aliyuncs.com',
-            'cn-edge-1': 'mongodb.aliyuncs.com',
-            'cn-fujian': 'mongodb.aliyuncs.com',
-            'cn-haidian-cm12-c01': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-bj-b01': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-internal-prod-1': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-internal-test-1': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-internal-test-2': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-internal-test-3': 'mongodb.aliyuncs.com',
-            'cn-hangzhou-test-306': 'mongodb.aliyuncs.com',
-            'cn-hongkong-finance-pop': 'mongodb.aliyuncs.com',
-            'cn-huhehaote-nebula-1': 'mongodb.aliyuncs.com',
-            'cn-qingdao-nebula': 'mongodb.aliyuncs.com',
-            'cn-shanghai-et15-b01': 'mongodb.aliyuncs.com',
-            'cn-shanghai-et2-b01': 'mongodb.aliyuncs.com',
-            'cn-shanghai-inner': 'mongodb.aliyuncs.com',
-            'cn-shanghai-internal-test-1': 'mongodb.aliyuncs.com',
-            'cn-shenzhen-inner': 'mongodb.aliyuncs.com',
-            'cn-shenzhen-st4-d01': 'mongodb.aliyuncs.com',
-            'cn-shenzhen-su18-b01': 'mongodb.aliyuncs.com',
-            'cn-wuhan': 'mongodb.aliyuncs.com',
-            'cn-wulanchabu': 'mongodb.aliyuncs.com',
-            'cn-yushanfang': 'mongodb.aliyuncs.com',
-            'cn-zhangbei-na61-b01': 'mongodb.aliyuncs.com',
-            'cn-zhangjiakou-na62-a01': 'mongodb.aliyuncs.com',
-            'cn-zhengzhou-nebula-1': 'mongodb.aliyuncs.com',
-            'eu-west-1-oxs': 'mongodb.aliyuncs.com',
-            'rus-west-1-pop': 'mongodb.aliyuncs.com'
-        }
+        self._endpoint_rule = ''
         self.check_config(config)
         self._endpoint = self.get_endpoint('dds', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
 
@@ -362,6 +303,8 @@ class Client(OpenApiClient):
             query['SrcDBInstanceId'] = request.src_dbinstance_id
         if not UtilClient.is_unset(request.storage_engine):
             query['StorageEngine'] = request.storage_engine
+        if not UtilClient.is_unset(request.storage_type):
+            query['StorageType'] = request.storage_type
         if not UtilClient.is_unset(request.v_switch_id):
             query['VSwitchId'] = request.v_switch_id
         if not UtilClient.is_unset(request.vpc_id):
@@ -494,50 +437,6 @@ class Client(OpenApiClient):
     def create_node_batch(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_node_batch_with_options(request, runtime)
-
-    def create_recommendation_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.node_id):
-            query['NodeId'] = request.node_id
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.security_token):
-            query['SecurityToken'] = request.security_token
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateRecommendationTask',
-            version='2015-12-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.CreateRecommendationTaskResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_recommendation_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_recommendation_task_with_options(request, runtime)
 
     def create_serverless_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -889,50 +788,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_active_operation_task_type_with_options(request, runtime)
 
-    def describe_audit_files_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.dbinstance_id):
-            query['DBInstanceId'] = request.dbinstance_id
-        if not UtilClient.is_unset(request.node_id):
-            query['NodeId'] = request.node_id
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.security_token):
-            query['SecurityToken'] = request.security_token
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAuditFiles',
-            version='2015-12-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.DescribeAuditFilesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_audit_files(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_audit_files_with_options(request, runtime)
-
     def describe_audit_log_filter_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1152,46 +1007,6 @@ class Client(OpenApiClient):
     def describe_available_resource(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_available_resource_with_options(request, runtime)
-
-    def describe_available_time_range_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.node_id):
-            query['NodeId'] = request.node_id
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.security_token):
-            query['SecurityToken'] = request.security_token
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAvailableTimeRange',
-            version='2015-12-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.DescribeAvailableTimeRangeResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_available_time_range(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_available_time_range_with_options(request, runtime)
 
     def describe_backup_dbs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1674,6 +1489,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -2132,6 +1949,8 @@ class Client(OpenApiClient):
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -2908,6 +2727,8 @@ class Client(OpenApiClient):
     def modify_audit_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.audit_log_switch_source):
+            query['AuditLogSwitchSource'] = request.audit_log_switch_source
         if not UtilClient.is_unset(request.audit_status):
             query['AuditStatus'] = request.audit_status
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2922,6 +2743,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
         if not UtilClient.is_unset(request.storage_period):
             query['StoragePeriod'] = request.storage_period
         req = open_api_models.OpenApiRequest(
@@ -3612,6 +3435,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.parameters):
             query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
