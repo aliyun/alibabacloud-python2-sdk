@@ -2051,6 +2051,8 @@ class Client(OpenApiClient):
             query['ApiUid'] = request.api_uid
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
         if not UtilClient.is_unset(request.method):
             query['Method'] = request.method
         if not UtilClient.is_unset(request.page_number):
@@ -2689,6 +2691,42 @@ class Client(OpenApiClient):
     def describe_history_apis(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_history_apis_with_options(request, runtime)
+
+    def describe_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.enable_tag_authorization):
+            query['EnableTagAuthorization'] = request.enable_tag_authorization
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstances',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_instances_with_options(request, runtime)
 
     def describe_ip_control_policy_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4693,6 +4731,38 @@ class Client(OpenApiClient):
     def sdk_generate_by_app(self, request):
         runtime = util_models.RuntimeOptions()
         return self.sdk_generate_by_app_with_options(request, runtime)
+
+    def sdk_generate_by_app_for_region_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SdkGenerateByAppForRegion',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.SdkGenerateByAppForRegionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def sdk_generate_by_app_for_region(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.sdk_generate_by_app_for_region_with_options(request, runtime)
 
     def sdk_generate_by_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)

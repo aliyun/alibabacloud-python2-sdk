@@ -11439,14 +11439,15 @@ class DescribeApisResponse(TeaModel):
 
 
 class DescribeApisByAppRequest(TeaModel):
-    def __init__(self, api_name=None, api_uid=None, app_id=None, method=None, page_number=None, page_size=None,
-                 path=None, security_token=None):
+    def __init__(self, api_name=None, api_uid=None, app_id=None, description=None, method=None, page_number=None,
+                 page_size=None, path=None, security_token=None):
         # API名称
         self.api_name = api_name  # type: str
         # API的ID
         self.api_uid = api_uid  # type: str
         # APP的ID
         self.app_id = app_id  # type: long
+        self.description = description  # type: str
         # API的请求HTTP Method
         self.method = method  # type: str
         # 当前页码
@@ -11472,6 +11473,8 @@ class DescribeApisByAppRequest(TeaModel):
             result['ApiUid'] = self.api_uid
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.description is not None:
+            result['Description'] = self.description
         if self.method is not None:
             result['Method'] = self.method
         if self.page_number is not None:
@@ -11492,6 +11495,8 @@ class DescribeApisByAppRequest(TeaModel):
             self.api_uid = m.get('ApiUid')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('Method') is not None:
             self.method = m.get('Method')
         if m.get('PageNumber') is not None:
@@ -16684,6 +16689,417 @@ class DescribeHistoryApisResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeHistoryApisResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInstancesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstancesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeInstancesRequest(TeaModel):
+    def __init__(self, enable_tag_authorization=None, instance_id=None, language=None, security_token=None,
+                 tag=None):
+        self.enable_tag_authorization = enable_tag_authorization  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.language = language  # type: str
+        self.security_token = security_token  # type: str
+        self.tag = tag  # type: list[DescribeInstancesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_tag_authorization is not None:
+            result['EnableTagAuthorization'] = self.enable_tag_authorization
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableTagAuthorization') is not None:
+            self.enable_tag_authorization = m.get('EnableTagAuthorization')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeInstancesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributesSpecAttribute(TeaModel):
+    def __init__(self, local_name=None, value=None):
+        self.local_name = local_name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributesSpecAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes(TeaModel):
+    def __init__(self, spec_attribute=None):
+        self.spec_attribute = spec_attribute  # type: list[DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributesSpecAttribute]
+
+    def validate(self):
+        if self.spec_attribute:
+            for k in self.spec_attribute:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SpecAttribute'] = []
+        if self.spec_attribute is not None:
+            for k in self.spec_attribute:
+                result['SpecAttribute'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.spec_attribute = []
+        if m.get('SpecAttribute') is not None:
+            for k in m.get('SpecAttribute'):
+                temp_model = DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributesSpecAttribute()
+                self.spec_attribute.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
+    def __init__(self, classic_egress_address=None, created_time=None, egress_ipv_6enable=None, expired_time=None,
+                 https_policies=None, instance_charge_type=None, instance_id=None, instance_name=None, instance_rps_limit=None,
+                 instance_spec=None, instance_spec_attributes=None, instance_type=None, internet_egress_address=None,
+                 region_id=None, status=None, support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None,
+                 vpc_egress_address=None, vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None,
+                 zone_local_name=None):
+        self.classic_egress_address = classic_egress_address  # type: str
+        self.created_time = created_time  # type: str
+        self.egress_ipv_6enable = egress_ipv_6enable  # type: bool
+        self.expired_time = expired_time  # type: str
+        self.https_policies = https_policies  # type: str
+        self.instance_charge_type = instance_charge_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.instance_rps_limit = instance_rps_limit  # type: int
+        self.instance_spec = instance_spec  # type: str
+        self.instance_spec_attributes = instance_spec_attributes  # type: DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes
+        self.instance_type = instance_type  # type: str
+        self.internet_egress_address = internet_egress_address  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: str
+        self.support_ipv_6 = support_ipv_6  # type: bool
+        self.user_vpc_id = user_vpc_id  # type: str
+        self.user_vswitch_id = user_vswitch_id  # type: str
+        self.vip_type_list = vip_type_list  # type: str
+        self.vpc_egress_address = vpc_egress_address  # type: str
+        self.vpc_intranet_enable = vpc_intranet_enable  # type: bool
+        self.vpc_owner_id = vpc_owner_id  # type: long
+        self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: bool
+        self.zone_id = zone_id  # type: str
+        self.zone_local_name = zone_local_name  # type: str
+
+    def validate(self):
+        if self.instance_spec_attributes:
+            self.instance_spec_attributes.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstancesInstanceAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.classic_egress_address is not None:
+            result['ClassicEgressAddress'] = self.classic_egress_address
+        if self.created_time is not None:
+            result['CreatedTime'] = self.created_time
+        if self.egress_ipv_6enable is not None:
+            result['EgressIpv6Enable'] = self.egress_ipv_6enable
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.https_policies is not None:
+            result['HttpsPolicies'] = self.https_policies
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.instance_rps_limit is not None:
+            result['InstanceRpsLimit'] = self.instance_rps_limit
+        if self.instance_spec is not None:
+            result['InstanceSpec'] = self.instance_spec
+        if self.instance_spec_attributes is not None:
+            result['InstanceSpecAttributes'] = self.instance_spec_attributes.to_map()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.internet_egress_address is not None:
+            result['InternetEgressAddress'] = self.internet_egress_address
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.support_ipv_6 is not None:
+            result['SupportIpv6'] = self.support_ipv_6
+        if self.user_vpc_id is not None:
+            result['UserVpcId'] = self.user_vpc_id
+        if self.user_vswitch_id is not None:
+            result['UserVswitchId'] = self.user_vswitch_id
+        if self.vip_type_list is not None:
+            result['VipTypeList'] = self.vip_type_list
+        if self.vpc_egress_address is not None:
+            result['VpcEgressAddress'] = self.vpc_egress_address
+        if self.vpc_intranet_enable is not None:
+            result['VpcIntranetEnable'] = self.vpc_intranet_enable
+        if self.vpc_owner_id is not None:
+            result['VpcOwnerId'] = self.vpc_owner_id
+        if self.vpc_slb_intranet_enable is not None:
+            result['VpcSlbIntranetEnable'] = self.vpc_slb_intranet_enable
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.zone_local_name is not None:
+            result['ZoneLocalName'] = self.zone_local_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClassicEgressAddress') is not None:
+            self.classic_egress_address = m.get('ClassicEgressAddress')
+        if m.get('CreatedTime') is not None:
+            self.created_time = m.get('CreatedTime')
+        if m.get('EgressIpv6Enable') is not None:
+            self.egress_ipv_6enable = m.get('EgressIpv6Enable')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('HttpsPolicies') is not None:
+            self.https_policies = m.get('HttpsPolicies')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('InstanceRpsLimit') is not None:
+            self.instance_rps_limit = m.get('InstanceRpsLimit')
+        if m.get('InstanceSpec') is not None:
+            self.instance_spec = m.get('InstanceSpec')
+        if m.get('InstanceSpecAttributes') is not None:
+            temp_model = DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes()
+            self.instance_spec_attributes = temp_model.from_map(m['InstanceSpecAttributes'])
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('InternetEgressAddress') is not None:
+            self.internet_egress_address = m.get('InternetEgressAddress')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SupportIpv6') is not None:
+            self.support_ipv_6 = m.get('SupportIpv6')
+        if m.get('UserVpcId') is not None:
+            self.user_vpc_id = m.get('UserVpcId')
+        if m.get('UserVswitchId') is not None:
+            self.user_vswitch_id = m.get('UserVswitchId')
+        if m.get('VipTypeList') is not None:
+            self.vip_type_list = m.get('VipTypeList')
+        if m.get('VpcEgressAddress') is not None:
+            self.vpc_egress_address = m.get('VpcEgressAddress')
+        if m.get('VpcIntranetEnable') is not None:
+            self.vpc_intranet_enable = m.get('VpcIntranetEnable')
+        if m.get('VpcOwnerId') is not None:
+            self.vpc_owner_id = m.get('VpcOwnerId')
+        if m.get('VpcSlbIntranetEnable') is not None:
+            self.vpc_slb_intranet_enable = m.get('VpcSlbIntranetEnable')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('ZoneLocalName') is not None:
+            self.zone_local_name = m.get('ZoneLocalName')
+        return self
+
+
+class DescribeInstancesResponseBodyInstances(TeaModel):
+    def __init__(self, instance_attribute=None):
+        self.instance_attribute = instance_attribute  # type: list[DescribeInstancesResponseBodyInstancesInstanceAttribute]
+
+    def validate(self):
+        if self.instance_attribute:
+            for k in self.instance_attribute:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['InstanceAttribute'] = []
+        if self.instance_attribute is not None:
+            for k in self.instance_attribute:
+                result['InstanceAttribute'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.instance_attribute = []
+        if m.get('InstanceAttribute') is not None:
+            for k in m.get('InstanceAttribute'):
+                temp_model = DescribeInstancesResponseBodyInstancesInstanceAttribute()
+                self.instance_attribute.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInstancesResponseBody(TeaModel):
+    def __init__(self, instances=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.instances = instances  # type: DescribeInstancesResponseBodyInstances
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.instances:
+            self.instances.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instances is not None:
+            result['Instances'] = self.instances.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Instances') is not None:
+            temp_model = DescribeInstancesResponseBodyInstances()
+            self.instances = temp_model.from_map(m['Instances'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -26003,6 +26419,108 @@ class SdkGenerateByAppResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SdkGenerateByAppResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SdkGenerateByAppForRegionRequest(TeaModel):
+    def __init__(self, app_id=None, language=None, security_token=None):
+        self.app_id = app_id  # type: long
+        self.language = language  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SdkGenerateByAppForRegionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class SdkGenerateByAppForRegionResponseBody(TeaModel):
+    def __init__(self, download_link=None, request_id=None):
+        self.download_link = download_link  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SdkGenerateByAppForRegionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.download_link is not None:
+            result['DownloadLink'] = self.download_link
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DownloadLink') is not None:
+            self.download_link = m.get('DownloadLink')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SdkGenerateByAppForRegionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SdkGenerateByAppForRegionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SdkGenerateByAppForRegionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SdkGenerateByAppForRegionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
