@@ -19,6 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = ''
         self.check_config(config)
         self._endpoint = self.get_endpoint('xgippop', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -104,6 +105,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_application_info_with_options(request, runtime)
 
+    def get_aliyun_xgip_token_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAliyunXgipToken',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xgip_pop_20220520_models.GetAliyunXgipTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_aliyun_xgip_token(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_aliyun_xgip_token_with_options(runtime)
+
     def get_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -181,32 +204,6 @@ class Client(OpenApiClient):
     def get_free_flow_product_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_free_flow_product_list_with_options(request, runtime)
-
-    def get_free_flow_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetFreeFlowStatus',
-            version='2022-05-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            xgip_pop_20220520_models.GetFreeFlowStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_free_flow_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_free_flow_status_with_options(request, runtime)
 
     def get_free_flow_usage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -405,6 +402,32 @@ class Client(OpenApiClient):
     def save_application_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.save_application_info_with_options(request, runtime)
+
+    def sdk_validate_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SdkValidateStatus',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='Anonymous',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xgip_pop_20220520_models.SdkValidateStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def sdk_validate_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.sdk_validate_status_with_options(request, runtime)
 
     def validate_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
