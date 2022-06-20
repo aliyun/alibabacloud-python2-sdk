@@ -543,6 +543,8 @@ class Client(OpenApiClient):
     def recognize_covid_test_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.multiple_result):
+            query['MultipleResult'] = request.multiple_result
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
         req = open_api_models.OpenApiRequest(
