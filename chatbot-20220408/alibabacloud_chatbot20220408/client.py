@@ -348,8 +348,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dsentity_with_options(request, runtime)
 
-    def create_dsentity_value_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_dsentity_value_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = chatbot_20220408_models.CreateDSEntityValueShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.synonyms):
+            request.synonyms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.synonyms, 'Synonyms', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -359,10 +363,12 @@ class Client(OpenApiClient):
             query['EntityId'] = request.entity_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.synonyms):
-            query['Synonyms'] = request.synonyms
+        body = {}
+        if not UtilClient.is_unset(request.synonyms_shrink):
+            body['Synonyms'] = request.synonyms_shrink
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDSEntityValue',
@@ -1652,42 +1658,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_dsentity_value_with_options(request, runtime)
 
-    def list_ds_menus_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.robot_env):
-            query['RobotEnv'] = request.robot_env
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
-        if not UtilClient.is_unset(request.tags):
-            query['Tags'] = request.tags
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListDsMenus',
-            version='2022-04-08',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            chatbot_20220408_models.ListDsMenusResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_ds_menus(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_ds_menus_with_options(request, runtime)
-
     def list_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1733,6 +1703,10 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.intent_name):
             query['IntentName'] = request.intent_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2126,8 +2100,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_dsentity_with_options(request, runtime)
 
-    def update_dsentity_value_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def update_dsentity_value_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = chatbot_20220408_models.UpdateDSEntityValueShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.synonyms):
+            request.synonyms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.synonyms, 'Synonyms', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -2139,10 +2117,12 @@ class Client(OpenApiClient):
             query['EntityValueId'] = request.entity_value_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.synonyms):
-            query['Synonyms'] = request.synonyms
+        body = {}
+        if not UtilClient.is_unset(request.synonyms_shrink):
+            body['Synonyms'] = request.synonyms_shrink
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateDSEntityValue',
