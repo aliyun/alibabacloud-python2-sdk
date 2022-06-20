@@ -13317,7 +13317,7 @@ class DescribeInstanceStatisticsRequest(TeaModel):
 
 class DescribeInstanceStatisticsResponseBodyData(TeaModel):
     def __init__(self, account=None, app_num=None, cms_num=None, cve_num=None, emg_num=None, health=None,
-                 sca_num=None, suspicious=None, sys_num=None, trojan=None, uuid=None, vul=None):
+                 sca_num=None, suspicious=None, sys_num=None, trojan=None, uuid=None, vul=None, weak_pwnum=None):
         self.account = account  # type: int
         self.app_num = app_num  # type: int
         self.cms_num = cms_num  # type: int
@@ -13330,6 +13330,7 @@ class DescribeInstanceStatisticsResponseBodyData(TeaModel):
         self.trojan = trojan  # type: int
         self.uuid = uuid  # type: str
         self.vul = vul  # type: int
+        self.weak_pwnum = weak_pwnum  # type: int
 
     def validate(self):
         pass
@@ -13364,6 +13365,8 @@ class DescribeInstanceStatisticsResponseBodyData(TeaModel):
             result['Uuid'] = self.uuid
         if self.vul is not None:
             result['Vul'] = self.vul
+        if self.weak_pwnum is not None:
+            result['WeakPWNum'] = self.weak_pwnum
         return result
 
     def from_map(self, m=None):
@@ -13392,6 +13395,8 @@ class DescribeInstanceStatisticsResponseBodyData(TeaModel):
             self.uuid = m.get('Uuid')
         if m.get('Vul') is not None:
             self.vul = m.get('Vul')
+        if m.get('WeakPWNum') is not None:
+            self.weak_pwnum = m.get('WeakPWNum')
         return self
 
 
@@ -25031,13 +25036,14 @@ class DescribeVulExportInfoResponse(TeaModel):
 
 class DescribeVulListRequest(TeaModel):
     def __init__(self, alias_name=None, attach_types=None, current_page=None, dealed=None, group_id=None, lang=None,
-                 necessity=None, page_size=None, remark=None, type=None, uuids=None, vpc_instance_ids=None):
+                 name=None, necessity=None, page_size=None, remark=None, type=None, uuids=None, vpc_instance_ids=None):
         self.alias_name = alias_name  # type: str
         self.attach_types = attach_types  # type: str
         self.current_page = current_page  # type: int
         self.dealed = dealed  # type: str
         self.group_id = group_id  # type: str
         self.lang = lang  # type: str
+        self.name = name  # type: str
         self.necessity = necessity  # type: str
         self.page_size = page_size  # type: int
         self.remark = remark  # type: str
@@ -25066,6 +25072,8 @@ class DescribeVulListRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.name is not None:
+            result['Name'] = self.name
         if self.necessity is not None:
             result['Necessity'] = self.necessity
         if self.page_size is not None:
@@ -25094,6 +25102,8 @@ class DescribeVulListRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Necessity') is not None:
             self.necessity = m.get('Necessity')
         if m.get('PageSize') is not None:
@@ -31616,6 +31626,119 @@ class OperateVulsResponse(TeaModel):
         return self
 
 
+class OperationCancelIgnoreSuspEventRequest(TeaModel):
+    def __init__(self, security_event_ids=None):
+        # 告警编号集合
+        self.security_event_ids = security_event_ids  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OperationCancelIgnoreSuspEventRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.security_event_ids is not None:
+            result['SecurityEventIds'] = self.security_event_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SecurityEventIds') is not None:
+            self.security_event_ids = m.get('SecurityEventIds')
+        return self
+
+
+class OperationCancelIgnoreSuspEventResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None, time_cost=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.time_cost = time_cost  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OperationCancelIgnoreSuspEventResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.time_cost is not None:
+            result['TimeCost'] = self.time_cost
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TimeCost') is not None:
+            self.time_cost = m.get('TimeCost')
+        return self
+
+
+class OperationCancelIgnoreSuspEventResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: OperationCancelIgnoreSuspEventResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(OperationCancelIgnoreSuspEventResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = OperationCancelIgnoreSuspEventResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OperationSuspEventsRequest(TeaModel):
     def __init__(self, from_=None, operation=None, source_ip=None, sub_operation=None, suspicious_event_ids=None,
                  warn_type=None):
@@ -32460,9 +32583,11 @@ class QueryGroupIdByGroupNameResponse(TeaModel):
 
 
 class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
-    def __init__(self, current_page=None, event_name=None, from_=None, lang=None, page_size=None, remark=None,
-                 source_ip=None):
+    def __init__(self, current_page=None, disposal_way=None, event_name=None, from_=None, lang=None, page_size=None,
+                 remark=None, source_ip=None):
         self.current_page = current_page  # type: int
+        # 加白方式
+        self.disposal_way = disposal_way  # type: str
         # 告警事件名称（子类型）
         self.event_name = event_name  # type: str
         self.from_ = from_  # type: str
@@ -32483,6 +32608,8 @@ class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
         result = dict()
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.disposal_way is not None:
+            result['DisposalWay'] = self.disposal_way
         if self.event_name is not None:
             result['EventName'] = self.event_name
         if self.from_ is not None:
@@ -32501,6 +32628,8 @@ class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
         m = m or dict()
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('DisposalWay') is not None:
+            self.disposal_way = m.get('DisposalWay')
         if m.get('EventName') is not None:
             self.event_name = m.get('EventName')
         if m.get('From') is not None:
@@ -32517,10 +32646,12 @@ class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
 
 
 class QueryGroupedSecurityEventMarkMissListResponseBodyList(TeaModel):
-    def __init__(self, ali_uid=None, event_name=None, event_name_original=None, event_type=None,
+    def __init__(self, ali_uid=None, disposal_way=None, event_name=None, event_name_original=None, event_type=None,
                  event_type_original=None, field=None, field_value=None, filed_alias_name=None, operate=None, uuids=None):
         # 用户统一编号
         self.ali_uid = ali_uid  # type: long
+        # 处置方式
+        self.disposal_way = disposal_way  # type: str
         # 告警事件名称（子类型）
         self.event_name = event_name  # type: str
         # 告警事件名称（子类型）
@@ -32551,6 +32682,8 @@ class QueryGroupedSecurityEventMarkMissListResponseBodyList(TeaModel):
         result = dict()
         if self.ali_uid is not None:
             result['AliUid'] = self.ali_uid
+        if self.disposal_way is not None:
+            result['DisposalWay'] = self.disposal_way
         if self.event_name is not None:
             result['EventName'] = self.event_name
         if self.event_name_original is not None:
@@ -32575,6 +32708,8 @@ class QueryGroupedSecurityEventMarkMissListResponseBodyList(TeaModel):
         m = m or dict()
         if m.get('AliUid') is not None:
             self.ali_uid = m.get('AliUid')
+        if m.get('DisposalWay') is not None:
+            self.disposal_way = m.get('DisposalWay')
         if m.get('EventName') is not None:
             self.event_name = m.get('EventName')
         if m.get('EventNameOriginal') is not None:
