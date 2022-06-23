@@ -259,6 +259,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_backup_policy_with_options(request, runtime)
 
+    def create_file_detect_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.hash_key):
+            query['HashKey'] = request.hash_key
+        if not UtilClient.is_unset(request.oss_key):
+            query['OssKey'] = request.oss_key
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFileDetect',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateFileDetectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_file_detect(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_file_detect_with_options(request, runtime)
+
+    def create_file_detect_upload_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.hash_key_list):
+            query['HashKeyList'] = request.hash_key_list
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFileDetectUploadUrl',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateFileDetectUploadUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_file_detect_upload_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_file_detect_upload_url_with_options(request, runtime)
+
     def create_or_update_asset_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -808,6 +872,8 @@ class Client(OpenApiClient):
             query['TacticId'] = request.tactic_id
         if not UtilClient.is_unset(request.unique_info):
             query['UniqueInfo'] = request.unique_info
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4148,6 +4214,10 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.operate_error_code_list):
             query['OperateErrorCodeList'] = request.operate_error_code_list
+        if not UtilClient.is_unset(request.operate_time_end):
+            query['OperateTimeEnd'] = request.operate_time_end
+        if not UtilClient.is_unset(request.operate_time_start):
+            query['OperateTimeStart'] = request.operate_time_start
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.parent_event_types):
@@ -4922,6 +4992,38 @@ class Client(OpenApiClient):
     def get_backup_storage_count(self):
         runtime = util_models.RuntimeOptions()
         return self.get_backup_storage_count_with_options(runtime)
+
+    def get_file_detect_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.hash_key_list):
+            query['HashKeyList'] = request.hash_key_list
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFileDetectResult',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileDetectResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_detect_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_detect_result_with_options(request, runtime)
 
     def get_suspicious_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
