@@ -19,7 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
-        self._endpoint_rule = ''
+        self._endpoint_rule = 'regional'
         self.check_config(config)
         self._endpoint = self.get_endpoint('cgcs', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
 
@@ -29,6 +29,70 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def create_adaptation_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cgcs20211111_models.CreateAdaptationShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.adapt_target):
+            request.adapt_target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.adapt_target), 'AdaptTarget', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.adapt_target_shrink):
+            body['AdaptTarget'] = request.adapt_target_shrink
+        if not UtilClient.is_unset(request.app_version_id):
+            body['AppVersionId'] = request.app_version_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAdaptation',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.CreateAdaptationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_adaptation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_adaptation_with_options(request, runtime)
+
+    def create_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_name):
+            body['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.app_type):
+            body['AppType'] = request.app_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateApp',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.CreateAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_app_with_options(request, runtime)
 
     def create_app_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -74,6 +138,150 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_app_session_with_options(request, runtime)
 
+    def create_app_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_version_name):
+            body['AppVersionName'] = request.app_version_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAppVersion',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.CreateAppVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_app_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_app_version_with_options(request, runtime)
+
+    def delete_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteApp',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.DeleteAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_app_with_options(request, runtime)
+
+    def delete_app_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_version_id):
+            body['AppVersionId'] = request.app_version_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteAppVersion',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.DeleteAppVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_app_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_app_version_with_options(request, runtime)
+
+    def get_adaptation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.adapt_apply_id):
+            body['AdaptApplyId'] = request.adapt_apply_id
+        if not UtilClient.is_unset(request.app_version_id):
+            body['AppVersionId'] = request.app_version_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetAdaptation',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.GetAdaptationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_adaptation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_adaptation_with_options(request, runtime)
+
+    def get_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetApp',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.GetAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_app_with_options(request, runtime)
+
     def get_app_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -103,6 +311,66 @@ class Client(OpenApiClient):
     def get_app_session(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_app_session_with_options(request, runtime)
+
+    def get_app_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_version_id):
+            body['AppVersionId'] = request.app_version_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetAppVersion',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.GetAppVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_app_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_app_version_with_options(request, runtime)
+
+    def list_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.key_search):
+            body['KeySearch'] = request.key_search
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListApp',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ListAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_app_with_options(request, runtime)
 
     def list_app_sessions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -139,6 +407,98 @@ class Client(OpenApiClient):
     def list_app_sessions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_app_sessions_with_options(request, runtime)
+
+    def list_app_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListAppVersion',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ListAppVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_app_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_app_version_with_options(request, runtime)
+
+    def modify_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            body['AppName'] = request.app_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyApp',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ModifyAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_app_with_options(request, runtime)
+
+    def modify_app_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_version_id):
+            body['AppVersionId'] = request.app_version_id
+        if not UtilClient.is_unset(request.app_version_name):
+            body['AppVersionName'] = request.app_version_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyAppVersion',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ModifyAppVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_app_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_app_version_with_options(request, runtime)
 
     def stop_app_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
