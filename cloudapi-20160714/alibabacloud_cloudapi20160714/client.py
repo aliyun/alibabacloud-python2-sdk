@@ -90,6 +90,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.abolish_api_with_options(request, runtime)
 
+    def add_access_control_list_entry_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_entrys):
+            query['AclEntrys'] = request.acl_entrys
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddAccessControlListEntry',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.AddAccessControlListEntryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_access_control_list_entry(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_access_control_list_entry_with_options(request, runtime)
+
     def add_ip_control_policy_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -261,6 +293,36 @@ class Client(OpenApiClient):
     def batch_deploy_apis(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_deploy_apis_with_options(request, runtime)
+
+    def create_access_control_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAccessControlList',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.CreateAccessControlListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_access_control_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_access_control_list_with_options(request, runtime)
 
     def create_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -853,6 +915,36 @@ class Client(OpenApiClient):
     def create_traffic_control(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_traffic_control_with_options(request, runtime)
+
+    def delete_access_control_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccessControlList',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DeleteAccessControlListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_access_control_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_access_control_list_with_options(request, runtime)
 
     def delete_all_traffic_special_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1487,6 +1579,70 @@ class Client(OpenApiClient):
     def describe_abolish_api_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_abolish_api_task_with_options(request, runtime)
+
+    def describe_access_control_list_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccessControlListAttribute',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeAccessControlListAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_access_control_list_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_access_control_list_attribute_with_options(request, runtime)
+
+    def describe_access_control_lists_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccessControlLists',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeAccessControlListsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_access_control_lists(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_access_control_lists_with_options(request, runtime)
 
     def describe_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3510,6 +3666,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_plugin_with_options(request, runtime)
 
+    def disable_instance_access_control_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableInstanceAccessControl',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DisableInstanceAccessControlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_instance_access_control(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_instance_access_control_with_options(request, runtime)
+
     def dry_run_swagger_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = cloud_api20160714_models.DryRunSwaggerShrinkRequest()
@@ -3553,6 +3741,40 @@ class Client(OpenApiClient):
     def dry_run_swagger(self, request):
         runtime = util_models.RuntimeOptions()
         return self.dry_run_swagger_with_options(request, runtime)
+
+    def enable_instance_access_control_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.acl_type):
+            query['AclType'] = request.acl_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableInstanceAccessControl',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.EnableInstanceAccessControlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_instance_access_control(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_instance_access_control_with_options(request, runtime)
 
     def import_swagger_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -4353,6 +4575,38 @@ class Client(OpenApiClient):
     def reactivate_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.reactivate_domain_with_options(request, runtime)
+
+    def remove_access_control_list_entry_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_entrys):
+            query['AclEntrys'] = request.acl_entrys
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveAccessControlListEntry',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.RemoveAccessControlListEntryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_access_control_list_entry(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_access_control_list_entry_with_options(request, runtime)
 
     def remove_apis_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
