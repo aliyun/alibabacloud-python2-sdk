@@ -914,9 +914,12 @@ class CreateDBInstanceResponse(TeaModel):
 
 
 class CreateNodeRequest(TeaModel):
-    def __init__(self, auto_pay=None, business_info=None, client_token=None, coupon_no=None, dbinstance_id=None,
-                 node_class=None, node_storage=None, node_type=None, owner_account=None, owner_id=None, readonly_replicas=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+    def __init__(self, account_name=None, account_password=None, auto_pay=None, business_info=None,
+                 client_token=None, coupon_no=None, dbinstance_id=None, node_class=None, node_storage=None, node_type=None,
+                 owner_account=None, owner_id=None, readonly_replicas=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None, shard_direct=None):
+        self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
         self.auto_pay = auto_pay  # type: bool
         self.business_info = business_info  # type: str
         self.client_token = client_token  # type: str
@@ -931,6 +934,7 @@ class CreateNodeRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.shard_direct = shard_direct  # type: bool
 
     def validate(self):
         pass
@@ -941,6 +945,10 @@ class CreateNodeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.account_password is not None:
+            result['AccountPassword'] = self.account_password
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
         if self.business_info is not None:
@@ -969,10 +977,16 @@ class CreateNodeRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.shard_direct is not None:
+            result['ShardDirect'] = self.shard_direct
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('AccountPassword') is not None:
+            self.account_password = m.get('AccountPassword')
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
         if m.get('BusinessInfo') is not None:
@@ -1001,6 +1015,8 @@ class CreateNodeRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('ShardDirect') is not None:
+            self.shard_direct = m.get('ShardDirect')
         return self
 
 
@@ -1078,9 +1094,11 @@ class CreateNodeResponse(TeaModel):
 
 
 class CreateNodeBatchRequest(TeaModel):
-    def __init__(self, auto_pay=None, business_info=None, client_token=None, coupon_no=None, dbinstance_id=None,
-                 from_app=None, nodes_info=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None):
+    def __init__(self, account_name=None, account_password=None, auto_pay=None, business_info=None,
+                 client_token=None, coupon_no=None, dbinstance_id=None, from_app=None, nodes_info=None, owner_account=None,
+                 owner_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None, shard_direct=None):
+        self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
         self.auto_pay = auto_pay  # type: bool
         self.business_info = business_info  # type: str
         self.client_token = client_token  # type: str
@@ -1093,6 +1111,7 @@ class CreateNodeBatchRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.shard_direct = shard_direct  # type: bool
 
     def validate(self):
         pass
@@ -1103,6 +1122,10 @@ class CreateNodeBatchRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.account_password is not None:
+            result['AccountPassword'] = self.account_password
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
         if self.business_info is not None:
@@ -1127,10 +1150,16 @@ class CreateNodeBatchRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.shard_direct is not None:
+            result['ShardDirect'] = self.shard_direct
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('AccountPassword') is not None:
+            self.account_password = m.get('AccountPassword')
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
         if m.get('BusinessInfo') is not None:
@@ -1155,6 +1184,8 @@ class CreateNodeBatchRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('ShardDirect') is not None:
+            self.shard_direct = m.get('ShardDirect')
         return self
 
 
@@ -1526,11 +1557,11 @@ class CreateShardingDBInstanceRequestReplicaSet(TeaModel):
 
 class CreateShardingDBInstanceRequest(TeaModel):
     def __init__(self, account_password=None, auto_renew=None, charge_type=None, client_token=None,
-                 config_server=None, dbinstance_description=None, engine=None, engine_version=None, mongos=None,
-                 network_type=None, owner_account=None, owner_id=None, period=None, protocol_type=None, region_id=None,
-                 replica_set=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 restore_time=None, security_iplist=None, security_token=None, src_dbinstance_id=None, storage_engine=None,
-                 v_switch_id=None, vpc_id=None, zone_id=None):
+                 config_server=None, dbinstance_description=None, engine=None, engine_version=None, hidden_zone_id=None,
+                 mongos=None, network_type=None, owner_account=None, owner_id=None, period=None, protocol_type=None,
+                 region_id=None, replica_set=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, restore_time=None, secondary_zone_id=None, security_iplist=None, security_token=None,
+                 src_dbinstance_id=None, storage_engine=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.account_password = account_password  # type: str
         self.auto_renew = auto_renew  # type: str
         self.charge_type = charge_type  # type: str
@@ -1539,6 +1570,7 @@ class CreateShardingDBInstanceRequest(TeaModel):
         self.dbinstance_description = dbinstance_description  # type: str
         self.engine = engine  # type: str
         self.engine_version = engine_version  # type: str
+        self.hidden_zone_id = hidden_zone_id  # type: str
         self.mongos = mongos  # type: list[CreateShardingDBInstanceRequestMongos]
         self.network_type = network_type  # type: str
         self.owner_account = owner_account  # type: str
@@ -1551,6 +1583,7 @@ class CreateShardingDBInstanceRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.restore_time = restore_time  # type: str
+        self.secondary_zone_id = secondary_zone_id  # type: str
         self.security_iplist = security_iplist  # type: str
         self.security_token = security_token  # type: str
         self.src_dbinstance_id = src_dbinstance_id  # type: str
@@ -1597,6 +1630,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             result['Engine'] = self.engine
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
+        if self.hidden_zone_id is not None:
+            result['HiddenZoneId'] = self.hidden_zone_id
         result['Mongos'] = []
         if self.mongos is not None:
             for k in self.mongos:
@@ -1625,6 +1660,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.restore_time is not None:
             result['RestoreTime'] = self.restore_time
+        if self.secondary_zone_id is not None:
+            result['SecondaryZoneId'] = self.secondary_zone_id
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
         if self.security_token is not None:
@@ -1662,6 +1699,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('HiddenZoneId') is not None:
+            self.hidden_zone_id = m.get('HiddenZoneId')
         self.mongos = []
         if m.get('Mongos') is not None:
             for k in m.get('Mongos'):
@@ -1692,6 +1731,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('RestoreTime') is not None:
             self.restore_time = m.get('RestoreTime')
+        if m.get('SecondaryZoneId') is not None:
+            self.secondary_zone_id = m.get('SecondaryZoneId')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
         if m.get('SecurityToken') is not None:
@@ -4918,12 +4959,12 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
     def __init__(self, capacity_unit=None, charge_type=None, configserver_list=None, creation_time=None,
                  current_kernel_version=None, dbinstance_class=None, dbinstance_description=None, dbinstance_id=None,
                  dbinstance_release_protection=None, dbinstance_status=None, dbinstance_storage=None, dbinstance_type=None, engine=None,
-                 engine_version=None, expire_time=None, kind_code=None, last_downgrade_time=None, lock_mode=None,
-                 maintain_end_time=None, maintain_start_time=None, max_connections=None, max_iops=None, mongos_list=None,
-                 network_type=None, protocol_type=None, readonly_replicas=None, region_id=None, replacate_id=None,
-                 replica_set_name=None, replica_sets=None, replication_factor=None, resource_group_id=None, shard_list=None,
-                 storage_engine=None, tags=None, vpccloud_instance_ids=None, vpcid=None, v_switch_id=None, vpc_auth_mode=None,
-                 zone_id=None):
+                 engine_version=None, expire_time=None, hidden_zone_id=None, kind_code=None, last_downgrade_time=None,
+                 lock_mode=None, maintain_end_time=None, maintain_start_time=None, max_connections=None, max_iops=None,
+                 mongos_list=None, network_type=None, protocol_type=None, readonly_replicas=None, region_id=None,
+                 replacate_id=None, replica_set_name=None, replica_sets=None, replication_factor=None, resource_group_id=None,
+                 secondary_zone_id=None, shard_list=None, storage_engine=None, tags=None, vpccloud_instance_ids=None, vpcid=None,
+                 v_switch_id=None, vpc_auth_mode=None, zone_id=None):
         self.capacity_unit = capacity_unit  # type: str
         self.charge_type = charge_type  # type: str
         self.configserver_list = configserver_list  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverList
@@ -4939,6 +4980,7 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
         self.engine = engine  # type: str
         self.engine_version = engine_version  # type: str
         self.expire_time = expire_time  # type: str
+        self.hidden_zone_id = hidden_zone_id  # type: str
         self.kind_code = kind_code  # type: str
         self.last_downgrade_time = last_downgrade_time  # type: str
         self.lock_mode = lock_mode  # type: str
@@ -4956,6 +4998,7 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
         self.replica_sets = replica_sets  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSets
         self.replication_factor = replication_factor  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.secondary_zone_id = secondary_zone_id  # type: str
         self.shard_list = shard_list  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardList
         self.storage_engine = storage_engine  # type: str
         self.tags = tags  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags
@@ -5013,6 +5056,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             result['EngineVersion'] = self.engine_version
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
+        if self.hidden_zone_id is not None:
+            result['HiddenZoneId'] = self.hidden_zone_id
         if self.kind_code is not None:
             result['KindCode'] = self.kind_code
         if self.last_downgrade_time is not None:
@@ -5047,6 +5092,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             result['ReplicationFactor'] = self.replication_factor
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.secondary_zone_id is not None:
+            result['SecondaryZoneId'] = self.secondary_zone_id
         if self.shard_list is not None:
             result['ShardList'] = self.shard_list.to_map()
         if self.storage_engine is not None:
@@ -5098,6 +5145,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             self.engine_version = m.get('EngineVersion')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
+        if m.get('HiddenZoneId') is not None:
+            self.hidden_zone_id = m.get('HiddenZoneId')
         if m.get('KindCode') is not None:
             self.kind_code = m.get('KindCode')
         if m.get('LastDowngradeTime') is not None:
@@ -5134,6 +5183,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             self.replication_factor = m.get('ReplicationFactor')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecondaryZoneId') is not None:
+            self.secondary_zone_id = m.get('SecondaryZoneId')
         if m.get('ShardList') is not None:
             temp_model = DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardList()
             self.shard_list = temp_model.from_map(m['ShardList'])
@@ -6473,9 +6524,10 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags(TeaModel):
 class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
     def __init__(self, capacity_unit=None, charge_type=None, creation_time=None, dbinstance_class=None,
                  dbinstance_description=None, dbinstance_id=None, dbinstance_status=None, dbinstance_storage=None, dbinstance_type=None,
-                 destroy_time=None, engine=None, engine_version=None, expire_time=None, kind_code=None, last_downgrade_time=None,
-                 lock_mode=None, mongos_list=None, network_type=None, region_id=None, replication_factor=None,
-                 resource_group_id=None, shard_list=None, storage_type=None, tags=None, vpc_auth_mode=None, zone_id=None):
+                 destroy_time=None, engine=None, engine_version=None, expire_time=None, hidden_zone_id=None, kind_code=None,
+                 last_downgrade_time=None, lock_mode=None, mongos_list=None, network_type=None, region_id=None, replication_factor=None,
+                 resource_group_id=None, secondary_zone_id=None, shard_list=None, storage_type=None, tags=None, vpc_auth_mode=None,
+                 zone_id=None):
         self.capacity_unit = capacity_unit  # type: str
         self.charge_type = charge_type  # type: str
         self.creation_time = creation_time  # type: str
@@ -6489,6 +6541,7 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
         self.engine = engine  # type: str
         self.engine_version = engine_version  # type: str
         self.expire_time = expire_time  # type: str
+        self.hidden_zone_id = hidden_zone_id  # type: str
         self.kind_code = kind_code  # type: str
         self.last_downgrade_time = last_downgrade_time  # type: str
         self.lock_mode = lock_mode  # type: str
@@ -6497,6 +6550,7 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
         self.region_id = region_id  # type: str
         self.replication_factor = replication_factor  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.secondary_zone_id = secondary_zone_id  # type: str
         self.shard_list = shard_list  # type: DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardList
         self.storage_type = storage_type  # type: str
         self.tags = tags  # type: DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags
@@ -6543,6 +6597,8 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
             result['EngineVersion'] = self.engine_version
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
+        if self.hidden_zone_id is not None:
+            result['HiddenZoneId'] = self.hidden_zone_id
         if self.kind_code is not None:
             result['KindCode'] = self.kind_code
         if self.last_downgrade_time is not None:
@@ -6559,6 +6615,8 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
             result['ReplicationFactor'] = self.replication_factor
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.secondary_zone_id is not None:
+            result['SecondaryZoneId'] = self.secondary_zone_id
         if self.shard_list is not None:
             result['ShardList'] = self.shard_list.to_map()
         if self.storage_type is not None:
@@ -6599,6 +6657,8 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
             self.engine_version = m.get('EngineVersion')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
+        if m.get('HiddenZoneId') is not None:
+            self.hidden_zone_id = m.get('HiddenZoneId')
         if m.get('KindCode') is not None:
             self.kind_code = m.get('KindCode')
         if m.get('LastDowngradeTime') is not None:
@@ -6616,6 +6676,8 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
             self.replication_factor = m.get('ReplicationFactor')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecondaryZoneId') is not None:
+            self.secondary_zone_id = m.get('SecondaryZoneId')
         if m.get('ShardList') is not None:
             temp_model = DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardList()
             self.shard_list = temp_model.from_map(m['ShardList'])
@@ -14514,9 +14576,10 @@ class ModifyDBInstanceNetworkTypeResponse(TeaModel):
 
 
 class ModifyDBInstanceSSLRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, sslaction=None, security_token=None):
+    def __init__(self, dbinstance_id=None, disable_tls_protocol=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, sslaction=None, security_token=None):
         self.dbinstance_id = dbinstance_id  # type: str
+        self.disable_tls_protocol = disable_tls_protocol  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -14535,6 +14598,8 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         result = dict()
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.disable_tls_protocol is not None:
+            result['DisableTlsProtocol'] = self.disable_tls_protocol
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -14553,6 +14618,8 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         m = m or dict()
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DisableTlsProtocol') is not None:
+            self.disable_tls_protocol = m.get('DisableTlsProtocol')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:

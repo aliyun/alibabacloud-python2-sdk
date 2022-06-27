@@ -337,6 +337,10 @@ class Client(OpenApiClient):
     def create_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
         if not UtilClient.is_unset(request.auto_pay):
             query['AutoPay'] = request.auto_pay
         if not UtilClient.is_unset(request.business_info):
@@ -365,6 +369,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.shard_direct):
+            query['ShardDirect'] = request.shard_direct
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -391,6 +397,10 @@ class Client(OpenApiClient):
     def create_node_batch_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
         if not UtilClient.is_unset(request.auto_pay):
             query['AutoPay'] = request.auto_pay
         if not UtilClient.is_unset(request.business_info):
@@ -415,6 +425,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.shard_direct):
+            query['ShardDirect'] = request.shard_direct
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -527,6 +539,8 @@ class Client(OpenApiClient):
             query['Engine'] = request.engine
         if not UtilClient.is_unset(request.engine_version):
             query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.hidden_zone_id):
+            query['HiddenZoneId'] = request.hidden_zone_id
         if not UtilClient.is_unset(request.mongos):
             query['Mongos'] = request.mongos
         if not UtilClient.is_unset(request.network_type):
@@ -551,6 +565,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.restore_time):
             query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.secondary_zone_id):
+            query['SecondaryZoneId'] = request.secondary_zone_id
         if not UtilClient.is_unset(request.security_iplist):
             query['SecurityIPList'] = request.security_iplist
         if not UtilClient.is_unset(request.security_token):
@@ -3081,6 +3097,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.disable_tls_protocol):
+            query['DisableTlsProtocol'] = request.disable_tls_protocol
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
