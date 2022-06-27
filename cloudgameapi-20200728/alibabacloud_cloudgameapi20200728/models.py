@@ -4315,6 +4315,121 @@ class ListDeployableInstancesResponse(TeaModel):
         return self
 
 
+class ListGameServerIpRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGameServerIpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListGameServerIpResponseBody(TeaModel):
+    def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.items = items  # type: list[str]
+        self.page_number = page_number  # type: int
+        # MaxResults本次请求所返回的最大记录条数
+        self.page_size = page_size  # type: int
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # TotalCount本次请求条件下的数据总量，此参数为可选参数，默认可不返回
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGameServerIpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            self.items = m.get('Items')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListGameServerIpResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGameServerIpResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGameServerIpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGameServerIpResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListGameVersionsRequest(TeaModel):
     def __init__(self, game_id=None, max_results=None, next_token=None):
         # 游戏ID

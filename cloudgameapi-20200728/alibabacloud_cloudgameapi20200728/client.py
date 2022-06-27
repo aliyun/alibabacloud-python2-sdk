@@ -1026,6 +1026,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_deployable_instances_with_options(request, runtime)
 
+    def list_game_server_ip_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGameServerIp',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.ListGameServerIpResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_game_server_ip(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_game_server_ip_with_options(request, runtime)
+
     def list_game_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
