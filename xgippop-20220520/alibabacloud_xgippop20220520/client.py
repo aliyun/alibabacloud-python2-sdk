@@ -365,6 +365,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.order_free_flow_product_with_options(request, runtime)
 
+    def order_qos_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.provice):
+            query['Provice'] = request.provice
+        body = {}
+        if not UtilClient.is_unset(request.ali_uid):
+            body['AliUid'] = request.ali_uid
+        if not UtilClient.is_unset(request.channel_id):
+            body['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.ipv_6):
+            body['IPv6'] = request.ipv_6
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.ip_type):
+            body['IpType'] = request.ip_type
+        if not UtilClient.is_unset(request.mobile_number):
+            body['MobileNumber'] = request.mobile_number
+        if not UtilClient.is_unset(request.operator):
+            body['Operator'] = request.operator
+        if not UtilClient.is_unset(request.private_ipv_4):
+            body['PrivateIpv4'] = request.private_ipv_4
+        if not UtilClient.is_unset(request.product_id):
+            body['ProductId'] = request.product_id
+        if not UtilClient.is_unset(request.public_ipv_4):
+            body['PublicIpv4'] = request.public_ipv_4
+        if not UtilClient.is_unset(request.qos_request_id):
+            body['QosRequestId'] = request.qos_request_id
+        if not UtilClient.is_unset(request.target_ip_list):
+            body['TargetIpList'] = request.target_ip_list
+        if not UtilClient.is_unset(request.token):
+            body['Token'] = request.token
+        if not UtilClient.is_unset(request.unit_num):
+            body['UnitNum'] = request.unit_num
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='OrderQosProduct',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xgip_pop_20220520_models.OrderQosProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def order_qos_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.order_qos_product_with_options(request, runtime)
+
     def save_application_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -428,6 +486,32 @@ class Client(OpenApiClient):
     def sdk_validate_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.sdk_validate_status_with_options(request, runtime)
+
+    def valid_controller_author_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ValidControllerAuthor',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xgip_pop_20220520_models.ValidControllerAuthorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def valid_controller_author(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.valid_controller_author_with_options(request, runtime)
 
     def validate_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)

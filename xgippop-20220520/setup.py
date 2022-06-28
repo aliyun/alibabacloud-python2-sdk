@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_xgippop20220520_py2.
 
-Created on 16/06/2022
+Created on 28/06/2022
 
 @author: Alibaba Cloud SDK
 """
