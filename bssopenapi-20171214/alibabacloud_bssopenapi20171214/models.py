@@ -18049,8 +18049,8 @@ class QuerySavingsPlansDeductLogRequest(TeaModel):
 
 class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
     def __init__(self, bill_module=None, deduct_commodity=None, deduct_fee=None, deduct_instance_id=None,
-                 deduct_rate=None, discount_rate=None, end_time=None, instance_id=None, savings_type=None, start_time=None,
-                 user_id=None):
+                 deduct_rate=None, discount_rate=None, end_time=None, instance_id=None, owner_id=None, savings_type=None,
+                 start_time=None, user_id=None):
         self.bill_module = bill_module  # type: str
         self.deduct_commodity = deduct_commodity  # type: str
         self.deduct_fee = deduct_fee  # type: str
@@ -18059,6 +18059,7 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
         self.discount_rate = discount_rate  # type: str
         self.end_time = end_time  # type: str
         self.instance_id = instance_id  # type: str
+        self.owner_id = owner_id  # type: long
         self.savings_type = savings_type  # type: str
         self.start_time = start_time  # type: str
         self.user_id = user_id  # type: long
@@ -18088,6 +18089,8 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
             result['EndTime'] = self.end_time
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.savings_type is not None:
             result['SavingsType'] = self.savings_type
         if self.start_time is not None:
@@ -18114,6 +18117,8 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('SavingsType') is not None:
             self.savings_type = m.get('SavingsType')
         if m.get('StartTime') is not None:
