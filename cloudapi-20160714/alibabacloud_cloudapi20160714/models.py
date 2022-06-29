@@ -27822,12 +27822,13 @@ class SetAppsAuthoritiesResponse(TeaModel):
 
 class SetDomainRequest(TeaModel):
     def __init__(self, bind_stage_name=None, custom_domain_type=None, domain_name=None, group_id=None,
-                 is_force=None):
+                 is_force=None, is_http_redirect_to_https=None):
         self.bind_stage_name = bind_stage_name  # type: str
         self.custom_domain_type = custom_domain_type  # type: str
         self.domain_name = domain_name  # type: str
         self.group_id = group_id  # type: str
         self.is_force = is_force  # type: bool
+        self.is_http_redirect_to_https = is_http_redirect_to_https  # type: bool
 
     def validate(self):
         pass
@@ -27848,6 +27849,8 @@ class SetDomainRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.is_force is not None:
             result['IsForce'] = self.is_force
+        if self.is_http_redirect_to_https is not None:
+            result['IsHttpRedirectToHttps'] = self.is_http_redirect_to_https
         return result
 
     def from_map(self, m=None):
@@ -27862,6 +27865,8 @@ class SetDomainRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('IsForce') is not None:
             self.is_force = m.get('IsForce')
+        if m.get('IsHttpRedirectToHttps') is not None:
+            self.is_http_redirect_to_https = m.get('IsHttpRedirectToHttps')
         return self
 
 

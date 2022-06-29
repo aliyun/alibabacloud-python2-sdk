@@ -5143,6 +5143,8 @@ class Client(OpenApiClient):
             query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.is_force):
             query['IsForce'] = request.is_force
+        if not UtilClient.is_unset(request.is_http_redirect_to_https):
+            query['IsHttpRedirectToHttps'] = request.is_http_redirect_to_https
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
