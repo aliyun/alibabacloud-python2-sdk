@@ -541,6 +541,126 @@ class ErrorInfo(TeaModel):
         return self
 
 
+class EventBridgeTriggerConfig(TeaModel):
+    def __init__(self, async_invocation_type=None, event_rule_filter_pattern=None, event_source_config=None,
+                 trigger_enable=None):
+        # asyncInvocationType
+        self.async_invocation_type = async_invocation_type  # type: bool
+        # eventRuleFilterPattern
+        self.event_rule_filter_pattern = event_rule_filter_pattern  # type: str
+        self.event_source_config = event_source_config  # type: EventSourceConfig
+        # triggerEnable
+        self.trigger_enable = trigger_enable  # type: bool
+
+    def validate(self):
+        if self.event_source_config:
+            self.event_source_config.validate()
+
+    def to_map(self):
+        _map = super(EventBridgeTriggerConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.async_invocation_type is not None:
+            result['asyncInvocationType'] = self.async_invocation_type
+        if self.event_rule_filter_pattern is not None:
+            result['eventRuleFilterPattern'] = self.event_rule_filter_pattern
+        if self.event_source_config is not None:
+            result['eventSourceConfig'] = self.event_source_config.to_map()
+        if self.trigger_enable is not None:
+            result['triggerEnable'] = self.trigger_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('asyncInvocationType') is not None:
+            self.async_invocation_type = m.get('asyncInvocationType')
+        if m.get('eventRuleFilterPattern') is not None:
+            self.event_rule_filter_pattern = m.get('eventRuleFilterPattern')
+        if m.get('eventSourceConfig') is not None:
+            temp_model = EventSourceConfig()
+            self.event_source_config = temp_model.from_map(m['eventSourceConfig'])
+        if m.get('triggerEnable') is not None:
+            self.trigger_enable = m.get('triggerEnable')
+        return self
+
+
+class EventSourceConfig(TeaModel):
+    def __init__(self, event_source_parameters=None, event_source_type=None):
+        self.event_source_parameters = event_source_parameters  # type: EventSourceParameters
+        # eventSourceType
+        self.event_source_type = event_source_type  # type: str
+
+    def validate(self):
+        if self.event_source_parameters:
+            self.event_source_parameters.validate()
+
+    def to_map(self):
+        _map = super(EventSourceConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_source_parameters is not None:
+            result['eventSourceParameters'] = self.event_source_parameters.to_map()
+        if self.event_source_type is not None:
+            result['eventSourceType'] = self.event_source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('eventSourceParameters') is not None:
+            temp_model = EventSourceParameters()
+            self.event_source_parameters = temp_model.from_map(m['eventSourceParameters'])
+        if m.get('eventSourceType') is not None:
+            self.event_source_type = m.get('eventSourceType')
+        return self
+
+
+class EventSourceParameters(TeaModel):
+    def __init__(self, source_mnsparameters=None, source_rabbit_mqparameters=None,
+                 source_rocket_mqparameters=None):
+        self.source_mnsparameters = source_mnsparameters  # type: SourceMNSParameters
+        self.source_rabbit_mqparameters = source_rabbit_mqparameters  # type: SourceRabbitMQParameters
+        self.source_rocket_mqparameters = source_rocket_mqparameters  # type: SourceRocketMQParameters
+
+    def validate(self):
+        if self.source_mnsparameters:
+            self.source_mnsparameters.validate()
+        if self.source_rabbit_mqparameters:
+            self.source_rabbit_mqparameters.validate()
+        if self.source_rocket_mqparameters:
+            self.source_rocket_mqparameters.validate()
+
+    def to_map(self):
+        _map = super(EventSourceParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_mnsparameters is not None:
+            result['sourceMNSParameters'] = self.source_mnsparameters.to_map()
+        if self.source_rabbit_mqparameters is not None:
+            result['sourceRabbitMQParameters'] = self.source_rabbit_mqparameters.to_map()
+        if self.source_rocket_mqparameters is not None:
+            result['sourceRocketMQParameters'] = self.source_rocket_mqparameters.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('sourceMNSParameters') is not None:
+            temp_model = SourceMNSParameters()
+            self.source_mnsparameters = temp_model.from_map(m['sourceMNSParameters'])
+        if m.get('sourceRabbitMQParameters') is not None:
+            temp_model = SourceRabbitMQParameters()
+            self.source_rabbit_mqparameters = temp_model.from_map(m['sourceRabbitMQParameters'])
+        if m.get('sourceRocketMQParameters') is not None:
+            temp_model = SourceRocketMQParameters()
+            self.source_rocket_mqparameters = temp_model.from_map(m['sourceRocketMQParameters'])
+        return self
+
+
 class HTTPTriggerConfig(TeaModel):
     def __init__(self, auth_type=None, methods=None):
         # 认证类型
@@ -1589,6 +1709,148 @@ class SourceConfig(TeaModel):
         m = m or dict()
         if m.get('logstore') is not None:
             self.logstore = m.get('logstore')
+        return self
+
+
+class SourceMNSParameters(TeaModel):
+    def __init__(self, is_base_64decode=None, queue_name=None, region_id=None):
+        # IsBase64Decode
+        self.is_base_64decode = is_base_64decode  # type: bool
+        # QueueName
+        self.queue_name = queue_name  # type: str
+        # RegionId
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SourceMNSParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_base_64decode is not None:
+            result['IsBase64Decode'] = self.is_base_64decode
+        if self.queue_name is not None:
+            result['QueueName'] = self.queue_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsBase64Decode') is not None:
+            self.is_base_64decode = m.get('IsBase64Decode')
+        if m.get('QueueName') is not None:
+            self.queue_name = m.get('QueueName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class SourceRabbitMQParameters(TeaModel):
+    def __init__(self, instance_id=None, queue_name=None, region_id=None, virtual_host_name=None):
+        # InstanceId
+        self.instance_id = instance_id  # type: str
+        # QueueName
+        self.queue_name = queue_name  # type: str
+        # RegionId
+        self.region_id = region_id  # type: str
+        # VirtualHostName
+        self.virtual_host_name = virtual_host_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SourceRabbitMQParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.queue_name is not None:
+            result['QueueName'] = self.queue_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.virtual_host_name is not None:
+            result['VirtualHostName'] = self.virtual_host_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('QueueName') is not None:
+            self.queue_name = m.get('QueueName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('VirtualHostName') is not None:
+            self.virtual_host_name = m.get('VirtualHostName')
+        return self
+
+
+class SourceRocketMQParameters(TeaModel):
+    def __init__(self, group_id=None, instance_id=None, offset=None, region_id=None, tag=None, timestamp=None,
+                 topic=None):
+        # GroupID
+        self.group_id = group_id  # type: str
+        # InstanceId
+        self.instance_id = instance_id  # type: str
+        # Offset
+        self.offset = offset  # type: str
+        # RegionId
+        self.region_id = region_id  # type: str
+        # Tag
+        self.tag = tag  # type: str
+        # Timestamp
+        self.timestamp = timestamp  # type: long
+        # Topic
+        self.topic = topic  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SourceRocketMQParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupID'] = self.group_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.offset is not None:
+            result['Offset'] = self.offset
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupID') is not None:
+            self.group_id = m.get('GroupID')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Offset') is not None:
+            self.offset = m.get('Offset')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
         return self
 
 
@@ -3229,8 +3491,7 @@ class CreateTriggerRequest(TeaModel):
         self.qualifier = qualifier  # type: str
         # event source的Aliyun Resource Name（ARN
         self.source_arn = source_arn  # type: str
-        # trigger配置，针对不同的trigger类型，trigger配置会有所不同
-        self.trigger_config = trigger_config  # type: str
+        self.trigger_config = trigger_config  # type: any
         # trigger名称
         self.trigger_name = trigger_name  # type: str
         # trigger类型，如 oss, log, tablestore, timer, http, cdn_events, mns_topic
@@ -6416,8 +6677,8 @@ class InvokeFunctionHeaders(TeaModel):
 
 class InvokeFunctionRequest(TeaModel):
     def __init__(self, body=None, qualifier=None):
-        # 事件（event），binary type。函数计算服务将event传递给用户function来处理
-        self.body = body  # type: bytes
+        # anything
+        self.body = body  # type: any
         # service版本, 可以是versionId或者aliasName
         self.qualifier = qualifier  # type: str
 
@@ -7639,9 +7900,11 @@ class ListFunctionsResponse(TeaModel):
 
 
 class ListInstancesHeaders(TeaModel):
-    def __init__(self, common_headers=None, x_fc_account_id=None):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7656,6 +7919,10 @@ class ListInstancesHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7664,6 +7931,10 @@ class ListInstancesHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
