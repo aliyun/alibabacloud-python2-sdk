@@ -438,6 +438,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_flow_project_user_with_options(request, runtime)
 
+    def create_library_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.library_version):
+            query['LibraryVersion'] = request.library_version
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.properties):
+            query['Properties'] = request.properties
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.source_location):
+            query['SourceLocation'] = request.source_location
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateLibrary',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.CreateLibraryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_library(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_library_with_options(request, runtime)
+
     def delete_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -760,6 +806,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_flow_project_with_options(request, runtime)
 
+    def describe_library_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.library_biz_id):
+            query['LibraryBizId'] = request.library_biz_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLibraryDetail',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.DescribeLibraryDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_library_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_library_detail_with_options(request, runtime)
+
+    def describe_library_install_task_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_biz_id):
+            query['TaskBizId'] = request.task_biz_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLibraryInstallTaskDetail',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.DescribeLibraryInstallTaskDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_library_install_task_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_library_install_task_detail_with_options(request, runtime)
+
     def kill_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1055,6 +1165,102 @@ class Client(OpenApiClient):
     def list_flow_projects(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_flow_projects_with_options(request, runtime)
+
+    def list_library_install_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_biz_id):
+            query['ClusterBizId'] = request.cluster_biz_id
+        if not UtilClient.is_unset(request.current_size):
+            query['CurrentSize'] = request.current_size
+        if not UtilClient.is_unset(request.library_biz_id):
+            query['LibraryBizId'] = request.library_biz_id
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        if not UtilClient.is_unset(request.order_field):
+            query['OrderField'] = request.order_field
+        if not UtilClient.is_unset(request.order_mode):
+            query['OrderMode'] = request.order_mode
+        if not UtilClient.is_unset(request.page_count):
+            query['PageCount'] = request.page_count
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListLibraryInstallTasks',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.ListLibraryInstallTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_library_install_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_library_install_tasks_with_options(request, runtime)
+
+    def list_library_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_biz_id):
+            query['ClusterBizId'] = request.cluster_biz_id
+        if not UtilClient.is_unset(request.current_size):
+            query['CurrentSize'] = request.current_size
+        if not UtilClient.is_unset(request.library_biz_id):
+            query['LibraryBizId'] = request.library_biz_id
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        if not UtilClient.is_unset(request.order_field):
+            query['OrderField'] = request.order_field
+        if not UtilClient.is_unset(request.order_mode):
+            query['OrderMode'] = request.order_mode
+        if not UtilClient.is_unset(request.page_count):
+            query['PageCount'] = request.page_count
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListLibraryStatus',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.ListLibraryStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_library_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_library_status_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1495,3 +1701,37 @@ class Client(OpenApiClient):
     def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
+
+    def update_library_install_task_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_biz_id):
+            query['TaskBizId'] = request.task_biz_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateLibraryInstallTaskStatus',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.UpdateLibraryInstallTaskStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_library_install_task_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_library_install_task_status_with_options(request, runtime)
