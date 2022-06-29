@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_cloudauth20190307_py2.
 
-Created on 09/09/2021
+Created on 29/06/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -39,12 +39,14 @@ URL = "https://github.com/aliyun/alibabacloud-python2-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "alibabacloud_tea_util_py2>=0.0.5, <1.0.0",
-    "alibabacloud_rpc_util_py2>=0.0.1, <1.0.0",
-    "alibabacloud_endpoint_util_py2>=0.0.2, <1.0.0",
     "alibabacloud_oss_sdk_py2>=0.0.1, <1.0.0",
+    "alibabacloud_tea_rpc_py2>=0.0.1, <1.0.0",
     "alibabacloud_openplatform20191219_py2>=0.0.1, <1.0.0",
     "alibabacloud_oss_util_py2>=0.0.1, <1.0.0",
-    "alibabacloud_tea_fileform_py2>=0.0.1, <1.0.0"
+    "alibabacloud_tea_fileform_py2>=0.0.1, <1.0.0",
+    "alibabacloud_tea_openapi_py2>=0.1.3, <1.0.0",
+    "alibabacloud_openapi_util_py2>=0.0.8, <1.0.0",
+    "alibabacloud_endpoint_util_py2>=0.0.2, <1.0.0"
 ]
 
 LONG_DESCRIPTION = ''
