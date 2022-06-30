@@ -94,8 +94,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_app_with_options(request, runtime)
 
-    def create_app_session_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_app_session_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cgcs20211111_models.CreateAppSessionShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.result_store):
+            request.result_store_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.result_store), 'ResultStore', 'json')
+        if not UtilClient.is_unset(tmp_req.start_parameters_v2):
+            request.start_parameters_v2shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.start_parameters_v2, 'StartParametersV2', 'json')
         query = {}
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
@@ -107,10 +113,16 @@ class Client(OpenApiClient):
             query['CustomSessionId'] = request.custom_session_id
         if not UtilClient.is_unset(request.custom_user_id):
             query['CustomUserId'] = request.custom_user_id
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
         if not UtilClient.is_unset(request.enable_postpaid):
             query['EnablePostpaid'] = request.enable_postpaid
+        if not UtilClient.is_unset(request.result_store_shrink):
+            query['ResultStore'] = request.result_store_shrink
         if not UtilClient.is_unset(request.start_parameters):
             query['StartParameters'] = request.start_parameters
+        if not UtilClient.is_unset(request.start_parameters_v2shrink):
+            query['StartParametersV2'] = request.start_parameters_v2shrink
         if not UtilClient.is_unset(request.system_info):
             query['SystemInfo'] = request.system_info
         if not UtilClient.is_unset(request.timeout):
@@ -167,6 +179,46 @@ class Client(OpenApiClient):
     def create_app_version(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_app_version_with_options(request, runtime)
+
+    def create_dataset_deploy_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.custom_param):
+            query['CustomParam'] = request.custom_param
+        if not UtilClient.is_unset(request.need_unzip):
+            query['NeedUnzip'] = request.need_unzip
+        if not UtilClient.is_unset(request.oss_bucket):
+            query['OssBucket'] = request.oss_bucket
+        if not UtilClient.is_unset(request.oss_file_path):
+            query['OssFilePath'] = request.oss_file_path
+        if not UtilClient.is_unset(request.oss_region_id):
+            query['OssRegionId'] = request.oss_region_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDatasetDeployTask',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.CreateDatasetDeployTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dataset_deploy_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dataset_deploy_task_with_options(request, runtime)
 
     def delete_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -339,6 +391,34 @@ class Client(OpenApiClient):
     def get_app_version(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_app_version_with_options(request, runtime)
+
+    def get_dataset_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataset',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.GetDatasetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_dataset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_dataset_with_options(request, runtime)
 
     def list_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
