@@ -888,12 +888,16 @@ class Client(OpenApiClient):
             body['AlgorithmName'] = request.algorithm_name
         if not UtilClient.is_unset(request.compute_type):
             body['ComputeType'] = request.compute_type
+        if not UtilClient.is_unset(request.container_type):
+            body['ContainerType'] = request.container_type
         if not UtilClient.is_unset(request.data_source):
             body['DataSource'] = request.data_source
         if not UtilClient.is_unset(request.data_source_times_shrink):
             body['DataSourceTimes'] = request.data_source_times_shrink
         if not UtilClient.is_unset(request.data_type):
             body['DataType'] = request.data_type
+        if not UtilClient.is_unset(request.fps):
+            body['Fps'] = request.fps
         if not UtilClient.is_unset(request.instance_name):
             body['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.instance_type):
@@ -5910,6 +5914,64 @@ class Client(OpenApiClient):
     def test_cross(self, request):
         runtime = util_models.RuntimeOptions()
         return self.test_cross_with_options(request, runtime)
+
+    def try_create_aiinstance_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = vcs_20200515_models.TryCreateAIInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_source_times):
+            request.data_source_times_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_source_times, 'DataSourceTimes', 'json')
+        if not UtilClient.is_unset(tmp_req.schedule_cycle_dates):
+            request.schedule_cycle_dates_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_cycle_dates, 'ScheduleCycleDates', 'json')
+        if not UtilClient.is_unset(tmp_req.schedule_times):
+            request.schedule_times_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_times, 'ScheduleTimes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.algorithm_id):
+            body['AlgorithmId'] = request.algorithm_id
+        if not UtilClient.is_unset(request.camera_number):
+            body['CameraNumber'] = request.camera_number
+        if not UtilClient.is_unset(request.compute_type):
+            body['ComputeType'] = request.compute_type
+        if not UtilClient.is_unset(request.data_source):
+            body['DataSource'] = request.data_source
+        if not UtilClient.is_unset(request.data_source_times_shrink):
+            body['DataSourceTimes'] = request.data_source_times_shrink
+        if not UtilClient.is_unset(request.data_type):
+            body['DataType'] = request.data_type
+        if not UtilClient.is_unset(request.fps):
+            body['Fps'] = request.fps
+        if not UtilClient.is_unset(request.instance_type):
+            body['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.schedule_cycle_dates_shrink):
+            body['ScheduleCycleDates'] = request.schedule_cycle_dates_shrink
+        if not UtilClient.is_unset(request.schedule_times_shrink):
+            body['ScheduleTimes'] = request.schedule_times_shrink
+        if not UtilClient.is_unset(request.schedule_type):
+            body['ScheduleType'] = request.schedule_type
+        if not UtilClient.is_unset(request.spf):
+            body['Spf'] = request.spf
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='TryCreateAIInstance',
+            version='2020-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vcs_20200515_models.TryCreateAIInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def try_create_aiinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.try_create_aiinstance_with_options(request, runtime)
 
     def unbind_corp_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)

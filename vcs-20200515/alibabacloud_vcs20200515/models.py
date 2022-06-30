@@ -4588,21 +4588,25 @@ class CreateAIInstanceRequestScheduleTimes(TeaModel):
 
 
 class CreateAIInstanceRequest(TeaModel):
-    def __init__(self, algorithm_id=None, algorithm_name=None, compute_type=None, data_source=None,
-                 data_source_times=None, data_type=None, instance_name=None, instance_type=None, project_id=None,
-                 schedule_cycle_dates=None, schedule_times=None, schedule_type=None, spf=None):
+    def __init__(self, algorithm_id=None, algorithm_name=None, compute_type=None, container_type=None,
+                 data_source=None, data_source_times=None, data_type=None, fps=None, instance_name=None, instance_type=None,
+                 project_id=None, schedule_cycle_dates=None, schedule_times=None, schedule_type=None, spf=None):
         # 算子Id
         self.algorithm_id = algorithm_id  # type: str
         # 算法名称
         self.algorithm_name = algorithm_name  # type: str
         # 计算类型
         self.compute_type = compute_type  # type: str
+        # 实例类型
+        self.container_type = container_type  # type: str
         # 数据来源
         self.data_source = data_source  # type: str
         # 数据源时间段
         self.data_source_times = data_source_times  # type: list[CreateAIInstanceRequestDataSourceTimes]
         # 数据类型
         self.data_type = data_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.fps = fps  # type: long
         # 实例名称
         self.instance_name = instance_name  # type: str
         # 实例类型
@@ -4640,6 +4644,8 @@ class CreateAIInstanceRequest(TeaModel):
             result['AlgorithmName'] = self.algorithm_name
         if self.compute_type is not None:
             result['ComputeType'] = self.compute_type
+        if self.container_type is not None:
+            result['ContainerType'] = self.container_type
         if self.data_source is not None:
             result['DataSource'] = self.data_source
         result['DataSourceTimes'] = []
@@ -4648,6 +4654,8 @@ class CreateAIInstanceRequest(TeaModel):
                 result['DataSourceTimes'].append(k.to_map() if k else None)
         if self.data_type is not None:
             result['DataType'] = self.data_type
+        if self.fps is not None:
+            result['Fps'] = self.fps
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
         if self.instance_type is not None:
@@ -4674,6 +4682,8 @@ class CreateAIInstanceRequest(TeaModel):
             self.algorithm_name = m.get('AlgorithmName')
         if m.get('ComputeType') is not None:
             self.compute_type = m.get('ComputeType')
+        if m.get('ContainerType') is not None:
+            self.container_type = m.get('ContainerType')
         if m.get('DataSource') is not None:
             self.data_source = m.get('DataSource')
         self.data_source_times = []
@@ -4683,6 +4693,8 @@ class CreateAIInstanceRequest(TeaModel):
                 self.data_source_times.append(temp_model.from_map(k))
         if m.get('DataType') is not None:
             self.data_type = m.get('DataType')
+        if m.get('Fps') is not None:
+            self.fps = m.get('Fps')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
         if m.get('InstanceType') is not None:
@@ -4704,21 +4716,26 @@ class CreateAIInstanceRequest(TeaModel):
 
 
 class CreateAIInstanceShrinkRequest(TeaModel):
-    def __init__(self, algorithm_id=None, algorithm_name=None, compute_type=None, data_source=None,
-                 data_source_times_shrink=None, data_type=None, instance_name=None, instance_type=None, project_id=None,
-                 schedule_cycle_dates_shrink=None, schedule_times_shrink=None, schedule_type=None, spf=None):
+    def __init__(self, algorithm_id=None, algorithm_name=None, compute_type=None, container_type=None,
+                 data_source=None, data_source_times_shrink=None, data_type=None, fps=None, instance_name=None,
+                 instance_type=None, project_id=None, schedule_cycle_dates_shrink=None, schedule_times_shrink=None,
+                 schedule_type=None, spf=None):
         # 算子Id
         self.algorithm_id = algorithm_id  # type: str
         # 算法名称
         self.algorithm_name = algorithm_name  # type: str
         # 计算类型
         self.compute_type = compute_type  # type: str
+        # 实例类型
+        self.container_type = container_type  # type: str
         # 数据来源
         self.data_source = data_source  # type: str
         # 数据源时间段
         self.data_source_times_shrink = data_source_times_shrink  # type: str
         # 数据类型
         self.data_type = data_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.fps = fps  # type: long
         # 实例名称
         self.instance_name = instance_name  # type: str
         # 实例类型
@@ -4749,12 +4766,16 @@ class CreateAIInstanceShrinkRequest(TeaModel):
             result['AlgorithmName'] = self.algorithm_name
         if self.compute_type is not None:
             result['ComputeType'] = self.compute_type
+        if self.container_type is not None:
+            result['ContainerType'] = self.container_type
         if self.data_source is not None:
             result['DataSource'] = self.data_source
         if self.data_source_times_shrink is not None:
             result['DataSourceTimes'] = self.data_source_times_shrink
         if self.data_type is not None:
             result['DataType'] = self.data_type
+        if self.fps is not None:
+            result['Fps'] = self.fps
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
         if self.instance_type is not None:
@@ -4779,12 +4800,16 @@ class CreateAIInstanceShrinkRequest(TeaModel):
             self.algorithm_name = m.get('AlgorithmName')
         if m.get('ComputeType') is not None:
             self.compute_type = m.get('ComputeType')
+        if m.get('ContainerType') is not None:
+            self.container_type = m.get('ContainerType')
         if m.get('DataSource') is not None:
             self.data_source = m.get('DataSource')
         if m.get('DataSourceTimes') is not None:
             self.data_source_times_shrink = m.get('DataSourceTimes')
         if m.get('DataType') is not None:
             self.data_type = m.get('DataType')
+        if m.get('Fps') is not None:
+            self.fps = m.get('Fps')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
         if m.get('InstanceType') is not None:
@@ -4803,11 +4828,11 @@ class CreateAIInstanceShrinkRequest(TeaModel):
 
 
 class CreateAIInstanceResponseBodyData(TeaModel):
-    def __init__(self, acu_used=None, instance_id=None):
+    def __init__(self, acu_used=None, instance_id=None, storage=None):
         # 当前实例ACU使用量
         self.acu_used = acu_used  # type: long
-        # 实例Id
-        self.instance_id = instance_id  # type: str
+        self.instance_id = instance_id  # type: float
+        self.storage = storage  # type: str
 
     def validate(self):
         pass
@@ -4822,6 +4847,8 @@ class CreateAIInstanceResponseBodyData(TeaModel):
             result['AcuUsed'] = self.acu_used
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.storage is not None:
+            result['Storage'] = self.storage
         return result
 
     def from_map(self, m=None):
@@ -4830,6 +4857,8 @@ class CreateAIInstanceResponseBodyData(TeaModel):
             self.acu_used = m.get('AcuUsed')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
         return self
 
 
@@ -11201,9 +11230,9 @@ class DescribeAIInstanceRequest(TeaModel):
 
 class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
     def __init__(self, acu_used=None, algorithm_id=None, algorithm_name=None, camera_number=None, compute_type=None,
-                 create_date_time=None, data_source=None, data_source_times=None, data_type=None, instance_id=None,
-                 instance_name=None, instance_type=None, schedule_cycle_dates=None, schedule_times=None, schedule_type=None,
-                 spf=None, status=None, storage=None):
+                 container_type=None, create_date_time=None, data_source=None, data_source_times=None, data_type=None, fps=None,
+                 instance_id=None, instance_name=None, instance_type=None, schedule_cycle_dates=None, schedule_times=None,
+                 schedule_type=None, spf=None, status=None, storage=None):
         # ACU使用数量
         self.acu_used = acu_used  # type: long
         # 算子ID
@@ -11214,6 +11243,7 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
         self.camera_number = camera_number  # type: long
         # 计算类型
         self.compute_type = compute_type  # type: str
+        self.container_type = container_type  # type: str
         # 实例创建时间
         self.create_date_time = create_date_time  # type: str
         # 数据来源
@@ -11222,6 +11252,8 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
         self.data_source_times = data_source_times  # type: str
         # 数据类型
         self.data_type = data_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.fps = fps  # type: long
         # 实例ID
         self.instance_id = instance_id  # type: str
         # 实例名称
@@ -11259,6 +11291,8 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
             result['CameraNumber'] = self.camera_number
         if self.compute_type is not None:
             result['ComputeType'] = self.compute_type
+        if self.container_type is not None:
+            result['ContainerType'] = self.container_type
         if self.create_date_time is not None:
             result['CreateDateTime'] = self.create_date_time
         if self.data_source is not None:
@@ -11267,6 +11301,8 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
             result['DataSourceTimes'] = self.data_source_times
         if self.data_type is not None:
             result['DataType'] = self.data_type
+        if self.fps is not None:
+            result['Fps'] = self.fps
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.instance_name is not None:
@@ -11299,6 +11335,8 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
             self.camera_number = m.get('CameraNumber')
         if m.get('ComputeType') is not None:
             self.compute_type = m.get('ComputeType')
+        if m.get('ContainerType') is not None:
+            self.container_type = m.get('ContainerType')
         if m.get('CreateDateTime') is not None:
             self.create_date_time = m.get('CreateDateTime')
         if m.get('DataSource') is not None:
@@ -11307,6 +11345,8 @@ class DescribeAIInstanceResponseBodyDataRecords(TeaModel):
             self.data_source_times = m.get('DataSourceTimes')
         if m.get('DataType') is not None:
             self.data_type = m.get('DataType')
+        if m.get('Fps') is not None:
+            self.fps = m.get('Fps')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceName') is not None:
@@ -31015,16 +31055,19 @@ class SearchTargetRequest(TeaModel):
 
 
 class SearchTargetResponseBodyDataRecords(TeaModel):
-    def __init__(self, device_id=None, left_top_x=None, left_top_y=None, right_bottom_x=None, right_bottom_y=None,
-                 source_image_url=None, target_attributes=None, target_image_similarity=None, target_image_url=None,
-                 target_type=None, timestamp=None):
+    def __init__(self, data_detail=None, device_id=None, left_top_x=None, left_top_y=None, right_bottom_x=None,
+                 right_bottom_y=None, source_image_full_url=None, source_image_url=None, target_attributes=None,
+                 target_image_full_url=None, target_image_similarity=None, target_image_url=None, target_type=None, timestamp=None):
+        self.data_detail = data_detail  # type: str
         self.device_id = device_id  # type: str
         self.left_top_x = left_top_x  # type: long
         self.left_top_y = left_top_y  # type: long
         self.right_bottom_x = right_bottom_x  # type: long
         self.right_bottom_y = right_bottom_y  # type: long
+        self.source_image_full_url = source_image_full_url  # type: str
         self.source_image_url = source_image_url  # type: str
         self.target_attributes = target_attributes  # type: str
+        self.target_image_full_url = target_image_full_url  # type: str
         self.target_image_similarity = target_image_similarity  # type: float
         self.target_image_url = target_image_url  # type: str
         self.target_type = target_type  # type: str
@@ -31039,6 +31082,8 @@ class SearchTargetResponseBodyDataRecords(TeaModel):
             return _map
 
         result = dict()
+        if self.data_detail is not None:
+            result['DataDetail'] = self.data_detail
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
         if self.left_top_x is not None:
@@ -31049,10 +31094,14 @@ class SearchTargetResponseBodyDataRecords(TeaModel):
             result['RightBottomX'] = self.right_bottom_x
         if self.right_bottom_y is not None:
             result['RightBottomY'] = self.right_bottom_y
+        if self.source_image_full_url is not None:
+            result['SourceImageFullUrl'] = self.source_image_full_url
         if self.source_image_url is not None:
             result['SourceImageUrl'] = self.source_image_url
         if self.target_attributes is not None:
             result['TargetAttributes'] = self.target_attributes
+        if self.target_image_full_url is not None:
+            result['TargetImageFullUrl'] = self.target_image_full_url
         if self.target_image_similarity is not None:
             result['TargetImageSimilarity'] = self.target_image_similarity
         if self.target_image_url is not None:
@@ -31065,6 +31114,8 @@ class SearchTargetResponseBodyDataRecords(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DataDetail') is not None:
+            self.data_detail = m.get('DataDetail')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
         if m.get('LeftTopX') is not None:
@@ -31075,10 +31126,14 @@ class SearchTargetResponseBodyDataRecords(TeaModel):
             self.right_bottom_x = m.get('RightBottomX')
         if m.get('RightBottomY') is not None:
             self.right_bottom_y = m.get('RightBottomY')
+        if m.get('SourceImageFullUrl') is not None:
+            self.source_image_full_url = m.get('SourceImageFullUrl')
         if m.get('SourceImageUrl') is not None:
             self.source_image_url = m.get('SourceImageUrl')
         if m.get('TargetAttributes') is not None:
             self.target_attributes = m.get('TargetAttributes')
+        if m.get('TargetImageFullUrl') is not None:
+            self.target_image_full_url = m.get('TargetImageFullUrl')
         if m.get('TargetImageSimilarity') is not None:
             self.target_image_similarity = m.get('TargetImageSimilarity')
         if m.get('TargetImageUrl') is not None:
@@ -32336,6 +32391,383 @@ class TestCrossResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             self.body = m.get('body')
+        return self
+
+
+class TryCreateAIInstanceRequestDataSourceTimes(TeaModel):
+    def __init__(self, end_time=None, start_time=None):
+        # 视频结束时间
+        self.end_time = end_time  # type: str
+        # 视频开始时间
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceRequestDataSourceTimes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class TryCreateAIInstanceRequestScheduleTimes(TeaModel):
+    def __init__(self, end_time=None, start_time=None):
+        # 结束执行时间
+        self.end_time = end_time  # type: str
+        # 开始执行时间
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceRequestScheduleTimes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class TryCreateAIInstanceRequest(TeaModel):
+    def __init__(self, algorithm_id=None, camera_number=None, compute_type=None, data_source=None,
+                 data_source_times=None, data_type=None, fps=None, instance_type=None, schedule_cycle_dates=None, schedule_times=None,
+                 schedule_type=None, spf=None):
+        # 算子Id
+        self.algorithm_id = algorithm_id  # type: str
+        self.camera_number = camera_number  # type: long
+        # 计算类型
+        self.compute_type = compute_type  # type: str
+        # 数据来源
+        self.data_source = data_source  # type: str
+        # 数据源时间段
+        self.data_source_times = data_source_times  # type: list[TryCreateAIInstanceRequestDataSourceTimes]
+        # 数据类型
+        self.data_type = data_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.fps = fps  # type: long
+        # 实例类型
+        self.instance_type = instance_type  # type: str
+        # ScheduleType为EVERY_WEEK、EVERY_MONTH时必填
+        self.schedule_cycle_dates = schedule_cycle_dates  # type: list[long]
+        # 执行时间段，支持多段，指定多段时不能重合交错。
+        self.schedule_times = schedule_times  # type: list[TryCreateAIInstanceRequestScheduleTimes]
+        # 调度类型
+        self.schedule_type = schedule_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.spf = spf  # type: long
+
+    def validate(self):
+        if self.data_source_times:
+            for k in self.data_source_times:
+                if k:
+                    k.validate()
+        if self.schedule_times:
+            for k in self.schedule_times:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm_id is not None:
+            result['AlgorithmId'] = self.algorithm_id
+        if self.camera_number is not None:
+            result['CameraNumber'] = self.camera_number
+        if self.compute_type is not None:
+            result['ComputeType'] = self.compute_type
+        if self.data_source is not None:
+            result['DataSource'] = self.data_source
+        result['DataSourceTimes'] = []
+        if self.data_source_times is not None:
+            for k in self.data_source_times:
+                result['DataSourceTimes'].append(k.to_map() if k else None)
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
+        if self.fps is not None:
+            result['Fps'] = self.fps
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.schedule_cycle_dates is not None:
+            result['ScheduleCycleDates'] = self.schedule_cycle_dates
+        result['ScheduleTimes'] = []
+        if self.schedule_times is not None:
+            for k in self.schedule_times:
+                result['ScheduleTimes'].append(k.to_map() if k else None)
+        if self.schedule_type is not None:
+            result['ScheduleType'] = self.schedule_type
+        if self.spf is not None:
+            result['Spf'] = self.spf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlgorithmId') is not None:
+            self.algorithm_id = m.get('AlgorithmId')
+        if m.get('CameraNumber') is not None:
+            self.camera_number = m.get('CameraNumber')
+        if m.get('ComputeType') is not None:
+            self.compute_type = m.get('ComputeType')
+        if m.get('DataSource') is not None:
+            self.data_source = m.get('DataSource')
+        self.data_source_times = []
+        if m.get('DataSourceTimes') is not None:
+            for k in m.get('DataSourceTimes'):
+                temp_model = TryCreateAIInstanceRequestDataSourceTimes()
+                self.data_source_times.append(temp_model.from_map(k))
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
+        if m.get('Fps') is not None:
+            self.fps = m.get('Fps')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ScheduleCycleDates') is not None:
+            self.schedule_cycle_dates = m.get('ScheduleCycleDates')
+        self.schedule_times = []
+        if m.get('ScheduleTimes') is not None:
+            for k in m.get('ScheduleTimes'):
+                temp_model = TryCreateAIInstanceRequestScheduleTimes()
+                self.schedule_times.append(temp_model.from_map(k))
+        if m.get('ScheduleType') is not None:
+            self.schedule_type = m.get('ScheduleType')
+        if m.get('Spf') is not None:
+            self.spf = m.get('Spf')
+        return self
+
+
+class TryCreateAIInstanceShrinkRequest(TeaModel):
+    def __init__(self, algorithm_id=None, camera_number=None, compute_type=None, data_source=None,
+                 data_source_times_shrink=None, data_type=None, fps=None, instance_type=None, schedule_cycle_dates_shrink=None,
+                 schedule_times_shrink=None, schedule_type=None, spf=None):
+        # 算子Id
+        self.algorithm_id = algorithm_id  # type: str
+        self.camera_number = camera_number  # type: long
+        # 计算类型
+        self.compute_type = compute_type  # type: str
+        # 数据来源
+        self.data_source = data_source  # type: str
+        # 数据源时间段
+        self.data_source_times_shrink = data_source_times_shrink  # type: str
+        # 数据类型
+        self.data_type = data_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.fps = fps  # type: long
+        # 实例类型
+        self.instance_type = instance_type  # type: str
+        # ScheduleType为EVERY_WEEK、EVERY_MONTH时必填
+        self.schedule_cycle_dates_shrink = schedule_cycle_dates_shrink  # type: str
+        # 执行时间段，支持多段，指定多段时不能重合交错。
+        self.schedule_times_shrink = schedule_times_shrink  # type: str
+        # 调度类型
+        self.schedule_type = schedule_type  # type: str
+        # 多少秒抽取1帧，取值范围[0, 3600]。 0表示不抽帧。
+        self.spf = spf  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm_id is not None:
+            result['AlgorithmId'] = self.algorithm_id
+        if self.camera_number is not None:
+            result['CameraNumber'] = self.camera_number
+        if self.compute_type is not None:
+            result['ComputeType'] = self.compute_type
+        if self.data_source is not None:
+            result['DataSource'] = self.data_source
+        if self.data_source_times_shrink is not None:
+            result['DataSourceTimes'] = self.data_source_times_shrink
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
+        if self.fps is not None:
+            result['Fps'] = self.fps
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.schedule_cycle_dates_shrink is not None:
+            result['ScheduleCycleDates'] = self.schedule_cycle_dates_shrink
+        if self.schedule_times_shrink is not None:
+            result['ScheduleTimes'] = self.schedule_times_shrink
+        if self.schedule_type is not None:
+            result['ScheduleType'] = self.schedule_type
+        if self.spf is not None:
+            result['Spf'] = self.spf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlgorithmId') is not None:
+            self.algorithm_id = m.get('AlgorithmId')
+        if m.get('CameraNumber') is not None:
+            self.camera_number = m.get('CameraNumber')
+        if m.get('ComputeType') is not None:
+            self.compute_type = m.get('ComputeType')
+        if m.get('DataSource') is not None:
+            self.data_source = m.get('DataSource')
+        if m.get('DataSourceTimes') is not None:
+            self.data_source_times_shrink = m.get('DataSourceTimes')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
+        if m.get('Fps') is not None:
+            self.fps = m.get('Fps')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ScheduleCycleDates') is not None:
+            self.schedule_cycle_dates_shrink = m.get('ScheduleCycleDates')
+        if m.get('ScheduleTimes') is not None:
+            self.schedule_times_shrink = m.get('ScheduleTimes')
+        if m.get('ScheduleType') is not None:
+            self.schedule_type = m.get('ScheduleType')
+        if m.get('Spf') is not None:
+            self.spf = m.get('Spf')
+        return self
+
+
+class TryCreateAIInstanceResponseBodyData(TeaModel):
+    def __init__(self, acu_used=None, storage=None):
+        # 当前实例ACU使用量
+        self.acu_used = acu_used  # type: long
+        self.storage = storage  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acu_used is not None:
+            result['AcuUsed'] = self.acu_used
+        if self.storage is not None:
+            result['Storage'] = self.storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcuUsed') is not None:
+            self.acu_used = m.get('AcuUsed')
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
+        return self
+
+
+class TryCreateAIInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        # 返回code码
+        self.code = code  # type: str
+        # 返回数据
+        self.data = data  # type: TryCreateAIInstanceResponseBodyData
+        # 错误信息
+        self.message = message  # type: str
+        # 请求id
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = TryCreateAIInstanceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class TryCreateAIInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TryCreateAIInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TryCreateAIInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TryCreateAIInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
