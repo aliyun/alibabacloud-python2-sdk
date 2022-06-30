@@ -1067,6 +1067,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.log_option):
+            query['LogOption'] = request.log_option
         if not UtilClient.is_unset(request.output_option):
             query['OutputOption'] = request.output_option
         if not UtilClient.is_unset(request.region_id):
@@ -1263,6 +1265,8 @@ class Client(OpenApiClient):
             query['LogicalResourceId'] = request.logical_resource_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_attributes):
+            query['ResourceAttributes'] = request.resource_attributes
         if not UtilClient.is_unset(request.show_resource_attributes):
             query['ShowResourceAttributes'] = request.show_resource_attributes
         if not UtilClient.is_unset(request.stack_id):

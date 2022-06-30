@@ -4949,9 +4949,10 @@ class GetServiceProvisionsResponse(TeaModel):
 
 
 class GetStackRequest(TeaModel):
-    def __init__(self, client_token=None, output_option=None, region_id=None, show_resource_progress=None,
-                 stack_id=None):
+    def __init__(self, client_token=None, log_option=None, output_option=None, region_id=None,
+                 show_resource_progress=None, stack_id=None):
         self.client_token = client_token  # type: str
+        self.log_option = log_option  # type: str
         self.output_option = output_option  # type: str
         self.region_id = region_id  # type: str
         self.show_resource_progress = show_resource_progress  # type: str
@@ -4968,6 +4969,8 @@ class GetStackRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.log_option is not None:
+            result['LogOption'] = self.log_option
         if self.output_option is not None:
             result['OutputOption'] = self.output_option
         if self.region_id is not None:
@@ -4982,6 +4985,8 @@ class GetStackRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('LogOption') is not None:
+            self.log_option = m.get('LogOption')
         if m.get('OutputOption') is not None:
             self.output_option = m.get('OutputOption')
         if m.get('RegionId') is not None:
@@ -4990,6 +4995,72 @@ class GetStackRequest(TeaModel):
             self.show_resource_progress = m.get('ShowResourceProgress')
         if m.get('StackId') is not None:
             self.stack_id = m.get('StackId')
+        return self
+
+
+class GetStackResponseBodyLogResourceLogsLogs(TeaModel):
+    def __init__(self, content=None, keys=None):
+        self.content = content  # type: str
+        self.keys = keys  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStackResponseBodyLogResourceLogsLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.keys is not None:
+            result['Keys'] = self.keys
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Keys') is not None:
+            self.keys = m.get('Keys')
+        return self
+
+
+class GetStackResponseBodyLogResourceLogs(TeaModel):
+    def __init__(self, logs=None, resource_name=None):
+        self.logs = logs  # type: list[GetStackResponseBodyLogResourceLogsLogs]
+        self.resource_name = resource_name  # type: str
+
+    def validate(self):
+        if self.logs:
+            for k in self.logs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetStackResponseBodyLogResourceLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Logs'] = []
+        if self.logs is not None:
+            for k in self.logs:
+                result['Logs'].append(k.to_map() if k else None)
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.logs = []
+        if m.get('Logs') is not None:
+            for k in m.get('Logs'):
+                temp_model = GetStackResponseBodyLogResourceLogsLogs()
+                self.logs.append(temp_model.from_map(k))
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
         return self
 
 
@@ -5028,10 +5099,15 @@ class GetStackResponseBodyLogTerraformLogs(TeaModel):
 
 
 class GetStackResponseBodyLog(TeaModel):
-    def __init__(self, terraform_logs=None):
+    def __init__(self, resource_logs=None, terraform_logs=None):
+        self.resource_logs = resource_logs  # type: list[GetStackResponseBodyLogResourceLogs]
         self.terraform_logs = terraform_logs  # type: list[GetStackResponseBodyLogTerraformLogs]
 
     def validate(self):
+        if self.resource_logs:
+            for k in self.resource_logs:
+                if k:
+                    k.validate()
         if self.terraform_logs:
             for k in self.terraform_logs:
                 if k:
@@ -5043,6 +5119,10 @@ class GetStackResponseBodyLog(TeaModel):
             return _map
 
         result = dict()
+        result['ResourceLogs'] = []
+        if self.resource_logs is not None:
+            for k in self.resource_logs:
+                result['ResourceLogs'].append(k.to_map() if k else None)
         result['TerraformLogs'] = []
         if self.terraform_logs is not None:
             for k in self.terraform_logs:
@@ -5051,6 +5131,11 @@ class GetStackResponseBodyLog(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.resource_logs = []
+        if m.get('ResourceLogs') is not None:
+            for k in m.get('ResourceLogs'):
+                temp_model = GetStackResponseBodyLogResourceLogs()
+                self.resource_logs.append(temp_model.from_map(k))
         self.terraform_logs = []
         if m.get('TerraformLogs') is not None:
             for k in m.get('TerraformLogs'):
@@ -6584,11 +6669,12 @@ class GetStackPolicyResponse(TeaModel):
 
 
 class GetStackResourceRequest(TeaModel):
-    def __init__(self, client_token=None, logical_resource_id=None, region_id=None, show_resource_attributes=None,
-                 stack_id=None):
+    def __init__(self, client_token=None, logical_resource_id=None, region_id=None, resource_attributes=None,
+                 show_resource_attributes=None, stack_id=None):
         self.client_token = client_token  # type: str
         self.logical_resource_id = logical_resource_id  # type: str
         self.region_id = region_id  # type: str
+        self.resource_attributes = resource_attributes  # type: list[str]
         self.show_resource_attributes = show_resource_attributes  # type: bool
         self.stack_id = stack_id  # type: str
 
@@ -6607,6 +6693,8 @@ class GetStackResourceRequest(TeaModel):
             result['LogicalResourceId'] = self.logical_resource_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_attributes is not None:
+            result['ResourceAttributes'] = self.resource_attributes
         if self.show_resource_attributes is not None:
             result['ShowResourceAttributes'] = self.show_resource_attributes
         if self.stack_id is not None:
@@ -6621,6 +6709,8 @@ class GetStackResourceRequest(TeaModel):
             self.logical_resource_id = m.get('LogicalResourceId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceAttributes') is not None:
+            self.resource_attributes = m.get('ResourceAttributes')
         if m.get('ShowResourceAttributes') is not None:
             self.show_resource_attributes = m.get('ShowResourceAttributes')
         if m.get('StackId') is not None:
@@ -14696,18 +14786,50 @@ class ValidateTemplateResponseBodyOutputs(TeaModel):
         return self
 
 
+class ValidateTemplateResponseBodyResourceTypes(TeaModel):
+    def __init__(self, data_sources=None, resources=None):
+        self.data_sources = data_sources  # type: list[str]
+        self.resources = resources  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ValidateTemplateResponseBodyResourceTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_sources is not None:
+            result['DataSources'] = self.data_sources
+        if self.resources is not None:
+            result['Resources'] = self.resources
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSources') is not None:
+            self.data_sources = m.get('DataSources')
+        if m.get('Resources') is not None:
+            self.resources = m.get('Resources')
+        return self
+
+
 class ValidateTemplateResponseBody(TeaModel):
-    def __init__(self, description=None, outputs=None, parameters=None, request_id=None):
+    def __init__(self, description=None, outputs=None, parameters=None, request_id=None, resource_types=None):
         self.description = description  # type: str
         self.outputs = outputs  # type: list[ValidateTemplateResponseBodyOutputs]
         self.parameters = parameters  # type: list[dict[str, any]]
         self.request_id = request_id  # type: str
+        self.resource_types = resource_types  # type: ValidateTemplateResponseBodyResourceTypes
 
     def validate(self):
         if self.outputs:
             for k in self.outputs:
                 if k:
                     k.validate()
+        if self.resource_types:
+            self.resource_types.validate()
 
     def to_map(self):
         _map = super(ValidateTemplateResponseBody, self).to_map()
@@ -14725,6 +14847,8 @@ class ValidateTemplateResponseBody(TeaModel):
             result['Parameters'] = self.parameters
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_types is not None:
+            result['ResourceTypes'] = self.resource_types.to_map()
         return result
 
     def from_map(self, m=None):
@@ -14740,6 +14864,9 @@ class ValidateTemplateResponseBody(TeaModel):
             self.parameters = m.get('Parameters')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceTypes') is not None:
+            temp_model = ValidateTemplateResponseBodyResourceTypes()
+            self.resource_types = temp_model.from_map(m['ResourceTypes'])
         return self
 
 
