@@ -6356,6 +6356,103 @@ class QueryEmbeddedInfoResponse(TeaModel):
         return self
 
 
+class QueryEmbeddedStatusRequest(TeaModel):
+    def __init__(self, works_id=None):
+        self.works_id = works_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryEmbeddedStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.works_id is not None:
+            result['WorksId'] = self.works_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorksId') is not None:
+            self.works_id = m.get('WorksId')
+        return self
+
+
+class QueryEmbeddedStatusResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryEmbeddedStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryEmbeddedStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryEmbeddedStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryEmbeddedStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryEmbeddedStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryOrganizationWorkspaceListRequest(TeaModel):
     def __init__(self, keyword=None, page_num=None, page_size=None, user_id=None):
         self.keyword = keyword  # type: str

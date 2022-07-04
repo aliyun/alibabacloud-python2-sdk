@@ -1396,6 +1396,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_embedded_info_with_options(runtime)
 
+    def query_embedded_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.works_id):
+            query['WorksId'] = request.works_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryEmbeddedStatus',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quickbi_public_20220101_models.QueryEmbeddedStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_embedded_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_embedded_status_with_options(request, runtime)
+
     def query_organization_workspace_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
