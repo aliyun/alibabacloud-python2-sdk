@@ -631,7 +631,6 @@ class CreateFileDetectRequest(TeaModel):
 class CreateFileDetectResponseBody(TeaModel):
     def __init__(self, hash_key=None, request_id=None):
         self.hash_key = hash_key  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -818,7 +817,6 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlList(TeaModel):
 
 class CreateFileDetectUploadUrlResponseBody(TeaModel):
     def __init__(self, request_id=None, upload_url_list=None):
-        # Id of the request
         self.request_id = request_id  # type: str
         self.upload_url_list = upload_url_list  # type: list[CreateFileDetectUploadUrlResponseBodyUploadUrlList]
 
@@ -18218,7 +18216,7 @@ class DescribeRiskCheckResultRequest(TeaModel):
 
 class DescribeRiskCheckResultResponseBodyListRiskItemResources(TeaModel):
     def __init__(self, content_resource=None, resource_name=None):
-        self.content_resource = content_resource  # type: dict[str, str]
+        self.content_resource = content_resource  # type: dict[str, any]
         self.resource_name = resource_name  # type: str
 
     def validate(self):
@@ -26102,6 +26100,134 @@ class DescribeVulWhitelistResponse(TeaModel):
         return self
 
 
+class DescribeWarningExportInfoRequest(TeaModel):
+    def __init__(self, export_id=None):
+        self.export_id = export_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWarningExportInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.export_id is not None:
+            result['ExportId'] = self.export_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExportId') is not None:
+            self.export_id = m.get('ExportId')
+        return self
+
+
+class DescribeWarningExportInfoResponseBody(TeaModel):
+    def __init__(self, current_count=None, export_status=None, file_name=None, id=None, link=None, message=None,
+                 progress=None, request_id=None, total_count=None):
+        self.current_count = current_count  # type: int
+        self.export_status = export_status  # type: str
+        self.file_name = file_name  # type: str
+        self.id = id  # type: long
+        self.link = link  # type: str
+        self.message = message  # type: str
+        self.progress = progress  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWarningExportInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_count is not None:
+            result['CurrentCount'] = self.current_count
+        if self.export_status is not None:
+            result['ExportStatus'] = self.export_status
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.link is not None:
+            result['Link'] = self.link
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentCount') is not None:
+            self.current_count = m.get('CurrentCount')
+        if m.get('ExportStatus') is not None:
+            self.export_status = m.get('ExportStatus')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Link') is not None:
+            self.link = m.get('Link')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeWarningExportInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWarningExportInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWarningExportInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWarningExportInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeWarningMachinesRequest(TeaModel):
     def __init__(self, current_page=None, lang=None, machine_name=None, page_size=None, risk_id=None, source_ip=None,
                  strategy_id=None, uuids=None):
@@ -27499,7 +27625,6 @@ class GetFileDetectResultResponseBodyResultList(TeaModel):
 
 class GetFileDetectResultResponseBody(TeaModel):
     def __init__(self, request_id=None, result_list=None):
-        # Id of the request
         self.request_id = request_id  # type: str
         self.result_list = result_list  # type: list[GetFileDetectResultResponseBodyResultList]
 
