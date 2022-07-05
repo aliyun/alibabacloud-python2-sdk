@@ -2369,7 +2369,8 @@ class CreateRoutineResponse(TeaModel):
 
 
 class CreateSlrAndSlsProjectRequest(TeaModel):
-    def __init__(self, owner_id=None, region=None):
+    def __init__(self, business_type=None, owner_id=None, region=None):
+        self.business_type = business_type  # type: str
         self.owner_id = owner_id  # type: long
         self.region = region  # type: str
 
@@ -2382,6 +2383,8 @@ class CreateSlrAndSlsProjectRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region is not None:
@@ -2390,6 +2393,8 @@ class CreateSlrAndSlsProjectRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('Region') is not None:
@@ -3007,8 +3012,7 @@ class DeleteDcdnIpaSpecificConfigResponse(TeaModel):
 
 
 class DeleteDcdnRealTimeLogProjectRequest(TeaModel):
-    def __init__(self, business_type=None, owner_id=None, project_name=None):
-        self.business_type = business_type  # type: str
+    def __init__(self, owner_id=None, project_name=None):
         self.owner_id = owner_id  # type: long
         self.project_name = project_name  # type: str
 
@@ -3021,8 +3025,6 @@ class DeleteDcdnRealTimeLogProjectRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.business_type is not None:
-            result['BusinessType'] = self.business_type
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.project_name is not None:
@@ -3031,8 +3033,6 @@ class DeleteDcdnRealTimeLogProjectRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BusinessType') is not None:
-            self.business_type = m.get('BusinessType')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('ProjectName') is not None:
@@ -18003,9 +18003,163 @@ class DescribeDcdnReportListResponse(TeaModel):
         return self
 
 
-class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, business_type=None, owner_id=None, project_name=None):
+class DescribeDcdnSLSRealTimeLogTypeRequest(TeaModel):
+    def __init__(self, owner_id=None):
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealTimeLogTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnSLSRealTimeLogTypeResponseBodyContentBusiness(TeaModel):
+    def __init__(self, business_type=None, desc=None):
         self.business_type = business_type  # type: str
+        self.desc = desc  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealTimeLogTypeResponseBodyContentBusiness, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.desc is not None:
+            result['Desc'] = self.desc
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('Desc') is not None:
+            self.desc = m.get('Desc')
+        return self
+
+
+class DescribeDcdnSLSRealTimeLogTypeResponseBodyContent(TeaModel):
+    def __init__(self, business=None):
+        self.business = business  # type: list[DescribeDcdnSLSRealTimeLogTypeResponseBodyContentBusiness]
+
+    def validate(self):
+        if self.business:
+            for k in self.business:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealTimeLogTypeResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Business'] = []
+        if self.business is not None:
+            for k in self.business:
+                result['Business'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.business = []
+        if m.get('Business') is not None:
+            for k in m.get('Business'):
+                temp_model = DescribeDcdnSLSRealTimeLogTypeResponseBodyContentBusiness()
+                self.business.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnSLSRealTimeLogTypeResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: DescribeDcdnSLSRealTimeLogTypeResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealTimeLogTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = DescribeDcdnSLSRealTimeLogTypeResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnSLSRealTimeLogTypeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDcdnSLSRealTimeLogTypeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealTimeLogTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnSLSRealTimeLogTypeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
+    def __init__(self, owner_id=None, project_name=None):
         self.owner_id = owner_id  # type: long
         self.project_name = project_name  # type: str
 
@@ -18018,8 +18172,6 @@ class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.business_type is not None:
-            result['BusinessType'] = self.business_type
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.project_name is not None:
@@ -18028,8 +18180,6 @@ class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BusinessType') is not None:
-            self.business_type = m.get('BusinessType')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('ProjectName') is not None:
@@ -18039,7 +18189,7 @@ class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
 
 class DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
     def __init__(self, business_type=None, data_center=None, domain_name=None, field_name=None, project_name=None,
-                 slslog_store=None, slsproject=None, slsregion=None, sampling_rate=None, type=None):
+                 slslog_store=None, slsproject=None, slsregion=None, sampling_rate=None, status=None, type=None):
         self.business_type = business_type  # type: str
         self.data_center = data_center  # type: str
         self.domain_name = domain_name  # type: str
@@ -18049,6 +18199,7 @@ class DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
         self.slsproject = slsproject  # type: str
         self.slsregion = slsregion  # type: str
         self.sampling_rate = sampling_rate  # type: str
+        self.status = status  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -18078,6 +18229,8 @@ class DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
             result['SLSRegion'] = self.slsregion
         if self.sampling_rate is not None:
             result['SamplingRate'] = self.sampling_rate
+        if self.status is not None:
+            result['Status'] = self.status
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -18102,6 +18255,8 @@ class DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
             self.slsregion = m.get('SLSRegion')
         if m.get('SamplingRate') is not None:
             self.sampling_rate = m.get('SamplingRate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
