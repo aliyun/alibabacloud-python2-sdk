@@ -68,10 +68,56 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateConsumerGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_index(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_index_with_options(project, logstore, request, headers, runtime)
+
+    def create_index_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        body = {}
+        if not UtilClient.is_unset(request.keys):
+            body['keys'] = request.keys
+        if not UtilClient.is_unset(request.line):
+            body['line'] = request.line
+        if not UtilClient.is_unset(request.log_reduce):
+            body['log_reduce'] = request.log_reduce
+        if not UtilClient.is_unset(request.log_reduce_black_list):
+            body['log_reduce_black_list'] = request.log_reduce_black_list
+        if not UtilClient.is_unset(request.log_reduce_white_list):
+            body['log_reduce_white_list'] = request.log_reduce_white_list
+        if not UtilClient.is_unset(request.max_text_len):
+            body['max_text_len'] = request.max_text_len
+        if not UtilClient.is_unset(request.ttl):
+            body['ttl'] = request.ttl
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateIndex',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateIndexResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -119,7 +165,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateLogStoreResponse(),
@@ -151,7 +197,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateProjectResponse(),
@@ -192,7 +238,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateSavedSearchResponse(),
@@ -222,10 +268,68 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteConsumerGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_index(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_index_with_options(project, logstore, headers, runtime)
+
+    def delete_index_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteIndex',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteIndexResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_log_store(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_log_store_with_options(project, logstore, headers, runtime)
+
+    def delete_log_store_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteLogStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s' % TeaConverter.to_unicode(logstore),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteLogStoreResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -250,39 +354,197 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteProjectResponse(),
             self.execute(params, req, runtime)
         )
 
-    def delete_saved_search(self, project, savedsearch_name):
+    def get_context_logs(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_saved_search_with_options(project, savedsearch_name, headers, runtime)
+        return self.get_context_logs_with_options(project, logstore, request, headers, runtime)
 
-    def delete_saved_search_with_options(self, project, savedsearch_name, headers, runtime):
+    def get_context_logs_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
-        savedsearch_name = OpenApiUtilClient.get_encode_param(savedsearch_name)
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        query = {}
+        if not UtilClient.is_unset(request.back_lines):
+            query['back_lines'] = request.back_lines
+        if not UtilClient.is_unset(request.forward_lines):
+            query['forward_lines'] = request.forward_lines
+        if not UtilClient.is_unset(request.pack_id):
+            query['pack_id'] = request.pack_id
+        if not UtilClient.is_unset(request.pack_meta):
+            query['pack_meta'] = request.pack_meta
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DeleteSavedSearch',
+            action='GetContextLogs',
             version='2020-12-30',
             protocol='HTTPS',
-            pathname='/savedsearches/%s' % TeaConverter.to_unicode(savedsearch_name),
-            method='DELETE',
+            pathname='/logstores/%s' % TeaConverter.to_unicode(logstore),
+            method='GET',
             auth_type='AK',
             style='ROA',
             req_body_type='json',
             body_type='json'
         )
         return TeaCore.from_map(
-            sls_20201230_models.DeleteSavedSearchResponse(),
+            sls_20201230_models.GetContextLogsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_cursor(self, project, logstore, shard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_cursor_with_options(project, logstore, shard_id, request, headers, runtime)
+
+    def get_cursor_with_options(self, project, logstore, shard_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shard_id = OpenApiUtilClient.get_encode_param(shard_id)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['from'] = request.from_
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCursor',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shard_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetCursorResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_cursor_time(self, project, logstore, shard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_cursor_time_with_options(project, logstore, shard_id, request, headers, runtime)
+
+    def get_cursor_time_with_options(self, project, logstore, shard_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shard_id = OpenApiUtilClient.get_encode_param(shard_id)
+        query = {}
+        if not UtilClient.is_unset(request.cursor):
+            query['cursor'] = request.cursor
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCursorTime',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shard_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetCursorTimeResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_histograms(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_histograms_with_options(project, logstore, request, headers, runtime)
+
+    def get_histograms_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['from'] = request.from_
+        if not UtilClient.is_unset(request.query):
+            query['query'] = request.query
+        if not UtilClient.is_unset(request.to):
+            query['to'] = request.to
+        if not UtilClient.is_unset(request.topic):
+            query['topic'] = request.topic
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetHistograms',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetHistogramsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_index(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_index_with_options(project, logstore, headers, runtime)
+
+    def get_index_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetIndex',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetIndexResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -315,6 +577,56 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def get_logs(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_logs_with_options(project, logstore, request, headers, runtime)
+
+    def get_logs_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['from'] = request.from_
+        if not UtilClient.is_unset(request.line):
+            query['line'] = request.line
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.power_sql):
+            query['powerSql'] = request.power_sql
+        if not UtilClient.is_unset(request.query):
+            query['query'] = request.query
+        if not UtilClient.is_unset(request.reverse):
+            query['reverse'] = request.reverse
+        if not UtilClient.is_unset(request.to):
+            query['to'] = request.to
+        if not UtilClient.is_unset(request.topic):
+            query['topic'] = request.topic
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLogs',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetLogsResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def get_project(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -340,6 +652,41 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.GetProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_project_logs(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_project_logs_with_options(project, request, headers, runtime)
+
+    def get_project_logs_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.power_sql):
+            query['powerSql'] = request.power_sql
+        if not UtilClient.is_unset(request.query):
+            query['query'] = request.query
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProjectLogs',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetProjectLogsResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -509,6 +856,109 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def list_shards(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_shards_with_options(project, logstore, headers, runtime)
+
+    def list_shards_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListShards',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListShardsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def merge_shards(self, project, logstore, shard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.merge_shards_with_options(project, logstore, shard_id, request, headers, runtime)
+
+    def merge_shards_with_options(self, project, logstore, shard_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shard_id = OpenApiUtilClient.get_encode_param(shard_id)
+        query = {}
+        if not UtilClient.is_unset(request.action):
+            query['action'] = request.action
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MergeShards',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shard_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.MergeShardsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def split_shard(self, project, logstore, shard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.split_shard_with_options(project, logstore, shard_id, request, headers, runtime)
+
+    def split_shard_with_options(self, project, logstore, shard_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shard_id = OpenApiUtilClient.get_encode_param(shard_id)
+        query = {}
+        if not UtilClient.is_unset(request.action):
+            query['action'] = request.action
+        if not UtilClient.is_unset(request.key):
+            query['key'] = request.key
+        if not UtilClient.is_unset(request.shard_count):
+            query['shardCount'] = request.shard_count
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SplitShard',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shard_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.SplitShardResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def update_consumer_group(self, project, logstore, consumer_group, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -539,10 +989,56 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateConsumerGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_index(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_index_with_options(project, logstore, request, headers, runtime)
+
+    def update_index_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        body = {}
+        if not UtilClient.is_unset(request.keys):
+            body['keys'] = request.keys
+        if not UtilClient.is_unset(request.line):
+            body['line'] = request.line
+        if not UtilClient.is_unset(request.log_reduce):
+            body['log_reduce'] = request.log_reduce
+        if not UtilClient.is_unset(request.log_reduce_black_list):
+            body['log_reduce_black_list'] = request.log_reduce_black_list
+        if not UtilClient.is_unset(request.log_reduce_white_list):
+            body['log_reduce_white_list'] = request.log_reduce_white_list
+        if not UtilClient.is_unset(request.max_text_len):
+            body['max_text_len'] = request.max_text_len
+        if not UtilClient.is_unset(request.ttl):
+            body['ttl'] = request.ttl
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateIndex',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/index' % TeaConverter.to_unicode(logstore),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateIndexResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -591,7 +1087,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateLogStoreResponse(),
@@ -624,9 +1120,51 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_saved_search(self, project, savedsearch_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_saved_search_with_options(project, savedsearch_name, request, headers, runtime)
+
+    def update_saved_search_with_options(self, project, savedsearch_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        savedsearch_name = OpenApiUtilClient.get_encode_param(savedsearch_name)
+        body = {}
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.logstore):
+            body['logstore'] = request.logstore
+        if not UtilClient.is_unset(request.savedsearch_name):
+            body['savedsearchName'] = request.savedsearch_name
+        if not UtilClient.is_unset(request.search_query):
+            body['searchQuery'] = request.search_query
+        if not UtilClient.is_unset(request.topic):
+            body['topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSavedSearch',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/savedsearches/%s' % TeaConverter.to_unicode(savedsearch_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateSavedSearchResponse(),
             self.execute(params, req, runtime)
         )
