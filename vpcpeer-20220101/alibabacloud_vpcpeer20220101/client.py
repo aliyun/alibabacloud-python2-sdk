@@ -217,6 +217,8 @@ class Client(OpenApiClient):
     def modify_vpc_peer_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.bandwidth):
+            body['Bandwidth'] = request.bandwidth
         if not UtilClient.is_unset(request.client_token):
             body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.description):
