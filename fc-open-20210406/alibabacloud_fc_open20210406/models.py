@@ -3491,7 +3491,8 @@ class CreateTriggerRequest(TeaModel):
         self.qualifier = qualifier  # type: str
         # event source的Aliyun Resource Name（ARN
         self.source_arn = source_arn  # type: str
-        self.trigger_config = trigger_config  # type: any
+        # trigger配置，针对不同的trigger类型，trigger配置会有所不同
+        self.trigger_config = trigger_config  # type: str
         # trigger名称
         self.trigger_name = trigger_name  # type: str
         # trigger类型，如 oss, log, tablestore, timer, http, cdn_events, mns_topic
@@ -6677,8 +6678,8 @@ class InvokeFunctionHeaders(TeaModel):
 
 class InvokeFunctionRequest(TeaModel):
     def __init__(self, body=None, qualifier=None):
-        # anything
-        self.body = body  # type: any
+        # 事件（event），binary type。函数计算服务将event传递给用户function来处理
+        self.body = body  # type: bytes
         # service版本, 可以是versionId或者aliasName
         self.qualifier = qualifier  # type: str
 
@@ -7900,11 +7901,9 @@ class ListFunctionsResponse(TeaModel):
 
 
 class ListInstancesHeaders(TeaModel):
-    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
+    def __init__(self, common_headers=None, x_fc_account_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.x_fc_account_id = x_fc_account_id  # type: str
-        self.x_fc_date = x_fc_date  # type: str
-        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7919,10 +7918,6 @@ class ListInstancesHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
-        if self.x_fc_date is not None:
-            result['X-Fc-Date'] = self.x_fc_date
-        if self.x_fc_trace_id is not None:
-            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7931,10 +7926,6 @@ class ListInstancesHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
-        if m.get('X-Fc-Date') is not None:
-            self.x_fc_date = m.get('X-Fc-Date')
-        if m.get('X-Fc-Trace-Id') is not None:
-            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
