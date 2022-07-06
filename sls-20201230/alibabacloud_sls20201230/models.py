@@ -115,6 +115,303 @@ class EncryptUserCmkConf(TeaModel):
         return self
 
 
+class LogtailConfigInputDetailSensitiveKeys(TeaModel):
+    def __init__(self, all=None, key=None, regex_begin=None, regex_content=None, type=None):
+        # all
+        self.all = all  # type: bool
+        # key
+        self.key = key  # type: str
+        # regex_begin
+        self.regex_begin = regex_begin  # type: str
+        # regex_content
+        self.regex_content = regex_content  # type: str
+        # type
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LogtailConfigInputDetailSensitiveKeys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all is not None:
+            result['all'] = self.all
+        if self.key is not None:
+            result['key'] = self.key
+        if self.regex_begin is not None:
+            result['regex_begin'] = self.regex_begin
+        if self.regex_content is not None:
+            result['regex_content'] = self.regex_content
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('all') is not None:
+            self.all = m.get('all')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('regex_begin') is not None:
+            self.regex_begin = m.get('regex_begin')
+        if m.get('regex_content') is not None:
+            self.regex_content = m.get('regex_content')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class LogtailConfigInputDetail(TeaModel):
+    def __init__(self, adjust_timezone=None, delay_alarm_bytes=None, enable_tag=None, file_pattern=None,
+                 filter_key=None, filter_regex=None, local_storage=None, log_begin_regex=None, log_path=None,
+                 log_timezone=None, log_type=None, max_send_rate=None, merge_type=None, priority=None, send_rate_expire=None,
+                 sensitive_keys=None, shard_hash_key=None, time_format=None, topic_format=None):
+        # adjustTimezone
+        self.adjust_timezone = adjust_timezone  # type: bool
+        # delayAlarmBytes
+        self.delay_alarm_bytes = delay_alarm_bytes  # type: long
+        # enableTag
+        self.enable_tag = enable_tag  # type: bool
+        # filePattern
+        self.file_pattern = file_pattern  # type: str
+        # filterKey
+        self.filter_key = filter_key  # type: list[str]
+        # filterRegex
+        self.filter_regex = filter_regex  # type: list[str]
+        # localStorage
+        self.local_storage = local_storage  # type: bool
+        # logBeginRegex
+        self.log_begin_regex = log_begin_regex  # type: str
+        # logPath
+        self.log_path = log_path  # type: str
+        # logTimezone
+        self.log_timezone = log_timezone  # type: str
+        # logType
+        self.log_type = log_type  # type: str
+        # maxSendRate
+        self.max_send_rate = max_send_rate  # type: int
+        # mergeType
+        self.merge_type = merge_type  # type: str
+        # priority
+        self.priority = priority  # type: int
+        # sendRateExpire
+        self.send_rate_expire = send_rate_expire  # type: int
+        # sensitive_keys
+        self.sensitive_keys = sensitive_keys  # type: list[LogtailConfigInputDetailSensitiveKeys]
+        # shardHashKey
+        self.shard_hash_key = shard_hash_key  # type: list[str]
+        # timeFormat
+        self.time_format = time_format  # type: str
+        # topicFormat
+        self.topic_format = topic_format  # type: str
+
+    def validate(self):
+        if self.sensitive_keys:
+            for k in self.sensitive_keys:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(LogtailConfigInputDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adjust_timezone is not None:
+            result['adjustTimezone'] = self.adjust_timezone
+        if self.delay_alarm_bytes is not None:
+            result['delayAlarmBytes'] = self.delay_alarm_bytes
+        if self.enable_tag is not None:
+            result['enableTag'] = self.enable_tag
+        if self.file_pattern is not None:
+            result['filePattern'] = self.file_pattern
+        if self.filter_key is not None:
+            result['filterKey'] = self.filter_key
+        if self.filter_regex is not None:
+            result['filterRegex'] = self.filter_regex
+        if self.local_storage is not None:
+            result['localStorage'] = self.local_storage
+        if self.log_begin_regex is not None:
+            result['logBeginRegex'] = self.log_begin_regex
+        if self.log_path is not None:
+            result['logPath'] = self.log_path
+        if self.log_timezone is not None:
+            result['logTimezone'] = self.log_timezone
+        if self.log_type is not None:
+            result['logType'] = self.log_type
+        if self.max_send_rate is not None:
+            result['maxSendRate'] = self.max_send_rate
+        if self.merge_type is not None:
+            result['mergeType'] = self.merge_type
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.send_rate_expire is not None:
+            result['sendRateExpire'] = self.send_rate_expire
+        result['sensitive_keys'] = []
+        if self.sensitive_keys is not None:
+            for k in self.sensitive_keys:
+                result['sensitive_keys'].append(k.to_map() if k else None)
+        if self.shard_hash_key is not None:
+            result['shardHashKey'] = self.shard_hash_key
+        if self.time_format is not None:
+            result['timeFormat'] = self.time_format
+        if self.topic_format is not None:
+            result['topicFormat'] = self.topic_format
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('adjustTimezone') is not None:
+            self.adjust_timezone = m.get('adjustTimezone')
+        if m.get('delayAlarmBytes') is not None:
+            self.delay_alarm_bytes = m.get('delayAlarmBytes')
+        if m.get('enableTag') is not None:
+            self.enable_tag = m.get('enableTag')
+        if m.get('filePattern') is not None:
+            self.file_pattern = m.get('filePattern')
+        if m.get('filterKey') is not None:
+            self.filter_key = m.get('filterKey')
+        if m.get('filterRegex') is not None:
+            self.filter_regex = m.get('filterRegex')
+        if m.get('localStorage') is not None:
+            self.local_storage = m.get('localStorage')
+        if m.get('logBeginRegex') is not None:
+            self.log_begin_regex = m.get('logBeginRegex')
+        if m.get('logPath') is not None:
+            self.log_path = m.get('logPath')
+        if m.get('logTimezone') is not None:
+            self.log_timezone = m.get('logTimezone')
+        if m.get('logType') is not None:
+            self.log_type = m.get('logType')
+        if m.get('maxSendRate') is not None:
+            self.max_send_rate = m.get('maxSendRate')
+        if m.get('mergeType') is not None:
+            self.merge_type = m.get('mergeType')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('sendRateExpire') is not None:
+            self.send_rate_expire = m.get('sendRateExpire')
+        self.sensitive_keys = []
+        if m.get('sensitive_keys') is not None:
+            for k in m.get('sensitive_keys'):
+                temp_model = LogtailConfigInputDetailSensitiveKeys()
+                self.sensitive_keys.append(temp_model.from_map(k))
+        if m.get('shardHashKey') is not None:
+            self.shard_hash_key = m.get('shardHashKey')
+        if m.get('timeFormat') is not None:
+            self.time_format = m.get('timeFormat')
+        if m.get('topicFormat') is not None:
+            self.topic_format = m.get('topicFormat')
+        return self
+
+
+class LogtailConfigOutputDetail(TeaModel):
+    def __init__(self, endpoint=None, logstore=None):
+        # endpoint
+        self.endpoint = endpoint  # type: str
+        # logstore
+        self.logstore = logstore  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LogtailConfigOutputDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
+        return self
+
+
+class LogtailConfig(TeaModel):
+    def __init__(self, config_name=None, create_time=None, input_detail=None, input_type=None,
+                 last_modify_time=None, log_sample=None, output_detail=None, output_type=None):
+        # configName
+        self.config_name = config_name  # type: str
+        # 创建时间
+        self.create_time = create_time  # type: long
+        # inputDetail
+        self.input_detail = input_detail  # type: LogtailConfigInputDetail
+        # inputType
+        self.input_type = input_type  # type: str
+        # 修改时间
+        self.last_modify_time = last_modify_time  # type: long
+        # 日志样例
+        self.log_sample = log_sample  # type: str
+        # outputDetail
+        self.output_detail = output_detail  # type: LogtailConfigOutputDetail
+        # outputType
+        self.output_type = output_type  # type: str
+
+    def validate(self):
+        if self.input_detail:
+            self.input_detail.validate()
+        if self.output_detail:
+            self.output_detail.validate()
+
+    def to_map(self):
+        _map = super(LogtailConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_name is not None:
+            result['configName'] = self.config_name
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.input_detail is not None:
+            result['inputDetail'] = self.input_detail.to_map()
+        if self.input_type is not None:
+            result['inputType'] = self.input_type
+        if self.last_modify_time is not None:
+            result['lastModifyTime'] = self.last_modify_time
+        if self.log_sample is not None:
+            result['logSample'] = self.log_sample
+        if self.output_detail is not None:
+            result['outputDetail'] = self.output_detail.to_map()
+        if self.output_type is not None:
+            result['outputType'] = self.output_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configName') is not None:
+            self.config_name = m.get('configName')
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('inputDetail') is not None:
+            temp_model = LogtailConfigInputDetail()
+            self.input_detail = temp_model.from_map(m['inputDetail'])
+        if m.get('inputType') is not None:
+            self.input_type = m.get('inputType')
+        if m.get('lastModifyTime') is not None:
+            self.last_modify_time = m.get('lastModifyTime')
+        if m.get('logSample') is not None:
+            self.log_sample = m.get('logSample')
+        if m.get('outputDetail') is not None:
+            temp_model = LogtailConfigOutputDetail()
+            self.output_detail = temp_model.from_map(m['outputDetail'])
+        if m.get('outputType') is not None:
+            self.output_type = m.get('outputType')
+        return self
+
+
 class SavedSearch(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
         # displayName
@@ -319,303 +616,6 @@ class Chart(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
-        return self
-
-
-class ConfigInputDetailSensitiveKeys(TeaModel):
-    def __init__(self, all=None, key=None, regex_begin=None, regex_content=None, type=None):
-        # all
-        self.all = all  # type: bool
-        # key
-        self.key = key  # type: str
-        # regex_begin
-        self.regex_begin = regex_begin  # type: str
-        # regex_content
-        self.regex_content = regex_content  # type: str
-        # type
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigInputDetailSensitiveKeys, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.all is not None:
-            result['all'] = self.all
-        if self.key is not None:
-            result['key'] = self.key
-        if self.regex_begin is not None:
-            result['regex_begin'] = self.regex_begin
-        if self.regex_content is not None:
-            result['regex_content'] = self.regex_content
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('all') is not None:
-            self.all = m.get('all')
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('regex_begin') is not None:
-            self.regex_begin = m.get('regex_begin')
-        if m.get('regex_content') is not None:
-            self.regex_content = m.get('regex_content')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class ConfigInputDetail(TeaModel):
-    def __init__(self, adjust_timezone=None, delay_alarm_bytes=None, enable_tag=None, file_pattern=None,
-                 filter_key=None, filter_regex=None, local_storage=None, log_begin_regex=None, log_path=None,
-                 log_timezone=None, log_type=None, max_send_rate=None, merge_type=None, priority=None, send_rate_expire=None,
-                 sensitive_keys=None, shard_hash_key=None, time_format=None, topic_format=None):
-        # adjustTimezone
-        self.adjust_timezone = adjust_timezone  # type: bool
-        # delayAlarmBytes
-        self.delay_alarm_bytes = delay_alarm_bytes  # type: long
-        # enableTag
-        self.enable_tag = enable_tag  # type: bool
-        # filePattern
-        self.file_pattern = file_pattern  # type: str
-        # filterKey
-        self.filter_key = filter_key  # type: list[str]
-        # filterRegex
-        self.filter_regex = filter_regex  # type: list[str]
-        # localStorage
-        self.local_storage = local_storage  # type: bool
-        # logBeginRegex
-        self.log_begin_regex = log_begin_regex  # type: str
-        # logPath
-        self.log_path = log_path  # type: str
-        # logTimezone
-        self.log_timezone = log_timezone  # type: str
-        # logType
-        self.log_type = log_type  # type: str
-        # maxSendRate
-        self.max_send_rate = max_send_rate  # type: int
-        # mergeType
-        self.merge_type = merge_type  # type: str
-        # priority
-        self.priority = priority  # type: int
-        # sendRateExpire
-        self.send_rate_expire = send_rate_expire  # type: int
-        # sensitive_keys
-        self.sensitive_keys = sensitive_keys  # type: list[ConfigInputDetailSensitiveKeys]
-        # shardHashKey
-        self.shard_hash_key = shard_hash_key  # type: list[str]
-        # timeFormat
-        self.time_format = time_format  # type: str
-        # topicFormat
-        self.topic_format = topic_format  # type: str
-
-    def validate(self):
-        if self.sensitive_keys:
-            for k in self.sensitive_keys:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ConfigInputDetail, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.adjust_timezone is not None:
-            result['adjustTimezone'] = self.adjust_timezone
-        if self.delay_alarm_bytes is not None:
-            result['delayAlarmBytes'] = self.delay_alarm_bytes
-        if self.enable_tag is not None:
-            result['enableTag'] = self.enable_tag
-        if self.file_pattern is not None:
-            result['filePattern'] = self.file_pattern
-        if self.filter_key is not None:
-            result['filterKey'] = self.filter_key
-        if self.filter_regex is not None:
-            result['filterRegex'] = self.filter_regex
-        if self.local_storage is not None:
-            result['localStorage'] = self.local_storage
-        if self.log_begin_regex is not None:
-            result['logBeginRegex'] = self.log_begin_regex
-        if self.log_path is not None:
-            result['logPath'] = self.log_path
-        if self.log_timezone is not None:
-            result['logTimezone'] = self.log_timezone
-        if self.log_type is not None:
-            result['logType'] = self.log_type
-        if self.max_send_rate is not None:
-            result['maxSendRate'] = self.max_send_rate
-        if self.merge_type is not None:
-            result['mergeType'] = self.merge_type
-        if self.priority is not None:
-            result['priority'] = self.priority
-        if self.send_rate_expire is not None:
-            result['sendRateExpire'] = self.send_rate_expire
-        result['sensitive_keys'] = []
-        if self.sensitive_keys is not None:
-            for k in self.sensitive_keys:
-                result['sensitive_keys'].append(k.to_map() if k else None)
-        if self.shard_hash_key is not None:
-            result['shardHashKey'] = self.shard_hash_key
-        if self.time_format is not None:
-            result['timeFormat'] = self.time_format
-        if self.topic_format is not None:
-            result['topicFormat'] = self.topic_format
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('adjustTimezone') is not None:
-            self.adjust_timezone = m.get('adjustTimezone')
-        if m.get('delayAlarmBytes') is not None:
-            self.delay_alarm_bytes = m.get('delayAlarmBytes')
-        if m.get('enableTag') is not None:
-            self.enable_tag = m.get('enableTag')
-        if m.get('filePattern') is not None:
-            self.file_pattern = m.get('filePattern')
-        if m.get('filterKey') is not None:
-            self.filter_key = m.get('filterKey')
-        if m.get('filterRegex') is not None:
-            self.filter_regex = m.get('filterRegex')
-        if m.get('localStorage') is not None:
-            self.local_storage = m.get('localStorage')
-        if m.get('logBeginRegex') is not None:
-            self.log_begin_regex = m.get('logBeginRegex')
-        if m.get('logPath') is not None:
-            self.log_path = m.get('logPath')
-        if m.get('logTimezone') is not None:
-            self.log_timezone = m.get('logTimezone')
-        if m.get('logType') is not None:
-            self.log_type = m.get('logType')
-        if m.get('maxSendRate') is not None:
-            self.max_send_rate = m.get('maxSendRate')
-        if m.get('mergeType') is not None:
-            self.merge_type = m.get('mergeType')
-        if m.get('priority') is not None:
-            self.priority = m.get('priority')
-        if m.get('sendRateExpire') is not None:
-            self.send_rate_expire = m.get('sendRateExpire')
-        self.sensitive_keys = []
-        if m.get('sensitive_keys') is not None:
-            for k in m.get('sensitive_keys'):
-                temp_model = ConfigInputDetailSensitiveKeys()
-                self.sensitive_keys.append(temp_model.from_map(k))
-        if m.get('shardHashKey') is not None:
-            self.shard_hash_key = m.get('shardHashKey')
-        if m.get('timeFormat') is not None:
-            self.time_format = m.get('timeFormat')
-        if m.get('topicFormat') is not None:
-            self.topic_format = m.get('topicFormat')
-        return self
-
-
-class ConfigOutputDetail(TeaModel):
-    def __init__(self, endpoint=None, logstore=None):
-        # endpoint
-        self.endpoint = endpoint  # type: str
-        # logstore
-        self.logstore = logstore  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigOutputDetail, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.endpoint is not None:
-            result['endpoint'] = self.endpoint
-        if self.logstore is not None:
-            result['logstore'] = self.logstore
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('endpoint') is not None:
-            self.endpoint = m.get('endpoint')
-        if m.get('logstore') is not None:
-            self.logstore = m.get('logstore')
-        return self
-
-
-class Config(TeaModel):
-    def __init__(self, config_name=None, create_time=None, input_detail=None, input_type=None,
-                 last_modify_time=None, log_sample=None, output_detail=None, output_type=None):
-        # configName
-        self.config_name = config_name  # type: str
-        # 创建时间
-        self.create_time = create_time  # type: long
-        # inputDetail
-        self.input_detail = input_detail  # type: ConfigInputDetail
-        # inputType
-        self.input_type = input_type  # type: str
-        # 修改时间
-        self.last_modify_time = last_modify_time  # type: long
-        # 日志样例
-        self.log_sample = log_sample  # type: str
-        # outputDetail
-        self.output_detail = output_detail  # type: ConfigOutputDetail
-        # outputType
-        self.output_type = output_type  # type: str
-
-    def validate(self):
-        if self.input_detail:
-            self.input_detail.validate()
-        if self.output_detail:
-            self.output_detail.validate()
-
-    def to_map(self):
-        _map = super(Config, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.config_name is not None:
-            result['configName'] = self.config_name
-        if self.create_time is not None:
-            result['createTime'] = self.create_time
-        if self.input_detail is not None:
-            result['inputDetail'] = self.input_detail.to_map()
-        if self.input_type is not None:
-            result['inputType'] = self.input_type
-        if self.last_modify_time is not None:
-            result['lastModifyTime'] = self.last_modify_time
-        if self.log_sample is not None:
-            result['logSample'] = self.log_sample
-        if self.output_detail is not None:
-            result['outputDetail'] = self.output_detail.to_map()
-        if self.output_type is not None:
-            result['outputType'] = self.output_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('configName') is not None:
-            self.config_name = m.get('configName')
-        if m.get('createTime') is not None:
-            self.create_time = m.get('createTime')
-        if m.get('inputDetail') is not None:
-            temp_model = ConfigInputDetail()
-            self.input_detail = temp_model.from_map(m['inputDetail'])
-        if m.get('inputType') is not None:
-            self.input_type = m.get('inputType')
-        if m.get('lastModifyTime') is not None:
-            self.last_modify_time = m.get('lastModifyTime')
-        if m.get('logSample') is not None:
-            self.log_sample = m.get('logSample')
-        if m.get('outputDetail') is not None:
-            temp_model = ConfigOutputDetail()
-            self.output_detail = temp_model.from_map(m['outputDetail'])
-        if m.get('outputType') is not None:
-            self.output_type = m.get('outputType')
         return self
 
 
