@@ -4043,7 +4043,7 @@ class DeleteInstanceResponseBody(TeaModel):
         # 任务id
         self.id = id  # type: long
         # 请求Id
-        self.request_id = request_id  # type: bytes
+        self.request_id = request_id  # type: str
         # 任务id
         self.response = response  # type: long
         # 任务状态，可以在GetInstancePublishTaskState API 了解更多的状态
