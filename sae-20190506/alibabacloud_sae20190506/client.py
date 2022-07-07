@@ -1434,6 +1434,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_job_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_job_status_with_options(request, headers, runtime)
+
+    def describe_job_status_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJobStatus',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/describeJobStatus',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DescribeJobStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def describe_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
