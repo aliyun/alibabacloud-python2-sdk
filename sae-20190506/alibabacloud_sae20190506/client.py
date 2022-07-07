@@ -1268,6 +1268,8 @@ class Client(OpenApiClient):
             query['Cpu'] = request.cpu
         if not UtilClient.is_unset(request.memory):
             query['Memory'] = request.memory
+        if not UtilClient.is_unset(request.workload):
+            query['Workload'] = request.workload
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1668,6 +1670,50 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.EnableApplicationScalingRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def exec_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_job_with_options(request, headers, runtime)
+
+    def exec_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.command):
+            query['Command'] = request.command
+        if not UtilClient.is_unset(request.command_args):
+            query['CommandArgs'] = request.command_args
+        if not UtilClient.is_unset(request.envs):
+            query['Envs'] = request.envs
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        if not UtilClient.is_unset(request.jar_start_args):
+            query['JarStartArgs'] = request.jar_start_args
+        if not UtilClient.is_unset(request.jar_start_options):
+            query['JarStartOptions'] = request.jar_start_options
+        if not UtilClient.is_unset(request.war_start_options):
+            query['WarStartOptions'] = request.war_start_options
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExecJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/execJob',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.ExecJobResponse(),
             self.call_api(params, req, runtime)
         )
 

@@ -4935,10 +4935,11 @@ class DescribeApplicationInstancesRequest(TeaModel):
 
 
 class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
-    def __init__(self, create_time_stamp=None, eip=None, finish_time_stamp=None, group_id=None, image_url=None,
-                 instance_container_ip=None, instance_container_restarts=None, instance_container_status=None,
-                 instance_health_status=None, instance_id=None, package_version=None, v_switch_id=None):
+    def __init__(self, create_time_stamp=None, debug_status=None, eip=None, finish_time_stamp=None, group_id=None,
+                 image_url=None, instance_container_ip=None, instance_container_restarts=None,
+                 instance_container_status=None, instance_health_status=None, instance_id=None, package_version=None, v_switch_id=None):
         self.create_time_stamp = create_time_stamp  # type: long
+        self.debug_status = debug_status  # type: bool
         self.eip = eip  # type: str
         self.finish_time_stamp = finish_time_stamp  # type: long
         self.group_id = group_id  # type: str
@@ -4962,6 +4963,8 @@ class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
         result = dict()
         if self.create_time_stamp is not None:
             result['CreateTimeStamp'] = self.create_time_stamp
+        if self.debug_status is not None:
+            result['DebugStatus'] = self.debug_status
         if self.eip is not None:
             result['Eip'] = self.eip
         if self.finish_time_stamp is not None:
@@ -4990,6 +4993,8 @@ class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
         m = m or dict()
         if m.get('CreateTimeStamp') is not None:
             self.create_time_stamp = m.get('CreateTimeStamp')
+        if m.get('DebugStatus') is not None:
+            self.debug_status = m.get('DebugStatus')
         if m.get('Eip') is not None:
             self.eip = m.get('Eip')
         if m.get('FinishTimeStamp') is not None:
@@ -7467,9 +7472,10 @@ class DescribeConfigMapResponse(TeaModel):
 
 
 class DescribeConfigurationPriceRequest(TeaModel):
-    def __init__(self, cpu=None, memory=None):
+    def __init__(self, cpu=None, memory=None, workload=None):
         self.cpu = cpu  # type: int
         self.memory = memory  # type: int
+        self.workload = workload  # type: str
 
     def validate(self):
         pass
@@ -7484,6 +7490,8 @@ class DescribeConfigurationPriceRequest(TeaModel):
             result['Cpu'] = self.cpu
         if self.memory is not None:
             result['Memory'] = self.memory
+        if self.workload is not None:
+            result['Workload'] = self.workload
         return result
 
     def from_map(self, m=None):
@@ -7492,6 +7500,8 @@ class DescribeConfigurationPriceRequest(TeaModel):
             self.cpu = m.get('Cpu')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        if m.get('Workload') is not None:
+            self.workload = m.get('Workload')
         return self
 
 
@@ -8302,9 +8312,10 @@ class DescribeIngressRequest(TeaModel):
 
 
 class DescribeIngressResponseBodyDataDefaultRule(TeaModel):
-    def __init__(self, app_id=None, app_name=None, container_port=None):
+    def __init__(self, app_id=None, app_name=None, backend_protocol=None, container_port=None):
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
+        self.backend_protocol = backend_protocol  # type: str
         self.container_port = container_port  # type: int
 
     def validate(self):
@@ -8320,6 +8331,8 @@ class DescribeIngressResponseBodyDataDefaultRule(TeaModel):
             result['AppId'] = self.app_id
         if self.app_name is not None:
             result['AppName'] = self.app_name
+        if self.backend_protocol is not None:
+            result['BackendProtocol'] = self.backend_protocol
         if self.container_port is not None:
             result['ContainerPort'] = self.container_port
         return result
@@ -8330,15 +8343,19 @@ class DescribeIngressResponseBodyDataDefaultRule(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
+        if m.get('BackendProtocol') is not None:
+            self.backend_protocol = m.get('BackendProtocol')
         if m.get('ContainerPort') is not None:
             self.container_port = m.get('ContainerPort')
         return self
 
 
 class DescribeIngressResponseBodyDataRules(TeaModel):
-    def __init__(self, app_id=None, app_name=None, container_port=None, domain=None, path=None):
+    def __init__(self, app_id=None, app_name=None, backend_protocol=None, container_port=None, domain=None,
+                 path=None):
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
+        self.backend_protocol = backend_protocol  # type: str
         self.container_port = container_port  # type: int
         self.domain = domain  # type: str
         self.path = path  # type: str
@@ -8356,6 +8373,8 @@ class DescribeIngressResponseBodyDataRules(TeaModel):
             result['AppId'] = self.app_id
         if self.app_name is not None:
             result['AppName'] = self.app_name
+        if self.backend_protocol is not None:
+            result['BackendProtocol'] = self.backend_protocol
         if self.container_port is not None:
             result['ContainerPort'] = self.container_port
         if self.domain is not None:
@@ -8370,6 +8389,8 @@ class DescribeIngressResponseBodyDataRules(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
+        if m.get('BackendProtocol') is not None:
+            self.backend_protocol = m.get('BackendProtocol')
         if m.get('ContainerPort') is not None:
             self.container_port = m.get('ContainerPort')
         if m.get('Domain') is not None:
@@ -10326,6 +10347,160 @@ class EnableApplicationScalingRuleResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableApplicationScalingRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExecJobRequest(TeaModel):
+    def __init__(self, app_id=None, command=None, command_args=None, envs=None, event_id=None, jar_start_args=None,
+                 jar_start_options=None, war_start_options=None):
+        self.app_id = app_id  # type: str
+        self.command = command  # type: str
+        self.command_args = command_args  # type: str
+        self.envs = envs  # type: str
+        self.event_id = event_id  # type: str
+        self.jar_start_args = jar_start_args  # type: str
+        self.jar_start_options = jar_start_options  # type: str
+        self.war_start_options = war_start_options  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.command_args is not None:
+            result['CommandArgs'] = self.command_args
+        if self.envs is not None:
+            result['Envs'] = self.envs
+        if self.event_id is not None:
+            result['EventId'] = self.event_id
+        if self.jar_start_args is not None:
+            result['JarStartArgs'] = self.jar_start_args
+        if self.jar_start_options is not None:
+            result['JarStartOptions'] = self.jar_start_options
+        if self.war_start_options is not None:
+            result['WarStartOptions'] = self.war_start_options
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('CommandArgs') is not None:
+            self.command_args = m.get('CommandArgs')
+        if m.get('Envs') is not None:
+            self.envs = m.get('Envs')
+        if m.get('EventId') is not None:
+            self.event_id = m.get('EventId')
+        if m.get('JarStartArgs') is not None:
+            self.jar_start_args = m.get('JarStartArgs')
+        if m.get('JarStartOptions') is not None:
+            self.jar_start_options = m.get('JarStartOptions')
+        if m.get('WarStartOptions') is not None:
+            self.war_start_options = m.get('WarStartOptions')
+        return self
+
+
+class ExecJobResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_code=None, message=None, request_id=None, success=None,
+                 trace_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.error_code = error_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        return self
+
+
+class ExecJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExecJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExecJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExecJobResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
