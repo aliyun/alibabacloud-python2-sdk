@@ -11,8 +11,8 @@ from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_gateway_sls.client import Client as GatewayClientClient
 from alibabacloud_sls20201230 import models as sls_20201230_models
 from alibabacloud_tea_util import models as util_models
-from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
+from alibabacloud_tea_util.client import Client as UtilClient
 
 
 class Client(OpenApiClient):
@@ -36,6 +36,36 @@ class Client(OpenApiClient):
             'cn-zhangjiakou': 'sls.cn-zhangjiakou.aliyuncs.com',
             'eu-central-1': 'sls.eu-central-1.aliyuncs.com'
         }
+
+    def apply_config_to_machine_group(self, project, machine_group, config_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_config_to_machine_group_with_options(project, machine_group, config_name, headers, runtime)
+
+    def apply_config_to_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        config_name = OpenApiUtilClient.get_encode_param(config_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ApplyConfigToMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s/configs/%s' % (TeaConverter.to_unicode(machine_group), TeaConverter.to_unicode(config_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ApplyConfigToMachineGroupResponse(),
+            self.execute(params, req, runtime)
+        )
 
     def create_consumer_group(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
@@ -72,6 +102,39 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateConsumerGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_domain(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_domain_with_options(project, request, headers, runtime)
+
+    def create_domain_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.domain_name):
+            body['domainName'] = request.domain_name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDomain',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/domains',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateDomainResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -169,6 +232,82 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateLogStoreResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_logging(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_logging_with_options(project, request, headers, runtime)
+
+    def create_logging_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.logging_details):
+            body['loggingDetails'] = request.logging_details
+        if not UtilClient.is_unset(request.logging_project):
+            body['loggingProject'] = request.logging_project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateLogging',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logging',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateLoggingResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_machine_group(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_machine_group_with_options(project, request, headers, runtime)
+
+    def create_machine_group_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.group_attribute):
+            body['groupAttribute'] = request.group_attribute
+        if not UtilClient.is_unset(request.group_name):
+            body['groupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_type):
+            body['groupType'] = request.group_type
+        if not UtilClient.is_unset(request.machine_identify_type):
+            body['machineIdentifyType'] = request.machine_identify_type
+        if not UtilClient.is_unset(request.machine_list):
+            body['machineList'] = request.machine_list
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateMachineGroupResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -275,6 +414,35 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def delete_domain(self, project, domain_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_domain_with_options(project, domain_name, headers, runtime)
+
+    def delete_domain_with_options(self, project, domain_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        domain_name = OpenApiUtilClient.get_encode_param(domain_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteDomain',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/domains/%s' % TeaConverter.to_unicode(domain_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteDomainResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def delete_index(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -333,6 +501,63 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def delete_logging(self, project):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_logging_with_options(project, headers, runtime)
+
+    def delete_logging_with_options(self, project, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteLogging',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logging',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteLoggingResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_machine_group(self, project, machine_group):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_machine_group_with_options(project, machine_group, headers, runtime)
+
+    def delete_machine_group_with_options(self, project, machine_group, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s' % TeaConverter.to_unicode(machine_group),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteMachineGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def delete_project(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -358,6 +583,70 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_applied_configs(self, project, machine_group):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_applied_configs_with_options(project, machine_group, headers, runtime)
+
+    def get_applied_configs_with_options(self, project, machine_group, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAppliedConfigs',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s/configs' % TeaConverter.to_unicode(machine_group),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAppliedConfigsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_check_point(self, project, logstore, consumer_group, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_check_point_with_options(project, logstore, consumer_group, request, headers, runtime)
+
+    def get_check_point_with_options(self, project, logstore, consumer_group, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        consumer_group = OpenApiUtilClient.get_encode_param(consumer_group)
+        query = {}
+        if not UtilClient.is_unset(request.shard):
+            query['shard'] = request.shard
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCheckPoint',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/consumergroups/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(consumer_group)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetCheckPointResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -577,6 +866,34 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def get_logging(self, project):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_logging_with_options(project, headers, runtime)
+
+    def get_logging_with_options(self, project, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetLogging',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logging',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetLoggingResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def get_logs(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -624,6 +941,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.GetLogsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_machine_group(self, project, machine_group):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_machine_group_with_options(project, machine_group, headers, runtime)
+
+    def get_machine_group_with_options(self, project, machine_group, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s' % TeaConverter.to_unicode(machine_group),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetMachineGroupResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -748,6 +1094,43 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def list_domains(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_domains_with_options(project, request, headers, runtime)
+
+    def list_domains_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['domainName'] = request.domain_name
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDomains',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/domains',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListDomainsResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def list_log_stores(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -784,6 +1167,79 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.ListLogStoresResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_machine_group(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_machine_group_with_options(project, request, headers, runtime)
+
+    def list_machine_group_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['groupName'] = request.group_name
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListMachineGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_machines(self, project, machine_group, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_machines_with_options(project, machine_group, request, headers, runtime)
+
+    def list_machines_with_options(self, project, machine_group, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMachines',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s/machines' % TeaConverter.to_unicode(machine_group),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListMachinesResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -960,6 +1416,36 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def remove_config_from_machine_group(self, project, machine_group, config_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_config_from_machine_group_with_options(project, machine_group, config_name, headers, runtime)
+
+    def remove_config_from_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        config_name = OpenApiUtilClient.get_encode_param(config_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='RemoveConfigFromMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s/configs/%s' % (TeaConverter.to_unicode(machine_group), TeaConverter.to_unicode(config_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.RemoveConfigFromMachineGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def split_shard(self, project, logstore, shard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1066,6 +1552,51 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.UnTagResourcesResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_check_point(self, project, logstore, consumer_group, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_check_point_with_options(project, logstore, consumer_group, request, headers, runtime)
+
+    def update_check_point_with_options(self, project, logstore, consumer_group, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        consumer_group = OpenApiUtilClient.get_encode_param(consumer_group)
+        query = {}
+        if not UtilClient.is_unset(request.consumer):
+            query['consumer'] = request.consumer
+        if not UtilClient.is_unset(request.force_success):
+            query['forceSuccess'] = request.force_success
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        body = {}
+        if not UtilClient.is_unset(request.checkpoint):
+            body['checkpoint'] = request.checkpoint
+        if not UtilClient.is_unset(request.shard):
+            body['shard'] = request.shard
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCheckPoint',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/consumergroups/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(consumer_group)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateCheckPointResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1201,6 +1732,83 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateLogStoreResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_logging(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_logging_with_options(project, request, headers, runtime)
+
+    def update_logging_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.logging_details):
+            body['loggingDetails'] = request.logging_details
+        if not UtilClient.is_unset(request.logging_project):
+            body['loggingProject'] = request.logging_project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateLogging',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logging',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateLoggingResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_machine_group(self, project, machine_group, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_machine_group_with_options(project, machine_group, request, headers, runtime)
+
+    def update_machine_group_with_options(self, project, machine_group, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        body = {}
+        if not UtilClient.is_unset(request.group_attribute):
+            body['groupAttribute'] = request.group_attribute
+        if not UtilClient.is_unset(request.group_name):
+            body['groupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_type):
+            body['groupType'] = request.group_type
+        if not UtilClient.is_unset(request.machine_identify_type):
+            body['machineIdentifyType'] = request.machine_identify_type
+        if not UtilClient.is_unset(request.machine_list):
+            body['machineList'] = request.machine_list
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateMachineGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/machinegroups/%s' % TeaConverter.to_unicode(machine_group),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateMachineGroupResponse(),
             self.execute(params, req, runtime)
         )
 
