@@ -322,6 +322,8 @@ class Client(OpenApiClient):
             query['WarStartOptions'] = request.war_start_options
         if not UtilClient.is_unset(request.web_container):
             query['WebContainer'] = request.web_container
+        if not UtilClient.is_unset(request.mse_feature_config):
+            query['mseFeatureConfig'] = request.mse_feature_config
         body = {}
         if not UtilClient.is_unset(request.acr_instance_id):
             body['AcrInstanceId'] = request.acr_instance_id
@@ -800,6 +802,8 @@ class Client(OpenApiClient):
             query['MountDesc'] = request.mount_desc
         if not UtilClient.is_unset(request.mount_host):
             query['MountHost'] = request.mount_host
+        if not UtilClient.is_unset(request.mse_feature_config):
+            query['MseFeatureConfig'] = request.mse_feature_config
         if not UtilClient.is_unset(request.nas_id):
             query['NasId'] = request.nas_id
         if not UtilClient.is_unset(request.open_collect_to_kafka):

@@ -912,7 +912,7 @@ class CreateApplicationRequest(TeaModel):
                  package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
                  php_config_location=None, post_start=None, pre_stop=None, programming_language=None, readiness=None, replicas=None,
                  security_group_id=None, sls_configs=None, termination_grace_period_seconds=None, timezone=None, tomcat_config=None,
-                 v_switch_id=None, vpc_id=None, war_start_options=None, web_container=None):
+                 v_switch_id=None, vpc_id=None, war_start_options=None, web_container=None, mse_feature_config=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
         # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
@@ -970,6 +970,7 @@ class CreateApplicationRequest(TeaModel):
         self.vpc_id = vpc_id  # type: str
         self.war_start_options = war_start_options  # type: str
         self.web_container = web_container  # type: str
+        self.mse_feature_config = mse_feature_config  # type: str
 
     def validate(self):
         pass
@@ -1084,6 +1085,8 @@ class CreateApplicationRequest(TeaModel):
             result['WarStartOptions'] = self.war_start_options
         if self.web_container is not None:
             result['WebContainer'] = self.web_container
+        if self.mse_feature_config is not None:
+            result['mseFeatureConfig'] = self.mse_feature_config
         return result
 
     def from_map(self, m=None):
@@ -1192,6 +1195,8 @@ class CreateApplicationRequest(TeaModel):
             self.war_start_options = m.get('WarStartOptions')
         if m.get('WebContainer') is not None:
             self.web_container = m.get('WebContainer')
+        if m.get('mseFeatureConfig') is not None:
+            self.mse_feature_config = m.get('mseFeatureConfig')
         return self
 
 
@@ -3147,11 +3152,12 @@ class DeployApplicationRequest(TeaModel):
                  config_map_mount_desc=None, custom_host_alias=None, edas_container_version=None, enable_ahas=None,
                  enable_grey_tag_route=None, envs=None, image_url=None, jar_start_args=None, jar_start_options=None, jdk=None,
                  kafka_configs=None, kafka_endpoint=None, kafka_instance_id=None, kafka_logfile_config=None, liveness=None,
-                 min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None, nas_id=None,
-                 open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_url=None,
-                 package_version=None, php_arms_config_location=None, php_config=None, php_config_location=None, post_start=None,
-                 pre_stop=None, readiness=None, sls_configs=None, termination_grace_period_seconds=None, timezone=None,
-                 tomcat_config=None, update_strategy=None, war_start_options=None, web_container=None):
+                 min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None, mse_feature_config=None,
+                 nas_id=None, open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None,
+                 package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
+                 php_config_location=None, post_start=None, pre_stop=None, readiness=None, sls_configs=None,
+                 termination_grace_period_seconds=None, timezone=None, tomcat_config=None, update_strategy=None, war_start_options=None,
+                 web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
         # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
@@ -3183,6 +3189,7 @@ class DeployApplicationRequest(TeaModel):
         self.min_ready_instances = min_ready_instances  # type: int
         self.mount_desc = mount_desc  # type: str
         self.mount_host = mount_host  # type: str
+        self.mse_feature_config = mse_feature_config  # type: str
         self.nas_id = nas_id  # type: str
         self.open_collect_to_kafka = open_collect_to_kafka  # type: bool
         # OSS使用的AKID
@@ -3272,6 +3279,8 @@ class DeployApplicationRequest(TeaModel):
             result['MountDesc'] = self.mount_desc
         if self.mount_host is not None:
             result['MountHost'] = self.mount_host
+        if self.mse_feature_config is not None:
+            result['MseFeatureConfig'] = self.mse_feature_config
         if self.nas_id is not None:
             result['NasId'] = self.nas_id
         if self.open_collect_to_kafka is not None:
@@ -3372,6 +3381,8 @@ class DeployApplicationRequest(TeaModel):
             self.mount_desc = m.get('MountDesc')
         if m.get('MountHost') is not None:
             self.mount_host = m.get('MountHost')
+        if m.get('MseFeatureConfig') is not None:
+            self.mse_feature_config = m.get('MseFeatureConfig')
         if m.get('NasId') is not None:
             self.nas_id = m.get('NasId')
         if m.get('OpenCollectToKafka') is not None:
@@ -4047,12 +4058,13 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
                  config_map_mount_desc=None, cpu=None, custom_host_alias=None, edas_container_version=None, enable_ahas=None,
                  enable_grey_tag_route=None, envs=None, image_url=None, jar_start_args=None, jar_start_options=None, jdk=None,
                  kafka_configs=None, liveness=None, memory=None, min_ready_instance_ratio=None, min_ready_instances=None,
-                 mount_desc=None, mount_host=None, mse_application_id=None, namespace_id=None, nas_id=None, oss_ak_id=None,
-                 oss_ak_secret=None, oss_mount_descs=None, package_type=None, package_url=None, package_version=None,
-                 php_arms_config_location=None, php_config=None, php_config_location=None, post_start=None, pre_stop=None,
-                 programming_language=None, readiness=None, region_id=None, replicas=None, security_group_id=None, sls_configs=None,
-                 tags=None, termination_grace_period_seconds=None, timezone=None, tomcat_config=None,
-                 update_strategy=None, v_switch_id=None, vpc_id=None, war_start_options=None, web_container=None):
+                 mount_desc=None, mount_host=None, mse_application_id=None, mse_feature_config=None, namespace_id=None,
+                 nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
+                 package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
+                 php_config_location=None, post_start=None, pre_stop=None, programming_language=None, readiness=None, region_id=None,
+                 replicas=None, security_group_id=None, sls_configs=None, tags=None, termination_grace_period_seconds=None,
+                 timezone=None, tomcat_config=None, update_strategy=None, v_switch_id=None, vpc_id=None,
+                 war_start_options=None, web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
         # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
@@ -4085,6 +4097,7 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
         self.mount_host = mount_host  # type: str
         # 对应MSE产品侧应用ID
         self.mse_application_id = mse_application_id  # type: str
+        self.mse_feature_config = mse_feature_config  # type: str
         self.namespace_id = namespace_id  # type: str
         self.nas_id = nas_id  # type: str
         # OSS读写的AK
@@ -4201,6 +4214,8 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
             result['MountHost'] = self.mount_host
         if self.mse_application_id is not None:
             result['MseApplicationId'] = self.mse_application_id
+        if self.mse_feature_config is not None:
+            result['MseFeatureConfig'] = self.mse_feature_config
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.nas_id is not None:
@@ -4327,6 +4342,8 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
             self.mount_host = m.get('MountHost')
         if m.get('MseApplicationId') is not None:
             self.mse_application_id = m.get('MseApplicationId')
+        if m.get('MseFeatureConfig') is not None:
+            self.mse_feature_config = m.get('MseFeatureConfig')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('NasId') is not None:
@@ -10411,11 +10428,50 @@ class ExecJobRequest(TeaModel):
         return self
 
 
+class ExecJobResponseBodyData(TeaModel):
+    def __init__(self, code=None, data=None, msg=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.msg = msg  # type: str
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecJobResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
 class ExecJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, error_code=None, message=None, request_id=None, success=None,
                  trace_id=None):
         self.code = code  # type: str
-        self.data = data  # type: str
+        self.data = data  # type: ExecJobResponseBodyData
         self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -10423,7 +10479,8 @@ class ExecJobResponseBody(TeaModel):
         self.trace_id = trace_id  # type: str
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super(ExecJobResponseBody, self).to_map()
@@ -10434,7 +10491,7 @@ class ExecJobResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.error_code is not None:
             result['ErrorCode'] = self.error_code
         if self.message is not None:
@@ -10452,7 +10509,8 @@ class ExecJobResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = ExecJobResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('ErrorCode') is not None:
             self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
