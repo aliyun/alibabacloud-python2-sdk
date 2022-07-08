@@ -1530,9 +1530,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.skip_trial_policy_with_options(request, runtime)
 
-    def start_game_live_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def start_game_live_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloud_game_api20200728_models.StartGameLiveShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
         query = {}
+        if not UtilClient.is_unset(request.extension_shrink):
+            query['Extension'] = request.extension_shrink
         if not UtilClient.is_unset(request.game_session):
             query['GameSession'] = request.game_session
         if not UtilClient.is_unset(request.video_push_address):
