@@ -3199,8 +3199,9 @@ class DescribeAlarmEventDetailResponse(TeaModel):
 
 class DescribeAlarmEventListRequest(TeaModel):
     def __init__(self, alarm_event_name=None, alarm_event_type=None, current_page=None, dealed=None, from_=None,
-                 group_id=None, id=None, lang=None, levels=None, operate_error_code_list=None, page_size=None, remark=None,
-                 source_ip=None, tactic_id=None, unique_info=None, uuids=None):
+                 group_id=None, id=None, lang=None, levels=None, operate_error_code_list=None, operate_time_end=None,
+                 operate_time_start=None, page_size=None, remark=None, source_ip=None, tactic_id=None, time_end=None, time_start=None,
+                 unique_info=None, uuids=None):
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_type = alarm_event_type  # type: str
         self.current_page = current_page  # type: int
@@ -3211,10 +3212,14 @@ class DescribeAlarmEventListRequest(TeaModel):
         self.lang = lang  # type: str
         self.levels = levels  # type: str
         self.operate_error_code_list = operate_error_code_list  # type: list[str]
+        self.operate_time_end = operate_time_end  # type: str
+        self.operate_time_start = operate_time_start  # type: str
         self.page_size = page_size  # type: str
         self.remark = remark  # type: str
         self.source_ip = source_ip  # type: str
         self.tactic_id = tactic_id  # type: str
+        self.time_end = time_end  # type: str
+        self.time_start = time_start  # type: str
         self.unique_info = unique_info  # type: str
         self.uuids = uuids  # type: str
 
@@ -3247,6 +3252,10 @@ class DescribeAlarmEventListRequest(TeaModel):
             result['Levels'] = self.levels
         if self.operate_error_code_list is not None:
             result['OperateErrorCodeList'] = self.operate_error_code_list
+        if self.operate_time_end is not None:
+            result['OperateTimeEnd'] = self.operate_time_end
+        if self.operate_time_start is not None:
+            result['OperateTimeStart'] = self.operate_time_start
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.remark is not None:
@@ -3255,6 +3264,10 @@ class DescribeAlarmEventListRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.tactic_id is not None:
             result['TacticId'] = self.tactic_id
+        if self.time_end is not None:
+            result['TimeEnd'] = self.time_end
+        if self.time_start is not None:
+            result['TimeStart'] = self.time_start
         if self.unique_info is not None:
             result['UniqueInfo'] = self.unique_info
         if self.uuids is not None:
@@ -3283,6 +3296,10 @@ class DescribeAlarmEventListRequest(TeaModel):
             self.levels = m.get('Levels')
         if m.get('OperateErrorCodeList') is not None:
             self.operate_error_code_list = m.get('OperateErrorCodeList')
+        if m.get('OperateTimeEnd') is not None:
+            self.operate_time_end = m.get('OperateTimeEnd')
+        if m.get('OperateTimeStart') is not None:
+            self.operate_time_start = m.get('OperateTimeStart')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('Remark') is not None:
@@ -3291,6 +3308,10 @@ class DescribeAlarmEventListRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('TacticId') is not None:
             self.tactic_id = m.get('TacticId')
+        if m.get('TimeEnd') is not None:
+            self.time_end = m.get('TimeEnd')
+        if m.get('TimeStart') is not None:
+            self.time_start = m.get('TimeStart')
         if m.get('UniqueInfo') is not None:
             self.unique_info = m.get('UniqueInfo')
         if m.get('Uuids') is not None:
@@ -22917,7 +22938,8 @@ class DescribeSuspEventsRequest(TeaModel):
                  container_field_value=None, current_page=None, dealed=None, event_names=None, from_=None, group_id=None, id=None,
                  lang=None, levels=None, name=None, operate_error_code_list=None, operate_time_end=None,
                  operate_time_start=None, page_size=None, parent_event_types=None, remark=None, source=None, source_ip=None,
-                 status=None, tactic_id=None, target_type=None, unique_info=None, uuids=None):
+                 status=None, tactic_id=None, target_type=None, time_end=None, time_start=None, unique_info=None,
+                 uuids=None):
         self.alarm_unique_info = alarm_unique_info  # type: str
         self.cluster_id = cluster_id  # type: str
         self.container_field_name = container_field_name  # type: str
@@ -22933,9 +22955,9 @@ class DescribeSuspEventsRequest(TeaModel):
         self.name = name  # type: str
         self.operate_error_code_list = operate_error_code_list  # type: list[str]
         # 处理时间结束时间
-        self.operate_time_end = operate_time_end  # type: long
+        self.operate_time_end = operate_time_end  # type: str
         # 处理时间开始时间
-        self.operate_time_start = operate_time_start  # type: long
+        self.operate_time_start = operate_time_start  # type: str
         self.page_size = page_size  # type: str
         self.parent_event_types = parent_event_types  # type: str
         self.remark = remark  # type: str
@@ -22944,6 +22966,10 @@ class DescribeSuspEventsRequest(TeaModel):
         self.status = status  # type: str
         self.tactic_id = tactic_id  # type: str
         self.target_type = target_type  # type: str
+        # 最新发生结束时间
+        self.time_end = time_end  # type: str
+        # 最新发生开始时间
+        self.time_start = time_start  # type: str
         self.unique_info = unique_info  # type: str
         self.uuids = uuids  # type: str
 
@@ -23004,6 +23030,10 @@ class DescribeSuspEventsRequest(TeaModel):
             result['TacticId'] = self.tactic_id
         if self.target_type is not None:
             result['TargetType'] = self.target_type
+        if self.time_end is not None:
+            result['TimeEnd'] = self.time_end
+        if self.time_start is not None:
+            result['TimeStart'] = self.time_start
         if self.unique_info is not None:
             result['UniqueInfo'] = self.unique_info
         if self.uuids is not None:
@@ -23060,6 +23090,10 @@ class DescribeSuspEventsRequest(TeaModel):
             self.tactic_id = m.get('TacticId')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
+        if m.get('TimeEnd') is not None:
+            self.time_end = m.get('TimeEnd')
+        if m.get('TimeStart') is not None:
+            self.time_start = m.get('TimeStart')
         if m.get('UniqueInfo') is not None:
             self.unique_info = m.get('UniqueInfo')
         if m.get('Uuids') is not None:
