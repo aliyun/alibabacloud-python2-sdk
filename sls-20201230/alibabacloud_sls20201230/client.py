@@ -26,16 +26,6 @@ class Client(OpenApiClient):
         self._client = GatewayClientClient()
         self._spi = self._client
         self._endpoint_rule = 'central'
-        self._endpoint_map = {
-            'ap-southeast-1': 'sls.ap-southeast-1.aliyuncs.com',
-            'cn-hangzhou': 'sls.cn-hangzhou.aliyuncs.com',
-            'cn-hongkong': 'sls.cn-hongkong.aliyuncs.com',
-            'cn-huhehaote': 'sls.cn-huhehaote.aliyuncs.com',
-            'cn-shanghai': 'sls.cn-shanghai.aliyuncs.com',
-            'cn-shenzhen': 'sls.cn-shenzhen.aliyuncs.com',
-            'cn-zhangjiakou': 'sls.cn-zhangjiakou.aliyuncs.com',
-            'eu-central-1': 'sls.eu-central-1.aliyuncs.com'
-        }
 
     def apply_config_to_machine_group(self, project, machine_group, config_name):
         runtime = util_models.RuntimeOptions()
@@ -64,6 +54,115 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.ApplyConfigToMachineGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def batch_create_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batch_create_etl_meta_with_options(project, request, headers, runtime)
+
+    def batch_create_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.etl_meta_list):
+            body['etlMetaList'] = request.etl_meta_list
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchCreateEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.BatchCreateEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def batch_modify_etl_meta_status(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batch_modify_etl_meta_status_with_options(project, request, headers, runtime)
+
+    def batch_modify_etl_meta_status_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        body = {}
+        if not UtilClient.is_unset(request.etl_meta_key_list):
+            body['etlMetaKeyList'] = request.etl_meta_key_list
+        if not UtilClient.is_unset(request.etl_meta_name):
+            body['etlMetaName'] = request.etl_meta_name
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            body['etlMetaTag'] = request.etl_meta_tag
+        if not UtilClient.is_unset(request.range):
+            body['range'] = request.range
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchModifyEtlMetaStatus',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.BatchModifyEtlMetaStatusResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def batch_update_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batch_update_etl_meta_with_options(project, request, headers, runtime)
+
+    def batch_update_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.etl_meta_list):
+            body['etlMetaList'] = request.etl_meta_list
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchUpdateEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.BatchUpdateEtlMetaResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -135,6 +234,47 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateDomainResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_etl_meta_with_options(project, request, headers, runtime)
+
+    def create_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.enable):
+            body['enable'] = request.enable
+        if not UtilClient.is_unset(request.etl_meta_key):
+            body['etlMetaKey'] = request.etl_meta_key
+        if not UtilClient.is_unset(request.etl_meta_name):
+            body['etlMetaName'] = request.etl_meta_name
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            body['etlMetaTag'] = request.etl_meta_tag
+        if not UtilClient.is_unset(request.etl_meta_value):
+            body['etlMetaValue'] = request.etl_meta_value
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateEtlMetaResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -443,6 +583,43 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def delete_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_etl_meta_with_options(project, request, headers, runtime)
+
+    def delete_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.etl_meta_key):
+            query['etlMetaKey'] = request.etl_meta_key
+        if not UtilClient.is_unset(request.etl_meta_name):
+            query['etlMetaName'] = request.etl_meta_name
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            query['etlMetaTag'] = request.etl_meta_tag
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def delete_index(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -583,6 +760,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_saved_search(self, project, savedsearch_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_saved_search_with_options(project, savedsearch_name, headers, runtime)
+
+    def delete_saved_search_with_options(self, project, savedsearch_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        savedsearch_name = OpenApiUtilClient.get_encode_param(savedsearch_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteSavedSearch',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/savedsearches/%s' % TeaConverter.to_unicode(savedsearch_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteSavedSearchResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -763,6 +969,43 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.GetCursorTimeResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_etl_meta_with_options(project, request, headers, runtime)
+
+    def get_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.el_meta_name):
+            query['elMetaName'] = request.el_meta_name
+        if not UtilClient.is_unset(request.etl_meta_key):
+            query['etlMetaKey'] = request.etl_meta_key
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            query['etlMetaTag'] = request.etl_meta_tag
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetEtlMetaResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1128,6 +1371,82 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.ListDomainsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_etl_meta_with_options(project, request, headers, runtime)
+
+    def list_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.etl_meta_key):
+            query['etlMetaKey'] = request.etl_meta_key
+        if not UtilClient.is_unset(request.etl_meta_name):
+            query['etlMetaName'] = request.etl_meta_name
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            query['etlMetaTag'] = request.etl_meta_tag
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_etl_meta_name(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_etl_meta_name_with_options(project, request, headers, runtime)
+
+    def list_etl_meta_name_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEtlMetaName',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetanames',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListEtlMetaNameResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1637,6 +1956,47 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def update_etl_meta(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_etl_meta_with_options(project, request, headers, runtime)
+
+    def update_etl_meta_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.enable):
+            body['enable'] = request.enable
+        if not UtilClient.is_unset(request.etl_meta_key):
+            body['etlMetaKey'] = request.etl_meta_key
+        if not UtilClient.is_unset(request.etl_meta_name):
+            body['etlMetaName'] = request.etl_meta_name
+        if not UtilClient.is_unset(request.etl_meta_tag):
+            body['etlMetaTag'] = request.etl_meta_tag
+        if not UtilClient.is_unset(request.etl_meta_value):
+            body['etlMetaValue'] = request.etl_meta_value
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateEtlMeta',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etlmetas',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def update_index(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1770,16 +2130,16 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_machine_group(self, project, machine_group, request):
+    def update_machine_group(self, project, group_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_machine_group_with_options(project, machine_group, request, headers, runtime)
+        return self.update_machine_group_with_options(project, group_name, request, headers, runtime)
 
-    def update_machine_group_with_options(self, project, machine_group, request, headers, runtime):
+    def update_machine_group_with_options(self, project, group_name, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
-        machine_group = OpenApiUtilClient.get_encode_param(machine_group)
+        group_name = OpenApiUtilClient.get_encode_param(group_name)
         body = {}
         if not UtilClient.is_unset(request.group_attribute):
             body['groupAttribute'] = request.group_attribute
@@ -1800,7 +2160,7 @@ class Client(OpenApiClient):
             action='UpdateMachineGroup',
             version='2020-12-30',
             protocol='HTTPS',
-            pathname='/machinegroups/%s' % TeaConverter.to_unicode(machine_group),
+            pathname='/machinegroups/%s' % TeaConverter.to_unicode(group_name),
             method='PUT',
             auth_type='AK',
             style='ROA',
