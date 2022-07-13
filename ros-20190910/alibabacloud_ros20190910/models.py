@@ -11948,14 +11948,15 @@ class PreviewStackRequestParameters(TeaModel):
 
 class PreviewStackRequest(TeaModel):
     def __init__(self, client_token=None, disable_rollback=None, parallelism=None, parameters=None, region_id=None,
-                 stack_name=None, stack_policy_body=None, stack_policy_url=None, template_body=None, template_id=None,
-                 template_scratch_id=None, template_scratch_region_id=None, template_url=None, template_version=None,
-                 timeout_in_minutes=None):
+                 stack_id=None, stack_name=None, stack_policy_body=None, stack_policy_url=None, template_body=None,
+                 template_id=None, template_scratch_id=None, template_scratch_region_id=None, template_url=None,
+                 template_version=None, timeout_in_minutes=None):
         self.client_token = client_token  # type: str
         self.disable_rollback = disable_rollback  # type: bool
         self.parallelism = parallelism  # type: long
         self.parameters = parameters  # type: list[PreviewStackRequestParameters]
         self.region_id = region_id  # type: str
+        self.stack_id = stack_id  # type: str
         self.stack_name = stack_name  # type: str
         self.stack_policy_body = stack_policy_body  # type: str
         self.stack_policy_url = stack_policy_url  # type: str
@@ -11991,6 +11992,8 @@ class PreviewStackRequest(TeaModel):
                 result['Parameters'].append(k.to_map() if k else None)
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.stack_id is not None:
+            result['StackId'] = self.stack_id
         if self.stack_name is not None:
             result['StackName'] = self.stack_name
         if self.stack_policy_body is not None:
@@ -12028,6 +12031,8 @@ class PreviewStackRequest(TeaModel):
                 self.parameters.append(temp_model.from_map(k))
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('StackId') is not None:
+            self.stack_id = m.get('StackId')
         if m.get('StackName') is not None:
             self.stack_name = m.get('StackName')
         if m.get('StackPolicyBody') is not None:
@@ -12147,11 +12152,13 @@ class PreviewStackResponseBodyStackParameters(TeaModel):
 
 
 class PreviewStackResponseBodyStackResources(TeaModel):
-    def __init__(self, description=None, logical_resource_id=None, properties=None, required_by=None,
-                 resource_type=None, stack=None):
+    def __init__(self, action=None, description=None, logical_resource_id=None, properties=None, replacement=None,
+                 required_by=None, resource_type=None, stack=None):
+        self.action = action  # type: str
         self.description = description  # type: str
         self.logical_resource_id = logical_resource_id  # type: str
         self.properties = properties  # type: dict[str, any]
+        self.replacement = replacement  # type: str
         self.required_by = required_by  # type: list[str]
         self.resource_type = resource_type  # type: str
         self.stack = stack  # type: dict[str, any]
@@ -12165,12 +12172,16 @@ class PreviewStackResponseBodyStackResources(TeaModel):
             return _map
 
         result = dict()
+        if self.action is not None:
+            result['Action'] = self.action
         if self.description is not None:
             result['Description'] = self.description
         if self.logical_resource_id is not None:
             result['LogicalResourceId'] = self.logical_resource_id
         if self.properties is not None:
             result['Properties'] = self.properties
+        if self.replacement is not None:
+            result['Replacement'] = self.replacement
         if self.required_by is not None:
             result['RequiredBy'] = self.required_by
         if self.resource_type is not None:
@@ -12181,12 +12192,16 @@ class PreviewStackResponseBodyStackResources(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Action') is not None:
+            self.action = m.get('Action')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('LogicalResourceId') is not None:
             self.logical_resource_id = m.get('LogicalResourceId')
         if m.get('Properties') is not None:
             self.properties = m.get('Properties')
+        if m.get('Replacement') is not None:
+            self.replacement = m.get('Replacement')
         if m.get('RequiredBy') is not None:
             self.required_by = m.get('RequiredBy')
         if m.get('ResourceType') is not None:

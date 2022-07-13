@@ -2167,6 +2167,8 @@ class Client(OpenApiClient):
             query['Parameters'] = request.parameters
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.stack_id):
+            query['StackId'] = request.stack_id
         if not UtilClient.is_unset(request.stack_name):
             query['StackName'] = request.stack_name
         if not UtilClient.is_unset(request.stack_policy_body):
