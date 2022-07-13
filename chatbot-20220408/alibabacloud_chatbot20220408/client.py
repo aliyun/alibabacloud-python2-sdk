@@ -1358,6 +1358,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.feedback_with_options(request, runtime)
 
+    def generate_user_access_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.expire_time):
+            query['ExpireTime'] = request.expire_time
+        if not UtilClient.is_unset(request.extra_info):
+            query['ExtraInfo'] = request.extra_info
+        if not UtilClient.is_unset(request.foreign_id):
+            query['ForeignId'] = request.foreign_id
+        if not UtilClient.is_unset(request.nick):
+            query['Nick'] = request.nick
+        if not UtilClient.is_unset(request.telephone):
+            query['Telephone'] = request.telephone
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GenerateUserAccessToken',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.GenerateUserAccessTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_user_access_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_user_access_token_with_options(request, runtime)
+
     def get_async_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
