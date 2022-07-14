@@ -1619,6 +1619,176 @@ class AuthorizeSecurityGroupEgressResponse(TeaModel):
         return self
 
 
+class CreateARMServerInstancesRequest(TeaModel):
+    def __init__(self, amount=None, auto_renew=None, ens_region_id=None, frequency=None, image_id=None,
+                 instance_type=None, key_pair_name=None, pay_type=None, period=None, period_unit=None, resolution=None,
+                 server_type=None):
+        # 数量，最大支持10
+        self.amount = amount  # type: int
+        # 是否自动续费，默认为false。
+        self.auto_renew = auto_renew  # type: bool
+        # ENS节点ID。
+        self.ens_region_id = ens_region_id  # type: str
+        self.frequency = frequency  # type: int
+        # 镜像ID。
+        self.image_id = image_id  # type: str
+        # AIC容器实例规格。
+        self.instance_type = instance_type  # type: str
+        # keypair名称
+        self.key_pair_name = key_pair_name  # type: str
+        # 付费类型。PrePaid（目前只支持此种）：包年包月
+        self.pay_type = pay_type  # type: str
+        # 购买周期。
+        self.period = period  # type: int
+        # Month（默认）：按月计费的价格单位。
+        self.period_unit = period_unit  # type: str
+        # 分辨率。目前取值
+        # 1920*1080
+        # 1280*720
+        # 1080*1920
+        # 720*1280
+        self.resolution = resolution  # type: str
+        # 服务器规格。
+        self.server_type = server_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateARMServerInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.frequency is not None:
+            result['Frequency'] = self.frequency
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.key_pair_name is not None:
+            result['KeyPairName'] = self.key_pair_name
+        if self.pay_type is not None:
+            result['PayType'] = self.pay_type
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
+        if self.resolution is not None:
+            result['Resolution'] = self.resolution
+        if self.server_type is not None:
+            result['ServerType'] = self.server_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('Frequency') is not None:
+            self.frequency = m.get('Frequency')
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('KeyPairName') is not None:
+            self.key_pair_name = m.get('KeyPairName')
+        if m.get('PayType') is not None:
+            self.pay_type = m.get('PayType')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
+        if m.get('Resolution') is not None:
+            self.resolution = m.get('Resolution')
+        if m.get('ServerType') is not None:
+            self.server_type = m.get('ServerType')
+        return self
+
+
+class CreateARMServerInstancesResponseBody(TeaModel):
+    def __init__(self, instance_ids=None, order_id=None, request_id=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.order_id = order_id  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateARMServerInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateARMServerInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateARMServerInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateARMServerInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateARMServerInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateApplicationRequest(TeaModel):
     def __init__(self, template=None, timeout=None):
         self.template = template  # type: str
@@ -10448,9 +10618,8 @@ class DescribeEnsRegionIdResourceResponse(TeaModel):
 
 
 class DescribeEnsRegionsRequest(TeaModel):
-    def __init__(self, ens_region_id=None, version=None):
+    def __init__(self, ens_region_id=None):
         self.ens_region_id = ens_region_id  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -10463,16 +10632,12 @@ class DescribeEnsRegionsRequest(TeaModel):
         result = dict()
         if self.ens_region_id is not None:
             result['EnsRegionId'] = self.ens_region_id
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('EnsRegionId') is not None:
             self.ens_region_id = m.get('EnsRegionId')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
@@ -23457,6 +23622,95 @@ class RebootInstanceResponse(TeaModel):
         return self
 
 
+class ReleaseARMServerInstanceRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        # AIC实例ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseARMServerInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class ReleaseARMServerInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseARMServerInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReleaseARMServerInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReleaseARMServerInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReleaseARMServerInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReleaseARMServerInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ReleaseInstanceRequest(TeaModel):
     def __init__(self, instance_id=None):
         # 实例id
@@ -24165,6 +24419,104 @@ class RemoveVSwitchesFromEpnInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveVSwitchesFromEpnInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RenewARMServerInstanceRequest(TeaModel):
+    def __init__(self, instance_id=None, period=None, period_unit=None):
+        self.instance_id = instance_id  # type: str
+        self.period = period  # type: int
+        self.period_unit = period_unit  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenewARMServerInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
+        return self
+
+
+class RenewARMServerInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenewARMServerInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RenewARMServerInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RenewARMServerInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RenewARMServerInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RenewARMServerInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

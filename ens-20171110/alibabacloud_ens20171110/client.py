@@ -330,6 +330,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.authorize_security_group_egress_with_options(request, runtime)
 
+    def create_armserver_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.amount):
+            query['Amount'] = request.amount
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.ens_region_id):
+            query['EnsRegionId'] = request.ens_region_id
+        if not UtilClient.is_unset(request.frequency):
+            query['Frequency'] = request.frequency
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.key_pair_name):
+            query['KeyPairName'] = request.key_pair_name
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.resolution):
+            query['Resolution'] = request.resolution
+        if not UtilClient.is_unset(request.server_type):
+            query['ServerType'] = request.server_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateARMServerInstances',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.CreateARMServerInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_armserver_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_armserver_instances_with_options(request, runtime)
+
     def create_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2287,8 +2337,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.ens_region_id):
             query['EnsRegionId'] = request.ens_region_id
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4608,6 +4656,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.reboot_instance_with_options(request, runtime)
 
+    def release_armserver_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseARMServerInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ReleaseARMServerInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_armserver_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_armserver_instance_with_options(request, runtime)
+
     def release_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4787,6 +4863,38 @@ class Client(OpenApiClient):
     def remove_vswitches_from_epn_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_vswitches_from_epn_instance_with_options(request, runtime)
+
+    def renew_armserver_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewARMServerInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.RenewARMServerInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def renew_armserver_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.renew_armserver_instance_with_options(request, runtime)
 
     def renew_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
