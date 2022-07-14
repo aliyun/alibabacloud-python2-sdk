@@ -113,6 +113,8 @@ class Client(OpenApiClient):
         resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
         resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
+        if not UtilClient.is_unset(request.data_type):
+            query['dataType'] = request.data_type
         if not UtilClient.is_unset(request.region_id):
             query['regionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -132,6 +134,39 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             ia_cservice_20210722_models.GetResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_resource_type(self, provider, product_code, resource_type_code, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_resource_type_with_options(provider, product_code, resource_type_code, request, headers, runtime)
+
+    def get_resource_type_with_options(self, provider, product_code, resource_type_code, request, headers, runtime):
+        UtilClient.validate_model(request)
+        provider = OpenApiUtilClient.get_encode_param(provider)
+        product_code = OpenApiUtilClient.get_encode_param(product_code)
+        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
+        query = {}
+        if not UtilClient.is_unset(request.resource_type_version):
+            query['resourceTypeVersion'] = request.resource_type_version
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceType',
+            version='2021-07-22',
+            protocol='HTTPS',
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ia_cservice_20210722_models.GetResourceTypeResponse(),
             self.call_api(params, req, runtime)
         )
 
