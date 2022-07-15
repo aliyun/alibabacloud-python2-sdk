@@ -485,8 +485,14 @@ class Client(OpenApiClient):
     def create_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.app_code):
+            query['AppCode'] = request.app_code
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
         if not UtilClient.is_unset(request.app_name):
             query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.app_secret):
+            query['AppSecret'] = request.app_secret
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.security_token):
@@ -4241,6 +4247,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.instance_spec):
             query['InstanceSpec'] = request.instance_spec
+        if not UtilClient.is_unset(request.modify_action):
+            query['ModifyAction'] = request.modify_action
         if not UtilClient.is_unset(request.token):
             query['Token'] = request.token
         req = open_api_models.OpenApiRequest(
@@ -4899,6 +4907,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.app_code):
             query['AppCode'] = request.app_code
+        if not UtilClient.is_unset(request.new_app_code):
+            query['NewAppCode'] = request.new_app_code
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
@@ -4929,6 +4939,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.app_key):
             query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.new_app_secret):
+            query['NewAppSecret'] = request.new_app_secret
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
@@ -5049,6 +5061,38 @@ class Client(OpenApiClient):
     def sdk_generate_by_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.sdk_generate_by_group_with_options(request, runtime)
+
+    def set_access_control_list_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetAccessControlListAttribute',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.SetAccessControlListAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_access_control_list_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_access_control_list_attribute_with_options(request, runtime)
 
     def set_apis_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
