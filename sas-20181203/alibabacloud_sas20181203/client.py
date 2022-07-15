@@ -5339,6 +5339,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
 
+    def list_check_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_key):
+            query['CheckKey'] = request.check_key
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.instance_sub_types):
+            query['InstanceSubTypes'] = request.instance_sub_types
+        if not UtilClient.is_unset(request.instance_types):
+            query['InstanceTypes'] = request.instance_types
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.requirement_ids):
+            query['RequirementIds'] = request.requirement_ids
+        if not UtilClient.is_unset(request.risk_levels):
+            query['RiskLevels'] = request.risk_levels
+        if not UtilClient.is_unset(request.sort_types):
+            query['SortTypes'] = request.sort_types
+        if not UtilClient.is_unset(request.standard_ids):
+            query['StandardIds'] = request.standard_ids
+        if not UtilClient.is_unset(request.statuses):
+            query['Statuses'] = request.statuses
+        if not UtilClient.is_unset(request.vendors):
+            query['Vendors'] = request.vendors
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCheckResult',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCheckResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_check_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_check_result_with_options(request, runtime)
+
     def list_vul_auto_repair_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
