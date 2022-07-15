@@ -6209,10 +6209,12 @@ class DescribeCheckWarningSummaryRequest(TeaModel):
 
 
 class DescribeCheckWarningSummaryResponseBodyWarningSummarys(TeaModel):
-    def __init__(self, check_count=None, high_warning_count=None, last_found_time=None, level=None,
-                 low_warning_count=None, medium_warning_count=None, risk_id=None, risk_name=None, sub_type_alias=None,
-                 type_alias=None, warning_machine_count=None):
+    def __init__(self, check_count=None, check_exploit=None, database_risk=None, high_warning_count=None,
+                 last_found_time=None, level=None, low_warning_count=None, medium_warning_count=None, risk_id=None, risk_name=None,
+                 sub_type_alias=None, type_alias=None, warning_machine_count=None):
         self.check_count = check_count  # type: int
+        self.check_exploit = check_exploit  # type: bool
+        self.database_risk = database_risk  # type: bool
         self.high_warning_count = high_warning_count  # type: int
         self.last_found_time = last_found_time  # type: str
         self.level = level  # type: str
@@ -6235,6 +6237,10 @@ class DescribeCheckWarningSummaryResponseBodyWarningSummarys(TeaModel):
         result = dict()
         if self.check_count is not None:
             result['CheckCount'] = self.check_count
+        if self.check_exploit is not None:
+            result['CheckExploit'] = self.check_exploit
+        if self.database_risk is not None:
+            result['DatabaseRisk'] = self.database_risk
         if self.high_warning_count is not None:
             result['HighWarningCount'] = self.high_warning_count
         if self.last_found_time is not None:
@@ -6261,6 +6267,10 @@ class DescribeCheckWarningSummaryResponseBodyWarningSummarys(TeaModel):
         m = m or dict()
         if m.get('CheckCount') is not None:
             self.check_count = m.get('CheckCount')
+        if m.get('CheckExploit') is not None:
+            self.check_exploit = m.get('CheckExploit')
+        if m.get('DatabaseRisk') is not None:
+            self.database_risk = m.get('DatabaseRisk')
         if m.get('HighWarningCount') is not None:
             self.high_warning_count = m.get('HighWarningCount')
         if m.get('LastFoundTime') is not None:
@@ -6382,9 +6392,10 @@ class DescribeCheckWarningSummaryResponse(TeaModel):
 
 
 class DescribeCheckWarningsRequest(TeaModel):
-    def __init__(self, check_id=None, current_page=None, lang=None, page_size=None, risk_id=None, source_ip=None,
-                 uuid=None):
+    def __init__(self, check_id=None, check_type=None, current_page=None, lang=None, page_size=None, risk_id=None,
+                 source_ip=None, uuid=None):
         self.check_id = check_id  # type: long
+        self.check_type = check_type  # type: str
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
         self.page_size = page_size  # type: int
@@ -6403,6 +6414,8 @@ class DescribeCheckWarningsRequest(TeaModel):
         result = dict()
         if self.check_id is not None:
             result['CheckId'] = self.check_id
+        if self.check_type is not None:
+            result['CheckType'] = self.check_type
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.lang is not None:
@@ -6421,6 +6434,8 @@ class DescribeCheckWarningsRequest(TeaModel):
         m = m or dict()
         if m.get('CheckId') is not None:
             self.check_id = m.get('CheckId')
+        if m.get('CheckType') is not None:
+            self.check_type = m.get('CheckType')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('Lang') is not None:
@@ -6437,11 +6452,14 @@ class DescribeCheckWarningsRequest(TeaModel):
 
 
 class DescribeCheckWarningsResponseBodyCheckWarnings(TeaModel):
-    def __init__(self, check_id=None, check_warning_id=None, item=None, level=None, status=None, type=None, uuid=None):
+    def __init__(self, check_id=None, check_warning_id=None, fix_status=None, item=None, level=None, reason=None,
+                 status=None, type=None, uuid=None):
         self.check_id = check_id  # type: long
         self.check_warning_id = check_warning_id  # type: long
+        self.fix_status = fix_status  # type: int
         self.item = item  # type: str
         self.level = level  # type: str
+        self.reason = reason  # type: str
         self.status = status  # type: int
         self.type = type  # type: str
         self.uuid = uuid  # type: str
@@ -6459,10 +6477,14 @@ class DescribeCheckWarningsResponseBodyCheckWarnings(TeaModel):
             result['CheckId'] = self.check_id
         if self.check_warning_id is not None:
             result['CheckWarningId'] = self.check_warning_id
+        if self.fix_status is not None:
+            result['FixStatus'] = self.fix_status
         if self.item is not None:
             result['Item'] = self.item
         if self.level is not None:
             result['Level'] = self.level
+        if self.reason is not None:
+            result['Reason'] = self.reason
         if self.status is not None:
             result['Status'] = self.status
         if self.type is not None:
@@ -6477,10 +6499,14 @@ class DescribeCheckWarningsResponseBodyCheckWarnings(TeaModel):
             self.check_id = m.get('CheckId')
         if m.get('CheckWarningId') is not None:
             self.check_warning_id = m.get('CheckWarningId')
+        if m.get('FixStatus') is not None:
+            self.fix_status = m.get('FixStatus')
         if m.get('Item') is not None:
             self.item = m.get('Item')
         if m.get('Level') is not None:
             self.level = m.get('Level')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Type') is not None:
@@ -26472,9 +26498,11 @@ class DescribeWarningMachinesRequest(TeaModel):
 
 
 class DescribeWarningMachinesResponseBodyWarningMachines(TeaModel):
-    def __init__(self, high_warning_count=None, instance_id=None, instance_name=None, internet_ip=None,
-                 intranet_ip=None, low_warning_count=None, medium_warning_count=None, pass_count=None, port_open=None,
-                 region_id=None, status=None, uuid=None):
+    def __init__(self, auth_version=None, bind=None, high_warning_count=None, instance_id=None, instance_name=None,
+                 internet_ip=None, intranet_ip=None, low_warning_count=None, medium_warning_count=None, pass_count=None,
+                 port_open=None, region_id=None, status=None, uuid=None):
+        self.auth_version = auth_version  # type: int
+        self.bind = bind  # type: bool
         self.high_warning_count = high_warning_count  # type: int
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
@@ -26497,6 +26525,10 @@ class DescribeWarningMachinesResponseBodyWarningMachines(TeaModel):
             return _map
 
         result = dict()
+        if self.auth_version is not None:
+            result['AuthVersion'] = self.auth_version
+        if self.bind is not None:
+            result['Bind'] = self.bind
         if self.high_warning_count is not None:
             result['HighWarningCount'] = self.high_warning_count
         if self.instance_id is not None:
@@ -26525,6 +26557,10 @@ class DescribeWarningMachinesResponseBodyWarningMachines(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuthVersion') is not None:
+            self.auth_version = m.get('AuthVersion')
+        if m.get('Bind') is not None:
+            self.bind = m.get('Bind')
         if m.get('HighWarningCount') is not None:
             self.high_warning_count = m.get('HighWarningCount')
         if m.get('InstanceId') is not None:
