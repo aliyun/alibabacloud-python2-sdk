@@ -1260,14 +1260,19 @@ class ListChatappTemplateResponse(TeaModel):
 
 
 class SendChatappMessageRequest(TeaModel):
-    def __init__(self, channel_type=None, content=None, cust_waba_id=None, from_=None, language=None,
-                 message_type=None, payload=None, template_code=None, template_params=None, to=None, type=None):
+    def __init__(self, channel_type=None, content=None, cust_waba_id=None, fall_back_content=None,
+                 fall_back_id=None, from_=None, language=None, message_type=None, payload=None, template_code=None,
+                 template_params=None, to=None, type=None):
         # 通道类型 whatsapp/viber/line
         self.channel_type = channel_type  # type: str
         # 消息内容
         self.content = content  # type: str
         # ISV客户wabaId
         self.cust_waba_id = cust_waba_id  # type: str
+        # 回落消息内容
+        self.fall_back_content = fall_back_content  # type: str
+        # 回落策略ID，可在控制台创建策略并查看
+        self.fall_back_id = fall_back_id  # type: str
         # 发送方
         self.from_ = from_  # type: str
         # 语言
@@ -1300,6 +1305,10 @@ class SendChatappMessageRequest(TeaModel):
             result['Content'] = self.content
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
+        if self.fall_back_content is not None:
+            result['FallBackContent'] = self.fall_back_content
+        if self.fall_back_id is not None:
+            result['FallBackId'] = self.fall_back_id
         if self.from_ is not None:
             result['From'] = self.from_
         if self.language is not None:
@@ -1326,6 +1335,10 @@ class SendChatappMessageRequest(TeaModel):
             self.content = m.get('Content')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
+        if m.get('FallBackContent') is not None:
+            self.fall_back_content = m.get('FallBackContent')
+        if m.get('FallBackId') is not None:
+            self.fall_back_id = m.get('FallBackId')
         if m.get('From') is not None:
             self.from_ = m.get('From')
         if m.get('Language') is not None:
@@ -1346,14 +1359,19 @@ class SendChatappMessageRequest(TeaModel):
 
 
 class SendChatappMessageShrinkRequest(TeaModel):
-    def __init__(self, channel_type=None, content=None, cust_waba_id=None, from_=None, language=None,
-                 message_type=None, payload_shrink=None, template_code=None, template_params_shrink=None, to=None, type=None):
+    def __init__(self, channel_type=None, content=None, cust_waba_id=None, fall_back_content=None,
+                 fall_back_id=None, from_=None, language=None, message_type=None, payload_shrink=None, template_code=None,
+                 template_params_shrink=None, to=None, type=None):
         # 通道类型 whatsapp/viber/line
         self.channel_type = channel_type  # type: str
         # 消息内容
         self.content = content  # type: str
         # ISV客户wabaId
         self.cust_waba_id = cust_waba_id  # type: str
+        # 回落消息内容
+        self.fall_back_content = fall_back_content  # type: str
+        # 回落策略ID，可在控制台创建策略并查看
+        self.fall_back_id = fall_back_id  # type: str
         # 发送方
         self.from_ = from_  # type: str
         # 语言
@@ -1386,6 +1404,10 @@ class SendChatappMessageShrinkRequest(TeaModel):
             result['Content'] = self.content
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
+        if self.fall_back_content is not None:
+            result['FallBackContent'] = self.fall_back_content
+        if self.fall_back_id is not None:
+            result['FallBackId'] = self.fall_back_id
         if self.from_ is not None:
             result['From'] = self.from_
         if self.language is not None:
@@ -1412,6 +1434,10 @@ class SendChatappMessageShrinkRequest(TeaModel):
             self.content = m.get('Content')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
+        if m.get('FallBackContent') is not None:
+            self.fall_back_content = m.get('FallBackContent')
+        if m.get('FallBackId') is not None:
+            self.fall_back_id = m.get('FallBackId')
         if m.get('From') is not None:
             self.from_ = m.get('From')
         if m.get('Language') is not None:
