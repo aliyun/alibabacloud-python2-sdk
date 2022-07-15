@@ -474,8 +474,6 @@ class Client(OpenApiClient):
         body_flat = {}
         if not UtilClient.is_unset(request.comment_id_list):
             body_flat['CommentIdList'] = request.comment_id_list
-        if not UtilClient.is_unset(request.creator_id):
-            body['CreatorId'] = request.creator_id
         if not UtilClient.is_unset(request.room_id):
             body['RoomId'] = request.room_id
         if not UtilClient.is_unset(request.user_id):
@@ -637,38 +635,6 @@ class Client(OpenApiClient):
     def delete_live_room(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_live_room_with_options(request, runtime)
-
-    def delete_record_file_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.max_results):
-            query['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            query['NextToken'] = request.next_token
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteRecordFileInfo',
-            version='2021-06-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            imp_20210630_models.DeleteRecordFileInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_record_file_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_record_file_info_with_options(request, runtime)
 
     def delete_room_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1078,38 +1044,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_live_room_user_statistics_with_options(request, runtime)
 
-    def get_record_file_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.max_results):
-            query['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            query['NextToken'] = request.next_token
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetRecordFileInfo',
-            version='2021-06-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            imp_20210630_models.GetRecordFileInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_record_file_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_record_file_info_with_options(request, runtime)
-
     def get_room_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1321,44 +1255,6 @@ class Client(OpenApiClient):
     def list_conference_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_conference_users_with_options(request, runtime)
-
-    def list_live_files_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.live_id):
-            query['LiveId'] = request.live_id
-        if not UtilClient.is_unset(request.max_results):
-            query['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            query['NextToken'] = request.next_token
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListLiveFiles',
-            version='2021-06-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            imp_20210630_models.ListLiveFilesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_live_files(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_live_files_with_options(request, runtime)
 
     def list_live_rooms_with_options(self, request, runtime):
         UtilClient.validate_model(request)
