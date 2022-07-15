@@ -1157,8 +1157,8 @@ class GetInstanceResponseBody(TeaModel):
                  http_status_code=None, image_id=None, image_name=None, image_url=None, instance_id=None, instance_name=None,
                  instance_shutdown_timer=None, instance_url=None, jupyterlab_url=None, latest_snapshot=None, message=None,
                  payment_type=None, priority=None, reason_code=None, reason_message=None, request_id=None,
-                 requested_resource=None, resource_id=None, status=None, success=None, terminal_url=None, user_id=None, user_name=None,
-                 user_vpc=None, web_ideurl=None, workspace_id=None, workspace_name=None):
+                 requested_resource=None, resource_id=None, resource_name=None, status=None, success=None, terminal_url=None,
+                 user_id=None, user_name=None, user_vpc=None, web_ideurl=None, workspace_id=None, workspace_name=None):
         # 实例计算类型
         self.accelerator_type = accelerator_type  # type: str
         # 工作空间内是否他人可见
@@ -1213,6 +1213,7 @@ class GetInstanceResponseBody(TeaModel):
         self.requested_resource = requested_resource  # type: GetInstanceResponseBodyRequestedResource
         # 资源Id,预付费时填写
         self.resource_id = resource_id  # type: str
+        self.resource_name = resource_name  # type: str
         # 实例状态
         self.status = status  # type: str
         # 成功标志
@@ -1308,6 +1309,8 @@ class GetInstanceResponseBody(TeaModel):
             result['RequestedResource'] = self.requested_resource.to_map()
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
         if self.status is not None:
             result['Status'] = self.status
         if self.success is not None:
@@ -1390,6 +1393,8 @@ class GetInstanceResponseBody(TeaModel):
             self.requested_resource = temp_model.from_map(m['RequestedResource'])
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Success') is not None:
@@ -2660,7 +2665,7 @@ class ListInstanceStatisticsResponse(TeaModel):
 
 class ListInstancesRequest(TeaModel):
     def __init__(self, accelerator_type=None, accessibility=None, instance_name=None, order=None, page_number=None,
-                 page_size=None, payment_type=None, sort_by=None, status=None, workspace_id=None):
+                 page_size=None, payment_type=None, resource_id=None, sort_by=None, status=None, workspace_id=None):
         self.accelerator_type = accelerator_type  # type: str
         self.accessibility = accessibility  # type: str
         # 实例名称
@@ -2672,6 +2677,7 @@ class ListInstancesRequest(TeaModel):
         # 分页数量大小
         self.page_size = page_size  # type: long
         self.payment_type = payment_type  # type: str
+        self.resource_id = resource_id  # type: str
         # 排序字段
         self.sort_by = sort_by  # type: str
         # 实例状态
@@ -2702,6 +2708,8 @@ class ListInstancesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.payment_type is not None:
             result['PaymentType'] = self.payment_type
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
         if self.status is not None:
@@ -2726,6 +2734,8 @@ class ListInstancesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('PaymentType') is not None:
             self.payment_type = m.get('PaymentType')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
         if m.get('Status') is not None:
@@ -2964,7 +2974,7 @@ class ListInstancesResponseBodyInstances(TeaModel):
                  image_id=None, image_name=None, image_url=None, instance_id=None, instance_name=None,
                  instance_shutdown_timer=None, instance_url=None, jupyterlab_url=None, latest_snapshot=None, payment_type=None,
                  priority=None, reason_code=None, reason_message=None, requested_resource=None, resource_id=None,
-                 status=None, terminal_url=None, user_id=None, user_name=None, user_vpc=None, web_ideurl=None,
+                 resource_name=None, status=None, terminal_url=None, user_id=None, user_name=None, user_vpc=None, web_ideurl=None,
                  workspace_id=None, workspace_name=None):
         # 实例计算类型
         self.accelerator_type = accelerator_type  # type: str
@@ -3012,6 +3022,7 @@ class ListInstancesResponseBodyInstances(TeaModel):
         self.requested_resource = requested_resource  # type: ListInstancesResponseBodyInstancesRequestedResource
         # 资源Id,预付费时填写
         self.resource_id = resource_id  # type: str
+        self.resource_name = resource_name  # type: str
         # 实例状态
         self.status = status  # type: str
         # 终端url
@@ -3097,6 +3108,8 @@ class ListInstancesResponseBodyInstances(TeaModel):
             result['RequestedResource'] = self.requested_resource.to_map()
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
         if self.status is not None:
             result['Status'] = self.status
         if self.terminal_url is not None:
@@ -3169,6 +3182,8 @@ class ListInstancesResponseBodyInstances(TeaModel):
             self.requested_resource = temp_model.from_map(m['RequestedResource'])
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TerminalUrl') is not None:
