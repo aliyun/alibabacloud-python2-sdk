@@ -641,8 +641,9 @@ class DescribeDiskReplicaGroupsRequest(TeaModel):
 
 class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
     def __init__(self, description=None, destination_region_id=None, destination_zone_id=None, group_name=None,
-                 last_recover_point=None, pair_ids=None, pair_number=None, rpo=None, replica_group_id=None, site=None,
-                 source_region_id=None, source_zone_id=None, status=None):
+                 last_recover_point=None, pair_ids=None, pair_number=None, primary_region=None, primary_zone=None, rpo=None,
+                 replica_group_id=None, site=None, source_region_id=None, source_zone_id=None, standby_region=None,
+                 standby_zone=None, status=None):
         self.description = description  # type: str
         self.destination_region_id = destination_region_id  # type: str
         self.destination_zone_id = destination_zone_id  # type: str
@@ -651,12 +652,20 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
         self.pair_ids = pair_ids  # type: list[bytes]
         # 复制组中的复制对个数
         self.pair_number = pair_number  # type: long
+        # 复制组的初始源地域。
+        self.primary_region = primary_region  # type: str
+        # 复制组的初始源可用区。
+        self.primary_zone = primary_zone  # type: str
         self.rpo = rpo  # type: long
         self.replica_group_id = replica_group_id  # type: str
         # pair信息的后端站点来源，production或backup
         self.site = site  # type: str
         self.source_region_id = source_region_id  # type: str
         self.source_zone_id = source_zone_id  # type: str
+        # 复制组的初始目的地域。
+        self.standby_region = standby_region  # type: str
+        # 复制组的初始目的可用区。
+        self.standby_zone = standby_zone  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -682,6 +691,10 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
             result['PairIds'] = self.pair_ids
         if self.pair_number is not None:
             result['PairNumber'] = self.pair_number
+        if self.primary_region is not None:
+            result['PrimaryRegion'] = self.primary_region
+        if self.primary_zone is not None:
+            result['PrimaryZone'] = self.primary_zone
         if self.rpo is not None:
             result['RPO'] = self.rpo
         if self.replica_group_id is not None:
@@ -692,6 +705,10 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
             result['SourceRegionId'] = self.source_region_id
         if self.source_zone_id is not None:
             result['SourceZoneId'] = self.source_zone_id
+        if self.standby_region is not None:
+            result['StandbyRegion'] = self.standby_region
+        if self.standby_zone is not None:
+            result['StandbyZone'] = self.standby_zone
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -712,6 +729,10 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
             self.pair_ids = m.get('PairIds')
         if m.get('PairNumber') is not None:
             self.pair_number = m.get('PairNumber')
+        if m.get('PrimaryRegion') is not None:
+            self.primary_region = m.get('PrimaryRegion')
+        if m.get('PrimaryZone') is not None:
+            self.primary_zone = m.get('PrimaryZone')
         if m.get('RPO') is not None:
             self.rpo = m.get('RPO')
         if m.get('ReplicaGroupId') is not None:
@@ -722,6 +743,10 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
             self.source_region_id = m.get('SourceRegionId')
         if m.get('SourceZoneId') is not None:
             self.source_zone_id = m.get('SourceZoneId')
+        if m.get('StandbyRegion') is not None:
+            self.standby_region = m.get('StandbyRegion')
+        if m.get('StandbyZone') is not None:
+            self.standby_zone = m.get('StandbyZone')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -1849,13 +1874,10 @@ class RemoveDiskReplicaPairResponse(TeaModel):
 
 
 class ReprotectDiskReplicaGroupRequest(TeaModel):
-    def __init__(self, client_token=None, region_id=None, replica_group_id=None, source_region_id=None,
-                 source_zone_id=None):
+    def __init__(self, client_token=None, region_id=None, replica_group_id=None):
         self.client_token = client_token  # type: str
         self.region_id = region_id  # type: str
         self.replica_group_id = replica_group_id  # type: str
-        self.source_region_id = source_region_id  # type: str
-        self.source_zone_id = source_zone_id  # type: str
 
     def validate(self):
         pass
@@ -1872,10 +1894,6 @@ class ReprotectDiskReplicaGroupRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.replica_group_id is not None:
             result['ReplicaGroupId'] = self.replica_group_id
-        if self.source_region_id is not None:
-            result['SourceRegionId'] = self.source_region_id
-        if self.source_zone_id is not None:
-            result['SourceZoneId'] = self.source_zone_id
         return result
 
     def from_map(self, m=None):
@@ -1886,10 +1904,6 @@ class ReprotectDiskReplicaGroupRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ReplicaGroupId') is not None:
             self.replica_group_id = m.get('ReplicaGroupId')
-        if m.get('SourceRegionId') is not None:
-            self.source_region_id = m.get('SourceRegionId')
-        if m.get('SourceZoneId') is not None:
-            self.source_zone_id = m.get('SourceZoneId')
         return self
 
 
