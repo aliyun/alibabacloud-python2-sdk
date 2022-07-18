@@ -48,6 +48,33 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def create_benchmark_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_benchmark_task_with_options(request, headers, runtime)
+
+    def create_benchmark_task_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CreateBenchmarkTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_resource(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -286,6 +313,60 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.CreateServiceMirrorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_stress(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_stress_with_options(request, headers, runtime)
+
+    def create_stress_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CreateStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_benchmark_task(self, cluster_id, task_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+
+    def delete_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DeleteBenchmarkTaskResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -544,20 +625,49 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def delete_stress(self, cluster_id, stress_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(headers, runtime)
+        return self.delete_stress_with_options(cluster_id, stress_name, headers, runtime)
 
-    def describe_regions_with_options(self, headers, runtime):
+    def delete_stress_with_options(self, cluster_id, stress_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
         params = open_api_models.Params(
-            action='DescribeRegions',
+            action='DeleteStress',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/regions',
+            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DeleteStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_benchmark_task(self, cluster_id, task_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+
+    def describe_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -565,7 +675,34 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            eas_20210701_models.DescribeRegionsResponse(),
+            eas_20210701_models.DescribeBenchmarkTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_benchmark_task_report(self, cluster_id, task_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_benchmark_task_report_with_options(cluster_id, task_name, headers, runtime)
+
+    def describe_benchmark_task_report_with_options(self, cluster_id, task_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeBenchmarkTaskReport',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s/report' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeBenchmarkTaskReportResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -800,6 +937,58 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_stress(self, cluster_id, stress_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_stress_with_options(cluster_id, stress_name, headers, runtime)
+
+    def describe_stress_with_options(self, cluster_id, stress_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_benchmark_task(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_benchmark_task_with_options(headers, runtime)
+
+    def list_benchmark_task_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListBenchmarkTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_resource_instance_worker(self, cluster_id, resource_id, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -845,6 +1034,8 @@ class Client(OpenApiClient):
         cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1007,6 +1198,31 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_stresses(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_stresses_with_options(headers, runtime)
+
+    def list_stresses_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListStresses',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListStressesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def release_service(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1039,6 +1255,60 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def report_stress(self, cluster_id, stress_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.report_stress_with_options(cluster_id, stress_name, headers, runtime)
+
+    def report_stress_with_options(self, cluster_id, stress_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ReportStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress/%s/%s/report' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ReportStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_benchmark_task(self, cluster_id, task_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+
+    def start_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s/start' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.StartBenchmarkTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def start_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1066,6 +1336,60 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def start_stress(self, cluster_id, stress_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_stress_with_options(cluster_id, stress_name, headers, runtime)
+
+    def start_stress_with_options(self, cluster_id, stress_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress/%s/%s/start' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.StartStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_benchmark_task(self, cluster_id, task_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+
+    def stop_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s/stop' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.StopBenchmarkTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def stop_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1090,6 +1414,62 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.StopServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_stress(self, cluster_id, stress_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_stress_with_options(cluster_id, stress_name, headers, runtime)
+
+    def stop_stress_with_options(self, cluster_id, stress_name, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress/%s/%s/stop' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.StopStressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_benchmark_task(self, cluster_id, task_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_benchmark_task_with_options(cluster_id, task_name, request, headers, runtime)
+
+    def update_benchmark_task_with_options(self, cluster_id, task_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        task_name = OpenApiUtilClient.get_encode_param(task_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdateBenchmarkTask',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateBenchmarkTaskResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1325,5 +1705,34 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.UpdateServiceVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_stress(self, cluster_id, stress_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_stress_with_options(cluster_id, stress_name, request, headers, runtime)
+
+    def update_stress_with_options(self, cluster_id, stress_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdateStress',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateStressResponse(),
             self.call_api(params, req, runtime)
         )
