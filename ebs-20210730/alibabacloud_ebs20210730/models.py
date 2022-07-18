@@ -835,14 +835,18 @@ class DescribeDiskReplicaGroupsResponse(TeaModel):
 
 
 class DescribeDiskReplicaPairsRequest(TeaModel):
-    def __init__(self, max_results=None, next_token=None, pair_ids=None, region_id=None, replica_group_id=None,
-                 site=None):
+    def __init__(self, max_results=None, next_token=None, page_number=None, page_size=None, pair_ids=None,
+                 region_id=None, replica_group_id=None, site=None):
         # 分页查询时每页的最大条目数。取值范围：1~500
         # 
         # 默认值：10
         self.max_results = max_results  # type: long
-        # 查询凭证（Token）。取值为上一次调用该接口返回的NextToken参数值，初次调用接口时无需设置该参数。
+        # 查询凭证（Token）。取值为上一次调用该接口返回的NextToken参数值，初次调用接口时无需设置该参数。如果设置了NextToken，则请求参数PageSize和PageNumber将失效，且返回数据中的TotalCount无效。
         self.next_token = next_token  # type: str
+        # 分页查询时的页码。
+        self.page_number = page_number  # type: int
+        # 分页查询时设置的每页行数。
+        self.page_size = page_size  # type: int
         # 异步复制关系ID列表。您可以指定一个或多个异步复制关系ID进行查询。格式为：pair-cn-dsa****,pair-cn-asd****。
         # 
         # 默认值为空，表示查询当前地域下所有的异步复制关系。
@@ -850,7 +854,7 @@ class DescribeDiskReplicaPairsRequest(TeaModel):
         self.region_id = region_id  # type: str
         # 所属复制组id。
         self.replica_group_id = replica_group_id  # type: str
-        # production或backup，表示获取本地为主站点或备站点的复制对数据，默认为production。
+        # production或backup，表示获取本地为生产站点或灾备站点的复制对数据，默认为production。
         self.site = site  # type: str
 
     def validate(self):
@@ -866,6 +870,10 @@ class DescribeDiskReplicaPairsRequest(TeaModel):
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
             result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.pair_ids is not None:
             result['PairIds'] = self.pair_ids
         if self.region_id is not None:
@@ -882,6 +890,10 @@ class DescribeDiskReplicaPairsRequest(TeaModel):
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('PairIds') is not None:
             self.pair_ids = m.get('PairIds')
         if m.get('RegionId') is not None:
@@ -1073,11 +1085,19 @@ class DescribeDiskReplicaPairsResponseBodyReplicaPairs(TeaModel):
 
 
 class DescribeDiskReplicaPairsResponseBody(TeaModel):
-    def __init__(self, next_token=None, replica_pairs=None, request_id=None):
+    def __init__(self, next_token=None, page_number=None, page_size=None, replica_pairs=None, request_id=None,
+                 total_count=None):
+        # 查询凭证（Token）。取值为上一次调用该接口返回的NextToken参数值，初次调用接口时无需设置该参数。如果设置了NextToken，则请求参数PageSize和PageNumber将失效，且返回数据中的TotalCount无效。
         self.next_token = next_token  # type: str
+        # 参数页码。
+        self.page_number = page_number  # type: int
+        # 参数页行数。
+        self.page_size = page_size  # type: int
         self.replica_pairs = replica_pairs  # type: list[DescribeDiskReplicaPairsResponseBodyReplicaPairs]
         # Id of the request
         self.request_id = request_id  # type: str
+        # 分页查询时的结果总条数。
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.replica_pairs:
@@ -1093,18 +1113,28 @@ class DescribeDiskReplicaPairsResponseBody(TeaModel):
         result = dict()
         if self.next_token is not None:
             result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         result['ReplicaPairs'] = []
         if self.replica_pairs is not None:
             for k in self.replica_pairs:
                 result['ReplicaPairs'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         self.replica_pairs = []
         if m.get('ReplicaPairs') is not None:
             for k in m.get('ReplicaPairs'):
@@ -1112,6 +1142,8 @@ class DescribeDiskReplicaPairsResponseBody(TeaModel):
                 self.replica_pairs.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
