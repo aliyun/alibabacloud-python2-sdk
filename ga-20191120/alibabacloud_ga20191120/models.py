@@ -1932,13 +1932,16 @@ class CreateBasicEndpointGroupResponse(TeaModel):
 
 
 class CreateBasicIpSetRequest(TeaModel):
-    def __init__(self, accelerate_region_id=None, accelerator_id=None, client_token=None, region_id=None):
+    def __init__(self, accelerate_region_id=None, accelerator_id=None, client_token=None, isp_type=None,
+                 region_id=None):
         # 加速地域Id
         self.accelerate_region_id = accelerate_region_id  # type: str
         # 基础版全球加速实例Id
         self.accelerator_id = accelerator_id  # type: str
         # 客户端Token
         self.client_token = client_token  # type: str
+        # 公网质量类型
+        self.isp_type = isp_type  # type: str
         # RegionId
         self.region_id = region_id  # type: str
 
@@ -1957,6 +1960,8 @@ class CreateBasicIpSetRequest(TeaModel):
             result['AcceleratorId'] = self.accelerator_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.isp_type is not None:
+            result['IspType'] = self.isp_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -1969,6 +1974,8 @@ class CreateBasicIpSetRequest(TeaModel):
             self.accelerator_id = m.get('AcceleratorId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('IspType') is not None:
+            self.isp_type = m.get('IspType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -8240,7 +8247,7 @@ class GetBasicIpSetRequest(TeaModel):
 
 class GetBasicIpSetResponseBody(TeaModel):
     def __init__(self, accelerate_region_id=None, accelerator_id=None, bandwidth=None, ip_address=None,
-                 ip_set_id=None, ip_version=None, request_id=None, state=None):
+                 ip_set_id=None, ip_version=None, isp_type=None, request_id=None, state=None):
         # 加速地域Id
         self.accelerate_region_id = accelerate_region_id  # type: str
         # 全球加速实例Id
@@ -8253,6 +8260,8 @@ class GetBasicIpSetResponseBody(TeaModel):
         self.ip_set_id = ip_set_id  # type: str
         # 加速接入点地址类型
         self.ip_version = ip_version  # type: str
+        # 公网质量类型
+        self.isp_type = isp_type  # type: str
         # 请求Id
         self.request_id = request_id  # type: str
         # 加速接入点状态
@@ -8279,6 +8288,8 @@ class GetBasicIpSetResponseBody(TeaModel):
             result['IpSetId'] = self.ip_set_id
         if self.ip_version is not None:
             result['IpVersion'] = self.ip_version
+        if self.isp_type is not None:
+            result['IspType'] = self.isp_type
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.state is not None:
@@ -8299,6 +8310,8 @@ class GetBasicIpSetResponseBody(TeaModel):
             self.ip_set_id = m.get('IpSetId')
         if m.get('IpVersion') is not None:
             self.ip_version = m.get('IpVersion')
+        if m.get('IspType') is not None:
+            self.isp_type = m.get('IspType')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('State') is not None:
