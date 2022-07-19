@@ -4372,8 +4372,8 @@ class CreateTableRequestThemes(TeaModel):
 class CreateTableRequest(TeaModel):
     def __init__(self, app_guid=None, category_id=None, client_token=None, columns=None, comment=None, endpoint=None,
                  env_type=None, external_table_type=None, has_part=None, is_view=None, life_cycle=None, location=None,
-                 logical_level_id=None, owner_id=None, physics_level_id=None, project_id=None, table_name=None, themes=None,
-                 visibility=None):
+                 logical_level_id=None, owner_id=None, physics_level_id=None, project_id=None, schema=None, table_name=None,
+                 themes=None, visibility=None):
         self.app_guid = app_guid  # type: str
         self.category_id = category_id  # type: long
         self.client_token = client_token  # type: str
@@ -4390,6 +4390,7 @@ class CreateTableRequest(TeaModel):
         self.owner_id = owner_id  # type: str
         self.physics_level_id = physics_level_id  # type: long
         self.project_id = project_id  # type: long
+        self.schema = schema  # type: str
         self.table_name = table_name  # type: str
         self.themes = themes  # type: list[CreateTableRequestThemes]
         self.visibility = visibility  # type: int
@@ -4444,6 +4445,8 @@ class CreateTableRequest(TeaModel):
             result['PhysicsLevelId'] = self.physics_level_id
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_name is not None:
             result['TableName'] = self.table_name
         result['Themes'] = []
@@ -4491,6 +4494,8 @@ class CreateTableRequest(TeaModel):
             self.physics_level_id = m.get('PhysicsLevelId')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableName') is not None:
             self.table_name = m.get('TableName')
         self.themes = []
@@ -6912,10 +6917,11 @@ class DeleteRemindResponse(TeaModel):
 
 
 class DeleteTableRequest(TeaModel):
-    def __init__(self, app_guid=None, env_type=None, project_id=None, table_name=None):
+    def __init__(self, app_guid=None, env_type=None, project_id=None, schema=None, table_name=None):
         self.app_guid = app_guid  # type: str
         self.env_type = env_type  # type: int
         self.project_id = project_id  # type: long
+        self.schema = schema  # type: str
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -6933,6 +6939,8 @@ class DeleteTableRequest(TeaModel):
             result['EnvType'] = self.env_type
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_name is not None:
             result['TableName'] = self.table_name
         return result
@@ -6945,6 +6953,8 @@ class DeleteTableRequest(TeaModel):
             self.env_type = m.get('EnvType')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableName') is not None:
             self.table_name = m.get('TableName')
         return self
@@ -13253,208 +13263,6 @@ class GetDeploymentResponse(TeaModel):
         return self
 
 
-class GetDutyRosterRequest(TeaModel):
-    def __init__(self, begin_time=None, duty_roster_identifier=None, end_time=None, user_type=None,
-                 watchkeeper=None):
-        self.begin_time = begin_time  # type: long
-        self.duty_roster_identifier = duty_roster_identifier  # type: str
-        self.end_time = end_time  # type: long
-        self.user_type = user_type  # type: str
-        self.watchkeeper = watchkeeper  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetDutyRosterRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.begin_time is not None:
-            result['BeginTime'] = self.begin_time
-        if self.duty_roster_identifier is not None:
-            result['DutyRosterIdentifier'] = self.duty_roster_identifier
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.user_type is not None:
-            result['UserType'] = self.user_type
-        if self.watchkeeper is not None:
-            result['Watchkeeper'] = self.watchkeeper
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BeginTime') is not None:
-            self.begin_time = m.get('BeginTime')
-        if m.get('DutyRosterIdentifier') is not None:
-            self.duty_roster_identifier = m.get('DutyRosterIdentifier')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('UserType') is not None:
-            self.user_type = m.get('UserType')
-        if m.get('Watchkeeper') is not None:
-            self.watchkeeper = m.get('Watchkeeper')
-        return self
-
-
-class GetDutyRosterResponseBodyPagingDutyRoster(TeaModel):
-    def __init__(self, end_long=None, start_long=None, watchkeeper=None, watchkeeper_name=None):
-        self.end_long = end_long  # type: long
-        self.start_long = start_long  # type: long
-        self.watchkeeper = watchkeeper  # type: str
-        self.watchkeeper_name = watchkeeper_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetDutyRosterResponseBodyPagingDutyRoster, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.end_long is not None:
-            result['EndLong'] = self.end_long
-        if self.start_long is not None:
-            result['StartLong'] = self.start_long
-        if self.watchkeeper is not None:
-            result['Watchkeeper'] = self.watchkeeper
-        if self.watchkeeper_name is not None:
-            result['WatchkeeperName'] = self.watchkeeper_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('EndLong') is not None:
-            self.end_long = m.get('EndLong')
-        if m.get('StartLong') is not None:
-            self.start_long = m.get('StartLong')
-        if m.get('Watchkeeper') is not None:
-            self.watchkeeper = m.get('Watchkeeper')
-        if m.get('WatchkeeperName') is not None:
-            self.watchkeeper_name = m.get('WatchkeeperName')
-        return self
-
-
-class GetDutyRosterResponseBodyPaging(TeaModel):
-    def __init__(self, duty_roster=None, page_number=None, page_size=None, total_count=None):
-        self.duty_roster = duty_roster  # type: list[GetDutyRosterResponseBodyPagingDutyRoster]
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        if self.duty_roster:
-            for k in self.duty_roster:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetDutyRosterResponseBodyPaging, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DutyRoster'] = []
-        if self.duty_roster is not None:
-            for k in self.duty_roster:
-                result['DutyRoster'].append(k.to_map() if k else None)
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.duty_roster = []
-        if m.get('DutyRoster') is not None:
-            for k in m.get('DutyRoster'):
-                temp_model = GetDutyRosterResponseBodyPagingDutyRoster()
-                self.duty_roster.append(temp_model.from_map(k))
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class GetDutyRosterResponseBody(TeaModel):
-    def __init__(self, paging=None, request_id=None):
-        self.paging = paging  # type: GetDutyRosterResponseBodyPaging
-        # Id of the request
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.paging:
-            self.paging.validate()
-
-    def to_map(self):
-        _map = super(GetDutyRosterResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.paging is not None:
-            result['Paging'] = self.paging.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Paging') is not None:
-            temp_model = GetDutyRosterResponseBodyPaging()
-            self.paging = temp_model.from_map(m['Paging'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetDutyRosterResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetDutyRosterResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetDutyRosterResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetDutyRosterResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetExtensionRequest(TeaModel):
     def __init__(self, extension_code=None):
         self.extension_code = extension_code  # type: str
@@ -17837,7 +17645,7 @@ class GetMetaTableBasicInfoResponseBodyData(TeaModel):
                  data_size=None, database_name=None, env_type=None, favorite_count=None, is_partition_table=None,
                  is_view=None, is_visible=None, last_access_time=None, last_ddl_time=None, last_modify_time=None,
                  life_cycle=None, location=None, owner_id=None, partition_keys=None, project_id=None, project_name=None,
-                 read_count=None, table_guid=None, table_name=None, tenant_id=None, view_count=None):
+                 read_count=None, schema=None, table_guid=None, table_name=None, tenant_id=None, view_count=None):
         self.caption = caption  # type: str
         self.cluster_id = cluster_id  # type: str
         self.column_count = column_count  # type: int
@@ -17860,6 +17668,7 @@ class GetMetaTableBasicInfoResponseBodyData(TeaModel):
         self.project_id = project_id  # type: long
         self.project_name = project_name  # type: str
         self.read_count = read_count  # type: long
+        self.schema = schema  # type: str
         self.table_guid = table_guid  # type: str
         self.table_name = table_name  # type: str
         self.tenant_id = tenant_id  # type: long
@@ -17918,6 +17727,8 @@ class GetMetaTableBasicInfoResponseBodyData(TeaModel):
             result['ProjectName'] = self.project_name
         if self.read_count is not None:
             result['ReadCount'] = self.read_count
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_guid is not None:
             result['TableGuid'] = self.table_guid
         if self.table_name is not None:
@@ -17974,6 +17785,8 @@ class GetMetaTableBasicInfoResponseBodyData(TeaModel):
             self.project_name = m.get('ProjectName')
         if m.get('ReadCount') is not None:
             self.read_count = m.get('ReadCount')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableGuid') is not None:
             self.table_guid = m.get('TableGuid')
         if m.get('TableName') is not None:
@@ -18706,7 +18519,7 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
     def __init__(self, cluster_id=None, column_list=None, comment=None, create_time=None, data_size=None,
                  database_name=None, env_type=None, is_visible=None, last_access_time=None, last_ddl_time=None,
                  last_modify_time=None, life_cycle=None, location=None, owner_id=None, partition_keys=None, project_id=None,
-                 project_name=None, table_guid=None, table_name=None, tenant_id=None, total_column_count=None):
+                 project_name=None, schema=None, table_guid=None, table_name=None, tenant_id=None, total_column_count=None):
         self.cluster_id = cluster_id  # type: str
         self.column_list = column_list  # type: list[GetMetaTableFullInfoResponseBodyDataColumnList]
         self.comment = comment  # type: str
@@ -18724,6 +18537,7 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
         self.partition_keys = partition_keys  # type: str
         self.project_id = project_id  # type: long
         self.project_name = project_name  # type: str
+        self.schema = schema  # type: str
         self.table_guid = table_guid  # type: str
         self.table_name = table_name  # type: str
         self.tenant_id = tenant_id  # type: long
@@ -18777,6 +18591,8 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
             result['ProjectId'] = self.project_id
         if self.project_name is not None:
             result['ProjectName'] = self.project_name
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_guid is not None:
             result['TableGuid'] = self.table_guid
         if self.table_name is not None:
@@ -18826,6 +18642,8 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
             self.project_id = m.get('ProjectId')
         if m.get('ProjectName') is not None:
             self.project_name = m.get('ProjectName')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableGuid') is not None:
             self.table_guid = m.get('TableGuid')
         if m.get('TableName') is not None:
@@ -31453,192 +31271,6 @@ class ListDeploymentsResponse(TeaModel):
         return self
 
 
-class ListDutyRostersRequest(TeaModel):
-    def __init__(self, duty_roster_name=None, duty_roster_owner=None, page_number=None, page_size=None):
-        self.duty_roster_name = duty_roster_name  # type: str
-        self.duty_roster_owner = duty_roster_owner  # type: str
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListDutyRostersRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.duty_roster_name is not None:
-            result['DutyRosterName'] = self.duty_roster_name
-        if self.duty_roster_owner is not None:
-            result['DutyRosterOwner'] = self.duty_roster_owner
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DutyRosterName') is not None:
-            self.duty_roster_name = m.get('DutyRosterName')
-        if m.get('DutyRosterOwner') is not None:
-            self.duty_roster_owner = m.get('DutyRosterOwner')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        return self
-
-
-class ListDutyRostersResponseBodyPagingDutyRosters(TeaModel):
-    def __init__(self, duty_roster_identifier=None, duty_roster_name=None):
-        self.duty_roster_identifier = duty_roster_identifier  # type: str
-        self.duty_roster_name = duty_roster_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListDutyRostersResponseBodyPagingDutyRosters, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.duty_roster_identifier is not None:
-            result['DutyRosterIdentifier'] = self.duty_roster_identifier
-        if self.duty_roster_name is not None:
-            result['DutyRosterName'] = self.duty_roster_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DutyRosterIdentifier') is not None:
-            self.duty_roster_identifier = m.get('DutyRosterIdentifier')
-        if m.get('DutyRosterName') is not None:
-            self.duty_roster_name = m.get('DutyRosterName')
-        return self
-
-
-class ListDutyRostersResponseBodyPaging(TeaModel):
-    def __init__(self, duty_rosters=None, page_number=None, page_size=None, total_count=None):
-        self.duty_rosters = duty_rosters  # type: list[ListDutyRostersResponseBodyPagingDutyRosters]
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        if self.duty_rosters:
-            for k in self.duty_rosters:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListDutyRostersResponseBodyPaging, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DutyRosters'] = []
-        if self.duty_rosters is not None:
-            for k in self.duty_rosters:
-                result['DutyRosters'].append(k.to_map() if k else None)
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.duty_rosters = []
-        if m.get('DutyRosters') is not None:
-            for k in m.get('DutyRosters'):
-                temp_model = ListDutyRostersResponseBodyPagingDutyRosters()
-                self.duty_rosters.append(temp_model.from_map(k))
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class ListDutyRostersResponseBody(TeaModel):
-    def __init__(self, paging=None, request_id=None):
-        self.paging = paging  # type: ListDutyRostersResponseBodyPaging
-        # Id of the request
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.paging:
-            self.paging.validate()
-
-    def to_map(self):
-        _map = super(ListDutyRostersResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.paging is not None:
-            result['Paging'] = self.paging.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Paging') is not None:
-            temp_model = ListDutyRostersResponseBodyPaging()
-            self.paging = temp_model.from_map(m['Paging'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ListDutyRostersResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ListDutyRostersResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListDutyRostersResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ListDutyRostersResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ListExtensionsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
         self.page_number = page_number  # type: int
@@ -38651,6 +38283,394 @@ class ListResourceGroupsResponse(TeaModel):
         return self
 
 
+class ListShiftPersonnelsRequest(TeaModel):
+    def __init__(self, begin_time=None, end_time=None, shift_person_uid=None, shift_schedule_identifier=None,
+                 user_type=None):
+        self.begin_time = begin_time  # type: long
+        self.end_time = end_time  # type: long
+        self.shift_person_uid = shift_person_uid  # type: str
+        self.shift_schedule_identifier = shift_schedule_identifier  # type: str
+        self.user_type = user_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListShiftPersonnelsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.shift_person_uid is not None:
+            result['ShiftPersonUID'] = self.shift_person_uid
+        if self.shift_schedule_identifier is not None:
+            result['ShiftScheduleIdentifier'] = self.shift_schedule_identifier
+        if self.user_type is not None:
+            result['UserType'] = self.user_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ShiftPersonUID') is not None:
+            self.shift_person_uid = m.get('ShiftPersonUID')
+        if m.get('ShiftScheduleIdentifier') is not None:
+            self.shift_schedule_identifier = m.get('ShiftScheduleIdentifier')
+        if m.get('UserType') is not None:
+            self.user_type = m.get('UserType')
+        return self
+
+
+class ListShiftPersonnelsResponseBodyPagingShiftPersons(TeaModel):
+    def __init__(self, begin_time=None, end_time=None, shift_person_name=None, shift_person_uid=None):
+        self.begin_time = begin_time  # type: long
+        self.end_time = end_time  # type: long
+        self.shift_person_name = shift_person_name  # type: str
+        self.shift_person_uid = shift_person_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListShiftPersonnelsResponseBodyPagingShiftPersons, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.shift_person_name is not None:
+            result['ShiftPersonName'] = self.shift_person_name
+        if self.shift_person_uid is not None:
+            result['ShiftPersonUID'] = self.shift_person_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ShiftPersonName') is not None:
+            self.shift_person_name = m.get('ShiftPersonName')
+        if m.get('ShiftPersonUID') is not None:
+            self.shift_person_uid = m.get('ShiftPersonUID')
+        return self
+
+
+class ListShiftPersonnelsResponseBodyPaging(TeaModel):
+    def __init__(self, page_number=None, page_size=None, shift_persons=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.shift_persons = shift_persons  # type: list[ListShiftPersonnelsResponseBodyPagingShiftPersons]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.shift_persons:
+            for k in self.shift_persons:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListShiftPersonnelsResponseBodyPaging, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['ShiftPersons'] = []
+        if self.shift_persons is not None:
+            for k in self.shift_persons:
+                result['ShiftPersons'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.shift_persons = []
+        if m.get('ShiftPersons') is not None:
+            for k in m.get('ShiftPersons'):
+                temp_model = ListShiftPersonnelsResponseBodyPagingShiftPersons()
+                self.shift_persons.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListShiftPersonnelsResponseBody(TeaModel):
+    def __init__(self, paging=None, request_id=None):
+        self.paging = paging  # type: ListShiftPersonnelsResponseBodyPaging
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.paging:
+            self.paging.validate()
+
+    def to_map(self):
+        _map = super(ListShiftPersonnelsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.paging is not None:
+            result['Paging'] = self.paging.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Paging') is not None:
+            temp_model = ListShiftPersonnelsResponseBodyPaging()
+            self.paging = temp_model.from_map(m['Paging'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListShiftPersonnelsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListShiftPersonnelsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListShiftPersonnelsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListShiftPersonnelsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListShiftSchedulesRequest(TeaModel):
+    def __init__(self, owner=None, page_number=None, page_size=None, shift_schedule_name=None):
+        self.owner = owner  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.shift_schedule_name = shift_schedule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListShiftSchedulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner is not None:
+            result['Owner'] = self.owner
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.shift_schedule_name is not None:
+            result['ShiftScheduleName'] = self.shift_schedule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Owner') is not None:
+            self.owner = m.get('Owner')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ShiftScheduleName') is not None:
+            self.shift_schedule_name = m.get('ShiftScheduleName')
+        return self
+
+
+class ListShiftSchedulesResponseBodyPagingShiftSchedules(TeaModel):
+    def __init__(self, shift_schedule_identifier=None, shift_schedule_name=None):
+        self.shift_schedule_identifier = shift_schedule_identifier  # type: str
+        self.shift_schedule_name = shift_schedule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListShiftSchedulesResponseBodyPagingShiftSchedules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shift_schedule_identifier is not None:
+            result['ShiftScheduleIdentifier'] = self.shift_schedule_identifier
+        if self.shift_schedule_name is not None:
+            result['ShiftScheduleName'] = self.shift_schedule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ShiftScheduleIdentifier') is not None:
+            self.shift_schedule_identifier = m.get('ShiftScheduleIdentifier')
+        if m.get('ShiftScheduleName') is not None:
+            self.shift_schedule_name = m.get('ShiftScheduleName')
+        return self
+
+
+class ListShiftSchedulesResponseBodyPaging(TeaModel):
+    def __init__(self, page_number=None, page_size=None, shift_schedules=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.shift_schedules = shift_schedules  # type: list[ListShiftSchedulesResponseBodyPagingShiftSchedules]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.shift_schedules:
+            for k in self.shift_schedules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListShiftSchedulesResponseBodyPaging, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['ShiftSchedules'] = []
+        if self.shift_schedules is not None:
+            for k in self.shift_schedules:
+                result['ShiftSchedules'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.shift_schedules = []
+        if m.get('ShiftSchedules') is not None:
+            for k in m.get('ShiftSchedules'):
+                temp_model = ListShiftSchedulesResponseBodyPagingShiftSchedules()
+                self.shift_schedules.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListShiftSchedulesResponseBody(TeaModel):
+    def __init__(self, paging=None, request_id=None):
+        self.paging = paging  # type: ListShiftSchedulesResponseBodyPaging
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.paging:
+            self.paging.validate()
+
+    def to_map(self):
+        _map = super(ListShiftSchedulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.paging is not None:
+            result['Paging'] = self.paging.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Paging') is not None:
+            temp_model = ListShiftSchedulesResponseBodyPaging()
+            self.paging = temp_model.from_map(m['Paging'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListShiftSchedulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListShiftSchedulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListShiftSchedulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListShiftSchedulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListSuccessInstanceAmountRequest(TeaModel):
     def __init__(self, project_id=None):
         self.project_id = project_id  # type: long
@@ -41340,7 +41360,7 @@ class ScanSensitiveDataResponse(TeaModel):
 
 class SearchMetaTablesRequest(TeaModel):
     def __init__(self, app_guid=None, cluster_id=None, data_source_type=None, entity_type=None, keyword=None,
-                 page_number=None, page_size=None):
+                 page_number=None, page_size=None, schema=None):
         self.app_guid = app_guid  # type: str
         self.cluster_id = cluster_id  # type: str
         self.data_source_type = data_source_type  # type: str
@@ -41348,6 +41368,7 @@ class SearchMetaTablesRequest(TeaModel):
         self.keyword = keyword  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.schema = schema  # type: str
 
     def validate(self):
         pass
@@ -41372,6 +41393,8 @@ class SearchMetaTablesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.schema is not None:
+            result['Schema'] = self.schema
         return result
 
     def from_map(self, m=None):
@@ -41390,12 +41413,14 @@ class SearchMetaTablesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         return self
 
 
 class SearchMetaTablesResponseBodyDataDataEntityList(TeaModel):
     def __init__(self, cluster_id=None, database_name=None, entity_type=None, env_type=None, owner_id=None,
-                 project_id=None, project_name=None, table_guid=None, table_name=None, tenant_id=None):
+                 project_id=None, project_name=None, schema=None, table_guid=None, table_name=None, tenant_id=None):
         self.cluster_id = cluster_id  # type: str
         self.database_name = database_name  # type: str
         self.entity_type = entity_type  # type: int
@@ -41403,6 +41428,7 @@ class SearchMetaTablesResponseBodyDataDataEntityList(TeaModel):
         self.owner_id = owner_id  # type: str
         self.project_id = project_id  # type: long
         self.project_name = project_name  # type: str
+        self.schema = schema  # type: str
         self.table_guid = table_guid  # type: str
         self.table_name = table_name  # type: str
         self.tenant_id = tenant_id  # type: long
@@ -41430,6 +41456,8 @@ class SearchMetaTablesResponseBodyDataDataEntityList(TeaModel):
             result['ProjectId'] = self.project_id
         if self.project_name is not None:
             result['ProjectName'] = self.project_name
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_guid is not None:
             result['TableGuid'] = self.table_guid
         if self.table_name is not None:
@@ -41454,6 +41482,8 @@ class SearchMetaTablesResponseBodyDataDataEntityList(TeaModel):
             self.project_id = m.get('ProjectId')
         if m.get('ProjectName') is not None:
             self.project_name = m.get('ProjectName')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableGuid') is not None:
             self.table_guid = m.get('TableGuid')
         if m.get('TableName') is not None:
@@ -45132,7 +45162,7 @@ class UpdateMetaCategoryResponse(TeaModel):
 
 class UpdateMetaTableRequest(TeaModel):
     def __init__(self, added_labels=None, caption=None, category_id=None, env_type=None, new_owner_id=None,
-                 project_id=None, removed_labels=None, table_guid=None, table_name=None, visibility=None):
+                 project_id=None, removed_labels=None, schema=None, table_guid=None, table_name=None, visibility=None):
         self.added_labels = added_labels  # type: str
         self.caption = caption  # type: str
         self.category_id = category_id  # type: long
@@ -45140,6 +45170,7 @@ class UpdateMetaTableRequest(TeaModel):
         self.new_owner_id = new_owner_id  # type: str
         self.project_id = project_id  # type: long
         self.removed_labels = removed_labels  # type: str
+        self.schema = schema  # type: str
         self.table_guid = table_guid  # type: str
         self.table_name = table_name  # type: str
         self.visibility = visibility  # type: int
@@ -45167,6 +45198,8 @@ class UpdateMetaTableRequest(TeaModel):
             result['ProjectId'] = self.project_id
         if self.removed_labels is not None:
             result['RemovedLabels'] = self.removed_labels
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_guid is not None:
             result['TableGuid'] = self.table_guid
         if self.table_name is not None:
@@ -45191,6 +45224,8 @@ class UpdateMetaTableRequest(TeaModel):
             self.project_id = m.get('ProjectId')
         if m.get('RemovedLabels') is not None:
             self.removed_labels = m.get('RemovedLabels')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableGuid') is not None:
             self.table_guid = m.get('TableGuid')
         if m.get('TableName') is not None:
@@ -46191,7 +46226,7 @@ class UpdateTableRequestThemes(TeaModel):
 class UpdateTableRequest(TeaModel):
     def __init__(self, app_guid=None, category_id=None, columns=None, comment=None, create_if_not_exists=None,
                  endpoint=None, env_type=None, external_table_type=None, has_part=None, is_view=None, life_cycle=None,
-                 location=None, logical_level_id=None, owner_id=None, physics_level_id=None, project_id=None,
+                 location=None, logical_level_id=None, owner_id=None, physics_level_id=None, project_id=None, schema=None,
                  table_name=None, themes=None, visibility=None):
         self.app_guid = app_guid  # type: str
         self.category_id = category_id  # type: long
@@ -46209,6 +46244,7 @@ class UpdateTableRequest(TeaModel):
         self.owner_id = owner_id  # type: str
         self.physics_level_id = physics_level_id  # type: long
         self.project_id = project_id  # type: long
+        self.schema = schema  # type: str
         self.table_name = table_name  # type: str
         self.themes = themes  # type: list[UpdateTableRequestThemes]
         self.visibility = visibility  # type: int
@@ -46263,6 +46299,8 @@ class UpdateTableRequest(TeaModel):
             result['PhysicsLevelId'] = self.physics_level_id
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
+        if self.schema is not None:
+            result['Schema'] = self.schema
         if self.table_name is not None:
             result['TableName'] = self.table_name
         result['Themes'] = []
@@ -46310,6 +46348,8 @@ class UpdateTableRequest(TeaModel):
             self.physics_level_id = m.get('PhysicsLevelId')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
         if m.get('TableName') is not None:
             self.table_name = m.get('TableName')
         self.themes = []

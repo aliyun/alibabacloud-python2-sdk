@@ -1378,6 +1378,8 @@ class Client(OpenApiClient):
             query['PhysicsLevelId'] = request.physics_level_id
         if not UtilClient.is_unset(request.project_id):
             query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         if not UtilClient.is_unset(request.table_name):
             query['TableName'] = request.table_name
         if not UtilClient.is_unset(request.visibility):
@@ -2040,6 +2042,8 @@ class Client(OpenApiClient):
             query['EnvType'] = request.env_type
         if not UtilClient.is_unset(request.project_id):
             query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         if not UtilClient.is_unset(request.table_name):
             query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
@@ -2874,42 +2878,6 @@ class Client(OpenApiClient):
     def get_deployment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_deployment_with_options(request, runtime)
-
-    def get_duty_roster_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.begin_time):
-            body['BeginTime'] = request.begin_time
-        if not UtilClient.is_unset(request.duty_roster_identifier):
-            body['DutyRosterIdentifier'] = request.duty_roster_identifier
-        if not UtilClient.is_unset(request.end_time):
-            body['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.user_type):
-            body['UserType'] = request.user_type
-        if not UtilClient.is_unset(request.watchkeeper):
-            body['Watchkeeper'] = request.watchkeeper
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='GetDutyRoster',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDutyRosterResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_duty_roster(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_duty_roster_with_options(request, runtime)
 
     def get_extension_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5203,40 +5171,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_deployments_with_options(request, runtime)
 
-    def list_duty_rosters_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.duty_roster_name):
-            body['DutyRosterName'] = request.duty_roster_name
-        if not UtilClient.is_unset(request.duty_roster_owner):
-            body['DutyRosterOwner'] = request.duty_roster_owner
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ListDutyRosters',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListDutyRostersResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_duty_rosters(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_duty_rosters_with_options(request, runtime)
-
     def list_extensions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -6215,6 +6149,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_resource_groups_with_options(request, runtime)
 
+    def list_shift_personnels_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.begin_time):
+            body['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.shift_person_uid):
+            body['ShiftPersonUID'] = request.shift_person_uid
+        if not UtilClient.is_unset(request.shift_schedule_identifier):
+            body['ShiftScheduleIdentifier'] = request.shift_schedule_identifier
+        if not UtilClient.is_unset(request.user_type):
+            body['UserType'] = request.user_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListShiftPersonnels',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListShiftPersonnelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_shift_personnels(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_shift_personnels_with_options(request, runtime)
+
+    def list_shift_schedules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.shift_schedule_name):
+            body['ShiftScheduleName'] = request.shift_schedule_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListShiftSchedules',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListShiftSchedulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_shift_schedules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_shift_schedules_with_options(request, runtime)
+
     def list_success_instance_amount_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -6840,6 +6844,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -7740,6 +7746,8 @@ class Client(OpenApiClient):
             query['NewOwnerId'] = request.new_owner_id
         if not UtilClient.is_unset(request.project_id):
             query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         if not UtilClient.is_unset(request.table_guid):
             query['TableGuid'] = request.table_guid
         if not UtilClient.is_unset(request.table_name):
@@ -8060,6 +8068,8 @@ class Client(OpenApiClient):
             query['PhysicsLevelId'] = request.physics_level_id
         if not UtilClient.is_unset(request.project_id):
             query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         if not UtilClient.is_unset(request.table_name):
             query['TableName'] = request.table_name
         if not UtilClient.is_unset(request.visibility):
