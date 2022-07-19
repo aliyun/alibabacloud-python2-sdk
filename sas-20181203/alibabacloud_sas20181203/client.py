@@ -5348,8 +5348,6 @@ class Client(OpenApiClient):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.instance_ids):
             query['InstanceIds'] = request.instance_ids
-        if not UtilClient.is_unset(request.instance_sub_types):
-            query['InstanceSubTypes'] = request.instance_sub_types
         if not UtilClient.is_unset(request.instance_types):
             query['InstanceTypes'] = request.instance_types
         if not UtilClient.is_unset(request.lang):
@@ -5574,6 +5572,40 @@ class Client(OpenApiClient):
     def modify_backup_policy_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_backup_policy_status_with_options(request, runtime)
+
+    def modify_clear_logstore_storage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['From'] = request.from_
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.user_log_store):
+            query['UserLogStore'] = request.user_log_store
+        if not UtilClient.is_unset(request.user_project):
+            query['UserProject'] = request.user_project
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyClearLogstoreStorage',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyClearLogstoreStorageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_clear_logstore_storage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_clear_logstore_storage_with_options(request, runtime)
 
     def modify_create_vul_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
