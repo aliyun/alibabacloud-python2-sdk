@@ -27807,10 +27807,12 @@ class GetFileDetectResultResponseBodyResultListExt(TeaModel):
 
 
 class GetFileDetectResultResponseBodyResultList(TeaModel):
-    def __init__(self, ext=None, hash_key=None, result=None):
+    def __init__(self, ext=None, hash_key=None, result=None, score=None, virus_type=None):
         self.ext = ext  # type: GetFileDetectResultResponseBodyResultListExt
         self.hash_key = hash_key  # type: str
         self.result = result  # type: int
+        self.score = score  # type: int
+        self.virus_type = virus_type  # type: str
 
     def validate(self):
         if self.ext:
@@ -27828,6 +27830,10 @@ class GetFileDetectResultResponseBodyResultList(TeaModel):
             result['HashKey'] = self.hash_key
         if self.result is not None:
             result['Result'] = self.result
+        if self.score is not None:
+            result['Score'] = self.score
+        if self.virus_type is not None:
+            result['VirusType'] = self.virus_type
         return result
 
     def from_map(self, m=None):
@@ -27839,6 +27845,10 @@ class GetFileDetectResultResponseBodyResultList(TeaModel):
             self.hash_key = m.get('HashKey')
         if m.get('Result') is not None:
             self.result = m.get('Result')
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        if m.get('VirusType') is not None:
+            self.virus_type = m.get('VirusType')
         return self
 
 
