@@ -1,3 +1,6 @@
+2022-07-21 Version: 1.2.6
+- Add DOP apiSource add data api.
+
 2022-05-06 Version: 1.2.5
 - Iot_20180120 TeaDSL sdk.
 
