@@ -2676,7 +2676,7 @@ class CreateFunctionRequest(TeaModel):
     def __init__(self, ca_port=None, code=None, custom_container_config=None, custom_dns=None,
                  custom_runtime_config=None, description=None, environment_variables=None, function_name=None, handler=None,
                  initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
-                 instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
@@ -2698,6 +2698,7 @@ class CreateFunctionRequest(TeaModel):
         self.initializer = initializer  # type: str
         self.instance_concurrency = instance_concurrency  # type: int
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         # 层列表
         self.layers = layers  # type: list[str]
@@ -2752,6 +2753,8 @@ class CreateFunctionRequest(TeaModel):
             result['instanceConcurrency'] = self.instance_concurrency
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.layers is not None:
@@ -2797,6 +2800,8 @@ class CreateFunctionRequest(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('layers') is not None:
@@ -2814,8 +2819,8 @@ class CreateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
                  function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None,
-                 memory_size=None, runtime=None, timeout=None):
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
+                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -2844,6 +2849,7 @@ class CreateFunctionResponseBody(TeaModel):
         self.initializer = initializer  # type: str
         self.instance_concurrency = instance_concurrency  # type: int
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         # function上次修改时间
         self.last_modified_time = last_modified_time  # type: str
@@ -2903,6 +2909,8 @@ class CreateFunctionResponseBody(TeaModel):
             result['instanceConcurrency'] = self.instance_concurrency
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.last_modified_time is not None:
@@ -2955,6 +2963,8 @@ class CreateFunctionResponseBody(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('lastModifiedTime') is not None:
@@ -3312,7 +3322,7 @@ class CreateServiceRequest(TeaModel):
 class CreateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 vendor_config=None, vpc_config=None):
         # 创建时间
         self.created_time = created_time  # type: str
         # 服务描述
@@ -3330,6 +3340,7 @@ class CreateServiceResponseBody(TeaModel):
         # 服务名称
         self.service_name = service_name  # type: str
         self.tracing_config = tracing_config  # type: TracingConfig
+        self.vendor_config = vendor_config  # type: VendorConfig
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -3339,6 +3350,8 @@ class CreateServiceResponseBody(TeaModel):
             self.nas_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
+        if self.vendor_config:
+            self.vendor_config.validate()
         if self.vpc_config:
             self.vpc_config.validate()
 
@@ -3368,6 +3381,8 @@ class CreateServiceResponseBody(TeaModel):
             result['serviceName'] = self.service_name
         if self.tracing_config is not None:
             result['tracingConfig'] = self.tracing_config.to_map()
+        if self.vendor_config is not None:
+            result['vendorConfig'] = self.vendor_config.to_map()
         if self.vpc_config is not None:
             result['vpcConfig'] = self.vpc_config.to_map()
         return result
@@ -3397,6 +3412,9 @@ class CreateServiceResponseBody(TeaModel):
         if m.get('tracingConfig') is not None:
             temp_model = TracingConfig()
             self.tracing_config = temp_model.from_map(m['tracingConfig'])
+        if m.get('vendorConfig') is not None:
+            temp_model = VendorConfig()
+            self.vendor_config = temp_model.from_map(m['vendorConfig'])
         if m.get('vpcConfig') is not None:
             temp_model = VPCConfig()
             self.vpc_config = temp_model.from_map(m['vpcConfig'])
@@ -5096,8 +5114,8 @@ class GetFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
                  function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None,
-                 memory_size=None, runtime=None, timeout=None):
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
+                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -5127,6 +5145,7 @@ class GetFunctionResponseBody(TeaModel):
         self.initializer = initializer  # type: str
         self.instance_concurrency = instance_concurrency  # type: int
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         # function上次修改时间
         self.last_modified_time = last_modified_time  # type: str
@@ -5186,6 +5205,8 @@ class GetFunctionResponseBody(TeaModel):
             result['instanceConcurrency'] = self.instance_concurrency
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.last_modified_time is not None:
@@ -5238,6 +5259,8 @@ class GetFunctionResponseBody(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('lastModifiedTime') is not None:
@@ -7683,8 +7706,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
                  custom_container_config=None, description=None, environment_variables=None, function_id=None, function_name=None,
                  handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
-                 instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -7710,6 +7733,7 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
         self.initializer = initializer  # type: str
         self.instance_concurrency = instance_concurrency  # type: int
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         # function上次修改时间
         self.last_modified_time = last_modified_time  # type: str
@@ -7761,6 +7785,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             result['instanceConcurrency'] = self.instance_concurrency
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.last_modified_time is not None:
@@ -7807,6 +7833,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('lastModifiedTime') is not None:
@@ -7901,9 +7929,11 @@ class ListFunctionsResponse(TeaModel):
 
 
 class ListInstancesHeaders(TeaModel):
-    def __init__(self, common_headers=None, x_fc_account_id=None):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7918,6 +7948,10 @@ class ListInstancesHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7926,6 +7960,10 @@ class ListInstancesHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -11817,8 +11855,8 @@ class UpdateFunctionHeaders(TeaModel):
 class UpdateFunctionRequest(TeaModel):
     def __init__(self, instance_concurrency=None, ca_port=None, code=None, custom_container_config=None,
                  custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_type=None, layers=None,
-                 memory_size=None, runtime=None, timeout=None):
+                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
+                 instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
         self.instance_concurrency = instance_concurrency  # type: int
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
@@ -11839,6 +11877,7 @@ class UpdateFunctionRequest(TeaModel):
         # 初始化 function 执行的入口，具体格式和语言相关
         self.initializer = initializer  # type: str
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         self.layers = layers  # type: list[str]
         # function的内存规格，单位为MB，为64MB的倍数
@@ -11890,6 +11929,8 @@ class UpdateFunctionRequest(TeaModel):
             result['initializer'] = self.initializer
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.layers is not None:
@@ -11933,6 +11974,8 @@ class UpdateFunctionRequest(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('layers') is not None:
@@ -11950,8 +11993,8 @@ class UpdateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
                  function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -11980,6 +12023,7 @@ class UpdateFunctionResponseBody(TeaModel):
         # 初始化 function 执行的入口，具体格式和语言相关
         self.initializer = initializer  # type: str
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         self.instance_type = instance_type  # type: str
         # function上次修改时间
         self.last_modified_time = last_modified_time  # type: str
@@ -12037,6 +12081,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['initializer'] = self.initializer
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
+        if self.instance_soft_concurrency is not None:
+            result['instanceSoftConcurrency'] = self.instance_soft_concurrency
         if self.instance_type is not None:
             result['instanceType'] = self.instance_type
         if self.last_modified_time is not None:
@@ -12087,6 +12133,8 @@ class UpdateFunctionResponseBody(TeaModel):
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
+        if m.get('instanceSoftConcurrency') is not None:
+            self.instance_soft_concurrency = m.get('instanceSoftConcurrency')
         if m.get('instanceType') is not None:
             self.instance_type = m.get('instanceType')
         if m.get('lastModifiedTime') is not None:
@@ -12258,7 +12306,7 @@ class UpdateServiceRequest(TeaModel):
 class UpdateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 vendor_config=None, vpc_config=None):
         # 创建时间
         self.created_time = created_time  # type: str
         # 服务描述
@@ -12276,6 +12324,7 @@ class UpdateServiceResponseBody(TeaModel):
         # 服务名称
         self.service_name = service_name  # type: str
         self.tracing_config = tracing_config  # type: TracingConfig
+        self.vendor_config = vendor_config  # type: VendorConfig
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -12285,6 +12334,8 @@ class UpdateServiceResponseBody(TeaModel):
             self.nas_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
+        if self.vendor_config:
+            self.vendor_config.validate()
         if self.vpc_config:
             self.vpc_config.validate()
 
@@ -12314,6 +12365,8 @@ class UpdateServiceResponseBody(TeaModel):
             result['serviceName'] = self.service_name
         if self.tracing_config is not None:
             result['tracingConfig'] = self.tracing_config.to_map()
+        if self.vendor_config is not None:
+            result['vendorConfig'] = self.vendor_config.to_map()
         if self.vpc_config is not None:
             result['vpcConfig'] = self.vpc_config.to_map()
         return result
@@ -12343,6 +12396,9 @@ class UpdateServiceResponseBody(TeaModel):
         if m.get('tracingConfig') is not None:
             temp_model = TracingConfig()
             self.tracing_config = temp_model.from_map(m['tracingConfig'])
+        if m.get('vendorConfig') is not None:
+            temp_model = VendorConfig()
+            self.vendor_config = temp_model.from_map(m['vendorConfig'])
         if m.get('vpcConfig') is not None:
             temp_model = VPCConfig()
             self.vpc_config = temp_model.from_map(m['vpcConfig'])

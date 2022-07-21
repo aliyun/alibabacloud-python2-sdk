@@ -182,6 +182,8 @@ class Client(OpenApiClient):
             body['instanceConcurrency'] = request.instance_concurrency
         if not UtilClient.is_unset(request.instance_lifecycle_config):
             body['instanceLifecycleConfig'] = request.instance_lifecycle_config
+        if not UtilClient.is_unset(request.instance_soft_concurrency):
+            body['instanceSoftConcurrency'] = request.instance_soft_concurrency
         if not UtilClient.is_unset(request.instance_type):
             body['instanceType'] = request.instance_type
         if not UtilClient.is_unset(request.layers):
@@ -1642,6 +1644,10 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             query=OpenApiUtilClient.query(query)
@@ -2687,6 +2693,8 @@ class Client(OpenApiClient):
             body['initializer'] = request.initializer
         if not UtilClient.is_unset(request.instance_lifecycle_config):
             body['instanceLifecycleConfig'] = request.instance_lifecycle_config
+        if not UtilClient.is_unset(request.instance_soft_concurrency):
+            body['instanceSoftConcurrency'] = request.instance_soft_concurrency
         if not UtilClient.is_unset(request.instance_type):
             body['instanceType'] = request.instance_type
         if not UtilClient.is_unset(request.layers):
