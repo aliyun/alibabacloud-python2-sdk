@@ -1005,10 +1005,11 @@ class JobItemDataSources(TeaModel):
 
 class JobItem(TeaModel):
     def __init__(self, code_source=None, data_sources=None, display_name=None, duration=None, enabled_debugger=None,
-                 envs=None, gmt_create_time=None, gmt_finish_time=None, job_id=None, job_specs=None, job_type=None,
-                 reason_code=None, reason_message=None, resource_id=None, resource_level=None, resource_name=None,
-                 settings=None, status=None, thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None, user_id=None,
-                 workspace_id=None, workspace_name=None):
+                 envs=None, gmt_create_time=None, gmt_failed_time=None, gmt_finish_time=None, gmt_running_time=None,
+                 gmt_stopped_time=None, gmt_submitted_time=None, gmt_successed_time=None, job_id=None, job_specs=None, job_type=None,
+                 priority=None, reason_code=None, reason_message=None, resource_id=None, resource_level=None,
+                 resource_name=None, settings=None, status=None, thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None,
+                 user_id=None, workspace_id=None, workspace_name=None):
         # 代码源配置
         self.code_source = code_source  # type: JobItemCodeSource
         # 数据源配置列表
@@ -1023,14 +1024,26 @@ class JobItem(TeaModel):
         self.envs = envs  # type: dict[str, str]
         # 作业创建时间（UTC）
         self.gmt_create_time = gmt_create_time  # type: str
+        # 作业失败时间（UTC）
+        self.gmt_failed_time = gmt_failed_time  # type: str
         # 作业结束时间（UTC）
         self.gmt_finish_time = gmt_finish_time  # type: str
+        # 作业开始运行时间（UTC）
+        self.gmt_running_time = gmt_running_time  # type: str
+        # 作业停止时间（UTC）
+        self.gmt_stopped_time = gmt_stopped_time  # type: str
+        # 作业提交时间（UTC）
+        self.gmt_submitted_time = gmt_submitted_time  # type: str
+        # 作业成功完成时间（UTC）
+        self.gmt_successed_time = gmt_successed_time  # type: str
         # 作业Id
         self.job_id = job_id  # type: str
         # 作业规格配置
         self.job_specs = job_specs  # type: list[JobSpec]
         # 作业类型
         self.job_type = job_type  # type: str
+        # 任务优先级
+        self.priority = priority  # type: int
         # 状态详情码
         self.reason_code = reason_code  # type: str
         # 状态详情
@@ -1094,8 +1107,18 @@ class JobItem(TeaModel):
             result['Envs'] = self.envs
         if self.gmt_create_time is not None:
             result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_failed_time is not None:
+            result['GmtFailedTime'] = self.gmt_failed_time
         if self.gmt_finish_time is not None:
             result['GmtFinishTime'] = self.gmt_finish_time
+        if self.gmt_running_time is not None:
+            result['GmtRunningTime'] = self.gmt_running_time
+        if self.gmt_stopped_time is not None:
+            result['GmtStoppedTime'] = self.gmt_stopped_time
+        if self.gmt_submitted_time is not None:
+            result['GmtSubmittedTime'] = self.gmt_submitted_time
+        if self.gmt_successed_time is not None:
+            result['GmtSuccessedTime'] = self.gmt_successed_time
         if self.job_id is not None:
             result['JobId'] = self.job_id
         result['JobSpecs'] = []
@@ -1104,6 +1127,8 @@ class JobItem(TeaModel):
                 result['JobSpecs'].append(k.to_map() if k else None)
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.reason_code is not None:
             result['ReasonCode'] = self.reason_code
         if self.reason_message is not None:
@@ -1152,8 +1177,18 @@ class JobItem(TeaModel):
             self.envs = m.get('Envs')
         if m.get('GmtCreateTime') is not None:
             self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtFailedTime') is not None:
+            self.gmt_failed_time = m.get('GmtFailedTime')
         if m.get('GmtFinishTime') is not None:
             self.gmt_finish_time = m.get('GmtFinishTime')
+        if m.get('GmtRunningTime') is not None:
+            self.gmt_running_time = m.get('GmtRunningTime')
+        if m.get('GmtStoppedTime') is not None:
+            self.gmt_stopped_time = m.get('GmtStoppedTime')
+        if m.get('GmtSubmittedTime') is not None:
+            self.gmt_submitted_time = m.get('GmtSubmittedTime')
+        if m.get('GmtSuccessedTime') is not None:
+            self.gmt_successed_time = m.get('GmtSuccessedTime')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
         self.job_specs = []
@@ -1163,6 +1198,8 @@ class JobItem(TeaModel):
                 self.job_specs.append(temp_model.from_map(k))
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('ReasonCode') is not None:
             self.reason_code = m.get('ReasonCode')
         if m.get('ReasonMessage') is not None:
@@ -3773,9 +3810,10 @@ class GetJobResponseBody(TeaModel):
     def __init__(self, cluster_id=None, code_source=None, data_sources=None, display_name=None, duration=None,
                  elastic_spec=None, enabled_debugger=None, envs=None, gmt_create_time=None, gmt_failed_time=None,
                  gmt_finish_time=None, gmt_running_time=None, gmt_stopped_time=None, gmt_submitted_time=None,
-                 gmt_successed_time=None, job_id=None, job_specs=None, job_type=None, pods=None, reason_code=None, reason_message=None,
-                 request_id=None, resource_id=None, resource_level=None, settings=None, status=None, thirdparty_lib_dir=None,
-                 thirdparty_libs=None, user_command=None, user_id=None, workspace_id=None, workspace_name=None):
+                 gmt_successed_time=None, job_id=None, job_specs=None, job_type=None, pods=None, priority=None, reason_code=None,
+                 reason_message=None, request_id=None, resource_id=None, resource_level=None, settings=None, status=None,
+                 thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None, user_id=None, workspace_id=None,
+                 workspace_name=None):
         # 集群ID
         self.cluster_id = cluster_id  # type: str
         # 代码源配置
@@ -3809,6 +3847,8 @@ class GetJobResponseBody(TeaModel):
         self.job_type = job_type  # type: str
         # 作业所以运行Pod列表
         self.pods = pods  # type: list[GetJobResponseBodyPods]
+        # 任务的优先级
+        self.priority = priority  # type: int
         # 状态详情码
         self.reason_code = reason_code  # type: str
         # 状态详情
@@ -3906,6 +3946,8 @@ class GetJobResponseBody(TeaModel):
         if self.pods is not None:
             for k in self.pods:
                 result['Pods'].append(k.to_map() if k else None)
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.reason_code is not None:
             result['ReasonCode'] = self.reason_code
         if self.reason_message is not None:
@@ -3985,6 +4027,8 @@ class GetJobResponseBody(TeaModel):
             for k in m.get('Pods'):
                 temp_model = GetJobResponseBodyPods()
                 self.pods.append(temp_model.from_map(k))
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('ReasonCode') is not None:
             self.reason_code = m.get('ReasonCode')
         if m.get('ReasonMessage') is not None:
