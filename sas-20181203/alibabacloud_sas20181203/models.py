@@ -1309,9 +1309,7 @@ class CreateSuspEventNoteResponse(TeaModel):
 
 class CreateVulAutoRepairConfigRequestVulAutoRepairConfigList(TeaModel):
     def __init__(self, alias_name=None, name=None):
-        # 漏洞别名
         self.alias_name = alias_name  # type: str
-        # 漏洞名称
         self.name = name  # type: str
 
     def validate(self):
@@ -1341,7 +1339,6 @@ class CreateVulAutoRepairConfigRequestVulAutoRepairConfigList(TeaModel):
 class CreateVulAutoRepairConfigRequest(TeaModel):
     def __init__(self, reason=None, type=None, vul_auto_repair_config_list=None):
         self.reason = reason  # type: str
-        # 漏洞类型
         self.type = type  # type: str
         self.vul_auto_repair_config_list = vul_auto_repair_config_list  # type: list[CreateVulAutoRepairConfigRequestVulAutoRepairConfigList]
 
@@ -3419,7 +3416,6 @@ class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
         self.stages = stages  # type: str
         self.start_time = start_time  # type: long
         self.suspicious_event_count = suspicious_event_count  # type: int
-        # 攻击阶段展示名
         self.tactic_items = tactic_items  # type: list[DescribeAlarmEventListResponseBodySuspEventsTacticItems]
         self.uuid = uuid  # type: str
 
@@ -8255,7 +8251,6 @@ class DescribeDomainListResponse(TeaModel):
 class DescribeEmgVulItemRequest(TeaModel):
     def __init__(self, check_type=None, current_page=None, lang=None, page_size=None, risk_status=None,
                  scan_type=None, vul_name=None):
-        # 检测方式
         self.check_type = check_type  # type: int
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
@@ -11921,7 +11916,6 @@ class DescribeImageFixTaskResponseBody(TeaModel):
     def __init__(self, build_tasks=None, page_info=None, request_id=None):
         self.build_tasks = build_tasks  # type: list[DescribeImageFixTaskResponseBodyBuildTasks]
         self.page_info = page_info  # type: DescribeImageFixTaskResponseBodyPageInfo
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20381,7 +20375,6 @@ class DescribeSecurityEventOperationsResponseBodySecurityEventOperationsResponse
         self.mark_mis_type = mark_mis_type  # type: str
         self.mark_mis_value = mark_mis_value  # type: str
         self.supported_mis_type = supported_mis_type  # type: list[str]
-        # 资产uuid
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -23129,9 +23122,7 @@ class DescribeSuspEventsRequest(TeaModel):
         self.levels = levels  # type: str
         self.name = name  # type: str
         self.operate_error_code_list = operate_error_code_list  # type: list[str]
-        # 处理时间结束时间
         self.operate_time_end = operate_time_end  # type: str
-        # 处理时间开始时间
         self.operate_time_start = operate_time_start  # type: str
         self.page_size = page_size  # type: str
         self.parent_event_types = parent_event_types  # type: str
@@ -23141,9 +23132,7 @@ class DescribeSuspEventsRequest(TeaModel):
         self.status = status  # type: str
         self.tactic_id = tactic_id  # type: str
         self.target_type = target_type  # type: str
-        # 最新发生结束时间
         self.time_end = time_end  # type: str
-        # 最新发生开始时间
         self.time_start = time_start  # type: str
         self.unique_info = unique_info  # type: str
         self.uuids = uuids  # type: str
@@ -23435,7 +23424,6 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
         self.sale_version = sale_version  # type: str
         self.security_event_ids = security_event_ids  # type: str
         self.stages = stages  # type: str
-        # 攻击阶段展示名
         self.tactic_items = tactic_items  # type: list[DescribeSuspEventsResponseBodySuspEventsTacticItems]
         self.unique_info = unique_info  # type: str
         self.uuid = uuid  # type: str
@@ -28839,15 +28827,10 @@ class InstallBackupClientResponse(TeaModel):
 class InstallCloudMonitorRequest(TeaModel):
     def __init__(self, agent_access_key=None, agent_secret_key=None, argus_version=None, instance_id_list=None,
                  uuid_list=None):
-        # 非阿里云主机安装云监控插件时所需要的AccessKey
         self.agent_access_key = agent_access_key  # type: str
-        # 非阿里云主机安装云监控插件时所需要的AccessSecret
         self.agent_secret_key = agent_secret_key  # type: str
-        # 云监控版本
         self.argus_version = argus_version  # type: str
-        # 实例 instanceId
         self.instance_id_list = instance_id_list  # type: list[str]
-        # uuid 列表
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -29214,13 +29197,12 @@ class ListCheckInstanceResultResponseBodyPageInfo(TeaModel):
 
 
 class ListCheckInstanceResultResponseBody(TeaModel):
-    def __init__(self, basic_data=None, checks=None, columns=None, page_info=None, request_id=None, total_count=None):
+    def __init__(self, basic_data=None, checks=None, columns=None, page_info=None, request_id=None):
         self.basic_data = basic_data  # type: list[ListCheckInstanceResultResponseBodyBasicData]
-        self.checks = checks  # type: dict[str, any]
+        self.checks = checks  # type: list[dict[str, any]]
         self.columns = columns  # type: list[ListCheckInstanceResultResponseBodyColumns]
         self.page_info = page_info  # type: ListCheckInstanceResultResponseBodyPageInfo
         self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.basic_data:
@@ -29254,8 +29236,6 @@ class ListCheckInstanceResultResponseBody(TeaModel):
             result['PageInfo'] = self.page_info.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
@@ -29277,8 +29257,6 @@ class ListCheckInstanceResultResponseBody(TeaModel):
             self.page_info = temp_model.from_map(m['PageInfo'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -29661,11 +29639,9 @@ class ListCheckResultResponse(TeaModel):
 
 class ListVulAutoRepairConfigRequest(TeaModel):
     def __init__(self, alias_name=None, current_page=None, page_size=None, type=None):
-        # 漏洞别名
         self.alias_name = alias_name  # type: str
         self.current_page = current_page  # type: int
         self.page_size = page_size  # type: int
-        # 漏洞类型
         self.type = type  # type: str
 
     def validate(self):
@@ -33504,7 +33480,6 @@ class OperateVulsResponse(TeaModel):
 
 class OperationCancelIgnoreSuspEventRequest(TeaModel):
     def __init__(self, security_event_ids=None):
-        # 告警编号集合
         self.security_event_ids = security_event_ids  # type: list[long]
 
     def validate(self):
@@ -33963,7 +33938,6 @@ class PublicCreateImageScanTaskResponseBodyData(TeaModel):
 class PublicCreateImageScanTaskResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         self.data = data  # type: PublicCreateImageScanTaskResponseBodyData
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34128,7 +34102,6 @@ class PublicPreCheckImageScanTaskResponseBodyData(TeaModel):
 class PublicPreCheckImageScanTaskResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         self.data = data  # type: PublicPreCheckImageScanTaskResponseBodyData
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34293,7 +34266,6 @@ class PublicSyncAndCreateImageScanTaskResponseBodyData(TeaModel):
 class PublicSyncAndCreateImageScanTaskResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         self.data = data  # type: PublicSyncAndCreateImageScanTaskResponseBodyData
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34462,14 +34434,11 @@ class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
     def __init__(self, current_page=None, disposal_way=None, event_name=None, from_=None, lang=None, page_size=None,
                  remark=None, source_ip=None):
         self.current_page = current_page  # type: int
-        # 加白方式
         self.disposal_way = disposal_way  # type: str
-        # 告警事件名称（子类型）
         self.event_name = event_name  # type: str
         self.from_ = from_  # type: str
         self.lang = lang  # type: str
         self.page_size = page_size  # type: int
-        # 资产名
         self.remark = remark  # type: str
         self.source_ip = source_ip  # type: str
 
@@ -34524,27 +34493,16 @@ class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
 class QueryGroupedSecurityEventMarkMissListResponseBodyList(TeaModel):
     def __init__(self, ali_uid=None, disposal_way=None, event_name=None, event_name_original=None, event_type=None,
                  event_type_original=None, field=None, field_value=None, filed_alias_name=None, operate=None, uuids=None):
-        # 用户统一编号
         self.ali_uid = ali_uid  # type: long
-        # 处置方式
         self.disposal_way = disposal_way  # type: str
-        # 告警事件名称（子类型）
         self.event_name = event_name  # type: str
-        # 告警事件名称（子类型）
         self.event_name_original = event_name_original  # type: str
-        # 告警事件名称（父类型）
         self.event_type = event_type  # type: str
-        # 告警事件名称（父类型）
         self.event_type_original = event_type_original  # type: str
-        # 加白字段
         self.field = field  # type: str
-        # 加白值
         self.field_value = field_value  # type: str
-        # 加白字段别名
         self.filed_alias_name = filed_alias_name  # type: str
-        # 操作符
         self.operate = operate  # type: str
-        # 资产ids，逗号分割
         self.uuids = uuids  # type: str
 
     def validate(self):
