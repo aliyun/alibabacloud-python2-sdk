@@ -5,9 +5,7 @@ from Tea.model import TeaModel
 
 class AddMosaicsRequest(TeaModel):
     def __init__(self, mark_position=None, sub_scene_id=None):
-        # 马赛克位置数据
         self.mark_position = mark_position  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -36,15 +34,10 @@ class AddMosaicsRequest(TeaModel):
 
 class AddMosaicsResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -124,9 +117,7 @@ class AddMosaicsResponse(TeaModel):
 
 class AddProjectRequest(TeaModel):
     def __init__(self, business_id=None, name=None):
-        # 业务id
         self.business_id = business_id  # type: long
-        # 项目名称
         self.name = name  # type: str
 
     def validate(self):
@@ -155,15 +146,10 @@ class AddProjectRequest(TeaModel):
 
 class AddProjectResponseBody(TeaModel):
     def __init__(self, code=None, id=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 项目ID
         self.id = id  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -243,9 +229,7 @@ class AddProjectResponse(TeaModel):
 
 class AddRelativePositionRequest(TeaModel):
     def __init__(self, relative_position=None, scene_id=None):
-        # 相对位置信息
         self.relative_position = relative_position  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -274,13 +258,9 @@ class AddRelativePositionRequest(TeaModel):
 
 class AddRelativePositionResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -356,7 +336,6 @@ class AddRelativePositionResponse(TeaModel):
 
 class AddRoomPlanRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -381,19 +360,12 @@ class AddRoomPlanRequest(TeaModel):
 
 class AddRoomPlanResponseBodyData(TeaModel):
     def __init__(self, access_id=None, callback=None, dir=None, expire=None, host=None, policy=None, signature=None):
-        # accessId
         self.access_id = access_id  # type: str
-        # 上传回调
         self.callback = callback  # type: str
-        # 授权路径
         self.dir = dir  # type: str
-        # 授权失效时间(s)
         self.expire = expire  # type: str
-        # 上传地址
         self.host = host  # type: str
-        # 授权
         self.policy = policy  # type: str
-        # 签名
         self.signature = signature  # type: str
 
     def validate(self):
@@ -442,15 +414,10 @@ class AddRoomPlanResponseBodyData(TeaModel):
 
 class AddRoomPlanResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 文件上传凭据
         self.data = data  # type: AddRoomPlanResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -533,11 +500,8 @@ class AddRoomPlanResponse(TeaModel):
 class AddSceneRequest(TeaModel):
     def __init__(self, customer_uid=None, name=None, project_id=None, type=None):
         self.customer_uid = customer_uid  # type: str
-        # 场景名称
         self.name = name  # type: str
-        # 项目ID
         self.project_id = project_id  # type: str
-        # 场景类型 3D模型：MODEL_3D  全景图片：PIC  全景视频：VIDEO 混合：MIX
         self.type = type  # type: str
 
     def validate(self):
@@ -574,15 +538,10 @@ class AddSceneRequest(TeaModel):
 
 class AddSceneResponseBody(TeaModel):
     def __init__(self, code=None, id=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 场景ID
         self.id = id  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -662,11 +621,8 @@ class AddSceneResponse(TeaModel):
 
 class AddSubSceneRequest(TeaModel):
     def __init__(self, name=None, scene_id=None, upload_type=None):
-        # 子场景名称
         self.name = name  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 类型 图片：IMAGE 视频：VIDEO
         self.upload_type = upload_type  # type: str
 
     def validate(self):
@@ -699,15 +655,10 @@ class AddSubSceneRequest(TeaModel):
 
 class AddSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, id=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 子场景ID
         self.id = id  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -787,7 +738,6 @@ class AddSubSceneResponse(TeaModel):
 
 class CheckUserPropertyRequest(TeaModel):
     def __init__(self, uid=None):
-        # 用户uid
         self.uid = uid  # type: str
 
     def validate(self):
@@ -812,15 +762,10 @@ class CheckUserPropertyRequest(TeaModel):
 
 class CheckUserPropertyResponseBody(TeaModel):
     def __init__(self, code=None, match=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 用户属性是否匹配
         self.match = match  # type: bool
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -899,10 +844,9 @@ class CheckUserPropertyResponse(TeaModel):
 
 
 class CopySceneRequest(TeaModel):
-    def __init__(self, scene_id=None, scene_name=None):
-        # 场景Id
+    def __init__(self, project_id=None, scene_id=None, scene_name=None):
+        self.project_id = project_id  # type: str
         self.scene_id = scene_id  # type: str
-        # 新场景名称
         self.scene_name = scene_name  # type: str
 
     def validate(self):
@@ -914,6 +858,8 @@ class CopySceneRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
         if self.scene_name is not None:
@@ -922,6 +868,8 @@ class CopySceneRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
         if m.get('SceneName') is not None:
@@ -931,7 +879,6 @@ class CopySceneRequest(TeaModel):
 
 class CopySceneResponseBodyData(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -956,14 +903,10 @@ class CopySceneResponseBodyData(TeaModel):
 
 class CopySceneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: CopySceneResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -1043,9 +986,176 @@ class CopySceneResponse(TeaModel):
         return self
 
 
+class CreateUploadPolicyRequest(TeaModel):
+    def __init__(self, option=None, type=None):
+        self.option = option  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUploadPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.option is not None:
+            result['Option'] = self.option
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Option') is not None:
+            self.option = m.get('Option')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class CreateUploadPolicyResponseBodyData(TeaModel):
+    def __init__(self, access_id=None, callback=None, dir=None, expire=None, host=None, policy=None, signature=None):
+        self.access_id = access_id  # type: str
+        self.callback = callback  # type: str
+        self.dir = dir  # type: str
+        self.expire = expire  # type: str
+        self.host = host  # type: str
+        self.policy = policy  # type: str
+        self.signature = signature  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUploadPolicyResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.callback is not None:
+            result['Callback'] = self.callback
+        if self.dir is not None:
+            result['Dir'] = self.dir
+        if self.expire is not None:
+            result['Expire'] = self.expire
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.signature is not None:
+            result['Signature'] = self.signature
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('Callback') is not None:
+            self.callback = m.get('Callback')
+        if m.get('Dir') is not None:
+            self.dir = m.get('Dir')
+        if m.get('Expire') is not None:
+            self.expire = m.get('Expire')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
+        return self
+
+
+class CreateUploadPolicyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.data = data  # type: CreateUploadPolicyResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateUploadPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateUploadPolicyResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateUploadPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateUploadPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateUploadPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateUploadPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DetailProjectRequest(TeaModel):
     def __init__(self, id=None):
-        # 项目Id
         self.id = id  # type: str
 
     def validate(self):
@@ -1071,27 +1181,16 @@ class DetailProjectRequest(TeaModel):
 class DetailProjectResponseBody(TeaModel):
     def __init__(self, business_id=None, business_name=None, code=None, gmt_create=None, gmt_modified=None, id=None,
                  message=None, name=None, request_id=None, success=None, token=None):
-        # 业务ID
         self.business_id = business_id  # type: long
-        # 业务名称
         self.business_name = business_name  # type: str
-        # 返回码
         self.code = code  # type: long
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 项目ID
         self.id = id  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 项目名称
         self.name = name  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # Token
         self.token = token  # type: str
 
     def validate(self):
@@ -1195,7 +1294,6 @@ class DetailProjectResponse(TeaModel):
 
 class DetailSceneRequest(TeaModel):
     def __init__(self, id=None):
-        # 场景Id
         self.id = id  # type: str
 
     def validate(self):
@@ -1218,41 +1316,62 @@ class DetailSceneRequest(TeaModel):
         return self
 
 
-class DetailSceneResponseBody(TeaModel):
-    def __init__(self, code=None, cover_url=None, gmt_create=None, gmt_modified=None, id=None, message=None,
-                 name=None, preview_token=None, published=None, request_id=None, source_num=None, sub_scene_num=None,
-                 success=None, type=None):
-        # 返回码
-        self.code = code  # type: long
-        # 封面地址
-        self.cover_url = cover_url  # type: str
-        # 创建时间
-        self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
-        self.gmt_modified = gmt_modified  # type: long
-        # 主场景Id
-        self.id = id  # type: str
-        # 错误消息
-        self.message = message  # type: str
-        # 场景名称
-        self.name = name  # type: str
-        # 预览Token
-        self.preview_token = preview_token  # type: str
-        # 是否已发布 true：已发布：false：未发布
-        self.published = published  # type: bool
-        # 请求ID，与入参requestId对应
-        self.request_id = request_id  # type: str
-        # 资源数
-        self.source_num = source_num  # type: long
-        # 子场景数
-        self.sub_scene_num = sub_scene_num  # type: long
-        # 是否请求成功
-        self.success = success  # type: bool
-        # 场景类型
-        self.type = type  # type: str
+class DetailSceneResponseBodyCaptures(TeaModel):
+    def __init__(self, title=None, url=None):
+        self.title = title  # type: str
+        self.url = url  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DetailSceneResponseBodyCaptures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class DetailSceneResponseBody(TeaModel):
+    def __init__(self, captures=None, code=None, cover_url=None, gmt_create=None, gmt_modified=None, id=None,
+                 message=None, name=None, preview_token=None, published=None, request_id=None, source_num=None, status=None,
+                 status_name=None, sub_scene_num=None, success=None, type=None):
+        self.captures = captures  # type: list[DetailSceneResponseBodyCaptures]
+        self.code = code  # type: long
+        self.cover_url = cover_url  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.gmt_modified = gmt_modified  # type: long
+        self.id = id  # type: str
+        self.message = message  # type: str
+        self.name = name  # type: str
+        self.preview_token = preview_token  # type: str
+        self.published = published  # type: bool
+        self.request_id = request_id  # type: str
+        self.source_num = source_num  # type: long
+        self.status = status  # type: str
+        self.status_name = status_name  # type: str
+        self.sub_scene_num = sub_scene_num  # type: long
+        self.success = success  # type: bool
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.captures:
+            for k in self.captures:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DetailSceneResponseBody, self).to_map()
@@ -1260,6 +1379,10 @@ class DetailSceneResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['Captures'] = []
+        if self.captures is not None:
+            for k in self.captures:
+                result['Captures'].append(k.to_map() if k else None)
         if self.code is not None:
             result['Code'] = self.code
         if self.cover_url is not None:
@@ -1282,6 +1405,10 @@ class DetailSceneResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.source_num is not None:
             result['SourceNum'] = self.source_num
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_name is not None:
+            result['StatusName'] = self.status_name
         if self.sub_scene_num is not None:
             result['SubSceneNum'] = self.sub_scene_num
         if self.success is not None:
@@ -1292,6 +1419,11 @@ class DetailSceneResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.captures = []
+        if m.get('Captures') is not None:
+            for k in m.get('Captures'):
+                temp_model = DetailSceneResponseBodyCaptures()
+                self.captures.append(temp_model.from_map(k))
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('CoverUrl') is not None:
@@ -1314,6 +1446,10 @@ class DetailSceneResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('SourceNum') is not None:
             self.source_num = m.get('SourceNum')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusName') is not None:
+            self.status_name = m.get('StatusName')
         if m.get('SubSceneNum') is not None:
             self.sub_scene_num = m.get('SubSceneNum')
         if m.get('Success') is not None:
@@ -1364,7 +1500,6 @@ class DetailSceneResponse(TeaModel):
 
 class DetailSubSceneRequest(TeaModel):
     def __init__(self, id=None):
-        # 子场景ID
         self.id = id  # type: str
 
     def validate(self):
@@ -1389,41 +1524,25 @@ class DetailSubSceneRequest(TeaModel):
 
 class DetailSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, cover_url=None, cubemap_path=None, gmt_create=None, gmt_modified=None, id=None,
-                 image_url=None, layout_data=None, message=None, name=None, origin_url=None, request_id=None, resource_id=None,
-                 status=None, success=None, type=None, url=None):
-        # 返回码
+                 image_url=None, layout_data=None, message=None, name=None, origin_url=None, position=None, request_id=None,
+                 resource_id=None, status=None, success=None, type=None, url=None):
         self.code = code  # type: long
-        # 图片路径/视频封面路径
         self.cover_url = cover_url  # type: str
-        # 切图路径
         self.cubemap_path = cubemap_path  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 子场景id
         self.id = id  # type: str
-        # 矫正后图的路径
         self.image_url = image_url  # type: str
-        # 墙线标注数据
         self.layout_data = layout_data  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 子场景名称
         self.name = name  # type: str
-        # 原图路径
         self.origin_url = origin_url  # type: str
-        # 请求ID，与入参requestId对应
+        self.position = position  # type: str
         self.request_id = request_id  # type: str
-        # 图片ID/视频ID
         self.resource_id = resource_id  # type: str
-        # 子场景状态
         self.status = status  # type: long
-        # 是否请求成功
         self.success = success  # type: bool
-        # 资源类型
         self.type = type  # type: str
-        # 图片路径/视频路径
         self.url = url  # type: str
 
     def validate(self):
@@ -1457,6 +1576,8 @@ class DetailSubSceneResponseBody(TeaModel):
             result['Name'] = self.name
         if self.origin_url is not None:
             result['OriginUrl'] = self.origin_url
+        if self.position is not None:
+            result['Position'] = self.position
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.resource_id is not None:
@@ -1495,6 +1616,8 @@ class DetailSubSceneResponseBody(TeaModel):
             self.name = m.get('Name')
         if m.get('OriginUrl') is not None:
             self.origin_url = m.get('OriginUrl')
+        if m.get('Position') is not None:
+            self.position = m.get('Position')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('ResourceId') is not None:
@@ -1551,7 +1674,6 @@ class DetailSubSceneResponse(TeaModel):
 
 class DropProjectRequest(TeaModel):
     def __init__(self, project_id=None):
-        # 项目ID
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -1576,13 +1698,9 @@ class DropProjectRequest(TeaModel):
 
 class DropProjectResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID与入参中requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -1658,7 +1776,6 @@ class DropProjectResponse(TeaModel):
 
 class DropSceneRequest(TeaModel):
     def __init__(self, id=None):
-        # 主场景id
         self.id = id  # type: str
 
     def validate(self):
@@ -1683,13 +1800,9 @@ class DropSceneRequest(TeaModel):
 
 class DropSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -1765,7 +1878,6 @@ class DropSceneResponse(TeaModel):
 
 class DropSubSceneRequest(TeaModel):
     def __init__(self, id=None):
-        # 子场景ID
         self.id = id  # type: str
 
     def validate(self):
@@ -1790,13 +1902,9 @@ class DropSubSceneRequest(TeaModel):
 
 class DropSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -1872,7 +1980,6 @@ class DropSubSceneResponse(TeaModel):
 
 class GetConnDataRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -1897,11 +2004,8 @@ class GetConnDataRequest(TeaModel):
 
 class GetConnDataResponseBodyList(TeaModel):
     def __init__(self, id=None, map_id=None, type=None):
-        # ID
         self.id = id  # type: str
-        # 关联的ID
         self.map_id = map_id  # type: str
-        # outer:外关联 inner：内关联 stair：楼梯关联
         self.type = type  # type: str
 
     def validate(self):
@@ -1934,19 +2038,12 @@ class GetConnDataResponseBodyList(TeaModel):
 
 class GetConnDataResponseBody(TeaModel):
     def __init__(self, code=None, extend=None, list=None, message=None, request_id=None, success=None, version=None):
-        # 返回码
         self.code = code  # type: long
-        # 扩展信息
         self.extend = extend  # type: str
-        # 关联信息
         self.list = list  # type: list[GetConnDataResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 版本
         self.version = version  # type: str
 
     def validate(self):
@@ -2042,7 +2139,6 @@ class GetConnDataResponse(TeaModel):
 
 class GetCopySceneTaskStatusRequest(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2067,9 +2163,7 @@ class GetCopySceneTaskStatusRequest(TeaModel):
 
 class GetCopySceneTaskStatusResponseBodyData(TeaModel):
     def __init__(self, progress=None, status=None):
-        # 任务进度
         self.progress = progress  # type: long
-        # 任务状态
         self.status = status  # type: str
 
     def validate(self):
@@ -2098,14 +2192,10 @@ class GetCopySceneTaskStatusResponseBodyData(TeaModel):
 
 class GetCopySceneTaskStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetCopySceneTaskStatusResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2226,14 +2316,10 @@ class GetHotspotConfigRequest(TeaModel):
 
 class GetHotspotConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2313,13 +2399,9 @@ class GetHotspotConfigResponse(TeaModel):
 
 class GetHotspotSceneDataRequest(TeaModel):
     def __init__(self, domain=None, enabled=None, preview_token=None, type=None):
-        # 自定义oss域名（可为cdn域名）
         self.domain = domain  # type: str
-        # 是否开启自用资源访问
         self.enabled = enabled  # type: bool
-        # 预览token
         self.preview_token = preview_token  # type: str
-        # 0 未发布， 1 已发布
         self.type = type  # type: long
 
     def validate(self):
@@ -2356,13 +2438,9 @@ class GetHotspotSceneDataRequest(TeaModel):
 
 class GetHotspotSceneDataResponseBodyData(TeaModel):
     def __init__(self, model_token=None, preview_data=None, preview_token=None, scene_type=None):
-        # 模型token（sgm token）
         self.model_token = model_token  # type: str
-        # html转译后的预览数据，包含图片、子场景ID等信息
         self.preview_data = preview_data  # type: str
-        # 预览token
         self.preview_token = preview_token  # type: str
-        # 3D模型：MODEL_3D 全景图片：PIC 全景视频：VIDEO
         self.scene_type = scene_type  # type: str
 
     def validate(self):
@@ -2399,14 +2477,10 @@ class GetHotspotSceneDataResponseBodyData(TeaModel):
 
 class GetHotspotSceneDataResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetHotspotSceneDataResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2615,7 +2689,6 @@ class GetHotspotTagResponse(TeaModel):
 
 class GetLayoutDataRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -2640,15 +2713,10 @@ class GetLayoutDataRequest(TeaModel):
 
 class GetLayoutDataResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 标注信息
         self.data = data  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2728,7 +2796,6 @@ class GetLayoutDataResponse(TeaModel):
 
 class GetOriginLayoutDataRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -2753,15 +2820,10 @@ class GetOriginLayoutDataRequest(TeaModel):
 
 class GetOriginLayoutDataResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 标注数据
         self.data = data  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2841,7 +2903,6 @@ class GetOriginLayoutDataResponse(TeaModel):
 
 class GetOssPolicyRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -2867,27 +2928,16 @@ class GetOssPolicyRequest(TeaModel):
 class GetOssPolicyResponseBody(TeaModel):
     def __init__(self, access_id=None, callback=None, code=None, dir=None, expire=None, host=None, message=None,
                  policy=None, request_id=None, signature=None, success=None):
-        # accessId
         self.access_id = access_id  # type: str
-        # 上传回调
         self.callback = callback  # type: str
-        # 返回码
         self.code = code  # type: long
-        # 授权路径
         self.dir = dir  # type: str
-        # 授权失效时间(s)
         self.expire = expire  # type: str
-        # 上传地址
         self.host = host  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 授权
         self.policy = policy  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 签名
         self.signature = signature  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -2991,9 +3041,7 @@ class GetOssPolicyResponse(TeaModel):
 
 class GetPackSceneTaskStatusRequest(TeaModel):
     def __init__(self, task_id=None, type=None):
-        # 任务ID
         self.task_id = task_id  # type: str
-        # 操作类型：download（下载），sync（同步）
         self.type = type  # type: str
 
     def validate(self):
@@ -3022,9 +3070,7 @@ class GetPackSceneTaskStatusRequest(TeaModel):
 
 class GetPackSceneTaskStatusResponseBodyData(TeaModel):
     def __init__(self, progress=None, status=None):
-        # 任务进度
         self.progress = progress  # type: long
-        # 任务状态
         self.status = status  # type: str
 
     def validate(self):
@@ -3053,14 +3099,10 @@ class GetPackSceneTaskStatusResponseBodyData(TeaModel):
 
 class GetPackSceneTaskStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetPackSceneTaskStatusResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -3142,7 +3184,6 @@ class GetPackSceneTaskStatusResponse(TeaModel):
 
 class GetRectifyImageRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -3167,15 +3208,10 @@ class GetRectifyImageRequest(TeaModel):
 
 class GetRectifyImageResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, url=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 图片地址
         self.url = url  # type: str
 
     def validate(self):
@@ -3255,7 +3291,6 @@ class GetRectifyImageResponse(TeaModel):
 
 class GetSceneBuildTaskStatusRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -3281,21 +3316,13 @@ class GetSceneBuildTaskStatusRequest(TeaModel):
 class GetSceneBuildTaskStatusResponseBody(TeaModel):
     def __init__(self, code=None, error_code=None, error_msg=None, message=None, request_id=None, scene_id=None,
                  status=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 任务失败错误码
         self.error_code = error_code  # type: str
-        # 任务失败错误消息
         self.error_msg = error_msg  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 未开始  init 处理中 失败     failed   processing  完成     succeed 取消     canceled
         self.status = status  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -3387,7 +3414,6 @@ class GetSceneBuildTaskStatusResponse(TeaModel):
 
 class GetScenePackUrlRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -3412,11 +3438,8 @@ class GetScenePackUrlRequest(TeaModel):
 
 class GetScenePackUrlResponseBodyData(TeaModel):
     def __init__(self, expire=None, url=None, valid=None):
-        # 失效日期
         self.expire = expire  # type: str
-        # 打包文件地址
         self.url = url  # type: str
-        # 是否有效
         self.valid = valid  # type: bool
 
     def validate(self):
@@ -3449,14 +3472,10 @@ class GetScenePackUrlResponseBodyData(TeaModel):
 
 class GetScenePackUrlResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetScenePackUrlResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -3538,13 +3557,9 @@ class GetScenePackUrlResponse(TeaModel):
 
 class GetScenePreviewDataRequest(TeaModel):
     def __init__(self, domain=None, enabled=None, preview_token=None, show_tag=None):
-        # 自定义oss域名（可为cdn域名）
         self.domain = domain  # type: str
-        # 是否开启自用资源访问（默认false）
         self.enabled = enabled  # type: bool
-        # 预览token
         self.preview_token = preview_token  # type: str
-        # 是否返回热点数据（默认false）
         self.show_tag = show_tag  # type: bool
 
     def validate(self):
@@ -3581,11 +3596,8 @@ class GetScenePreviewDataRequest(TeaModel):
 
 class GetScenePreviewDataResponseBodyDataModelPanoListPosition(TeaModel):
     def __init__(self, rotation=None, spot=None, viewpoint=None):
-        # 当前点位在场景中的旋转四元素
         self.rotation = rotation  # type: list[float]
-        # 当前点位在场景中的坐标
         self.spot = spot  # type: list[float]
-        # 当前子场景名标签在场景中的坐标
         self.viewpoint = viewpoint  # type: list[float]
 
     def validate(self):
@@ -3620,33 +3632,19 @@ class GetScenePreviewDataResponseBodyDataModelPanoList(TeaModel):
     def __init__(self, cur_room_pic_list=None, enabled=None, floor_idx=None, id=None, main_image=None,
                  neighbours=None, position=None, raw_name=None, resource=None, room_idx=None, sub_scene_id=None, token=None,
                  virtual_id=None, virtual_name=None):
-        # 当前房间的所有点位
         self.cur_room_pic_list = cur_room_pic_list  # type: list[str]
-        # 当前点位是否渲染，false不渲染，场景无法跳转
         self.enabled = enabled  # type: bool
-        # 楼层号
         self.floor_idx = floor_idx  # type: str
-        # 点位ID
         self.id = id  # type: str
-        # 单房间多图情况下，是否为主图，默认true
         self.main_image = main_image  # type: bool
-        # 当前房间邻近可视的点位id
         self.neighbours = neighbours  # type: list[str]
-        # 位置数据
         self.position = position  # type: GetScenePreviewDataResponseBodyDataModelPanoListPosition
-        # 一个名称，无实际意义
         self.raw_name = raw_name  # type: str
-        # 全景贴图路径
         self.resource = resource  # type: str
-        # 房间号
         self.room_idx = room_idx  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
-        # token
         self.token = token  # type: str
-        # 图片虚拟ID
         self.virtual_id = virtual_id  # type: str
-        # 图片名称
         self.virtual_name = virtual_name  # type: str
 
     def validate(self):
@@ -3725,13 +3723,9 @@ class GetScenePreviewDataResponseBodyDataModelPanoList(TeaModel):
 
 class GetScenePreviewDataResponseBodyDataModel(TeaModel):
     def __init__(self, model_path=None, pano_list=None, texture_model_path=None, texture_pano_path=None):
-        # 模型地址
         self.model_path = model_path  # type: str
-        # 点位数据
         self.pano_list = pano_list  # type: list[GetScenePreviewDataResponseBodyDataModelPanoList]
-        # 模型的贴图路径
         self.texture_model_path = texture_model_path  # type: str
-        # 漫游后预览图片路径
         self.texture_pano_path = texture_pano_path  # type: str
 
     def validate(self):
@@ -3807,32 +3801,21 @@ class GetScenePreviewDataResponseBodyDataTagsConfig(TeaModel):
     def __init__(self, background_color=None, button_config=None, content=None, form_img_size=None,
                  form_jump_type=None, form_select_img_type=None, images=None, is_tag_visible_by_3d=None, link=None, pano_id=None,
                  position=None, position_pano_cube=None, related_pano_ids=None, scene_id=None, title=None, video=None):
-        # 背景色
         self.background_color = background_color  # type: str
-        # 按钮配置
         self.button_config = button_config  # type: GetScenePreviewDataResponseBodyDataTagsConfigButtonConfig
-        # 内容
         self.content = content  # type: str
         self.form_img_size = form_img_size  # type: list[long]
         self.form_jump_type = form_jump_type  # type: bool
         self.form_select_img_type = form_select_img_type  # type: str
-        # 图片链接
         self.images = images  # type: list[str]
-        # 是否在鸟瞰模式下显示
         self.is_tag_visible_by_3d = is_tag_visible_by_3d  # type: bool
-        # 超链接
         self.link = link  # type: str
-        # 点位ID
         self.pano_id = pano_id  # type: str
-        # 坐标
         self.position = position  # type: list[float]
         self.position_pano_cube = position_pano_cube  # type: list[float]
         self.related_pano_ids = related_pano_ids  # type: list[str]
-        # 场景ID
         self.scene_id = scene_id  # type: long
-        # 标题
         self.title = title  # type: str
-        # 视频链接
         self.video = video  # type: str
 
     def validate(self):
@@ -3919,14 +3902,10 @@ class GetScenePreviewDataResponseBodyDataTagsConfig(TeaModel):
 
 class GetScenePreviewDataResponseBodyDataTags(TeaModel):
     def __init__(self, config=None, id=None, position=None, position_pano_cube=None, type=None):
-        # 配置
         self.config = config  # type: GetScenePreviewDataResponseBodyDataTagsConfig
-        # 标签ID
         self.id = id  # type: str
-        # 坐标
         self.position = position  # type: list[float]
         self.position_pano_cube = position_pano_cube  # type: list[float]
-        # 热点类型
         self.type = type  # type: str
 
     def validate(self):
@@ -3969,9 +3948,7 @@ class GetScenePreviewDataResponseBodyDataTags(TeaModel):
 
 class GetScenePreviewDataResponseBodyData(TeaModel):
     def __init__(self, model=None, tags=None):
-        # 模型数据
         self.model = model  # type: GetScenePreviewDataResponseBodyDataModel
-        # 热点数据
         self.tags = tags  # type: list[GetScenePreviewDataResponseBodyDataTags]
 
     def validate(self):
@@ -4011,14 +3988,10 @@ class GetScenePreviewDataResponseBodyData(TeaModel):
 
 class GetScenePreviewDataResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetScenePreviewDataResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -4100,11 +4073,8 @@ class GetScenePreviewDataResponse(TeaModel):
 
 class GetScenePreviewInfoRequest(TeaModel):
     def __init__(self, domain=None, enabled=None, model_token=None):
-        # 自定义oss域名（可为cdn域名）
         self.domain = domain  # type: str
-        # 是否开启自用资源访问
         self.enabled = enabled  # type: bool
-        # 模型token
         self.model_token = model_token  # type: str
 
     def validate(self):
@@ -4137,13 +4107,9 @@ class GetScenePreviewInfoRequest(TeaModel):
 
 class GetScenePreviewInfoResponseBodyData(TeaModel):
     def __init__(self, model_path=None, pano_list=None, texture_model_path=None, texture_pano_path=None):
-        # 模型地址
         self.model_path = model_path  # type: str
-        # html转译后的预览数据
         self.pano_list = pano_list  # type: str
-        # 模型的贴图路径
         self.texture_model_path = texture_model_path  # type: str
-        # 漫游后预览图片路径
         self.texture_pano_path = texture_pano_path  # type: str
 
     def validate(self):
@@ -4180,14 +4146,10 @@ class GetScenePreviewInfoResponseBodyData(TeaModel):
 
 class GetScenePreviewInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetScenePreviewInfoResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -4268,8 +4230,8 @@ class GetScenePreviewInfoResponse(TeaModel):
 
 
 class GetScenePreviewResourceRequest(TeaModel):
-    def __init__(self, preview_token=None):
-        # 预览token
+    def __init__(self, draft=None, preview_token=None):
+        self.draft = draft  # type: bool
         self.preview_token = preview_token  # type: str
 
     def validate(self):
@@ -4281,19 +4243,24 @@ class GetScenePreviewResourceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.draft is not None:
+            result['Draft'] = self.draft
         if self.preview_token is not None:
             result['PreviewToken'] = self.preview_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Draft') is not None:
+            self.draft = m.get('Draft')
         if m.get('PreviewToken') is not None:
             self.preview_token = m.get('PreviewToken')
         return self
 
 
 class GetScenePreviewResourceResponseBodyDataResourceDirectory(TeaModel):
-    def __init__(self, model_config=None, orthomap_config=None, root_path=None):
+    def __init__(self, hotspot_tag_config=None, model_config=None, orthomap_config=None, root_path=None):
+        self.hotspot_tag_config = hotspot_tag_config  # type: str
         self.model_config = model_config  # type: str
         self.orthomap_config = orthomap_config  # type: str
         self.root_path = root_path  # type: str
@@ -4307,6 +4274,8 @@ class GetScenePreviewResourceResponseBodyDataResourceDirectory(TeaModel):
             return _map
 
         result = dict()
+        if self.hotspot_tag_config is not None:
+            result['HotspotTagConfig'] = self.hotspot_tag_config
         if self.model_config is not None:
             result['ModelConfig'] = self.model_config
         if self.orthomap_config is not None:
@@ -4317,6 +4286,8 @@ class GetScenePreviewResourceResponseBodyDataResourceDirectory(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('HotspotTagConfig') is not None:
+            self.hotspot_tag_config = m.get('HotspotTagConfig')
         if m.get('ModelConfig') is not None:
             self.model_config = m.get('ModelConfig')
         if m.get('OrthomapConfig') is not None:
@@ -4364,14 +4335,10 @@ class GetScenePreviewResourceResponseBodyData(TeaModel):
 
 class GetScenePreviewResourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetScenePreviewResourceResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -4453,7 +4420,6 @@ class GetScenePreviewResourceResponse(TeaModel):
 
 class GetSingleConnDataRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -4478,11 +4444,8 @@ class GetSingleConnDataRequest(TeaModel):
 
 class GetSingleConnDataResponseBodyList(TeaModel):
     def __init__(self, id=None, map_id=None, type=None):
-        # ID
         self.id = id  # type: str
-        # 关联ID
         self.map_id = map_id  # type: str
-        # outer:外关联 inner：内关联 stair：楼梯关联
         self.type = type  # type: str
 
     def validate(self):
@@ -4515,17 +4478,11 @@ class GetSingleConnDataResponseBodyList(TeaModel):
 
 class GetSingleConnDataResponseBody(TeaModel):
     def __init__(self, code=None, list=None, message=None, request_id=None, success=None, version=None):
-        # 返回码
         self.code = code  # type: long
-        # 关联信息
         self.list = list  # type: list[GetSingleConnDataResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 版本
         self.version = version  # type: str
 
     def validate(self):
@@ -4617,7 +4574,6 @@ class GetSingleConnDataResponse(TeaModel):
 
 class GetSourcePackStatusRequest(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -4642,9 +4598,7 @@ class GetSourcePackStatusRequest(TeaModel):
 
 class GetSourcePackStatusResponseBodyData(TeaModel):
     def __init__(self, progress=None, status=None):
-        # 任务进度
         self.progress = progress  # type: long
-        # 任务状态
         self.status = status  # type: str
 
     def validate(self):
@@ -4673,16 +4627,11 @@ class GetSourcePackStatusResponseBodyData(TeaModel):
 
 class GetSourcePackStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None, url=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: GetSourcePackStatusResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 压缩包的地址
         self.url = url  # type: str
 
     def validate(self):
@@ -4768,7 +4717,6 @@ class GetSourcePackStatusResponse(TeaModel):
 
 class GetSubSceneTaskStatusRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -4794,19 +4742,12 @@ class GetSubSceneTaskStatusRequest(TeaModel):
 class GetSubSceneTaskStatusResponseBodyList(TeaModel):
     def __init__(self, error_code=None, error_msg=None, id=None, scene_id=None, status=None, sub_scene_id=None,
                  type=None):
-        # 任务失败错误码
         self.error_code = error_code  # type: str
-        # 任务失败错误信息
         self.error_msg = error_msg  # type: str
-        # 任务ID
         self.id = id  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 未开始  init 处理中   processing   失败     failure  完成     succeed  取消     canceled
         self.status = status  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
-        # 墙线预测: wall_line   切图: cut_image 重建: build  直角优化：right_angle_optimization 其他：other
         self.type = type  # type: str
 
     def validate(self):
@@ -4855,15 +4796,10 @@ class GetSubSceneTaskStatusResponseBodyList(TeaModel):
 
 class GetSubSceneTaskStatusResponseBody(TeaModel):
     def __init__(self, code=None, list=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 任务信息
         self.list = list  # type: list[GetSubSceneTaskStatusResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -4951,7 +4887,6 @@ class GetSubSceneTaskStatusResponse(TeaModel):
 
 class GetTaskStatusRequest(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -4977,21 +4912,13 @@ class GetTaskStatusRequest(TeaModel):
 class GetTaskStatusResponseBody(TeaModel):
     def __init__(self, code=None, error_code=None, error_msg=None, message=None, request_id=None, status=None,
                  success=None, type=None):
-        # 返回码
         self.code = code  # type: long
-        # 任务执行失败错误码
         self.error_code = error_code  # type: str
-        # 任务执行失败错误消息
         self.error_msg = error_msg  # type: str
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 未开始 :init 处理中 : processing    失败 :failure   完成 :succeed  取消 :canceled
         self.status = status  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 墙线预测: wall_line 切图: cut_image   重建: build  直角优化：right_angle_optimization  其他：other
         self.type = type  # type: str
 
     def validate(self):
@@ -5191,17 +5118,11 @@ class GetWindowConfigResponse(TeaModel):
 class LabelBuildRequest(TeaModel):
     def __init__(self, mode=None, model_style=None, optimize_wall_width=None, plan_style=None, scene_id=None,
                  wall_height=None):
-        # 重建模式：MANUAL：手动（云端），默认，SEMI_AUTOMATIC：半自动（移动端）
         self.mode = mode  # type: str
-        # 模型效果 PATCH：切片模型（默认） DEPTH：深度模型 VIRTUAL：虚拟模型 MOBILE：移动重建模型
         self.model_style = model_style  # type: str
-        # 墙宽优化，OFF:关闭（默认） NORMAL：标准 ENHANCED：加强
         self.optimize_wall_width = optimize_wall_width  # type: str
-        # 户型图，DEFAULT（默认），STANDARD（标准）
         self.plan_style = plan_style  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 墙高，默认0不设置，范围200-1000. 单位cm
         self.wall_height = wall_height  # type: long
 
     def validate(self):
@@ -5246,15 +5167,10 @@ class LabelBuildRequest(TeaModel):
 
 class LabelBuildResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 重建任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -5334,13 +5250,9 @@ class LabelBuildResponse(TeaModel):
 
 class LinkImageRequest(TeaModel):
     def __init__(self, camera_height=None, file_name=None, platform=None, sub_scene_id=None):
-        # 相机高度 单位 cm
         self.camera_height = camera_height  # type: int
-        # 图片或者视频名称xxx.jpg
         self.file_name = file_name  # type: str
-        # 平台标识，默认PC
         self.platform = platform  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -5377,15 +5289,10 @@ class LinkImageRequest(TeaModel):
 
 class LinkImageResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, resource_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 图片/视频ID
         self.resource_id = resource_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -5465,11 +5372,8 @@ class LinkImageResponse(TeaModel):
 
 class ListProjectRequest(TeaModel):
     def __init__(self, name=None, page_num=None, page_size=None):
-        # 项目名称（使用name%搜索）
         self.name = name  # type: str
-        # 页码
         self.page_num = page_num  # type: long
-        # 页长
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -5503,19 +5407,12 @@ class ListProjectRequest(TeaModel):
 class ListProjectResponseBodyList(TeaModel):
     def __init__(self, business_id=None, business_name=None, create_time=None, id=None, modified_time=None,
                  name=None, token=None):
-        # 业务ID
         self.business_id = business_id  # type: long
-        # 业务名称
         self.business_name = business_name  # type: str
-        # 创建时间
         self.create_time = create_time  # type: long
-        # 项目ID
         self.id = id  # type: str
-        # 最后修改时间
         self.modified_time = modified_time  # type: long
-        # 项目名称
         self.name = name  # type: str
-        # Token
         self.token = token  # type: str
 
     def validate(self):
@@ -5565,23 +5462,14 @@ class ListProjectResponseBodyList(TeaModel):
 class ListProjectResponseBody(TeaModel):
     def __init__(self, code=None, count=None, current_page=None, has_next=None, list=None, message=None,
                  request_id=None, success=None, total_page=None):
-        # 返回码
         self.code = code  # type: long
-        # count
         self.count = count  # type: long
-        # 当前页
         self.current_page = current_page  # type: long
-        # 是否有下一页
         self.has_next = has_next  # type: bool
-        # 项目数据
         self.list = list  # type: list[ListProjectResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 总页数
         self.total_page = total_page  # type: long
 
     def validate(self):
@@ -5685,13 +5573,9 @@ class ListProjectResponse(TeaModel):
 
 class ListSceneRequest(TeaModel):
     def __init__(self, name=None, page_num=None, page_size=None, project_id=None):
-        # 主场景名称
         self.name = name  # type: str
-        # 当前页
         self.page_num = page_num  # type: long
-        # 页长
         self.page_size = page_size  # type: long
-        # 所有项目Id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -5728,26 +5612,18 @@ class ListSceneRequest(TeaModel):
 
 class ListSceneResponseBodyList(TeaModel):
     def __init__(self, cover_url=None, gmt_create=None, gmt_modified=None, id=None, name=None, preview_token=None,
-                 published=None, source_num=None, sub_scene_num=None, type=None):
-        # 封面地址
+                 published=None, source_num=None, status=None, status_name=None, sub_scene_num=None, type=None):
         self.cover_url = cover_url  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 主场景Id
         self.id = id  # type: str
-        # 场景名称
         self.name = name  # type: str
-        # 预览Token
         self.preview_token = preview_token  # type: str
-        # 是否已发布 true：已发布：false：未发布
         self.published = published  # type: bool
-        # 资源数
         self.source_num = source_num  # type: long
-        # 子场景数
+        self.status = status  # type: str
+        self.status_name = status_name  # type: str
         self.sub_scene_num = sub_scene_num  # type: long
-        # 场景类型 3D模型：MODEL_3D  全景图片：PIC  全景视频：VIDEO
         self.type = type  # type: str
 
     def validate(self):
@@ -5775,6 +5651,10 @@ class ListSceneResponseBodyList(TeaModel):
             result['Published'] = self.published
         if self.source_num is not None:
             result['SourceNum'] = self.source_num
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_name is not None:
+            result['StatusName'] = self.status_name
         if self.sub_scene_num is not None:
             result['SubSceneNum'] = self.sub_scene_num
         if self.type is not None:
@@ -5799,6 +5679,10 @@ class ListSceneResponseBodyList(TeaModel):
             self.published = m.get('Published')
         if m.get('SourceNum') is not None:
             self.source_num = m.get('SourceNum')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusName') is not None:
+            self.status_name = m.get('StatusName')
         if m.get('SubSceneNum') is not None:
             self.sub_scene_num = m.get('SubSceneNum')
         if m.get('Type') is not None:
@@ -5809,23 +5693,14 @@ class ListSceneResponseBodyList(TeaModel):
 class ListSceneResponseBody(TeaModel):
     def __init__(self, code=None, count=None, current_page=None, has_next=None, list=None, message=None,
                  request_id=None, success=None, total_page=None):
-        # 返回码
         self.code = code  # type: long
-        # 数据总数
         self.count = count  # type: long
-        # 当前页
         self.current_page = current_page  # type: long
-        # 是否有下一页
         self.has_next = has_next  # type: bool
-        # 主场景数据
         self.list = list  # type: list[ListSceneResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 总页数
         self.total_page = total_page  # type: long
 
     def validate(self):
@@ -5929,14 +5804,10 @@ class ListSceneResponse(TeaModel):
 
 class ListSubSceneRequest(TeaModel):
     def __init__(self, page_num=None, page_size=None, scene_id=None, show_layout_data=None, sort_field=None):
-        # 页码
         self.page_num = page_num  # type: long
-        # 页长
         self.page_size = page_size  # type: long
-        # 场景ID
         self.scene_id = scene_id  # type: str
         self.show_layout_data = show_layout_data  # type: bool
-        # 排序字段，默认：NAME（名称），SEQUENCE（自定义排序）
         self.sort_field = sort_field  # type: str
 
     def validate(self):
@@ -5979,35 +5850,20 @@ class ListSubSceneResponseBodyList(TeaModel):
     def __init__(self, base_image_url=None, cover_url=None, cubemap_path=None, deleted=None, gmt_create=None,
                  gmt_modified=None, id=None, layout_data=None, name=None, origin_url=None, resource_id=None, resource_name=None,
                  status=None, type=None, url=None):
-        # 2k基准图路径
         self.base_image_url = base_image_url  # type: str
-        # 图片路径/视频封面路径
         self.cover_url = cover_url  # type: str
-        # 切图的路径
         self.cubemap_path = cubemap_path  # type: str
-        # 是否删除
         self.deleted = deleted  # type: bool
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 子场景ID
         self.id = id  # type: str
-        # 标注数据
         self.layout_data = layout_data  # type: str
-        # 子场景名称
         self.name = name  # type: str
-        # 原图地址
         self.origin_url = origin_url  # type: str
-        # 图片ID/视频ID
         self.resource_id = resource_id  # type: str
-        # 资源名称
         self.resource_name = resource_name  # type: str
-        # 子场景状态 1.未重建，      * 2.中间模型重建中，      * 3.中间模型重建完成，      * 4.待重建，      * 5.服务商重建中，      * 6.服务商重建完成，      * 7.已发布      * 8.发布中
         self.status = status  # type: long
-        # 上传资源类型
         self.type = type  # type: str
-        # 图片路径/视频路径
         self.url = url  # type: str
 
     def validate(self):
@@ -6089,23 +5945,14 @@ class ListSubSceneResponseBodyList(TeaModel):
 class ListSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, count=None, current_page=None, has_next=None, list=None, message=None,
                  request_id=None, success=None, total_page=None):
-        # 返回码
         self.code = code  # type: long
-        # 数据总条数
         self.count = count  # type: long
-        # 当前页
         self.current_page = current_page  # type: long
-        # 是否有下一页
         self.has_next = has_next  # type: bool
-        # 子场景列表集
         self.list = list  # type: list[ListSubSceneResponseBodyList]
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 总页数
         self.total_page = total_page  # type: long
 
     def validate(self):
@@ -6209,7 +6056,6 @@ class ListSubSceneResponse(TeaModel):
 
 class OptimizeRightAngleRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -6234,15 +6080,10 @@ class OptimizeRightAngleRequest(TeaModel):
 
 class OptimizeRightAngleResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6322,9 +6163,7 @@ class OptimizeRightAngleResponse(TeaModel):
 
 class PackSceneRequest(TeaModel):
     def __init__(self, scene_id=None, type=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 操作类型：download（下载），sync（同步）
         self.type = type  # type: str
 
     def validate(self):
@@ -6353,7 +6192,6 @@ class PackSceneRequest(TeaModel):
 
 class PackSceneResponseBodyData(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6378,14 +6216,10 @@ class PackSceneResponseBodyData(TeaModel):
 
 class PackSceneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: PackSceneResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -6467,7 +6301,6 @@ class PackSceneResponse(TeaModel):
 
 class PackSourceRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -6492,7 +6325,6 @@ class PackSourceRequest(TeaModel):
 
 class PackSourceResponseBodyData(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6517,14 +6349,10 @@ class PackSourceResponseBodyData(TeaModel):
 
 class PackSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
         self.data = data  # type: PackSourceResponseBodyData
-        # 错误消息
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -6606,13 +6434,9 @@ class PackSourceResponse(TeaModel):
 
 class PredImageRequest(TeaModel):
     def __init__(self, correct_vertical=None, count_detect_door=None, detect_door=None, sub_scene_id=None):
-        # 是否垂直矫正
         self.correct_vertical = correct_vertical  # type: bool
-        # 门数量(DetectDoor为false时，可为0)
         self.count_detect_door = count_detect_door  # type: long
-        # 是否门预测
         self.detect_door = detect_door  # type: bool
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -6649,15 +6473,10 @@ class PredImageRequest(TeaModel):
 
 class PredImageResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6737,9 +6556,7 @@ class PredImageResponse(TeaModel):
 
 class PredictionWallLineRequest(TeaModel):
     def __init__(self, camera_height=None, url=None):
-        # 相机高度 单位 cm
         self.camera_height = camera_height  # type: long
-        # 图片地址
         self.url = url  # type: str
 
     def validate(self):
@@ -6768,17 +6585,11 @@ class PredictionWallLineRequest(TeaModel):
 
 class PredictionWallLineResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, sub_scene_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6967,9 +6778,110 @@ class PublishHotspotResponse(TeaModel):
         return self
 
 
+class PublishHotspotConfigRequest(TeaModel):
+    def __init__(self, scene_id=None):
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PublishHotspotConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class PublishHotspotConfigResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PublishHotspotConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class PublishHotspotConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PublishHotspotConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PublishHotspotConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PublishHotspotConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PublishSceneRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -6994,15 +6906,10 @@ class PublishSceneRequest(TeaModel):
 
 class PublishSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, preview_url=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 预览链接
         self.preview_url = preview_url  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -7082,7 +6989,6 @@ class PublishSceneResponse(TeaModel):
 
 class PublishStatusRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -7107,17 +7013,11 @@ class PublishStatusRequest(TeaModel):
 
 class PublishStatusResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, status=None, success=None, sync_status=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 任务运行状态
         self.status = status  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 文件同步状态
         self.sync_status = sync_status  # type: str
 
     def validate(self):
@@ -7201,7 +7101,6 @@ class PublishStatusResponse(TeaModel):
 
 class RecoveryOriginImageRequest(TeaModel):
     def __init__(self, sub_scene_id=None):
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -7226,13 +7125,9 @@ class RecoveryOriginImageRequest(TeaModel):
 
 class RecoveryOriginImageResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -7308,13 +7203,9 @@ class RecoveryOriginImageResponse(TeaModel):
 
 class RectVerticalRequest(TeaModel):
     def __init__(self, count_detect_door=None, detect_door=None, sub_scene_id=None, vertical_rect=None):
-        # 需要预测的门的数量
         self.count_detect_door = count_detect_door  # type: int
-        # 是否开启门预测
         self.detect_door = detect_door  # type: bool
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
-        # 矫正数据
         self.vertical_rect = vertical_rect  # type: str
 
     def validate(self):
@@ -7351,15 +7242,10 @@ class RectVerticalRequest(TeaModel):
 
 class RectVerticalResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 错误消息
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -7439,9 +7325,7 @@ class RectVerticalResponse(TeaModel):
 
 class RectifyImageRequest(TeaModel):
     def __init__(self, camera_height=None, url=None):
-        # 相机高度 单位 cm
         self.camera_height = camera_height  # type: long
-        # 图片地址
         self.url = url  # type: str
 
     def validate(self):
@@ -7470,17 +7354,11 @@ class RectifyImageRequest(TeaModel):
 
 class RectifyImageResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, sub_scene_id=None, success=None, task_id=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -7564,7 +7442,6 @@ class RectifyImageResponse(TeaModel):
 
 class RollbackSubSceneRequest(TeaModel):
     def __init__(self, id=None):
-        # 子场景ID
         self.id = id  # type: str
 
     def validate(self):
@@ -7589,13 +7466,9 @@ class RollbackSubSceneRequest(TeaModel):
 
 class RollbackSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -7873,9 +7746,222 @@ class SaveHotspotTagResponse(TeaModel):
         return self
 
 
+class SaveHotspotTagListRequest(TeaModel):
+    def __init__(self, hotspot_list_json=None, scene_id=None):
+        self.hotspot_list_json = hotspot_list_json  # type: str
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveHotspotTagListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotspot_list_json is not None:
+            result['HotspotListJson'] = self.hotspot_list_json
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HotspotListJson') is not None:
+            self.hotspot_list_json = m.get('HotspotListJson')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class SaveHotspotTagListResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveHotspotTagListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SaveHotspotTagListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SaveHotspotTagListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SaveHotspotTagListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SaveHotspotTagListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SaveModelConfigRequest(TeaModel):
+    def __init__(self, data=None, scene_id=None):
+        self.data = data  # type: str
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveModelConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class SaveModelConfigResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveModelConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SaveModelConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SaveModelConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SaveModelConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SaveModelConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ScenePublishRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -7900,15 +7986,10 @@ class ScenePublishRequest(TeaModel):
 
 class ScenePublishResponseBody(TeaModel):
     def __init__(self, code=None, message=None, preview_url=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 预览链接
         self.preview_url = preview_url  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -7988,7 +8069,6 @@ class ScenePublishResponse(TeaModel):
 
 class TempPreviewRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -8013,17 +8093,11 @@ class TempPreviewRequest(TeaModel):
 
 class TempPreviewResponseBody(TeaModel):
     def __init__(self, code=None, message=None, preview_url=None, request_id=None, scene_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 预览链接
         self.preview_url = preview_url  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8107,7 +8181,6 @@ class TempPreviewResponse(TeaModel):
 
 class TempPreviewStatusRequest(TeaModel):
     def __init__(self, scene_id=None):
-        # 任务ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -8132,15 +8205,10 @@ class TempPreviewStatusRequest(TeaModel):
 
 class TempPreviewStatusResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, status=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 状态标识
         self.status = status  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8220,9 +8288,7 @@ class TempPreviewStatusResponse(TeaModel):
 
 class UpdateConnDataRequest(TeaModel):
     def __init__(self, conn_data=None, scene_id=None):
-        # 关联数据
         self.conn_data = conn_data  # type: str
-        # 场景ID
         self.scene_id = scene_id  # type: str
 
     def validate(self):
@@ -8251,13 +8317,9 @@ class UpdateConnDataRequest(TeaModel):
 
 class UpdateConnDataResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8333,9 +8395,7 @@ class UpdateConnDataResponse(TeaModel):
 
 class UpdateLayoutDataRequest(TeaModel):
     def __init__(self, layout_data=None, sub_scene_id=None):
-        # 标注数据
         self.layout_data = layout_data  # type: str
-        # 子场景ID
         self.sub_scene_id = sub_scene_id  # type: str
 
     def validate(self):
@@ -8364,13 +8424,9 @@ class UpdateLayoutDataRequest(TeaModel):
 
 class UpdateLayoutDataResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8446,11 +8502,8 @@ class UpdateLayoutDataResponse(TeaModel):
 
 class UpdateProjectRequest(TeaModel):
     def __init__(self, business_id=None, id=None, name=None):
-        # 业务Id
         self.business_id = business_id  # type: str
-        # 项目id
         self.id = id  # type: str
-        # 项目名称
         self.name = name  # type: str
 
     def validate(self):
@@ -8483,13 +8536,9 @@ class UpdateProjectRequest(TeaModel):
 
 class UpdateProjectResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8565,9 +8614,7 @@ class UpdateProjectResponse(TeaModel):
 
 class UpdateSceneRequest(TeaModel):
     def __init__(self, id=None, name=None):
-        # 场景Id
         self.id = id  # type: str
-        # 场景名称
         self.name = name  # type: str
 
     def validate(self):
@@ -8596,13 +8643,9 @@ class UpdateSceneRequest(TeaModel):
 
 class UpdateSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8678,11 +8721,8 @@ class UpdateSceneResponse(TeaModel):
 
 class UpdateSubSceneRequest(TeaModel):
     def __init__(self, id=None, name=None, view_point=None):
-        # 子场景ID
         self.id = id  # type: str
-        # 子场景名称
         self.name = name  # type: str
-        # 视角坐标，目前支持3元坐标，4元坐标，例如：[0.94005,0.13397,-0.3136,0.782992]
         self.view_point = view_point  # type: list[float]
 
     def validate(self):
@@ -8715,11 +8755,8 @@ class UpdateSubSceneRequest(TeaModel):
 
 class UpdateSubSceneShrinkRequest(TeaModel):
     def __init__(self, id=None, name=None, view_point_shrink=None):
-        # 子场景ID
         self.id = id  # type: str
-        # 子场景名称
         self.name = name  # type: str
-        # 视角坐标，目前支持3元坐标，4元坐标，例如：[0.94005,0.13397,-0.3136,0.782992]
         self.view_point_shrink = view_point_shrink  # type: str
 
     def validate(self):
@@ -8752,13 +8789,9 @@ class UpdateSubSceneShrinkRequest(TeaModel):
 
 class UpdateSubSceneResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -8834,7 +8867,6 @@ class UpdateSubSceneResponse(TeaModel):
 
 class UpdateSubSceneSeqRequest(TeaModel):
     def __init__(self, scene_id=None, sort_sub_scene_ids=None):
-        # 子场景ID
         self.scene_id = scene_id  # type: str
         self.sort_sub_scene_ids = sort_sub_scene_ids  # type: list[str]
 
@@ -8864,7 +8896,6 @@ class UpdateSubSceneSeqRequest(TeaModel):
 
 class UpdateSubSceneSeqShrinkRequest(TeaModel):
     def __init__(self, scene_id=None, sort_sub_scene_ids_shrink=None):
-        # 子场景ID
         self.scene_id = scene_id  # type: str
         self.sort_sub_scene_ids_shrink = sort_sub_scene_ids_shrink  # type: str
 
@@ -8894,13 +8925,9 @@ class UpdateSubSceneSeqShrinkRequest(TeaModel):
 
 class UpdateSubSceneSeqResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # 返回码
         self.code = code  # type: long
-        # 错误消息
         self.message = message  # type: str
-        # 请求ID，与入参requestId对应
         self.request_id = request_id  # type: str
-        # 是否请求成功
         self.success = success  # type: bool
 
     def validate(self):

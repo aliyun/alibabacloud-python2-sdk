@@ -248,6 +248,8 @@ class Client(OpenApiClient):
     def copy_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         if not UtilClient.is_unset(request.scene_id):
             query['SceneId'] = request.scene_id
         if not UtilClient.is_unset(request.scene_name):
@@ -274,6 +276,36 @@ class Client(OpenApiClient):
     def copy_scene(self, request):
         runtime = util_models.RuntimeOptions()
         return self.copy_scene_with_options(request, runtime)
+
+    def create_upload_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.option):
+            query['Option'] = request.option
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateUploadPolicy',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.CreateUploadPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_upload_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_upload_policy_with_options(request, runtime)
 
     def detail_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -870,6 +902,8 @@ class Client(OpenApiClient):
     def get_scene_preview_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.draft):
+            query['Draft'] = request.draft
         if not UtilClient.is_unset(request.preview_token):
             query['PreviewToken'] = request.preview_token
         req = open_api_models.OpenApiRequest(
@@ -1389,6 +1423,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.publish_hotspot_with_options(request, runtime)
 
+    def publish_hotspot_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PublishHotspotConfig',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.PublishHotspotConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def publish_hotspot_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.publish_hotspot_config_with_options(request, runtime)
+
     def publish_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1624,6 +1686,66 @@ class Client(OpenApiClient):
     def save_hotspot_tag(self, request):
         runtime = util_models.RuntimeOptions()
         return self.save_hotspot_tag_with_options(request, runtime)
+
+    def save_hotspot_tag_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.hotspot_list_json):
+            query['HotspotListJson'] = request.hotspot_list_json
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SaveHotspotTagList',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.SaveHotspotTagListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def save_hotspot_tag_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.save_hotspot_tag_list_with_options(request, runtime)
+
+    def save_model_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data):
+            query['Data'] = request.data
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SaveModelConfig',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.SaveModelConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def save_model_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.save_model_config_with_options(request, runtime)
 
     def scene_publish_with_options(self, request, runtime):
         UtilClient.validate_model(request)
