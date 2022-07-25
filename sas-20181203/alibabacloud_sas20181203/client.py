@@ -5063,6 +5063,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_backup_storage_count_with_options(runtime)
 
+    def get_check_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_id):
+            query['CheckId'] = request.check_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCheckDetail',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetCheckDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_check_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_check_detail_with_options(request, runtime)
+
     def get_file_detect_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5338,6 +5368,52 @@ class Client(OpenApiClient):
     def install_cloud_monitor(self, request):
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
+
+    def list_check_instance_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_id):
+            query['CheckId'] = request.check_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.instance_id_key):
+            query['InstanceIdKey'] = request.instance_id_key
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.instance_name_key):
+            query['InstanceNameKey'] = request.instance_name_key
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id_key):
+            query['RegionIdKey'] = request.region_id_key
+        if not UtilClient.is_unset(request.sort_types):
+            query['SortTypes'] = request.sort_types
+        if not UtilClient.is_unset(request.statuses):
+            query['Statuses'] = request.statuses
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCheckInstanceResult',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCheckInstanceResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_check_instance_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_check_instance_result_with_options(request, runtime)
 
     def list_check_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)

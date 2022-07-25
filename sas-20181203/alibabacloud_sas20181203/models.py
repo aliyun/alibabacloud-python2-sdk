@@ -27748,6 +27748,223 @@ class GetBackupStorageCountResponse(TeaModel):
         return self
 
 
+class GetCheckDetailRequest(TeaModel):
+    def __init__(self, check_id=None, lang=None):
+        self.check_id = check_id  # type: long
+        self.lang = lang  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        return self
+
+
+class GetCheckDetailResponseBodyAssistInfo(TeaModel):
+    def __init__(self, link=None, type=None, value=None):
+        self.link = link  # type: str
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponseBodyAssistInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.link is not None:
+            result['Link'] = self.link
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Link') is not None:
+            self.link = m.get('Link')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class GetCheckDetailResponseBodyDescription(TeaModel):
+    def __init__(self, link=None, type=None, value=None):
+        self.link = link  # type: str
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponseBodyDescription, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.link is not None:
+            result['Link'] = self.link
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Link') is not None:
+            self.link = m.get('Link')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class GetCheckDetailResponseBodySolution(TeaModel):
+    def __init__(self, link=None, type=None, value=None):
+        self.link = link  # type: str
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponseBodySolution, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.link is not None:
+            result['Link'] = self.link
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Link') is not None:
+            self.link = m.get('Link')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class GetCheckDetailResponseBody(TeaModel):
+    def __init__(self, assist_info=None, description=None, request_id=None, solution=None):
+        self.assist_info = assist_info  # type: GetCheckDetailResponseBodyAssistInfo
+        self.description = description  # type: GetCheckDetailResponseBodyDescription
+        self.request_id = request_id  # type: str
+        self.solution = solution  # type: GetCheckDetailResponseBodySolution
+
+    def validate(self):
+        if self.assist_info:
+            self.assist_info.validate()
+        if self.description:
+            self.description.validate()
+        if self.solution:
+            self.solution.validate()
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assist_info is not None:
+            result['AssistInfo'] = self.assist_info.to_map()
+        if self.description is not None:
+            result['Description'] = self.description.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.solution is not None:
+            result['Solution'] = self.solution.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AssistInfo') is not None:
+            temp_model = GetCheckDetailResponseBodyAssistInfo()
+            self.assist_info = temp_model.from_map(m['AssistInfo'])
+        if m.get('Description') is not None:
+            temp_model = GetCheckDetailResponseBodyDescription()
+            self.description = temp_model.from_map(m['Description'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Solution') is not None:
+            temp_model = GetCheckDetailResponseBodySolution()
+            self.solution = temp_model.from_map(m['Solution'])
+        return self
+
+
+class GetCheckDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCheckDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCheckDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetFileDetectResultRequest(TeaModel):
     def __init__(self, hash_key_list=None, source_ip=None, type=None):
         self.hash_key_list = hash_key_list  # type: list[str]
@@ -28748,6 +28965,358 @@ class InstallCloudMonitorResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = InstallCloudMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCheckInstanceResultRequest(TeaModel):
+    def __init__(self, check_id=None, current_page=None, instance_id_key=None, instance_ids=None,
+                 instance_name_key=None, lang=None, page_size=None, region_id_key=None, sort_types=None, statuses=None):
+        self.check_id = check_id  # type: long
+        self.current_page = current_page  # type: int
+        self.instance_id_key = instance_id_key  # type: str
+        self.instance_ids = instance_ids  # type: list[str]
+        self.instance_name_key = instance_name_key  # type: str
+        self.lang = lang  # type: str
+        self.page_size = page_size  # type: int
+        self.region_id_key = region_id_key  # type: str
+        self.sort_types = sort_types  # type: list[str]
+        self.statuses = statuses  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.instance_id_key is not None:
+            result['InstanceIdKey'] = self.instance_id_key
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.instance_name_key is not None:
+            result['InstanceNameKey'] = self.instance_name_key
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id_key is not None:
+            result['RegionIdKey'] = self.region_id_key
+        if self.sort_types is not None:
+            result['SortTypes'] = self.sort_types
+        if self.statuses is not None:
+            result['Statuses'] = self.statuses
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('InstanceIdKey') is not None:
+            self.instance_id_key = m.get('InstanceIdKey')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('InstanceNameKey') is not None:
+            self.instance_name_key = m.get('InstanceNameKey')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionIdKey') is not None:
+            self.region_id_key = m.get('RegionIdKey')
+        if m.get('SortTypes') is not None:
+            self.sort_types = m.get('SortTypes')
+        if m.get('Statuses') is not None:
+            self.statuses = m.get('Statuses')
+        return self
+
+
+class ListCheckInstanceResultResponseBodyBasicData(TeaModel):
+    def __init__(self, id=None, instance_id=None, instance_name=None, region_id=None, status=None):
+        self.id = id  # type: long
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponseBodyBasicData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListCheckInstanceResultResponseBodyColumnsGrids(TeaModel):
+    def __init__(self, key=None, show_name=None, type=None):
+        self.key = key  # type: str
+        self.show_name = show_name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponseBodyColumnsGrids, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.show_name is not None:
+            result['ShowName'] = self.show_name
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('ShowName') is not None:
+            self.show_name = m.get('ShowName')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListCheckInstanceResultResponseBodyColumns(TeaModel):
+    def __init__(self, grids=None, key=None, search=None, search_key=None, show_name=None, type=None):
+        self.grids = grids  # type: list[ListCheckInstanceResultResponseBodyColumnsGrids]
+        self.key = key  # type: str
+        self.search = search  # type: bool
+        self.search_key = search_key  # type: str
+        self.show_name = show_name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.grids:
+            for k in self.grids:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponseBodyColumns, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Grids'] = []
+        if self.grids is not None:
+            for k in self.grids:
+                result['Grids'].append(k.to_map() if k else None)
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.search is not None:
+            result['Search'] = self.search
+        if self.search_key is not None:
+            result['SearchKey'] = self.search_key
+        if self.show_name is not None:
+            result['ShowName'] = self.show_name
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.grids = []
+        if m.get('Grids') is not None:
+            for k in m.get('Grids'):
+                temp_model = ListCheckInstanceResultResponseBodyColumnsGrids()
+                self.grids.append(temp_model.from_map(k))
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Search') is not None:
+            self.search = m.get('Search')
+        if m.get('SearchKey') is not None:
+            self.search_key = m.get('SearchKey')
+        if m.get('ShowName') is not None:
+            self.show_name = m.get('ShowName')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListCheckInstanceResultResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: str
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListCheckInstanceResultResponseBody(TeaModel):
+    def __init__(self, basic_data=None, checks=None, columns=None, page_info=None, request_id=None, total_count=None):
+        self.basic_data = basic_data  # type: list[ListCheckInstanceResultResponseBodyBasicData]
+        self.checks = checks  # type: dict[str, any]
+        self.columns = columns  # type: list[ListCheckInstanceResultResponseBodyColumns]
+        self.page_info = page_info  # type: ListCheckInstanceResultResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.basic_data:
+            for k in self.basic_data:
+                if k:
+                    k.validate()
+        if self.columns:
+            for k in self.columns:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BasicData'] = []
+        if self.basic_data is not None:
+            for k in self.basic_data:
+                result['BasicData'].append(k.to_map() if k else None)
+        if self.checks is not None:
+            result['Checks'] = self.checks
+        result['Columns'] = []
+        if self.columns is not None:
+            for k in self.columns:
+                result['Columns'].append(k.to_map() if k else None)
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.basic_data = []
+        if m.get('BasicData') is not None:
+            for k in m.get('BasicData'):
+                temp_model = ListCheckInstanceResultResponseBodyBasicData()
+                self.basic_data.append(temp_model.from_map(k))
+        if m.get('Checks') is not None:
+            self.checks = m.get('Checks')
+        self.columns = []
+        if m.get('Columns') is not None:
+            for k in m.get('Columns'):
+                temp_model = ListCheckInstanceResultResponseBodyColumns()
+                self.columns.append(temp_model.from_map(k))
+        if m.get('PageInfo') is not None:
+            temp_model = ListCheckInstanceResultResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListCheckInstanceResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCheckInstanceResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCheckInstanceResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCheckInstanceResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
