@@ -32,92 +32,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_code_source(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_code_source_with_options(request, headers, runtime)
-
-    def create_code_source_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.code_branch):
-            body['CodeBranch'] = request.code_branch
-        if not UtilClient.is_unset(request.code_repo):
-            body['CodeRepo'] = request.code_repo
-        if not UtilClient.is_unset(request.code_repo_access_token):
-            body['CodeRepoAccessToken'] = request.code_repo_access_token
-        if not UtilClient.is_unset(request.code_repo_user_name):
-            body['CodeRepoUserName'] = request.code_repo_user_name
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.display_name):
-            body['DisplayName'] = request.display_name
-        if not UtilClient.is_unset(request.mount_path):
-            body['MountPath'] = request.mount_path
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreateCodeSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/codesources',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.CreateCodeSourceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_data_source(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_data_source_with_options(request, headers, runtime)
-
-    def create_data_source_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.data_source_type):
-            body['DataSourceType'] = request.data_source_type
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.display_name):
-            body['DisplayName'] = request.display_name
-        if not UtilClient.is_unset(request.endpoint):
-            body['Endpoint'] = request.endpoint
-        if not UtilClient.is_unset(request.file_system_id):
-            body['FileSystemId'] = request.file_system_id
-        if not UtilClient.is_unset(request.mount_path):
-            body['MountPath'] = request.mount_path
-        if not UtilClient.is_unset(request.options):
-            body['Options'] = request.options
-        if not UtilClient.is_unset(request.path):
-            body['Path'] = request.path
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreateDataSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/datasources',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.CreateDataSourceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def create_job(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -236,58 +150,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_code_source(self, code_source_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_code_source_with_options(code_source_id, headers, runtime)
-
-    def delete_code_source_with_options(self, code_source_id, headers, runtime):
-        code_source_id = OpenApiUtilClient.get_encode_param(code_source_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteCodeSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/codesources/%s' % TeaConverter.to_unicode(code_source_id),
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.DeleteCodeSourceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_data_source(self, data_source_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_data_source_with_options(data_source_id, headers, runtime)
-
-    def delete_data_source_with_options(self, data_source_id, headers, runtime):
-        data_source_id = OpenApiUtilClient.get_encode_param(data_source_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteDataSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/datasources/%s' % TeaConverter.to_unicode(data_source_id),
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.DeleteDataSourceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def delete_job(self, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -311,36 +173,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_dlc_20201203_models.DeleteJobResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_jobs(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_jobs_with_options(request, headers, runtime)
-
-    def delete_jobs_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.job_ids):
-            body['JobIds'] = request.job_ids
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DeleteJobs',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/batch/jobs/delete',
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.DeleteJobsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -372,58 +204,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_dlc_20201203_models.DeleteTensorboardResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_code_source(self, code_source_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_code_source_with_options(code_source_id, headers, runtime)
-
-    def get_code_source_with_options(self, code_source_id, headers, runtime):
-        code_source_id = OpenApiUtilClient.get_encode_param(code_source_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='GetCodeSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/codesources/%s' % TeaConverter.to_unicode(code_source_id),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.GetCodeSourceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_data_source(self, data_source_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_data_source_with_options(data_source_id, headers, runtime)
-
-    def get_data_source_with_options(self, data_source_id, headers, runtime):
-        data_source_id = OpenApiUtilClient.get_encode_param(data_source_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='GetDataSource',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/datasources/%s' % TeaConverter.to_unicode(data_source_id),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.GetDataSourceResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -638,84 +418,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_code_sources(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_code_sources_with_options(request, headers, runtime)
-
-    def list_code_sources_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.display_name):
-            query['DisplayName'] = request.display_name
-        if not UtilClient.is_unset(request.order):
-            query['Order'] = request.order
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.sort_by):
-            query['SortBy'] = request.sort_by
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListCodeSources',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/codesources',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.ListCodeSourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_data_sources(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_data_sources_with_options(request, headers, runtime)
-
-    def list_data_sources_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.data_source_type):
-            query['DataSourceType'] = request.data_source_type
-        if not UtilClient.is_unset(request.display_name):
-            query['DisplayName'] = request.display_name
-        if not UtilClient.is_unset(request.order):
-            query['Order'] = request.order
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.sort_by):
-            query['SortBy'] = request.sort_by
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListDataSources',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/datasources',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.ListDataSourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def list_ecs_specs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -751,46 +453,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_dlc_20201203_models.ListEcsSpecsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_images(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_images_with_options(request, headers, runtime)
-
-    def list_images_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.accelerator_type):
-            query['AcceleratorType'] = request.accelerator_type
-        if not UtilClient.is_unset(request.framework):
-            query['Framework'] = request.framework
-        if not UtilClient.is_unset(request.image_provider_type):
-            query['ImageProviderType'] = request.image_provider_type
-        if not UtilClient.is_unset(request.order):
-            query['Order'] = request.order
-        if not UtilClient.is_unset(request.sort_by):
-            query['SortBy'] = request.sort_by
-        if not UtilClient.is_unset(request.workspace_id):
-            query['WorkspaceId'] = request.workspace_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListImages',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/images',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.ListImagesResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -970,36 +632,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             pai_dlc_20201203_models.StopJobResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_jobs(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.stop_jobs_with_options(request, headers, runtime)
-
-    def stop_jobs_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.job_ids):
-            body['JobIds'] = request.job_ids
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='StopJobs',
-            version='2020-12-03',
-            protocol='HTTPS',
-            pathname='/api/v1/batch/jobs/stop',
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            pai_dlc_20201203_models.StopJobsResponse(),
             self.call_api(params, req, runtime)
         )
 
