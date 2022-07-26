@@ -26426,8 +26426,12 @@ class DescribeWarningExportInfoResponse(TeaModel):
 
 
 class DescribeWarningMachinesRequest(TeaModel):
-    def __init__(self, current_page=None, lang=None, machine_name=None, page_size=None, risk_id=None, source_ip=None,
-                 strategy_id=None, uuids=None):
+    def __init__(self, cluster_id=None, container_field_name=None, container_field_value=None, current_page=None,
+                 lang=None, machine_name=None, page_size=None, risk_id=None, source_ip=None, strategy_id=None,
+                 target_type=None, uuids=None):
+        self.cluster_id = cluster_id  # type: str
+        self.container_field_name = container_field_name  # type: str
+        self.container_field_value = container_field_value  # type: str
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
         self.machine_name = machine_name  # type: str
@@ -26435,6 +26439,7 @@ class DescribeWarningMachinesRequest(TeaModel):
         self.risk_id = risk_id  # type: long
         self.source_ip = source_ip  # type: str
         self.strategy_id = strategy_id  # type: long
+        self.target_type = target_type  # type: str
         self.uuids = uuids  # type: str
 
     def validate(self):
@@ -26446,6 +26451,12 @@ class DescribeWarningMachinesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.container_field_name is not None:
+            result['ContainerFieldName'] = self.container_field_name
+        if self.container_field_value is not None:
+            result['ContainerFieldValue'] = self.container_field_value
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.lang is not None:
@@ -26460,12 +26471,20 @@ class DescribeWarningMachinesRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.strategy_id is not None:
             result['StrategyId'] = self.strategy_id
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
         if self.uuids is not None:
             result['Uuids'] = self.uuids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ContainerFieldName') is not None:
+            self.container_field_name = m.get('ContainerFieldName')
+        if m.get('ContainerFieldValue') is not None:
+            self.container_field_value = m.get('ContainerFieldValue')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('Lang') is not None:
@@ -26480,6 +26499,8 @@ class DescribeWarningMachinesRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('StrategyId') is not None:
             self.strategy_id = m.get('StrategyId')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
         if m.get('Uuids') is not None:
             self.uuids = m.get('Uuids')
         return self
