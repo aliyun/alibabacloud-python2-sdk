@@ -6,27 +6,16 @@ from Tea.model import TeaModel
 class BucketInfo(TeaModel):
     def __init__(self, bucket_acl=None, bucket_name=None, comment=None, create_time=None, data_redundancy_type=None,
                  dispatcher_type=None, endpoint=None, ens_region_id=None, modify_time=None, resource_type=None, storage_class=None):
-        # Bucket读写权限类型： public-read-write：公共读写 public-read：公共读 private：私有（默认值）
         self.bucket_acl = bucket_acl  # type: str
-        # Bucket名称。 3~50 个字符，只允许小写字母、数字、短横线（-），且不能以短横线开头或结尾。
         self.bucket_name = bucket_name  # type: str
-        # 备注。 1-128个字符或汉字，UTF-8编码。
         self.comment = comment  # type: str
-        # Bucket创建时间。 （格式：yyyy-mm-ddThh:mm:ss.timezone, 例如 2011-12-01T12:27:13.000Z）
         self.create_time = create_time  # type: str
-        # 指定Bucket的数据容灾类型。 取值范围： LRS（默认值）。本地冗余LRS ZRS 同城冗余ZRS采用多可用区（AZ）机制。
         self.data_redundancy_type = data_redundancy_type  # type: str
-        # Bucket的调度类型： node：节点(同城) area：区域(多城市) global：全局(全国)
         self.dispatcher_type = dispatcher_type  # type: str
-        # 访问域名，边缘存储取值： eos.aliyuncs.com
         self.endpoint = endpoint  # type: str
-        # 节点区域id，如果为空表示全局
         self.ens_region_id = ens_region_id  # type: str
-        # Bucket修改时间。 （格式：yyyy-mm-ddThh:mm:ss.timezone, 例如 2011-12-01T12:27:13.000Z）
         self.modify_time = modify_time  # type: str
-        # 指定Bucket的资源类型。 取值范围： general：通用 national-network：国网
         self.resource_type = resource_type  # type: str
-        # Bucket存储类型，支持Standard
         self.storage_class = storage_class  # type: str
 
     def validate(self):
@@ -91,7 +80,6 @@ class BucketInfo(TeaModel):
 
 class DataDisk(TeaModel):
     def __init__(self, size=None):
-        # 数据盘
         self.size = size  # type: long
 
     def validate(self):
@@ -119,29 +107,17 @@ class HealthCheck(TeaModel):
                  health_check_domain=None, health_check_http_code=None, health_check_interval=None, health_check_method=None,
                  health_check_timeout=None, health_check_type=None, health_check_uri=None, healthy_threshold=None,
                  unhealthy_threshold=None):
-        # 是否开启健康检查。  取值：on | off。
         self.health_check = health_check  # type: str
-        # 健康检查的后端服务器的端口。  取值： 1~65535。    说明 在HealthCheck值为on时才会有效。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 每次健康检查响应的最大超时时间。  取值：1~300（秒）。  默认值：5。
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # 用于健康检查的域名，取值：  $_ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。是否要支持？ domain：域名长度为1-80字符，只能包含字母、数字、点号（.）和连字符（-）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号分隔。  默认值为http_2xx。  取值：http_2xx | http_3xx | http_4xx | http_5xx。   说明 在HealthCheck值为on时才会有效。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值： 1~50（秒）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_interval = health_check_interval  # type: int
-        # 健康检查的method
         self.health_check_method = health_check_method  # type: str
-        # 接收来自运行状况检查的响应需要等待的时间。如果后端ECS在指定的时间内没有正确响应，则判定为健康检查失败。在HealthCheck值为on时才会有效。  取值：1~300（秒）。   说明 如果HealthCHeckTimeout的值小于HealthCheckInterval的值，则HealthCHeckTimeout无效，超时时间为HealthCheckInterval的值。
         self.health_check_timeout = health_check_timeout  # type: int
-        # 健康检查类型。  取值：tcp（默认值） | http。
         self.health_check_type = health_check_type  # type: str
-        # 用于健康检查的URI。  长度限制为1~80，只能使用字母、数字和”-/.%?#&amp;“这些字符。 URL不能只为”/“，但必须以”/“开头。    说明 在HealthCheck值为on时才会有效。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2~10。    说明 在HealthCheck值为on时才会有效。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。   说明 在HealthCheck值为on时才会有效。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -211,23 +187,14 @@ class HealthCheck(TeaModel):
 class HttpConfig(TeaModel):
     def __init__(self, cookie=None, cookie_timeout=None, idle_timeout=None, request_timeout=None, scheduler=None,
                  server_certificate_id=None, sticky_session=None, sticky_session_type=None, xforwarded_for=None):
-        # 服务器上配置的Cookie。 长度为1-200，只能包含ASCII英文字母和数字字符，不能包含逗号、分号或空格，也不能以$开头。 说明 当StickySession为on且StickySessionType为server时，该参数必选。
         self.cookie = cookie  # type: str
-        # Cookie超时时间。  取值：1~86400（秒）。   说明 当StickySession为on且StickySessionType为insert时，该参数必选。
         self.cookie_timeout = cookie_timeout  # type: int
-        # 指定连接空闲超时时间，取值范围为1~60秒，默认值为15秒。  在超时时间内一直没有访问请求，负载均衡会暂时中断当前连接，直到一下次请求来临时重新建立新的连接。
         self.idle_timeout = idle_timeout  # type: int
-        # 指定请求超时时间，取值范围为1~180秒，默认值为60秒。  在超时时间内后端服务器一直没有响应，负载均衡将放弃等待，给客户端返回 HTTP 504 错误码。
         self.request_timeout = request_timeout  # type: int
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。
         self.scheduler = scheduler  # type: str
-        # 服务器证书的ID。
         self.server_certificate_id = server_certificate_id  # type: str
-        # 是否开启会话保持。  取值：on | off。
         self.sticky_session = sticky_session  # type: str
-        # cookie的处理方式。取值：  insert：植入Cookie。  客户端第一次访问时，负载均衡会在返回请求中植入Cookie（即在HTTP/HTTPS响应报文中插入SERVERID），下次客户端携带此Cookie访问，负载均衡服务会将请求定向转发给之前记录到的后端服务器上。  server：重写Cookie。  负载均衡发现用户自定义了Cookie，将会对原来的Cookie进行重写，下次客户端携带新的Cookie访问，负载均衡服务会将请求定向转发给之前记录到的后端服务器。   说明 当StickySession的值为on时，必须指定该参数。
         self.sticky_session_type = sticky_session_type  # type: str
-        # 是否开启通过X-Forwarded-For头字段获取来访者真实 IP。  取值为on。
         self.xforwarded_for = xforwarded_for  # type: str
 
     def validate(self):
@@ -285,23 +252,14 @@ class HttpConfig(TeaModel):
 class SecurityGroupRule(TeaModel):
     def __init__(self, description=None, dest_cidr_ip=None, direction=None, ip_protocol=None, policy=None,
                  port_range=None, source_cidr_ip=None, source_port_range=None, priority=None):
-        # 描述
         self.description = description  # type: str
-        # 目标网段
         self.dest_cidr_ip = dest_cidr_ip  # type: str
-        # 方向
         self.direction = direction  # type: str
-        # 协议
         self.ip_protocol = ip_protocol  # type: str
-        # 授权策略
         self.policy = policy  # type: str
-        # 目的端口
         self.port_range = port_range  # type: str
-        # 源网段
         self.source_cidr_ip = source_cidr_ip  # type: str
-        # 源端口
         self.source_port_range = source_port_range  # type: str
-        # 优先级
         self.priority = priority  # type: int
 
     def validate(self):
@@ -358,11 +316,8 @@ class SecurityGroupRule(TeaModel):
 
 class TcpConfig(TeaModel):
     def __init__(self, established_timeout=None, persistence_timeout=None, scheduler=None):
-        # 连接超时时间。取值：10~900（秒）。
         self.established_timeout = established_timeout  # type: int
-        # 会话保持的超时时间。取值：0~3600（秒）。默认值：0，表示关闭会话保持。
         self.persistence_timeout = persistence_timeout  # type: int
-        # 调度算法。取值：wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。rr：按照访问顺序依次将外部请求依序分发到后端服务器。sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
 
     def validate(self):
@@ -396,15 +351,10 @@ class TcpConfig(TeaModel):
 class UdpCheck(TeaModel):
     def __init__(self, health_check_connect_port=None, health_check_connect_timeout=None,
                  health_check_interval=None, healthy_threshold=None, unhealthy_threshold=None):
-        # 健康检查使用的端口。取值：1-65535  不设置此参数时，表示使用后端服务端口（BackendServerPort）。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 接收来自运行状况检查的响应需要等待的时间。  如果后端ENS在指定的时间内没有正确响应，则判定为健康检查失败。  取值：1-300（秒）。默认为5秒
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # 健康检查的时间间隔。  取值：1-50（秒）。
         self.health_check_interval = health_check_interval  # type: int
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2-10。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2-10。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -445,9 +395,7 @@ class UdpCheck(TeaModel):
 
 class UdpConfig(TeaModel):
     def __init__(self, hash_key=None, scheduler=None):
-        # hash key
         self.hash_key = hash_key  # type: str
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。 sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
 
     def validate(self):
@@ -477,12 +425,9 @@ class UdpConfig(TeaModel):
 class AddBackendServersRequestBackendServers(TeaModel):
     def __init__(self, ip=None, port=None, server_id=None, type=None, weight=None):
         self.ip = ip  # type: str
-        # 端口
         self.port = port  # type: int
         self.server_id = server_id  # type: str
-        # 后端服务器类型。  ens：ENS实例（默认）
         self.type = type  # type: str
-        # 后端服务器的权重。  取值：0~100  默认值为100，如果值为0，则不会将请求转发给该后端服务器。
         self.weight = weight  # type: int
 
     def validate(self):
@@ -666,7 +611,6 @@ class AddBackendServersResponseBodyBackendServers(TeaModel):
 class AddBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None):
         self.backend_servers = backend_servers  # type: AddBackendServersResponseBodyBackendServers
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -738,7 +682,6 @@ class AddDeviceInternetPortRequest(TeaModel):
     def __init__(self, isp=None, instance_id=None, internal_ip=None, internal_port=None, nat_type=None,
                  region_id=None):
         self.isp = isp  # type: str
-        # 实例ID
         self.instance_id = instance_id  # type: str
         self.internal_ip = internal_ip  # type: str
         self.internal_port = internal_port  # type: str
@@ -787,9 +730,7 @@ class AddDeviceInternetPortRequest(TeaModel):
 
 class AddDeviceInternetPortResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_ids=None):
-        # Id of the request
         self.request_id = request_id  # type: str
-        # RuleIds
         self.rule_ids = rule_ids  # type: list[str]
 
     def validate(self):
@@ -1013,7 +954,6 @@ class AssignPrivateIpAddressesResponseBodyAssignedPrivateIpAddressesSet(TeaModel
 class AssignPrivateIpAddressesResponseBody(TeaModel):
     def __init__(self, assigned_private_ip_addresses_set=None, request_id=None):
         self.assigned_private_ip_addresses_set = assigned_private_ip_addresses_set  # type: AssignPrivateIpAddressesResponseBodyAssignedPrivateIpAddressesSet
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1117,7 +1057,6 @@ class AssociateEnsEipAddressRequest(TeaModel):
 
 class AssociateEnsEipAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1623,32 +1562,17 @@ class CreateARMServerInstancesRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, ens_region_id=None, frequency=None, image_id=None,
                  instance_type=None, key_pair_name=None, pay_type=None, period=None, period_unit=None, resolution=None,
                  server_type=None):
-        # 数量，最大支持10
         self.amount = amount  # type: int
-        # 是否自动续费，默认为false。
         self.auto_renew = auto_renew  # type: bool
-        # ENS节点ID。
         self.ens_region_id = ens_region_id  # type: str
         self.frequency = frequency  # type: int
-        # 镜像ID。
         self.image_id = image_id  # type: str
-        # AIC容器实例规格。
         self.instance_type = instance_type  # type: str
-        # keypair名称
         self.key_pair_name = key_pair_name  # type: str
-        # 付费类型。PrePaid（目前只支持此种）：包年包月
         self.pay_type = pay_type  # type: str
-        # 购买周期。
         self.period = period  # type: int
-        # Month（默认）：按月计费的价格单位。
         self.period_unit = period_unit  # type: str
-        # 分辨率。目前取值
-        # 1920*1080
-        # 1280*720
-        # 1080*1920
-        # 720*1280
         self.resolution = resolution  # type: str
-        # 服务器规格。
         self.server_type = server_type  # type: str
 
     def validate(self):
@@ -1719,7 +1643,6 @@ class CreateARMServerInstancesResponseBody(TeaModel):
     def __init__(self, instance_ids=None, order_id=None, request_id=None):
         self.instance_ids = instance_ids  # type: list[str]
         self.order_id = order_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1928,7 +1851,6 @@ class CreateClassicNetworkRequest(TeaModel):
 class CreateClassicNetworkResponseBody(TeaModel):
     def __init__(self, network_id=None, request_id=None):
         self.network_id = network_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1996,13 +1918,9 @@ class CreateClassicNetworkResponse(TeaModel):
 
 class CreateDiskRequest(TeaModel):
     def __init__(self, category=None, ens_region_id=None, instance_charge_type=None, size=None):
-        # 磁盘种类 高效云盘:cloud_efficiency 全闪云盘:cloud_ssd
         self.category = category  # type: str
-        # 节点ID
         self.ens_region_id = ens_region_id  # type: str
-        # 实例付费方式，取值 PrePaid:预付费，包年包月 PostPaid:按量付费。目前只支持：PostPaid
         self.instance_charge_type = instance_charge_type  # type: str
-        # 磁盘大小,单位GB
         self.size = size  # type: str
 
     def validate(self):
@@ -2039,11 +1957,8 @@ class CreateDiskRequest(TeaModel):
 
 class CreateDiskResponseBody(TeaModel):
     def __init__(self, instance_ids=None, order_id=None, request_id=None):
-        # 实列ID集合
         self.instance_ids = instance_ids  # type: list[str]
-        # 订单id,多个以逗号分割，可以直接跳转到收银行台 只有预付费返回订单号，后付费不返回
         self.order_id = order_id  # type: str
-        # 请求唯一ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2116,17 +2031,11 @@ class CreateDiskResponse(TeaModel):
 class CreateEipInstanceRequest(TeaModel):
     def __init__(self, bandwidth=None, ens_region_id=None, instance_charge_type=None, internet_charge_type=None,
                  isp=None, name=None):
-        # EIP的带宽峰值
         self.bandwidth = bandwidth  # type: long
-        # ENS节点ID
         self.ens_region_id = ens_region_id  # type: str
-        # EIP的计费方式，取值：  PrePaid：包年包月。 PostPaid（默认值）：按量计费。 当InstanceChargeType取值为PostPaid时，InternetChargeType不能为PayByBandwidth
         self.instance_charge_type = instance_charge_type  # type: str
-        # EIP的计量方式，取值：  PayByBandwidth（默认值）：按带宽计费。 取值：95BandwidthByMonth：月95。
         self.internet_charge_type = internet_charge_type  # type: str
-        # 运营商信息
         self.isp = isp  # type: str
-        # EIP实例名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -2171,9 +2080,7 @@ class CreateEipInstanceRequest(TeaModel):
 
 class CreateEipInstanceResponseBody(TeaModel):
     def __init__(self, allocation_id=None, request_id=None):
-        # EIP的ID。
         self.allocation_id = allocation_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2242,17 +2149,11 @@ class CreateEipInstanceResponse(TeaModel):
 class CreateEnsRouteEntryRequest(TeaModel):
     def __init__(self, description=None, destination_cidr_block=None, next_hop_id=None, next_hop_type=None,
                  route_entry_name=None, route_table_id=None):
-        # 自定义路由条目的描述信息。
         self.description = description  # type: str
-        # 自定义路由条目的目标网段。
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # 自定义路由条目的下一跳实例的ID。
         self.next_hop_id = next_hop_id  # type: str
-        # 自定义路由条目的下一跳的类型
         self.next_hop_type = next_hop_type  # type: str
-        # 要创建的自定义路由条目的名称。
         self.route_entry_name = route_entry_name  # type: str
-        # 要创建自定义路由条目的路由表ID。
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -2297,9 +2198,7 @@ class CreateEnsRouteEntryRequest(TeaModel):
 
 class CreateEnsRouteEntryResponseBody(TeaModel):
     def __init__(self, request_id=None, route_entry_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 路由条目id。
         self.route_entry_id = route_entry_id  # type: str
 
     def validate(self):
@@ -2581,11 +2480,12 @@ class CreateEpnInstanceResponse(TeaModel):
 
 
 class CreateForwardEntryRequest(TeaModel):
-    def __init__(self, external_ip=None, external_port=None, forward_entry_name=None, internal_ip=None,
-                 internal_port=None, ip_protocol=None, nat_gateway_id=None):
+    def __init__(self, external_ip=None, external_port=None, forward_entry_name=None, health_check_port=None,
+                 internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None):
         self.external_ip = external_ip  # type: str
         self.external_port = external_port  # type: str
         self.forward_entry_name = forward_entry_name  # type: str
+        self.health_check_port = health_check_port  # type: int
         self.internal_ip = internal_ip  # type: str
         self.internal_port = internal_port  # type: str
         self.ip_protocol = ip_protocol  # type: str
@@ -2606,6 +2506,8 @@ class CreateForwardEntryRequest(TeaModel):
             result['ExternalPort'] = self.external_port
         if self.forward_entry_name is not None:
             result['ForwardEntryName'] = self.forward_entry_name
+        if self.health_check_port is not None:
+            result['HealthCheckPort'] = self.health_check_port
         if self.internal_ip is not None:
             result['InternalIp'] = self.internal_ip
         if self.internal_port is not None:
@@ -2624,6 +2526,8 @@ class CreateForwardEntryRequest(TeaModel):
             self.external_port = m.get('ExternalPort')
         if m.get('ForwardEntryName') is not None:
             self.forward_entry_name = m.get('ForwardEntryName')
+        if m.get('HealthCheckPort') is not None:
+            self.health_check_port = m.get('HealthCheckPort')
         if m.get('InternalIp') is not None:
             self.internal_ip = m.get('InternalIp')
         if m.get('InternalPort') is not None:
@@ -2638,7 +2542,6 @@ class CreateForwardEntryRequest(TeaModel):
 class CreateForwardEntryResponseBody(TeaModel):
     def __init__(self, forward_entry_id=None, request_id=None):
         self.forward_entry_id = forward_entry_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2746,7 +2649,6 @@ class CreateImageRequest(TeaModel):
 class CreateImageResponseBody(TeaModel):
     def __init__(self, code=None, image_id=None, request_id=None):
         self.code = code  # type: int
-        # 镜像ID
         self.image_id = image_id  # type: str
         self.request_id = request_id  # type: str
 
@@ -2885,7 +2787,6 @@ class CreateInstanceRequest(TeaModel):
         self.key_pair_name = key_pair_name  # type: str
         self.owner_id = owner_id  # type: long
         self.password = password  # type: str
-        # 是否使用镜像预设的密码。使用该参数时，Password参数必须为空，同时您需要确保使用的镜像已经设置了密码。
         self.password_inherit = password_inherit  # type: bool
         self.payment_type = payment_type  # type: str
         self.period = period  # type: str
@@ -3230,17 +3131,11 @@ class CreateKeyPairResponse(TeaModel):
 class CreateLoadBalancerRequest(TeaModel):
     def __init__(self, ens_region_id=None, load_balancer_name=None, load_balancer_spec=None, network_id=None,
                  pay_type=None, v_switch_id=None):
-        # ENS节点ID。
         self.ens_region_id = ens_region_id  # type: str
-        # 负载均衡实例的名称。
         self.load_balancer_name = load_balancer_name  # type: str
-        # 负载均衡实例的名称。
         self.load_balancer_spec = load_balancer_spec  # type: str
-        # 要创建的ELB实例的网络ID
         self.network_id = network_id  # type: str
-        # 付费类型。PostPaid（目前只支持此种）：按量付费
         self.pay_type = pay_type  # type: str
-        # 专有网络实例的所属的交换机ID。
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -3373,42 +3268,24 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
                  health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_forward=None,
                  listener_port=None, load_balancer_id=None, request_timeout=None, scheduler=None, unhealthy_threshold=None,
                  xforwarded_for=None):
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
-        # HTTP至HTTPS的监听转发端口。
         self.forward_port = forward_port  # type: int
-        # 是否开启健康检查。  取值：on | off。
         self.health_check = health_check  # type: str
-        # 健康检查的后端服务器的端口。  取值： 1~65535。    说明 在HealthCheck值为on时才会有效。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 用于健康检查的域名，取值：  $_ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。是否要支持？ domain：域名长度为1-80字符，只能包含字母、数字、点号（.）和连字符（-）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号分隔。  默认值为http_2xx。  取值：http_2xx | http_3xx | http_4xx | http_5xx。   说明 在HealthCheck值为on时才会有效。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值： 1~50（秒）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_interval = health_check_interval  # type: int
         self.health_check_method = health_check_method  # type: str
-        # 接收来自运行状况检查的响应需要等待的时间。如果后端ECS在指定的时间内没有正确响应，则判定为健康检查失败。在HealthCheck值为on时才会有效。  取值：1~300（秒）。   说明 如果HealthCHeckTimeout的值小于HealthCheckInterval的值，则HealthCHeckTimeout无效，超时时间为HealthCheckInterval的值。
         self.health_check_timeout = health_check_timeout  # type: int
-        # 用于健康检查的URI。  长度限制为1~80，只能使用字母、数字和”-/.%?#&amp;“这些字符。 URL不能只为”/“，但必须以”/“开头。    说明 在HealthCheck值为on时才会有效。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2~10。    说明 在HealthCheck值为on时才会有效。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 指定连接空闲超时时间，取值范围为1~60秒，默认值为15秒。  在超时时间内一直没有访问请求，负载均衡会暂时中断当前连接，直到一下次请求来临时重新建立新的连接。
         self.idle_timeout = idle_timeout  # type: int
-        # 是否开启HTTP至HTTPS的转发。取值：on | off。
         self.listener_forward = listener_forward  # type: str
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 指定请求超时时间，取值范围为1~180秒，默认值为60秒。  在超时时间内后端服务器一直没有响应，负载均衡将放弃等待，给客户端返回 HTTP 504 错误码。
         self.request_timeout = request_timeout  # type: int
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。   说明 在HealthCheck值为on时才会有效。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
-        # 是否开启通过X-Forwarded-For头字段获取来访者真实 IP。  取值为on。
         self.xforwarded_for = xforwarded_for  # type: str
 
     def validate(self):
@@ -3505,7 +3382,6 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
 
 class CreateLoadBalancerHTTPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3573,48 +3449,27 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
                  health_check_method=None, health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None,
                  listener_forward=None, listener_port=None, load_balancer_id=None, request_timeout=None, scheduler=None,
                  server_certificate_id=None, sticky_session_type=None, unhealthy_threshold=None):
-        # 服务器上配置的Cookie。 长度为1-200，只能包含ASCII英文字母和数字字符，不能包含逗号、分号或空格，也不能以$开头。 说明 当StickySession为on且StickySessionType为server时，该参数必选。
         self.cookie = cookie  # type: str
-        # Cookie超时时间。  取值：1~86400（秒）。   说明 当StickySession为on且StickySessionType为insert时，该参数必选。
         self.cookie_timeout = cookie_timeout  # type: int
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
-        # HTTP至HTTPS的监听转发端口。
         self.forward_port = forward_port  # type: int
-        # 是否开启健康检查。  取值：on | off。
         self.health_check = health_check  # type: str
-        # 健康检查的后端服务器的端口。  取值： 1~65535。    说明 在HealthCheck值为on时才会有效。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 用于健康检查的域名，取值：  $_ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。是否要支持？ domain：域名长度为1-80字符，只能包含字母、数字、点号（.）和连字符（-）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号分隔。  默认值为http_2xx。  取值：http_2xx | http_3xx | http_4xx | http_5xx。   说明 在HealthCheck值为on时才会有效。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值： 1~50（秒）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_interval = health_check_interval  # type: int
         self.health_check_method = health_check_method  # type: str
-        # 接收来自运行状况检查的响应需要等待的时间。如果后端ECS在指定的时间内没有正确响应，则判定为健康检查失败。在HealthCheck值为on时才会有效。  取值：1~300（秒）。   说明 如果HealthCHeckTimeout的值小于HealthCheckInterval的值，则HealthCHeckTimeout无效，超时时间为HealthCheckInterval的值。
         self.health_check_timeout = health_check_timeout  # type: int
-        # 用于健康检查的URI。  长度限制为1~80，只能使用字母、数字和”-/.%?#&amp;“这些字符。 URL不能只为”/“，但必须以”/“开头。    说明 在HealthCheck值为on时才会有效。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2~10。    说明 在HealthCheck值为on时才会有效。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 指定连接空闲超时时间，取值范围为1~60秒，默认值为15秒。  在超时时间内一直没有访问请求，负载均衡会暂时中断当前连接，直到一下次请求来临时重新建立新的连接。
         self.idle_timeout = idle_timeout  # type: int
-        # 是否开启HTTP至HTTPS的转发。取值：on | off。
         self.listener_forward = listener_forward  # type: str
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 指定请求超时时间，取值范围为1~180秒，默认值为60秒。  在超时时间内后端服务器一直没有响应，负载均衡将放弃等待，给客户端返回 HTTP 504 错误码。
         self.request_timeout = request_timeout  # type: int
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。
         self.scheduler = scheduler  # type: str
-        # 服务器证书的ID。
         self.server_certificate_id = server_certificate_id  # type: str
-        # cookie的处理方式。取值：  insert：植入Cookie。  客户端第一次访问时，负载均衡会在返回请求中植入Cookie（即在HTTP/HTTPS响应报文中插入SERVERID），下次客户端携带此Cookie访问，负载均衡服务会将请求定向转发给之前记录到的后端服务器上。  server：重写Cookie。  负载均衡发现用户自定义了Cookie，将会对原来的Cookie进行重写，下次客户端携带新的Cookie访问，负载均衡服务会将请求定向转发给之前记录到的后端服务器。   说明 当StickySession的值为on时，必须指定该参数。
         self.sticky_session_type = sticky_session_type  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。   说明 在HealthCheck值为on时才会有效。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -3723,7 +3578,6 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
 
 class CreateLoadBalancerHTTPSListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3790,38 +3644,22 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
                  health_check_connect_port=None, health_check_connect_timeout=None, health_check_domain=None, health_check_http_code=None,
                  health_check_interval=None, health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None,
                  load_balancer_id=None, persistence_timeout=None, scheduler=None, unhealthy_threshold=None):
-        # 负载均衡实例后端使用的端口，取值：1~65535
         self.backend_server_port = backend_server_port  # type: int
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
         self.eip_transmit = eip_transmit  # type: str
-        # 连接超时时间。  取值：10~900（秒）。
         self.established_timeout = established_timeout  # type: int
-        # 健康检查使用的端口。  取值：1~65535。  不设置此参数时，表示使用后端服务端口（BackendServerPort）。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 每次健康检查响应的最大超时时间。  取值：1~300（秒）。  默认值：5。
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # 用于健康检查的域名
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号（,）分割。  取值：http_2xx（默认值） | http_3xx | http_4xx | http_5xx。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值：1~50（秒）。
         self.health_check_interval = health_check_interval  # type: int
-        # 健康检查类型。  取值：tcp（默认值） | http。
         self.health_check_type = health_check_type  # type: str
-        # 用于健康检查的URI。长度限制为1~80，只能使用字母、数字、短横线（-）、正斜杠（/）、点号（.）、百分号（%）、#和&amp;这些字符。 URL不能只为/，但必须以/开头。  当TCP监听需要使用HTTP健康检查时可配置此参数，如不配置则按TCP健康检查。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值： 2~10。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 会话保持的超时时间。  取值：0~3600（秒）。  默认值：0，表示关闭会话保持。
         self.persistence_timeout = persistence_timeout  # type: int
-        # 度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。 sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -3910,7 +3748,6 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
 
 class CreateLoadBalancerTCPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3977,30 +3814,18 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
                  health_check_connect_port=None, health_check_connect_timeout=None, health_check_exp=None, health_check_interval=None,
                  health_check_req=None, healthy_threshold=None, listener_port=None, load_balancer_id=None, scheduler=None,
                  unhealthy_threshold=None):
-        # 负载均衡实例后端使用的端口，取值：1~65535
         self.backend_server_port = backend_server_port  # type: int
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
         self.eip_transmit = eip_transmit  # type: str
-        # 健康检查使用的端口。取值：1-65535  不设置此参数时，表示使用后端服务端口（BackendServerPort）
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 接收来自运行状况检查的响应需要等待的时间。  如果后端ENS在指定的时间内没有正确响应，则判定为健康检查失败。  取值：1-300（秒）。默认为5秒
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # UDP监听健康检查的响应串，只允许包含字母、数字，最大长度限制为64个字符。
         self.health_check_exp = health_check_exp  # type: str
-        # 健康检查的时间间隔。  取值：1-50（秒）。
         self.health_check_interval = health_check_interval  # type: int
-        # UDP监听健康检查的请求串，只允许包含字母、数字，最大长度限制为64个字符。
         self.health_check_req = health_check_req  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2-10。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。 sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2-10。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -4073,7 +3898,6 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
 
 class CreateLoadBalancerUDPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4177,7 +4001,6 @@ class CreateNatGatewayRequest(TeaModel):
 class CreateNatGatewayResponseBody(TeaModel):
     def __init__(self, nat_gateway_id=None, request_id=None):
         self.nat_gateway_id = nat_gateway_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4285,7 +4108,6 @@ class CreateNetworkRequest(TeaModel):
 class CreateNetworkResponseBody(TeaModel):
     def __init__(self, network_id=None, request_id=None):
         self.network_id = network_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4500,7 +4322,6 @@ class CreateSnatEntryRequest(TeaModel):
 
 class CreateSnatEntryResponseBody(TeaModel):
     def __init__(self, request_id=None, snat_entry_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
         self.snat_entry_id = snat_entry_id  # type: str
 
@@ -4773,11 +4594,8 @@ class DeleteApplicationResponse(TeaModel):
 
 class DeleteDeviceInternetPortRequest(TeaModel):
     def __init__(self, instance_id=None, nat_type=None, rule_id=None):
-        # InstanceId
         self.instance_id = instance_id  # type: str
-        # NatType
         self.nat_type = nat_type  # type: str
-        # RuleId
         self.rule_id = rule_id  # type: str
 
     def validate(self):
@@ -4810,9 +4628,7 @@ class DeleteDeviceInternetPortRequest(TeaModel):
 
 class DeleteDeviceInternetPortResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_ids=None):
-        # Id of the request
         self.request_id = request_id  # type: str
-        # RuleIds
         self.rule_ids = rule_ids  # type: list[str]
 
     def validate(self):
@@ -4880,7 +4696,6 @@ class DeleteDeviceInternetPortResponse(TeaModel):
 
 class DeleteEnsRouteEntryRequest(TeaModel):
     def __init__(self, route_entry_id=None):
-        # 要删除的路由条目ID。
         self.route_entry_id = route_entry_id  # type: str
 
     def validate(self):
@@ -4905,7 +4720,6 @@ class DeleteEnsRouteEntryRequest(TeaModel):
 
 class DeleteEnsRouteEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5080,7 +4894,6 @@ class DeleteForwardEntryRequest(TeaModel):
 
 class DeleteForwardEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5362,7 +5175,6 @@ class DeleteLoadBalancerListenerRequest(TeaModel):
 
 class DeleteLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5450,7 +5262,6 @@ class DeleteNatGatewayRequest(TeaModel):
 
 class DeleteNatGatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5538,7 +5349,6 @@ class DeleteNetworkRequest(TeaModel):
 
 class DeleteNetworkResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5718,7 +5528,6 @@ class DeleteSnatEntryRequest(TeaModel):
 
 class DeleteSnatEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5868,6 +5677,324 @@ class DeleteVSwitchResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteVSwitchResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeARMServerInstancesRequest(TeaModel):
+    def __init__(self, ens_region_ids=None, page_number=None, page_size=None, server_ids=None):
+        self.ens_region_ids = ens_region_ids  # type: list[str]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.server_ids = server_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ens_region_ids is not None:
+            result['EnsRegionIds'] = self.ens_region_ids
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.server_ids is not None:
+            result['ServerIds'] = self.server_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnsRegionIds') is not None:
+            self.ens_region_ids = m.get('EnsRegionIds')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ServerIds') is not None:
+            self.server_ids = m.get('ServerIds')
+        return self
+
+
+class DescribeARMServerInstancesShrinkRequest(TeaModel):
+    def __init__(self, ens_region_ids_shrink=None, page_number=None, page_size=None, server_ids_shrink=None):
+        self.ens_region_ids_shrink = ens_region_ids_shrink  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.server_ids_shrink = server_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ens_region_ids_shrink is not None:
+            result['EnsRegionIds'] = self.ens_region_ids_shrink
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.server_ids_shrink is not None:
+            result['ServerIds'] = self.server_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnsRegionIds') is not None:
+            self.ens_region_ids_shrink = m.get('EnsRegionIds')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ServerIds') is not None:
+            self.server_ids_shrink = m.get('ServerIds')
+        return self
+
+
+class DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes(TeaModel):
+    def __init__(self, ip_address=None, network_id=None, v_switch_id=None):
+        self.ip_address = ip_address  # type: str
+        self.network_id = network_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip_address is not None:
+            result['IpAddress'] = self.ip_address
+        if self.network_id is not None:
+            result['NetworkId'] = self.network_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IpAddress') is not None:
+            self.ip_address = m.get('IpAddress')
+        if m.get('NetworkId') is not None:
+            self.network_id = m.get('NetworkId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        return self
+
+
+class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
+    def __init__(self, frequency=None, image_id=None, instance_id=None, network_attributes=None, resolution=None,
+                 spec=None, state=None, status=None):
+        self.frequency = frequency  # type: long
+        self.image_id = image_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.network_attributes = network_attributes  # type: DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes
+        self.resolution = resolution  # type: str
+        self.spec = spec  # type: str
+        self.state = state  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.network_attributes:
+            self.network_attributes.validate()
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesResponseBodyServersAICInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.frequency is not None:
+            result['Frequency'] = self.frequency
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.network_attributes is not None:
+            result['NetworkAttributes'] = self.network_attributes.to_map()
+        if self.resolution is not None:
+            result['Resolution'] = self.resolution
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.state is not None:
+            result['State'] = self.state
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Frequency') is not None:
+            self.frequency = m.get('Frequency')
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NetworkAttributes') is not None:
+            temp_model = DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes()
+            self.network_attributes = temp_model.from_map(m['NetworkAttributes'])
+        if m.get('Resolution') is not None:
+            self.resolution = m.get('Resolution')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeARMServerInstancesResponseBodyServers(TeaModel):
+    def __init__(self, aicinstances=None, creation_time=None, ens_region_id=None, expired_time=None, server_id=None,
+                 spec_name=None, state=None, status=None):
+        self.aicinstances = aicinstances  # type: list[DescribeARMServerInstancesResponseBodyServersAICInstances]
+        self.creation_time = creation_time  # type: str
+        self.ens_region_id = ens_region_id  # type: str
+        self.expired_time = expired_time  # type: str
+        self.server_id = server_id  # type: str
+        self.spec_name = spec_name  # type: str
+        self.state = state  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.aicinstances:
+            for k in self.aicinstances:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesResponseBodyServers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AICInstances'] = []
+        if self.aicinstances is not None:
+            for k in self.aicinstances:
+                result['AICInstances'].append(k.to_map() if k else None)
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        if self.spec_name is not None:
+            result['SpecName'] = self.spec_name
+        if self.state is not None:
+            result['State'] = self.state
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.aicinstances = []
+        if m.get('AICInstances') is not None:
+            for k in m.get('AICInstances'):
+                temp_model = DescribeARMServerInstancesResponseBodyServersAICInstances()
+                self.aicinstances.append(temp_model.from_map(k))
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        if m.get('SpecName') is not None:
+            self.spec_name = m.get('SpecName')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeARMServerInstancesResponseBody(TeaModel):
+    def __init__(self, request_id=None, servers=None):
+        self.request_id = request_id  # type: str
+        self.servers = servers  # type: list[DescribeARMServerInstancesResponseBodyServers]
+
+    def validate(self):
+        if self.servers:
+            for k in self.servers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Servers'] = []
+        if self.servers is not None:
+            for k in self.servers:
+                result['Servers'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.servers = []
+        if m.get('Servers') is not None:
+            for k in m.get('Servers'):
+                temp_model = DescribeARMServerInstancesResponseBodyServers()
+                self.servers.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeARMServerInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeARMServerInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeARMServerInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeARMServerInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7059,7 +7186,6 @@ class DescribeCloudDiskAvailableResourceInfoResponseBodySupportResources(TeaMode
 
 class DescribeCloudDiskAvailableResourceInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, support_resources=None):
-        # Id of the request
         self.request_id = request_id  # type: str
         self.support_resources = support_resources  # type: DescribeCloudDiskAvailableResourceInfoResponseBodySupportResources
 
@@ -7130,7 +7256,6 @@ class DescribeCloudDiskAvailableResourceInfoResponse(TeaModel):
 
 class DescribeCloudDiskTypesRequest(TeaModel):
     def __init__(self, ens_region_id=None):
-        # A short description of struct
         self.ens_region_id = ens_region_id  # type: str
 
     def validate(self):
@@ -8320,7 +8445,6 @@ class DescribeDeviceServiceRequest(TeaModel):
         self.instance_id = instance_id  # type: str
         self.order_id = order_id  # type: str
         self.region_id = region_id  # type: str
-        # Service ID
         self.service_id = service_id  # type: str
 
     def validate(self):
@@ -8763,7 +8887,6 @@ class DescribeDeviceServiceResponseBody(TeaModel):
                  resource_infos=None):
         self.app_meta_data = app_meta_data  # type: DescribeDeviceServiceResponseBodyAppMetaData
         self.app_status = app_status  # type: DescribeDeviceServiceResponseBodyAppStatus
-        # Id of the request
         self.request_id = request_id  # type: str
         self.resource_detail_infos = resource_detail_infos  # type: list[DescribeDeviceServiceResponseBodyResourceDetailInfos]
         self.resource_infos = resource_infos  # type: list[DescribeDeviceServiceResponseBodyResourceInfos]
@@ -9453,17 +9576,12 @@ class DescribeElbAvailableResourceInfoResponse(TeaModel):
 class DescribeEnsEipAddressesRequest(TeaModel):
     def __init__(self, allocation_id=None, associated_instance_id=None, associated_instance_type=None,
                  eip_address=None, ens_region_id=None, page_number=None, page_size=None):
-        # 要查询的EIP实例的ID。  最多支持输入50个EIP实例ID，实例ID之间用逗号（,）分隔。
         self.allocation_id = allocation_id  # type: str
         self.associated_instance_id = associated_instance_id  # type: str
         self.associated_instance_type = associated_instance_type  # type: str
-        # 要查询的EIP的IP地址。  最多支持输入50个EIP的IP地址，IP地址之间用逗号（,）分隔。
         self.eip_address = eip_address  # type: str
-        # ENS节点ID
         self.ens_region_id = ens_region_id  # type: str
-        # 列表的页码，默认值为1。
         self.page_number = page_number  # type: int
-        # 分页查询时每页的行数，最大值为100，默认值为10。
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -9633,7 +9751,6 @@ class DescribeEnsEipAddressesResponseBody(TeaModel):
         self.eip_addresses = eip_addresses  # type: DescribeEnsEipAddressesResponseBodyEipAddresses
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -10794,9 +10911,7 @@ class DescribeEnsRegionsResponse(TeaModel):
 
 class DescribeEnsResourceUsageRequest(TeaModel):
     def __init__(self, expired_end_time=None, expired_start_time=None):
-        # vm实例使用结束时间查询结束范围，，格式： yyyy-MM-dd或yyyy-MM-dd HH:mm:ss
         self.expired_end_time = expired_end_time  # type: str
-        # vm实例使用结束时间查询开始范围，格式： yyyy-MM-dd或yyyy-MM-dd HH:mm:ss
         self.expired_start_time = expired_start_time  # type: str
 
     def validate(self):
@@ -10902,7 +11017,6 @@ class DescribeEnsResourceUsageResponseBodyEnsResourceUsage(TeaModel):
 class DescribeEnsResourceUsageResponseBody(TeaModel):
     def __init__(self, ens_resource_usage=None, request_id=None):
         self.ens_resource_usage = ens_resource_usage  # type: list[DescribeEnsResourceUsageResponseBodyEnsResourceUsage]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10979,23 +11093,14 @@ class DescribeEnsResourceUsageResponse(TeaModel):
 class DescribeEnsRouteEntryListRequest(TeaModel):
     def __init__(self, destination_cidr_block=None, next_hop_id=None, next_hop_type=None, page_number=None,
                  page_size=None, route_entry_id=None, route_entry_name=None, route_entry_type=None, route_table_id=None):
-        # 路由条目的目标网段
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # 下一跳实例ID。
         self.next_hop_id = next_hop_id  # type: str
-        # 下一跳类型
         self.next_hop_type = next_hop_type  # type: str
-        # 列表的页码，默认值为1。
         self.page_number = page_number  # type: int
-        # 分页查询时每页的行数，最大值为100，默认值为10。
         self.page_size = page_size  # type: int
-        # 要查询的路由条目的ID。
         self.route_entry_id = route_entry_id  # type: str
-        # 路由条目的名称。
         self.route_entry_name = route_entry_name  # type: str
-        # 路由条目的类型
         self.route_entry_type = route_entry_type  # type: str
-        # 要查询的路由表的ID。
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -11052,9 +11157,7 @@ class DescribeEnsRouteEntryListRequest(TeaModel):
 
 class DescribeEnsRouteEntryListResponseBodyRouteEntrysNextHops(TeaModel):
     def __init__(self, next_hop_id=None, next_hop_type=None):
-        # 下一跳实例ID。
         self.next_hop_id = next_hop_id  # type: str
-        # 下一跳类型
         self.next_hop_type = next_hop_type  # type: str
 
     def validate(self):
@@ -11084,21 +11187,13 @@ class DescribeEnsRouteEntryListResponseBodyRouteEntrysNextHops(TeaModel):
 class DescribeEnsRouteEntryListResponseBodyRouteEntrys(TeaModel):
     def __init__(self, description=None, destination_cidr_block=None, next_hops=None, route_entry_id=None,
                  route_entry_name=None, route_table_id=None, status=None, type=None):
-        # 路由条目的描述信息。
         self.description = description  # type: str
-        # 路由条目的目标网段。
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # 下一跳
         self.next_hops = next_hops  # type: list[DescribeEnsRouteEntryListResponseBodyRouteEntrysNextHops]
-        # 路由条目的ID。
         self.route_entry_id = route_entry_id  # type: str
-        # 路由条目的名称。
         self.route_entry_name = route_entry_name  # type: str
-        # 路由表ID。
         self.route_table_id = route_table_id  # type: str
-        # 路由条目的状态
         self.status = status  # type: str
-        # 路由条目的类型
         self.type = type  # type: str
 
     def validate(self):
@@ -11161,9 +11256,7 @@ class DescribeEnsRouteEntryListResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, route_entrys=None, total_count=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 路由条目信息。
         self.route_entrys = route_entrys  # type: list[DescribeEnsRouteEntryListResponseBodyRouteEntrys]
         self.total_count = total_count  # type: int
 
@@ -12728,11 +12821,12 @@ class DescribeForwardTableEntriesRequest(TeaModel):
 
 class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
     def __init__(self, external_ip=None, external_port=None, forward_entry_id=None, forward_entry_name=None,
-                 internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None, status=None):
+                 health_check_port=None, internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None, status=None):
         self.external_ip = external_ip  # type: str
         self.external_port = external_port  # type: str
         self.forward_entry_id = forward_entry_id  # type: str
         self.forward_entry_name = forward_entry_name  # type: str
+        self.health_check_port = health_check_port  # type: str
         self.internal_ip = internal_ip  # type: str
         self.internal_port = internal_port  # type: str
         self.ip_protocol = ip_protocol  # type: str
@@ -12756,6 +12850,8 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
             result['ForwardEntryId'] = self.forward_entry_id
         if self.forward_entry_name is not None:
             result['ForwardEntryName'] = self.forward_entry_name
+        if self.health_check_port is not None:
+            result['HealthCheckPort'] = self.health_check_port
         if self.internal_ip is not None:
             result['InternalIp'] = self.internal_ip
         if self.internal_port is not None:
@@ -12778,6 +12874,8 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
             self.forward_entry_id = m.get('ForwardEntryId')
         if m.get('ForwardEntryName') is not None:
             self.forward_entry_name = m.get('ForwardEntryName')
+        if m.get('HealthCheckPort') is not None:
+            self.health_check_port = m.get('HealthCheckPort')
         if m.get('InternalIp') is not None:
             self.internal_ip = m.get('InternalIp')
         if m.get('InternalPort') is not None:
@@ -12797,7 +12895,6 @@ class DescribeForwardTableEntriesResponseBody(TeaModel):
         self.forward_table_entries = forward_table_entries  # type: list[DescribeForwardTableEntriesResponseBodyForwardTableEntries]
         self.page_number = page_number  # type: str
         self.page_size = page_size  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -14184,7 +14281,6 @@ class DescribeInstanceTypesResponse(TeaModel):
 
 class DescribeInstanceVncUrlRequest(TeaModel):
     def __init__(self, instance_id=None):
-        # 实例ID。
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -14209,9 +14305,7 @@ class DescribeInstanceVncUrlRequest(TeaModel):
 
 class DescribeInstanceVncUrlResponseBody(TeaModel):
     def __init__(self, request_id=None, vnc_url=None):
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 管理终端Url。
         self.vnc_url = vnc_url  # type: str
 
     def validate(self):
@@ -15417,7 +15511,6 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
         self.load_balancer_status = load_balancer_status  # type: str
         self.network_id = network_id  # type: str
         self.pay_type = pay_type  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
@@ -15611,7 +15704,6 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
         self.idle_timeout = idle_timeout  # type: int
         self.listener_forward = listener_forward  # type: str
         self.listener_port = listener_port  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.request_timeout = request_timeout  # type: int
         self.scheduler = scheduler  # type: str
@@ -15808,7 +15900,6 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
         self.idle_timeout = idle_timeout  # type: int
         self.listener_forward = listener_forward  # type: str
         self.listener_port = listener_port  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.request_timeout = request_timeout  # type: int
         self.scheduler = scheduler  # type: str
@@ -16014,7 +16105,6 @@ class DescribeLoadBalancerSpecResponseBody(TeaModel):
         self.load_balancer_specs = load_balancer_specs  # type: list[DescribeLoadBalancerSpecResponseBodyLoadBalancerSpecs]
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -16152,7 +16242,6 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
         self.healthy_threshold = healthy_threshold  # type: int
         self.listener_port = listener_port  # type: int
         self.persistence_timeout = persistence_timeout  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.scheduler = scheduler  # type: str
         self.status = status  # type: str
@@ -16339,7 +16428,6 @@ class DescribeLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
         self.health_check_req = health_check_req  # type: str
         self.healthy_threshold = healthy_threshold  # type: int
         self.listener_port = listener_port  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.scheduler = scheduler  # type: str
         self.status = status  # type: str
@@ -16642,7 +16730,6 @@ class DescribeLoadBalancersResponseBody(TeaModel):
         self.load_balancers = load_balancers  # type: DescribeLoadBalancersResponseBodyLoadBalancers
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -17203,7 +17290,6 @@ class DescribeNatGatewaysResponseBody(TeaModel):
         self.nat_gateways = nat_gateways  # type: list[DescribeNatGatewaysResponseBodyNatGateways]
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -17410,7 +17496,6 @@ class DescribeNetworkAttributeResponseBody(TeaModel):
         self.ens_region_id = ens_region_id  # type: str
         self.network_id = network_id  # type: str
         self.network_name = network_name  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.router_table_id = router_table_id  # type: str
         self.status = status  # type: str
@@ -17993,7 +18078,6 @@ class DescribeNetworksResponseBody(TeaModel):
         self.networks = networks  # type: DescribeNetworksResponseBodyNetworks
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -18220,7 +18304,6 @@ class DescribePrePaidInstanceStockResponse(TeaModel):
 
 class DescribePriceRequestDataDisk(TeaModel):
     def __init__(self, size=None):
-        # 数据盘大小，单位GB。如果此字段不为空，则以此段为准。
         self.size = size  # type: int
 
     def validate(self):
@@ -18245,7 +18328,6 @@ class DescribePriceRequestDataDisk(TeaModel):
 
 class DescribePriceRequestSystemDisk(TeaModel):
     def __init__(self, size=None):
-        # 系统盘大小，单位：GB
         self.size = size  # type: int
 
     def validate(self):
@@ -18270,7 +18352,6 @@ class DescribePriceRequestSystemDisk(TeaModel):
 
 class DescribePriceRequestDataDisks(TeaModel):
     def __init__(self, category=None, size=None):
-        # 磁盘类型
         self.category = category  # type: str
         self.size = size  # type: long
 
@@ -18303,21 +18384,12 @@ class DescribePriceRequest(TeaModel):
                  internet_charge_type=None, period=None, period_unit=None, quantity=None):
         self.data_disk = data_disk  # type: list[DescribePriceRequestDataDisk]
         self.system_disk = system_disk  # type: DescribePriceRequestSystemDisk
-        # 如果DataDisk.1.Size为空且此字段不为空时的则以此字段为准
         self.data_disks = data_disks  # type: list[DescribePriceRequestDataDisks]
-        # 节点ID。
         self.ens_region_id = ens_region_id  # type: str
-        # 实列规格。
         self.instance_type = instance_type  # type: str
-        # 带宽计费方式
         self.internet_charge_type = internet_charge_type  # type: str
-        # 购买资源的时长，如果不指定PeriodUnit，则默认按月购买。目前只支持按Days和Month。如果PeriodUnit=Day时，Period仅可以3。如果PeriodUnit=Monthc时，则Period可以为1-9,12。
         self.period = period  # type: int
-        # 查询云服务器ENS不同计费周期的价格。取值范围：
-        # Month（默认）：按月计费的价格单位。
-        # Day：按天计费的价格单位。
         self.period_unit = period_unit  # type: str
-        # 数量。
         self.quantity = quantity  # type: int
 
     def validate(self):
@@ -18394,7 +18466,6 @@ class DescribePriceRequest(TeaModel):
 
 class DescribePriceShrinkRequestDataDisk(TeaModel):
     def __init__(self, size=None):
-        # 数据盘大小，单位GB。如果此字段不为空，则以此段为准。
         self.size = size  # type: int
 
     def validate(self):
@@ -18419,7 +18490,6 @@ class DescribePriceShrinkRequestDataDisk(TeaModel):
 
 class DescribePriceShrinkRequestSystemDisk(TeaModel):
     def __init__(self, size=None):
-        # 系统盘大小，单位：GB
         self.size = size  # type: int
 
     def validate(self):
@@ -18447,21 +18517,12 @@ class DescribePriceShrinkRequest(TeaModel):
                  instance_type=None, internet_charge_type=None, period=None, period_unit=None, quantity=None):
         self.data_disk = data_disk  # type: list[DescribePriceShrinkRequestDataDisk]
         self.system_disk = system_disk  # type: DescribePriceShrinkRequestSystemDisk
-        # 如果DataDisk.1.Size为空且此字段不为空时的则以此字段为准
         self.data_disks_shrink = data_disks_shrink  # type: str
-        # 节点ID。
         self.ens_region_id = ens_region_id  # type: str
-        # 实列规格。
         self.instance_type = instance_type  # type: str
-        # 带宽计费方式
         self.internet_charge_type = internet_charge_type  # type: str
-        # 购买资源的时长，如果不指定PeriodUnit，则默认按月购买。目前只支持按Days和Month。如果PeriodUnit=Day时，Period仅可以3。如果PeriodUnit=Monthc时，则Period可以为1-9,12。
         self.period = period  # type: int
-        # 查询云服务器ENS不同计费周期的价格。取值范围：
-        # Month（默认）：按月计费的价格单位。
-        # Day：按天计费的价格单位。
         self.period_unit = period_unit  # type: str
-        # 数量。
         self.quantity = quantity  # type: int
 
     def validate(self):
@@ -18718,7 +18779,6 @@ class DescribeRegionIspsResponseBodyIsps(TeaModel):
 class DescribeRegionIspsResponseBody(TeaModel):
     def __init__(self, isps=None, request_id=None):
         self.isps = isps  # type: list[DescribeRegionIspsResponseBodyIsps]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19866,7 +19926,6 @@ class DescribeSnatTableEntriesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, snat_table_entries=None, total_count=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # Id of the request
         self.request_id = request_id  # type: str
         self.snat_table_entries = snat_table_entries  # type: list[DescribeSnatTableEntriesResponseBodySnatTableEntries]
         self.total_count = total_count  # type: int
@@ -20724,9 +20783,7 @@ class DistApplicationDataResponse(TeaModel):
 
 class ExportBillDetailDataRequest(TeaModel):
     def __init__(self, end_date=None, start_date=None):
-        # 结束时间UTC格式
         self.end_date = end_date  # type: str
-        # 开始时间，UTC格式
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -20755,9 +20812,7 @@ class ExportBillDetailDataRequest(TeaModel):
 
 class ExportBillDetailDataResponseBody(TeaModel):
     def __init__(self, file_path=None, request_id=None):
-        # 文件下载地址
         self.file_path = file_path  # type: str
-        # 请求ID，公共字段
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20937,9 +20992,7 @@ class ExportImageResponse(TeaModel):
 
 class ExportMeasurementDataRequest(TeaModel):
     def __init__(self, end_date=None, start_date=None):
-        # 结束时间，UTC格式
         self.end_date = end_date  # type: str
-        # 开始时间，UTC格式
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -20968,9 +21021,7 @@ class ExportMeasurementDataRequest(TeaModel):
 
 class ExportMeasurementDataResponseBody(TeaModel):
     def __init__(self, file_path=None, request_id=None):
-        # 文件下载地址
         self.file_path = file_path  # type: str
-        # 请求ID，公共字段
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21038,7 +21089,6 @@ class ExportMeasurementDataResponse(TeaModel):
 
 class GetDeviceInternetPortRequest(TeaModel):
     def __init__(self, instance_id=None, nat_type=None, rule_id=None):
-        # A short description of struct
         self.instance_id = instance_id  # type: str
         self.nat_type = nat_type  # type: str
         self.rule_id = rule_id  # type: str
@@ -21123,10 +21173,8 @@ class GetDeviceInternetPortResponseBodyNetworkInfo(TeaModel):
 
 class GetDeviceInternetPortResponseBody(TeaModel):
     def __init__(self, instance_id=None, network_info=None, request_id=None):
-        # InstanceId
         self.instance_id = instance_id  # type: str
         self.network_info = network_info  # type: list[GetDeviceInternetPortResponseBodyNetworkInfo]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21994,7 +22042,6 @@ class ModifyEnsEipAddressAttributeRequest(TeaModel):
 
 class ModifyEnsEipAddressAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22155,6 +22202,103 @@ class ModifyEpnInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyEpnInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyForwardEntryRequest(TeaModel):
+    def __init__(self, forward_entry_id=None, forward_entry_name=None, health_check_port=None):
+        self.forward_entry_id = forward_entry_id  # type: str
+        self.forward_entry_name = forward_entry_name  # type: str
+        self.health_check_port = health_check_port  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyForwardEntryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.forward_entry_id is not None:
+            result['ForwardEntryId'] = self.forward_entry_id
+        if self.forward_entry_name is not None:
+            result['ForwardEntryName'] = self.forward_entry_name
+        if self.health_check_port is not None:
+            result['HealthCheckPort'] = self.health_check_port
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ForwardEntryId') is not None:
+            self.forward_entry_id = m.get('ForwardEntryId')
+        if m.get('ForwardEntryName') is not None:
+            self.forward_entry_name = m.get('ForwardEntryName')
+        if m.get('HealthCheckPort') is not None:
+            self.health_check_port = m.get('HealthCheckPort')
+        return self
+
+
+class ModifyForwardEntryResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyForwardEntryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyForwardEntryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyForwardEntryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyForwardEntryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyForwardEntryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22613,7 +22757,6 @@ class ModifyLoadBalancerAttributeRequest(TeaModel):
 
 class ModifyLoadBalancerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22774,9 +22917,7 @@ class ModifyNetworkAttributeResponse(TeaModel):
 
 class ModifyPrepayInstanceSpecRequest(TeaModel):
     def __init__(self, instance_id=None, instance_type=None):
-        # 变配实例id
         self.instance_id = instance_id  # type: str
-        # 更新的配置
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -22805,7 +22946,6 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
 
 class ModifyPrepayInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22903,7 +23043,6 @@ class ModifySecurityGroupAttributeRequest(TeaModel):
 
 class ModifySecurityGroupAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23001,7 +23140,6 @@ class ModifyVSwitchAttributeRequest(TeaModel):
 
 class ModifyVSwitchAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23520,6 +23658,185 @@ class ReInitDiskResponse(TeaModel):
         return self
 
 
+class RebootAICInstanceRequest(TeaModel):
+    def __init__(self, instance_id=None, server_id=None):
+        self.instance_id = instance_id  # type: str
+        self.server_id = server_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootAICInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        return self
+
+
+class RebootAICInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootAICInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RebootAICInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RebootAICInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RebootAICInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RebootAICInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RebootARMServerInstanceRequest(TeaModel):
+    def __init__(self, server_id=None):
+        self.server_id = server_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootARMServerInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        return self
+
+
+class RebootARMServerInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootARMServerInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RebootARMServerInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RebootARMServerInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RebootARMServerInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RebootARMServerInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RebootInstanceRequest(TeaModel):
     def __init__(self, force_stop=None, instance_id=None, version=None):
         self.force_stop = force_stop  # type: str
@@ -23624,7 +23941,6 @@ class RebootInstanceResponse(TeaModel):
 
 class ReleaseARMServerInstanceRequest(TeaModel):
     def __init__(self, instance_id=None):
-        # AIC实例ID.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -23649,7 +23965,6 @@ class ReleaseARMServerInstanceRequest(TeaModel):
 
 class ReleaseARMServerInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23713,7 +24028,6 @@ class ReleaseARMServerInstanceResponse(TeaModel):
 
 class ReleaseInstanceRequest(TeaModel):
     def __init__(self, instance_id=None):
-        # 实例id
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -23738,7 +24052,6 @@ class ReleaseInstanceRequest(TeaModel):
 
 class ReleaseInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23801,9 +24114,8 @@ class ReleaseInstanceResponse(TeaModel):
 
 
 class ReleasePostPaidInstanceRequest(TeaModel):
-    def __init__(self, instance_id=None, version=None):
+    def __init__(self, instance_id=None):
         self.instance_id = instance_id  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -23816,16 +24128,12 @@ class ReleasePostPaidInstanceRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
@@ -23982,12 +24290,9 @@ class ReleasePrePaidInstanceResponse(TeaModel):
 class RemoveBackendServersRequestBackendServers(TeaModel):
     def __init__(self, ip=None, port=None, server_id=None, type=None, weight=None):
         self.ip = ip  # type: str
-        # 端口
         self.port = port  # type: int
         self.server_id = server_id  # type: str
-        # 后端服务器类型。  ens：ENS实例（默认）
         self.type = type  # type: str
-        # 后端服务器的权重。  取值：0~100  默认值为100，如果值为0，则不会将请求转发给该后端服务器。
         self.weight = weight  # type: int
 
     def validate(self):
@@ -24171,7 +24476,6 @@ class RemoveBackendServersResponseBodyBackendServers(TeaModel):
 class RemoveBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None):
         self.backend_servers = backend_servers  # type: RemoveBackendServersResponseBodyBackendServers
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24459,7 +24763,6 @@ class RenewARMServerInstanceRequest(TeaModel):
 
 class RenewARMServerInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24523,9 +24826,7 @@ class RenewARMServerInstanceResponse(TeaModel):
 
 class RenewInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, period=None):
-        # 需要续费的实例ID。
         self.instance_id = instance_id  # type: str
-        # 包年包月续费时长。
         self.period = period  # type: long
 
     def validate(self):
@@ -24861,7 +25162,6 @@ class RescaleDeviceServiceResponseBody(TeaModel):
     def __init__(self, device_ids=None, order_id=None, request_id=None, resource_detail_infos=None):
         self.device_ids = device_ids  # type: list[str]
         self.order_id = order_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.resource_detail_infos = resource_detail_infos  # type: list[RescaleDeviceServiceResponseBodyResourceDetailInfos]
 
@@ -24944,9 +25244,100 @@ class RescaleDeviceServiceResponse(TeaModel):
         return self
 
 
+class ResetAICInstanceRequest(TeaModel):
+    def __init__(self, instance_id=None, server_id=None):
+        self.instance_id = instance_id  # type: str
+        self.server_id = server_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetAICInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        return self
+
+
+class ResetAICInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetAICInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ResetAICInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResetAICInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResetAICInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResetAICInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ResetDeviceInstanceRequest(TeaModel):
     def __init__(self, app_id=None, image_id=None, instance_id=None):
-        # A short description of struct
         self.app_id = app_id  # type: str
         self.image_id = image_id  # type: str
         self.instance_id = instance_id  # type: str
@@ -24981,7 +25372,6 @@ class ResetDeviceInstanceRequest(TeaModel):
 
 class ResetDeviceInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25045,9 +25435,7 @@ class ResetDeviceInstanceResponse(TeaModel):
 
 class RestartDeviceInstanceRequest(TeaModel):
     def __init__(self, app_id=None, instance_id=None):
-        # App ID
         self.app_id = app_id  # type: str
-        # Instance ID
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -25076,7 +25464,6 @@ class RestartDeviceInstanceRequest(TeaModel):
 
 class RestartDeviceInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25546,62 +25933,33 @@ class RunInstancesRequest(TeaModel):
                  net_work_id=None, password=None, period=None, period_unit=None, private_ip_address=None,
                  public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None,
                  security_id=None, system_disk=None, unique_suffix=None, user_data=None, v_switch_id=None):
-        # 数量
         self.amount = amount  # type: long
-        # 是否自动续费，默认为false
         self.auto_renew = auto_renew  # type: bool
-        # 运营商
         self.carrier = carrier  # type: str
-        # 数据盘规格
         self.data_disk = data_disk  # type: list[RunInstancesRequestDataDisk]
-        # 节点id
         self.ens_region_id = ens_region_id  # type: str
-        # 主机名称
         self.host_name = host_name  # type: str
-        # 镜像id
         self.image_id = image_id  # type: str
-        # 实例付费方式，PrePaid:预付费，包年包月 PostPaid:按量付费
         self.instance_charge_type = instance_charge_type  # type: str
-        # 实例名称。长度为2~128个字符，必须以大小字母或中文开头，不能以http://和https://开头。可以包含中文、英文、数字、半角冒号（:）、下划线（_）、点号（.）或者连字符（-）。默认值为实例的InstanceId
         self.instance_name = instance_name  # type: str
-        # 实例规格
         self.instance_type = instance_type  # type: str
-        # 带宽计费方式
         self.internet_charge_type = internet_charge_type  # type: str
-        # 公网最大带宽，如果参数InternetMaxBandwidthOut的值大于0，则自动为实例分配公网IP。
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称
         self.key_pair_name = key_pair_name  # type: str
-        # 地区code
         self.net_district_code = net_district_code  # type: str
-        # 网络id
         self.net_work_id = net_work_id  # type: str
-        # 实例密码
         self.password = password  # type: str
-        # 购买资源的时长，单位为：月
         self.period = period  # type: long
-        # 查询云服务器ENS不同计费周期的价格。取值范围：
-        # Month（默认）：按月计费的价格单位。
-        # Day：按天计费的价格单位。
         self.period_unit = period_unit  # type: str
-        # 私网ip
         self.private_ip_address = private_ip_address  # type: str
         self.public_ip_identification = public_ip_identification  # type: bool
-        # 调度层级
         self.schedule_area_level = schedule_area_level  # type: str
-        # 调度价格策略
         self.scheduling_price_strategy = scheduling_price_strategy  # type: str
-        # 调度策略
         self.scheduling_strategy = scheduling_strategy  # type: str
-        # 安全组id
         self.security_id = security_id  # type: str
-        # 系统盘规格
         self.system_disk = system_disk  # type: RunInstancesRequestSystemDisk
-        # 是否为HostName和InstanceName添加有序后缀，有序后缀从001开始递增，最大不能超过999
         self.unique_suffix = unique_suffix  # type: bool
-        # 用户自定义数据，最大支持16KB 您可传入UserData信息。UserData以Base64的方式编码
         self.user_data = user_data  # type: str
-        # 交换机id
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -25750,62 +26108,33 @@ class RunInstancesShrinkRequest(TeaModel):
                  net_work_id=None, password=None, period=None, period_unit=None, private_ip_address=None,
                  public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None,
                  security_id=None, system_disk_shrink=None, unique_suffix=None, user_data=None, v_switch_id=None):
-        # 数量
         self.amount = amount  # type: long
-        # 是否自动续费，默认为false
         self.auto_renew = auto_renew  # type: bool
-        # 运营商
         self.carrier = carrier  # type: str
-        # 数据盘规格
         self.data_disk_shrink = data_disk_shrink  # type: str
-        # 节点id
         self.ens_region_id = ens_region_id  # type: str
-        # 主机名称
         self.host_name = host_name  # type: str
-        # 镜像id
         self.image_id = image_id  # type: str
-        # 实例付费方式，PrePaid:预付费，包年包月 PostPaid:按量付费
         self.instance_charge_type = instance_charge_type  # type: str
-        # 实例名称。长度为2~128个字符，必须以大小字母或中文开头，不能以http://和https://开头。可以包含中文、英文、数字、半角冒号（:）、下划线（_）、点号（.）或者连字符（-）。默认值为实例的InstanceId
         self.instance_name = instance_name  # type: str
-        # 实例规格
         self.instance_type = instance_type  # type: str
-        # 带宽计费方式
         self.internet_charge_type = internet_charge_type  # type: str
-        # 公网最大带宽，如果参数InternetMaxBandwidthOut的值大于0，则自动为实例分配公网IP。
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称
         self.key_pair_name = key_pair_name  # type: str
-        # 地区code
         self.net_district_code = net_district_code  # type: str
-        # 网络id
         self.net_work_id = net_work_id  # type: str
-        # 实例密码
         self.password = password  # type: str
-        # 购买资源的时长，单位为：月
         self.period = period  # type: long
-        # 查询云服务器ENS不同计费周期的价格。取值范围：
-        # Month（默认）：按月计费的价格单位。
-        # Day：按天计费的价格单位。
         self.period_unit = period_unit  # type: str
-        # 私网ip
         self.private_ip_address = private_ip_address  # type: str
         self.public_ip_identification = public_ip_identification  # type: bool
-        # 调度层级
         self.schedule_area_level = schedule_area_level  # type: str
-        # 调度价格策略
         self.scheduling_price_strategy = scheduling_price_strategy  # type: str
-        # 调度策略
         self.scheduling_strategy = scheduling_strategy  # type: str
-        # 安全组id
         self.security_id = security_id  # type: str
-        # 系统盘规格
         self.system_disk_shrink = system_disk_shrink  # type: str
-        # 是否为HostName和InstanceName添加有序后缀，有序后缀从001开始递增，最大不能超过999
         self.unique_suffix = unique_suffix  # type: bool
-        # 用户自定义数据，最大支持16KB 您可传入UserData信息。UserData以Base64的方式编码
         self.user_data = user_data  # type: str
-        # 交换机id
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -26244,9 +26573,7 @@ class RunServiceScheduleResponse(TeaModel):
 class SetBackendServersRequestBackendServers(TeaModel):
     def __init__(self, server_id=None, type=None, weight=None):
         self.server_id = server_id  # type: str
-        # 后端服务器类型。  ens：ENS实例（默认）
         self.type = type  # type: str
-        # 后端服务器的权重。  取值：0~100  默认值为100，如果值为0，则不会将请求转发给该后端服务器。
         self.weight = weight  # type: int
 
     def validate(self):
@@ -26422,7 +26749,6 @@ class SetBackendServersResponseBodyBackendServers(TeaModel):
 class SetBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None):
         self.backend_servers = backend_servers  # type: SetBackendServersResponseBodyBackendServers
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26495,36 +26821,21 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
                  health_check_domain=None, health_check_http_code=None, health_check_interval=None, health_check_method=None,
                  health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_port=None,
                  load_balancer_id=None, request_timeout=None, scheduler=None, unhealthy_threshold=None):
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
-        # 是否开启健康检查。  取值：on | off。
         self.health_check = health_check  # type: str
-        # 健康检查的后端服务器的端口。  取值： 1~65535。    说明 在HealthCheck值为on时才会有效。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 用于健康检查的域名，取值：  $_ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。是否要支持？ domain：域名长度为1-80字符，只能包含字母、数字、点号（.）和连字符（-）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号分隔。  默认值为http_2xx。  取值：http_2xx | http_3xx | http_4xx | http_5xx。   说明 在HealthCheck值为on时才会有效。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值： 1~50（秒）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_interval = health_check_interval  # type: int
         self.health_check_method = health_check_method  # type: str
-        # 接收来自运行状况检查的响应需要等待的时间。如果后端ECS在指定的时间内没有正确响应，则判定为健康检查失败。在HealthCheck值为on时才会有效。  取值：1~300（秒）。   说明 如果HealthCHeckTimeout的值小于HealthCheckInterval的值，则HealthCHeckTimeout无效，超时时间为HealthCheckInterval的值。
         self.health_check_timeout = health_check_timeout  # type: int
-        # 用于健康检查的URI。  长度限制为1~80，只能使用字母、数字和”-/.%?#&amp;“这些字符。 URL不能只为”/“，但必须以”/“开头。    说明 在HealthCheck值为on时才会有效。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2~10。    说明 在HealthCheck值为on时才会有效。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 指定连接空闲超时时间，取值范围为1~60秒，默认值为15秒。  在超时时间内一直没有访问请求，负载均衡会暂时中断当前连接，直到一下次请求来临时重新建立新的连接。
         self.idle_timeout = idle_timeout  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 指定请求超时时间，取值范围为1~180秒，默认值为60秒。  在超时时间内后端服务器一直没有响应，负载均衡将放弃等待，给客户端返回 HTTP 504 错误码。
         self.request_timeout = request_timeout  # type: int
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。   说明 在HealthCheck值为on时才会有效。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -26609,7 +26920,6 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26676,38 +26986,22 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
                  health_check_domain=None, health_check_http_code=None, health_check_interval=None, health_check_method=None,
                  health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_port=None,
                  load_balancer_id=None, request_timeout=None, scheduler=None, server_certificate_id=None, unhealthy_threshold=None):
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
-        # 是否开启健康检查。  取值：on | off。
         self.health_check = health_check  # type: str
-        # 健康检查的后端服务器的端口。  取值： 1~65535。    说明 在HealthCheck值为on时才会有效。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 用于健康检查的域名，取值：  $_ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。是否要支持？ domain：域名长度为1-80字符，只能包含字母、数字、点号（.）和连字符（-）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号分隔。  默认值为http_2xx。  取值：http_2xx | http_3xx | http_4xx | http_5xx。   说明 在HealthCheck值为on时才会有效。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值： 1~50（秒）。   说明 在HealthCheck值为on时才会有效。
         self.health_check_interval = health_check_interval  # type: int
         self.health_check_method = health_check_method  # type: str
-        # 接收来自运行状况检查的响应需要等待的时间。如果后端ECS在指定的时间内没有正确响应，则判定为健康检查失败。在HealthCheck值为on时才会有效。  取值：1~300（秒）。   说明 如果HealthCHeckTimeout的值小于HealthCheckInterval的值，则HealthCHeckTimeout无效，超时时间为HealthCheckInterval的值。
         self.health_check_timeout = health_check_timeout  # type: int
-        # 用于健康检查的URI。  长度限制为1~80，只能使用字母、数字和”-/.%?#&amp;“这些字符。 URL不能只为”/“，但必须以”/“开头。    说明 在HealthCheck值为on时才会有效。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2~10。    说明 在HealthCheck值为on时才会有效。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 指定连接空闲超时时间，取值范围为1~60秒，默认值为15秒。  在超时时间内一直没有访问请求，负载均衡会暂时中断当前连接，直到一下次请求来临时重新建立新的连接。
         self.idle_timeout = idle_timeout  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 指定请求超时时间，取值范围为1~180秒，默认值为60秒。  在超时时间内后端服务器一直没有响应，负载均衡将放弃等待，给客户端返回 HTTP 504 错误码。
         self.request_timeout = request_timeout  # type: int
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。
         self.scheduler = scheduler  # type: str
-        # 服务器证书的ID。
         self.server_certificate_id = server_certificate_id  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。   说明 在HealthCheck值为on时才会有效。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -26796,7 +27090,6 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26889,7 +27182,6 @@ class SetLoadBalancerStatusRequest(TeaModel):
 
 class SetLoadBalancerStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26956,36 +27248,21 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
                  health_check_connect_port=None, health_check_connect_timeout=None, health_check_domain=None, health_check_http_code=None,
                  health_check_interval=None, health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None,
                  load_balancer_id=None, persistence_timeout=None, scheduler=None, unhealthy_threshold=None):
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
         self.eip_transmit = eip_transmit  # type: str
-        # 连接超时时间。  取值：10~900（秒）。
         self.established_timeout = established_timeout  # type: int
-        # 健康检查使用的端口。  取值：1~65535。  不设置此参数时，表示使用后端服务端口（BackendServerPort）。
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 每次健康检查响应的最大超时时间。  取值：1~300（秒）。  默认值：5。
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # 用于健康检查的域名
         self.health_check_domain = health_check_domain  # type: str
-        # 健康检查正常的HTTP状态码，多个状态码用逗号（,）分割。  取值：http_2xx（默认值） | http_3xx | http_4xx | http_5xx。
         self.health_check_http_code = health_check_http_code  # type: str
-        # 健康检查的时间间隔。  取值：1~50（秒）。
         self.health_check_interval = health_check_interval  # type: int
-        # 健康检查类型。  取值：tcp（默认值） | http。
         self.health_check_type = health_check_type  # type: str
-        # 用于健康检查的URI。长度限制为1~80，只能使用字母、数字、短横线（-）、正斜杠（/）、点号（.）、百分号（%）、#和&amp;这些字符。 URL不能只为/，但必须以/开头。  当TCP监听需要使用HTTP健康检查时可配置此参数，如不配置则按TCP健康检查。
         self.health_check_uri = health_check_uri  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值： 2~10。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 会话保持的超时时间。  取值：0~3600（秒）。  默认值：0，表示关闭会话保持。
         self.persistence_timeout = persistence_timeout  # type: int
-        # 度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。 sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2~10。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -27070,7 +27347,6 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27136,28 +27412,17 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
     def __init__(self, description=None, eip_transmit=None, health_check_connect_port=None,
                  health_check_connect_timeout=None, health_check_exp=None, health_check_interval=None, health_check_req=None,
                  healthy_threshold=None, listener_port=None, load_balancer_id=None, scheduler=None, unhealthy_threshold=None):
-        # 设置监听的描述信息。  长度限制为1-80个字符，允许包含字母、数字、“-”、“/”、“.”和“_”等字符。支持中文描述。
         self.description = description  # type: str
         self.eip_transmit = eip_transmit  # type: str
-        # 健康检查使用的端口。取值：1-65535  不设置此参数时，表示使用后端服务端口（BackendServerPort）
         self.health_check_connect_port = health_check_connect_port  # type: int
-        # 接收来自运行状况检查的响应需要等待的时间。  如果后端ENS在指定的时间内没有正确响应，则判定为健康检查失败。  取值：1-300（秒）。默认为5秒
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        # UDP监听健康检查的响应串，只允许包含字母、数字，最大长度限制为64个字符。
         self.health_check_exp = health_check_exp  # type: str
-        # 健康检查的时间间隔。  取值：1-50（秒）。
         self.health_check_interval = health_check_interval  # type: int
-        # UDP监听健康检查的请求串，只允许包含字母、数字，最大长度限制为64个字符。
         self.health_check_req = health_check_req  # type: str
-        # 健康检查连续成功多少次后，将后端服务器的健康检查状态由fail判定为success。  取值：2-10。
         self.healthy_threshold = healthy_threshold  # type: int
-        # 负载均衡实例前端使用的端口。  取值：1-65535。
         self.listener_port = listener_port  # type: int
-        # 负载均衡实例的ID。
         self.load_balancer_id = load_balancer_id  # type: str
-        # 调度算法。取值：  wrr（默认值）：权重值越高的后端服务器，被轮询到的次数（概率）也越高。 wlc：除了根据每台后端服务器设定的权重值来进行轮询，同时还考虑后端服务器的实际负载（即连接数）。当权重值相同时，当前连接数越小的后端服务器被轮询到的次数（概率）也越高。 rr：按照访问顺序依次将外部请求依序分发到后端服务器。 sch：基于源IP地址的一致性hash，相同的源地址会调度到相同的后端服务器。
         self.scheduler = scheduler  # type: str
-        # 健康检查连续失败多少次后，将后端服务器的健康检查状态由success判定为fail。  取值：2-10。
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -27226,7 +27491,6 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27508,7 +27772,6 @@ class StartLoadBalancerListenerRequest(TeaModel):
 
 class StartLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27795,7 +28058,6 @@ class StopLoadBalancerListenerRequest(TeaModel):
 
 class StopLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27883,7 +28145,6 @@ class UnAssociateEnsEipAddressRequest(TeaModel):
 
 class UnAssociateEnsEipAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27976,7 +28237,6 @@ class UnassignPrivateIpAddressesRequest(TeaModel):
 
 class UnassignPrivateIpAddressesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28034,6 +28294,137 @@ class UnassignPrivateIpAddressesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UnassignPrivateIpAddressesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpgradeAICInstanceImageRequest(TeaModel):
+    def __init__(self, image_id=None, server_ids=None, timeout=None):
+        self.image_id = image_id  # type: str
+        self.server_ids = server_ids  # type: list[str]
+        self.timeout = timeout  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeAICInstanceImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.server_ids is not None:
+            result['ServerIds'] = self.server_ids
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('ServerIds') is not None:
+            self.server_ids = m.get('ServerIds')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        return self
+
+
+class UpgradeAICInstanceImageShrinkRequest(TeaModel):
+    def __init__(self, image_id=None, server_ids_shrink=None, timeout=None):
+        self.image_id = image_id  # type: str
+        self.server_ids_shrink = server_ids_shrink  # type: str
+        self.timeout = timeout  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeAICInstanceImageShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.server_ids_shrink is not None:
+            result['ServerIds'] = self.server_ids_shrink
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('ServerIds') is not None:
+            self.server_ids_shrink = m.get('ServerIds')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        return self
+
+
+class UpgradeAICInstanceImageResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeAICInstanceImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpgradeAICInstanceImageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpgradeAICInstanceImageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpgradeAICInstanceImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpgradeAICInstanceImageResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

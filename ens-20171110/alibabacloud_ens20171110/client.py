@@ -631,6 +631,8 @@ class Client(OpenApiClient):
             query['ExternalPort'] = request.external_port
         if not UtilClient.is_unset(request.forward_entry_name):
             query['ForwardEntryName'] = request.forward_entry_name
+        if not UtilClient.is_unset(request.health_check_port):
+            query['HealthCheckPort'] = request.health_check_port
         if not UtilClient.is_unset(request.internal_ip):
             query['InternalIp'] = request.internal_ip
         if not UtilClient.is_unset(request.internal_port):
@@ -1627,6 +1629,38 @@ class Client(OpenApiClient):
     def delete_vswitch(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_vswitch_with_options(request, runtime)
+
+    def describe_armserver_instances_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ens_20171110_models.DescribeARMServerInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ens_region_ids):
+            request.ens_region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ens_region_ids, 'EnsRegionIds', 'json')
+        if not UtilClient.is_unset(tmp_req.server_ids):
+            request.server_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.server_ids, 'ServerIds', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeARMServerInstances',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.DescribeARMServerInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_armserver_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_armserver_instances_with_options(request, runtime)
 
     def describe_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4212,6 +4246,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_epn_instance_with_options(request, runtime)
 
+    def modify_forward_entry_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.forward_entry_id):
+            query['ForwardEntryId'] = request.forward_entry_id
+        if not UtilClient.is_unset(request.forward_entry_name):
+            query['ForwardEntryName'] = request.forward_entry_name
+        if not UtilClient.is_unset(request.health_check_port):
+            query['HealthCheckPort'] = request.health_check_port
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyForwardEntry',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ModifyForwardEntryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_forward_entry(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_forward_entry_with_options(request, runtime)
+
     def modify_image_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4624,6 +4690,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.re_init_disk_with_options(request, runtime)
 
+    def reboot_aicinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RebootAICInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.RebootAICInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reboot_aicinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reboot_aicinstance_with_options(request, runtime)
+
+    def reboot_armserver_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RebootARMServerInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.RebootARMServerInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reboot_armserver_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reboot_armserver_instance_with_options(request, runtime)
+
     def reboot_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4717,8 +4835,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5007,6 +5123,32 @@ class Client(OpenApiClient):
     def rescale_device_service(self, request):
         runtime = util_models.RuntimeOptions()
         return self.rescale_device_service_with_options(request, runtime)
+
+    def reset_aicinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetAICInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ResetAICInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reset_aicinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_aicinstance_with_options(request, runtime)
 
     def reset_device_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5839,6 +5981,36 @@ class Client(OpenApiClient):
     def unassign_private_ip_addresses(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unassign_private_ip_addresses_with_options(request, runtime)
+
+    def upgrade_aicinstance_image_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ens_20171110_models.UpgradeAICInstanceImageShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.server_ids):
+            request.server_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.server_ids, 'ServerIds', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeAICInstanceImage',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.UpgradeAICInstanceImageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upgrade_aicinstance_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_aicinstance_image_with_options(request, runtime)
 
     def upgrade_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
