@@ -3,6 +3,314 @@
 from Tea.model import TeaModel
 
 
+class QueryRunningInstanceRequestApp(TeaModel):
+    def __init__(self, app_id=None):
+        self.app_id = app_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceRequestApp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        return self
+
+
+class QueryRunningInstanceRequest(TeaModel):
+    def __init__(self, app=None, tenant_id=None):
+        self.app = app  # type: QueryRunningInstanceRequestApp
+        self.tenant_id = tenant_id  # type: long
+
+    def validate(self):
+        if self.app:
+            self.app.validate()
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['App'] = self.app.to_map()
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            temp_model = QueryRunningInstanceRequestApp()
+            self.app = temp_model.from_map(m['App'])
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        return self
+
+
+class QueryRunningInstanceShrinkRequest(TeaModel):
+    def __init__(self, app_shrink=None, tenant_id=None):
+        self.app_shrink = app_shrink  # type: str
+        self.tenant_id = tenant_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_shrink is not None:
+            result['App'] = self.app_shrink
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            self.app_shrink = m.get('App')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        return self
+
+
+class QueryRunningInstanceResponseBodyDataChannel(TeaModel):
+    def __init__(self, app_id=None, channel_id=None, expired_time=None, gslb=None, nonce=None, token=None, type=None,
+                 user_id=None, user_info_in_channel=None):
+        self.app_id = app_id  # type: str
+        self.channel_id = channel_id  # type: str
+        self.expired_time = expired_time  # type: str
+        self.gslb = gslb  # type: list[str]
+        self.nonce = nonce  # type: str
+        self.token = token  # type: str
+        self.type = type  # type: str
+        self.user_id = user_id  # type: str
+        self.user_info_in_channel = user_info_in_channel  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceResponseBodyDataChannel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.channel_id is not None:
+            result['ChannelId'] = self.channel_id
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.gslb is not None:
+            result['Gslb'] = self.gslb
+        if self.nonce is not None:
+            result['Nonce'] = self.nonce
+        if self.token is not None:
+            result['Token'] = self.token
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.user_info_in_channel is not None:
+            result['UserInfoInChannel'] = self.user_info_in_channel
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('ChannelId') is not None:
+            self.channel_id = m.get('ChannelId')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('Gslb') is not None:
+            self.gslb = m.get('Gslb')
+        if m.get('Nonce') is not None:
+            self.nonce = m.get('Nonce')
+        if m.get('Token') is not None:
+            self.token = m.get('Token')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('UserInfoInChannel') is not None:
+            self.user_info_in_channel = m.get('UserInfoInChannel')
+        return self
+
+
+class QueryRunningInstanceResponseBodyDataUser(TeaModel):
+    def __init__(self, user_id=None, user_name=None):
+        self.user_id = user_id  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceResponseBodyDataUser, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        return self
+
+
+class QueryRunningInstanceResponseBodyData(TeaModel):
+    def __init__(self, channel=None, session_id=None, user=None):
+        self.channel = channel  # type: QueryRunningInstanceResponseBodyDataChannel
+        self.session_id = session_id  # type: str
+        self.user = user  # type: QueryRunningInstanceResponseBodyDataUser
+
+    def validate(self):
+        if self.channel:
+            self.channel.validate()
+        if self.user:
+            self.user.validate()
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel is not None:
+            result['Channel'] = self.channel.to_map()
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.user is not None:
+            result['User'] = self.user.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Channel') is not None:
+            temp_model = QueryRunningInstanceResponseBodyDataChannel()
+            self.channel = temp_model.from_map(m['Channel'])
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('User') is not None:
+            temp_model = QueryRunningInstanceResponseBodyDataUser()
+            self.user = temp_model.from_map(m['User'])
+        return self
+
+
+class QueryRunningInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[QueryRunningInstanceResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = QueryRunningInstanceResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryRunningInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryRunningInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryRunningInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryRunningInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SendMessageRequestTextRequest(TeaModel):
     def __init__(self, command_type=None, id=None, speech_text=None, interrupt=None):
         self.command_type = command_type  # type: str
@@ -143,7 +451,6 @@ class SendMessageResponseBodyData(TeaModel):
 
 class SendMessageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, success=None):
-        # Id of the request
         self.code = code  # type: str
         self.data = data  # type: SendMessageResponseBodyData
         self.message = message  # type: str
@@ -589,7 +896,6 @@ class StopInstanceResponseBodyData(TeaModel):
 
 class StopInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, success=None):
-        # Id of the request
         self.code = code  # type: str
         self.data = data  # type: StopInstanceResponseBodyData
         self.message = message  # type: str
