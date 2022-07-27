@@ -6937,11 +6937,11 @@ class EntityDeleteResponseBodyModule(TeaModel):
 
 
 class EntityDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, module=None, more_page=None, request_id=None, result_code=None, result_msg=None, success=None,
                  trace_id=None):
-        self.request_id = request_id  # type: str
         self.module = module  # type: EntityDeleteResponseBodyModule
         self.more_page = more_page  # type: bool
+        self.request_id = request_id  # type: str
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -6957,12 +6957,12 @@ class EntityDeleteResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.more_page is not None:
             result['more_page'] = self.more_page
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -6975,13 +6975,13 @@ class EntityDeleteResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('module') is not None:
             temp_model = EntityDeleteResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('more_page') is not None:
             self.more_page = m.get('more_page')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -12257,13 +12257,13 @@ class IsvUserSaveShrinkRequest(TeaModel):
 
 
 class IsvUserSaveResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, traceid=None):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
         self.module = module  # type: str
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
-        self.traceid = traceid  # type: str
+        self.trace_id = trace_id  # type: str
 
     def validate(self):
         pass
@@ -12284,8 +12284,8 @@ class IsvUserSaveResponseBody(TeaModel):
             result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
-        if self.traceid is not None:
-            result['traceid'] = self.traceid
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
         return result
 
     def from_map(self, m=None):
@@ -12300,8 +12300,8 @@ class IsvUserSaveResponseBody(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
-        if m.get('traceid') is not None:
-            self.traceid = m.get('traceid')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
         return self
 
 
@@ -15082,6 +15082,227 @@ class TrainOrderQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TrainOrderQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UserQueryRequest(TeaModel):
+    def __init__(self, modified_time_greater_or_equal_than=None, third_part_corp_id=None, third_part_job_no=None,
+                 top_app_key_owner_id=None, top_authorized_havana_id=None, top_authorized_user_nick=None):
+        self.modified_time_greater_or_equal_than = modified_time_greater_or_equal_than  # type: str
+        self.third_part_corp_id = third_part_corp_id  # type: str
+        self.third_part_job_no = third_part_job_no  # type: str
+        self.top_app_key_owner_id = top_app_key_owner_id  # type: str
+        self.top_authorized_havana_id = top_authorized_havana_id  # type: str
+        self.top_authorized_user_nick = top_authorized_user_nick  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UserQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.modified_time_greater_or_equal_than is not None:
+            result['modified_time_greater_or_equal_than'] = self.modified_time_greater_or_equal_than
+        if self.third_part_corp_id is not None:
+            result['third_part_corp_id'] = self.third_part_corp_id
+        if self.third_part_job_no is not None:
+            result['third_part_job_no'] = self.third_part_job_no
+        if self.top_app_key_owner_id is not None:
+            result['top_app_key_owner_id'] = self.top_app_key_owner_id
+        if self.top_authorized_havana_id is not None:
+            result['top_authorized_havana_id'] = self.top_authorized_havana_id
+        if self.top_authorized_user_nick is not None:
+            result['top_authorized_user_nick'] = self.top_authorized_user_nick
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('modified_time_greater_or_equal_than') is not None:
+            self.modified_time_greater_or_equal_than = m.get('modified_time_greater_or_equal_than')
+        if m.get('third_part_corp_id') is not None:
+            self.third_part_corp_id = m.get('third_part_corp_id')
+        if m.get('third_part_job_no') is not None:
+            self.third_part_job_no = m.get('third_part_job_no')
+        if m.get('top_app_key_owner_id') is not None:
+            self.top_app_key_owner_id = m.get('top_app_key_owner_id')
+        if m.get('top_authorized_havana_id') is not None:
+            self.top_authorized_havana_id = m.get('top_authorized_havana_id')
+        if m.get('top_authorized_user_nick') is not None:
+            self.top_authorized_user_nick = m.get('top_authorized_user_nick')
+        return self
+
+
+class UserQueryResponseBodyModuleItems(TeaModel):
+    def __init__(self, employee_nick=None, third_part_employee_id=None, third_part_job_no=None):
+        self.employee_nick = employee_nick  # type: str
+        self.third_part_employee_id = third_part_employee_id  # type: str
+        self.third_part_job_no = third_part_job_no  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UserQueryResponseBodyModuleItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.employee_nick is not None:
+            result['employee_nick'] = self.employee_nick
+        if self.third_part_employee_id is not None:
+            result['third_part_employee_id'] = self.third_part_employee_id
+        if self.third_part_job_no is not None:
+            result['third_part_job_no'] = self.third_part_job_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('employee_nick') is not None:
+            self.employee_nick = m.get('employee_nick')
+        if m.get('third_part_employee_id') is not None:
+            self.third_part_employee_id = m.get('third_part_employee_id')
+        if m.get('third_part_job_no') is not None:
+            self.third_part_job_no = m.get('third_part_job_no')
+        return self
+
+
+class UserQueryResponseBodyModule(TeaModel):
+    def __init__(self, has_more=None, items=None, page_token=None, total=None):
+        self.has_more = has_more  # type: bool
+        self.items = items  # type: list[UserQueryResponseBodyModuleItems]
+        self.page_token = page_token  # type: str
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UserQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.has_more is not None:
+            result['has_more'] = self.has_more
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        if self.page_token is not None:
+            result['page_token'] = self.page_token
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('has_more') is not None:
+            self.has_more = m.get('has_more')
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = UserQueryResponseBodyModuleItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('page_token') is not None:
+            self.page_token = m.get('page_token')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class UserQueryResponseBody(TeaModel):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+        self.request_id = request_id  # type: str
+        self.module = module  # type: UserQueryResponseBodyModule
+        self.result_code = result_code  # type: int
+        self.result_msg = result_msg  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(UserQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('module') is not None:
+            temp_model = UserQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class UserQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UserQueryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UserQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UserQueryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
