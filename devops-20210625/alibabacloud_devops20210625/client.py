@@ -276,6 +276,74 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_pipeline_with_options(organization_id, request, headers, runtime)
+
+    def create_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        body = {}
+        if not UtilClient.is_unset(request.basic_info):
+            body['basicInfo'] = request.basic_info
+        if not UtilClient.is_unset(request.pipeline_yaml):
+            body['pipelineYaml'] = request.pipeline_yaml
+        if not UtilClient.is_unset(request.settings):
+            body['settings'] = request.settings
+        if not UtilClient.is_unset(request.trigger_info):
+            body['triggerInfo'] = request.trigger_info
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_pipeline_group(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_pipeline_group_with_options(organization_id, request, headers, runtime)
+
+    def create_pipeline_group_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreatePipelineGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreatePipelineGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_project(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -731,6 +799,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_pipeline_group(self, organization_id, group_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_pipeline_group_with_options(organization_id, group_id, headers, runtime)
+
+    def delete_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        group_id = OpenApiUtilClient.get_encode_param(group_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeletePipelineGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeletePipelineGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_project(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1124,6 +1219,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_pipeline_group(self, organization_id, group_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_pipeline_group_with_options(organization_id, group_id, headers, runtime)
+
+    def get_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        group_id = OpenApiUtilClient.get_encode_param(group_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetPipelineGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetPipelineGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1474,6 +1596,39 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def join_pipeline_group(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.join_pipeline_group_with_options(organization_id, request, headers, runtime)
+
+    def join_pipeline_group_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['groupId'] = request.group_id
+        if not UtilClient.is_unset(request.pipeline_ids):
+            query['pipelineIds'] = request.pipeline_ids
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='JoinPipelineGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups/join' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.JoinPipelineGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_flow_tag_groups(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1589,6 +1744,85 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.ListOrganizationMembersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_pipeline_group_pipelines(self, organization_id, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_pipeline_group_pipelines_with_options(organization_id, group_id, request, headers, runtime)
+
+    def list_pipeline_group_pipelines_with_options(self, organization_id, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        group_id = OpenApiUtilClient.get_encode_param(group_id)
+        query = {}
+        if not UtilClient.is_unset(request.create_end_time):
+            query['createEndTime'] = request.create_end_time
+        if not UtilClient.is_unset(request.create_start_time):
+            query['createStartTime'] = request.create_start_time
+        if not UtilClient.is_unset(request.execute_end_time):
+            query['executeEndTime'] = request.execute_end_time
+        if not UtilClient.is_unset(request.execute_start_time):
+            query['executeStartTime'] = request.execute_start_time
+        if not UtilClient.is_unset(request.max_results):
+            query['maxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.pipeline_name):
+            query['pipelineName'] = request.pipeline_name
+        if not UtilClient.is_unset(request.result_status_list):
+            query['resultStatusList'] = request.result_status_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPipelineGroupPipelines',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups/%s/pipelines' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListPipelineGroupPipelinesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_pipeline_groups(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_pipeline_groups_with_options(organization_id, request, headers, runtime)
+
+    def list_pipeline_groups_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['maxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPipelineGroups',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListPipelineGroupsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2912,6 +3146,43 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pipeline_with_options(organization_id, request, headers, runtime)
+
+    def update_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        body = {}
+        if not UtilClient.is_unset(request.basic_info):
+            body['basicInfo'] = request.basic_info
+        if not UtilClient.is_unset(request.pipeline_yaml):
+            body['pipelineYaml'] = request.pipeline_yaml
+        if not UtilClient.is_unset(request.settings):
+            body['settings'] = request.settings
+        if not UtilClient.is_unset(request.trigger_info):
+            body['triggerInfo'] = request.trigger_info
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_pipeline_base_info(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2945,6 +3216,38 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.UpdatePipelineBaseInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_pipeline_group(self, organization_id, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pipeline_group_with_options(organization_id, group_id, request, headers, runtime)
+
+    def update_pipeline_group_with_options(self, organization_id, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        group_id = OpenApiUtilClient.get_encode_param(group_id)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdatePipelineGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdatePipelineGroupResponse(),
             self.call_api(params, req, runtime)
         )
 
