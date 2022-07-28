@@ -316,33 +316,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_stress(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_stress_with_options(request, headers, runtime)
-
-    def create_stress_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=request.body
-        )
-        params = open_api_models.Params(
-            action='CreateStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.CreateStressResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def delete_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -622,33 +595,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.DeleteServiceMirrorResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_stress(self, cluster_id, stress_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_stress_with_options(cluster_id, stress_name, headers, runtime)
-
-    def delete_stress_with_options(self, cluster_id, stress_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.DeleteStressResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -937,33 +883,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_stress(self, cluster_id, stress_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_stress_with_options(cluster_id, stress_name, headers, runtime)
-
-    def describe_stress_with_options(self, cluster_id, stress_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.DescribeStressResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def list_benchmark_task(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1198,31 +1117,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_stresses(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_stresses_with_options(headers, runtime)
-
-    def list_stresses_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='ListStresses',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.ListStressesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def release_service(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1252,33 +1146,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.ReleaseServiceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def report_stress(self, cluster_id, stress_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.report_stress_with_options(cluster_id, stress_name, headers, runtime)
-
-    def report_stress_with_options(self, cluster_id, stress_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='ReportStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s/report' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.ReportStressResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1336,33 +1203,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_stress(self, cluster_id, stress_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.start_stress_with_options(cluster_id, stress_name, headers, runtime)
-
-    def start_stress_with_options(self, cluster_id, stress_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='StartStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s/start' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.StartStressResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def stop_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1414,33 +1254,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.StopServiceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_stress(self, cluster_id, stress_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.stop_stress_with_options(cluster_id, stress_name, headers, runtime)
-
-    def stop_stress_with_options(self, cluster_id, stress_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='StopStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s/stop' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.StopStressResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1705,34 +1518,5 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.UpdateServiceVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_stress(self, cluster_id, stress_name, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_stress_with_options(cluster_id, stress_name, request, headers, runtime)
-
-    def update_stress_with_options(self, cluster_id, stress_name, request, headers, runtime):
-        UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        stress_name = OpenApiUtilClient.get_encode_param(stress_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=request.body
-        )
-        params = open_api_models.Params(
-            action='UpdateStress',
-            version='2021-07-01',
-            protocol='HTTPS',
-            pathname='/api/v2/stress/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(stress_name)),
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            eas_20210701_models.UpdateStressResponse(),
             self.call_api(params, req, runtime)
         )
