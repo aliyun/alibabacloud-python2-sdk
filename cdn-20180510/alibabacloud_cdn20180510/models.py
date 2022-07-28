@@ -4034,10 +4034,11 @@ class DescribeCdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs(
 
 
 class DescribeCdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
-    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
+    def __init__(self, config_id=None, function_args=None, function_name=None, parent_id=None, status=None):
         self.config_id = config_id  # type: str
         self.function_args = function_args  # type: DescribeCdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
         self.function_name = function_name  # type: str
+        self.parent_id = parent_id  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -4056,6 +4057,8 @@ class DescribeCdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             result['FunctionArgs'] = self.function_args.to_map()
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
+        if self.parent_id is not None:
+            result['ParentId'] = self.parent_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -4069,6 +4072,8 @@ class DescribeCdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             self.function_args = temp_model.from_map(m['FunctionArgs'])
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
+        if m.get('ParentId') is not None:
+            self.parent_id = m.get('ParentId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
