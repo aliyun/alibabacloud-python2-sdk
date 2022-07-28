@@ -70,6 +70,8 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.text_request):
             request.text_request_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.text_request), 'TextRequest', 'json')
+        if not UtilClient.is_unset(tmp_req.vamlrequest):
+            request.vamlrequest_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.vamlrequest), 'VAMLRequest', 'json')
         query = {}
         if not UtilClient.is_unset(request.session_id):
             query['SessionId'] = request.session_id
@@ -77,6 +79,8 @@ class Client(OpenApiClient):
             query['TenantId'] = request.tenant_id
         if not UtilClient.is_unset(request.text_request_shrink):
             query['TextRequest'] = request.text_request_shrink
+        if not UtilClient.is_unset(request.vamlrequest_shrink):
+            query['VAMLRequest'] = request.vamlrequest_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -106,11 +110,15 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.app):
             request.app_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.app), 'App', 'json')
+        if not UtilClient.is_unset(tmp_req.channel):
+            request.channel_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel), 'Channel', 'json')
         if not UtilClient.is_unset(tmp_req.user):
             request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.user), 'User', 'json')
         query = {}
         if not UtilClient.is_unset(request.app_shrink):
             query['App'] = request.app_shrink
+        if not UtilClient.is_unset(request.channel_shrink):
+            query['Channel'] = request.channel_shrink
         if not UtilClient.is_unset(request.tenant_id):
             query['TenantId'] = request.tenant_id
         if not UtilClient.is_unset(request.user_shrink):
