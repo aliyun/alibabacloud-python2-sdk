@@ -1,3 +1,6 @@
+2022-07-28 Version: 1.0.13
+ - Delete SetDcdnConfigOfVersion.
+
 2022-07-05 Version: 1.0.12
  - Add DescribeDcdnIpaDomainMultiUsageData.
 
