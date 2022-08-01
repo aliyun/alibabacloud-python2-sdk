@@ -531,10 +531,11 @@ class AttachPluginResponse(TeaModel):
 
 
 class BatchAbolishApisRequestApi(TeaModel):
-    def __init__(self, api_uid=None, group_id=None, stage_id=None):
+    def __init__(self, api_uid=None, group_id=None, stage_id=None, stage_name=None):
         self.api_uid = api_uid  # type: str
         self.group_id = group_id  # type: str
         self.stage_id = stage_id  # type: str
+        self.stage_name = stage_name  # type: str
 
     def validate(self):
         pass
@@ -551,6 +552,8 @@ class BatchAbolishApisRequestApi(TeaModel):
             result['GroupId'] = self.group_id
         if self.stage_id is not None:
             result['StageId'] = self.stage_id
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
         return result
 
     def from_map(self, m=None):
@@ -561,6 +564,8 @@ class BatchAbolishApisRequestApi(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('StageId') is not None:
             self.stage_id = m.get('StageId')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
         return self
 
 
@@ -12103,20 +12108,13 @@ class DescribeApisResponse(TeaModel):
 class DescribeApisByAppRequest(TeaModel):
     def __init__(self, api_name=None, api_uid=None, app_id=None, description=None, method=None, page_number=None,
                  page_size=None, path=None, security_token=None):
-        # API名称
         self.api_name = api_name  # type: str
-        # API的ID
         self.api_uid = api_uid  # type: str
-        # APP的ID
         self.app_id = app_id  # type: long
         self.description = description  # type: str
-        # API的请求HTTP Method
         self.method = method  # type: str
-        # 当前页码
         self.page_number = page_number  # type: int
-        # 每页条目
         self.page_size = page_size  # type: int
-        # API请求路径
         self.path = path  # type: str
         self.security_token = security_token  # type: str
 
@@ -12176,30 +12174,18 @@ class DescribeApisByAppResponseBodyAppApiRelationInfosAppApiRelationInfo(TeaMode
     def __init__(self, api_id=None, api_name=None, auth_vaild_time=None, authorization_source=None,
                  created_time=None, description=None, group_id=None, group_name=None, method=None, operator=None, path=None,
                  region_id=None, stage_name=None):
-        # API的ID
         self.api_id = api_id  # type: str
-        # API名称
         self.api_name = api_name  # type: str
-        # 授权有效时间
         self.auth_vaild_time = auth_vaild_time  # type: str
-        # 授权来源
         self.authorization_source = authorization_source  # type: str
-        # 授权时间
         self.created_time = created_time  # type: str
-        # 描述
         self.description = description  # type: str
-        # 分组ID
         self.group_id = group_id  # type: str
-        # 分组名称
         self.group_name = group_name  # type: str
-        # API的请求HTTP Method
         self.method = method  # type: str
         self.operator = operator  # type: str
-        # API的请求路径
         self.path = path  # type: str
-        # 地区ID
         self.region_id = region_id  # type: str
-        # 环境名称
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -12306,13 +12292,9 @@ class DescribeApisByAppResponseBody(TeaModel):
     def __init__(self, app_api_relation_infos=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
         self.app_api_relation_infos = app_api_relation_infos  # type: DescribeApisByAppResponseBodyAppApiRelationInfos
-        # 当前页码
         self.page_number = page_number  # type: int
-        # 每页条目
         self.page_size = page_size  # type: int
-        # 请求ID
         self.request_id = request_id  # type: str
-        # 总条目数
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21932,20 +21914,13 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
 class DescribeVpcAccessesRequest(TeaModel):
     def __init__(self, instance_id=None, name=None, page_number=None, page_size=None, port=None, security_token=None,
                  vpc_access_id=None, vpc_id=None):
-        # 实例ID
         self.instance_id = instance_id  # type: str
-        # VPC授权名称
         self.name = name  # type: str
-        # 当前页码
         self.page_number = page_number  # type: int
-        # 每页展示条目
         self.page_size = page_size  # type: int
-        # 端口号
         self.port = port  # type: str
         self.security_token = security_token  # type: str
-        # Vpc授权ID
         self.vpc_access_id = vpc_access_id  # type: str
-        # Vpc ID
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -21999,21 +21974,13 @@ class DescribeVpcAccessesRequest(TeaModel):
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, instance_id=None, name=None, port=None, region_id=None,
                  vpc_access_id=None, vpc_id=None, vpc_target_host_name=None):
-        # VPC授权的创建时间
         self.created_time = created_time  # type: str
-        # VPC授权的描述
         self.description = description  # type: str
-        # VPC中的后端服务信息
         self.instance_id = instance_id  # type: str
-        # VPC授权名称
         self.name = name  # type: str
-        # VPC中的后端服务端口
         self.port = port  # type: int
-        # 地域id
         self.region_id = region_id  # type: str
-        # vpc授权ID
         self.vpc_access_id = vpc_access_id  # type: str
-        # VPC的ID
         self.vpc_id = vpc_id  # type: str
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
