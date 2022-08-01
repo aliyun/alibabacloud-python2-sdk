@@ -5,11 +5,8 @@ from Tea.model import TeaModel
 
 class ConsumerGroup(TeaModel):
     def __init__(self, name=None, order=None, timeout=None):
-        # 消费者名称。
         self.name = name  # type: str
-        # 是否有序消费
         self.order = order  # type: bool
-        # 消费超时时长，单位为妙
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -42,9 +39,7 @@ class ConsumerGroup(TeaModel):
 
 class EncryptConf(TeaModel):
     def __init__(self, enable=None, encrypt_type=None, user_cmk_info=None):
-        # enable
         self.enable = enable  # type: bool
-        # 加密算法，只支持default和m4。当 enable 为 true 时，此项必选。
         self.encrypt_type = encrypt_type  # type: str
         self.user_cmk_info = user_cmk_info  # type: EncryptUserCmkConf
 
@@ -80,11 +75,8 @@ class EncryptConf(TeaModel):
 
 class EncryptUserCmkConf(TeaModel):
     def __init__(self, arn=None, cmk_key_id=None, region_id=None):
-        # arn
         self.arn = arn  # type: str
-        # cmk_key_id
         self.cmk_key_id = cmk_key_id  # type: str
-        # region_id
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -117,11 +109,8 @@ class EncryptUserCmkConf(TeaModel):
 
 class LogtailConfigOutputDetail(TeaModel):
     def __init__(self, endpoint=None, logstore_name=None, region=None):
-        # 日志项目的 endpoint。
         self.endpoint = endpoint  # type: str
-        # 输出的目标 logstore 名称。
         self.logstore_name = logstore_name  # type: str
-        # 地域。
         self.region = region  # type: str
 
     def validate(self):
@@ -155,21 +144,13 @@ class LogtailConfigOutputDetail(TeaModel):
 class LogtailConfig(TeaModel):
     def __init__(self, config_name=None, create_time=None, input_detail=None, input_type=None,
                  last_modify_time=None, log_sample=None, output_detail=None, output_type=None):
-        # logtail 配置的名称。
         self.config_name = config_name  # type: str
-        # 创建时间，unix 时间戳。
         self.create_time = create_time  # type: long
-        # logtail 输入的详细配置。
         self.input_detail = input_detail  # type: dict[str, any]
-        # logtail 读取日志的输入类型。
         self.input_type = input_type  # type: str
-        # 最后一次修改时间，unix 时间戳。
         self.last_modify_time = last_modify_time  # type: long
-        # 日志样例，可以用于自动生成正则捕获字段。
         self.log_sample = log_sample  # type: str
-        # logtail 输出的详细配置。
         self.output_detail = output_detail  # type: LogtailConfigOutputDetail
-        # logtail 输出的目标类型。这里固定选择 LogService。
         self.output_type = output_type  # type: str
 
     def validate(self):
@@ -224,15 +205,10 @@ class LogtailConfig(TeaModel):
 
 class SavedSearch(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
-        # displayName
         self.display_name = display_name  # type: str
-        # logstore
         self.logstore = logstore  # type: str
-        # savedsearchName
         self.savedsearch_name = savedsearch_name  # type: str
-        # searchQuery
         self.search_query = search_query  # type: str
-        # topic
         self.topic = topic  # type: str
 
     def validate(self):
@@ -271,128 +247,16 @@ class SavedSearch(TeaModel):
         return self
 
 
-class ChartDisplay(TeaModel):
-    def __init__(self, height=None, width=None, x_axis=None, x_pos=None, y_axis=None, y_pos=None):
-        # 高度
-        self.height = height  # type: long
-        # 宽度
-        self.width = width  # type: long
-        # x 轴
-        self.x_axis = x_axis  # type: list[str]
-        # x 坐标
-        self.x_pos = x_pos  # type: long
-        # y 轴
-        self.y_axis = y_axis  # type: list[str]
-        # y 坐标
-        self.y_pos = y_pos  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ChartDisplay, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.height is not None:
-            result['height'] = self.height
-        if self.width is not None:
-            result['width'] = self.width
-        if self.x_axis is not None:
-            result['xAxis'] = self.x_axis
-        if self.x_pos is not None:
-            result['xPos'] = self.x_pos
-        if self.y_axis is not None:
-            result['yAxis'] = self.y_axis
-        if self.y_pos is not None:
-            result['yPos'] = self.y_pos
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('height') is not None:
-            self.height = m.get('height')
-        if m.get('width') is not None:
-            self.width = m.get('width')
-        if m.get('xAxis') is not None:
-            self.x_axis = m.get('xAxis')
-        if m.get('xPos') is not None:
-            self.x_pos = m.get('xPos')
-        if m.get('yAxis') is not None:
-            self.y_axis = m.get('yAxis')
-        if m.get('yPos') is not None:
-            self.y_pos = m.get('yPos')
-        return self
-
-
-class ChartSearch(TeaModel):
-    def __init__(self, end=None, logstore=None, query=None, start=None, topic=None):
-        # 结束时间
-        self.end = end  # type: str
-        # logstore 名称
-        self.logstore = logstore  # type: str
-        # 查询语句
-        self.query = query  # type: str
-        # 开始时间
-        self.start = start  # type: str
-        # topic
-        self.topic = topic  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ChartSearch, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.end is not None:
-            result['end'] = self.end
-        if self.logstore is not None:
-            result['logstore'] = self.logstore
-        if self.query is not None:
-            result['query'] = self.query
-        if self.start is not None:
-            result['start'] = self.start
-        if self.topic is not None:
-            result['topic'] = self.topic
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('end') is not None:
-            self.end = m.get('end')
-        if m.get('logstore') is not None:
-            self.logstore = m.get('logstore')
-        if m.get('query') is not None:
-            self.query = m.get('query')
-        if m.get('start') is not None:
-            self.start = m.get('start')
-        if m.get('topic') is not None:
-            self.topic = m.get('topic')
-        return self
-
-
 class Chart(TeaModel):
     def __init__(self, action=None, display=None, search=None, title=None, type=None):
-        # action
         self.action = action  # type: dict[str, any]
-        # 图表的显示配置
-        self.display = display  # type: ChartDisplay
-        # 查询配置
-        self.search = search  # type: ChartSearch
-        # 图表标题。支持大小写英文字母、数字、下划线_、连字符-，连字符与下划线不能作为名称开头与结尾，长度必须在[2,64] 之间。
+        self.display = display  # type: dict[str, any]
+        self.search = search  # type: dict[str, any]
         self.title = title  # type: str
-        # 图表的类型。
         self.type = type  # type: str
 
     def validate(self):
-        if self.display:
-            self.display.validate()
-        if self.search:
-            self.search.validate()
+        pass
 
     def to_map(self):
         _map = super(Chart, self).to_map()
@@ -403,9 +267,9 @@ class Chart(TeaModel):
         if self.action is not None:
             result['action'] = self.action
         if self.display is not None:
-            result['display'] = self.display.to_map()
+            result['display'] = self.display
         if self.search is not None:
-            result['search'] = self.search.to_map()
+            result['search'] = self.search
         if self.title is not None:
             result['title'] = self.title
         if self.type is not None:
@@ -417,11 +281,9 @@ class Chart(TeaModel):
         if m.get('action') is not None:
             self.action = m.get('action')
         if m.get('display') is not None:
-            temp_model = ChartDisplay()
-            self.display = temp_model.from_map(m['display'])
+            self.display = m.get('display')
         if m.get('search') is not None:
-            temp_model = ChartSearch()
-            self.search = temp_model.from_map(m['search'])
+            self.search = m.get('search')
         if m.get('title') is not None:
             self.title = m.get('title')
         if m.get('type') is not None:
@@ -431,15 +293,10 @@ class Chart(TeaModel):
 
 class Dashboard(TeaModel):
     def __init__(self, attribute=None, charts=None, dashboard_name=None, description=None, display_name=None):
-        # 属性值，可用于修改仪表盘的布局等属性，例如 "type": "free" 自由布局， "type":"grid" 网格布局。
         self.attribute = attribute  # type: dict[str, str]
-        # 仪表盘内包含的图表。
         self.charts = charts  # type: list[Chart]
-        # 仪表盘ID。同一个Project下，仪表盘ID唯一，不可重复。
         self.dashboard_name = dashboard_name  # type: str
-        # 描述信息。
         self.description = description  # type: str
-        # 仪表盘的展示名称。
         self.display_name = display_name  # type: str
 
     def validate(self):
@@ -489,19 +346,12 @@ class Dashboard(TeaModel):
 class EtlJobFunctionConfig(TeaModel):
     def __init__(self, account_id=None, endpoint=None, function_name=None, function_provider=None, region_name=None,
                  role_arn=None, service_name=None):
-        # 账户 id
         self.account_id = account_id  # type: str
-        # endpoint
         self.endpoint = endpoint  # type: str
-        # 函数名
         self.function_name = function_name  # type: str
-        # 函数 provider，可选值为 FunctionCompute 、CloudProdLogDispatch。当值为 FunctionCompute 时，endpoint、accountid 、regionName 、serviceName 、functionName 必选。
         self.function_provider = function_provider  # type: str
-        # 地域
         self.region_name = region_name  # type: str
-        # 角色授权
         self.role_arn = role_arn  # type: str
-        # 服务名
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -550,11 +400,8 @@ class EtlJobFunctionConfig(TeaModel):
 
 class EtlJobLogConfig(TeaModel):
     def __init__(self, endpoint=None, logstore_name=None, project_name=None):
-        # endpoint
         self.endpoint = endpoint  # type: str
-        # logstore 名称
         self.logstore_name = logstore_name  # type: str
-        # project 名称
         self.project_name = project_name  # type: str
 
     def validate(self):
@@ -587,7 +434,6 @@ class EtlJobLogConfig(TeaModel):
 
 class EtlJobSourceConfig(TeaModel):
     def __init__(self, logstore_name=None):
-        # logstore 名称
         self.logstore_name = logstore_name  # type: str
 
     def validate(self):
@@ -613,15 +459,10 @@ class EtlJobSourceConfig(TeaModel):
 class EtlJobTriggerConfig(TeaModel):
     def __init__(self, max_retry_time=None, role_arn=None, starting_position=None, starting_unixtime=None,
                  trigger_interval=None):
-        # 最大重试次数，必须在[0,100] 之间
         self.max_retry_time = max_retry_time  # type: int
-        # 角色授权配置
         self.role_arn = role_arn  # type: str
-        # 开始位置，可选 latest、at-unixtime， 默认 latest。
         self.starting_position = starting_position  # type: str
-        # 开始时间
         self.starting_unixtime = starting_unixtime  # type: long
-        # 触发间隔，单位为秒，必须在 [3,600] 之间
         self.trigger_interval = trigger_interval  # type: int
 
     def validate(self):
@@ -663,19 +504,12 @@ class EtlJobTriggerConfig(TeaModel):
 class EtlJob(TeaModel):
     def __init__(self, enable=None, etl_job_name=None, function_config=None, function_parameter=None,
                  log_config=None, source_config=None, trigger_config=None):
-        # 是否启用
         self.enable = enable  # type: bool
-        # 任务名称
         self.etl_job_name = etl_job_name  # type: str
-        # 运行函数配置
         self.function_config = function_config  # type: EtlJobFunctionConfig
-        # 参数列表
         self.function_parameter = function_parameter  # type: dict[str, any]
-        # 日志配置
         self.log_config = log_config  # type: EtlJobLogConfig
-        # 配置数据来源
         self.source_config = source_config  # type: EtlJobSourceConfig
-        # 触发器配置
         self.trigger_config = trigger_config  # type: EtlJobTriggerConfig
 
     def validate(self):
@@ -735,15 +569,10 @@ class EtlJob(TeaModel):
 
 class EtlMeta(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
-        # 是否启用
         self.enable = enable  # type: bool
-        # key
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字
         self.etl_meta_name = etl_meta_name  # type: str
-        # tag
         self.etl_meta_tag = etl_meta_tag  # type: str
-        # value
         self.etl_meta_value = etl_meta_value  # type: str
 
     def validate(self):
@@ -784,11 +613,8 @@ class EtlMeta(TeaModel):
 
 class ExternalStore(TeaModel):
     def __init__(self, external_store_name=None, parameter=None, store_type=None):
-        # 外部存储的名称。
         self.external_store_name = external_store_name  # type: str
-        # 参数
         self.parameter = parameter  # type: dict[str, any]
-        # 类型。可选 rds-vpc 或者 oss
         self.store_type = store_type  # type: str
 
     def validate(self):
@@ -821,9 +647,7 @@ class ExternalStore(TeaModel):
 
 class LoggingLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
-        # logstore 名称。
         self.logstore = logstore  # type: str
-        # logging 类型。
         self.type = type  # type: str
 
     def validate(self):
@@ -852,9 +676,7 @@ class LoggingLoggingDetails(TeaModel):
 
 class Logging(TeaModel):
     def __init__(self, logging_details=None, logging_project=None):
-        # logging 配置项
         self.logging_details = logging_details  # type: list[LoggingLoggingDetails]
-        # project 名称。
         self.logging_project = logging_project  # type: str
 
     def validate(self):
@@ -893,29 +715,17 @@ class Logstore(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, create_time=None, enable_tracking=None, encrypt_conf=None,
                  hot_ttl=None, last_modify_time=None, logstore_name=None, max_split_shard=None, shard_count=None,
                  telemetry_type=None, ttl=None):
-        # 接收日志后，自动添加客户端外网IP和日志到达时间
         self.append_meta = append_meta  # type: bool
-        # 是否开启 shard 自动分裂。当写入数据量超过已有分区（Shard）写入服务能力且持续5分钟以上时，开启自动分裂功能可自动根据数据量增加分区数量
         self.auto_split = auto_split  # type: bool
-        # 创建时间。
         self.create_time = create_time  # type: int
-        # WebTracking功能支持快速采集各种浏览器以及iOS/Android/APP访问信息，默认关闭
         self.enable_tracking = enable_tracking  # type: bool
-        # Encrypt configuration
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
-        # 必须在 (30, ttl) 之间
         self.hot_ttl = hot_ttl  # type: int
-        # 最后修改时间。
         self.last_modify_time = last_modify_time  # type: int
-        # logstore 的名称。
         self.logstore_name = logstore_name  # type: str
-        # 最大 shard 数量。
         self.max_split_shard = max_split_shard  # type: int
-        # shard 数量。
         self.shard_count = shard_count  # type: int
-        # telemetryType
         self.telemetry_type = telemetry_type  # type: str
-        # 数据保存的天数。
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -986,13 +796,9 @@ class Logstore(TeaModel):
 
 class Machine(TeaModel):
     def __init__(self, ip=None, last_heartbeat_time=None, machine_uniqueid=None, userdefined_id=None):
-        # 机器 ip 地址。
         self.ip = ip  # type: str
-        # 最后一次心跳时间。Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.last_heartbeat_time = last_heartbeat_time  # type: long
-        # 机器的唯一标识。
         self.machine_uniqueid = machine_uniqueid  # type: str
-        # 机器的用户自定义标识。
         self.userdefined_id = userdefined_id  # type: str
 
     def validate(self):
@@ -1029,9 +835,7 @@ class Machine(TeaModel):
 
 class MachineGroupGroupAttribute(TeaModel):
     def __init__(self, external_name=None, group_topic=None):
-        # 机器组所依赖的外部管理系统标识。
         self.external_name = external_name  # type: str
-        # 机器组的日志主题。
         self.group_topic = group_topic  # type: str
 
     def validate(self):
@@ -1061,15 +865,10 @@ class MachineGroupGroupAttribute(TeaModel):
 class MachineGroup(TeaModel):
     def __init__(self, group_attribute=None, group_name=None, group_type=None, machine_identify_type=None,
                  machine_list=None):
-        # 机器组属性。
         self.group_attribute = group_attribute  # type: MachineGroupGroupAttribute
-        # 机器组名称。
         self.group_name = group_name  # type: str
-        # 机器组种类。目前固定为空字符串。
         self.group_type = group_type  # type: str
-        # 机器组标识种类，支持 IP 标识或者用户自定义标识，即 ip 、userdefined。
         self.machine_identify_type = machine_identify_type  # type: str
-        # 机器组标识列表。
         self.machine_list = machine_list  # type: list[str]
 
     def validate(self):
@@ -1113,19 +912,12 @@ class MachineGroup(TeaModel):
 class Project(TeaModel):
     def __init__(self, create_time=None, description=None, last_modify_time=None, owner=None, project_name=None,
                  region=None, status=None):
-        # 创建时间
         self.create_time = create_time  # type: str
-        # 描述
         self.description = description  # type: str
-        # 最后更新时间
         self.last_modify_time = last_modify_time  # type: str
-        # owner
         self.owner = owner  # type: str
-        # Project名称
         self.project_name = project_name  # type: str
-        # 所在区域
         self.region = region  # type: str
-        # 状态
         self.status = status  # type: str
 
     def validate(self):
@@ -1175,15 +967,10 @@ class Project(TeaModel):
 class Shard(TeaModel):
     def __init__(self, create_time=None, exclusive_end_key=None, inclusive_begin_key=None, shard_id=None,
                  status=None):
-        # Shard的创建时间。Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.create_time = create_time  # type: int
-        # 指定Shard范围的结束值，Shard范围中不包含该值。即 shard 包含MD5值在 [inclusiveBeginKey, exclusiveEndKey) 之间的日志。
         self.exclusive_end_key = exclusive_end_key  # type: str
-        # 指定Shard范围的起始值，Shard范围中包含该值。即 shard 包含MD5值在 [inclusiveBeginKey, exclusiveEndKey) 之间的日志。
         self.inclusive_begin_key = inclusive_begin_key  # type: str
-        # shard id
         self.shard_id = shard_id  # type: int
-        # shard 的读写状态，readwrite 或者 readonly。
         self.status = status  # type: str
 
     def validate(self):
@@ -1254,13 +1041,9 @@ class ApplyConfigToMachineGroupResponse(TeaModel):
 
 class BatchCreateEtlMetaRequestEtlMetaList(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
-        # 是否启用
         self.enable = enable  # type: bool
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,255]之间。
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字。由数字、大小写字母、下划线_、连字符-组成，长度需要在[2,64]之间。
         self.etl_meta_name = etl_meta_name  # type: str
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,128]之间。
         self.etl_meta_tag = etl_meta_tag  # type: str
         self.etl_meta_value = etl_meta_value  # type: dict[str, any]
 
@@ -1364,14 +1147,10 @@ class BatchCreateEtlMetaResponse(TeaModel):
 
 class BatchModifyEtlMetaStatusRequest(TeaModel):
     def __init__(self, etl_meta_key_list=None, etl_meta_name=None, etl_meta_tag=None, range=None, type=None):
-        # 当 range 的值为 "list" 时有效，匹配list中的 metaKey
         self.etl_meta_key_list = etl_meta_key_list  # type: list[str]
         self.etl_meta_name = etl_meta_name  # type: str
-        # 匹配的 tag，当 tag 为 "__all_etl_meta_tag_match__" 时表示全部匹配。
         self.etl_meta_tag = etl_meta_tag  # type: str
-        # 操作作用的范围，可选 all 代表匹配全部，list 按名单列表匹配 key 两种模式。
         self.range = range  # type: str
-        # 操作类型，支持启用、禁用、删除三种，即 batch_enable、batch_disable、batch_delete。
         self.type = type  # type: str
 
     def validate(self):
@@ -1442,13 +1221,9 @@ class BatchModifyEtlMetaStatusResponse(TeaModel):
 
 class BatchUpdateEtlMetaRequestEtlMetaList(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
-        # 是否启用。etlMetaTag、etlMetaValue、enable 至少需要存在一个。
         self.enable = enable  # type: bool
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,255]之间。
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字。由数字、大小写字母、下划线_、连字符-组成，长度需要在[2,64]之间。
         self.etl_meta_name = etl_meta_name  # type: str
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,128]之间。
         self.etl_meta_tag = etl_meta_tag  # type: str
         self.etl_meta_value = etl_meta_value  # type: dict[str, any]
 
@@ -1664,13 +1439,9 @@ class CreateDomainResponse(TeaModel):
 
 class CreateEtlMetaRequest(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
-        # 是否启用
         self.enable = enable  # type: bool
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,255]之间。
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字。由数字、大小写字母、下划线_、连字符-组成，长度需要在[2,64]之间。
         self.etl_meta_name = etl_meta_name  # type: str
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,128]之间。
         self.etl_meta_tag = etl_meta_tag  # type: str
         self.etl_meta_value = etl_meta_value  # type: dict[str, any]
 
@@ -1742,15 +1513,10 @@ class CreateEtlMetaResponse(TeaModel):
 
 class CreateIndexRequestLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
-        # 大小写敏感
         self.case_sensitive = case_sensitive  # type: bool
-        # 包含中文
         self.chn = chn  # type: bool
-        # 排除的字段列表，不能与include_keys同时指定。
         self.exclude_keys = exclude_keys  # type: list[str]
-        # 包含的字段列表，不能与exclude_keys同时指定。
         self.include_keys = include_keys  # type: list[str]
-        # 分词符列表。可以设置一个分词参数，指定这个字段按照哪一种方式分词。
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -1793,17 +1559,11 @@ class CreateIndexRequest(TeaModel):
     def __init__(self, keys=None, line=None, log_reduce=None, log_reduce_black_list=None,
                  log_reduce_white_list=None, max_text_len=None, ttl=None):
         self.keys = keys  # type: dict[str, KeysValue]
-        # 配置全文索引
         self.line = line  # type: CreateIndexRequestLine
-        # 开启日志聚类，开启后白名单与黑名单至多生效其中一个。
         self.log_reduce = log_reduce  # type: bool
-        # 日志聚类的聚类字段黑名单
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
-        # 日志聚类的聚类字段白名单
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
-        # 统计字段的最大长度
         self.max_text_len = max_text_len  # type: int
-        # 保存时间，单位为天
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -1995,9 +1755,7 @@ class CreateLogStoreResponse(TeaModel):
 
 class CreateLoggingRequestLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
-        # 该种类服务日志要保存到的 logstore 名称。
         self.logstore = logstore  # type: str
-        # 服务日志的种类。可选 "consumergroup_log"、 "logtail_alarm"、"operation_log"、"logtail_profile"、"metering"、"logtail_status"、"scheduled_sql_alert"、 "etl_alert" 等。
         self.type = type  # type: str
 
     def validate(self):
@@ -2026,9 +1784,7 @@ class CreateLoggingRequestLoggingDetails(TeaModel):
 
 class CreateLoggingRequest(TeaModel):
     def __init__(self, logging_details=None, logging_project=None):
-        # 服务日志配置列表。
         self.logging_details = logging_details  # type: list[CreateLoggingRequestLoggingDetails]
-        # 服务日志要保存到的 project 名称。
         self.logging_project = logging_project  # type: str
 
     def validate(self):
@@ -2095,9 +1851,7 @@ class CreateLoggingResponse(TeaModel):
 
 class CreateMachineGroupRequestGroupAttribute(TeaModel):
     def __init__(self, external_name=None, group_topic=None):
-        # 机器组所依赖的外部管理系统标识。
         self.external_name = external_name  # type: str
-        # 机器组的日志主题。
         self.group_topic = group_topic  # type: str
 
     def validate(self):
@@ -2127,15 +1881,10 @@ class CreateMachineGroupRequestGroupAttribute(TeaModel):
 class CreateMachineGroupRequest(TeaModel):
     def __init__(self, group_attribute=None, group_name=None, group_type=None, machine_identify_type=None,
                  machine_list=None):
-        # 机器组属性。
         self.group_attribute = group_attribute  # type: CreateMachineGroupRequestGroupAttribute
-        # 机器组名称。
         self.group_name = group_name  # type: str
-        # 机器组类型，可选值，默认为空。
         self.group_type = group_type  # type: str
-        # 机器组标识种类，支持 ip 、userdefined 两种。
         self.machine_identify_type = machine_identify_type  # type: str
-        # 机器列表。
         self.machine_list = machine_list  # type: list[str]
 
     def validate(self):
@@ -2206,6 +1955,451 @@ class CreateMachineGroupResponse(TeaModel):
         return self
 
 
+class CreateOdpsShipperRequestTargetConfiguration(TeaModel):
+    def __init__(self, buffer_interval=None, enable=None, fields=None, odps_endpoint=None, odps_project=None,
+                 odps_table=None, partition_column=None, partition_time_format=None):
+        self.buffer_interval = buffer_interval  # type: int
+        self.enable = enable  # type: bool
+        self.fields = fields  # type: list[str]
+        self.odps_endpoint = odps_endpoint  # type: str
+        self.odps_project = odps_project  # type: str
+        self.odps_table = odps_table  # type: str
+        self.partition_column = partition_column  # type: list[str]
+        self.partition_time_format = partition_time_format  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOdpsShipperRequestTargetConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buffer_interval is not None:
+            result['bufferInterval'] = self.buffer_interval
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.fields is not None:
+            result['fields'] = self.fields
+        if self.odps_endpoint is not None:
+            result['odpsEndpoint'] = self.odps_endpoint
+        if self.odps_project is not None:
+            result['odpsProject'] = self.odps_project
+        if self.odps_table is not None:
+            result['odpsTable'] = self.odps_table
+        if self.partition_column is not None:
+            result['partitionColumn'] = self.partition_column
+        if self.partition_time_format is not None:
+            result['partitionTimeFormat'] = self.partition_time_format
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bufferInterval') is not None:
+            self.buffer_interval = m.get('bufferInterval')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('fields') is not None:
+            self.fields = m.get('fields')
+        if m.get('odpsEndpoint') is not None:
+            self.odps_endpoint = m.get('odpsEndpoint')
+        if m.get('odpsProject') is not None:
+            self.odps_project = m.get('odpsProject')
+        if m.get('odpsTable') is not None:
+            self.odps_table = m.get('odpsTable')
+        if m.get('partitionColumn') is not None:
+            self.partition_column = m.get('partitionColumn')
+        if m.get('partitionTimeFormat') is not None:
+            self.partition_time_format = m.get('partitionTimeFormat')
+        return self
+
+
+class CreateOdpsShipperRequest(TeaModel):
+    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
+        self.shipper_name = shipper_name  # type: str
+        self.target_configuration = target_configuration  # type: CreateOdpsShipperRequestTargetConfiguration
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        if self.target_configuration:
+            self.target_configuration.validate()
+
+    def to_map(self):
+        _map = super(CreateOdpsShipperRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shipper_name is not None:
+            result['shipperName'] = self.shipper_name
+        if self.target_configuration is not None:
+            result['targetConfiguration'] = self.target_configuration.to_map()
+        if self.target_type is not None:
+            result['targetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('shipperName') is not None:
+            self.shipper_name = m.get('shipperName')
+        if m.get('targetConfiguration') is not None:
+            temp_model = CreateOdpsShipperRequestTargetConfiguration()
+            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
+        if m.get('targetType') is not None:
+            self.target_type = m.get('targetType')
+        return self
+
+
+class CreateOdpsShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(CreateOdpsShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class CreateOssExternalStoreRequestParameterColumns(TeaModel):
+    def __init__(self, name=None, type=None):
+        self.name = name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOssExternalStoreRequestParameterColumns, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class CreateOssExternalStoreRequestParameter(TeaModel):
+    def __init__(self, accessid=None, accesskey=None, bucket=None, columns=None, endpoint=None, objects=None):
+        self.accessid = accessid  # type: str
+        self.accesskey = accesskey  # type: str
+        self.bucket = bucket  # type: str
+        self.columns = columns  # type: list[CreateOssExternalStoreRequestParameterColumns]
+        self.endpoint = endpoint  # type: str
+        self.objects = objects  # type: list[str]
+
+    def validate(self):
+        if self.columns:
+            for k in self.columns:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateOssExternalStoreRequestParameter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accessid is not None:
+            result['accessid'] = self.accessid
+        if self.accesskey is not None:
+            result['accesskey'] = self.accesskey
+        if self.bucket is not None:
+            result['bucket'] = self.bucket
+        result['columns'] = []
+        if self.columns is not None:
+            for k in self.columns:
+                result['columns'].append(k.to_map() if k else None)
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.objects is not None:
+            result['objects'] = self.objects
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessid') is not None:
+            self.accessid = m.get('accessid')
+        if m.get('accesskey') is not None:
+            self.accesskey = m.get('accesskey')
+        if m.get('bucket') is not None:
+            self.bucket = m.get('bucket')
+        self.columns = []
+        if m.get('columns') is not None:
+            for k in m.get('columns'):
+                temp_model = CreateOssExternalStoreRequestParameterColumns()
+                self.columns.append(temp_model.from_map(k))
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('objects') is not None:
+            self.objects = m.get('objects')
+        return self
+
+
+class CreateOssExternalStoreRequest(TeaModel):
+    def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        self.external_store_name = external_store_name  # type: str
+        self.parameter = parameter  # type: CreateOssExternalStoreRequestParameter
+        self.store_type = store_type  # type: str
+
+    def validate(self):
+        if self.parameter:
+            self.parameter.validate()
+
+    def to_map(self):
+        _map = super(CreateOssExternalStoreRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_store_name is not None:
+            result['externalStoreName'] = self.external_store_name
+        if self.parameter is not None:
+            result['parameter'] = self.parameter.to_map()
+        if self.store_type is not None:
+            result['storeType'] = self.store_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('externalStoreName') is not None:
+            self.external_store_name = m.get('externalStoreName')
+        if m.get('parameter') is not None:
+            temp_model = CreateOssExternalStoreRequestParameter()
+            self.parameter = temp_model.from_map(m['parameter'])
+        if m.get('storeType') is not None:
+            self.store_type = m.get('storeType')
+        return self
+
+
+class CreateOssExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(CreateOssExternalStoreResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class CreateOssShipperRequestTargetConfigurationStorage(TeaModel):
+    def __init__(self, detail=None, format=None):
+        self.detail = detail  # type: dict[str, any]
+        self.format = format  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOssShipperRequestTargetConfigurationStorage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.detail is not None:
+            result['detail'] = self.detail
+        if self.format is not None:
+            result['format'] = self.format
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('detail') is not None:
+            self.detail = m.get('detail')
+        if m.get('format') is not None:
+            self.format = m.get('format')
+        return self
+
+
+class CreateOssShipperRequestTargetConfiguration(TeaModel):
+    def __init__(self, buffer_interval=None, buffer_size=None, compress_type=None, enable=None, oss_bucket=None,
+                 oss_prefix=None, path_format=None, role_arn=None, storage=None, time_zone=None):
+        self.buffer_interval = buffer_interval  # type: int
+        self.buffer_size = buffer_size  # type: int
+        self.compress_type = compress_type  # type: str
+        self.enable = enable  # type: bool
+        self.oss_bucket = oss_bucket  # type: str
+        self.oss_prefix = oss_prefix  # type: str
+        self.path_format = path_format  # type: str
+        self.role_arn = role_arn  # type: str
+        self.storage = storage  # type: CreateOssShipperRequestTargetConfigurationStorage
+        self.time_zone = time_zone  # type: str
+
+    def validate(self):
+        if self.storage:
+            self.storage.validate()
+
+    def to_map(self):
+        _map = super(CreateOssShipperRequestTargetConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buffer_interval is not None:
+            result['bufferInterval'] = self.buffer_interval
+        if self.buffer_size is not None:
+            result['bufferSize'] = self.buffer_size
+        if self.compress_type is not None:
+            result['compressType'] = self.compress_type
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.oss_bucket is not None:
+            result['ossBucket'] = self.oss_bucket
+        if self.oss_prefix is not None:
+            result['ossPrefix'] = self.oss_prefix
+        if self.path_format is not None:
+            result['pathFormat'] = self.path_format
+        if self.role_arn is not None:
+            result['roleArn'] = self.role_arn
+        if self.storage is not None:
+            result['storage'] = self.storage.to_map()
+        if self.time_zone is not None:
+            result['timeZone'] = self.time_zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bufferInterval') is not None:
+            self.buffer_interval = m.get('bufferInterval')
+        if m.get('bufferSize') is not None:
+            self.buffer_size = m.get('bufferSize')
+        if m.get('compressType') is not None:
+            self.compress_type = m.get('compressType')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('ossBucket') is not None:
+            self.oss_bucket = m.get('ossBucket')
+        if m.get('ossPrefix') is not None:
+            self.oss_prefix = m.get('ossPrefix')
+        if m.get('pathFormat') is not None:
+            self.path_format = m.get('pathFormat')
+        if m.get('roleArn') is not None:
+            self.role_arn = m.get('roleArn')
+        if m.get('storage') is not None:
+            temp_model = CreateOssShipperRequestTargetConfigurationStorage()
+            self.storage = temp_model.from_map(m['storage'])
+        if m.get('timeZone') is not None:
+            self.time_zone = m.get('timeZone')
+        return self
+
+
+class CreateOssShipperRequest(TeaModel):
+    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
+        self.shipper_name = shipper_name  # type: str
+        self.target_configuration = target_configuration  # type: CreateOssShipperRequestTargetConfiguration
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        if self.target_configuration:
+            self.target_configuration.validate()
+
+    def to_map(self):
+        _map = super(CreateOssShipperRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shipper_name is not None:
+            result['shipperName'] = self.shipper_name
+        if self.target_configuration is not None:
+            result['targetConfiguration'] = self.target_configuration.to_map()
+        if self.target_type is not None:
+            result['targetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('shipperName') is not None:
+            self.shipper_name = m.get('shipperName')
+        if m.get('targetConfiguration') is not None:
+            temp_model = CreateOssShipperRequestTargetConfiguration()
+            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
+        if m.get('targetType') is not None:
+            self.target_type = m.get('targetType')
+        return self
+
+
+class CreateOssShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(CreateOssShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class CreateProjectRequest(TeaModel):
     def __init__(self, description=None, project_name=None):
         self.description = description  # type: str
@@ -2246,6 +2440,137 @@ class CreateProjectResponse(TeaModel):
 
     def to_map(self):
         _map = super(CreateProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class CreateRdsExternalStoreRequestParameter(TeaModel):
+    def __init__(self, db=None, host=None, instance_id=None, password=None, port=None, region=None, table=None,
+                 username=None, vpc_id=None):
+        self.db = db  # type: str
+        self.host = host  # type: str
+        self.instance_id = instance_id  # type: str
+        self.password = password  # type: str
+        self.port = port  # type: str
+        self.region = region  # type: str
+        self.table = table  # type: str
+        self.username = username  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRdsExternalStoreRequestParameter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db is not None:
+            result['db'] = self.db
+        if self.host is not None:
+            result['host'] = self.host
+        if self.instance_id is not None:
+            result['instance-id'] = self.instance_id
+        if self.password is not None:
+            result['password'] = self.password
+        if self.port is not None:
+            result['port'] = self.port
+        if self.region is not None:
+            result['region'] = self.region
+        if self.table is not None:
+            result['table'] = self.table
+        if self.username is not None:
+            result['username'] = self.username
+        if self.vpc_id is not None:
+            result['vpc-id'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('db') is not None:
+            self.db = m.get('db')
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('instance-id') is not None:
+            self.instance_id = m.get('instance-id')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('table') is not None:
+            self.table = m.get('table')
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        if m.get('vpc-id') is not None:
+            self.vpc_id = m.get('vpc-id')
+        return self
+
+
+class CreateRdsExternalStoreRequest(TeaModel):
+    def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        self.external_store_name = external_store_name  # type: str
+        self.parameter = parameter  # type: CreateRdsExternalStoreRequestParameter
+        self.store_type = store_type  # type: str
+
+    def validate(self):
+        if self.parameter:
+            self.parameter.validate()
+
+    def to_map(self):
+        _map = super(CreateRdsExternalStoreRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_store_name is not None:
+            result['externalStoreName'] = self.external_store_name
+        if self.parameter is not None:
+            result['parameter'] = self.parameter.to_map()
+        if self.store_type is not None:
+            result['storeType'] = self.store_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('externalStoreName') is not None:
+            self.external_store_name = m.get('externalStoreName')
+        if m.get('parameter') is not None:
+            temp_model = CreateRdsExternalStoreRequestParameter()
+            self.parameter = temp_model.from_map(m['parameter'])
+        if m.get('storeType') is not None:
+            self.store_type = m.get('storeType')
+        return self
+
+
+class CreateRdsExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(CreateRdsExternalStoreResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -2401,11 +2726,8 @@ class DeleteDomainResponse(TeaModel):
 
 class DeleteEtlMetaRequest(TeaModel):
     def __init__(self, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None):
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,255]之间。
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字。由数字、大小写字母、下划线_、连字符-组成，长度需要在[2,64]之间。
         self.etl_meta_name = etl_meta_name  # type: str
-        # 此处固定为 "__all_etl_meta_tag_match__"
         self.etl_meta_tag = etl_meta_tag  # type: str
 
     def validate(self):
@@ -2447,6 +2769,36 @@ class DeleteEtlMetaResponse(TeaModel):
 
     def to_map(self):
         _map = super(DeleteEtlMetaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class DeleteExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(DeleteExternalStoreResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -2646,11 +2998,39 @@ class DeleteSavedSearchResponse(TeaModel):
         return self
 
 
+class DeleteShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(DeleteShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class GetAppliedConfigsResponseBody(TeaModel):
     def __init__(self, configs=None, count=None):
-        # Logtail配置名称列表。
         self.configs = configs  # type: list[str]
-        # Logtail配置数量。
         self.count = count  # type: int
 
     def validate(self):
@@ -2716,11 +3096,76 @@ class GetAppliedConfigsResponse(TeaModel):
         return self
 
 
+class GetAppliedMachineGroupsResponseBody(TeaModel):
+    def __init__(self, count=None, machinegroups=None):
+        self.count = count  # type: int
+        self.machinegroups = machinegroups  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAppliedMachineGroupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.machinegroups is not None:
+            result['machinegroups'] = self.machinegroups
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('machinegroups') is not None:
+            self.machinegroups = m.get('machinegroups')
+        return self
+
+
+class GetAppliedMachineGroupsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAppliedMachineGroupsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAppliedMachineGroupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAppliedMachineGroupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetCheckPointRequest(TeaModel):
     def __init__(self, shard=None):
-        # Shard ID。
-        # 如果指定的Shard不存在，则返回空列表。
-        # 如果不指定Shard，则返回所有Shard的checkpoint。
         self.shard = shard  # type: int
 
     def validate(self):
@@ -2745,13 +3190,9 @@ class GetCheckPointRequest(TeaModel):
 
 class GetCheckPointResponseBody(TeaModel):
     def __init__(self, shard=None, checkpoint=None, update_time=None, consumer=None):
-        # shard id。
         self.shard = shard  # type: int
-        # checkpoint 值。
         self.checkpoint = checkpoint  # type: str
-        # checkpoint最后的更新时间。Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.update_time = update_time  # type: long
-        # 消费者。
         self.consumer = consumer  # type: str
 
     def validate(self):
@@ -2833,15 +3274,10 @@ class GetCheckPointResponse(TeaModel):
 
 class GetContextLogsRequest(TeaModel):
     def __init__(self, back_lines=None, forward_lines=None, pack_id=None, pack_meta=None, type=None):
-        # 指定起始日志往前（上文）的日志条数，取值范围为(0,100]。
         self.back_lines = back_lines  # type: long
-        # 指定起始日志往后（下文）的日志条数，取值范围为(0,100]。
         self.forward_lines = forward_lines  # type: long
-        # 起始日志所属的LogGroup的唯一身份标识。
         self.pack_id = pack_id  # type: str
-        # 起始日志在对应LogGroup内的唯一上下文结构标识。
         self.pack_meta = pack_meta  # type: str
-        # Logstore中数据的类型。该接口中该参数固定为context_log。
         self.type = type  # type: str
 
     def validate(self):
@@ -2882,17 +3318,10 @@ class GetContextLogsRequest(TeaModel):
 
 class GetContextLogsResponseBody(TeaModel):
     def __init__(self, back_lines=None, forward_lines=None, logs=None, progress=None, total_lines=None):
-        # 向前查询到的日志条数。
         self.back_lines = back_lines  # type: long
-        # 向后查询到的日志条数。
         self.forward_lines = forward_lines  # type: long
-        # 获取到的日志，按上下文顺序排列。当根据指定起始日志查询不到上下文日志时，此参数为空。
         self.logs = logs  # type: list[dict[str, any]]
-        # 查询的结果是否完整。
-        # Complete：查询已经完成，返回结果为完整结果。
-        # Incomplete：查询已经完成，返回结果为不完整结果，需要重复请求以获得完整结果。
         self.progress = progress  # type: str
-        # 返回的总日志条数，包含请求参数中所指定的起始日志。
         self.total_lines = total_lines  # type: long
 
     def validate(self):
@@ -2972,9 +3401,7 @@ class GetContextLogsResponse(TeaModel):
 
 class GetCursorRequest(TeaModel):
     def __init__(self, from_=None, type=None):
-        # 时间点（Unix时间戳）或者字符串begin、end。
         self.from_ = from_  # type: str
-        # 这里固定为 cursor。
         self.type = type  # type: str
 
     def validate(self):
@@ -3003,7 +3430,6 @@ class GetCursorRequest(TeaModel):
 
 class GetCursorResponseBody(TeaModel):
     def __init__(self, cursor=None):
-        # 游标位置。
         self.cursor = cursor  # type: str
 
     def validate(self):
@@ -3067,9 +3493,7 @@ class GetCursorResponse(TeaModel):
 
 class GetCursorTimeRequest(TeaModel):
     def __init__(self, cursor=None, type=None):
-        # 游标。
         self.cursor = cursor  # type: str
-        # 固定为 cursor_time 。
         self.type = type  # type: str
 
     def validate(self):
@@ -3098,7 +3522,6 @@ class GetCursorTimeRequest(TeaModel):
 
 class GetCursorTimeResponseBody(TeaModel):
     def __init__(self, cursor_time=None):
-        # Cursor的服务端时间。Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.cursor_time = cursor_time  # type: str
 
     def validate(self):
@@ -3164,7 +3587,6 @@ class GetEtlMetaRequest(TeaModel):
     def __init__(self, el_meta_name=None, etl_meta_key=None, etl_meta_tag=None):
         self.el_meta_name = el_meta_name  # type: str
         self.etl_meta_key = etl_meta_key  # type: str
-        # 此处固定为 "__all_etl_meta_tag_match__"。
         self.etl_meta_tag = etl_meta_tag  # type: str
 
     def validate(self):
@@ -3271,21 +3693,51 @@ class GetEtlMetaResponse(TeaModel):
         return self
 
 
+class GetExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExternalStore
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetExternalStoreResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExternalStore()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetHistogramsRequest(TeaModel):
     def __init__(self, from_=None, query=None, to=None, topic=None, type=None):
-        # 查询开始时间点。UNIX时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
-        # 
-        # 时间区间遵循“左闭右开”原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
         self.from_ = from_  # type: long
-        # 查询语句。仅支持查询语句，不支持分析语句。关于查询语句的详细语法，请参见查询语法。
         self.query = query  # type: str
-        # 查询结束时间点。UNIX时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
-        # 
-        # 时间区间遵循“左闭右开”原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
         self.to = to  # type: long
-        # 日志主题。
         self.topic = topic  # type: str
-        # Logstore中数据的类型。该接口中固定取值为histogram。
         self.type = type  # type: str
 
     def validate(self):
@@ -3326,21 +3778,9 @@ class GetHistogramsRequest(TeaModel):
 
 class GetHistogramsResponseBody(TeaModel):
     def __init__(self, from_=None, to=None, count=None, progress=None):
-        # 子时间区间的开始时间点。UNIX时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
-        # 
-        # 时间区间遵循“左闭右开”原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
         self.from_ = from_  # type: long
-        # 子时间区间的结束时间点。UNIX时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
-        # 
-        # 时间区间遵循“左闭右开”原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
         self.to = to  # type: long
-        # 该子时间区间内查询到的日志条数。
         self.count = count  # type: long
-        # 当前查询结果在该子时间区间内的结果是否完整。
-        # 
-        # Complete：查询已经完成，返回结果为完整结果。
-        # 
-        # Incomplete：查询已经完成，返回结果为不完整结果，需要重复请求以获得完整结果。
         self.progress = progress  # type: str
 
     def validate(self):
@@ -3422,15 +3862,10 @@ class GetHistogramsResponse(TeaModel):
 
 class GetIndexResponseBodyLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
-        # 大小写敏感
         self.case_sensitive = case_sensitive  # type: bool
-        # 是否包含中文。
         self.chn = chn  # type: bool
-        # 排除的字段列表。
         self.exclude_keys = exclude_keys  # type: list[str]
-        # 包含的字段列表。
         self.include_keys = include_keys  # type: list[str]
-        # 分词符列表。
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -3472,25 +3907,15 @@ class GetIndexResponseBodyLine(TeaModel):
 class GetIndexResponseBody(TeaModel):
     def __init__(self, index_mode=None, keys=None, last_modify_time=None, line=None, log_reduce=None,
                  log_reduce_black_list=None, log_reduce_white_list=None, max_text_len=None, storage=None, ttl=None):
-        # 索引模式
         self.index_mode = index_mode  # type: str
-        # 字段索引配置。key为字段名称，value为索引配置。
         self.keys = keys  # type: dict[str, KeysValue]
-        # 上次修改时间
         self.last_modify_time = last_modify_time  # type: long
-        # 配置全文索引。
         self.line = line  # type: GetIndexResponseBodyLine
-        # 是否开启日志聚类.
         self.log_reduce = log_reduce  # type: bool
-        # 日志聚类的聚类字段过滤黑名单，仅当日志聚类开启时有效。
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
-        # 日志聚类的聚类字段过滤白名单，仅当日志聚类开启时有效。
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
-        # 日志服务默认字段值的最大长度为2048字节，即2 KB。如果您需要修改字段值的最大长度，可设置统计字段（text）最大长度，取值范围为64~16384字节。
         self.max_text_len = max_text_len  # type: int
-        # 存储类型，目前固定取值为pg。
         self.storage = storage  # type: str
-        # 索引文件生命周期，支持7天、30天、90天。
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -3680,45 +4105,14 @@ class GetLoggingResponse(TeaModel):
 class GetLogsRequest(TeaModel):
     def __init__(self, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None, to=None,
                  topic=None, type=None):
-        # 查询开始时间点。该时间是指写入日志数据时指定的日志时间。
-        # 
-        # 请求参数from和to定义的时间区间遵循左闭右开原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
-        # Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.from_ = from_  # type: long
-        # 仅当query参数为查询语句时，该参数有效，表示请求返回的最大日志条数。最小值为0，最大值为100，默认值为100。
         self.line = line  # type: long
-        # 仅当query参数为查询语句时，该参数有效，表示查询开始行。默认值为0。
         self.offset = offset  # type: long
-        # 用于指定返回结果是否按日志时间戳降序返回日志，精确到分钟级别。
-        # 
-        # true：按照日志时间戳降序返回日志。
-        # false（默认值）：按照日志时间戳升序返回日志。
-        # 注意
-        # 当query参数为查询语句时，参数reverse有效，用于指定返回日志排序方式。
-        # 当query参数为查询和分析语句时，参数reverse无效，由SQL分析语句中order by语法指定排序方式。如果order by为asc（默认），则为升序；如果order by为desc，则为降序。
         self.power_sql = power_sql  # type: bool
-        # 查询语句或者分析语句。更多信息，请参见查询概述和分析概述。
-        # 
-        # 在query参数的分析语句中加上set session parallel_sql=true;，表示使用SQL独享版。例如* | set session parallel_sql=true; select count(*) as pv 。
-        # 
-        # 说明 当query参数中有分析语句（SQL语句）时，该接口的line参数和offset参数无效，建议设置为0，需通过SQL语句的LIMIT语法实现翻页。更多信息，请参见分页显示查询分析结果。
         self.query = query  # type: str
-        # 用于指定返回结果是否按日志时间戳降序返回日志，精确到分钟级别。
-        # 
-        # true：按照日志时间戳降序返回日志。
-        # false（默认值）：按照日志时间戳升序返回日志。
-        # 注意
-        # 当query参数为查询语句时，参数reverse有效，用于指定返回日志排序方式。
-        # 当query参数为查询和分析语句时，参数reverse无效，由SQL分析语句中order by语法指定排序方式。如果order by为asc（默认），则为升序；如果order by为desc，则为降序。
         self.reverse = reverse  # type: bool
-        # 查询结束时间点。该时间是指写入日志数据时指定的日志时间。
-        # 
-        # 请求参数from和to定义的时间区间遵循左闭右开原则，即该时间区间包括区间开始时间点，但不包括区间结束时间点。如果from和to的值相同，则为无效区间，函数直接返回错误。
-        # Unix时间戳格式，表示从1970-1-1 00:00:00 UTC计算起的秒数。
         self.to = to  # type: long
-        # status: 401 | SELECT remote_addr,COUNT(*) as pv GROUP by remote_addr ORDER by pv desc limit 5
         self.topic = topic  # type: str
-        # 查询Logstore数据的类型。在该接口中固定取值为log。
         self.type = type  # type: str
 
     def validate(self):
@@ -3889,13 +4283,7 @@ class GetProjectResponse(TeaModel):
 
 class GetProjectLogsRequest(TeaModel):
     def __init__(self, power_sql=None, query=None):
-        # 是否使用SQL独享版。更多信息，请参见开启SQL独享版。
-        # 
-        # true：使用SQL独享版。
-        # false（默认值）：使用SQL普通版。
-        # 除通过powerSql参数配置SQL独享版外，您还可以使用query参数。
         self.power_sql = power_sql  # type: bool
-        # 标准SQL语句。例如日志库名称为nginx-moni，查询时间区间在2022-03-01 10:41:40到2022-03-01 10:56:40之间的访问数量。
         self.query = query  # type: str
 
     def validate(self):
@@ -3997,6 +4385,311 @@ class GetSavedSearchResponse(TeaModel):
         return self
 
 
+class GetShipperConfigResponseBody(TeaModel):
+    def __init__(self, create_time=None, last_modify_time=None, shipper_name=None, target_configuration=None,
+                 target_type=None):
+        self.create_time = create_time  # type: long
+        self.last_modify_time = last_modify_time  # type: long
+        self.shipper_name = shipper_name  # type: str
+        self.target_configuration = target_configuration  # type: dict[str, any]
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetShipperConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.last_modify_time is not None:
+            result['lastModifyTime'] = self.last_modify_time
+        if self.shipper_name is not None:
+            result['shipperName'] = self.shipper_name
+        if self.target_configuration is not None:
+            result['targetConfiguration'] = self.target_configuration
+        if self.target_type is not None:
+            result['targetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('lastModifyTime') is not None:
+            self.last_modify_time = m.get('lastModifyTime')
+        if m.get('shipperName') is not None:
+            self.shipper_name = m.get('shipperName')
+        if m.get('targetConfiguration') is not None:
+            self.target_configuration = m.get('targetConfiguration')
+        if m.get('targetType') is not None:
+            self.target_type = m.get('targetType')
+        return self
+
+
+class GetShipperConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetShipperConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetShipperConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetShipperConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetShipperStatusRequest(TeaModel):
+    def __init__(self, from_=None, offset=None, size=None, status=None, to=None):
+        self.from_ = from_  # type: long
+        self.offset = offset  # type: int
+        self.size = size  # type: int
+        self.status = status  # type: str
+        self.to = to  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetShipperStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.from_ is not None:
+            result['from'] = self.from_
+        if self.offset is not None:
+            result['offset'] = self.offset
+        if self.size is not None:
+            result['size'] = self.size
+        if self.status is not None:
+            result['status'] = self.status
+        if self.to is not None:
+            result['to'] = self.to
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('from') is not None:
+            self.from_ = m.get('from')
+        if m.get('offset') is not None:
+            self.offset = m.get('offset')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('to') is not None:
+            self.to = m.get('to')
+        return self
+
+
+class GetShipperStatusResponseBodyStatistics(TeaModel):
+    def __init__(self, fail=None, running=None, success=None):
+        self.fail = fail  # type: long
+        self.running = running  # type: long
+        self.success = success  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetShipperStatusResponseBodyStatistics, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail is not None:
+            result['fail'] = self.fail
+        if self.running is not None:
+            result['running'] = self.running
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fail') is not None:
+            self.fail = m.get('fail')
+        if m.get('running') is not None:
+            self.running = m.get('running')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class GetShipperStatusResponseBodyTasks(TeaModel):
+    def __init__(self, id=None, task_code=None, task_create_time=None, task_data_lines=None, task_finish_time=None,
+                 task_last_data_receive_time=None, task_message=None, task_status=None):
+        self.id = id  # type: str
+        self.task_code = task_code  # type: str
+        self.task_create_time = task_create_time  # type: long
+        self.task_data_lines = task_data_lines  # type: int
+        self.task_finish_time = task_finish_time  # type: long
+        self.task_last_data_receive_time = task_last_data_receive_time  # type: long
+        self.task_message = task_message  # type: str
+        self.task_status = task_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetShipperStatusResponseBodyTasks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.task_code is not None:
+            result['taskCode'] = self.task_code
+        if self.task_create_time is not None:
+            result['taskCreateTime'] = self.task_create_time
+        if self.task_data_lines is not None:
+            result['taskDataLines'] = self.task_data_lines
+        if self.task_finish_time is not None:
+            result['taskFinishTime'] = self.task_finish_time
+        if self.task_last_data_receive_time is not None:
+            result['taskLastDataReceiveTime'] = self.task_last_data_receive_time
+        if self.task_message is not None:
+            result['taskMessage'] = self.task_message
+        if self.task_status is not None:
+            result['taskStatus'] = self.task_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('taskCode') is not None:
+            self.task_code = m.get('taskCode')
+        if m.get('taskCreateTime') is not None:
+            self.task_create_time = m.get('taskCreateTime')
+        if m.get('taskDataLines') is not None:
+            self.task_data_lines = m.get('taskDataLines')
+        if m.get('taskFinishTime') is not None:
+            self.task_finish_time = m.get('taskFinishTime')
+        if m.get('taskLastDataReceiveTime') is not None:
+            self.task_last_data_receive_time = m.get('taskLastDataReceiveTime')
+        if m.get('taskMessage') is not None:
+            self.task_message = m.get('taskMessage')
+        if m.get('taskStatus') is not None:
+            self.task_status = m.get('taskStatus')
+        return self
+
+
+class GetShipperStatusResponseBody(TeaModel):
+    def __init__(self, count=None, statistics=None, tasks=None, total=None):
+        self.count = count  # type: long
+        self.statistics = statistics  # type: GetShipperStatusResponseBodyStatistics
+        self.tasks = tasks  # type: GetShipperStatusResponseBodyTasks
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.statistics:
+            self.statistics.validate()
+        if self.tasks:
+            self.tasks.validate()
+
+    def to_map(self):
+        _map = super(GetShipperStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.statistics is not None:
+            result['statistics'] = self.statistics.to_map()
+        if self.tasks is not None:
+            result['tasks'] = self.tasks.to_map()
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('statistics') is not None:
+            temp_model = GetShipperStatusResponseBodyStatistics()
+            self.statistics = temp_model.from_map(m['statistics'])
+        if m.get('tasks') is not None:
+            temp_model = GetShipperStatusResponseBodyTasks()
+            self.tasks = temp_model.from_map(m['tasks'])
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class GetShipperStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetShipperStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetShipperStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetShipperStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListConsumerGroupResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -4044,7 +4737,6 @@ class ListConsumerGroupResponse(TeaModel):
 
 class ListDomainsRequest(TeaModel):
     def __init__(self, domain_name=None, offset=None, size=None):
-        # 用于搜索匹配的自定义域名
         self.domain_name = domain_name  # type: str
         self.offset = offset  # type: int
         self.size = size  # type: int
@@ -4155,9 +4847,7 @@ class ListEtlMetaRequest(TeaModel):
         self.etl_meta_key = etl_meta_key  # type: str
         self.etl_meta_name = etl_meta_name  # type: str
         self.etl_meta_tag = etl_meta_tag  # type: str
-        # 默认值 0。
         self.offset = offset  # type: int
-        # 默认值 200.
         self.size = size  # type: int
 
     def validate(self):
@@ -4274,9 +4964,7 @@ class ListEtlMetaResponse(TeaModel):
 
 class ListEtlMetaNameRequest(TeaModel):
     def __init__(self, offset=None, size=None):
-        # 默认值为 0。
         self.offset = offset  # type: int
-        # 默认值 200。
         self.size = size  # type: int
 
     def validate(self):
@@ -4376,11 +5064,125 @@ class ListEtlMetaNameResponse(TeaModel):
         return self
 
 
+class ListExternalStoreRequest(TeaModel):
+    def __init__(self, external_store_name=None, offset=None, sizs=None):
+        self.external_store_name = external_store_name  # type: str
+        self.offset = offset  # type: int
+        self.sizs = sizs  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExternalStoreRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_store_name is not None:
+            result['externalStoreName'] = self.external_store_name
+        if self.offset is not None:
+            result['offset'] = self.offset
+        if self.sizs is not None:
+            result['sizs'] = self.sizs
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('externalStoreName') is not None:
+            self.external_store_name = m.get('externalStoreName')
+        if m.get('offset') is not None:
+            self.offset = m.get('offset')
+        if m.get('sizs') is not None:
+            self.sizs = m.get('sizs')
+        return self
+
+
+class ListExternalStoreResponseBody(TeaModel):
+    def __init__(self, count=None, externalstores=None, total=None):
+        self.count = count  # type: int
+        self.externalstores = externalstores  # type: list[ExternalStore]
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.externalstores:
+            for k in self.externalstores:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListExternalStoreResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        result['externalstores'] = []
+        if self.externalstores is not None:
+            for k in self.externalstores:
+                result['externalstores'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        self.externalstores = []
+        if m.get('externalstores') is not None:
+            for k in m.get('externalstores'):
+                temp_model = ExternalStore()
+                self.externalstores.append(temp_model.from_map(k))
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListExternalStoreResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListExternalStoreResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListExternalStoreResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListLogStoresRequest(TeaModel):
     def __init__(self, logstore_name=None, offset=None, size=None, telemetry_type=None):
         self.logstore_name = logstore_name  # type: str
         self.offset = offset  # type: int
-        # 默认值为 500。
         self.size = size  # type: int
         self.telemetry_type = telemetry_type  # type: str
 
@@ -4486,11 +5288,8 @@ class ListLogStoresResponse(TeaModel):
 
 class ListMachineGroupRequest(TeaModel):
     def __init__(self, group_name=None, offset=None, size=None):
-        # 可将 groupName 作为 pattern 匹配名称，只会返回匹配的机器组。例如 test 可以匹配机器组 test-group。
         self.group_name = group_name  # type: str
-        # 分页请求的起始位置。默认为0。
         self.offset = offset  # type: int
-        # 分页查询时，设置的每页行数。默认值为2000。
         self.size = size  # type: int
 
     def validate(self):
@@ -4523,11 +5322,8 @@ class ListMachineGroupRequest(TeaModel):
 
 class ListMachineGroupResponseBody(TeaModel):
     def __init__(self, count=None, machinegroups=None, total=None):
-        # 当前页返回的机器组数量。
         self.count = count  # type: int
-        # 机器组名称列表。
         self.machinegroups = machinegroups  # type: list[str]
-        # 机器组总数量。
         self.total = total  # type: int
 
     def validate(self):
@@ -4599,9 +5395,7 @@ class ListMachineGroupResponse(TeaModel):
 
 class ListMachinesRequest(TeaModel):
     def __init__(self, offset=None, size=None):
-        # 查询开始行。默认值为0。
         self.offset = offset  # type: int
-        # 分页查询时，设置的每页行数。默认值为2000。
         self.size = size  # type: int
 
     def validate(self):
@@ -4630,11 +5424,8 @@ class ListMachinesRequest(TeaModel):
 
 class ListMachinesResponseBody(TeaModel):
     def __init__(self, count=None, machines=None, total=None):
-        # 当前页返回的机器数目。
         self.count = count  # type: int
-        # 返回的机器信息列表。
         self.machines = machines  # type: list[Machine]
-        # 机器总数。
         self.total = total  # type: int
 
     def validate(self):
@@ -4716,7 +5507,6 @@ class ListProjectRequest(TeaModel):
     def __init__(self, offset=None, project_name=None, size=None):
         self.offset = offset  # type: int
         self.project_name = project_name  # type: str
-        # 默认值为 500。
         self.size = size  # type: int
 
     def validate(self):
@@ -4831,7 +5621,6 @@ class ListProjectResponse(TeaModel):
 class ListSavedSearchRequest(TeaModel):
     def __init__(self, offset=None, size=None):
         self.offset = offset  # type: int
-        # 默认值为 500。
         self.size = size  # type: int
 
     def validate(self):
@@ -4984,11 +5773,82 @@ class ListShardsResponse(TeaModel):
         return self
 
 
+class ListShipperResponseBody(TeaModel):
+    def __init__(self, count=None, shipper=None, total=None):
+        self.count = count  # type: long
+        self.shipper = shipper  # type: list[str]
+        self.total = total  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListShipperResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.shipper is not None:
+            result['shipper'] = self.shipper
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('shipper') is not None:
+            self.shipper = m.get('shipper')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListShipperResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListShipperResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTagResourcesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # 精确过滤的标签的键。
         self.key = key  # type: str
-        # 精确过滤的标签的值。
         self.value = value  # type: str
 
     def validate(self):
@@ -5017,11 +5877,8 @@ class ListTagResourcesRequestTags(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tags=None):
-        # 查询的资源的 id 列表。resource id 与 tags 应至少存在一个。
         self.resource_id = resource_id  # type: list[str]
-        # 资源类型。目前取值范围：project。
         self.resource_type = resource_type  # type: str
-        # 精确查找时过滤的标签键值对。resource id 与 tags 应至少存在一个。
         self.tags = tags  # type: list[ListTagResourcesRequestTags]
 
     def validate(self):
@@ -5062,11 +5919,8 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesShrinkRequest(TeaModel):
     def __init__(self, resource_id_shrink=None, resource_type=None, tags_shrink=None):
-        # 查询的资源的 id 列表。resource id 与 tags 应至少存在一个。
         self.resource_id_shrink = resource_id_shrink  # type: str
-        # 资源类型。目前取值范围：project。
         self.resource_type = resource_type  # type: str
-        # 精确查找时过滤的标签键值对。resource id 与 tags 应至少存在一个。
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -5099,13 +5953,9 @@ class ListTagResourcesShrinkRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
-        # 资源 id。
         self.resource_id = resource_id  # type: str
-        # 资源类型。
         self.resource_type = resource_type  # type: str
-        # 标签的键。
         self.tag_key = tag_key  # type: str
-        # 标签的值。
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -5142,9 +5992,7 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, tag_resources=None):
-        # 下一个查询开始Token。
         self.next_token = next_token  # type: str
-        # 返回的标签列表。
         self.tag_resources = tag_resources  # type: list[ListTagResourcesResponseBodyTagResources]
 
     def validate(self):
@@ -5220,7 +6068,6 @@ class ListTagResourcesResponse(TeaModel):
 
 class MergeShardsRequest(TeaModel):
     def __init__(self, action=None):
-        # 固定为 merge。
         self.action = action  # type: str
 
     def validate(self):
@@ -5320,11 +6167,8 @@ class RemoveConfigFromMachineGroupResponse(TeaModel):
 
 class SplitShardRequest(TeaModel):
     def __init__(self, action=None, key=None, shard_count=None):
-        # 这里固定为 split。
         self.action = action  # type: str
-        # 分裂的位置。
         self.key = key  # type: str
-        # 要分裂成的 shard 数量，默认为 2。
         self.shard_count = shard_count  # type: int
 
     def validate(self):
@@ -5402,9 +6246,7 @@ class SplitShardResponse(TeaModel):
 
 class TagResourcesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # 标签的 key。
         self.key = key  # type: str
-        # 标签的 value。
         self.value = value  # type: str
 
     def validate(self):
@@ -5433,11 +6275,8 @@ class TagResourcesRequestTags(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tags=None):
-        # 资源的 id 列表，可以一次为多个同类型资源打上相同的标签。
         self.resource_id = resource_id  # type: list[str]
-        # 资源的类型。目前取值范围：project。
         self.resource_type = resource_type  # type: str
-        # 标签列表。
         self.tags = tags  # type: list[TagResourcesRequestTags]
 
     def validate(self):
@@ -5508,13 +6347,9 @@ class TagResourcesResponse(TeaModel):
 
 class UnTagResourcesRequest(TeaModel):
     def __init__(self, all=None, resource_id=None, resource_type=None, tags=None):
-        # 是否删除所有标签，默认为 false，表示仅删除 tags 列表中的标签项。值为 true 时删除资源上绑定的所有标签。
         self.all = all  # type: bool
-        # 资源的 id 列表，可以一次为多个同类型资源删除相同的标签。当 all 为 false 时生效。
         self.resource_id = resource_id  # type: list[str]
-        # 资源的类型。目前取值范围 ： project。
         self.resource_type = resource_type  # type: str
-        # 标签 key 列表。当 all 为 false 时，仅删除列表中的标签。
         self.tags = tags  # type: list[str]
 
     def validate(self):
@@ -5581,15 +6416,10 @@ class UnTagResourcesResponse(TeaModel):
 
 class UpdateCheckPointRequest(TeaModel):
     def __init__(self, checkpoint=None, shard=None, consumer=None, force_success=None, type=None):
-        # checkpoint值。
         self.checkpoint = checkpoint  # type: str
-        # shard 的 id。
         self.shard = shard  # type: int
-        # 消费者。
         self.consumer = consumer  # type: str
-        # 当不指定消费者时，必须指定forceSuccess为true才能更新checkpoint。
         self.force_success = force_success  # type: bool
-        # 固定为 checkpoint。
         self.type = type  # type: str
 
     def validate(self):
@@ -5719,13 +6549,9 @@ class UpdateConsumerGroupResponse(TeaModel):
 
 class UpdateEtlMetaRequest(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
-        # 是否启用。etlMetaTag、etlMetaValue、enable 至少需要存在一个。
         self.enable = enable  # type: bool
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,255]之间。
         self.etl_meta_key = etl_meta_key  # type: str
-        # 名字。由数字、大小写字母、下划线_、连字符-组成，长度需要在[2,64]之间。
         self.etl_meta_name = etl_meta_name  # type: str
-        # key。由 ascii 可打印字符组成，包括数字、英文大小写字母、下划线、连字符、英文标点符号等组成，长度在[1,128]之间。
         self.etl_meta_tag = etl_meta_tag  # type: str
         self.etl_meta_value = etl_meta_value  # type: dict[str, any]
 
@@ -5797,15 +6623,10 @@ class UpdateEtlMetaResponse(TeaModel):
 
 class UpdateIndexRequestLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
-        # 大小写敏感
         self.case_sensitive = case_sensitive  # type: bool
-        # 包含中文
         self.chn = chn  # type: bool
-        # 排除的字段列表，不能与include_keys同时指定。
         self.exclude_keys = exclude_keys  # type: list[str]
-        # 包含的字段列表，不能与exclude_keys同时指定。
         self.include_keys = include_keys  # type: list[str]
-        # 分词符列表。可以设置一个分词参数，指定这个字段按照哪一种方式分词。
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -5847,19 +6668,12 @@ class UpdateIndexRequestLine(TeaModel):
 class UpdateIndexRequest(TeaModel):
     def __init__(self, keys=None, line=None, log_reduce=None, log_reduce_black_list=None,
                  log_reduce_white_list=None, max_text_len=None, ttl=None):
-        # 字段索引配置，key为字段名称，value为字段索引配置。
         self.keys = keys  # type: dict[str, KeysValue]
-        # 配置全文索引。
         self.line = line  # type: UpdateIndexRequestLine
-        # 开启日志聚类，开启后白名单与黑名单至多生效其中一个。
         self.log_reduce = log_reduce  # type: bool
-        # 日志聚类的聚类字段黑名单
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
-        # 日志聚类的聚类字段白名单
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
-        # 统计字段的最大长度
         self.max_text_len = max_text_len  # type: int
-        # 保存时间，单位为天
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -6051,9 +6865,7 @@ class UpdateLogStoreResponse(TeaModel):
 
 class UpdateLoggingRequestLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
-        # 该种类服务日志要保存到的 logstore 名称。
         self.logstore = logstore  # type: str
-        # 服务日志的种类。可选 "consumergroup_log"、 "logtail_alarm"、"operation_log"、"logtail_profile"、"metering"、"logtail_status"、"scheduled_sql_alert"、 "etl_alert" 等。
         self.type = type  # type: str
 
     def validate(self):
@@ -6082,9 +6894,7 @@ class UpdateLoggingRequestLoggingDetails(TeaModel):
 
 class UpdateLoggingRequest(TeaModel):
     def __init__(self, logging_details=None, logging_project=None):
-        # 服务日志配置列表。
         self.logging_details = logging_details  # type: list[UpdateLoggingRequestLoggingDetails]
-        # 服务日志要保存到的 project 名称。
         self.logging_project = logging_project  # type: str
 
     def validate(self):
@@ -6151,9 +6961,7 @@ class UpdateLoggingResponse(TeaModel):
 
 class UpdateMachineGroupRequestGroupAttribute(TeaModel):
     def __init__(self, external_name=None, group_topic=None):
-        # 机器组所依赖的外部管理系统标识。
         self.external_name = external_name  # type: str
-        # 机器组的日志主题。
         self.group_topic = group_topic  # type: str
 
     def validate(self):
@@ -6183,15 +6991,10 @@ class UpdateMachineGroupRequestGroupAttribute(TeaModel):
 class UpdateMachineGroupRequest(TeaModel):
     def __init__(self, group_attribute=None, group_name=None, group_type=None, machine_identify_type=None,
                  machine_list=None):
-        # 机器组属性。
         self.group_attribute = group_attribute  # type: UpdateMachineGroupRequestGroupAttribute
-        # 机器组名称。
         self.group_name = group_name  # type: str
-        # 机器组类型，可选值，默认为空。
         self.group_type = group_type  # type: str
-        # 机器组标识种类，支持 ip 、userdefined 两种。
         self.machine_identify_type = machine_identify_type  # type: str
-        # 机器列表。
         self.machine_list = machine_list  # type: list[str]
 
     def validate(self):
@@ -6262,9 +7065,453 @@ class UpdateMachineGroupResponse(TeaModel):
         return self
 
 
+class UpdateOdpsShipperRequestTargetConfiguration(TeaModel):
+    def __init__(self, buffer_interval=None, enable=None, fields=None, odps_endpoint=None, odps_project=None,
+                 odps_table=None, partition_column=None, partition_time_format=None):
+        self.buffer_interval = buffer_interval  # type: int
+        self.enable = enable  # type: bool
+        self.fields = fields  # type: list[str]
+        self.odps_endpoint = odps_endpoint  # type: str
+        self.odps_project = odps_project  # type: str
+        self.odps_table = odps_table  # type: str
+        self.partition_column = partition_column  # type: list[str]
+        self.partition_time_format = partition_time_format  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateOdpsShipperRequestTargetConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buffer_interval is not None:
+            result['bufferInterval'] = self.buffer_interval
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.fields is not None:
+            result['fields'] = self.fields
+        if self.odps_endpoint is not None:
+            result['odpsEndpoint'] = self.odps_endpoint
+        if self.odps_project is not None:
+            result['odpsProject'] = self.odps_project
+        if self.odps_table is not None:
+            result['odpsTable'] = self.odps_table
+        if self.partition_column is not None:
+            result['partitionColumn'] = self.partition_column
+        if self.partition_time_format is not None:
+            result['partitionTimeFormat'] = self.partition_time_format
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bufferInterval') is not None:
+            self.buffer_interval = m.get('bufferInterval')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('fields') is not None:
+            self.fields = m.get('fields')
+        if m.get('odpsEndpoint') is not None:
+            self.odps_endpoint = m.get('odpsEndpoint')
+        if m.get('odpsProject') is not None:
+            self.odps_project = m.get('odpsProject')
+        if m.get('odpsTable') is not None:
+            self.odps_table = m.get('odpsTable')
+        if m.get('partitionColumn') is not None:
+            self.partition_column = m.get('partitionColumn')
+        if m.get('partitionTimeFormat') is not None:
+            self.partition_time_format = m.get('partitionTimeFormat')
+        return self
+
+
+class UpdateOdpsShipperRequest(TeaModel):
+    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
+        self.shipper_name = shipper_name  # type: str
+        self.target_configuration = target_configuration  # type: UpdateOdpsShipperRequestTargetConfiguration
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        if self.target_configuration:
+            self.target_configuration.validate()
+
+    def to_map(self):
+        _map = super(UpdateOdpsShipperRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shipper_name is not None:
+            result['shipperName'] = self.shipper_name
+        if self.target_configuration is not None:
+            result['targetConfiguration'] = self.target_configuration.to_map()
+        if self.target_type is not None:
+            result['targetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('shipperName') is not None:
+            self.shipper_name = m.get('shipperName')
+        if m.get('targetConfiguration') is not None:
+            temp_model = UpdateOdpsShipperRequestTargetConfiguration()
+            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
+        if m.get('targetType') is not None:
+            self.target_type = m.get('targetType')
+        return self
+
+
+class UpdateOdpsShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateOdpsShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateOssExternalStoreRequestParameterColumns(TeaModel):
+    def __init__(self, name=None, type=None):
+        self.name = name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateOssExternalStoreRequestParameterColumns, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class UpdateOssExternalStoreRequestParameter(TeaModel):
+    def __init__(self, accessid=None, accesskey=None, bucket=None, columns=None, endpoint=None, objects=None):
+        self.accessid = accessid  # type: str
+        self.accesskey = accesskey  # type: str
+        self.bucket = bucket  # type: str
+        self.columns = columns  # type: list[UpdateOssExternalStoreRequestParameterColumns]
+        self.endpoint = endpoint  # type: str
+        self.objects = objects  # type: list[str]
+
+    def validate(self):
+        if self.columns:
+            for k in self.columns:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateOssExternalStoreRequestParameter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accessid is not None:
+            result['accessid'] = self.accessid
+        if self.accesskey is not None:
+            result['accesskey'] = self.accesskey
+        if self.bucket is not None:
+            result['bucket'] = self.bucket
+        result['columns'] = []
+        if self.columns is not None:
+            for k in self.columns:
+                result['columns'].append(k.to_map() if k else None)
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.objects is not None:
+            result['objects'] = self.objects
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessid') is not None:
+            self.accessid = m.get('accessid')
+        if m.get('accesskey') is not None:
+            self.accesskey = m.get('accesskey')
+        if m.get('bucket') is not None:
+            self.bucket = m.get('bucket')
+        self.columns = []
+        if m.get('columns') is not None:
+            for k in m.get('columns'):
+                temp_model = UpdateOssExternalStoreRequestParameterColumns()
+                self.columns.append(temp_model.from_map(k))
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('objects') is not None:
+            self.objects = m.get('objects')
+        return self
+
+
+class UpdateOssExternalStoreRequest(TeaModel):
+    def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        self.external_store_name = external_store_name  # type: str
+        self.parameter = parameter  # type: UpdateOssExternalStoreRequestParameter
+        self.store_type = store_type  # type: str
+
+    def validate(self):
+        if self.parameter:
+            self.parameter.validate()
+
+    def to_map(self):
+        _map = super(UpdateOssExternalStoreRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_store_name is not None:
+            result['externalStoreName'] = self.external_store_name
+        if self.parameter is not None:
+            result['parameter'] = self.parameter.to_map()
+        if self.store_type is not None:
+            result['storeType'] = self.store_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('externalStoreName') is not None:
+            self.external_store_name = m.get('externalStoreName')
+        if m.get('parameter') is not None:
+            temp_model = UpdateOssExternalStoreRequestParameter()
+            self.parameter = temp_model.from_map(m['parameter'])
+        if m.get('storeType') is not None:
+            self.store_type = m.get('storeType')
+        return self
+
+
+class UpdateOssExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateOssExternalStoreResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateOssShipperRequestTargetConfigurationStorage(TeaModel):
+    def __init__(self, detail=None, format=None):
+        self.detail = detail  # type: dict[str, any]
+        self.format = format  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateOssShipperRequestTargetConfigurationStorage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.detail is not None:
+            result['detail'] = self.detail
+        if self.format is not None:
+            result['format'] = self.format
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('detail') is not None:
+            self.detail = m.get('detail')
+        if m.get('format') is not None:
+            self.format = m.get('format')
+        return self
+
+
+class UpdateOssShipperRequestTargetConfiguration(TeaModel):
+    def __init__(self, buffer_interval=None, buffer_size=None, compress_type=None, enable=None, oss_bucket=None,
+                 oss_prefix=None, path_format=None, role_arn=None, storage=None, time_zone=None):
+        self.buffer_interval = buffer_interval  # type: int
+        self.buffer_size = buffer_size  # type: int
+        self.compress_type = compress_type  # type: str
+        self.enable = enable  # type: bool
+        self.oss_bucket = oss_bucket  # type: str
+        self.oss_prefix = oss_prefix  # type: str
+        self.path_format = path_format  # type: str
+        self.role_arn = role_arn  # type: str
+        self.storage = storage  # type: UpdateOssShipperRequestTargetConfigurationStorage
+        self.time_zone = time_zone  # type: str
+
+    def validate(self):
+        if self.storage:
+            self.storage.validate()
+
+    def to_map(self):
+        _map = super(UpdateOssShipperRequestTargetConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buffer_interval is not None:
+            result['bufferInterval'] = self.buffer_interval
+        if self.buffer_size is not None:
+            result['bufferSize'] = self.buffer_size
+        if self.compress_type is not None:
+            result['compressType'] = self.compress_type
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.oss_bucket is not None:
+            result['ossBucket'] = self.oss_bucket
+        if self.oss_prefix is not None:
+            result['ossPrefix'] = self.oss_prefix
+        if self.path_format is not None:
+            result['pathFormat'] = self.path_format
+        if self.role_arn is not None:
+            result['roleArn'] = self.role_arn
+        if self.storage is not None:
+            result['storage'] = self.storage.to_map()
+        if self.time_zone is not None:
+            result['timeZone'] = self.time_zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bufferInterval') is not None:
+            self.buffer_interval = m.get('bufferInterval')
+        if m.get('bufferSize') is not None:
+            self.buffer_size = m.get('bufferSize')
+        if m.get('compressType') is not None:
+            self.compress_type = m.get('compressType')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('ossBucket') is not None:
+            self.oss_bucket = m.get('ossBucket')
+        if m.get('ossPrefix') is not None:
+            self.oss_prefix = m.get('ossPrefix')
+        if m.get('pathFormat') is not None:
+            self.path_format = m.get('pathFormat')
+        if m.get('roleArn') is not None:
+            self.role_arn = m.get('roleArn')
+        if m.get('storage') is not None:
+            temp_model = UpdateOssShipperRequestTargetConfigurationStorage()
+            self.storage = temp_model.from_map(m['storage'])
+        if m.get('timeZone') is not None:
+            self.time_zone = m.get('timeZone')
+        return self
+
+
+class UpdateOssShipperRequest(TeaModel):
+    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
+        self.shipper_name = shipper_name  # type: str
+        self.target_configuration = target_configuration  # type: UpdateOssShipperRequestTargetConfiguration
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        if self.target_configuration:
+            self.target_configuration.validate()
+
+    def to_map(self):
+        _map = super(UpdateOssShipperRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shipper_name is not None:
+            result['shipperName'] = self.shipper_name
+        if self.target_configuration is not None:
+            result['targetConfiguration'] = self.target_configuration.to_map()
+        if self.target_type is not None:
+            result['targetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('shipperName') is not None:
+            self.shipper_name = m.get('shipperName')
+        if m.get('targetConfiguration') is not None:
+            temp_model = UpdateOssShipperRequestTargetConfiguration()
+            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
+        if m.get('targetType') is not None:
+            self.target_type = m.get('targetType')
+        return self
+
+
+class UpdateOssShipperResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateOssShipperResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class UpdateProjectRequest(TeaModel):
     def __init__(self, description=None):
-        # Project description
         self.description = description  # type: str
 
     def validate(self):
@@ -6298,6 +7545,137 @@ class UpdateProjectResponse(TeaModel):
 
     def to_map(self):
         _map = super(UpdateProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateRdsExternalStoreRequestParameter(TeaModel):
+    def __init__(self, db=None, host=None, instance_id=None, password=None, port=None, region=None, table=None,
+                 username=None, vpc_id=None):
+        self.db = db  # type: str
+        self.host = host  # type: str
+        self.instance_id = instance_id  # type: str
+        self.password = password  # type: str
+        self.port = port  # type: str
+        self.region = region  # type: str
+        self.table = table  # type: str
+        self.username = username  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateRdsExternalStoreRequestParameter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db is not None:
+            result['db'] = self.db
+        if self.host is not None:
+            result['host'] = self.host
+        if self.instance_id is not None:
+            result['instance-id'] = self.instance_id
+        if self.password is not None:
+            result['password'] = self.password
+        if self.port is not None:
+            result['port'] = self.port
+        if self.region is not None:
+            result['region'] = self.region
+        if self.table is not None:
+            result['table'] = self.table
+        if self.username is not None:
+            result['username'] = self.username
+        if self.vpc_id is not None:
+            result['vpc-id'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('db') is not None:
+            self.db = m.get('db')
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('instance-id') is not None:
+            self.instance_id = m.get('instance-id')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('table') is not None:
+            self.table = m.get('table')
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        if m.get('vpc-id') is not None:
+            self.vpc_id = m.get('vpc-id')
+        return self
+
+
+class UpdateRdsExternalStoreRequest(TeaModel):
+    def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        self.external_store_name = external_store_name  # type: str
+        self.parameter = parameter  # type: UpdateRdsExternalStoreRequestParameter
+        self.store_type = store_type  # type: str
+
+    def validate(self):
+        if self.parameter:
+            self.parameter.validate()
+
+    def to_map(self):
+        _map = super(UpdateRdsExternalStoreRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_store_name is not None:
+            result['externalStoreName'] = self.external_store_name
+        if self.parameter is not None:
+            result['parameter'] = self.parameter.to_map()
+        if self.store_type is not None:
+            result['storeType'] = self.store_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('externalStoreName') is not None:
+            self.external_store_name = m.get('externalStoreName')
+        if m.get('parameter') is not None:
+            temp_model = UpdateRdsExternalStoreRequestParameter()
+            self.parameter = temp_model.from_map(m['parameter'])
+        if m.get('storeType') is not None:
+            self.store_type = m.get('storeType')
+        return self
+
+
+class UpdateRdsExternalStoreResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateRdsExternalStoreResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -6393,17 +7771,11 @@ class UpdateSavedSearchResponse(TeaModel):
 
 class KeysValue(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, type=None, alias=None, token=None, doc_value=None):
-        # 大小写敏感
         self.case_sensitive = case_sensitive  # type: bool
-        # 包含中文
         self.chn = chn  # type: bool
-        # 字段的索引类型
         self.type = type  # type: str
-        # 别名
         self.alias = alias  # type: str
-        # 分词符列表。仅当type参数取值为text时，必须设置。
         self.token = token  # type: list[str]
-        # 开启统计
         self.doc_value = doc_value  # type: bool
 
     def validate(self):

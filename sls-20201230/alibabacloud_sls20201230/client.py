@@ -451,6 +451,119 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def create_odps_shipper(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_odps_shipper_with_options(project, logstore, request, headers, runtime)
+
+    def create_odps_shipper_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        body = {}
+        if not UtilClient.is_unset(request.shipper_name):
+            body['shipperName'] = request.shipper_name
+        if not UtilClient.is_unset(request.target_configuration):
+            body['targetConfiguration'] = request.target_configuration
+        if not UtilClient.is_unset(request.target_type):
+            body['targetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOdpsShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper' % TeaConverter.to_unicode(logstore),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOdpsShipperResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_oss_external_store(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_oss_external_store_with_options(project, request, headers, runtime)
+
+    def create_oss_external_store_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.external_store_name):
+            body['externalStoreName'] = request.external_store_name
+        if not UtilClient.is_unset(request.parameter):
+            body['parameter'] = request.parameter
+        if not UtilClient.is_unset(request.store_type):
+            body['storeType'] = request.store_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOssExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOssExternalStoreResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_oss_shipper(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_oss_shipper_with_options(project, logstore, request, headers, runtime)
+
+    def create_oss_shipper_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        body = {}
+        if not UtilClient.is_unset(request.shipper_name):
+            body['shipperName'] = request.shipper_name
+        if not UtilClient.is_unset(request.target_configuration):
+            body['targetConfiguration'] = request.target_configuration
+        if not UtilClient.is_unset(request.target_type):
+            body['targetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOssShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper' % TeaConverter.to_unicode(logstore),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOssShipperResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def create_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -480,6 +593,43 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_rds_external_store(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_rds_external_store_with_options(project, request, headers, runtime)
+
+    def create_rds_external_store_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.external_store_name):
+            body['externalStoreName'] = request.external_store_name
+        if not UtilClient.is_unset(request.parameter):
+            body['parameter'] = request.parameter
+        if not UtilClient.is_unset(request.store_type):
+            body['storeType'] = request.store_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRdsExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateRdsExternalStoreResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -617,6 +767,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_external_store(self, project, external_store_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_external_store_with_options(project, external_store_name, headers, runtime)
+
+    def delete_external_store_with_options(self, project, external_store_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        external_store_name = OpenApiUtilClient.get_encode_param(external_store_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores/%s' % TeaConverter.to_unicode(external_store_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteExternalStoreResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -792,6 +971,36 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def delete_shipper(self, project, logstore, shipper_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_shipper_with_options(project, logstore, shipper_name, headers, runtime)
+
+    def delete_shipper_with_options(self, project, logstore, shipper_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shipper_name = OpenApiUtilClient.get_encode_param(shipper_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shipper_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteShipperResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def get_applied_configs(self, project, machine_group):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -818,6 +1027,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.GetAppliedConfigsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_applied_machine_groups(self, project, config_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_applied_machine_groups_with_options(project, config_name, headers, runtime)
+
+    def get_applied_machine_groups_with_options(self, project, config_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        config_name = OpenApiUtilClient.get_encode_param(config_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAppliedMachineGroups',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/configs/%s/machinegroups' % TeaConverter.to_unicode(config_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAppliedMachineGroupsResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1006,6 +1244,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.GetEtlMetaResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_external_store(self, project, external_store_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_external_store_with_options(project, external_store_name, headers, runtime)
+
+    def get_external_store_with_options(self, project, external_store_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        external_store_name = OpenApiUtilClient.get_encode_param(external_store_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores/%s' % TeaConverter.to_unicode(external_store_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetExternalStoreResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1308,6 +1575,79 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def get_shipper_config(self, project, logstore, shipper_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_shipper_config_with_options(project, logstore, shipper_name, headers, runtime)
+
+    def get_shipper_config_with_options(self, project, logstore, shipper_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shipper_name = OpenApiUtilClient.get_encode_param(shipper_name)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetShipperConfig',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shipper_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetShipperConfigResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_shipper_status(self, project, logstore, shipper_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
+
+    def get_shipper_status_with_options(self, project, logstore, shipper_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shipper_name = OpenApiUtilClient.get_encode_param(shipper_name)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['from'] = request.from_
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        if not UtilClient.is_unset(request.status):
+            query['status'] = request.status
+        if not UtilClient.is_unset(request.to):
+            query['to'] = request.to
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetShipperStatus',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper/%s/tasks' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shipper_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetShipperStatusResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def list_consumer_group(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1447,6 +1787,43 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.ListEtlMetaNameResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_external_store(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_external_store_with_options(project, request, headers, runtime)
+
+    def list_external_store_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.external_store_name):
+            query['externalStoreName'] = request.external_store_name
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.sizs):
+            query['sizs'] = request.sizs
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListExternalStoreResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1657,6 +2034,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.ListShardsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_shipper(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_shipper_with_options(project, logstore, headers, runtime)
+
+    def list_shipper_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListShipperResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -2172,6 +2578,122 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
+    def update_odps_shipper(self, project, logstore, shipper_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_odps_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
+
+    def update_odps_shipper_with_options(self, project, logstore, shipper_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shipper_name = OpenApiUtilClient.get_encode_param(shipper_name)
+        body = {}
+        if not UtilClient.is_unset(request.shipper_name):
+            body['shipperName'] = request.shipper_name
+        if not UtilClient.is_unset(request.target_configuration):
+            body['targetConfiguration'] = request.target_configuration
+        if not UtilClient.is_unset(request.target_type):
+            body['targetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOdpsShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shipper_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOdpsShipperResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_oss_external_store(self, project, external_store_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_oss_external_store_with_options(project, external_store_name, request, headers, runtime)
+
+    def update_oss_external_store_with_options(self, project, external_store_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        external_store_name = OpenApiUtilClient.get_encode_param(external_store_name)
+        body = {}
+        if not UtilClient.is_unset(request.external_store_name):
+            body['externalStoreName'] = request.external_store_name
+        if not UtilClient.is_unset(request.parameter):
+            body['parameter'] = request.parameter
+        if not UtilClient.is_unset(request.store_type):
+            body['storeType'] = request.store_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOssExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores/%s' % TeaConverter.to_unicode(external_store_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOssExternalStoreResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_oss_shipper(self, project, logstore, shipper_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_oss_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
+
+    def update_oss_shipper_with_options(self, project, logstore, shipper_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        logstore = OpenApiUtilClient.get_encode_param(logstore)
+        shipper_name = OpenApiUtilClient.get_encode_param(shipper_name)
+        body = {}
+        if not UtilClient.is_unset(request.shipper_name):
+            body['shipperName'] = request.shipper_name
+        if not UtilClient.is_unset(request.target_configuration):
+            body['targetConfiguration'] = request.target_configuration
+        if not UtilClient.is_unset(request.target_type):
+            body['targetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOssShipper',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shipper/%s' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shipper_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOssShipperResponse(),
+            self.execute(params, req, runtime)
+        )
+
     def update_project(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2202,6 +2724,44 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateProjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_rds_external_store(self, project, external_store_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_rds_external_store_with_options(project, external_store_name, request, headers, runtime)
+
+    def update_rds_external_store_with_options(self, project, external_store_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        external_store_name = OpenApiUtilClient.get_encode_param(external_store_name)
+        body = {}
+        if not UtilClient.is_unset(request.external_store_name):
+            body['externalStoreName'] = request.external_store_name
+        if not UtilClient.is_unset(request.parameter):
+            body['parameter'] = request.parameter
+        if not UtilClient.is_unset(request.store_type):
+            body['storeType'] = request.store_type
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRdsExternalStore',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/externalstores/%s' % TeaConverter.to_unicode(external_store_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateRdsExternalStoreResponse(),
             self.execute(params, req, runtime)
         )
 
