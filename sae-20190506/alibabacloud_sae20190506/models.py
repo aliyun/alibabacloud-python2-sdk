@@ -906,19 +906,16 @@ class CreateApplicationRequest(TeaModel):
     def __init__(self, acr_assume_role_arn=None, acr_instance_id=None, app_description=None, app_name=None,
                  associate_eip=None, auto_config=None, command=None, command_args=None, config_map_mount_desc=None, cpu=None,
                  custom_host_alias=None, deploy=None, edas_container_version=None, envs=None, image_url=None, jar_start_args=None,
-                 jar_start_options=None, jdk=None, kafka_configs=None, kafka_endpoint=None, kafka_instance_id=None,
-                 kafka_logfile_config=None, liveness=None, memory=None, mount_desc=None, mount_host=None, namespace_id=None, nas_id=None,
-                 open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
+                 jar_start_options=None, jdk=None, kafka_configs=None, liveness=None, memory=None, mount_desc=None, mount_host=None,
+                 namespace_id=None, nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
                  package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
                  php_config_location=None, post_start=None, pre_stop=None, programming_language=None, readiness=None, replicas=None,
                  security_group_id=None, sls_configs=None, termination_grace_period_seconds=None, timezone=None, tomcat_config=None,
-                 v_switch_id=None, vpc_id=None, war_start_options=None, web_container=None, mse_feature_config=None):
+                 v_switch_id=None, vpc_id=None, war_start_options=None, web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
-        # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
         self.app_description = app_description  # type: str
         self.app_name = app_name  # type: str
-        # 是否绑定EIP
         self.associate_eip = associate_eip  # type: bool
         self.auto_config = auto_config  # type: bool
         self.command = command  # type: str
@@ -934,21 +931,14 @@ class CreateApplicationRequest(TeaModel):
         self.jar_start_options = jar_start_options  # type: str
         self.jdk = jdk  # type: str
         self.kafka_configs = kafka_configs  # type: str
-        self.kafka_endpoint = kafka_endpoint  # type: str
-        self.kafka_instance_id = kafka_instance_id  # type: str
-        self.kafka_logfile_config = kafka_logfile_config  # type: str
         self.liveness = liveness  # type: str
         self.memory = memory  # type: int
         self.mount_desc = mount_desc  # type: str
         self.mount_host = mount_host  # type: str
         self.namespace_id = namespace_id  # type: str
         self.nas_id = nas_id  # type: str
-        self.open_collect_to_kafka = open_collect_to_kafka  # type: bool
-        # OSS使用的AKID
         self.oss_ak_id = oss_ak_id  # type: str
-        # OSS AKID对应的secret
         self.oss_ak_secret = oss_ak_secret  # type: str
-        # OSS挂载描述信息
         self.oss_mount_descs = oss_mount_descs  # type: str
         self.package_type = package_type  # type: str
         self.package_url = package_url  # type: str
@@ -970,7 +960,6 @@ class CreateApplicationRequest(TeaModel):
         self.vpc_id = vpc_id  # type: str
         self.war_start_options = war_start_options  # type: str
         self.web_container = web_container  # type: str
-        self.mse_feature_config = mse_feature_config  # type: str
 
     def validate(self):
         pass
@@ -1019,12 +1008,6 @@ class CreateApplicationRequest(TeaModel):
             result['Jdk'] = self.jdk
         if self.kafka_configs is not None:
             result['KafkaConfigs'] = self.kafka_configs
-        if self.kafka_endpoint is not None:
-            result['KafkaEndpoint'] = self.kafka_endpoint
-        if self.kafka_instance_id is not None:
-            result['KafkaInstanceId'] = self.kafka_instance_id
-        if self.kafka_logfile_config is not None:
-            result['KafkaLogfileConfig'] = self.kafka_logfile_config
         if self.liveness is not None:
             result['Liveness'] = self.liveness
         if self.memory is not None:
@@ -1037,8 +1020,6 @@ class CreateApplicationRequest(TeaModel):
             result['NamespaceId'] = self.namespace_id
         if self.nas_id is not None:
             result['NasId'] = self.nas_id
-        if self.open_collect_to_kafka is not None:
-            result['OpenCollectToKafka'] = self.open_collect_to_kafka
         if self.oss_ak_id is not None:
             result['OssAkId'] = self.oss_ak_id
         if self.oss_ak_secret is not None:
@@ -1085,8 +1066,6 @@ class CreateApplicationRequest(TeaModel):
             result['WarStartOptions'] = self.war_start_options
         if self.web_container is not None:
             result['WebContainer'] = self.web_container
-        if self.mse_feature_config is not None:
-            result['mseFeatureConfig'] = self.mse_feature_config
         return result
 
     def from_map(self, m=None):
@@ -1129,12 +1108,6 @@ class CreateApplicationRequest(TeaModel):
             self.jdk = m.get('Jdk')
         if m.get('KafkaConfigs') is not None:
             self.kafka_configs = m.get('KafkaConfigs')
-        if m.get('KafkaEndpoint') is not None:
-            self.kafka_endpoint = m.get('KafkaEndpoint')
-        if m.get('KafkaInstanceId') is not None:
-            self.kafka_instance_id = m.get('KafkaInstanceId')
-        if m.get('KafkaLogfileConfig') is not None:
-            self.kafka_logfile_config = m.get('KafkaLogfileConfig')
         if m.get('Liveness') is not None:
             self.liveness = m.get('Liveness')
         if m.get('Memory') is not None:
@@ -1147,8 +1120,6 @@ class CreateApplicationRequest(TeaModel):
             self.namespace_id = m.get('NamespaceId')
         if m.get('NasId') is not None:
             self.nas_id = m.get('NasId')
-        if m.get('OpenCollectToKafka') is not None:
-            self.open_collect_to_kafka = m.get('OpenCollectToKafka')
         if m.get('OssAkId') is not None:
             self.oss_ak_id = m.get('OssAkId')
         if m.get('OssAkSecret') is not None:
@@ -1195,8 +1166,6 @@ class CreateApplicationRequest(TeaModel):
             self.war_start_options = m.get('WarStartOptions')
         if m.get('WebContainer') is not None:
             self.web_container = m.get('WebContainer')
-        if m.get('mseFeatureConfig') is not None:
-            self.mse_feature_config = m.get('mseFeatureConfig')
         return self
 
 
@@ -1839,15 +1808,10 @@ class CreateConfigMapResponse(TeaModel):
 
 class CreateGreyTagRouteRequest(TeaModel):
     def __init__(self, app_id=None, description=None, dubbo_rules=None, name=None, sc_rules=None):
-        # 应用ID
         self.app_id = app_id  # type: str
-        # 规则名称
         self.description = description  # type: str
-        # Dubbo规则
         self.dubbo_rules = dubbo_rules  # type: str
-        # 规则名称
         self.name = name  # type: str
-        # SpringCloud规则
         self.sc_rules = sc_rules  # type: str
 
     def validate(self):
@@ -2747,7 +2711,6 @@ class DeleteConfigMapResponse(TeaModel):
 
 class DeleteGreyTagRouteRequest(TeaModel):
     def __init__(self, grey_tag_route_id=None):
-        # 规则ID
         self.grey_tag_route_id = grey_tag_route_id  # type: long
 
     def validate(self):
@@ -3151,18 +3114,14 @@ class DeployApplicationRequest(TeaModel):
                  auto_enable_application_scaling_rule=None, batch_wait_time=None, change_order_desc=None, command=None, command_args=None,
                  config_map_mount_desc=None, custom_host_alias=None, edas_container_version=None, enable_ahas=None,
                  enable_grey_tag_route=None, envs=None, image_url=None, jar_start_args=None, jar_start_options=None, jdk=None,
-                 kafka_configs=None, kafka_endpoint=None, kafka_instance_id=None, kafka_logfile_config=None, liveness=None,
-                 min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None, mse_feature_config=None,
-                 nas_id=None, open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None,
-                 package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
-                 php_config_location=None, post_start=None, pre_stop=None, readiness=None, sls_configs=None,
-                 termination_grace_period_seconds=None, timezone=None, tomcat_config=None, update_strategy=None, war_start_options=None,
-                 web_container=None):
+                 kafka_configs=None, liveness=None, min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None,
+                 mount_host=None, nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_url=None,
+                 package_version=None, php_arms_config_location=None, php_config=None, php_config_location=None, post_start=None,
+                 pre_stop=None, readiness=None, sls_configs=None, termination_grace_period_seconds=None, timezone=None,
+                 tomcat_config=None, update_strategy=None, war_start_options=None, web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
-        # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
         self.app_id = app_id  # type: str
-        # 是否绑定EIP
         self.associate_eip = associate_eip  # type: bool
         self.auto_enable_application_scaling_rule = auto_enable_application_scaling_rule  # type: bool
         self.batch_wait_time = batch_wait_time  # type: int
@@ -3173,7 +3132,6 @@ class DeployApplicationRequest(TeaModel):
         self.custom_host_alias = custom_host_alias  # type: str
         self.edas_container_version = edas_container_version  # type: str
         self.enable_ahas = enable_ahas  # type: str
-        # 是否开启发布流量灰度规则
         self.enable_grey_tag_route = enable_grey_tag_route  # type: bool
         self.envs = envs  # type: str
         self.image_url = image_url  # type: str
@@ -3181,22 +3139,14 @@ class DeployApplicationRequest(TeaModel):
         self.jar_start_options = jar_start_options  # type: str
         self.jdk = jdk  # type: str
         self.kafka_configs = kafka_configs  # type: str
-        self.kafka_endpoint = kafka_endpoint  # type: str
-        self.kafka_instance_id = kafka_instance_id  # type: str
-        self.kafka_logfile_config = kafka_logfile_config  # type: str
         self.liveness = liveness  # type: str
         self.min_ready_instance_ratio = min_ready_instance_ratio  # type: int
         self.min_ready_instances = min_ready_instances  # type: int
         self.mount_desc = mount_desc  # type: str
         self.mount_host = mount_host  # type: str
-        self.mse_feature_config = mse_feature_config  # type: str
         self.nas_id = nas_id  # type: str
-        self.open_collect_to_kafka = open_collect_to_kafka  # type: bool
-        # OSS使用的AKID
         self.oss_ak_id = oss_ak_id  # type: str
-        # OSS AKID对应的secret
         self.oss_ak_secret = oss_ak_secret  # type: str
-        # OSS挂载描述信息
         self.oss_mount_descs = oss_mount_descs  # type: str
         self.package_url = package_url  # type: str
         self.package_version = package_version  # type: str
@@ -3263,12 +3213,6 @@ class DeployApplicationRequest(TeaModel):
             result['Jdk'] = self.jdk
         if self.kafka_configs is not None:
             result['KafkaConfigs'] = self.kafka_configs
-        if self.kafka_endpoint is not None:
-            result['KafkaEndpoint'] = self.kafka_endpoint
-        if self.kafka_instance_id is not None:
-            result['KafkaInstanceId'] = self.kafka_instance_id
-        if self.kafka_logfile_config is not None:
-            result['KafkaLogfileConfig'] = self.kafka_logfile_config
         if self.liveness is not None:
             result['Liveness'] = self.liveness
         if self.min_ready_instance_ratio is not None:
@@ -3279,12 +3223,8 @@ class DeployApplicationRequest(TeaModel):
             result['MountDesc'] = self.mount_desc
         if self.mount_host is not None:
             result['MountHost'] = self.mount_host
-        if self.mse_feature_config is not None:
-            result['MseFeatureConfig'] = self.mse_feature_config
         if self.nas_id is not None:
             result['NasId'] = self.nas_id
-        if self.open_collect_to_kafka is not None:
-            result['OpenCollectToKafka'] = self.open_collect_to_kafka
         if self.oss_ak_id is not None:
             result['OssAkId'] = self.oss_ak_id
         if self.oss_ak_secret is not None:
@@ -3365,12 +3305,6 @@ class DeployApplicationRequest(TeaModel):
             self.jdk = m.get('Jdk')
         if m.get('KafkaConfigs') is not None:
             self.kafka_configs = m.get('KafkaConfigs')
-        if m.get('KafkaEndpoint') is not None:
-            self.kafka_endpoint = m.get('KafkaEndpoint')
-        if m.get('KafkaInstanceId') is not None:
-            self.kafka_instance_id = m.get('KafkaInstanceId')
-        if m.get('KafkaLogfileConfig') is not None:
-            self.kafka_logfile_config = m.get('KafkaLogfileConfig')
         if m.get('Liveness') is not None:
             self.liveness = m.get('Liveness')
         if m.get('MinReadyInstanceRatio') is not None:
@@ -3381,12 +3315,8 @@ class DeployApplicationRequest(TeaModel):
             self.mount_desc = m.get('MountDesc')
         if m.get('MountHost') is not None:
             self.mount_host = m.get('MountHost')
-        if m.get('MseFeatureConfig') is not None:
-            self.mse_feature_config = m.get('MseFeatureConfig')
         if m.get('NasId') is not None:
             self.nas_id = m.get('NasId')
-        if m.get('OpenCollectToKafka') is not None:
-            self.open_collect_to_kafka = m.get('OpenCollectToKafka')
         if m.get('OssAkId') is not None:
             self.oss_ak_id = m.get('OssAkId')
         if m.get('OssAkSecret') is not None:
@@ -3558,7 +3488,6 @@ class DeployApplicationResponse(TeaModel):
 
 class DescribeAppServiceDetailRequest(TeaModel):
     def __init__(self, app_id=None, service_group=None, service_name=None, service_type=None, service_version=None):
-        # mse 的 appId
         self.app_id = app_id  # type: str
         self.service_group = service_group  # type: str
         self.service_name = service_name  # type: str
@@ -3982,13 +3911,9 @@ class DescribeApplicationConfigResponseBodyDataMountDesc(TeaModel):
 
 class DescribeApplicationConfigResponseBodyDataOssMountDescs(TeaModel):
     def __init__(self, bucket_name=None, bucket_path=None, mount_path=None, read_only=None):
-        # Bucket名称
         self.bucket_name = bucket_name  # type: str
-        # Bucket中Oss Key名称
         self.bucket_path = bucket_path  # type: str
-        # 挂载到容器的路径
         self.mount_path = mount_path  # type: str
-        # 是否只读
         self.read_only = read_only  # type: bool
 
     def validate(self):
@@ -4066,12 +3991,10 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
                  timezone=None, tomcat_config=None, update_strategy=None, v_switch_id=None, vpc_id=None,
                  war_start_options=None, web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
-        # ACR 企业版实例 ID
         self.acr_instance_id = acr_instance_id  # type: str
         self.app_description = app_description  # type: str
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
-        # 是否绑定EIP
         self.associate_eip = associate_eip  # type: bool
         self.batch_wait_time = batch_wait_time  # type: int
         self.command = command  # type: str
@@ -4081,7 +4004,6 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
         self.custom_host_alias = custom_host_alias  # type: str
         self.edas_container_version = edas_container_version  # type: str
         self.enable_ahas = enable_ahas  # type: str
-        # 开启流量灰度
         self.enable_grey_tag_route = enable_grey_tag_route  # type: bool
         self.envs = envs  # type: str
         self.image_url = image_url  # type: str
@@ -4095,16 +4017,12 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
         self.min_ready_instances = min_ready_instances  # type: int
         self.mount_desc = mount_desc  # type: list[DescribeApplicationConfigResponseBodyDataMountDesc]
         self.mount_host = mount_host  # type: str
-        # 对应MSE产品侧应用ID
         self.mse_application_id = mse_application_id  # type: str
         self.mse_feature_config = mse_feature_config  # type: str
         self.namespace_id = namespace_id  # type: str
         self.nas_id = nas_id  # type: str
-        # OSS读写的AK
         self.oss_ak_id = oss_ak_id  # type: str
-        # OSS读写的secret
         self.oss_ak_secret = oss_ak_secret  # type: str
-        # OSS挂载描述信息
         self.oss_mount_descs = oss_mount_descs  # type: list[DescribeApplicationConfigResponseBodyDataOssMountDescs]
         self.package_type = package_type  # type: str
         self.package_url = package_url  # type: str
@@ -7896,7 +7814,6 @@ class DescribeEdasContainersResponse(TeaModel):
 
 class DescribeGreyTagRouteRequest(TeaModel):
     def __init__(self, grey_tag_route_id=None):
-        # 规则ID
         self.grey_tag_route_id = grey_tag_route_id  # type: long
 
     def validate(self):
@@ -7924,10 +7841,8 @@ class DescribeGreyTagRouteResponseBodyDataDubboRulesItems(TeaModel):
         self.cond = cond  # type: str
         self.expr = expr  # type: str
         self.index = index  # type: int
-        # abandon
         self.name = name  # type: str
         self.operator = operator  # type: str
-        # abandon
         self.type = type  # type: str
         self.value = value  # type: str
 
@@ -8035,9 +7950,7 @@ class DescribeGreyTagRouteResponseBodyDataDubboRules(TeaModel):
 class DescribeGreyTagRouteResponseBodyDataScRulesItems(TeaModel):
     def __init__(self, cond=None, expr=None, index=None, name=None, operator=None, type=None, value=None):
         self.cond = cond  # type: str
-        # abandon
         self.expr = expr  # type: str
-        # abandon
         self.index = index  # type: int
         self.name = name  # type: str
         self.operator = operator  # type: str
@@ -8214,7 +8127,6 @@ class DescribeGreyTagRouteResponseBody(TeaModel):
         self.data = data  # type: DescribeGreyTagRouteResponseBodyData
         self.error_code = error_code  # type: str
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
@@ -12192,7 +12104,6 @@ class ListConsumedServicesResponse(TeaModel):
 
 class ListGreyTagRouteRequest(TeaModel):
     def __init__(self, app_id=None):
-        # 应用ID
         self.app_id = app_id  # type: str
 
     def validate(self):
@@ -12220,10 +12131,8 @@ class ListGreyTagRouteResponseBodyDataResultDubboRulesItems(TeaModel):
         self.cond = cond  # type: str
         self.expr = expr  # type: str
         self.index = index  # type: int
-        # abandon
         self.name = name  # type: str
         self.operator = operator  # type: str
-        # abandon
         self.type = type  # type: str
         self.value = value  # type: str
 
@@ -12332,7 +12241,6 @@ class ListGreyTagRouteResponseBodyDataResultScRulesItems(TeaModel):
     def __init__(self, cond=None, expr=None, index=None, name=None, operator=None, type=None, value=None):
         self.cond = cond  # type: str
         self.expr = expr  # type: str
-        # abandon
         self.index = index  # type: int
         self.name = name  # type: str
         self.operator = operator  # type: str
@@ -12551,7 +12459,6 @@ class ListGreyTagRouteResponseBody(TeaModel):
         self.data = data  # type: ListGreyTagRouteResponseBodyData
         self.error_code = error_code  # type: str
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
@@ -16825,13 +16732,9 @@ class UpdateConfigMapResponse(TeaModel):
 
 class UpdateGreyTagRouteRequest(TeaModel):
     def __init__(self, description=None, dubbo_rules=None, grey_tag_route_id=None, sc_rules=None):
-        # 规则名称
         self.description = description  # type: str
-        # Dubbo规则
         self.dubbo_rules = dubbo_rules  # type: str
-        # 规则ID
         self.grey_tag_route_id = grey_tag_route_id  # type: long
-        # SpringCloud规则
         self.sc_rules = sc_rules  # type: str
 
     def validate(self):
