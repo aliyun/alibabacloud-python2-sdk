@@ -430,6 +430,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_game_with_options(request, runtime)
 
+    def delete_game_archive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.archive_id):
+            query['ArchiveId'] = request.archive_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGameArchive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.DeleteGameArchiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_game_archive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_game_archive_with_options(request, runtime)
+
     def delete_game_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1154,6 +1186,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_history_container_status_with_options(request, runtime)
 
+    def list_latest_game_archive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.tag_status):
+            query['TagStatus'] = request.tag_status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListLatestGameArchive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.ListLatestGameArchiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_latest_game_archive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_latest_game_archive_with_options(request, runtime)
+
     def list_projects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1437,6 +1505,38 @@ class Client(OpenApiClient):
     def remove_game_from_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_game_from_project_with_options(request, runtime)
+
+    def restore_game_archive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.archive_id):
+            query['ArchiveId'] = request.archive_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestoreGameArchive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.RestoreGameArchiveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def restore_game_archive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.restore_game_archive_with_options(request, runtime)
 
     def set_game_alive_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1795,6 +1895,40 @@ class Client(OpenApiClient):
     def submit_internal_purchase_ready_flag(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_internal_purchase_ready_flag_with_options(request, runtime)
+
+    def update_game_archive_tag_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.archive_id):
+            query['ArchiveId'] = request.archive_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.tag_status):
+            query['TagStatus'] = request.tag_status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGameArchiveTagStatus',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.UpdateGameArchiveTagStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_game_archive_tag_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_game_archive_tag_status_with_options(request, runtime)
 
     def upload_game_version_by_download_with_options(self, request, runtime):
         UtilClient.validate_model(request)
