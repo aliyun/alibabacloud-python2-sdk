@@ -3307,7 +3307,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
                  domain_endpoint=None, eip_max=None, end_point=None, expired_time=None, instance_id=None, io_max=None,
                  msg_retain=None, name=None, paid_type=None, region_id=None, resource_group_id=None, sasl_domain_endpoint=None,
                  security_group=None, service_status=None, spec_type=None, ssl_domain_endpoint=None, ssl_end_point=None, tags=None,
-                 topic_num_limit=None, upgrade_service_detail_info=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None, used_partition_count=None,
+                 used_topic_count=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.all_config = all_config  # type: str
         self.create_time = create_time  # type: long
         self.deploy_type = deploy_type  # type: int
@@ -3333,6 +3334,9 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.tags = tags  # type: GetInstanceListResponseBodyInstanceListInstanceVOTags
         self.topic_num_limit = topic_num_limit  # type: int
         self.upgrade_service_detail_info = upgrade_service_detail_info  # type: GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo
+        self.used_group_count = used_group_count  # type: int
+        self.used_partition_count = used_partition_count  # type: int
+        self.used_topic_count = used_topic_count  # type: int
         self.v_switch_id = v_switch_id  # type: str
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
@@ -3399,6 +3403,12 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             result['TopicNumLimit'] = self.topic_num_limit
         if self.upgrade_service_detail_info is not None:
             result['UpgradeServiceDetailInfo'] = self.upgrade_service_detail_info.to_map()
+        if self.used_group_count is not None:
+            result['UsedGroupCount'] = self.used_group_count
+        if self.used_partition_count is not None:
+            result['UsedPartitionCount'] = self.used_partition_count
+        if self.used_topic_count is not None:
+            result['UsedTopicCount'] = self.used_topic_count
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -3461,6 +3471,12 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         if m.get('UpgradeServiceDetailInfo') is not None:
             temp_model = GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo()
             self.upgrade_service_detail_info = temp_model.from_map(m['UpgradeServiceDetailInfo'])
+        if m.get('UsedGroupCount') is not None:
+            self.used_group_count = m.get('UsedGroupCount')
+        if m.get('UsedPartitionCount') is not None:
+            self.used_partition_count = m.get('UsedPartitionCount')
+        if m.get('UsedTopicCount') is not None:
+            self.used_topic_count = m.get('UsedTopicCount')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VpcId') is not None:
