@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_oss20190517_py2.
 
-Created on 07/04/2022
+Created on 03/08/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -38,10 +38,10 @@ AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/aliyun/alibabacloud-python2-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
-    "alibabacloud_tea_util_py2>=0.0.5, <1.0.0",
+    "alibabacloud_tea_util_py2>=0.0.6, <1.0.0",
     "alibabacloud_gateway_spi_py2>=0.0.1, <1.0.0",
-    "alibabacloud_gateway_oss_py2>=0.0.4, <1.0.0",
-    "alibabacloud_tea_openapi_py2>=0.1.1, <1.0.0",
+    "alibabacloud_gateway_oss_py2>=0.0.6, <1.0.0",
+    "alibabacloud_tea_openapi_py2>=0.1.3, <1.0.0",
     "alibabacloud_openapi_util_py2>=0.0.8, <1.0.0"
 ]
 
