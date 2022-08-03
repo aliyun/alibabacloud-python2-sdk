@@ -5,15 +5,10 @@ from Tea.model import TeaModel
 
 class GetStatTrendRequest(TeaModel):
     def __init__(self, app_version=None, data_source_id=None, end_date=None, start_date=None, type=None):
-        # 结束日期（yyyy-MM-dd格式，和起始日期不能超过90天）
         self.app_version = app_version  # type: str
-        # 数据源id（appKey)
         self.data_source_id = data_source_id  # type: str
-        # 起始日期（yyyy-MM-dd格式）
         self.end_date = end_date  # type: str
-        # 指定App版本
         self.start_date = start_date  # type: str
-        # 异常类型（0. 全部崩溃 1. java/ios崩溃 2. native崩溃  3.ANR  4.自定义异常 5.卡顿）
         self.type = type  # type: int
 
     def validate(self):
@@ -145,12 +140,14 @@ class GetStatTrendResponseBody(TeaModel):
 
 
 class GetStatTrendResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetStatTrendResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -163,6 +160,8 @@ class GetStatTrendResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -171,6 +170,8 @@ class GetStatTrendResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetStatTrendResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -179,13 +180,9 @@ class GetStatTrendResponse(TeaModel):
 
 class GetSymUploadParamRequest(TeaModel):
     def __init__(self, app_version=None, data_source_id=None, file_name=None, file_type=None):
-        # App版本号
         self.app_version = app_version  # type: str
-        # 数据源id（appKey)
         self.data_source_id = data_source_id  # type: str
-        # 文件名称，后缀只允许为txt,so,sym,zip,gz
         self.file_name = file_name  # type: str
-        # 文件类型(1 mapping文件；2 so文件；3 dSYM文件压缩包)
         self.file_type = file_type  # type: int
 
     def validate(self):
@@ -222,17 +219,11 @@ class GetSymUploadParamRequest(TeaModel):
 
 class GetSymUploadParamResponseBodyData(TeaModel):
     def __init__(self, access_key_id=None, callback=None, key=None, policy=None, signature=None, upload_address=None):
-        # 文件上传表单必要参数
         self.access_key_id = access_key_id  # type: str
-        # 文件上传表单必要参数
         self.callback = callback  # type: str
-        # 文件上传表单必要参数
         self.key = key  # type: str
-        # 文件上传表单必要参数
         self.policy = policy  # type: str
-        # 文件上传表单必要参数
         self.signature = signature  # type: str
-        # 文件上传地址
         self.upload_address = upload_address  # type: str
 
     def validate(self):
@@ -277,15 +268,10 @@ class GetSymUploadParamResponseBodyData(TeaModel):
 
 class GetSymUploadParamResponseBody(TeaModel):
     def __init__(self, code=None, data=None, msg=None, success=None, trace_id=None):
-        # code
         self.code = code  # type: long
-        # data
         self.data = data  # type: GetSymUploadParamResponseBodyData
-        # 异常描述
         self.msg = msg  # type: str
-        # 是否成功
         self.success = success  # type: bool
-        # traceId
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -327,12 +313,14 @@ class GetSymUploadParamResponseBody(TeaModel):
 
 
 class GetSymUploadParamResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetSymUploadParamResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -345,6 +333,8 @@ class GetSymUploadParamResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -353,6 +343,8 @@ class GetSymUploadParamResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetSymUploadParamResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -361,11 +353,8 @@ class GetSymUploadParamResponse(TeaModel):
 
 class GetTodayStatTrendRequest(TeaModel):
     def __init__(self, app_version=None, data_source_id=None, type=None):
-        # 指定App版本
         self.app_version = app_version  # type: str
-        # 数据源id（appKey)
         self.data_source_id = data_source_id  # type: str
-        # 异常类型（0. 全部崩溃 1. java/ios崩溃 2. native崩溃  3.ANR  4.自定义异常 5.卡顿）
         self.type = type  # type: int
 
     def validate(self):
@@ -489,12 +478,14 @@ class GetTodayStatTrendResponseBody(TeaModel):
 
 
 class GetTodayStatTrendResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetTodayStatTrendResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -507,6 +498,8 @@ class GetTodayStatTrendResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -515,6 +508,8 @@ class GetTodayStatTrendResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTodayStatTrendResponseBody()
             self.body = temp_model.from_map(m['body'])
