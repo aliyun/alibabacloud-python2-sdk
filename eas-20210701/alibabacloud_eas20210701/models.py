@@ -1082,17 +1082,17 @@ class CreateServiceAutoScalerRequestStrategies(TeaModel):
 
         result = dict()
         if self.cpu is not None:
-            result['Cpu'] = self.cpu
+            result['cpu'] = self.cpu
         if self.qps is not None:
-            result['Qps'] = self.qps
+            result['qps'] = self.qps
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Cpu') is not None:
-            self.cpu = m.get('Cpu')
-        if m.get('Qps') is not None:
-            self.qps = m.get('Qps')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('qps') is not None:
+            self.qps = m.get('qps')
         return self
 
 
@@ -1113,22 +1113,22 @@ class CreateServiceAutoScalerRequest(TeaModel):
 
         result = dict()
         if self.max is not None:
-            result['Max'] = self.max
+            result['max'] = self.max
         if self.min is not None:
-            result['Min'] = self.min
+            result['min'] = self.min
         if self.strategies is not None:
-            result['Strategies'] = self.strategies.to_map()
+            result['strategies'] = self.strategies.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Max') is not None:
-            self.max = m.get('Max')
-        if m.get('Min') is not None:
-            self.min = m.get('Min')
-        if m.get('Strategies') is not None:
+        if m.get('max') is not None:
+            self.max = m.get('max')
+        if m.get('min') is not None:
+            self.min = m.get('min')
+        if m.get('strategies') is not None:
             temp_model = CreateServiceAutoScalerRequestStrategies()
-            self.strategies = temp_model.from_map(m['Strategies'])
+            self.strategies = temp_model.from_map(m['strategies'])
         return self
 
 
@@ -2703,8 +2703,9 @@ class DescribeServiceResponse(TeaModel):
 
 
 class DescribeServiceAutoScalerResponseBody(TeaModel):
-    def __init__(self, current_values=None, max_replica=None, min_replica=None, request_id=None, service_name=None,
-                 strategies=None):
+    def __init__(self, behavior=None, current_values=None, max_replica=None, min_replica=None, request_id=None,
+                 service_name=None, strategies=None):
+        self.behavior = behavior  # type: dict[str, any]
         self.current_values = current_values  # type: dict[str, any]
         self.max_replica = max_replica  # type: int
         self.min_replica = min_replica  # type: int
@@ -2721,6 +2722,8 @@ class DescribeServiceAutoScalerResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.behavior is not None:
+            result['Behavior'] = self.behavior
         if self.current_values is not None:
             result['CurrentValues'] = self.current_values
         if self.max_replica is not None:
@@ -2737,6 +2740,8 @@ class DescribeServiceAutoScalerResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Behavior') is not None:
+            self.behavior = m.get('Behavior')
         if m.get('CurrentValues') is not None:
             self.current_values = m.get('CurrentValues')
         if m.get('MaxReplica') is not None:
@@ -4790,17 +4795,17 @@ class UpdateServiceAutoScalerRequestStrategies(TeaModel):
 
         result = dict()
         if self.cpu is not None:
-            result['Cpu'] = self.cpu
+            result['cpu'] = self.cpu
         if self.qps is not None:
-            result['Qps'] = self.qps
+            result['qps'] = self.qps
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Cpu') is not None:
-            self.cpu = m.get('Cpu')
-        if m.get('Qps') is not None:
-            self.qps = m.get('Qps')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('qps') is not None:
+            self.qps = m.get('qps')
         return self
 
 
@@ -4821,22 +4826,22 @@ class UpdateServiceAutoScalerRequest(TeaModel):
 
         result = dict()
         if self.max is not None:
-            result['Max'] = self.max
+            result['max'] = self.max
         if self.min is not None:
-            result['Min'] = self.min
+            result['min'] = self.min
         if self.strategies is not None:
-            result['Strategies'] = self.strategies.to_map()
+            result['strategies'] = self.strategies.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Max') is not None:
-            self.max = m.get('Max')
-        if m.get('Min') is not None:
-            self.min = m.get('Min')
-        if m.get('Strategies') is not None:
+        if m.get('max') is not None:
+            self.max = m.get('max')
+        if m.get('min') is not None:
+            self.min = m.get('min')
+        if m.get('strategies') is not None:
             temp_model = UpdateServiceAutoScalerRequestStrategies()
-            self.strategies = temp_model.from_map(m['Strategies'])
+            self.strategies = temp_model.from_map(m['strategies'])
         return self
 
 
