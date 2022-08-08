@@ -309,6 +309,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_token_with_options(request, headers, runtime)
+
+    def get_token_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expire_time):
+            query['ExpireTime'] = request.expire_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetToken',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/api/v2/tokens',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20220101_models.GetTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_user_config(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
