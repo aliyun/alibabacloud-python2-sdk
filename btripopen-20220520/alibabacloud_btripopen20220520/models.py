@@ -5615,9 +5615,8 @@ class CorpTokenResponse(TeaModel):
 
 
 class CostCenterDeleteRequest(TeaModel):
-    def __init__(self, thirdpart_id=None, user_id=None):
+    def __init__(self, thirdpart_id=None):
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -5630,16 +5629,12 @@ class CostCenterDeleteRequest(TeaModel):
         result = dict()
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -5738,13 +5733,12 @@ class CostCenterDeleteResponse(TeaModel):
 
 
 class CostCenterModifyRequest(TeaModel):
-    def __init__(self, alipay_no=None, number=None, scope=None, thirdpart_id=None, title=None, user_id=None):
+    def __init__(self, alipay_no=None, number=None, scope=None, thirdpart_id=None, title=None):
         self.alipay_no = alipay_no  # type: str
         self.number = number  # type: str
         self.scope = scope  # type: long
         self.thirdpart_id = thirdpart_id  # type: str
         self.title = title  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -5765,8 +5759,6 @@ class CostCenterModifyRequest(TeaModel):
             result['thirdpart_id'] = self.thirdpart_id
         if self.title is not None:
             result['title'] = self.title
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -5781,8 +5773,6 @@ class CostCenterModifyRequest(TeaModel):
             self.thirdpart_id = m.get('thirdpart_id')
         if m.get('title') is not None:
             self.title = m.get('title')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -6144,16 +6134,13 @@ class CostCenterQueryResponse(TeaModel):
 
 
 class CostCenterSaveRequest(TeaModel):
-    def __init__(self, alipay_id=None, alipay_no=None, corp_id=None, number=None, scope=None, thirdpart_id=None,
-                 title=None, user_id=None):
-        self.alipay_id = alipay_id  # type: str
+    def __init__(self, alipay_no=None, corp_id=None, number=None, scope=None, thirdpart_id=None, title=None):
         self.alipay_no = alipay_no  # type: str
         self.corp_id = corp_id  # type: str
         self.number = number  # type: str
         self.scope = scope  # type: long
         self.thirdpart_id = thirdpart_id  # type: str
         self.title = title  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -6164,8 +6151,6 @@ class CostCenterSaveRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.alipay_id is not None:
-            result['alipay_id'] = self.alipay_id
         if self.alipay_no is not None:
             result['alipay_no'] = self.alipay_no
         if self.corp_id is not None:
@@ -6178,14 +6163,10 @@ class CostCenterSaveRequest(TeaModel):
             result['thirdpart_id'] = self.thirdpart_id
         if self.title is not None:
             result['title'] = self.title
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('alipay_id') is not None:
-            self.alipay_id = m.get('alipay_id')
         if m.get('alipay_no') is not None:
             self.alipay_no = m.get('alipay_no')
         if m.get('corp_id') is not None:
@@ -6198,8 +6179,6 @@ class CostCenterSaveRequest(TeaModel):
             self.thirdpart_id = m.get('thirdpart_id')
         if m.get('title') is not None:
             self.title = m.get('title')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -6379,9 +6358,8 @@ class DepartmentSaveRequestDepartList(TeaModel):
 
 
 class DepartmentSaveRequest(TeaModel):
-    def __init__(self, depart_list=None, user_id=None):
+    def __init__(self, depart_list=None):
         self.depart_list = depart_list  # type: list[DepartmentSaveRequestDepartList]
-        self.user_id = user_id  # type: str
 
     def validate(self):
         if self.depart_list:
@@ -6399,8 +6377,6 @@ class DepartmentSaveRequest(TeaModel):
         if self.depart_list is not None:
             for k in self.depart_list:
                 result['depart_list'].append(k.to_map() if k else None)
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -6410,15 +6386,12 @@ class DepartmentSaveRequest(TeaModel):
             for k in m.get('depart_list'):
                 temp_model = DepartmentSaveRequestDepartList()
                 self.depart_list.append(temp_model.from_map(k))
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class DepartmentSaveShrinkRequest(TeaModel):
-    def __init__(self, depart_list_shrink=None, user_id=None):
+    def __init__(self, depart_list_shrink=None):
         self.depart_list_shrink = depart_list_shrink  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -6431,16 +6404,12 @@ class DepartmentSaveShrinkRequest(TeaModel):
         result = dict()
         if self.depart_list_shrink is not None:
             result['depart_list'] = self.depart_list_shrink
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('depart_list') is not None:
             self.depart_list_shrink = m.get('depart_list')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -6533,12 +6502,9 @@ class DepartmentSaveResponse(TeaModel):
 
 
 class EntityAddRequestEntityDOList(TeaModel):
-    def __init__(self, corp_id=None, entity_id=None, entity_type=None, name=None, user_num=None):
-        self.corp_id = corp_id  # type: str
+    def __init__(self, entity_id=None, entity_type=None):
         self.entity_id = entity_id  # type: str
         self.entity_type = entity_type  # type: str
-        self.name = name  # type: str
-        self.user_num = user_num  # type: int
 
     def validate(self):
         pass
@@ -6549,38 +6515,25 @@ class EntityAddRequestEntityDOList(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.entity_id is not None:
             result['entity_id'] = self.entity_id
         if self.entity_type is not None:
             result['entity_type'] = self.entity_type
-        if self.name is not None:
-            result['name'] = self.name
-        if self.user_num is not None:
-            result['user_num'] = self.user_num
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('entity_id') is not None:
             self.entity_id = m.get('entity_id')
         if m.get('entity_type') is not None:
             self.entity_type = m.get('entity_type')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('user_num') is not None:
-            self.user_num = m.get('user_num')
         return self
 
 
 class EntityAddRequest(TeaModel):
-    def __init__(self, entity_dolist=None, thirdpart_id=None, user_id=None):
+    def __init__(self, entity_dolist=None, thirdpart_id=None):
         self.entity_dolist = entity_dolist  # type: list[EntityAddRequestEntityDOList]
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         if self.entity_dolist:
@@ -6600,8 +6553,6 @@ class EntityAddRequest(TeaModel):
                 result['entity_d_o_list'].append(k.to_map() if k else None)
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -6613,16 +6564,13 @@ class EntityAddRequest(TeaModel):
                 self.entity_dolist.append(temp_model.from_map(k))
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class EntityAddShrinkRequest(TeaModel):
-    def __init__(self, entity_dolist_shrink=None, thirdpart_id=None, user_id=None):
+    def __init__(self, entity_dolist_shrink=None, thirdpart_id=None):
         self.entity_dolist_shrink = entity_dolist_shrink  # type: str
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -6637,8 +6585,6 @@ class EntityAddShrinkRequest(TeaModel):
             result['entity_d_o_list'] = self.entity_dolist_shrink
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -6647,8 +6593,6 @@ class EntityAddShrinkRequest(TeaModel):
             self.entity_dolist_shrink = m.get('entity_d_o_list')
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -6778,12 +6722,9 @@ class EntityAddResponse(TeaModel):
 
 
 class EntityDeleteRequestEntityDOList(TeaModel):
-    def __init__(self, corp_id=None, entity_id=None, entity_type=None, name=None, user_num=None):
-        self.corp_id = corp_id  # type: str
+    def __init__(self, entity_id=None, entity_type=None):
         self.entity_id = entity_id  # type: str
         self.entity_type = entity_type  # type: str
-        self.name = name  # type: str
-        self.user_num = user_num  # type: int
 
     def validate(self):
         pass
@@ -6794,39 +6735,26 @@ class EntityDeleteRequestEntityDOList(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.entity_id is not None:
             result['entity_id'] = self.entity_id
         if self.entity_type is not None:
             result['entity_type'] = self.entity_type
-        if self.name is not None:
-            result['name'] = self.name
-        if self.user_num is not None:
-            result['user_num'] = self.user_num
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('entity_id') is not None:
             self.entity_id = m.get('entity_id')
         if m.get('entity_type') is not None:
             self.entity_type = m.get('entity_type')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('user_num') is not None:
-            self.user_num = m.get('user_num')
         return self
 
 
 class EntityDeleteRequest(TeaModel):
-    def __init__(self, del_all=None, entity_dolist=None, thirdpart_id=None, user_id=None):
+    def __init__(self, del_all=None, entity_dolist=None, thirdpart_id=None):
         self.del_all = del_all  # type: bool
         self.entity_dolist = entity_dolist  # type: list[EntityDeleteRequestEntityDOList]
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         if self.entity_dolist:
@@ -6848,8 +6776,6 @@ class EntityDeleteRequest(TeaModel):
                 result['entity_d_o_list'].append(k.to_map() if k else None)
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -6863,17 +6789,14 @@ class EntityDeleteRequest(TeaModel):
                 self.entity_dolist.append(temp_model.from_map(k))
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class EntityDeleteShrinkRequest(TeaModel):
-    def __init__(self, del_all=None, entity_dolist_shrink=None, thirdpart_id=None, user_id=None):
+    def __init__(self, del_all=None, entity_dolist_shrink=None, thirdpart_id=None):
         self.del_all = del_all  # type: bool
         self.entity_dolist_shrink = entity_dolist_shrink  # type: str
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -6890,8 +6813,6 @@ class EntityDeleteShrinkRequest(TeaModel):
             result['entity_d_o_list'] = self.entity_dolist_shrink
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -6902,8 +6823,6 @@ class EntityDeleteShrinkRequest(TeaModel):
             self.entity_dolist_shrink = m.get('entity_d_o_list')
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -7033,12 +6952,9 @@ class EntityDeleteResponse(TeaModel):
 
 
 class EntitySetRequestEntityDOList(TeaModel):
-    def __init__(self, corp_id=None, entity_id=None, entity_type=None, name=None, user_num=None):
-        self.corp_id = corp_id  # type: str
+    def __init__(self, entity_id=None, entity_type=None):
         self.entity_id = entity_id  # type: str
         self.entity_type = entity_type  # type: str
-        self.name = name  # type: str
-        self.user_num = user_num  # type: int
 
     def validate(self):
         pass
@@ -7049,38 +6965,25 @@ class EntitySetRequestEntityDOList(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.entity_id is not None:
             result['entity_id'] = self.entity_id
         if self.entity_type is not None:
             result['entity_type'] = self.entity_type
-        if self.name is not None:
-            result['name'] = self.name
-        if self.user_num is not None:
-            result['user_num'] = self.user_num
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('entity_id') is not None:
             self.entity_id = m.get('entity_id')
         if m.get('entity_type') is not None:
             self.entity_type = m.get('entity_type')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('user_num') is not None:
-            self.user_num = m.get('user_num')
         return self
 
 
 class EntitySetRequest(TeaModel):
-    def __init__(self, entity_dolist=None, thirdpart_id=None, user_id=None):
+    def __init__(self, entity_dolist=None, thirdpart_id=None):
         self.entity_dolist = entity_dolist  # type: list[EntitySetRequestEntityDOList]
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         if self.entity_dolist:
@@ -7100,8 +7003,6 @@ class EntitySetRequest(TeaModel):
                 result['entity_d_o_list'].append(k.to_map() if k else None)
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -7113,16 +7014,13 @@ class EntitySetRequest(TeaModel):
                 self.entity_dolist.append(temp_model.from_map(k))
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class EntitySetShrinkRequest(TeaModel):
-    def __init__(self, entity_dolist_shrink=None, thirdpart_id=None, user_id=None):
+    def __init__(self, entity_dolist_shrink=None, thirdpart_id=None):
         self.entity_dolist_shrink = entity_dolist_shrink  # type: str
         self.thirdpart_id = thirdpart_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -7137,8 +7035,6 @@ class EntitySetShrinkRequest(TeaModel):
             result['entity_d_o_list'] = self.entity_dolist_shrink
         if self.thirdpart_id is not None:
             result['thirdpart_id'] = self.thirdpart_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -7147,8 +7043,6 @@ class EntitySetShrinkRequest(TeaModel):
             self.entity_dolist_shrink = m.get('entity_d_o_list')
         if m.get('thirdpart_id') is not None:
             self.thirdpart_id = m.get('thirdpart_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -11188,18 +11082,16 @@ class HotelOrderListQueryResponse(TeaModel):
 
 
 class InvoiceAddRequest(TeaModel):
-    def __init__(self, address=None, bank_name=None, bank_no=None, corp_id=None, tax_no=None, tel=None,
-                 third_part_id=None, title=None, type=None, user_id=None):
+    def __init__(self, address=None, bank_name=None, bank_no=None, tax_no=None, tel=None, third_part_id=None,
+                 title=None, type=None):
         self.address = address  # type: str
         self.bank_name = bank_name  # type: str
         self.bank_no = bank_no  # type: str
-        self.corp_id = corp_id  # type: str
         self.tax_no = tax_no  # type: str
         self.tel = tel  # type: str
         self.third_part_id = third_part_id  # type: str
         self.title = title  # type: str
         self.type = type  # type: int
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11216,8 +11108,6 @@ class InvoiceAddRequest(TeaModel):
             result['bank_name'] = self.bank_name
         if self.bank_no is not None:
             result['bank_no'] = self.bank_no
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.tax_no is not None:
             result['tax_no'] = self.tax_no
         if self.tel is not None:
@@ -11228,8 +11118,6 @@ class InvoiceAddRequest(TeaModel):
             result['title'] = self.title
         if self.type is not None:
             result['type'] = self.type
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -11240,8 +11128,6 @@ class InvoiceAddRequest(TeaModel):
             self.bank_name = m.get('bank_name')
         if m.get('bank_no') is not None:
             self.bank_no = m.get('bank_no')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('tax_no') is not None:
             self.tax_no = m.get('tax_no')
         if m.get('tel') is not None:
@@ -11252,8 +11138,6 @@ class InvoiceAddRequest(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -11352,9 +11236,8 @@ class InvoiceAddResponse(TeaModel):
 
 
 class InvoiceDeleteRequest(TeaModel):
-    def __init__(self, third_part_id=None, user_id=None):
+    def __init__(self, third_part_id=None):
         self.third_part_id = third_part_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11367,16 +11250,12 @@ class InvoiceDeleteRequest(TeaModel):
         result = dict()
         if self.third_part_id is not None:
             result['third_part_id'] = self.third_part_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('third_part_id') is not None:
             self.third_part_id = m.get('third_part_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -11475,18 +11354,16 @@ class InvoiceDeleteResponse(TeaModel):
 
 
 class InvoiceModifyRequest(TeaModel):
-    def __init__(self, address=None, bank_name=None, bank_no=None, corp_id=None, tax_no=None, tel=None,
-                 third_part_id=None, title=None, type=None, user_id=None):
+    def __init__(self, address=None, bank_name=None, bank_no=None, tax_no=None, tel=None, third_part_id=None,
+                 title=None, type=None):
         self.address = address  # type: str
         self.bank_name = bank_name  # type: str
         self.bank_no = bank_no  # type: str
-        self.corp_id = corp_id  # type: str
         self.tax_no = tax_no  # type: str
         self.tel = tel  # type: str
         self.third_part_id = third_part_id  # type: str
         self.title = title  # type: str
         self.type = type  # type: int
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11503,8 +11380,6 @@ class InvoiceModifyRequest(TeaModel):
             result['bank_name'] = self.bank_name
         if self.bank_no is not None:
             result['bank_no'] = self.bank_no
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.tax_no is not None:
             result['tax_no'] = self.tax_no
         if self.tel is not None:
@@ -11515,8 +11390,6 @@ class InvoiceModifyRequest(TeaModel):
             result['title'] = self.title
         if self.type is not None:
             result['type'] = self.type
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
@@ -11527,8 +11400,6 @@ class InvoiceModifyRequest(TeaModel):
             self.bank_name = m.get('bank_name')
         if m.get('bank_no') is not None:
             self.bank_no = m.get('bank_no')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('tax_no') is not None:
             self.tax_no = m.get('tax_no')
         if m.get('tel') is not None:
@@ -11539,8 +11410,6 @@ class InvoiceModifyRequest(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -11673,12 +11542,10 @@ class InvoiceRuleSaveRequestEntities(TeaModel):
 
 
 class InvoiceRuleSaveRequest(TeaModel):
-    def __init__(self, all_employe=None, corp_id=None, entities=None, third_part_id=None, user_id=None):
+    def __init__(self, all_employe=None, entities=None, third_part_id=None):
         self.all_employe = all_employe  # type: bool
-        self.corp_id = corp_id  # type: str
         self.entities = entities  # type: list[InvoiceRuleSaveRequestEntities]
         self.third_part_id = third_part_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         if self.entities:
@@ -11694,24 +11561,18 @@ class InvoiceRuleSaveRequest(TeaModel):
         result = dict()
         if self.all_employe is not None:
             result['all_employe'] = self.all_employe
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         result['entities'] = []
         if self.entities is not None:
             for k in self.entities:
                 result['entities'].append(k.to_map() if k else None)
         if self.third_part_id is not None:
             result['third_part_id'] = self.third_part_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('all_employe') is not None:
             self.all_employe = m.get('all_employe')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         self.entities = []
         if m.get('entities') is not None:
             for k in m.get('entities'):
@@ -11719,18 +11580,14 @@ class InvoiceRuleSaveRequest(TeaModel):
                 self.entities.append(temp_model.from_map(k))
         if m.get('third_part_id') is not None:
             self.third_part_id = m.get('third_part_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class InvoiceRuleSaveShrinkRequest(TeaModel):
-    def __init__(self, all_employe=None, corp_id=None, entities_shrink=None, third_part_id=None, user_id=None):
+    def __init__(self, all_employe=None, entities_shrink=None, third_part_id=None):
         self.all_employe = all_employe  # type: bool
-        self.corp_id = corp_id  # type: str
         self.entities_shrink = entities_shrink  # type: str
         self.third_part_id = third_part_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11743,44 +11600,27 @@ class InvoiceRuleSaveShrinkRequest(TeaModel):
         result = dict()
         if self.all_employe is not None:
             result['all_employe'] = self.all_employe
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.entities_shrink is not None:
             result['entities'] = self.entities_shrink
         if self.third_part_id is not None:
             result['third_part_id'] = self.third_part_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('all_employe') is not None:
             self.all_employe = m.get('all_employe')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('entities') is not None:
             self.entities_shrink = m.get('entities')
         if m.get('third_part_id') is not None:
             self.third_part_id = m.get('third_part_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
 class InvoiceRuleSaveResponseBodyModule(TeaModel):
-    def __init__(self, account=None, add_num=None, havana_id=None, remove_num=None, selected_external_user_num=None,
-                 selected_user_num=None, suite_key=None, token_grant_type=None, version=None, without_authority=None):
-        self.account = account  # type: str
+    def __init__(self, add_num=None, remove_num=None):
         self.add_num = add_num  # type: int
-        self.havana_id = havana_id  # type: str
         self.remove_num = remove_num  # type: int
-        self.selected_external_user_num = selected_external_user_num  # type: int
-        self.selected_user_num = selected_user_num  # type: int
-        self.suite_key = suite_key  # type: str
-        self.token_grant_type = token_grant_type  # type: int
-        self.version = version  # type: int
-        self.without_authority = without_authority  # type: bool
 
     def validate(self):
         pass
@@ -11791,50 +11631,18 @@ class InvoiceRuleSaveResponseBodyModule(TeaModel):
             return _map
 
         result = dict()
-        if self.account is not None:
-            result['account'] = self.account
         if self.add_num is not None:
             result['add_num'] = self.add_num
-        if self.havana_id is not None:
-            result['havana_id'] = self.havana_id
         if self.remove_num is not None:
             result['remove_num'] = self.remove_num
-        if self.selected_external_user_num is not None:
-            result['selected_external_user_num'] = self.selected_external_user_num
-        if self.selected_user_num is not None:
-            result['selected_user_num'] = self.selected_user_num
-        if self.suite_key is not None:
-            result['suite_key'] = self.suite_key
-        if self.token_grant_type is not None:
-            result['token_grant_type'] = self.token_grant_type
-        if self.version is not None:
-            result['version'] = self.version
-        if self.without_authority is not None:
-            result['without_authority'] = self.without_authority
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('account') is not None:
-            self.account = m.get('account')
         if m.get('add_num') is not None:
             self.add_num = m.get('add_num')
-        if m.get('havana_id') is not None:
-            self.havana_id = m.get('havana_id')
         if m.get('remove_num') is not None:
             self.remove_num = m.get('remove_num')
-        if m.get('selected_external_user_num') is not None:
-            self.selected_external_user_num = m.get('selected_external_user_num')
-        if m.get('selected_user_num') is not None:
-            self.selected_user_num = m.get('selected_user_num')
-        if m.get('suite_key') is not None:
-            self.suite_key = m.get('suite_key')
-        if m.get('token_grant_type') is not None:
-            self.token_grant_type = m.get('token_grant_type')
-        if m.get('version') is not None:
-            self.version = m.get('version')
-        if m.get('without_authority') is not None:
-            self.without_authority = m.get('without_authority')
         return self
 
 
@@ -11935,11 +11743,8 @@ class InvoiceRuleSaveResponse(TeaModel):
 
 
 class InvoiceSearchRequest(TeaModel):
-    def __init__(self, authority=None, corp_id=None, title=None, user_id=None):
-        self.authority = authority  # type: bool
-        self.corp_id = corp_id  # type: str
+    def __init__(self, title=None):
         self.title = title  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11950,26 +11755,14 @@ class InvoiceSearchRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.authority is not None:
-            result['authority'] = self.authority
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.title is not None:
             result['title'] = self.title
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('authority') is not None:
-            self.authority = m.get('authority')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('title') is not None:
             self.title = m.get('title')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -12191,8 +11984,7 @@ class IsvUserSaveRequestUserList(TeaModel):
 
 
 class IsvUserSaveRequest(TeaModel):
-    def __init__(self, user_id=None, user_list=None):
-        self.user_id = user_id  # type: str
+    def __init__(self, user_list=None):
         self.user_list = user_list  # type: list[IsvUserSaveRequestUserList]
 
     def validate(self):
@@ -12207,8 +11999,6 @@ class IsvUserSaveRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.user_id is not None:
-            result['user_Id'] = self.user_id
         result['user_list'] = []
         if self.user_list is not None:
             for k in self.user_list:
@@ -12217,8 +12007,6 @@ class IsvUserSaveRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('user_Id') is not None:
-            self.user_id = m.get('user_Id')
         self.user_list = []
         if m.get('user_list') is not None:
             for k in m.get('user_list'):
@@ -12228,8 +12016,7 @@ class IsvUserSaveRequest(TeaModel):
 
 
 class IsvUserSaveShrinkRequest(TeaModel):
-    def __init__(self, user_id=None, user_list_shrink=None):
-        self.user_id = user_id  # type: str
+    def __init__(self, user_list_shrink=None):
         self.user_list_shrink = user_list_shrink  # type: str
 
     def validate(self):
@@ -12241,16 +12028,12 @@ class IsvUserSaveShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.user_id is not None:
-            result['user_Id'] = self.user_id
         if self.user_list_shrink is not None:
             result['user_list'] = self.user_list_shrink
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('user_Id') is not None:
-            self.user_id = m.get('user_Id')
         if m.get('user_list') is not None:
             self.user_list_shrink = m.get('user_list')
         return self
@@ -15087,14 +14870,10 @@ class TrainOrderQueryResponse(TeaModel):
 
 
 class UserQueryRequest(TeaModel):
-    def __init__(self, modified_time_greater_or_equal_than=None, third_part_corp_id=None, third_part_job_no=None,
-                 top_app_key_owner_id=None, top_authorized_havana_id=None, top_authorized_user_nick=None):
+    def __init__(self, modified_time_greater_or_equal_than=None, third_part_corp_id=None, third_part_job_no=None):
         self.modified_time_greater_or_equal_than = modified_time_greater_or_equal_than  # type: str
         self.third_part_corp_id = third_part_corp_id  # type: str
         self.third_part_job_no = third_part_job_no  # type: str
-        self.top_app_key_owner_id = top_app_key_owner_id  # type: str
-        self.top_authorized_havana_id = top_authorized_havana_id  # type: str
-        self.top_authorized_user_nick = top_authorized_user_nick  # type: str
 
     def validate(self):
         pass
@@ -15111,12 +14890,6 @@ class UserQueryRequest(TeaModel):
             result['third_part_corp_id'] = self.third_part_corp_id
         if self.third_part_job_no is not None:
             result['third_part_job_no'] = self.third_part_job_no
-        if self.top_app_key_owner_id is not None:
-            result['top_app_key_owner_id'] = self.top_app_key_owner_id
-        if self.top_authorized_havana_id is not None:
-            result['top_authorized_havana_id'] = self.top_authorized_havana_id
-        if self.top_authorized_user_nick is not None:
-            result['top_authorized_user_nick'] = self.top_authorized_user_nick
         return result
 
     def from_map(self, m=None):
@@ -15127,12 +14900,6 @@ class UserQueryRequest(TeaModel):
             self.third_part_corp_id = m.get('third_part_corp_id')
         if m.get('third_part_job_no') is not None:
             self.third_part_job_no = m.get('third_part_job_no')
-        if m.get('top_app_key_owner_id') is not None:
-            self.top_app_key_owner_id = m.get('top_app_key_owner_id')
-        if m.get('top_authorized_havana_id') is not None:
-            self.top_authorized_havana_id = m.get('top_authorized_havana_id')
-        if m.get('top_authorized_user_nick') is not None:
-            self.top_authorized_user_nick = m.get('top_authorized_user_nick')
         return self
 
 
