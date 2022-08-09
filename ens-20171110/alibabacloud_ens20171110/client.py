@@ -1089,6 +1089,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.ens_region_id):
             query['EnsRegionId'] = request.ens_region_id
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.network_id):
@@ -1195,6 +1197,8 @@ class Client(OpenApiClient):
             query['SnatIp'] = request.snat_ip
         if not UtilClient.is_unset(request.source_cidr):
             query['SourceCIDR'] = request.source_cidr
+        if not UtilClient.is_unset(request.source_network_id):
+            query['SourceNetworkId'] = request.source_network_id
         if not UtilClient.is_unset(request.source_vswitch_id):
             query['SourceVSwitchId'] = request.source_vswitch_id
         req = open_api_models.OpenApiRequest(
@@ -3982,6 +3986,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_device_internet_port_with_options(request, runtime)
 
+    def get_oss_storage_and_acc_by_buckets_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOssStorageAndAccByBuckets',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.GetOssStorageAndAccByBucketsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_oss_storage_and_acc_by_buckets(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_oss_storage_and_acc_by_buckets_with_options(request, runtime)
+
     def import_key_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4749,8 +4779,6 @@ class Client(OpenApiClient):
             query['ForceStop'] = request.force_stop
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4773,6 +4801,38 @@ class Client(OpenApiClient):
     def reboot_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.reboot_instance_with_options(request, runtime)
+
+    def reinit_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.image_id):
+            body['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.password):
+            body['Password'] = request.password
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReinitInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ReinitInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reinit_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reinit_instance_with_options(request, runtime)
 
     def release_armserver_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5775,8 +5835,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

@@ -3960,8 +3960,9 @@ class CreateLoadBalancerUDPListenerResponse(TeaModel):
 
 
 class CreateNatGatewayRequest(TeaModel):
-    def __init__(self, ens_region_id=None, name=None, network_id=None, v_switch_id=None):
+    def __init__(self, ens_region_id=None, instance_type=None, name=None, network_id=None, v_switch_id=None):
         self.ens_region_id = ens_region_id  # type: str
+        self.instance_type = instance_type  # type: str
         self.name = name  # type: str
         self.network_id = network_id  # type: str
         self.v_switch_id = v_switch_id  # type: str
@@ -3977,6 +3978,8 @@ class CreateNatGatewayRequest(TeaModel):
         result = dict()
         if self.ens_region_id is not None:
             result['EnsRegionId'] = self.ens_region_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
         if self.name is not None:
             result['Name'] = self.name
         if self.network_id is not None:
@@ -3989,6 +3992,8 @@ class CreateNatGatewayRequest(TeaModel):
         m = m or dict()
         if m.get('EnsRegionId') is not None:
             self.ens_region_id = m.get('EnsRegionId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('NetworkId') is not None:
@@ -4277,11 +4282,12 @@ class CreateSecurityGroupResponse(TeaModel):
 
 class CreateSnatEntryRequest(TeaModel):
     def __init__(self, nat_gateway_id=None, snat_entry_name=None, snat_ip=None, source_cidr=None,
-                 source_vswitch_id=None):
+                 source_network_id=None, source_vswitch_id=None):
         self.nat_gateway_id = nat_gateway_id  # type: str
         self.snat_entry_name = snat_entry_name  # type: str
         self.snat_ip = snat_ip  # type: str
         self.source_cidr = source_cidr  # type: str
+        self.source_network_id = source_network_id  # type: str
         self.source_vswitch_id = source_vswitch_id  # type: str
 
     def validate(self):
@@ -4301,6 +4307,8 @@ class CreateSnatEntryRequest(TeaModel):
             result['SnatIp'] = self.snat_ip
         if self.source_cidr is not None:
             result['SourceCIDR'] = self.source_cidr
+        if self.source_network_id is not None:
+            result['SourceNetworkId'] = self.source_network_id
         if self.source_vswitch_id is not None:
             result['SourceVSwitchId'] = self.source_vswitch_id
         return result
@@ -4315,6 +4323,8 @@ class CreateSnatEntryRequest(TeaModel):
             self.snat_ip = m.get('SnatIp')
         if m.get('SourceCIDR') is not None:
             self.source_cidr = m.get('SourceCIDR')
+        if m.get('SourceNetworkId') is not None:
+            self.source_network_id = m.get('SourceNetworkId')
         if m.get('SourceVSwitchId') is not None:
             self.source_vswitch_id = m.get('SourceVSwitchId')
         return self
@@ -17237,12 +17247,13 @@ class DescribeNatGatewaysRequest(TeaModel):
 
 class DescribeNatGatewaysResponseBodyNatGateways(TeaModel):
     def __init__(self, creation_time=None, ens_region_id=None, name=None, nat_gateway_id=None, network_id=None,
-                 v_switch_id=None):
+                 spec=None, v_switch_id=None):
         self.creation_time = creation_time  # type: str
         self.ens_region_id = ens_region_id  # type: str
         self.name = name  # type: str
         self.nat_gateway_id = nat_gateway_id  # type: str
         self.network_id = network_id  # type: str
+        self.spec = spec  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -17264,6 +17275,8 @@ class DescribeNatGatewaysResponseBodyNatGateways(TeaModel):
             result['NatGatewayId'] = self.nat_gateway_id
         if self.network_id is not None:
             result['NetworkId'] = self.network_id
+        if self.spec is not None:
+            result['Spec'] = self.spec
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         return result
@@ -17280,6 +17293,8 @@ class DescribeNatGatewaysResponseBodyNatGateways(TeaModel):
             self.nat_gateway_id = m.get('NatGatewayId')
         if m.get('NetworkId') is not None:
             self.network_id = m.get('NetworkId')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         return self
@@ -21252,6 +21267,140 @@ class GetDeviceInternetPortResponse(TeaModel):
         return self
 
 
+class GetOssStorageAndAccByBucketsRequest(TeaModel):
+    def __init__(self, bucket_list=None):
+        self.bucket_list = bucket_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOssStorageAndAccByBucketsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bucket_list is not None:
+            result['BucketList'] = self.bucket_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BucketList') is not None:
+            self.bucket_list = m.get('BucketList')
+        return self
+
+
+class GetOssStorageAndAccByBucketsResponseBodyBucketList(TeaModel):
+    def __init__(self, acc=None, bucket=None, storage_usage_byte=None):
+        self.acc = acc  # type: long
+        self.bucket = bucket  # type: str
+        self.storage_usage_byte = storage_usage_byte  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOssStorageAndAccByBucketsResponseBodyBucketList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acc is not None:
+            result['Acc'] = self.acc
+        if self.bucket is not None:
+            result['Bucket'] = self.bucket
+        if self.storage_usage_byte is not None:
+            result['StorageUsageByte'] = self.storage_usage_byte
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Acc') is not None:
+            self.acc = m.get('Acc')
+        if m.get('Bucket') is not None:
+            self.bucket = m.get('Bucket')
+        if m.get('StorageUsageByte') is not None:
+            self.storage_usage_byte = m.get('StorageUsageByte')
+        return self
+
+
+class GetOssStorageAndAccByBucketsResponseBody(TeaModel):
+    def __init__(self, bucket_list=None, request_id=None):
+        self.bucket_list = bucket_list  # type: list[GetOssStorageAndAccByBucketsResponseBodyBucketList]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.bucket_list:
+            for k in self.bucket_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetOssStorageAndAccByBucketsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BucketList'] = []
+        if self.bucket_list is not None:
+            for k in self.bucket_list:
+                result['BucketList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.bucket_list = []
+        if m.get('BucketList') is not None:
+            for k in m.get('BucketList'):
+                temp_model = GetOssStorageAndAccByBucketsResponseBodyBucketList()
+                self.bucket_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetOssStorageAndAccByBucketsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetOssStorageAndAccByBucketsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetOssStorageAndAccByBucketsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetOssStorageAndAccByBucketsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ImportKeyPairRequest(TeaModel):
     def __init__(self, key_pair_name=None, public_key_body=None, version=None):
         self.key_pair_name = key_pair_name  # type: str
@@ -23838,10 +23987,9 @@ class RebootARMServerInstanceResponse(TeaModel):
 
 
 class RebootInstanceRequest(TeaModel):
-    def __init__(self, force_stop=None, instance_id=None, version=None):
+    def __init__(self, force_stop=None, instance_id=None):
         self.force_stop = force_stop  # type: str
         self.instance_id = instance_id  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -23856,8 +24004,6 @@ class RebootInstanceRequest(TeaModel):
             result['ForceStop'] = self.force_stop
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -23866,8 +24012,6 @@ class RebootInstanceRequest(TeaModel):
             self.force_stop = m.get('ForceStop')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
@@ -23935,6 +24079,103 @@ class RebootInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RebootInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReinitInstanceRequest(TeaModel):
+    def __init__(self, image_id=None, instance_id=None, password=None):
+        self.image_id = image_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.password = password  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReinitInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.password is not None:
+            result['Password'] = self.password
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        return self
+
+
+class ReinitInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReinitInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReinitInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReinitInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReinitInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReinitInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -27640,9 +27881,8 @@ class StartEpnInstanceResponse(TeaModel):
 
 
 class StartInstanceRequest(TeaModel):
-    def __init__(self, instance_id=None, version=None):
+    def __init__(self, instance_id=None):
         self.instance_id = instance_id  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -27655,16 +27895,12 @@ class StartInstanceRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
