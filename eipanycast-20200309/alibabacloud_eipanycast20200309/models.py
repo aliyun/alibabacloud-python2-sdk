@@ -93,12 +93,14 @@ class AllocateAnycastEipAddressResponseBody(TeaModel):
 
 
 class AllocateAnycastEipAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AllocateAnycastEipAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -111,6 +113,8 @@ class AllocateAnycastEipAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -119,6 +123,8 @@ class AllocateAnycastEipAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AllocateAnycastEipAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -127,7 +133,6 @@ class AllocateAnycastEipAddressResponse(TeaModel):
 
 class AssociateAnycastEipAddressRequestPopLocations(TeaModel):
     def __init__(self, pop_location=None):
-        # pop location
         self.pop_location = pop_location  # type: str
 
     def validate(self):
@@ -154,16 +159,13 @@ class AssociateAnycastEipAddressRequest(TeaModel):
     def __init__(self, anycast_id=None, association_mode=None, bind_instance_id=None, bind_instance_region_id=None,
                  bind_instance_type=None, client_token=None, dry_run=None, pop_locations=None, private_ip_address=None):
         self.anycast_id = anycast_id  # type: str
-        # 关联模式，默认模式、普通模式Default/Normal
         self.association_mode = association_mode  # type: str
         self.bind_instance_id = bind_instance_id  # type: str
         self.bind_instance_region_id = bind_instance_region_id  # type: str
         self.bind_instance_type = bind_instance_type  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
-        # 绑定时关联的pop location，如果是绑定的第一个实例，该参数会忽略，会下发到全部pop点
         self.pop_locations = pop_locations  # type: list[AssociateAnycastEipAddressRequestPopLocations]
-        # 私网ip地址
         self.private_ip_address = private_ip_address  # type: str
 
     def validate(self):
@@ -251,12 +253,14 @@ class AssociateAnycastEipAddressResponseBody(TeaModel):
 
 
 class AssociateAnycastEipAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AssociateAnycastEipAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -269,6 +273,8 @@ class AssociateAnycastEipAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -277,6 +283,8 @@ class AssociateAnycastEipAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AssociateAnycastEipAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -319,7 +327,6 @@ class DescribeAnycastEipAddressRequest(TeaModel):
 
 class DescribeAnycastEipAddressResponseBodyAnycastEipBindInfoListPopLocations(TeaModel):
     def __init__(self, pop_location=None):
-        # PopLocation
         self.pop_location = pop_location  # type: str
 
     def validate(self):
@@ -345,15 +352,12 @@ class DescribeAnycastEipAddressResponseBodyAnycastEipBindInfoListPopLocations(Te
 class DescribeAnycastEipAddressResponseBodyAnycastEipBindInfoList(TeaModel):
     def __init__(self, association_mode=None, bind_instance_id=None, bind_instance_region_id=None,
                  bind_instance_type=None, bind_time=None, pop_locations=None, private_ip_address=None, status=None):
-        # 绑定模式 Normal、Default
         self.association_mode = association_mode  # type: str
         self.bind_instance_id = bind_instance_id  # type: str
         self.bind_instance_region_id = bind_instance_region_id  # type: str
         self.bind_instance_type = bind_instance_type  # type: str
         self.bind_time = bind_time  # type: str
-        # 关联的pop点
         self.pop_locations = pop_locations  # type: list[DescribeAnycastEipAddressResponseBodyAnycastEipBindInfoListPopLocations]
-        # ip地址
         self.private_ip_address = private_ip_address  # type: str
         self.status = status  # type: str
 
@@ -518,12 +522,14 @@ class DescribeAnycastEipAddressResponseBody(TeaModel):
 
 
 class DescribeAnycastEipAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAnycastEipAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -536,6 +542,8 @@ class DescribeAnycastEipAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -544,6 +552,8 @@ class DescribeAnycastEipAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAnycastEipAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -646,12 +656,14 @@ class DescribeAnycastPopLocationsResponseBody(TeaModel):
 
 
 class DescribeAnycastPopLocationsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAnycastPopLocationsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -664,6 +676,8 @@ class DescribeAnycastPopLocationsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -672,6 +686,8 @@ class DescribeAnycastPopLocationsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAnycastPopLocationsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -774,12 +790,14 @@ class DescribeAnycastServerRegionsResponseBody(TeaModel):
 
 
 class DescribeAnycastServerRegionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAnycastServerRegionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -792,6 +810,8 @@ class DescribeAnycastServerRegionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -800,6 +820,8 @@ class DescribeAnycastServerRegionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAnycastServerRegionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -807,11 +829,12 @@ class DescribeAnycastServerRegionsResponse(TeaModel):
 
 
 class ListAnycastEipAddressesRequest(TeaModel):
-    def __init__(self, anycast_eip_address=None, anycast_id=None, bind_instance_ids=None, business_status=None,
-                 instance_charge_type=None, internet_charge_type=None, max_results=None, name=None, next_token=None,
-                 service_location=None, status=None):
+    def __init__(self, anycast_eip_address=None, anycast_id=None, anycast_ids=None, bind_instance_ids=None,
+                 business_status=None, instance_charge_type=None, internet_charge_type=None, max_results=None, name=None,
+                 next_token=None, service_location=None, status=None):
         self.anycast_eip_address = anycast_eip_address  # type: str
         self.anycast_id = anycast_id  # type: str
+        self.anycast_ids = anycast_ids  # type: list[str]
         self.bind_instance_ids = bind_instance_ids  # type: list[str]
         self.business_status = business_status  # type: str
         self.instance_charge_type = instance_charge_type  # type: str
@@ -835,6 +858,8 @@ class ListAnycastEipAddressesRequest(TeaModel):
             result['AnycastEipAddress'] = self.anycast_eip_address
         if self.anycast_id is not None:
             result['AnycastId'] = self.anycast_id
+        if self.anycast_ids is not None:
+            result['AnycastIds'] = self.anycast_ids
         if self.bind_instance_ids is not None:
             result['BindInstanceIds'] = self.bind_instance_ids
         if self.business_status is not None:
@@ -861,6 +886,8 @@ class ListAnycastEipAddressesRequest(TeaModel):
             self.anycast_eip_address = m.get('AnycastEipAddress')
         if m.get('AnycastId') is not None:
             self.anycast_id = m.get('AnycastId')
+        if m.get('AnycastIds') is not None:
+            self.anycast_ids = m.get('AnycastIds')
         if m.get('BindInstanceIds') is not None:
             self.bind_instance_ids = m.get('BindInstanceIds')
         if m.get('BusinessStatus') is not None:
@@ -923,14 +950,13 @@ class ListAnycastEipAddressesResponseBodyAnycastListAnycastEipBindInfoList(TeaMo
 
 
 class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
-    def __init__(self, ali_uid=None, anycast_eip_bind_info_list=None, anycast_id=None, bandwidth=None, bid=None,
+    def __init__(self, ali_uid=None, anycast_eip_bind_info_list=None, anycast_id=None, bandwidth=None,
                  business_status=None, create_time=None, description=None, instance_charge_type=None, internet_charge_type=None,
-                 ip_address=None, name=None, service_location=None, status=None):
+                 ip_address=None, name=None, service_location=None, service_managed=None, status=None):
         self.ali_uid = ali_uid  # type: long
         self.anycast_eip_bind_info_list = anycast_eip_bind_info_list  # type: list[ListAnycastEipAddressesResponseBodyAnycastListAnycastEipBindInfoList]
         self.anycast_id = anycast_id  # type: str
         self.bandwidth = bandwidth  # type: int
-        self.bid = bid  # type: str
         self.business_status = business_status  # type: str
         self.create_time = create_time  # type: str
         self.description = description  # type: str
@@ -939,6 +965,7 @@ class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
         self.ip_address = ip_address  # type: str
         self.name = name  # type: str
         self.service_location = service_location  # type: str
+        self.service_managed = service_managed  # type: int
         self.status = status  # type: str
 
     def validate(self):
@@ -963,8 +990,6 @@ class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
             result['AnycastId'] = self.anycast_id
         if self.bandwidth is not None:
             result['Bandwidth'] = self.bandwidth
-        if self.bid is not None:
-            result['Bid'] = self.bid
         if self.business_status is not None:
             result['BusinessStatus'] = self.business_status
         if self.create_time is not None:
@@ -981,6 +1006,8 @@ class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
             result['Name'] = self.name
         if self.service_location is not None:
             result['ServiceLocation'] = self.service_location
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -998,8 +1025,6 @@ class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
             self.anycast_id = m.get('AnycastId')
         if m.get('Bandwidth') is not None:
             self.bandwidth = m.get('Bandwidth')
-        if m.get('Bid') is not None:
-            self.bid = m.get('Bid')
         if m.get('BusinessStatus') is not None:
             self.business_status = m.get('BusinessStatus')
         if m.get('CreateTime') is not None:
@@ -1016,6 +1041,8 @@ class ListAnycastEipAddressesResponseBodyAnycastList(TeaModel):
             self.name = m.get('Name')
         if m.get('ServiceLocation') is not None:
             self.service_location = m.get('ServiceLocation')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -1069,12 +1096,14 @@ class ListAnycastEipAddressesResponseBody(TeaModel):
 
 
 class ListAnycastEipAddressesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListAnycastEipAddressesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1087,6 +1116,8 @@ class ListAnycastEipAddressesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1095,6 +1126,8 @@ class ListAnycastEipAddressesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAnycastEipAddressesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1160,12 +1193,14 @@ class ModifyAnycastEipAddressAttributeResponseBody(TeaModel):
 
 
 class ModifyAnycastEipAddressAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyAnycastEipAddressAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1178,6 +1213,8 @@ class ModifyAnycastEipAddressAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1186,6 +1223,8 @@ class ModifyAnycastEipAddressAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAnycastEipAddressAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1246,12 +1285,14 @@ class ModifyAnycastEipAddressSpecResponseBody(TeaModel):
 
 
 class ModifyAnycastEipAddressSpecResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyAnycastEipAddressSpecResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1264,6 +1305,8 @@ class ModifyAnycastEipAddressSpecResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1272,6 +1315,8 @@ class ModifyAnycastEipAddressSpecResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAnycastEipAddressSpecResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1332,12 +1377,14 @@ class ReleaseAnycastEipAddressResponseBody(TeaModel):
 
 
 class ReleaseAnycastEipAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ReleaseAnycastEipAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1350,6 +1397,8 @@ class ReleaseAnycastEipAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1358,6 +1407,8 @@ class ReleaseAnycastEipAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReleaseAnycastEipAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1421,7 +1472,6 @@ class UnassociateAnycastEipAddressRequest(TeaModel):
 
 class UnassociateAnycastEipAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # 私网IP地址
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1445,12 +1495,14 @@ class UnassociateAnycastEipAddressResponseBody(TeaModel):
 
 
 class UnassociateAnycastEipAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UnassociateAnycastEipAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1463,6 +1515,8 @@ class UnassociateAnycastEipAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1471,6 +1525,8 @@ class UnassociateAnycastEipAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UnassociateAnycastEipAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1479,7 +1535,6 @@ class UnassociateAnycastEipAddressResponse(TeaModel):
 
 class UpdateAnycastEipAddressAssociationsRequestPopLocationAddList(TeaModel):
     def __init__(self, pop_location=None):
-        # pop location
         self.pop_location = pop_location  # type: str
 
     def validate(self):
@@ -1504,7 +1559,6 @@ class UpdateAnycastEipAddressAssociationsRequestPopLocationAddList(TeaModel):
 
 class UpdateAnycastEipAddressAssociationsRequestPopLocationDeleteList(TeaModel):
     def __init__(self, pop_location=None):
-        # pop location
         self.pop_location = pop_location  # type: str
 
     def validate(self):
@@ -1531,14 +1585,11 @@ class UpdateAnycastEipAddressAssociationsRequest(TeaModel):
     def __init__(self, anycast_id=None, association_mode=None, bind_instance_id=None, client_token=None,
                  dry_run=None, pop_location_add_list=None, pop_location_delete_list=None):
         self.anycast_id = anycast_id  # type: str
-        # 关联模式，默认模式、普通模式Default/Normal
         self.association_mode = association_mode  # type: str
         self.bind_instance_id = bind_instance_id  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
-        # 新增关联的pop location
         self.pop_location_add_list = pop_location_add_list  # type: list[UpdateAnycastEipAddressAssociationsRequestPopLocationAddList]
-        # 待删除的关联pop location
         self.pop_location_delete_list = pop_location_delete_list  # type: list[UpdateAnycastEipAddressAssociationsRequestPopLocationDeleteList]
 
     def validate(self):
@@ -1627,12 +1678,14 @@ class UpdateAnycastEipAddressAssociationsResponseBody(TeaModel):
 
 
 class UpdateAnycastEipAddressAssociationsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateAnycastEipAddressAssociationsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1645,6 +1698,8 @@ class UpdateAnycastEipAddressAssociationsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1653,6 +1708,8 @@ class UpdateAnycastEipAddressAssociationsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateAnycastEipAddressAssociationsResponseBody()
             self.body = temp_model.from_map(m['body'])

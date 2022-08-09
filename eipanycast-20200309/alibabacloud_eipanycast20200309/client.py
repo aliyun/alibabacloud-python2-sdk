@@ -33,13 +33,20 @@ class Client(OpenApiClient):
     def allocate_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Bandwidth'] = request.bandwidth
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['InstanceChargeType'] = request.instance_charge_type
-        query['InternetChargeType'] = request.internet_charge_type
-        query['Name'] = request.name
-        query['ServiceLocation'] = request.service_location
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_charge_type):
+            query['InstanceChargeType'] = request.instance_charge_type
+        if not UtilClient.is_unset(request.internet_charge_type):
+            query['InternetChargeType'] = request.internet_charge_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.service_location):
+            query['ServiceLocation'] = request.service_location
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -66,15 +73,24 @@ class Client(OpenApiClient):
     def associate_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['AssociationMode'] = request.association_mode
-        query['BindInstanceId'] = request.bind_instance_id
-        query['BindInstanceRegionId'] = request.bind_instance_region_id
-        query['BindInstanceType'] = request.bind_instance_type
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['PopLocations'] = request.pop_locations
-        query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.association_mode):
+            query['AssociationMode'] = request.association_mode
+        if not UtilClient.is_unset(request.bind_instance_id):
+            query['BindInstanceId'] = request.bind_instance_id
+        if not UtilClient.is_unset(request.bind_instance_region_id):
+            query['BindInstanceRegionId'] = request.bind_instance_region_id
+        if not UtilClient.is_unset(request.bind_instance_type):
+            query['BindInstanceType'] = request.bind_instance_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.pop_locations):
+            query['PopLocations'] = request.pop_locations
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -101,9 +117,12 @@ class Client(OpenApiClient):
     def describe_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['BindInstanceId'] = request.bind_instance_id
-        query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.bind_instance_id):
+            query['BindInstanceId'] = request.bind_instance_id
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -130,7 +149,8 @@ class Client(OpenApiClient):
     def describe_anycast_pop_locations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ServiceLocation'] = request.service_location
+        if not UtilClient.is_unset(request.service_location):
+            query['ServiceLocation'] = request.service_location
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -157,7 +177,8 @@ class Client(OpenApiClient):
     def describe_anycast_server_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ServiceLocation'] = request.service_location
+        if not UtilClient.is_unset(request.service_location):
+            query['ServiceLocation'] = request.service_location
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -184,17 +205,30 @@ class Client(OpenApiClient):
     def list_anycast_eip_addresses_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastEipAddress'] = request.anycast_eip_address
-        query['AnycastId'] = request.anycast_id
-        query['BindInstanceIds'] = request.bind_instance_ids
-        query['BusinessStatus'] = request.business_status
-        query['InstanceChargeType'] = request.instance_charge_type
-        query['InternetChargeType'] = request.internet_charge_type
-        query['MaxResults'] = request.max_results
-        query['Name'] = request.name
-        query['NextToken'] = request.next_token
-        query['ServiceLocation'] = request.service_location
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.anycast_eip_address):
+            query['AnycastEipAddress'] = request.anycast_eip_address
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.anycast_ids):
+            query['AnycastIds'] = request.anycast_ids
+        if not UtilClient.is_unset(request.bind_instance_ids):
+            query['BindInstanceIds'] = request.bind_instance_ids
+        if not UtilClient.is_unset(request.business_status):
+            query['BusinessStatus'] = request.business_status
+        if not UtilClient.is_unset(request.instance_charge_type):
+            query['InstanceChargeType'] = request.instance_charge_type
+        if not UtilClient.is_unset(request.internet_charge_type):
+            query['InternetChargeType'] = request.internet_charge_type
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.service_location):
+            query['ServiceLocation'] = request.service_location
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -221,9 +255,12 @@ class Client(OpenApiClient):
     def modify_anycast_eip_address_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['Description'] = request.description
-        query['Name'] = request.name
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -250,8 +287,10 @@ class Client(OpenApiClient):
     def modify_anycast_eip_address_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -278,8 +317,10 @@ class Client(OpenApiClient):
     def release_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -306,13 +347,20 @@ class Client(OpenApiClient):
     def unassociate_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['BindInstanceId'] = request.bind_instance_id
-        query['BindInstanceRegionId'] = request.bind_instance_region_id
-        query['BindInstanceType'] = request.bind_instance_type
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.bind_instance_id):
+            query['BindInstanceId'] = request.bind_instance_id
+        if not UtilClient.is_unset(request.bind_instance_region_id):
+            query['BindInstanceRegionId'] = request.bind_instance_region_id
+        if not UtilClient.is_unset(request.bind_instance_type):
+            query['BindInstanceType'] = request.bind_instance_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -339,13 +387,20 @@ class Client(OpenApiClient):
     def update_anycast_eip_address_associations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AnycastId'] = request.anycast_id
-        query['AssociationMode'] = request.association_mode
-        query['BindInstanceId'] = request.bind_instance_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['PopLocationAddList'] = request.pop_location_add_list
-        query['PopLocationDeleteList'] = request.pop_location_delete_list
+        if not UtilClient.is_unset(request.anycast_id):
+            query['AnycastId'] = request.anycast_id
+        if not UtilClient.is_unset(request.association_mode):
+            query['AssociationMode'] = request.association_mode
+        if not UtilClient.is_unset(request.bind_instance_id):
+            query['BindInstanceId'] = request.bind_instance_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.pop_location_add_list):
+            query['PopLocationAddList'] = request.pop_location_add_list
+        if not UtilClient.is_unset(request.pop_location_delete_list):
+            query['PopLocationDeleteList'] = request.pop_location_delete_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
