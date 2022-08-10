@@ -442,8 +442,9 @@ class CreateDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_category=None, dbinstance_class=None,
                  dbinstance_description=None, dbinstance_group_count=None, dbinstance_mode=None, engine=None, engine_version=None,
                  instance_network_type=None, instance_spec=None, master_node_num=None, owner_id=None, pay_type=None, period=None,
-                 private_ip_address=None, region_id=None, security_iplist=None, seg_node_num=None, seg_storage_type=None,
-                 storage_size=None, storage_type=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+                 private_ip_address=None, region_id=None, resource_group_id=None, security_iplist=None, seg_node_num=None,
+                 seg_storage_type=None, storage_size=None, storage_type=None, used_time=None, vpcid=None, v_switch_id=None,
+                 zone_id=None):
         self.client_token = client_token  # type: str
         self.dbinstance_category = dbinstance_category  # type: str
         self.dbinstance_class = dbinstance_class  # type: str
@@ -460,6 +461,7 @@ class CreateDBInstanceRequest(TeaModel):
         self.period = period  # type: str
         self.private_ip_address = private_ip_address  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.security_iplist = security_iplist  # type: str
         self.seg_node_num = seg_node_num  # type: str
         self.seg_storage_type = seg_storage_type  # type: str
@@ -511,6 +513,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['PrivateIpAddress'] = self.private_ip_address
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
         if self.seg_node_num is not None:
@@ -565,6 +569,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.private_ip_address = m.get('PrivateIpAddress')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
         if m.get('SegNodeNum') is not None:
@@ -669,12 +675,160 @@ class CreateDBInstanceResponse(TeaModel):
         return self
 
 
+class CreateDBInstancePlanRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, plan_config=None, plan_desc=None, plan_end_time=None,
+                 plan_name=None, plan_schedule_type=None, plan_start_time=None, plan_type=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.plan_config = plan_config  # type: str
+        self.plan_desc = plan_desc  # type: str
+        self.plan_end_time = plan_end_time  # type: str
+        self.plan_name = plan_name  # type: str
+        self.plan_schedule_type = plan_schedule_type  # type: str
+        self.plan_start_time = plan_start_time  # type: str
+        self.plan_type = plan_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBInstancePlanRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.plan_config is not None:
+            result['PlanConfig'] = self.plan_config
+        if self.plan_desc is not None:
+            result['PlanDesc'] = self.plan_desc
+        if self.plan_end_time is not None:
+            result['PlanEndTime'] = self.plan_end_time
+        if self.plan_name is not None:
+            result['PlanName'] = self.plan_name
+        if self.plan_schedule_type is not None:
+            result['PlanScheduleType'] = self.plan_schedule_type
+        if self.plan_start_time is not None:
+            result['PlanStartTime'] = self.plan_start_time
+        if self.plan_type is not None:
+            result['PlanType'] = self.plan_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PlanConfig') is not None:
+            self.plan_config = m.get('PlanConfig')
+        if m.get('PlanDesc') is not None:
+            self.plan_desc = m.get('PlanDesc')
+        if m.get('PlanEndTime') is not None:
+            self.plan_end_time = m.get('PlanEndTime')
+        if m.get('PlanName') is not None:
+            self.plan_name = m.get('PlanName')
+        if m.get('PlanScheduleType') is not None:
+            self.plan_schedule_type = m.get('PlanScheduleType')
+        if m.get('PlanStartTime') is not None:
+            self.plan_start_time = m.get('PlanStartTime')
+        if m.get('PlanType') is not None:
+            self.plan_type = m.get('PlanType')
+        return self
+
+
+class CreateDBInstancePlanResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, error_message=None, plan_id=None, request_id=None, status=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.error_message = error_message  # type: str
+        self.plan_id = plan_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBInstancePlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateDBInstancePlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDBInstancePlanResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDBInstancePlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDBInstancePlanResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateECSDBInstanceRequest(TeaModel):
     def __init__(self, backup_id=None, client_token=None, dbinstance_category=None, dbinstance_description=None,
                  encryption_key=None, encryption_type=None, engine=None, engine_version=None, instance_network_type=None,
                  instance_spec=None, master_node_num=None, owner_id=None, pay_type=None, period=None, private_ip_address=None,
-                 region_id=None, security_iplist=None, seg_node_num=None, seg_storage_type=None, src_db_instance_name=None,
-                 storage_size=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+                 region_id=None, resource_group_id=None, security_iplist=None, seg_node_num=None, seg_storage_type=None,
+                 src_db_instance_name=None, storage_size=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
         self.backup_id = backup_id  # type: str
         self.client_token = client_token  # type: str
         self.dbinstance_category = dbinstance_category  # type: str
@@ -691,6 +845,7 @@ class CreateECSDBInstanceRequest(TeaModel):
         self.period = period  # type: str
         self.private_ip_address = private_ip_address  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.security_iplist = security_iplist  # type: str
         self.seg_node_num = seg_node_num  # type: int
         self.seg_storage_type = seg_storage_type  # type: str
@@ -742,6 +897,8 @@ class CreateECSDBInstanceRequest(TeaModel):
             result['PrivateIpAddress'] = self.private_ip_address
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
         if self.seg_node_num is not None:
@@ -796,6 +953,8 @@ class CreateECSDBInstanceRequest(TeaModel):
             self.private_ip_address = m.get('PrivateIpAddress')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
         if m.get('SegNodeNum') is not None:
@@ -1085,6 +1244,123 @@ class DeleteDBInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteDBInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDBInstancePlanRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, plan_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.plan_id = plan_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDBInstancePlanRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        return self
+
+
+class DeleteDBInstancePlanResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, error_message=None, plan_id=None, request_id=None, status=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.error_message = error_message  # type: str
+        self.plan_id = plan_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDBInstancePlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DeleteDBInstancePlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDBInstancePlanResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDBInstancePlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDBInstancePlanResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2262,10 +2538,10 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
                  encryption_key=None, encryption_type=None, engine=None, engine_version=None, expire_time=None, host_type=None,
                  instance_network_type=None, lock_mode=None, lock_reason=None, maintain_end_time=None, maintain_start_time=None,
                  master_node_num=None, max_connections=None, memory_per_node=None, memory_size=None, memory_unit=None,
-                 minor_version=None, pay_type=None, port=None, read_delay_time=None, region_id=None, running_time=None,
-                 security_iplist=None, seg_node_num=None, segment_counts=None, start_time=None, storage_per_node=None,
-                 storage_size=None, storage_type=None, storage_unit=None, support_restore=None, tags=None, v_switch_id=None,
-                 vpc_id=None, zone_id=None):
+                 minor_version=None, pay_type=None, port=None, read_delay_time=None, region_id=None, resource_group_id=None,
+                 running_time=None, security_iplist=None, seg_node_num=None, segment_counts=None, start_time=None,
+                 storage_per_node=None, storage_size=None, storage_type=None, storage_unit=None, support_restore=None, tags=None,
+                 v_switch_id=None, vpc_id=None, zone_id=None):
         self.availability_value = availability_value  # type: str
         self.connection_mode = connection_mode  # type: str
         self.connection_string = connection_string  # type: str
@@ -2307,6 +2583,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.port = port  # type: str
         self.read_delay_time = read_delay_time  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.running_time = running_time  # type: str
         self.security_iplist = security_iplist  # type: str
         self.seg_node_num = seg_node_num  # type: int
@@ -2414,6 +2691,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['ReadDelayTime'] = self.read_delay_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.running_time is not None:
             result['RunningTime'] = self.running_time
         if self.security_iplist is not None:
@@ -2528,6 +2807,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.read_delay_time = m.get('ReadDelayTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('RunningTime') is not None:
             self.running_time = m.get('RunningTime')
         if m.get('SecurityIPList') is not None:
@@ -4624,6 +4905,254 @@ class DescribeDBInstancePerformanceResponse(TeaModel):
         return self
 
 
+class DescribeDBInstancePlansRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, plan_create_date=None, plan_desc=None, plan_id=None,
+                 plan_scheduler_type=None, plan_type=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.plan_create_date = plan_create_date  # type: str
+        self.plan_desc = plan_desc  # type: str
+        self.plan_id = plan_id  # type: str
+        self.plan_scheduler_type = plan_scheduler_type  # type: str
+        self.plan_type = plan_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBInstancePlansRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.plan_create_date is not None:
+            result['PlanCreateDate'] = self.plan_create_date
+        if self.plan_desc is not None:
+            result['PlanDesc'] = self.plan_desc
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.plan_scheduler_type is not None:
+            result['PlanSchedulerType'] = self.plan_scheduler_type
+        if self.plan_type is not None:
+            result['PlanType'] = self.plan_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PlanCreateDate') is not None:
+            self.plan_create_date = m.get('PlanCreateDate')
+        if m.get('PlanDesc') is not None:
+            self.plan_desc = m.get('PlanDesc')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('PlanSchedulerType') is not None:
+            self.plan_scheduler_type = m.get('PlanSchedulerType')
+        if m.get('PlanType') is not None:
+            self.plan_type = m.get('PlanType')
+        return self
+
+
+class DescribeDBInstancePlansResponseBodyItemsPlan(TeaModel):
+    def __init__(self, dbinstance_id=None, plan_config=None, plan_desc=None, plan_end_time=None, plan_id=None,
+                 plan_name=None, plan_start_time=None, plan_type=None, planschedule_type=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.plan_config = plan_config  # type: str
+        self.plan_desc = plan_desc  # type: str
+        self.plan_end_time = plan_end_time  # type: str
+        self.plan_id = plan_id  # type: str
+        self.plan_name = plan_name  # type: str
+        self.plan_start_time = plan_start_time  # type: str
+        self.plan_type = plan_type  # type: str
+        self.planschedule_type = planschedule_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBInstancePlansResponseBodyItemsPlan, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.plan_config is not None:
+            result['PlanConfig'] = self.plan_config
+        if self.plan_desc is not None:
+            result['PlanDesc'] = self.plan_desc
+        if self.plan_end_time is not None:
+            result['PlanEndTime'] = self.plan_end_time
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.plan_name is not None:
+            result['PlanName'] = self.plan_name
+        if self.plan_start_time is not None:
+            result['PlanStartTime'] = self.plan_start_time
+        if self.plan_type is not None:
+            result['PlanType'] = self.plan_type
+        if self.planschedule_type is not None:
+            result['PlanscheduleType'] = self.planschedule_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PlanConfig') is not None:
+            self.plan_config = m.get('PlanConfig')
+        if m.get('PlanDesc') is not None:
+            self.plan_desc = m.get('PlanDesc')
+        if m.get('PlanEndTime') is not None:
+            self.plan_end_time = m.get('PlanEndTime')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('PlanName') is not None:
+            self.plan_name = m.get('PlanName')
+        if m.get('PlanStartTime') is not None:
+            self.plan_start_time = m.get('PlanStartTime')
+        if m.get('PlanType') is not None:
+            self.plan_type = m.get('PlanType')
+        if m.get('PlanscheduleType') is not None:
+            self.planschedule_type = m.get('PlanscheduleType')
+        return self
+
+
+class DescribeDBInstancePlansResponseBodyItems(TeaModel):
+    def __init__(self, plan=None):
+        self.plan = plan  # type: list[DescribeDBInstancePlansResponseBodyItemsPlan]
+
+    def validate(self):
+        if self.plan:
+            for k in self.plan:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBInstancePlansResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Plan'] = []
+        if self.plan is not None:
+            for k in self.plan:
+                result['Plan'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.plan = []
+        if m.get('Plan') is not None:
+            for k in m.get('Plan'):
+                temp_model = DescribeDBInstancePlansResponseBodyItemsPlan()
+                self.plan.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDBInstancePlansResponseBody(TeaModel):
+    def __init__(self, error_message=None, items=None, page_number=None, page_record_count=None, request_id=None,
+                 status=None, total_record_count=None):
+        self.error_message = error_message  # type: str
+        self.items = items  # type: DescribeDBInstancePlansResponseBodyItems
+        self.page_number = page_number  # type: int
+        self.page_record_count = page_record_count  # type: int
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.items:
+            self.items.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBInstancePlansResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Items') is not None:
+            temp_model = DescribeDBInstancePlansResponseBodyItems()
+            self.items = temp_model.from_map(m['Items'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class DescribeDBInstancePlansResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDBInstancePlansResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBInstancePlansResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDBInstancePlansResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDBInstanceSQLPatternsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, end_time=None, query_keywords=None, source_ip=None,
                  start_time=None, user=None):
@@ -4944,7 +5473,7 @@ class DescribeDBInstancesRequestTag(TeaModel):
 class DescribeDBInstancesRequest(TeaModel):
     def __init__(self, dbinstance_categories=None, dbinstance_description=None, dbinstance_ids=None,
                  dbinstance_modes=None, dbinstance_statuses=None, instance_deploy_types=None, instance_network_type=None,
-                 owner_id=None, page_number=None, page_size=None, region_id=None, tag=None):
+                 owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None, tag=None):
         self.dbinstance_categories = dbinstance_categories  # type: list[str]
         self.dbinstance_description = dbinstance_description  # type: str
         self.dbinstance_ids = dbinstance_ids  # type: str
@@ -4956,6 +5485,7 @@ class DescribeDBInstancesRequest(TeaModel):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.tag = tag  # type: list[DescribeDBInstancesRequestTag]
 
     def validate(self):
@@ -4992,6 +5522,8 @@ class DescribeDBInstancesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -5022,6 +5554,8 @@ class DescribeDBInstancesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -5062,7 +5596,8 @@ class DescribeDBInstancesShrinkRequestTag(TeaModel):
 class DescribeDBInstancesShrinkRequest(TeaModel):
     def __init__(self, dbinstance_categories_shrink=None, dbinstance_description=None, dbinstance_ids=None,
                  dbinstance_modes_shrink=None, dbinstance_statuses_shrink=None, instance_deploy_types_shrink=None,
-                 instance_network_type=None, owner_id=None, page_number=None, page_size=None, region_id=None, tag=None):
+                 instance_network_type=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
+                 tag=None):
         self.dbinstance_categories_shrink = dbinstance_categories_shrink  # type: str
         self.dbinstance_description = dbinstance_description  # type: str
         self.dbinstance_ids = dbinstance_ids  # type: str
@@ -5074,6 +5609,7 @@ class DescribeDBInstancesShrinkRequest(TeaModel):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.tag = tag  # type: list[DescribeDBInstancesShrinkRequestTag]
 
     def validate(self):
@@ -5110,6 +5646,8 @@ class DescribeDBInstancesShrinkRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -5140,6 +5678,8 @@ class DescribeDBInstancesShrinkRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -5214,7 +5754,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
                  dbinstance_description=None, dbinstance_id=None, dbinstance_mode=None, dbinstance_net_type=None, dbinstance_status=None,
                  engine=None, engine_version=None, expire_time=None, instance_deploy_type=None,
                  instance_network_type=None, lock_mode=None, lock_reason=None, master_node_num=None, pay_type=None, region_id=None,
-                 seg_node_num=None, storage_size=None, storage_type=None, tags=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 resource_group_id=None, seg_node_num=None, storage_size=None, storage_type=None, tags=None, v_switch_id=None,
+                 vpc_id=None, zone_id=None):
         self.connection_mode = connection_mode  # type: str
         self.create_time = create_time  # type: str
         self.dbinstance_category = dbinstance_category  # type: str
@@ -5233,6 +5774,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         self.master_node_num = master_node_num  # type: int
         self.pay_type = pay_type  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.seg_node_num = seg_node_num  # type: str
         self.storage_size = storage_size  # type: str
         self.storage_type = storage_type  # type: str
@@ -5287,6 +5829,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             result['PayType'] = self.pay_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.seg_node_num is not None:
             result['SegNodeNum'] = self.seg_node_num
         if self.storage_size is not None:
@@ -5341,6 +5885,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             self.pay_type = m.get('PayType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SegNodeNum') is not None:
             self.seg_node_num = m.get('SegNodeNum')
         if m.get('StorageSize') is not None:
@@ -12908,6 +13454,113 @@ class ModifySecurityIpsResponse(TeaModel):
         return self
 
 
+class PauseInstanceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class PauseInstanceResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, error_message=None, request_id=None, status=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class PauseInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PauseInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PauseInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PauseInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RebalanceDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None):
         self.client_token = client_token  # type: str
@@ -13282,6 +13935,230 @@ class RestartDBInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RestartDBInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ResumeInstanceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class ResumeInstanceResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, error_message=None, request_id=None, status=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ResumeInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResumeInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResumeInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResumeInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDBInstancePlanStatusRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, plan_id=None, plan_staus=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.plan_id = plan_id  # type: str
+        self.plan_staus = plan_staus  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDBInstancePlanStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.plan_staus is not None:
+            result['PlanStaus'] = self.plan_staus
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('PlanStaus') is not None:
+            self.plan_staus = m.get('PlanStaus')
+        return self
+
+
+class SetDBInstancePlanStatusResponseBody(TeaModel):
+    def __init__(self, error_message=None, plan_id=None, request_id=None, status=None):
+        self.error_message = error_message  # type: str
+        self.plan_id = plan_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDBInstancePlanStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class SetDBInstancePlanStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetDBInstancePlanStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDBInstancePlanStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetDBInstancePlanStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

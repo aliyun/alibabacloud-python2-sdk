@@ -218,6 +218,8 @@ class Client(OpenApiClient):
             query['PrivateIpAddress'] = request.private_ip_address
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.security_iplist):
             query['SecurityIPList'] = request.security_iplist
         if not UtilClient.is_unset(request.seg_node_num):
@@ -259,6 +261,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dbinstance_with_options(request, runtime)
 
+    def create_dbinstance_plan_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.plan_config):
+            query['PlanConfig'] = request.plan_config
+        if not UtilClient.is_unset(request.plan_desc):
+            query['PlanDesc'] = request.plan_desc
+        if not UtilClient.is_unset(request.plan_end_time):
+            query['PlanEndTime'] = request.plan_end_time
+        if not UtilClient.is_unset(request.plan_name):
+            query['PlanName'] = request.plan_name
+        if not UtilClient.is_unset(request.plan_schedule_type):
+            query['PlanScheduleType'] = request.plan_schedule_type
+        if not UtilClient.is_unset(request.plan_start_time):
+            query['PlanStartTime'] = request.plan_start_time
+        if not UtilClient.is_unset(request.plan_type):
+            query['PlanType'] = request.plan_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstancePlan',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateDBInstancePlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbinstance_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbinstance_plan_with_options(request, runtime)
+
     def create_ecsdbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -294,6 +340,8 @@ class Client(OpenApiClient):
             query['PrivateIpAddress'] = request.private_ip_address
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.security_iplist):
             query['SecurityIPList'] = request.security_iplist
         if not UtilClient.is_unset(request.seg_node_num):
@@ -396,6 +444,38 @@ class Client(OpenApiClient):
     def delete_dbinstance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dbinstance_with_options(request, runtime)
+
+    def delete_dbinstance_plan_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.plan_id):
+            query['PlanId'] = request.plan_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBInstancePlan',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteDBInstancePlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbinstance_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbinstance_plan_with_options(request, runtime)
 
     def delete_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -915,6 +995,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_performance_with_options(request, runtime)
 
+    def describe_dbinstance_plans_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.plan_create_date):
+            query['PlanCreateDate'] = request.plan_create_date
+        if not UtilClient.is_unset(request.plan_desc):
+            query['PlanDesc'] = request.plan_desc
+        if not UtilClient.is_unset(request.plan_id):
+            query['PlanId'] = request.plan_id
+        if not UtilClient.is_unset(request.plan_scheduler_type):
+            query['PlanSchedulerType'] = request.plan_scheduler_type
+        if not UtilClient.is_unset(request.plan_type):
+            query['PlanType'] = request.plan_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancePlans',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeDBInstancePlansResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_plans(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_plans_with_options(request, runtime)
+
     def describe_dbinstance_sqlpatterns_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1018,6 +1138,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
@@ -2523,6 +2645,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_security_ips_with_options(request, runtime)
 
+    def pause_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PauseInstance',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.PauseInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def pause_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.pause_instance_with_options(request, runtime)
+
     def rebalance_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2646,6 +2798,70 @@ class Client(OpenApiClient):
     def restart_dbinstance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.restart_dbinstance_with_options(request, runtime)
+
+    def resume_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResumeInstance',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ResumeInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def resume_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.resume_instance_with_options(request, runtime)
+
+    def set_dbinstance_plan_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.plan_id):
+            query['PlanId'] = request.plan_id
+        if not UtilClient.is_unset(request.plan_staus):
+            query['PlanStaus'] = request.plan_staus
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDBInstancePlanStatus',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.SetDBInstancePlanStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dbinstance_plan_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dbinstance_plan_status_with_options(request, runtime)
 
     def set_data_share_instance_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
