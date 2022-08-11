@@ -354,15 +354,17 @@ class ResourceInstanceWorker(TeaModel):
 
 class Service(TeaModel):
     def __init__(self, access_token=None, caller_uid=None, cpu=None, create_time=None, current_version=None,
-                 gpu=None, image=None, internet_endpoint=None, intranet_endpoint=None, latest_version=None, memory=None,
-                 message=None, namespace=None, parent_uid=None, pending_instance=None, reason=None, region=None,
-                 request_id=None, resource=None, running_instance=None, service_config=None, service_id=None,
-                 service_name=None, source=None, status=None, total_instance=None, update_time=None, weight=None):
+                 extra_data=None, gpu=None, image=None, internet_endpoint=None, intranet_endpoint=None, latest_version=None,
+                 memory=None, message=None, namespace=None, parent_uid=None, pending_instance=None, reason=None,
+                 region=None, request_id=None, resource=None, resource_alias=None, running_instance=None,
+                 service_config=None, service_group=None, service_id=None, service_name=None, source=None, status=None,
+                 total_instance=None, update_time=None, weight=None):
         self.access_token = access_token  # type: str
         self.caller_uid = caller_uid  # type: str
         self.cpu = cpu  # type: int
         self.create_time = create_time  # type: str
         self.current_version = current_version  # type: int
+        self.extra_data = extra_data  # type: str
         self.gpu = gpu  # type: int
         self.image = image  # type: str
         self.internet_endpoint = internet_endpoint  # type: str
@@ -377,8 +379,10 @@ class Service(TeaModel):
         self.region = region  # type: str
         self.request_id = request_id  # type: str
         self.resource = resource  # type: str
+        self.resource_alias = resource_alias  # type: str
         self.running_instance = running_instance  # type: int
         self.service_config = service_config  # type: str
+        self.service_group = service_group  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
         self.source = source  # type: str
@@ -406,6 +410,8 @@ class Service(TeaModel):
             result['CreateTime'] = self.create_time
         if self.current_version is not None:
             result['CurrentVersion'] = self.current_version
+        if self.extra_data is not None:
+            result['ExtraData'] = self.extra_data
         if self.gpu is not None:
             result['Gpu'] = self.gpu
         if self.image is not None:
@@ -434,10 +440,14 @@ class Service(TeaModel):
             result['RequestId'] = self.request_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_alias is not None:
+            result['ResourceAlias'] = self.resource_alias
         if self.running_instance is not None:
             result['RunningInstance'] = self.running_instance
         if self.service_config is not None:
             result['ServiceConfig'] = self.service_config
+        if self.service_group is not None:
+            result['ServiceGroup'] = self.service_group
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         if self.service_name is not None:
@@ -466,6 +476,8 @@ class Service(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('CurrentVersion') is not None:
             self.current_version = m.get('CurrentVersion')
+        if m.get('ExtraData') is not None:
+            self.extra_data = m.get('ExtraData')
         if m.get('Gpu') is not None:
             self.gpu = m.get('Gpu')
         if m.get('Image') is not None:
@@ -494,10 +506,14 @@ class Service(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceAlias') is not None:
+            self.resource_alias = m.get('ResourceAlias')
         if m.get('RunningInstance') is not None:
             self.running_instance = m.get('RunningInstance')
         if m.get('ServiceConfig') is not None:
             self.service_config = m.get('ServiceConfig')
+        if m.get('ServiceGroup') is not None:
+            self.service_group = m.get('ServiceGroup')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         if m.get('ServiceName') is not None:
@@ -4029,7 +4045,8 @@ class ListServicesResponse(TeaModel):
 
 
 class ReleaseServiceRequest(TeaModel):
-    def __init__(self, weight=None):
+    def __init__(self, traffic_state=None, weight=None):
+        self.traffic_state = traffic_state  # type: str
         self.weight = weight  # type: int
 
     def validate(self):
@@ -4041,12 +4058,16 @@ class ReleaseServiceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.traffic_state is not None:
+            result['TrafficState'] = self.traffic_state
         if self.weight is not None:
             result['Weight'] = self.weight
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('TrafficState') is not None:
+            self.traffic_state = m.get('TrafficState')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
         return self
