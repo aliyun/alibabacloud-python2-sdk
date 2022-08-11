@@ -5,11 +5,8 @@ from Tea.model import TeaModel
 
 class Addon(TeaModel):
     def __init__(self, config=None, disabled=None, name=None):
-        # 插件配置参数。
         self.config = config  # type: str
-        # 是否禁止默认安装。true | false。
         self.disabled = disabled  # type: bool
-        # 插件名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -43,15 +40,10 @@ class Addon(TeaModel):
 class DataDisk(TeaModel):
     def __init__(self, auto_snapshot_policy_id=None, category=None, encrypted=None, performance_level=None,
                  size=None):
-        # 开启云盘备份时的自动备份策略。
         self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
-        # 数据盘类型
         self.category = category  # type: str
-        # 是否对数据盘加密。
         self.encrypted = encrypted  # type: str
-        # 数据盘磁盘性能，只针对ESSD磁盘生效
         self.performance_level = performance_level  # type: str
-        # 数据盘大小，取值范围：40～32767
         self.size = size  # type: long
 
     def validate(self):
@@ -92,13 +84,9 @@ class DataDisk(TeaModel):
 
 class MaintenanceWindow(TeaModel):
     def __init__(self, duration=None, enable=None, maintenance_time=None, weekly_period=None):
-        # 维护时长。取值范围1～24，单位为小时。 默认值：3h。
         self.duration = duration  # type: str
-        # 是否开启维护窗口。默认值false。
         self.enable = enable  # type: bool
-        # 维护起始时间。Golang标准时间格式"15:04:05Z"。
         self.maintenance_time = maintenance_time  # type: str
-        # 维护周期。取值范围为:Monday~Sunday，多个值用逗号分隔。 默认值：Thursday。
         self.weekly_period = weekly_period  # type: str
 
     def validate(self):
@@ -135,9 +123,7 @@ class MaintenanceWindow(TeaModel):
 
 class Runtime(TeaModel):
     def __init__(self, name=None, version=None):
-        # 容器运行时名称
         self.name = name  # type: str
-        # 容器运行时版本
         self.version = version  # type: str
 
     def validate(self):
@@ -166,9 +152,7 @@ class Runtime(TeaModel):
 
 class Tag(TeaModel):
     def __init__(self, key=None, value=None):
-        # key值。
         self.key = key  # type: str
-        # value值。
         self.value = value  # type: str
 
     def validate(self):
@@ -197,11 +181,8 @@ class Tag(TeaModel):
 
 class Taint(TeaModel):
     def __init__(self, effect=None, key=None, value=None):
-        # 污点生效策略。
         self.effect = effect  # type: str
-        # key值。
         self.key = key  # type: str
-        # value值。
         self.value = value  # type: str
 
     def validate(self):
@@ -236,30 +217,18 @@ class AttachInstancesRequest(TeaModel):
     def __init__(self, cpu_policy=None, format_disk=None, image_id=None, instances=None, is_edge_worker=None,
                  keep_instance_name=None, key_pair=None, nodepool_id=None, password=None, rds_instances=None, runtime=None, tags=None,
                  user_data=None):
-        # CPU亲和策略。
         self.cpu_policy = cpu_policy  # type: str
-        # 是否格式化数据盘。
         self.format_disk = format_disk  # type: bool
-        # 自定义镜像ID。
         self.image_id = image_id  # type: str
-        # 实例列表。
         self.instances = instances  # type: list[str]
-        # 是否为边缘节点。
         self.is_edge_worker = is_edge_worker  # type: bool
-        # 是否保留实例名称。
         self.keep_instance_name = keep_instance_name  # type: bool
-        # key_pair名称，与login_password二选一
         self.key_pair = key_pair  # type: str
-        # 节点池ID，欲将节点添加到哪个节点池中。。
         self.nodepool_id = nodepool_id  # type: str
-        # password，与key_pair二选一。
         self.password = password  # type: str
-        # RDS实例列表。
         self.rds_instances = rds_instances  # type: list[str]
         self.runtime = runtime  # type: Runtime
-        # 节点标签。
         self.tags = tags  # type: list[Tag]
-        # 节点自定义数据。
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -343,11 +312,8 @@ class AttachInstancesRequest(TeaModel):
 
 class AttachInstancesResponseBodyList(TeaModel):
     def __init__(self, code=None, instance_id=None, message=None):
-        # 状态码。
         self.code = code  # type: str
-        # 实例ID。
         self.instance_id = instance_id  # type: str
-        # 添加结果描述。
         self.message = message  # type: str
 
     def validate(self):
@@ -380,9 +346,7 @@ class AttachInstancesResponseBodyList(TeaModel):
 
 class AttachInstancesResponseBody(TeaModel):
     def __init__(self, list=None, task_id=None):
-        # 节点信息列表。
         self.list = list  # type: list[AttachInstancesResponseBodyList]
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -548,7 +512,6 @@ class CancelTaskResponse(TeaModel):
 
 class CancelWorkflowRequest(TeaModel):
     def __init__(self, action=None):
-        # 执行的操作，目前只支持cancel。
         self.action = action  # type: str
 
     def validate(self):
@@ -604,19 +567,12 @@ class CancelWorkflowResponse(TeaModel):
 class CreateAutoscalingConfigRequest(TeaModel):
     def __init__(self, cool_down_duration=None, expander=None, gpu_utilization_threshold=None,
                  scale_down_enabled=None, scan_interval=None, unneeded_duration=None, utilization_threshold=None):
-        # 静默时间，扩容出的节点，在静默时间过后，方可进入缩容判断
         self.cool_down_duration = cool_down_duration  # type: str
-        # 节点池扩容顺序策略
         self.expander = expander  # type: str
-        # GPU缩容阈值，节点上 Request 的资源与总资源量的比值
         self.gpu_utilization_threshold = gpu_utilization_threshold  # type: str
-        # 是否允许缩容
         self.scale_down_enabled = scale_down_enabled  # type: bool
-        # 弹性灵敏度，判断伸缩的间隔时间
         self.scan_interval = scan_interval  # type: str
-        # 缩容触发时延，节点缩容时需要连续满足触发时延所设定的时间，方可进行缩容
         self.unneeded_duration = unneeded_duration  # type: str
-        # 缩容阈值，节点上 Request 的资源与总资源量的比值
         self.utilization_threshold = utilization_threshold  # type: str
 
     def validate(self):
@@ -695,13 +651,9 @@ class CreateAutoscalingConfigResponse(TeaModel):
 
 class CreateClusterRequestWorkerDataDisks(TeaModel):
     def __init__(self, category=None, encrypted=None, performance_level=None, size=None):
-        # 集群Worker节点数据盘类型
         self.category = category  # type: str
-        # 集群Worker节点数据盘是否加密
         self.encrypted = encrypted  # type: str
-        # 集群Worker节点数据盘磁盘性能等级，仅对ESSD磁盘生效
         self.performance_level = performance_level  # type: str
-        # 集群Worker节点数据盘大小
         self.size = size  # type: str
 
     def validate(self):
@@ -737,18 +689,19 @@ class CreateClusterRequestWorkerDataDisks(TeaModel):
 
 
 class CreateClusterRequest(TeaModel):
-    def __init__(self, addons=None, api_audiences=None, cis_enabled=None, cloud_monitor_flags=None,
-                 cluster_domain=None, cluster_spec=None, cluster_type=None, container_cidr=None, controlplane_log_components=None,
-                 controlplane_log_project=None, controlplane_log_ttl=None, cpu_policy=None, custom_san=None, deletion_protection=None,
-                 disable_rollback=None, enable_rrsa=None, encryption_provider_key=None, endpoint_public_access=None,
-                 format_disk=None, image_id=None, image_type=None, instances=None, is_enterprise_security_group=None,
-                 keep_instance_name=None, key_pair=None, kubernetes_version=None, load_balancer_spec=None, logging_type=None,
-                 login_password=None, master_auto_renew=None, master_auto_renew_period=None, master_count=None,
-                 master_instance_charge_type=None, master_instance_types=None, master_period=None, master_period_unit=None,
-                 master_system_disk_category=None, master_system_disk_performance_level=None, master_system_disk_size=None,
-                 master_system_disk_snapshot_policy_id=None, master_vswitch_ids=None, name=None, nat_gateway=None, node_cidr_mask=None,
-                 node_name_mode=None, node_port_range=None, num_of_nodes=None, os_type=None, platform=None, pod_vswitch_ids=None,
-                 profile=None, proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None, runtime=None,
+    def __init__(self, addons=None, api_audiences=None, charge_type=None, cis_enabled=None,
+                 cloud_monitor_flags=None, cluster_domain=None, cluster_spec=None, cluster_type=None, container_cidr=None,
+                 controlplane_log_components=None, controlplane_log_project=None, controlplane_log_ttl=None, cpu_policy=None, custom_san=None,
+                 deletion_protection=None, disable_rollback=None, enable_rrsa=None, encryption_provider_key=None,
+                 endpoint_public_access=None, format_disk=None, image_id=None, image_type=None, instances=None,
+                 is_enterprise_security_group=None, keep_instance_name=None, key_pair=None, kubernetes_version=None, load_balancer_spec=None,
+                 logging_type=None, login_password=None, master_auto_renew=None, master_auto_renew_period=None,
+                 master_count=None, master_instance_charge_type=None, master_instance_types=None, master_period=None,
+                 master_period_unit=None, master_system_disk_category=None, master_system_disk_performance_level=None,
+                 master_system_disk_size=None, master_system_disk_snapshot_policy_id=None, master_vswitch_ids=None, name=None,
+                 nat_gateway=None, node_cidr_mask=None, node_name_mode=None, node_port_range=None, num_of_nodes=None,
+                 os_type=None, period=None, period_unit=None, platform=None, pod_vswitch_ids=None, profile=None,
+                 proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None, runtime=None,
                  security_group_id=None, service_account_issuer=None, service_cidr=None, service_discovery_types=None,
                  snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None, taints=None, timeout_mins=None, timezone=None,
                  user_ca=None, user_data=None, vpcid=None, vswitch_ids=None, worker_auto_renew=None,
@@ -756,172 +709,92 @@ class CreateClusterRequest(TeaModel):
                  worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
                  worker_system_disk_performance_level=None, worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None,
                  worker_vswitch_ids=None, zone_id=None):
-        # 集群组件配置
         self.addons = addons  # type: list[Addon]
-        # 合法的请求token身份，用于apiserver服务端认证请求token是否合法。
         self.api_audiences = api_audiences  # type: str
-        # CIS安全加固
+        self.charge_type = charge_type  # type: str
         self.cis_enabled = cis_enabled  # type: bool
-        # 为ECS安装云监控
         self.cloud_monitor_flags = cloud_monitor_flags  # type: bool
-        # 集群本地域名
         self.cluster_domain = cluster_domain  # type: str
-        # 托管版集群类型
         self.cluster_spec = cluster_spec  # type: str
-        # 集群类型
         self.cluster_type = cluster_type  # type: str
-        # POD网络网段
         self.container_cidr = container_cidr  # type: str
-        # 需要采集日志的组件
         self.controlplane_log_components = controlplane_log_components  # type: list[str]
-        # 使用已有log project时，需要指定log project
         self.controlplane_log_project = controlplane_log_project  # type: str
-        # 控制平面日志
         self.controlplane_log_ttl = controlplane_log_ttl  # type: str
-        # CPU策略
         self.cpu_policy = cpu_policy  # type: str
-        # 自定义证书SAN
         self.custom_san = custom_san  # type: str
-        # 集群删除保护
         self.deletion_protection = deletion_protection  # type: bool
-        # 失败回滚
         self.disable_rollback = disable_rollback  # type: bool
-        # 启用 RRSA 功能
         self.enable_rrsa = enable_rrsa  # type: bool
-        # Secret落盘加密
         self.encryption_provider_key = encryption_provider_key  # type: str
-        # 使用EIP暴露apiServer
         self.endpoint_public_access = endpoint_public_access  # type: bool
-        # 使用已有节点创建集群时，是否格式化已有实例的磁盘
         self.format_disk = format_disk  # type: bool
-        # 自定义镜像
         self.image_id = image_id  # type: str
-        # 操作系统镜像类型
         self.image_type = image_type  # type: str
-        # 使用已有节点创建集群时，已有实例列表
         self.instances = instances  # type: list[str]
-        # 自动创建企业安全组
         self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
-        # 使用已有节点创建集群时，是否保留实例名称。
         self.keep_instance_name = keep_instance_name  # type: bool
-        # 密钥对名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # 集群版本
         self.kubernetes_version = kubernetes_version  # type: str
-        # 负载均衡规格
         self.load_balancer_spec = load_balancer_spec  # type: str
-        # ASK 集群开启日志服务
         self.logging_type = logging_type  # type: str
-        # SSH登录密码。密码规则为8~30 个字符，且至少同时包含三项（大小写字母、数字和特殊符号），和key_pair二选一。
         self.login_password = login_password  # type: str
-        # 集群Master节点是否自动续费
         self.master_auto_renew = master_auto_renew  # type: bool
-        # 集群Master节点自动续费时长
         self.master_auto_renew_period = master_auto_renew_period  # type: long
-        # 集群Master节点数量
         self.master_count = master_count  # type: long
-        # 集群Master节点付费类型
         self.master_instance_charge_type = master_instance_charge_type  # type: str
-        # 集群Master节点类型
         self.master_instance_types = master_instance_types  # type: list[str]
-        # 集群Master节点包年包月时长
         self.master_period = master_period  # type: long
-        # 集群Master节点包年包月周期
         self.master_period_unit = master_period_unit  # type: str
-        # 集群Master节点系统盘类型
         self.master_system_disk_category = master_system_disk_category  # type: str
-        # Master节点系统盘磁盘性能，只针对ESSD磁盘生效
         self.master_system_disk_performance_level = master_system_disk_performance_level  # type: str
-        # 集群Master节点系统盘大小，至少40
         self.master_system_disk_size = master_system_disk_size  # type: long
-        # 集群Master节点自动快照备份策略
         self.master_system_disk_snapshot_policy_id = master_system_disk_snapshot_policy_id  # type: str
-        # 集群Master节点使用的虚拟交换机
         self.master_vswitch_ids = master_vswitch_ids  # type: list[str]
-        # 集群名称。
         self.name = name  # type: str
-        # 使用自动创建专有网络创建ASK集群时，是否在vpc中创建Nat网关并配置SNAT规则。
         self.nat_gateway = nat_gateway  # type: bool
-        # 节点IP数量
         self.node_cidr_mask = node_cidr_mask  # type: str
-        # 自定义节点名称
         self.node_name_mode = node_name_mode  # type: str
-        # 节点服务端口范围
         self.node_port_range = node_port_range  # type: str
-        # 集群Worker节点数量
         self.num_of_nodes = num_of_nodes  # type: long
-        # 操作系统平台类型
         self.os_type = os_type  # type: str
-        # 操作系统发行版
+        self.period = period  # type: long
+        self.period_unit = period_unit  # type: str
         self.platform = platform  # type: str
-        # 创建Terway网络类型的集群时，需要为pod指定单独的虚拟交换机
         self.pod_vswitch_ids = pod_vswitch_ids  # type: list[str]
-        # 面向场景时的集群类型。  Default：非边缘场景集群。 Edge：边缘场景集群。
         self.profile = profile  # type: str
-        # Proxy代理模式，ipvs|iptables
         self.proxy_mode = proxy_mode  # type: str
-        # RDS白名单
         self.rds_instances = rds_instances  # type: list[str]
-        # 地域ID
         self.region_id = region_id  # type: str
-        # 集群所属资源组ID
         self.resource_group_id = resource_group_id  # type: str
         self.runtime = runtime  # type: Runtime
-        # 安全组ID，和is_enterprise_security_group二选一
         self.security_group_id = security_group_id  # type: str
-        # serviceaccount token中的签发身份，即token payload中的iss字段。
         self.service_account_issuer = service_account_issuer  # type: str
-        # 服务网络网段
         self.service_cidr = service_cidr  # type: str
-        # 创建ASK集群时，服务发现类型
         self.service_discovery_types = service_discovery_types  # type: list[str]
-        # 若您集群内的节点、应用等需要访问公网，勾选该项后我们将为您创建 NAT 网关并自动配置 SNAT 规则
         self.snat_entry = snat_entry  # type: bool
-        # 等保安全加固
         self.soc_enabled = soc_enabled  # type: bool
-        # 允许公网ssh登录
         self.ssh_flags = ssh_flags  # type: bool
-        # 集群标签
         self.tags = tags  # type: list[Tag]
-        # 节点污点信息
         self.taints = taints  # type: list[Taint]
-        # 集群创建超时时间
         self.timeout_mins = timeout_mins  # type: long
-        # 时区
         self.timezone = timezone  # type: str
-        # 自定义集群CA
         self.user_ca = user_ca  # type: str
-        # 节点自定义数据
         self.user_data = user_data  # type: str
-        # 集群专有网络ID。
         self.vpcid = vpcid  # type: str
-        # 集群节点所在虚拟交换机。
         self.vswitch_ids = vswitch_ids  # type: list[str]
-        # 集群Worker节点到期是否自动续费
         self.worker_auto_renew = worker_auto_renew  # type: bool
-        # 集群Worker节点自动续费时长
         self.worker_auto_renew_period = worker_auto_renew_period  # type: long
-        # 集群Worker节点数据盘配置
         self.worker_data_disks = worker_data_disks  # type: list[CreateClusterRequestWorkerDataDisks]
-        # 集群Worker节点付费类型
         self.worker_instance_charge_type = worker_instance_charge_type  # type: str
-        # 集群Worker节点类型
         self.worker_instance_types = worker_instance_types  # type: list[str]
-        # 集群Worker节点包年包月时长
         self.worker_period = worker_period  # type: long
-        # 集群Worker节点包年包月周期
         self.worker_period_unit = worker_period_unit  # type: str
-        # 集群Worker节点系统盘类型
         self.worker_system_disk_category = worker_system_disk_category  # type: str
-        # 集群Worker节点磁盘性能，只对ESSD类型磁盘生效
         self.worker_system_disk_performance_level = worker_system_disk_performance_level  # type: str
-        # 集群Worker节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
-        # 集群Worker节点系统盘快照备份策略
         self.worker_system_disk_snapshot_policy_id = worker_system_disk_snapshot_policy_id  # type: str
-        # 集群Worker节点所在虚拟交换机
         self.worker_vswitch_ids = worker_vswitch_ids  # type: list[str]
-        # 使用自动创建专有网络创建ASK集群时，需要指定专有网络的可用区
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -956,6 +829,8 @@ class CreateClusterRequest(TeaModel):
                 result['addons'].append(k.to_map() if k else None)
         if self.api_audiences is not None:
             result['api_audiences'] = self.api_audiences
+        if self.charge_type is not None:
+            result['charge_type'] = self.charge_type
         if self.cis_enabled is not None:
             result['cis_enabled'] = self.cis_enabled
         if self.cloud_monitor_flags is not None:
@@ -1048,6 +923,10 @@ class CreateClusterRequest(TeaModel):
             result['num_of_nodes'] = self.num_of_nodes
         if self.os_type is not None:
             result['os_type'] = self.os_type
+        if self.period is not None:
+            result['period'] = self.period
+        if self.period_unit is not None:
+            result['period_unit'] = self.period_unit
         if self.platform is not None:
             result['platform'] = self.platform
         if self.pod_vswitch_ids is not None:
@@ -1137,6 +1016,8 @@ class CreateClusterRequest(TeaModel):
                 self.addons.append(temp_model.from_map(k))
         if m.get('api_audiences') is not None:
             self.api_audiences = m.get('api_audiences')
+        if m.get('charge_type') is not None:
+            self.charge_type = m.get('charge_type')
         if m.get('cis_enabled') is not None:
             self.cis_enabled = m.get('cis_enabled')
         if m.get('cloud_monitor_flags') is not None:
@@ -1229,6 +1110,10 @@ class CreateClusterRequest(TeaModel):
             self.num_of_nodes = m.get('num_of_nodes')
         if m.get('os_type') is not None:
             self.os_type = m.get('os_type')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        if m.get('period_unit') is not None:
+            self.period_unit = m.get('period_unit')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
         if m.get('pod_vswitch_ids') is not None:
@@ -1316,11 +1201,8 @@ class CreateClusterRequest(TeaModel):
 
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1393,19 +1275,12 @@ class CreateClusterResponse(TeaModel):
 class CreateClusterNodePoolRequestAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
-        # 带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
-        # EIP实例规格。
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
-        # 是否开启自动伸缩。
         self.enable = enable  # type: bool
-        # 是否绑定EIP。
         self.is_bond_eip = is_bond_eip  # type: bool
-        # 最大实例数。
         self.max_instances = max_instances  # type: long
-        # 最小实例数。
         self.min_instances = min_instances  # type: long
-        # 扩容节点类型。
         self.type = type  # type: str
 
     def validate(self):
@@ -1454,15 +1329,10 @@ class CreateClusterNodePoolRequestAutoScaling(TeaModel):
 
 class CreateClusterNodePoolRequestInterconnectConfig(TeaModel):
     def __init__(self, bandwidth=None, ccn_id=None, ccn_region_id=None, cen_id=None, improved_period=None):
-        # 边缘增强型节点池的网络带宽，单位M。
         self.bandwidth = bandwidth  # type: long
-        # 边缘增强型节点池绑定的云连接网实例ID(CCNID)
         self.ccn_id = ccn_id  # type: str
-        # 边缘增强型节点池绑定的云连接网实例所属的区域
         self.ccn_region_id = ccn_region_id  # type: str
-        # 边缘增强型节点池绑定的云企业网实例ID(CENID)
         self.cen_id = cen_id  # type: str
-        # 边缘增强型节点池的购买时长，单位月
         self.improved_period = improved_period  # type: str
 
     def validate(self):
@@ -1504,21 +1374,13 @@ class CreateClusterNodePoolRequestInterconnectConfig(TeaModel):
 class CreateClusterNodePoolRequestKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
                  runtime_version=None, taints=None, user_data=None):
-        # 是否开启云监控。
         self.cms_enabled = cms_enabled  # type: bool
-        # CPU管理策略。
         self.cpu_policy = cpu_policy  # type: str
-        # 节点标签。
         self.labels = labels  # type: list[Tag]
-        # 自定义节点名称
         self.node_name_mode = node_name_mode  # type: str
-        # 容器运行时。
         self.runtime = runtime  # type: str
-        # 容器运行时版本。
         self.runtime_version = runtime_version  # type: str
-        # 污点信息。
         self.taints = taints  # type: list[Taint]
-        # 节点自定义数据。
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -1588,13 +1450,9 @@ class CreateClusterNodePoolRequestKubernetesConfig(TeaModel):
 
 class CreateClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
-        # 是否启用自动升级
         self.auto_upgrade = auto_upgrade  # type: bool
-        # 最大不可用节点数量。
         self.max_unavailable = max_unavailable  # type: long
-        # 额外节点数量。
         self.surge = surge  # type: long
-        # 额外节点比例。和surge二选一。
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -1631,11 +1489,8 @@ class CreateClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
 
 class CreateClusterNodePoolRequestManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
-        # 是否启用自动修复。
         self.auto_repair = auto_repair  # type: bool
-        # 是否启用托管节点池。
         self.enable = enable  # type: bool
-        # 自动升级配置。
         self.upgrade_config = upgrade_config  # type: CreateClusterNodePoolRequestManagementUpgradeConfig
 
     def validate(self):
@@ -1670,11 +1525,8 @@ class CreateClusterNodePoolRequestManagement(TeaModel):
 
 class CreateClusterNodePoolRequestNodepoolInfo(TeaModel):
     def __init__(self, name=None, resource_group_id=None, type=None):
-        # 节点池名称
         self.name = name  # type: str
-        # 资源组ID。
         self.resource_group_id = resource_group_id  # type: str
-        # 节点池类型，对于边缘节点池来说，类型为"edge"
         self.type = type  # type: str
 
     def validate(self):
@@ -1707,9 +1559,7 @@ class CreateClusterNodePoolRequestNodepoolInfo(TeaModel):
 
 class CreateClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
-        # 抢占实例规格。
         self.instance_type = instance_type  # type: str
-        # 抢占实例单价。
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -1738,9 +1588,7 @@ class CreateClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
 
 class CreateClusterNodePoolRequestScalingGroupTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # key
         self.key = key  # type: str
-        # value
         self.value = value  # type: str
 
     def validate(self):
@@ -1776,71 +1624,38 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                  security_group_id=None, security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None,
                  spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_performance_level=None,
                  system_disk_size=None, tags=None, vswitch_ids=None):
-        # 节点是否开启自动续费
         self.auto_renew = auto_renew  # type: bool
-        # 节点自动续费周期
         self.auto_renew_period = auto_renew_period  # type: long
-        # 当MultiAZPolicy取值为COST_OPTIMIZED时，如果因价格、库存等原因无法创建足够的抢占式实例，是否允许自动尝试创建按量实例满足ECS实例数量要求。取值范围：true：允许。false：不允许。默认值：true
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
-        # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
-        # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
-        # 姐弟池期望节点数
         self.desired_size = desired_size  # type: long
-        # 自定义镜像。
         self.image_id = image_id  # type: str
-        # 操作系统镜像类型，和platform二选一
         self.image_type = image_type  # type: str
-        # 节点付费类型
         self.instance_charge_type = instance_charge_type  # type: str
-        # 实例规格。
         self.instance_types = instance_types  # type: list[str]
-        # 节点公网IP网络计费类型
         self.internet_charge_type = internet_charge_type  # type: str
-        # 节点公网IP出带宽最大值，单位为Mbps（Mega bit per second），取值范围：1~100
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # SSH登录密码。
         self.login_password = login_password  # type: str
-        # 多可用区伸缩组ECS实例扩缩容策略
         self.multi_az_policy = multi_az_policy  # type: str
-        # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
-        # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
-        # 节点包年包月时长。
         self.period = period  # type: long
-        # 节点包年包月周期。
         self.period_unit = period_unit  # type: str
-        # 操作系统发行版，和image_type二选一
         self.platform = platform  # type: str
-        # RDS实例列表。
         self.rds_instances = rds_instances  # type: list[str]
-        # 自动伸缩。
         self.scaling_policy = scaling_policy  # type: str
-        # 安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 多安全组ID
         self.security_group_ids = security_group_ids  # type: list[str]
-        # 指定可用实例规格的个数，伸缩组将按成本最低的多个规格均衡创建抢占式实例。取值范围：1~10。
         self.spot_instance_pools = spot_instance_pools  # type: long
-        # 是否开启补齐抢占式实例。开启后，当收到抢占式实例将被回收的系统消息时，伸缩组将尝试创建新的实例，替换掉将被回收的抢占式实例。
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
-        # 抢占实例价格上限配置。
         self.spot_price_limit = spot_price_limit  # type: list[CreateClusterNodePoolRequestScalingGroupSpotPriceLimit]
-        # 抢占式实例类型
         self.spot_strategy = spot_strategy  # type: str
-        # 节点系统盘类型。
         self.system_disk_category = system_disk_category  # type: str
-        # 节点系统盘磁盘性能，只针对ESSD磁盘生效
         self.system_disk_performance_level = system_disk_performance_level  # type: str
-        # 节点系统盘大小。
         self.system_disk_size = system_disk_size  # type: long
-        # ECS标签
         self.tags = tags  # type: list[CreateClusterNodePoolRequestScalingGroupTags]
-        # 虚拟交换机ID。
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -2019,7 +1834,6 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
 
 class CreateClusterNodePoolRequestTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
-        # 是否为加密计算节点池。
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -2045,25 +1859,15 @@ class CreateClusterNodePoolRequestTeeConfig(TeaModel):
 class CreateClusterNodePoolRequest(TeaModel):
     def __init__(self, auto_scaling=None, count=None, interconnect_config=None, interconnect_mode=None,
                  kubernetes_config=None, management=None, max_nodes=None, nodepool_info=None, scaling_group=None, tee_config=None):
-        # 自动伸缩节点池配置。
         self.auto_scaling = auto_scaling  # type: CreateClusterNodePoolRequestAutoScaling
-        # 节点数量。
         self.count = count  # type: long
-        # 边缘节点池网络相关的配置。该值只对edge类型的节点池有意义
         self.interconnect_config = interconnect_config  # type: CreateClusterNodePoolRequestInterconnectConfig
-        # 边缘节点池的网络类型。basic：基础型；improved：增强型。该值只对edge类型的节点池有意义。
         self.interconnect_mode = interconnect_mode  # type: str
-        # 集群配置
         self.kubernetes_config = kubernetes_config  # type: CreateClusterNodePoolRequestKubernetesConfig
-        # 托管节点池配置。
         self.management = management  # type: CreateClusterNodePoolRequestManagement
-        # 边缘节点池允许容纳的最大节点数量. 节点池内可以容纳的最大节点数量，该参数大于等于0。0表示无额外限制(仅受限于集群整体可以容纳的节点数，节点池本身无额外限制)。边缘节点池该参数值往往大于0；ess类型节点池和默认的edge类型节点池该参数值为0
         self.max_nodes = max_nodes  # type: long
-        # 节点池配置
         self.nodepool_info = nodepool_info  # type: CreateClusterNodePoolRequestNodepoolInfo
-        # 伸缩组配置
         self.scaling_group = scaling_group  # type: CreateClusterNodePoolRequestScalingGroup
-        # 加密计算节点池配置。
         self.tee_config = tee_config  # type: CreateClusterNodePoolRequestTeeConfig
 
     def validate(self):
@@ -2144,7 +1948,6 @@ class CreateClusterNodePoolRequest(TeaModel):
 
 class CreateClusterNodePoolResponseBody(TeaModel):
     def __init__(self, nodepool_id=None):
-        # 节点池ID
         self.nodepool_id = nodepool_id  # type: str
 
     def validate(self):
@@ -2208,11 +2011,8 @@ class CreateClusterNodePoolResponse(TeaModel):
 
 class CreateEdgeMachineRequest(TeaModel):
     def __init__(self, hostname=None, model=None, sn=None):
-        # hostname
         self.hostname = hostname  # type: str
-        # model
         self.model = model  # type: str
-        # sn
         self.sn = sn  # type: str
 
     def validate(self):
@@ -2245,9 +2045,7 @@ class CreateEdgeMachineRequest(TeaModel):
 
 class CreateEdgeMachineResponseBody(TeaModel):
     def __init__(self, edge_machine_id=None, request_id=None):
-        # edge machine id
         self.edge_machine_id = edge_machine_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2315,13 +2113,9 @@ class CreateEdgeMachineResponse(TeaModel):
 
 class CreateKubernetesTriggerRequest(TeaModel):
     def __init__(self, action=None, cluster_id=None, project_id=None, type=None):
-        # 触发器行为
         self.action = action  # type: str
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 项目名称。
         self.project_id = project_id  # type: str
-        # 触发器类型。默认deployment。
         self.type = type  # type: str
 
     def validate(self):
@@ -2358,15 +2152,10 @@ class CreateKubernetesTriggerRequest(TeaModel):
 
 class CreateKubernetesTriggerResponseBody(TeaModel):
     def __init__(self, action=None, cluster_id=None, id=None, project_id=None, type=None):
-        # 触发器行为。
         self.action = action  # type: str
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 触发器ID。
         self.id = id  # type: str
-        # 触发器项目名称。
         self.project_id = project_id  # type: str
-        # 触发器类型。默认值为 deployment 。
         self.type = type  # type: str
 
     def validate(self):
@@ -2446,15 +2235,10 @@ class CreateKubernetesTriggerResponse(TeaModel):
 
 class CreateTemplateRequest(TeaModel):
     def __init__(self, description=None, name=None, tags=None, template=None, template_type=None):
-        # 模板描述。
         self.description = description  # type: str
-        # 模板名称。
         self.name = name  # type: str
-        # 模板标签。
         self.tags = tags  # type: str
-        # YAML格式的模板内容。
         self.template = template  # type: str
-        # 模板类型。默认值：kubernetes
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -2495,7 +2279,6 @@ class CreateTemplateRequest(TeaModel):
 
 class CreateTemplateResponseBody(TeaModel):
     def __init__(self, template_id=None):
-        # 模板ID。
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -2559,13 +2342,9 @@ class CreateTemplateResponse(TeaModel):
 
 class CreateTriggerRequest(TeaModel):
     def __init__(self, action=None, cluster_id=None, project_id=None, type=None):
-        # 触发器行为
         self.action = action  # type: str
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 项目名称。
         self.project_id = project_id  # type: str
-        # 触发器类型。默认deployment。
         self.type = type  # type: str
 
     def validate(self):
@@ -2602,15 +2381,10 @@ class CreateTriggerRequest(TeaModel):
 
 class CreateTriggerResponseBody(TeaModel):
     def __init__(self, action=None, cluster_id=None, id=None, project_id=None, type=None):
-        # 触发器行为。
         self.action = action  # type: str
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 触发器ID。
         self.id = id  # type: str
-        # 触发器项目名称。
         self.project_id = project_id  # type: str
-        # 触发器类型。默认值为 deployment 。
         self.type = type  # type: str
 
     def validate(self):
@@ -2750,11 +2524,8 @@ class DeleteAlertContactGroupResponse(TeaModel):
 
 class DeleteClusterRequest(TeaModel):
     def __init__(self, keep_slb=None, retain_all_resources=None, retain_resources=None):
-        # 是否保留SLB。  true：保留 false：不保留 默认值：false。
         self.keep_slb = keep_slb  # type: bool
-        # 是否保留所有资源,如果设置了该值，将会忽略retain_resources。  true：保留 false：不保留 默认值：fase。
         self.retain_all_resources = retain_all_resources  # type: bool
-        # 要保留的资源列表。
         self.retain_resources = retain_resources  # type: list[str]
 
     def validate(self):
@@ -2787,11 +2558,8 @@ class DeleteClusterRequest(TeaModel):
 
 class DeleteClusterShrinkRequest(TeaModel):
     def __init__(self, keep_slb=None, retain_all_resources=None, retain_resources_shrink=None):
-        # 是否保留SLB。  true：保留 false：不保留 默认值：false。
         self.keep_slb = keep_slb  # type: bool
-        # 是否保留所有资源,如果设置了该值，将会忽略retain_resources。  true：保留 false：不保留 默认值：fase。
         self.retain_all_resources = retain_all_resources  # type: bool
-        # 要保留的资源列表。
         self.retain_resources_shrink = retain_resources_shrink  # type: str
 
     def validate(self):
@@ -2854,7 +2622,6 @@ class DeleteClusterResponse(TeaModel):
 
 class DeleteClusterNodepoolRequest(TeaModel):
     def __init__(self, force=None):
-        # 是否强制删除。
         self.force = force  # type: bool
 
     def validate(self):
@@ -2879,7 +2646,6 @@ class DeleteClusterNodepoolRequest(TeaModel):
 
 class DeleteClusterNodepoolResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # 请求ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2943,11 +2709,8 @@ class DeleteClusterNodepoolResponse(TeaModel):
 
 class DeleteClusterNodesRequest(TeaModel):
     def __init__(self, drain_node=None, nodes=None, release_node=None):
-        # 是否自动排空节点上的Pod。
         self.drain_node = drain_node  # type: bool
-        # 移除节点列表。
         self.nodes = nodes  # type: list[str]
-        # 是否同时释放 ECS
         self.release_node = release_node  # type: bool
 
     def validate(self):
@@ -2980,11 +2743,8 @@ class DeleteClusterNodesRequest(TeaModel):
 
 class DeleteClusterNodesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
-        # 集群ID
         self.cluster_id = cluster_id  # type: str
-        # 请求ID
         self.request_id = request_id  # type: str
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3056,7 +2816,6 @@ class DeleteClusterNodesResponse(TeaModel):
 
 class DeleteEdgeMachineRequest(TeaModel):
     def __init__(self, force=None):
-        # whether force delete
         self.force = force  # type: str
 
     def validate(self):
@@ -3141,7 +2900,6 @@ class DeleteKubernetesTriggerResponse(TeaModel):
 
 class DeletePolicyInstanceRequest(TeaModel):
     def __init__(self, instance_name=None):
-        # 策略规则实例id
         self.instance_name = instance_name  # type: str
 
     def validate(self):
@@ -3166,7 +2924,6 @@ class DeletePolicyInstanceRequest(TeaModel):
 
 class DeletePolicyInstanceResponseBody(TeaModel):
     def __init__(self, instances=None):
-        # 策略实例列表
         self.instances = instances  # type: list[str]
 
     def validate(self):
@@ -3290,11 +3047,8 @@ class DeleteTriggerResponse(TeaModel):
 
 class DeployPolicyInstanceRequest(TeaModel):
     def __init__(self, action=None, namespaces=None, parameters=None):
-        # 规则治理动作
         self.action = action  # type: str
-        # 限制策略实施的命名空间，为空时表示所有命名空间
         self.namespaces = namespaces  # type: list[str]
-        # 当前规则实例的配置参数
         self.parameters = parameters  # type: dict[str, any]
 
     def validate(self):
@@ -3327,7 +3081,6 @@ class DeployPolicyInstanceRequest(TeaModel):
 
 class DeployPolicyInstanceResponseBody(TeaModel):
     def __init__(self, instances=None):
-        # 策略实例列表
         self.instances = instances  # type: list[str]
 
     def validate(self):
@@ -3392,27 +3145,16 @@ class DeployPolicyInstanceResponse(TeaModel):
 class DescirbeWorkflowResponseBody(TeaModel):
     def __init__(self, create_time=None, duration=None, finish_time=None, input_data_size=None, job_name=None,
                  job_namespace=None, output_data_size=None, status=None, total_bases=None, total_reads=None, user_input_data=None):
-        # 工作流创建时间。
         self.create_time = create_time  # type: str
-        # 工作流经过时长。
         self.duration = duration  # type: str
-        # 任务结束时间。
         self.finish_time = finish_time  # type: str
-        # 输入数据大小。
         self.input_data_size = input_data_size  # type: str
-        # 工作流名称。
         self.job_name = job_name  # type: str
-        # 工作流所在命名空间。
         self.job_namespace = job_namespace  # type: str
-        # 输出数据大小。
         self.output_data_size = output_data_size  # type: str
-        # 工作流当前状态。
         self.status = status  # type: str
-        # 碱基对个数。
         self.total_bases = total_bases  # type: str
-        # Reads个数。
         self.total_reads = total_reads  # type: str
-        # 用户输入参数。
         self.user_input_data = user_input_data  # type: str
 
     def validate(self):
@@ -3516,9 +3258,7 @@ class DescirbeWorkflowResponse(TeaModel):
 
 class DescribeAddonsRequest(TeaModel):
     def __init__(self, cluster_type=None, region=None):
-        # 集群类型。  - Kubernetes: 专有版集群。 - ManagedKubernetes：托管版集群。 - Ask：Serverless 集群。 - ExternalKubernetes：注册到ACK的外部集群。
         self.cluster_type = cluster_type  # type: str
-        # 地域ID。
         self.region = region  # type: str
 
     def validate(self):
@@ -3547,7 +3287,6 @@ class DescribeAddonsRequest(TeaModel):
 
 class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
     def __init__(self, name=None):
-        # 组件名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -3572,9 +3311,7 @@ class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
 
 class DescribeAddonsResponseBodyComponentGroups(TeaModel):
     def __init__(self, group_name=None, items=None):
-        # 组件组名称。
         self.group_name = group_name  # type: str
-        # 组件列表
         self.items = items  # type: list[DescribeAddonsResponseBodyComponentGroupsItems]
 
     def validate(self):
@@ -3611,9 +3348,7 @@ class DescribeAddonsResponseBodyComponentGroups(TeaModel):
 
 class DescribeAddonsResponseBody(TeaModel):
     def __init__(self, component_groups=None, standard_components=None):
-        # 组件分组信息，例如：存储类组件，网络组件等。
         self.component_groups = component_groups  # type: list[DescribeAddonsResponseBodyComponentGroups]
-        # 标准组件信息，包含各个组件的描述信息。
         self.standard_components = standard_components  # type: dict[str, StandardComponentsValue]
 
     def validate(self):
@@ -3698,11 +3433,8 @@ class DescribeAddonsResponse(TeaModel):
 
 class DescribeClusterAddonMetadataResponseBody(TeaModel):
     def __init__(self, config_schema=None, name=None, version=None):
-        # 组件参数Schema
         self.config_schema = config_schema  # type: str
-        # 组件名称
         self.name = name  # type: str
-        # 组件版本
         self.version = version  # type: str
 
     def validate(self):
@@ -3810,7 +3542,6 @@ class DescribeClusterAddonUpgradeStatusResponse(TeaModel):
 
 class DescribeClusterAddonsUpgradeStatusRequest(TeaModel):
     def __init__(self, component_ids=None):
-        # 组件名称列表。
         self.component_ids = component_ids  # type: list[str]
 
     def validate(self):
@@ -3835,7 +3566,6 @@ class DescribeClusterAddonsUpgradeStatusRequest(TeaModel):
 
 class DescribeClusterAddonsUpgradeStatusShrinkRequest(TeaModel):
     def __init__(self, component_ids_shrink=None):
-        # 组件名称列表。
         self.component_ids_shrink = component_ids_shrink  # type: str
 
     def validate(self):
@@ -3933,17 +3663,11 @@ class DescribeClusterAddonsVersionResponse(TeaModel):
 class DescribeClusterAttachScriptsRequest(TeaModel):
     def __init__(self, arch=None, format_disk=None, keep_instance_name=None, nodepool_id=None, options=None,
                  rds_instances=None):
-        # 节点CPU架构,支持amd64、arm、arm64。边缘托管集群专有字段。
         self.arch = arch  # type: str
-        # 数据盘挂载
         self.format_disk = format_disk  # type: bool
-        # 保留实例名称
         self.keep_instance_name = keep_instance_name  # type: bool
-        # 节点池ID。将节点加入指定节点池。
         self.nodepool_id = nodepool_id  # type: str
-        # 边缘托管版集群节点的接入配置。
         self.options = options  # type: str
-        # RDS白名单
         self.rds_instances = rds_instances  # type: list[str]
 
     def validate(self):
@@ -4029,62 +3753,34 @@ class DescribeClusterDetailResponseBody(TeaModel):
                  private_zone=None, profile=None, region_id=None, resource_group_id=None, security_group_id=None, size=None,
                  state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 托管版集群类型，面向托管集群。  ack.pro.small：专业托管集群。 ack.standard ：标准托管集群。
         self.cluster_spec = cluster_spec  # type: str
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 集群创建时间。
         self.created = created  # type: str
-        # 集群当前版本。
         self.current_version = current_version  # type: str
-        # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
-        # 集群内Docker版本。
         self.docker_version = docker_version  # type: str
-        # 集群Ingress LB实例ID。
         self.external_loadbalancer_id = external_loadbalancer_id  # type: str
-        # 集群初始化版本。
         self.init_version = init_version  # type: str
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
-        # 集群访问地址。
         self.master_url = master_url  # type: str
-        # 集群元数据。
         self.meta_data = meta_data  # type: str
-        # 集群名称。
         self.name = name  # type: str
-        # 集群采用的网络类型，例如：VPC网络。
         self.network_mode = network_mode  # type: str
-        # 集群可升级版本。
         self.next_version = next_version  # type: str
-        # 集群是否启用用PrivateZone。  true：启用 false：不启用 默认值：false。
         self.private_zone = private_zone  # type: bool
-        # 面向场景时的集群类型。  Default：非边缘场景集群。 Edge：边缘场景集群。
         self.profile = profile  # type: str
-        # 集群所在地域ID。
         self.region_id = region_id  # type: str
-        # 集群资源组ID。
         self.resource_group_id = resource_group_id  # type: str
-        # 集群安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 集群节点数量。
         self.size = size  # type: long
-        # 集群运行状态。
         self.state = state  # type: str
-        # Pod网络地址段，必须是有效的私有网段，即以下网段及其子网：10.0.0.0/8，172.16-31.0.0/12-16，192.168.0.0/16。不能与 VPC 及VPC 内已有 Kubernetes 集群使用的网段重复，创建成功后不能修改。  有关集群网络规划，请参见：[VPC下 Kubernetes 的网络地址段规划](https://help.aliyun.com/document_detail/～～86500～～)。
         self.subnet_cidr = subnet_cidr  # type: str
-        # 集群标签。
         self.tags = tags  # type: list[Tag]
-        # 集群更新时间。
         self.updated = updated  # type: str
-        # 集群使用的VPC ID。
         self.vpc_id = vpc_id  # type: str
-        # 集群节点使用的虚拟交换机列表。
         self.vswitch_id = vswitch_id  # type: str
-        # Worker节点RAM角色名称。
         self.worker_ram_role_name = worker_ram_role_name  # type: str
-        # 集群所在地域内的可用区ID。
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -4269,17 +3965,249 @@ class DescribeClusterDetailResponse(TeaModel):
         return self
 
 
+class DescribeClusterEventsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, task_id=None):
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.task_id = task_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class DescribeClusterEventsResponseBodyEventsData(TeaModel):
+    def __init__(self, level=None, message=None, reason=None):
+        self.level = level  # type: str
+        self.message = message  # type: str
+        self.reason = reason  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsResponseBodyEventsData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.level is not None:
+            result['level'] = self.level
+        if self.message is not None:
+            result['message'] = self.message
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
+class DescribeClusterEventsResponseBodyEvents(TeaModel):
+    def __init__(self, cluster_id=None, data=None, event_id=None, source=None, subject=None, time=None, type=None):
+        self.cluster_id = cluster_id  # type: str
+        self.data = data  # type: DescribeClusterEventsResponseBodyEventsData
+        self.event_id = event_id  # type: str
+        self.source = source  # type: str
+        self.subject = subject  # type: str
+        self.time = time  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsResponseBodyEvents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.source is not None:
+            result['source'] = self.source
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.time is not None:
+            result['time'] = self.time
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('data') is not None:
+            temp_model = DescribeClusterEventsResponseBodyEventsData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class DescribeClusterEventsResponseBodyPageInfo(TeaModel):
+    def __init__(self, page_number=None, page_size=None, total_count=None):
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class DescribeClusterEventsResponseBody(TeaModel):
+    def __init__(self, events=None, page_info=None):
+        self.events = events  # type: list[DescribeClusterEventsResponseBodyEvents]
+        self.page_info = page_info  # type: DescribeClusterEventsResponseBodyPageInfo
+
+    def validate(self):
+        if self.events:
+            for k in self.events:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['events'] = []
+        if self.events is not None:
+            for k in self.events:
+                result['events'].append(k.to_map() if k else None)
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.events = []
+        if m.get('events') is not None:
+            for k in m.get('events'):
+                temp_model = DescribeClusterEventsResponseBodyEvents()
+                self.events.append(temp_model.from_map(k))
+        if m.get('page_info') is not None:
+            temp_model = DescribeClusterEventsResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class DescribeClusterEventsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterEventsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterEventsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterEventsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeClusterLogsResponseBody(TeaModel):
     def __init__(self, id=None, cluster_id=None, cluster_log=None, created=None, updated=None):
-        # 日志ID。
         self.id = id  # type: long
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 日志内容。
         self.cluster_log = cluster_log  # type: str
-        # 日志创建时间。
         self.created = created  # type: str
-        # 日志更新时间。
         self.updated = updated  # type: str
 
     def validate(self):
@@ -4366,19 +4294,12 @@ class DescribeClusterLogsResponse(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
-        # EIP带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
-        # EIP实例付费类型。
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
-        # 是否启用自动伸缩。
         self.enable = enable  # type: bool
-        # 是否绑定EIP。
         self.is_bond_eip = is_bond_eip  # type: bool
-        # 最大实例数。
         self.max_instances = max_instances  # type: long
-        # 最小实例数。
         self.min_instances = min_instances  # type: long
-        # 扩容组类型
         self.type = type  # type: str
 
     def validate(self):
@@ -4427,15 +4348,10 @@ class DescribeClusterNodePoolDetailResponseBodyAutoScaling(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyInterconnectConfig(TeaModel):
     def __init__(self, bandwidth=None, ccn_id=None, ccn_region_id=None, cen_id=None, improved_period=None):
-        # 边缘增强型节点池的网络带宽，单位M
         self.bandwidth = bandwidth  # type: long
-        # 边缘增强型节点池绑定的云连接网实例ID(CCNID)
         self.ccn_id = ccn_id  # type: str
-        # 边缘增强型节点池绑定的云连接网实例所属的区域
         self.ccn_region_id = ccn_region_id  # type: str
-        # 边缘增强型节点池绑定的云企业网实例ID(CENID)
         self.cen_id = cen_id  # type: str
-        # 边缘增强型节点池的购买时长，单位月
         self.improved_period = improved_period  # type: str
 
     def validate(self):
@@ -4477,21 +4393,13 @@ class DescribeClusterNodePoolDetailResponseBodyInterconnectConfig(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
                  runtime_version=None, taints=None, user_data=None):
-        # 是否开启云监控
         self.cms_enabled = cms_enabled  # type: bool
-        # CPU管理策略
         self.cpu_policy = cpu_policy  # type: str
-        # 节点标签。
         self.labels = labels  # type: list[Tag]
-        # 自定义节点名称
         self.node_name_mode = node_name_mode  # type: str
-        # 容器运行时
         self.runtime = runtime  # type: str
-        # 容器运行时版本。
         self.runtime_version = runtime_version  # type: str
-        # 污点配置。
         self.taints = taints  # type: list[Taint]
-        # 节点自定义数据
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -4561,13 +4469,9 @@ class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
-        # 是否启用自动升级，自修复。
         self.auto_upgrade = auto_upgrade  # type: bool
-        # 最大不可用节点数量。
         self.max_unavailable = max_unavailable  # type: long
-        # 额外节点数量。
         self.surge = surge  # type: long
-        # 额外节点比例， 和surge 二选一。
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -4604,11 +4508,8 @@ class DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig(TeaModel)
 
 class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
-        # 自动修复。
         self.auto_repair = auto_repair  # type: bool
-        # 是否开启托管版节点池。
         self.enable = enable  # type: bool
-        # 自动升级配置。
         self.upgrade_config = upgrade_config  # type: DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig
 
     def validate(self):
@@ -4644,21 +4545,13 @@ class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
-        # 节点池创建时间。
         self.created = created  # type: str
-        # 是否为默认节点池。
         self.is_default = is_default  # type: bool
-        # 节点池名称。
         self.name = name  # type: str
-        # 节点池ID。
         self.nodepool_id = nodepool_id  # type: str
-        # 节点池所属地域ID。
         self.region_id = region_id  # type: str
-        # 节点池所属资源组ID。
         self.resource_group_id = resource_group_id  # type: str
-        # 节点池类型。
         self.type = type  # type: str
-        # 节点池更新时间。
         self.updated = updated  # type: str
 
     def validate(self):
@@ -4711,9 +4604,7 @@ class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
-        # 抢占式实例规格。
         self.instance_type = instance_type  # type: str
-        # 单台实例上限价格，单位：元/小时。
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -4749,73 +4640,39 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                  security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
                  spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
                  tags=None, vswitch_ids=None):
-        # 节点是否开启自动续费。
         self.auto_renew = auto_renew  # type: bool
-        # 节点自动续费周期。
         self.auto_renew_period = auto_renew_period  # type: long
-        # 当MultiAZPolicy取值为COST_OPTIMIZED时，如果因价格、库存等原因无法创建足够的抢占式实例，是否允许自动尝试创建按量实例满足ECS实例数量要求。取值范围：true：允许。false：不允许。默认值：true
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
-        # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
-        # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
-        # 节点池期望节点数
         self.desired_size = desired_size  # type: long
-        # 自定义镜像ID。
         self.image_id = image_id  # type: str
-        # 节点付费类型。
         self.instance_charge_type = instance_charge_type  # type: str
-        # 节点ECS规格类型。
         self.instance_types = instance_types  # type: list[str]
-        # 节点公网IP网络计费类型
         self.internet_charge_type = internet_charge_type  # type: str
-        # 节点公网IP出带宽最大值，单位为Mbps（Mega bit per second），取值范围：1~100
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称
         self.key_pair = key_pair  # type: str
-        # 登录密码
         self.login_password = login_password  # type: str
-        # 多可用区伸缩组ECS实例扩缩容策略
         self.multi_az_policy = multi_az_policy  # type: str
-        # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
-        # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
-        # 节点包年包月时长。
         self.period = period  # type: long
-        # 节点付费周期。
         self.period_unit = period_unit  # type: str
-        # 操作系统发行版。取值： CentOS，AliyunLinux，Windows，WindowsCore。
         self.platform = platform  # type: str
-        # 节点RAM 角色名称。
         self.ram_policy = ram_policy  # type: str
-        # RDS实例列表。
         self.rds_instances = rds_instances  # type: list[str]
-        # 扩容组ID。
         self.scaling_group_id = scaling_group_id  # type: str
-        # 扩容策略。
         self.scaling_policy = scaling_policy  # type: str
-        # 节点所属安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 节点池所属安全组ID列表。
         self.security_group_ids = security_group_ids  # type: list[str]
-        # 指定可用实例规格的个数，伸缩组将按成本最低的多个规格均衡创建抢占式实例。取值范围：1~10。
         self.spot_instance_pools = spot_instance_pools  # type: long
-        # 是否开启补齐抢占式实例。开启后，当收到抢占式实例将被回收的系统消息时，伸缩组将尝试创建新的实例，替换掉将被回收的抢占式实例。
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
-        # 抢占式实例价格上限配置。
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit]
-        # 抢占式实例类型
         self.spot_strategy = spot_strategy  # type: str
-        # 系统盘类型
         self.system_disk_category = system_disk_category  # type: str
-        # 节点系统盘磁盘性能，只针对ESSD磁盘生效
         self.system_disk_performance_level = system_disk_performance_level  # type: str
-        # 系统盘大小
         self.system_disk_size = system_disk_size  # type: long
-        # ECS标签
         self.tags = tags  # type: list[Tag]
-        # 虚拟交换机ID。
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -4999,21 +4856,13 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyStatus(TeaModel):
     def __init__(self, failed_nodes=None, healthy_nodes=None, initial_nodes=None, offline_nodes=None,
                  removing_nodes=None, serving_nodes=None, state=None, total_nodes=None):
-        # 失败节点数。
         self.failed_nodes = failed_nodes  # type: long
-        # 处于健康状态节点数。
         self.healthy_nodes = healthy_nodes  # type: long
-        # 正在初始化节点数。
         self.initial_nodes = initial_nodes  # type: long
-        # 离线节点数量。
         self.offline_nodes = offline_nodes  # type: long
-        # 正在被移除节点数。
         self.removing_nodes = removing_nodes  # type: long
-        # 工作节点数量。
         self.serving_nodes = serving_nodes  # type: long
-        # 节点池状态。
         self.state = state  # type: str
-        # 总节点数。
         self.total_nodes = total_nodes  # type: long
 
     def validate(self):
@@ -5066,7 +4915,6 @@ class DescribeClusterNodePoolDetailResponseBodyStatus(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
-        # 是否为加密计算节点池。
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -5092,25 +4940,15 @@ class DescribeClusterNodePoolDetailResponseBodyTeeConfig(TeaModel):
 class DescribeClusterNodePoolDetailResponseBody(TeaModel):
     def __init__(self, auto_scaling=None, interconnect_config=None, interconnect_mode=None, kubernetes_config=None,
                  management=None, max_nodes=None, nodepool_info=None, scaling_group=None, status=None, tee_config=None):
-        # 节点池自动伸缩信息。
         self.auto_scaling = auto_scaling  # type: DescribeClusterNodePoolDetailResponseBodyAutoScaling
-        # 边缘节点池网络相关的配置。该值只对edge类型的节点池有意义
         self.interconnect_config = interconnect_config  # type: DescribeClusterNodePoolDetailResponseBodyInterconnectConfig
-        # 边缘节点池的网络类型。basic：基础型；improved：增强型。该值只对edge类型的节点池有意义
         self.interconnect_mode = interconnect_mode  # type: str
-        # 节点池所属集群配置。
         self.kubernetes_config = kubernetes_config  # type: DescribeClusterNodePoolDetailResponseBodyKubernetesConfig
-        # 托管版节点池配置。
         self.management = management  # type: DescribeClusterNodePoolDetailResponseBodyManagement
-        # 边缘节点池允许容纳的最大节点数量. 节点池内可以容纳的最大节点数量，该参数大于等于0。0表示无额外限制(仅受限于集群整体可以容纳的节点数，节点池本身无额外限制)。边缘节点池该参数值往往大于0；ess类型节点池和默认的edge类型节点池该参数值为0
         self.max_nodes = max_nodes  # type: long
-        # 节点池详情。
         self.nodepool_info = nodepool_info  # type: DescribeClusterNodePoolDetailResponseBodyNodepoolInfo
-        # 节点池扩容组信息。
         self.scaling_group = scaling_group  # type: DescribeClusterNodePoolDetailResponseBodyScalingGroup
-        # 节点池状态。
         self.status = status  # type: DescribeClusterNodePoolDetailResponseBodyStatus
-        # 加密计算节点池信息。
         self.tee_config = tee_config  # type: DescribeClusterNodePoolDetailResponseBodyTeeConfig
 
     def validate(self):
@@ -5234,19 +5072,12 @@ class DescribeClusterNodePoolDetailResponse(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
-        # EIP带宽峰值
         self.eip_bandwidth = eip_bandwidth  # type: long
-        # EIP实例计费方式
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
-        # 自动伸缩
         self.enable = enable  # type: bool
-        # 是否绑定EIP
         self.is_bond_eip = is_bond_eip  # type: bool
-        # 最大节点数
         self.max_instances = max_instances  # type: long
-        # 最小节点数
         self.min_instances = min_instances  # type: long
-        # 扩容组类型
         self.type = type  # type: str
 
     def validate(self):
@@ -5295,15 +5126,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsInterconnectConfig(TeaModel):
     def __init__(self, bandwidth=None, ccn_id=None, ccn_region_id=None, cen_id=None, improved_period=None):
-        # 边缘增强型节点池的网络带宽，单位M
         self.bandwidth = bandwidth  # type: long
-        # 边缘增强型节点池绑定的云连接网实例ID(CCNID)
         self.ccn_id = ccn_id  # type: str
-        # 边缘增强型节点池绑定的云连接网实例所属的区域
         self.ccn_region_id = ccn_region_id  # type: str
-        # 边缘增强型节点池绑定的云企业网实例ID(CENID)
         self.cen_id = cen_id  # type: str
-        # 边缘增强型节点池的购买时长，单位月
         self.improved_period = improved_period  # type: str
 
     def validate(self):
@@ -5345,21 +5171,13 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsInterconnectConfig(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
                  runtime_version=None, taints=None, user_data=None):
-        # 是否开启云监控
         self.cms_enabled = cms_enabled  # type: bool
-        # CPU管理策略
         self.cpu_policy = cpu_policy  # type: str
-        # ECS标签
         self.labels = labels  # type: list[Tag]
-        # 自定义节点名称
         self.node_name_mode = node_name_mode  # type: str
-        # 容器运行时
         self.runtime = runtime  # type: str
-        # 容器运行时版本
         self.runtime_version = runtime_version  # type: str
-        # 污点配置
         self.taints = taints  # type: list[Taint]
-        # 节点自定义数据
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -5429,13 +5247,9 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
-        # 是否启用自动升级，自修复
         self.auto_upgrade = auto_upgrade  # type: bool
-        # 最大不可用节点数量
         self.max_unavailable = max_unavailable  # type: long
-        # 额外节点数量
         self.surge = surge  # type: long
-        # 额外节点比例， 和surge 二选一
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -5472,11 +5286,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig(TeaMo
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
-        # 是否启用自动修复
         self.auto_repair = auto_repair  # type: bool
-        # 是否开启托管版节点池
         self.enable = enable  # type: bool
-        # 是否启用自动修复
         self.upgrade_config = upgrade_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig
 
     def validate(self):
@@ -5512,21 +5323,13 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
-        # 节点池创建时间
         self.created = created  # type: str
-        # 是否为默认节点池
         self.is_default = is_default  # type: bool
-        # 节点池名称
         self.name = name  # type: str
-        # 节点池ID
         self.nodepool_id = nodepool_id  # type: str
-        # 节点池所在地域ID
         self.region_id = region_id  # type: str
-        # 资源组ID
         self.resource_group_id = resource_group_id  # type: str
-        # 节点池类型
         self.type = type  # type: str
-        # 节点池更新时间
         self.updated = updated  # type: str
 
     def validate(self):
@@ -5579,9 +5382,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
-        # 抢占式实例规格
         self.instance_type = instance_type  # type: str
-        # 单台实例上限价格，单位：元/小时
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -5617,73 +5418,39 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                  security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
                  spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
                  tags=None, vswitch_ids=None):
-        # 自动续费
         self.auto_renew = auto_renew  # type: bool
-        # 自动付费时长
         self.auto_renew_period = auto_renew_period  # type: long
-        # 当MultiAZPolicy取值为COST_OPTIMIZED时，如果因价格、库存等原因无法创建足够的抢占式实例，是否允许自动尝试创建按量实例满足ECS实例数量要求。取值范围：true：允许。false：不允许。默认值：true
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
-        # 数据盘配置
         self.data_disks = data_disks  # type: list[DataDisk]
-        # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
-        # 节点池期望节点数
         self.desired_size = desired_size  # type: long
-        # 镜像ID
         self.image_id = image_id  # type: str
-        # 节点付费类型
         self.instance_charge_type = instance_charge_type  # type: str
-        # 节点类型
         self.instance_types = instance_types  # type: list[str]
-        # 节点公网IP网络计费类型
         self.internet_charge_type = internet_charge_type  # type: str
-        # 节点公网IP出带宽最大值，单位为Mbps（Mega bit per second），取值范围：1~100
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # 登录密码，返回结果是加密的。
         self.login_password = login_password  # type: str
-        # 多可用区伸缩组ECS实例扩缩容策略
         self.multi_az_policy = multi_az_policy  # type: str
-        # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
-        # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
-        # 包年包月时长
         self.period = period  # type: long
-        # 自动付费周期
         self.period_unit = period_unit  # type: str
-        # 操作系统发行版。取值： CentOS，AliyunLinux，Windows，WindowsCore
         self.platform = platform  # type: str
-        # RAM 角色名称
         self.ram_policy = ram_policy  # type: str
-        # RDS列表
         self.rds_instances = rds_instances  # type: list[str]
-        # 扩容组ID
         self.scaling_group_id = scaling_group_id  # type: str
-        # 扩容节点策略
         self.scaling_policy = scaling_policy  # type: str
-        # 安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 安全组ID列表
         self.security_group_ids = security_group_ids  # type: list[str]
-        # 指定可用实例规格的个数，伸缩组将按成本最低的多个规格均衡创建抢占式实例。取值范围：1~10
         self.spot_instance_pools = spot_instance_pools  # type: long
-        # 是否开启补齐抢占式实例。开启后，当收到抢占式实例将被回收的系统消息时，伸缩组将尝试创建新的实例，替换掉将被回收的抢占式实例
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
-        # 抢占实例价格上限配置
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit]
-        # 抢占式实例类型
         self.spot_strategy = spot_strategy  # type: str
-        # 系统盘类型。
         self.system_disk_category = system_disk_category  # type: str
-        # 节点系统盘磁盘性能，只针对ESSD磁盘生效
         self.system_disk_performance_level = system_disk_performance_level  # type: str
-        # 系统盘大小
         self.system_disk_size = system_disk_size  # type: long
-        # 节点标签
         self.tags = tags  # type: list[Tag]
-        # 虚拟交换机ID
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -5867,21 +5634,13 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
     def __init__(self, failed_nodes=None, healthy_nodes=None, initial_nodes=None, offline_nodes=None,
                  removing_nodes=None, serving_nodes=None, state=None, total_nodes=None):
-        # 失败的节点数
         self.failed_nodes = failed_nodes  # type: long
-        # 处于健康状态的节点数
         self.healthy_nodes = healthy_nodes  # type: long
-        # 正在创建的节点数
         self.initial_nodes = initial_nodes  # type: long
-        # 离线节点数
         self.offline_nodes = offline_nodes  # type: long
-        # 正在被移除的节点数
         self.removing_nodes = removing_nodes  # type: long
-        # 正在工作节点数
         self.serving_nodes = serving_nodes  # type: long
-        # 节点池状态
         self.state = state  # type: str
-        # 节点总数
         self.total_nodes = total_nodes  # type: long
 
     def validate(self):
@@ -5934,7 +5693,6 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
-        # 是否为加密计算节点池
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -5960,25 +5718,15 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepools(TeaModel):
     def __init__(self, auto_scaling=None, interconnect_config=None, interconnect_mode=None, kubernetes_config=None,
                  management=None, max_nodes=None, nodepool_info=None, scaling_group=None, status=None, tee_config=None):
-        # 自动伸缩配置详情
         self.auto_scaling = auto_scaling  # type: DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling
-        # 边缘节点池网络相关的配置。该值只对edge类型的节点池有意义
         self.interconnect_config = interconnect_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsInterconnectConfig
-        # 边缘节点池的网络类型。basic：基础型；improved：增强型。该值只对edge类型的节点池有意义
         self.interconnect_mode = interconnect_mode  # type: str
-        # 集群配置信息
         self.kubernetes_config = kubernetes_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig
-        # 托管节点池配置
         self.management = management  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagement
-        # 边缘节点池允许容纳的最大节点数量. 节点池内可以容纳的最大节点数量，该参数大于等于0。0表示无额外限制(仅受限于集群整体可以容纳的节点数，节点池本身无额外限制)。边缘节点池该参数值往往大于0；ess类型节点池和默认的edge类型节点池该参数值为0
         self.max_nodes = max_nodes  # type: long
-        # 节点池配置详情
         self.nodepool_info = nodepool_info  # type: DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo
-        # 扩容组配置详情
         self.scaling_group = scaling_group  # type: DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup
-        # 节点池状态详情
         self.status = status  # type: DescribeClusterNodePoolsResponseBodyNodepoolsStatus
-        # 加密计算配置详情
         self.tee_config = tee_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig
 
     def validate(self):
@@ -6062,7 +5810,6 @@ class DescribeClusterNodePoolsResponseBodyNodepools(TeaModel):
 
 class DescribeClusterNodePoolsResponseBody(TeaModel):
     def __init__(self, nodepools=None):
-        # 节点池列表
         self.nodepools = nodepools  # type: list[DescribeClusterNodePoolsResponseBodyNodepools]
 
     def validate(self):
@@ -6134,15 +5881,10 @@ class DescribeClusterNodePoolsResponse(TeaModel):
 
 class DescribeClusterNodesRequest(TeaModel):
     def __init__(self, instance_ids=None, nodepool_id=None, page_number=None, page_size=None, state=None):
-        # 节点实例ID，按照实例ID进行过滤。  节点池ID不为空时会忽略此字段。多节点用逗号分割
         self.instance_ids = instance_ids  # type: str
-        # 节点池ID。
         self.nodepool_id = nodepool_id  # type: str
-        # 分页数量
         self.page_number = page_number  # type: str
-        # 每页大小。
         self.page_size = page_size  # type: str
-        # 节点状态。默认值：all。
         self.state = state  # type: str
 
     def validate(self):
@@ -6186,45 +5928,25 @@ class DescribeClusterNodesResponseBodyNodes(TeaModel):
                  instance_charge_type=None, instance_id=None, instance_name=None, instance_role=None, instance_status=None,
                  instance_type=None, instance_type_family=None, ip_address=None, is_aliyun_node=None, node_name=None,
                  node_status=None, nodepool_id=None, source=None, spot_strategy=None, state=None):
-        # 节点创建时间。
         self.creation_time = creation_time  # type: str
-        # 错误信息说明。
         self.error_message = error_message  # type: str
-        # 节点过期时间。
         self.expired_time = expired_time  # type: str
-        # 节点主机名。
         self.host_name = host_name  # type: str
-        # 节点使用的镜像ID。
         self.image_id = image_id  # type: str
-        # 节点付费类型。
         self.instance_charge_type = instance_charge_type  # type: str
-        # 节点实例ID。
         self.instance_id = instance_id  # type: str
-        # 节点名称。
         self.instance_name = instance_name  # type: str
-        # 节点实例角色类型，Master或Worker。
         self.instance_role = instance_role  # type: str
-        # 节点实例状态，
         self.instance_status = instance_status  # type: str
-        # 节点实例类型。
         self.instance_type = instance_type  # type: str
-        # 节点实例所属ECS实例簇名称。
         self.instance_type_family = instance_type_family  # type: str
-        # 节点IP地址。
         self.ip_address = ip_address  # type: list[str]
-        # 节点是否为aliyun实例。
         self.is_aliyun_node = is_aliyun_node  # type: bool
-        # 节点名称，该名称是k8s专用名称。
         self.node_name = node_name  # type: str
-        # 节点状态，是否Ready。
         self.node_status = node_status  # type: str
-        # 节点池ID。
         self.nodepool_id = nodepool_id  # type: str
-        # 节点通过什么方式创建出来的，例如：ROS。
         self.source = source  # type: str
-        # 抢占时实例类型
         self.spot_strategy = spot_strategy  # type: str
-        # ECS运行状态，例如：Running。
         self.state = state  # type: str
 
     def validate(self):
@@ -6325,11 +6047,8 @@ class DescribeClusterNodesResponseBodyNodes(TeaModel):
 
 class DescribeClusterNodesResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
-        # 总页数。
         self.page_number = page_number  # type: int
-        # 单页展示结果数量。
         self.page_size = page_size  # type: int
-        # 结果总条数。
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6362,9 +6081,7 @@ class DescribeClusterNodesResponseBodyPage(TeaModel):
 
 class DescribeClusterNodesResponseBody(TeaModel):
     def __init__(self, nodes=None, page=None):
-        # 节点信息列表。
         self.nodes = nodes  # type: list[DescribeClusterNodesResponseBodyNodes]
-        # 分页信息。
         self.page = page  # type: DescribeClusterNodesResponseBodyPage
 
     def validate(self):
@@ -6444,19 +6161,12 @@ class DescribeClusterNodesResponse(TeaModel):
 class DescribeClusterResourcesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, instance_id=None, resource_info=None, resource_type=None,
                  state=None, auto_create=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 资源创建时间。
         self.created = created  # type: str
-        # 资源实例ID。
         self.instance_id = instance_id  # type: str
-        # 资源元信息。
         self.resource_info = resource_info  # type: str
-        # 资源类型。
         self.resource_type = resource_type  # type: str
-        # 资源状态。
         self.state = state  # type: str
-        # 是否为自动创建。
         self.auto_create = auto_create  # type: long
 
     def validate(self):
@@ -6548,11 +6258,207 @@ class DescribeClusterResourcesResponse(TeaModel):
         return self
 
 
+class DescribeClusterTasksResponseBodyPageInfo(TeaModel):
+    def __init__(self, page_number=None, page_size=None, total_count=None):
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class DescribeClusterTasksResponseBodyTasksError(TeaModel):
+    def __init__(self, code=None, message=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksResponseBodyTasksError, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class DescribeClusterTasksResponseBodyTasks(TeaModel):
+    def __init__(self, created=None, error=None, state=None, task_id=None, task_type=None, updated=None):
+        self.created = created  # type: str
+        self.error = error  # type: DescribeClusterTasksResponseBodyTasksError
+        self.state = state  # type: str
+        self.task_id = task_id  # type: str
+        self.task_type = task_type  # type: str
+        self.updated = updated  # type: str
+
+    def validate(self):
+        if self.error:
+            self.error.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksResponseBodyTasks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created is not None:
+            result['created'] = self.created
+        if self.error is not None:
+            result['error'] = self.error.to_map()
+        if self.state is not None:
+            result['state'] = self.state
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.task_type is not None:
+            result['task_type'] = self.task_type
+        if self.updated is not None:
+            result['updated'] = self.updated
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('created') is not None:
+            self.created = m.get('created')
+        if m.get('error') is not None:
+            temp_model = DescribeClusterTasksResponseBodyTasksError()
+            self.error = temp_model.from_map(m['error'])
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('task_type') is not None:
+            self.task_type = m.get('task_type')
+        if m.get('updated') is not None:
+            self.updated = m.get('updated')
+        return self
+
+
+class DescribeClusterTasksResponseBody(TeaModel):
+    def __init__(self, page_info=None, request_id=None, tasks=None):
+        self.page_info = page_info  # type: DescribeClusterTasksResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.tasks = tasks  # type: list[DescribeClusterTasksResponseBodyTasks]
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.tasks:
+            for k in self.tasks:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['tasks'] = []
+        if self.tasks is not None:
+            for k in self.tasks:
+                result['tasks'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('page_info') is not None:
+            temp_model = DescribeClusterTasksResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.tasks = []
+        if m.get('tasks') is not None:
+            for k in m.get('tasks'):
+                temp_model = DescribeClusterTasksResponseBodyTasks()
+                self.tasks.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeClusterTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterTasksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterTasksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeClusterUserKubeconfigRequest(TeaModel):
     def __init__(self, private_ip_address=None, temporary_duration_minutes=None):
-        # ApiServer是否为内网地址。
         self.private_ip_address = private_ip_address  # type: bool
-        # 临时kubeconfig有效期，单位：分钟。  最小值：15（15分钟）  最大值：4320（3天）。
         self.temporary_duration_minutes = temporary_duration_minutes  # type: long
 
     def validate(self):
@@ -6581,9 +6487,7 @@ class DescribeClusterUserKubeconfigRequest(TeaModel):
 
 class DescribeClusterUserKubeconfigResponseBody(TeaModel):
     def __init__(self, config=None, expiration=None):
-        # kubeconfig内容。
         self.config = config  # type: str
-        # kubeconfig过期时间。格式：RFC3339 格式的 UTC 时间。
         self.expiration = expiration  # type: str
 
     def validate(self):
@@ -6651,7 +6555,6 @@ class DescribeClusterUserKubeconfigResponse(TeaModel):
 
 class DescribeClusterV2UserKubeconfigRequest(TeaModel):
     def __init__(self, private_ip_address=None):
-        # 是否为内网访问。
         self.private_ip_address = private_ip_address  # type: bool
 
     def validate(self):
@@ -6676,7 +6579,6 @@ class DescribeClusterV2UserKubeconfigRequest(TeaModel):
 
 class DescribeClusterV2UserKubeconfigResponseBody(TeaModel):
     def __init__(self, config=None):
-        # kubeconfig内容。
         self.config = config  # type: str
 
     def validate(self):
@@ -6740,9 +6642,7 @@ class DescribeClusterV2UserKubeconfigResponse(TeaModel):
 
 class DescribeClustersRequest(TeaModel):
     def __init__(self, cluster_type=None, name=None):
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 集群名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -6771,9 +6671,7 @@ class DescribeClustersRequest(TeaModel):
 
 class DescribeClustersResponseBodyTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # 标签名。
         self.key = key  # type: str
-        # 标签值。
         self.value = value  # type: str
 
     def validate(self):
@@ -6807,63 +6705,34 @@ class DescribeClustersResponseBody(TeaModel):
                  private_zone=None, profile=None, region_id=None, resource_group_id=None, security_group_id=None, size=None,
                  state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_cidr=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 集群创建时间。
         self.created = created  # type: str
-        # 集群当前版本。
         self.current_version = current_version  # type: str
-        # 节点系统盘类型。
         self.data_disk_category = data_disk_category  # type: str
-        # 节点系统盘大小。
         self.data_disk_size = data_disk_size  # type: long
-        # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
-        # 容器运行时版本。
         self.docker_version = docker_version  # type: str
-        # 集群Ingerss SLB实例的ID。
         self.external_loadbalancer_id = external_loadbalancer_id  # type: str
-        # 集群创建时版本。
         self.init_version = init_version  # type: str
-        # 集群的endpoint地址。
         self.master_url = master_url  # type: str
-        # 集群元数据。
         self.meta_data = meta_data  # type: str
-        # 集群名称。
         self.name = name  # type: str
-        # 集群使用的网络类型。
         self.network_mode = network_mode  # type: str
-        # 集群是否开启Private Zone，默认false。
         self.private_zone = private_zone  # type: bool
-        # 集群标识，区分是否为边缘托管版。
         self.profile = profile  # type: str
-        # 集群所在地域ID。
         self.region_id = region_id  # type: str
-        # 集群资源组ID。
         self.resource_group_id = resource_group_id  # type: str
-        # 集群安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 集群内实例数量。
         self.size = size  # type: long
-        # 集群运行状态。
         self.state = state  # type: str
-        # POD网络。
         self.subnet_cidr = subnet_cidr  # type: str
-        # 集群标签。
         self.tags = tags  # type: list[DescribeClustersResponseBodyTags]
-        # 集群更新时间。
         self.updated = updated  # type: str
-        # 集群使用的VPC ID。
         self.vpc_id = vpc_id  # type: str
-        # 虚拟交换机网络ID。
         self.vswitch_cidr = vswitch_cidr  # type: str
-        # 节点使用的Vswitch ID。
         self.vswitch_id = vswitch_id  # type: str
-        # 集群Worker节点RAM角色名称。
         self.worker_ram_role_name = worker_ram_role_name  # type: str
-        # 集群所在Region内的区域ID。
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -7054,19 +6923,12 @@ class DescribeClustersResponse(TeaModel):
 class DescribeClustersV1Request(TeaModel):
     def __init__(self, cluster_spec=None, cluster_type=None, name=None, page_number=None, page_size=None,
                  profile=None, region_id=None):
-        # 集群规格。
         self.cluster_spec = cluster_spec  # type: str
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 通过集群名称进行模糊查询。
         self.name = name  # type: str
-        # 分页数。
         self.page_number = page_number  # type: long
-        # 单页大小。
         self.page_size = page_size  # type: long
-        # 集群标识。
         self.profile = profile  # type: str
-        # 地域。
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7120,62 +6982,34 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
                  private_zone=None, profile=None, region_id=None, resource_group_id=None, security_group_id=None, size=None,
                  state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 托管版集群类型，面向托管集群。 • ack.pro.small：专业托管集群。 • ack.standard ：标准托管集群。
         self.cluster_spec = cluster_spec  # type: str
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 集群初始化时间。
         self.created = created  # type: str
-        # 集群当前版本。
         self.current_version = current_version  # type: str
-        # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
-        # 集群使用的Docker版本。
         self.docker_version = docker_version  # type: str
-        # 集群负载均衡服务的ID。
         self.external_loadbalancer_id = external_loadbalancer_id  # type: str
-        # 集群初始化版本。
         self.init_version = init_version  # type: str
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
-        # 集群访问地址列表。
         self.master_url = master_url  # type: str
-        # 集群元数据信息。
         self.meta_data = meta_data  # type: str
-        # 集群名称。
         self.name = name  # type: str
-        # 集群使用的网络类型，例如：VPC网络。
         self.network_mode = network_mode  # type: str
-        # 集群可升级版本。
         self.next_version = next_version  # type: str
-        # 集群是否开启Private Zone。
         self.private_zone = private_zone  # type: bool
-        # 边缘集群表示，用于区分边缘托管版集群。
         self.profile = profile  # type: str
-        # 地域ID。
         self.region_id = region_id  # type: str
-        # 集群资源组ID。
         self.resource_group_id = resource_group_id  # type: str
-        # 集群安全组ID。
         self.security_group_id = security_group_id  # type: str
-        # 集群节点数。
         self.size = size  # type: long
-        # 集群运行状态。
         self.state = state  # type: str
-        # POD网段地址。
         self.subnet_cidr = subnet_cidr  # type: str
-        # 集群标签。
         self.tags = tags  # type: list[Tag]
-        # 集群更新时间。
         self.updated = updated  # type: str
-        # 集群所在的VPC ID。
         self.vpc_id = vpc_id  # type: str
-        # 集群使用的虚拟交换ID。
         self.vswitch_id = vswitch_id  # type: str
-        # 集群Worker RAM角色。
         self.worker_ram_role_name = worker_ram_role_name  # type: str
-        # 可用区ID。
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -7323,11 +7157,8 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
 
 class DescribeClustersV1ResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
-        # 分页数。
         self.page_number = page_number  # type: int
-        # 单页大小。
         self.page_size = page_size  # type: int
-        # 结果总数。
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7360,9 +7191,7 @@ class DescribeClustersV1ResponseBodyPageInfo(TeaModel):
 
 class DescribeClustersV1ResponseBody(TeaModel):
     def __init__(self, clusters=None, page_info=None):
-        # 集群详情列表。
         self.clusters = clusters  # type: list[DescribeClustersV1ResponseBodyClusters]
-        # 分页信息。
         self.page_info = page_info  # type: DescribeClustersV1ResponseBodyPageInfo
 
     def validate(self):
@@ -7441,15 +7270,10 @@ class DescribeClustersV1Response(TeaModel):
 
 class DescribeEdgeMachineActiveProcessResponseBody(TeaModel):
     def __init__(self, logs=None, progress=None, request_id=None, state=None, step=None):
-        # logs of activate
         self.logs = logs  # type: str
-        # process of activate
         self.progress = progress  # type: long
-        # Id of the request
         self.request_id = request_id  # type: str
-        # state of activate
         self.state = state  # type: str
-        # step of activate
         self.step = step  # type: str
 
     def validate(self):
@@ -7530,21 +7354,13 @@ class DescribeEdgeMachineActiveProcessResponse(TeaModel):
 class DescribeEdgeMachineModelsResponseBodyModels(TeaModel):
     def __init__(self, cpu=None, cpu_arch=None, created=None, description=None, manage_runtime=None, memory=None,
                  model=None, model_id=None):
-        # cpu
         self.cpu = cpu  # type: int
-        # cpu arch
         self.cpu_arch = cpu_arch  # type: str
-        # created
         self.created = created  # type: str
-        # description
         self.description = description  # type: str
-        # manage runtime
         self.manage_runtime = manage_runtime  # type: int
-        # memory
         self.memory = memory  # type: int
-        # model
         self.model = model  # type: str
-        # model id
         self.model_id = model_id  # type: str
 
     def validate(self):
@@ -7597,7 +7413,6 @@ class DescribeEdgeMachineModelsResponseBodyModels(TeaModel):
 
 class DescribeEdgeMachineModelsResponseBody(TeaModel):
     def __init__(self, models=None):
-        # Id of the request
         self.models = models  # type: list[DescribeEdgeMachineModelsResponseBodyModels]
 
     def validate(self):
@@ -7670,19 +7485,12 @@ class DescribeEdgeMachineModelsResponse(TeaModel):
 class DescribeEdgeMachineTunnelConfigDetailResponseBody(TeaModel):
     def __init__(self, device_name=None, model=None, product_key=None, request_id=None, sn=None, token=None,
                  tunnel_endpoint=None):
-        # device name
         self.device_name = device_name  # type: str
-        # Id of the request
         self.model = model  # type: str
-        # product key
         self.product_key = product_key  # type: str
-        # request id
         self.request_id = request_id  # type: str
-        # sn
         self.sn = sn  # type: str
-        # token
         self.token = token  # type: str
-        # tunnel endpoint
         self.tunnel_endpoint = tunnel_endpoint  # type: str
 
     def validate(self):
@@ -7771,17 +7579,11 @@ class DescribeEdgeMachineTunnelConfigDetailResponse(TeaModel):
 class DescribeEdgeMachinesRequest(TeaModel):
     def __init__(self, hostname=None, life_state=None, model=None, online_state=None, page_number=None,
                  page_size=None):
-        # host name
         self.hostname = hostname  # type: str
-        # life state
         self.life_state = life_state  # type: str
-        # model
         self.model = model  # type: str
-        # online state
         self.online_state = online_state  # type: str
-        # page number
         self.page_number = page_number  # type: long
-        # page size
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -7827,25 +7629,15 @@ class DescribeEdgeMachinesRequest(TeaModel):
 class DescribeEdgeMachinesResponseBodyEdgeMachines(TeaModel):
     def __init__(self, active_time=None, created=None, edge_machine_id=None, hostname=None, life_state=None,
                  model=None, name=None, online_state=None, sn=None, updated=None):
-        # actvite time
         self.active_time = active_time  # type: str
-        # created time
         self.created = created  # type: str
-        # edge machine id
         self.edge_machine_id = edge_machine_id  # type: str
-        # hostname
         self.hostname = hostname  # type: str
-        # life state
         self.life_state = life_state  # type: str
-        # model
         self.model = model  # type: str
-        # name of edgemachine
         self.name = name  # type: str
-        # online state
         self.online_state = online_state  # type: str
-        # sn
         self.sn = sn  # type: str
-        # update time
         self.updated = updated  # type: str
 
     def validate(self):
@@ -7906,11 +7698,8 @@ class DescribeEdgeMachinesResponseBodyEdgeMachines(TeaModel):
 
 class DescribeEdgeMachinesResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
-        # page number
         self.page_number = page_number  # type: int
-        # page size
         self.page_size = page_size  # type: int
-        # total count
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7943,9 +7732,7 @@ class DescribeEdgeMachinesResponseBodyPageInfo(TeaModel):
 
 class DescribeEdgeMachinesResponseBody(TeaModel):
     def __init__(self, edge_machines=None, page_info=None):
-        # Id of the request
         self.edge_machines = edge_machines  # type: list[DescribeEdgeMachinesResponseBodyEdgeMachines]
-        # page info
         self.page_info = page_info  # type: DescribeEdgeMachinesResponseBodyPageInfo
 
     def validate(self):
@@ -8024,13 +7811,9 @@ class DescribeEdgeMachinesResponse(TeaModel):
 
 class DescribeEventsRequest(TeaModel):
     def __init__(self, cluster_id=None, page_number=None, page_size=None, type=None):
-        # 集群ID
         self.cluster_id = cluster_id  # type: str
-        # 没页记录数量
         self.page_number = page_number  # type: long
-        # 页数
         self.page_size = page_size  # type: long
-        # 事件类型
         self.type = type  # type: str
 
     def validate(self):
@@ -8067,11 +7850,8 @@ class DescribeEventsRequest(TeaModel):
 
 class DescribeEventsResponseBodyEventsData(TeaModel):
     def __init__(self, level=None, message=None, reason=None):
-        # 事件级别
         self.level = level  # type: str
-        # 事件详情
         self.message = message  # type: str
-        # 事件状态
         self.reason = reason  # type: str
 
     def validate(self):
@@ -8104,19 +7884,12 @@ class DescribeEventsResponseBodyEventsData(TeaModel):
 
 class DescribeEventsResponseBodyEvents(TeaModel):
     def __init__(self, cluster_id=None, data=None, event_id=None, source=None, subject=None, time=None, type=None):
-        # 集群ID
         self.cluster_id = cluster_id  # type: str
-        # 事件描述
         self.data = data  # type: DescribeEventsResponseBodyEventsData
-        # 事件ID
         self.event_id = event_id  # type: str
-        # 事件源
         self.source = source  # type: str
-        # 事件
         self.subject = subject  # type: str
-        # 事件开始事件
         self.time = time  # type: str
-        # 事件类型
         self.type = type  # type: str
 
     def validate(self):
@@ -8167,11 +7940,8 @@ class DescribeEventsResponseBodyEvents(TeaModel):
 
 class DescribeEventsResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
-        # 每页记录数量
         self.page_number = page_number  # type: long
-        # 页数
         self.page_size = page_size  # type: long
-        # 结果总数
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -8283,7 +8053,6 @@ class DescribeEventsResponse(TeaModel):
 
 class DescribeExternalAgentRequest(TeaModel):
     def __init__(self, private_ip_address=None):
-        # 是否获取内网访问凭据。  true：获取内网连接凭据 false：获取公网连接凭据 默认值：false。
         self.private_ip_address = private_ip_address  # type: str
 
     def validate(self):
@@ -8308,7 +8077,6 @@ class DescribeExternalAgentRequest(TeaModel):
 
 class DescribeExternalAgentResponseBody(TeaModel):
     def __init__(self, config=None):
-        # 代理配置。
         self.config = config  # type: str
 
     def validate(self):
@@ -8372,15 +8140,10 @@ class DescribeExternalAgentResponse(TeaModel):
 
 class DescribeKubernetesVersionMetadataRequest(TeaModel):
     def __init__(self, cluster_type=None, kubernetes_version=None, profile=None, region=None, runtime=None):
-        # 集群类型。
         self.cluster_type = cluster_type  # type: str
-        # 要查询的版本，如果为空则查所有版本。
         self.kubernetes_version = kubernetes_version  # type: str
-        # 边缘集群标识，用于区分边缘集群，取值：Default或Edge。
         self.profile = profile  # type: str
-        # 地域ID。
         self.region = region  # type: str
-        # 运行时。
         self.runtime = runtime  # type: str
 
     def validate(self):
@@ -8422,19 +8185,12 @@ class DescribeKubernetesVersionMetadataRequest(TeaModel):
 class DescribeKubernetesVersionMetadataResponseBodyImages(TeaModel):
     def __init__(self, image_id=None, image_name=None, platform=None, os_version=None, image_type=None, os_type=None,
                  image_category=None):
-        # 镜像ID。
         self.image_id = image_id  # type: str
-        # 镜像名称。
         self.image_name = image_name  # type: str
-        # 操作系统发行版。取值范围： CentOS,AliyunLinux,Windows,WindowsCore。
         self.platform = platform  # type: str
-        # 镜像版本。
         self.os_version = os_version  # type: str
-        # 镜像类型。
         self.image_type = image_type  # type: str
-        # 操作系统发行版本号。
         self.os_type = os_type  # type: str
-        # 镜像分类
         self.image_category = image_category  # type: str
 
     def validate(self):
@@ -8483,17 +8239,11 @@ class DescribeKubernetesVersionMetadataResponseBodyImages(TeaModel):
 
 class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
     def __init__(self, capabilities=None, images=None, meta_data=None, runtimes=None, version=None, multi_az=None):
-        # Kubernetes版本特性。
         self.capabilities = capabilities  # type: dict[str, any]
-        # ECS系统镜像列表。
         self.images = images  # type: list[DescribeKubernetesVersionMetadataResponseBodyImages]
-        # Kubernetes版本元数据信息。
         self.meta_data = meta_data  # type: dict[str, any]
-        # 容器运行时详情。
         self.runtimes = runtimes  # type: list[Runtime]
-        # Kubernetes版本。
         self.version = version  # type: str
-        # 是否为多可用区。
         self.multi_az = multi_az  # type: str
 
     def validate(self):
@@ -8784,21 +8534,13 @@ class DescribePoliciesResponse(TeaModel):
 class DescribePolicyDetailsResponseBody(TeaModel):
     def __init__(self, action=None, category=None, description=None, is_deleted=None, name=None, no_config=None,
                  severity=None, template=None):
-        # 规则治理动作 ● enforce: 拦截违规部署 ● inform：告警
         self.action = action  # type: str
-        # 规则模板类型
         self.category = category  # type: str
-        # 规则模板描述
         self.description = description  # type: str
-        # 软删除标志：0表示未删除 1表示删除
         self.is_deleted = is_deleted  # type: int
-        # 策略治理规则名称
         self.name = name  # type: str
-        # 是否需要配置策略： 0表示需要参数配置 1表示无需参数配置
         self.no_config = no_config  # type: int
-        # 规则治理等级
         self.severity = severity  # type: str
-        # 规则模板详情
         self.template = template  # type: str
 
     def validate(self):
@@ -8891,17 +8633,11 @@ class DescribePolicyDetailsResponse(TeaModel):
 class DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog(TeaModel):
     def __init__(self, cluster_id=None, constraint_kind=None, msg=None, resource_kind=None, resource_name=None,
                  resource_namespace=None):
-        # 目标集群ID
         self.cluster_id = cluster_id  # type: str
-        # 策略类型名称
         self.constraint_kind = constraint_kind  # type: str
-        # 策略治理审计日志信息
         self.msg = msg  # type: str
-        # 目标资源类型
         self.resource_kind = resource_kind  # type: str
-        # 目标资源名称
         self.resource_name = resource_name  # type: str
-        # 目标资源命名空间
         self.resource_namespace = resource_namespace  # type: str
 
     def validate(self):
@@ -8946,11 +8682,8 @@ class DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyAdmitLog(TeaModel):
     def __init__(self, count=None, log=None, progress=None):
-        # 当前查询到的日志总数
         self.count = count  # type: long
-        # 策略治理审计日志内容
         self.log = log  # type: DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog
-        # 查询结果的状态
         self.progress = progress  # type: str
 
     def validate(self):
@@ -8985,11 +8718,8 @@ class DescribePolicyGovernanceInClusterResponseBodyAdmitLog(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyOnState(TeaModel):
     def __init__(self, enabled_count=None, severity=None, total=None):
-        # 当前开启的策略种类计数
         self.enabled_count = enabled_count  # type: int
-        # 策略治理等级
         self.severity = severity  # type: str
-        # 该等级下策略种类总数
         self.total = total  # type: int
 
     def validate(self):
@@ -9022,9 +8752,7 @@ class DescribePolicyGovernanceInClusterResponseBodyOnState(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyTotalViolationsDeny(TeaModel):
     def __init__(self, severity=None, violations=None):
-        # 策略治理等级
         self.severity = severity  # type: str
-        # 被拦截的事件计数
         self.violations = violations  # type: long
 
     def validate(self):
@@ -9053,9 +8781,7 @@ class DescribePolicyGovernanceInClusterResponseBodyTotalViolationsDeny(TeaModel)
 
 class DescribePolicyGovernanceInClusterResponseBodyTotalViolationsWarn(TeaModel):
     def __init__(self, severity=None, violations=None):
-        # 策略治理等级
         self.severity = severity  # type: str
-        # 告警的事件计数
         self.violations = violations  # type: long
 
     def validate(self):
@@ -9084,9 +8810,7 @@ class DescribePolicyGovernanceInClusterResponseBodyTotalViolationsWarn(TeaModel)
 
 class DescribePolicyGovernanceInClusterResponseBodyTotalViolations(TeaModel):
     def __init__(self, deny=None, warn=None):
-        # 被拦截的不同治理等级的违规计数统计
         self.deny = deny  # type: DescribePolicyGovernanceInClusterResponseBodyTotalViolationsDeny
-        # 告警模式下不同治理等级的违规计数统计
         self.warn = warn  # type: DescribePolicyGovernanceInClusterResponseBodyTotalViolationsWarn
 
     def validate(self):
@@ -9120,13 +8844,9 @@ class DescribePolicyGovernanceInClusterResponseBodyTotalViolations(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyViolationsDeny(TeaModel):
     def __init__(self, policy_description=None, policy_name=None, severity=None, violations=None):
-        # 策略描述
         self.policy_description = policy_description  # type: str
-        # 策略名称
         self.policy_name = policy_name  # type: str
-        # 策略治理等级
         self.severity = severity  # type: str
-        # 对应规则的事件计数
         self.violations = violations  # type: long
 
     def validate(self):
@@ -9163,13 +8883,9 @@ class DescribePolicyGovernanceInClusterResponseBodyViolationsDeny(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyViolationsWarn(TeaModel):
     def __init__(self, policy_description=None, policy_name=None, severity=None, violations=None):
-        # 策略描述
         self.policy_description = policy_description  # type: str
-        # 策略名称
         self.policy_name = policy_name  # type: str
-        # 策略治理等级
         self.severity = severity  # type: str
-        # 对应规则的事件计数
         self.violations = violations  # type: long
 
     def validate(self):
@@ -9206,9 +8922,7 @@ class DescribePolicyGovernanceInClusterResponseBodyViolationsWarn(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyViolations(TeaModel):
     def __init__(self, deny=None, warn=None):
-        # 被拦截的不同策略类型的审计计数
         self.deny = deny  # type: DescribePolicyGovernanceInClusterResponseBodyViolationsDeny
-        # 告警的不同策略类型审计计数
         self.warn = warn  # type: DescribePolicyGovernanceInClusterResponseBodyViolationsWarn
 
     def validate(self):
@@ -9242,13 +8956,9 @@ class DescribePolicyGovernanceInClusterResponseBodyViolations(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBody(TeaModel):
     def __init__(self, admit_log=None, on_state=None, total_violations=None, violations=None):
-        # 集群当前策略治理审计日志
         self.admit_log = admit_log  # type: DescribePolicyGovernanceInClusterResponseBodyAdmitLog
-        # 当前集群中开启的不同等级策略计数统计
         self.on_state = on_state  # type: list[DescribePolicyGovernanceInClusterResponseBodyOnState]
-        # 集群中当前被拦截和告警两种处理类型下不同治理等级的违规计数。
         self.total_violations = total_violations  # type: DescribePolicyGovernanceInClusterResponseBodyTotalViolations
-        # 集群中针对不同策略类型的拦截和告警的审计计数统计列表
         self.violations = violations  # type: DescribePolicyGovernanceInClusterResponseBodyViolations
 
     def validate(self):
@@ -9341,9 +9051,7 @@ class DescribePolicyGovernanceInClusterResponse(TeaModel):
 
 class DescribePolicyInstancesRequest(TeaModel):
     def __init__(self, instance_name=None, policy_name=None):
-        # 策略实例名称
         self.instance_name = instance_name  # type: str
-        # 策略类型
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -9373,25 +9081,15 @@ class DescribePolicyInstancesRequest(TeaModel):
 class DescribePolicyInstancesResponseBody(TeaModel):
     def __init__(self, ali_uid=None, cluster_id=None, instance_name=None, policy_name=None, policy_category=None,
                  policy_description=None, policy_parameters=None, policy_severity=None, policy_scope=None, policy_action=None):
-        # 策略实例实施者UID
         self.ali_uid = ali_uid  # type: str
-        # 目标集群ID
         self.cluster_id = cluster_id  # type: str
-        # 规则实例名称
         self.instance_name = instance_name  # type: str
-        # 策略治理规则名称
         self.policy_name = policy_name  # type: str
-        # 策略类型名称
         self.policy_category = policy_category  # type: str
-        # 规则模板描述
         self.policy_description = policy_description  # type: str
-        # 当前规则实例的配置参数
         self.policy_parameters = policy_parameters  # type: str
-        # 规则实例治理等级
         self.policy_severity = policy_severity  # type: str
-        # 策略实例实施范围： 默认"*"代表集群所有ns 否则返回作用namespaces名称，多个namespaces以逗号分隔
         self.policy_scope = policy_scope  # type: str
-        # 规则治理动作  deny: 拦截违规部署  warn：告警
         self.policy_action = policy_action  # type: str
 
     def validate(self):
@@ -9543,7 +9241,6 @@ class DescribePolicyInstancesStatusResponseBodyPolicyInstances(TeaModel):
 class DescribePolicyInstancesStatusResponseBody(TeaModel):
     def __init__(self, instances_severity_count=None, policy_instances=None):
         self.instances_severity_count = instances_severity_count  # type: dict[str, any]
-        # 不同策略类型下的策略实例计数列表
         self.policy_instances = policy_instances  # type: list[DescribePolicyInstancesStatusResponseBodyPolicyInstances]
 
     def validate(self):
@@ -9619,9 +9316,7 @@ class DescribePolicyInstancesStatusResponse(TeaModel):
 
 class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
     def __init__(self, data=None, status=None):
-        # 操作的资源，例如：实例ID。
         self.data = data  # type: str
-        # 资源的状态。
         self.status = status  # type: str
 
     def validate(self):
@@ -9651,19 +9346,12 @@ class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
 class DescribeTaskInfoResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, state=None, task_id=None, task_result=None, task_type=None,
                  updated=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 任务创建时间。
         self.created = created  # type: str
-        # 任务当前状态。
         self.state = state  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
-        # 任务执行详情。
         self.task_result = task_result  # type: list[DescribeTaskInfoResponseBodyTaskResult]
-        # 当前任务类型。
         self.task_type = task_type  # type: str
-        # 任务更新时间。
         self.updated = updated  # type: str
 
     def validate(self):
@@ -9759,7 +9447,6 @@ class DescribeTaskInfoResponse(TeaModel):
 
 class DescribeTemplateAttributeRequest(TeaModel):
     def __init__(self, template_type=None):
-        # 模板类型，值为创建部署模板时指定的模板类型。
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -9785,25 +9472,15 @@ class DescribeTemplateAttributeRequest(TeaModel):
 class DescribeTemplateAttributeResponseBody(TeaModel):
     def __init__(self, id=None, acl=None, name=None, template=None, template_type=None, description=None, tags=None,
                  template_with_hist_id=None, created=None, updated=None):
-        # 编排模板ID，模板每次修改，这个ID都会改变。
         self.id = id  # type: str
-        # 编排模板权限。取值：private，public，shared。
         self.acl = acl  # type: str
-        # 编排模板名称。
         self.name = name  # type: str
-        # 编排模板内容。
         self.template = template  # type: str
-        # 编排模板类型
         self.template_type = template_type  # type: str
-        # 编排模板描述。
         self.description = description  # type: str
-        # 部署模板的标签。
         self.tags = tags  # type: str
-        # 编排模板ID，该ID唯一不随更新而改变。
         self.template_with_hist_id = template_with_hist_id  # type: str
-        # 编排模板创建时间。
         self.created = created  # type: str
-        # 编排模板修改时间。
         self.updated = updated  # type: str
 
     def validate(self):
@@ -9909,11 +9586,8 @@ class DescribeTemplateAttributeResponse(TeaModel):
 
 class DescribeTemplatesRequest(TeaModel):
     def __init__(self, page_num=None, page_size=None, template_type=None):
-        # 对查询结果进行分页处理，指定返回第几页的数据。  默认值为 1
         self.page_num = page_num  # type: long
-        # 对查询结果进行分页处理，指定每页包含的数据条数。  默认值为 10
         self.page_size = page_size  # type: long
-        # 模板类型，部署模板类型，目前一共有2种类型，取值为：kubernetes或compose。
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -9946,11 +9620,8 @@ class DescribeTemplatesRequest(TeaModel):
 
 class DescribeTemplatesResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
-        # 当前页数。
         self.page_number = page_number  # type: long
-        # 单页最大数据条数。
         self.page_size = page_size  # type: long
-        # 结果总数。
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -9984,25 +9655,15 @@ class DescribeTemplatesResponseBodyPageInfo(TeaModel):
 class DescribeTemplatesResponseBodyTemplates(TeaModel):
     def __init__(self, acl=None, created=None, description=None, id=None, name=None, tags=None, template=None,
                  template_type=None, template_with_hist_id=None, updated=None):
-        # 模板访问权限，取值为：private、pubilc或shared。。
         self.acl = acl  # type: str
-        # 模板创建时间。
         self.created = created  # type: str
-        # 模板描述信息。
         self.description = description  # type: str
-        # 模板ID。会模板随着更新而变化。
         self.id = id  # type: str
-        # 模板名称。
         self.name = name  # type: str
-        # 模板标签，如果不显式指定了，默认为模板名称。
         self.tags = tags  # type: str
-        # 模板详情。
         self.template = template  # type: str
-        # 部署模板类型。
         self.template_type = template_type  # type: str
-        # 模板唯一ID。
         self.template_with_hist_id = template_with_hist_id  # type: str
-        # 模板修改时间。
         self.updated = updated  # type: str
 
     def validate(self):
@@ -10063,9 +9724,7 @@ class DescribeTemplatesResponseBodyTemplates(TeaModel):
 
 class DescribeTemplatesResponseBody(TeaModel):
     def __init__(self, page_info=None, templates=None):
-        # 分页信息。
         self.page_info = page_info  # type: DescribeTemplatesResponseBodyPageInfo
-        # 模板列表。
         self.templates = templates  # type: list[DescribeTemplatesResponseBodyTemplates]
 
     def validate(self):
@@ -10144,13 +9803,9 @@ class DescribeTemplatesResponse(TeaModel):
 
 class DescribeTriggerRequest(TeaModel):
     def __init__(self, name=None, namespace=None, type=None, action=None):
-        # 应用名称。
         self.name = name  # type: str
-        # 应用所属命名空间。
         self.namespace = namespace  # type: str
-        # 应用类型。
         self.type = type  # type: str
-        # 触发器行为。
         self.action = action  # type: str
 
     def validate(self):
@@ -10187,19 +9842,12 @@ class DescribeTriggerRequest(TeaModel):
 
 class DescribeTriggerResponseBody(TeaModel):
     def __init__(self, id=None, name=None, cluster_id=None, project_id=None, type=None, action=None, token=None):
-        # 触发器ID。
         self.id = id  # type: str
-        # 触发器名称。
         self.name = name  # type: str
-        # 集群ID
         self.cluster_id = cluster_id  # type: str
-        # 触发器项目名称
         self.project_id = project_id  # type: str
-        # 触发器类型。
         self.type = type  # type: str
-        # 触发器行为
         self.action = action  # type: str
-        # Token
         self.token = token  # type: str
 
     def validate(self):
@@ -10294,17 +9942,11 @@ class DescribeTriggerResponse(TeaModel):
 class DescribeUserPermissionResponseBody(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, role_name=None, role_type=None, is_owner=None,
                  is_ram_role=None):
-        # 集群访问配置
         self.resource_id = resource_id  # type: str
-        # 授权类型
         self.resource_type = resource_type  # type: str
-        # 自定义角色名称
         self.role_name = role_name  # type: str
-        # 预置的角色类型
         self.role_type = role_type  # type: str
-        # 是否为集群 owner 的授权
         self.is_owner = is_owner  # type: long
-        # 是否为ram 角色授权
         self.is_ram_role = is_ram_role  # type: long
 
     def validate(self):
@@ -10395,15 +10037,10 @@ class DescribeUserPermissionResponse(TeaModel):
 class DescribeUserQuotaResponseBody(TeaModel):
     def __init__(self, amk_cluster_quota=None, ask_cluster_quota=None, cluster_nodepool_quota=None,
                  cluster_quota=None, node_quota=None):
-        # 托管版集群配额。
         self.amk_cluster_quota = amk_cluster_quota  # type: long
-        # Serverless集群配额。
         self.ask_cluster_quota = ask_cluster_quota  # type: long
-        # 集群节点池配额。
         self.cluster_nodepool_quota = cluster_nodepool_quota  # type: long
-        # 专有版集群托管版集群的总配额。
         self.cluster_quota = cluster_quota  # type: long
-        # 单集群的节点配额。
         self.node_quota = node_quota  # type: long
 
     def validate(self):
@@ -10483,11 +10120,8 @@ class DescribeUserQuotaResponse(TeaModel):
 
 class DescribeWorkflowsResponseBodyJobs(TeaModel):
     def __init__(self, cluster_id=None, create_time=None, job_name=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 工作流创建时间。
         self.create_time = create_time  # type: str
-        # 工作流名称。
         self.job_name = job_name  # type: str
 
     def validate(self):
@@ -10520,7 +10154,6 @@ class DescribeWorkflowsResponseBodyJobs(TeaModel):
 
 class DescribeWorkflowsResponseBody(TeaModel):
     def __init__(self, jobs=None):
-        # job信息
         self.jobs = jobs  # type: list[DescribeWorkflowsResponseBodyJobs]
 
     def validate(self):
@@ -10592,11 +10225,8 @@ class DescribeWorkflowsResponse(TeaModel):
 
 class EdgeClusterAddEdgeMachineRequest(TeaModel):
     def __init__(self, expired=None, nodepool_id=None, options=None):
-        # expired
         self.expired = expired  # type: long
-        # nodepool_id
         self.nodepool_id = nodepool_id  # type: str
-        # options
         self.options = options  # type: str
 
     def validate(self):
@@ -10629,9 +10259,7 @@ class EdgeClusterAddEdgeMachineRequest(TeaModel):
 
 class EdgeClusterAddEdgeMachineResponseBody(TeaModel):
     def __init__(self, edge_machine_id=None, request_id=None):
-        # edge machine id
         self.edge_machine_id = edge_machine_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10699,7 +10327,6 @@ class EdgeClusterAddEdgeMachineResponse(TeaModel):
 
 class FixNodePoolVulsRequestRolloutPolicy(TeaModel):
     def __init__(self, max_parallelism=None):
-        # 轮转修复时的最大并行度
         self.max_parallelism = max_parallelism  # type: long
 
     def validate(self):
@@ -10724,11 +10351,8 @@ class FixNodePoolVulsRequestRolloutPolicy(TeaModel):
 
 class FixNodePoolVulsRequest(TeaModel):
     def __init__(self, nodes=None, rollout_policy=None, vul_list=None):
-        # 待修复的节点名称列表
         self.nodes = nodes  # type: list[str]
-        # 轮转修复策略
         self.rollout_policy = rollout_policy  # type: FixNodePoolVulsRequestRolloutPolicy
-        # 待修复的漏洞名称列表
         self.vul_list = vul_list  # type: list[str]
 
     def validate(self):
@@ -10763,7 +10387,6 @@ class FixNodePoolVulsRequest(TeaModel):
 
 class FixNodePoolVulsResponseBody(TeaModel):
     def __init__(self, task_id=None):
-        # 修复任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -10827,13 +10450,9 @@ class FixNodePoolVulsResponse(TeaModel):
 
 class GetKubernetesTriggerRequest(TeaModel):
     def __init__(self, name=None, namespace=None, type=None, action=None):
-        # 应用名称。
         self.name = name  # type: str
-        # 应用所属命名空间。
         self.namespace = namespace  # type: str
-        # 应用类型。
         self.type = type  # type: str
-        # 触发器行为。
         self.action = action  # type: str
 
     def validate(self):
@@ -10870,19 +10489,12 @@ class GetKubernetesTriggerRequest(TeaModel):
 
 class GetKubernetesTriggerResponseBody(TeaModel):
     def __init__(self, id=None, name=None, cluster_id=None, project_id=None, type=None, action=None, token=None):
-        # 触发器ID。
         self.id = id  # type: str
-        # 触发器名称。
         self.name = name  # type: str
-        # 集群ID
         self.cluster_id = cluster_id  # type: str
-        # 触发器项目名称
         self.project_id = project_id  # type: str
-        # 触发器类型。
         self.type = type  # type: str
-        # 触发器行为
         self.action = action  # type: str
-        # Token
         self.token = token  # type: str
 
     def validate(self):
@@ -10976,9 +10588,7 @@ class GetKubernetesTriggerResponse(TeaModel):
 
 class GetUpgradeStatusResponseBodyUpgradeTask(TeaModel):
     def __init__(self, message=None, status=None):
-        # 任务描述信息。
         self.message = message  # type: str
-        # 任务状态：  emptry、running、success、failed
         self.status = status  # type: str
 
     def validate(self):
@@ -11008,15 +10618,10 @@ class GetUpgradeStatusResponseBodyUpgradeTask(TeaModel):
 class GetUpgradeStatusResponseBody(TeaModel):
     def __init__(self, error_message=None, precheck_report_id=None, status=None, upgrade_step=None,
                  upgrade_task=None):
-        # 错误信息描述。
         self.error_message = error_message  # type: str
-        # 预检查返回ID。
         self.precheck_report_id = precheck_report_id  # type: str
-        # 升级状态。
         self.status = status  # type: str
-        # 升级任务执行到哪一步了。
         self.upgrade_step = upgrade_step  # type: str
-        # 升级任务详情。
         self.upgrade_task = upgrade_task  # type: GetUpgradeStatusResponseBodyUpgradeTask
 
     def validate(self):
@@ -11099,17 +10704,11 @@ class GetUpgradeStatusResponse(TeaModel):
 class GrantPermissionsRequestBody(TeaModel):
     def __init__(self, cluster=None, is_custom=None, is_ram_role=None, namespace=None, role_name=None,
                  role_type=None):
-        # 授权目标集群id
         self.cluster = cluster  # type: str
-        # 该授权是否是自定义授权
         self.is_custom = is_custom  # type: bool
-        # 是否是 RAM 角色授权
         self.is_ram_role = is_ram_role  # type: bool
-        # 命名空间名称
         self.namespace = namespace  # type: str
-        # 预置的角色名称
         self.role_name = role_name  # type: str
-        # 授权类型
         self.role_type = role_type  # type: str
 
     def validate(self):
@@ -11154,7 +10753,6 @@ class GrantPermissionsRequestBody(TeaModel):
 
 class GrantPermissionsRequest(TeaModel):
     def __init__(self, body=None):
-        # 请求体参数
         self.body = body  # type: list[GrantPermissionsRequestBody]
 
     def validate(self):
@@ -11217,11 +10815,8 @@ class GrantPermissionsResponse(TeaModel):
 
 class InstallClusterAddonsRequestBody(TeaModel):
     def __init__(self, config=None, name=None, version=None):
-        # 组件配置信息。
         self.config = config  # type: str
-        # 组件名称。
         self.name = name  # type: str
-        # 组件版本号。
         self.version = version  # type: str
 
     def validate(self):
@@ -11254,7 +10849,6 @@ class InstallClusterAddonsRequestBody(TeaModel):
 
 class InstallClusterAddonsRequest(TeaModel):
     def __init__(self, body=None):
-        # Addon列表。
         self.body = body  # type: list[InstallClusterAddonsRequestBody]
 
     def validate(self):
@@ -11317,15 +10911,10 @@ class InstallClusterAddonsResponse(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_ids=None, resource_type=None, tags=None):
-        # 下一次查询Token。
         self.next_token = next_token  # type: str
-        # 地域ID
         self.region_id = region_id  # type: str
-        # 集群ID列表。
         self.resource_ids = resource_ids  # type: list[str]
-        # 资源类型，只支持Cluster
         self.resource_type = resource_type  # type: str
-        # 按标签查找。
         self.tags = tags  # type: list[Tag]
 
     def validate(self):
@@ -11375,15 +10964,10 @@ class ListTagResourcesRequest(TeaModel):
 class ListTagResourcesShrinkRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_ids_shrink=None, resource_type=None,
                  tags_shrink=None):
-        # 下一次查询Token。
         self.next_token = next_token  # type: str
-        # 地域ID
         self.region_id = region_id  # type: str
-        # 集群ID列表。
         self.resource_ids_shrink = resource_ids_shrink  # type: str
-        # 资源类型，只支持Cluster
         self.resource_type = resource_type  # type: str
-        # 按标签查找。
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -11424,13 +11008,9 @@ class ListTagResourcesShrinkRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
-        # 资源ID。
         self.resource_id = resource_id  # type: str
-        # 资源类型。
         self.resource_type = resource_type  # type: str
-        # 标签key。
         self.tag_key = tag_key  # type: str
-        # 标签值。
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -11467,7 +11047,6 @@ class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, tag_resource=None):
-        # 资源标签。
         self.tag_resource = tag_resource  # type: list[ListTagResourcesResponseBodyTagResourcesTagResource]
 
     def validate(self):
@@ -11500,11 +11079,8 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
-        # 下一个查询开始Token，为空说明没有下一个
         self.next_token = next_token  # type: str
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 资源标签列表。
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -11576,14 +11152,81 @@ class ListTagResourcesResponse(TeaModel):
         return self
 
 
+class MigrateClusterRequest(TeaModel):
+    def __init__(self, oss_bucket_endpoint=None, oss_bucket_name=None):
+        self.oss_bucket_endpoint = oss_bucket_endpoint  # type: str
+        self.oss_bucket_name = oss_bucket_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MigrateClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.oss_bucket_endpoint is not None:
+            result['oss_bucket_endpoint'] = self.oss_bucket_endpoint
+        if self.oss_bucket_name is not None:
+            result['oss_bucket_name'] = self.oss_bucket_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('oss_bucket_endpoint') is not None:
+            self.oss_bucket_endpoint = m.get('oss_bucket_endpoint')
+        if m.get('oss_bucket_name') is not None:
+            self.oss_bucket_name = m.get('oss_bucket_name')
+        return self
+
+
+class MigrateClusterResponseBody(TeaModel):
+    def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MigrateClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
 class MigrateClusterResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
+        self.body = body  # type: MigrateClusterResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
         self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(MigrateClusterResponse, self).to_map()
@@ -11595,6 +11238,8 @@ class MigrateClusterResponse(TeaModel):
             result['headers'] = self.headers
         if self.status_code is not None:
             result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
@@ -11603,6 +11248,9 @@ class MigrateClusterResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MigrateClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -11610,22 +11258,14 @@ class ModifyClusterRequest(TeaModel):
     def __init__(self, api_server_eip=None, api_server_eip_id=None, deletion_protection=None, enable_rrsa=None,
                  ingress_domain_rebinding=None, ingress_loadbalancer_id=None, instance_deletion_protection=None, maintenance_window=None,
                  resource_group_id=None):
-        # 集群是否绑定EIP，用于公网访问API Server。 true | false
         self.api_server_eip = api_server_eip  # type: bool
-        # 集群API Server 公网连接端点。
         self.api_server_eip_id = api_server_eip_id  # type: str
-        # 集群是否开启删除保护。默认值false。
         self.deletion_protection = deletion_protection  # type: bool
-        # 启用或禁用 RRSA 功能。true: 启用，false: 禁用
         self.enable_rrsa = enable_rrsa  # type: bool
-        # 域名是否重新绑定到Ingress的SLB地址。
         self.ingress_domain_rebinding = ingress_domain_rebinding  # type: str
-        # 集群的Ingress SLB的ID。
         self.ingress_loadbalancer_id = ingress_loadbalancer_id  # type: str
-        # 实例删除保护，防止通过控制台或API误删除释放节点。
         self.instance_deletion_protection = instance_deletion_protection  # type: bool
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
-        # 集群资源组ID。
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -11684,11 +11324,8 @@ class ModifyClusterRequest(TeaModel):
 
 class ModifyClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -11760,7 +11397,6 @@ class ModifyClusterResponse(TeaModel):
 
 class ModifyClusterAddonRequest(TeaModel):
     def __init__(self, config=None):
-        # 自定义参数设置
         self.config = config  # type: str
 
     def validate(self):
@@ -11815,9 +11451,7 @@ class ModifyClusterAddonResponse(TeaModel):
 
 class ModifyClusterConfigurationRequestCustomizeConfigConfigs(TeaModel):
     def __init__(self, key=None, value=None):
-        # key值。
         self.key = key  # type: str
-        # value值。
         self.value = value  # type: str
 
     def validate(self):
@@ -11846,9 +11480,7 @@ class ModifyClusterConfigurationRequestCustomizeConfigConfigs(TeaModel):
 
 class ModifyClusterConfigurationRequestCustomizeConfig(TeaModel):
     def __init__(self, configs=None, name=None):
-        # 组件配置。
         self.configs = configs  # type: list[ModifyClusterConfigurationRequestCustomizeConfigConfigs]
-        # 组件名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -11885,7 +11517,6 @@ class ModifyClusterConfigurationRequestCustomizeConfig(TeaModel):
 
 class ModifyClusterConfigurationRequest(TeaModel):
     def __init__(self, customize_config=None):
-        # 自定义配置。
         self.customize_config = customize_config  # type: list[ModifyClusterConfigurationRequestCustomizeConfig]
 
     def validate(self):
@@ -11949,19 +11580,12 @@ class ModifyClusterConfigurationResponse(TeaModel):
 class ModifyClusterNodePoolRequestAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
-        # 带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
-        # EIP计费类型。
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
-        # 是否开启自动伸缩。
         self.enable = enable  # type: bool
-        # 是否绑定EIP。
         self.is_bond_eip = is_bond_eip  # type: bool
-        # 最大实例数。
         self.max_instances = max_instances  # type: long
-        # 最小实例数。
         self.min_instances = min_instances  # type: long
-        # 自动伸缩节点类型。
         self.type = type  # type: str
 
     def validate(self):
@@ -12011,19 +11635,12 @@ class ModifyClusterNodePoolRequestAutoScaling(TeaModel):
 class ModifyClusterNodePoolRequestKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, runtime=None, runtime_version=None,
                  taints=None, user_data=None):
-        # 是否开启云监控。
         self.cms_enabled = cms_enabled  # type: bool
-        # CPU管理策略。
         self.cpu_policy = cpu_policy  # type: str
-        # 节点标签。
         self.labels = labels  # type: list[Tag]
-        # 容器运行时。
         self.runtime = runtime  # type: str
-        # 容器运行时版本。
         self.runtime_version = runtime_version  # type: str
-        # 污点配置。
         self.taints = taints  # type: list[Taint]
-        # 实例自定义数据。
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -12089,13 +11706,9 @@ class ModifyClusterNodePoolRequestKubernetesConfig(TeaModel):
 
 class ModifyClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
-        # 是否启用自动升级，自修复。
         self.auto_upgrade = auto_upgrade  # type: bool
-        # 最大不可用节点数量。
         self.max_unavailable = max_unavailable  # type: long
-        # 额外节点数量。
         self.surge = surge  # type: long
-        # 额外节点比例， 和surge 二选一。
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -12132,11 +11745,8 @@ class ModifyClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
 
 class ModifyClusterNodePoolRequestManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
-        # 是否开启自动修复。
         self.auto_repair = auto_repair  # type: bool
-        # 是否启用托管节点池。
         self.enable = enable  # type: bool
-        # 自动升级配置。
         self.upgrade_config = upgrade_config  # type: ModifyClusterNodePoolRequestManagementUpgradeConfig
 
     def validate(self):
@@ -12169,11 +11779,153 @@ class ModifyClusterNodePoolRequestManagement(TeaModel):
         return self
 
 
+class ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration(TeaModel):
+    def __init__(self, cpu_manager_policy=None, event_burst=None, event_record_qps=None, eviction_hard=None,
+                 eviction_soft=None, eviction_soft_grace_period=None, kube_apiburst=None, kube_apiqps=None, kube_reserved=None,
+                 registry_burst=None, registry_pull_qps=None, serialize_image_pulls=None, system_reserved=None):
+        self.cpu_manager_policy = cpu_manager_policy  # type: str
+        self.event_burst = event_burst  # type: long
+        self.event_record_qps = event_record_qps  # type: long
+        self.eviction_hard = eviction_hard  # type: dict[str, any]
+        self.eviction_soft = eviction_soft  # type: dict[str, any]
+        self.eviction_soft_grace_period = eviction_soft_grace_period  # type: dict[str, any]
+        self.kube_apiburst = kube_apiburst  # type: long
+        self.kube_apiqps = kube_apiqps  # type: long
+        self.kube_reserved = kube_reserved  # type: dict[str, any]
+        self.registry_burst = registry_burst  # type: long
+        self.registry_pull_qps = registry_pull_qps  # type: long
+        self.serialize_image_pulls = serialize_image_pulls  # type: bool
+        self.system_reserved = system_reserved  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu_manager_policy is not None:
+            result['cpuManagerPolicy'] = self.cpu_manager_policy
+        if self.event_burst is not None:
+            result['eventBurst'] = self.event_burst
+        if self.event_record_qps is not None:
+            result['eventRecordQPS'] = self.event_record_qps
+        if self.eviction_hard is not None:
+            result['evictionHard'] = self.eviction_hard
+        if self.eviction_soft is not None:
+            result['evictionSoft'] = self.eviction_soft
+        if self.eviction_soft_grace_period is not None:
+            result['evictionSoftGracePeriod'] = self.eviction_soft_grace_period
+        if self.kube_apiburst is not None:
+            result['kubeAPIBurst'] = self.kube_apiburst
+        if self.kube_apiqps is not None:
+            result['kubeAPIQPS'] = self.kube_apiqps
+        if self.kube_reserved is not None:
+            result['kubeReserved'] = self.kube_reserved
+        if self.registry_burst is not None:
+            result['registryBurst'] = self.registry_burst
+        if self.registry_pull_qps is not None:
+            result['registryPullQPS'] = self.registry_pull_qps
+        if self.serialize_image_pulls is not None:
+            result['serializeImagePulls'] = self.serialize_image_pulls
+        if self.system_reserved is not None:
+            result['systemReserved'] = self.system_reserved
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cpuManagerPolicy') is not None:
+            self.cpu_manager_policy = m.get('cpuManagerPolicy')
+        if m.get('eventBurst') is not None:
+            self.event_burst = m.get('eventBurst')
+        if m.get('eventRecordQPS') is not None:
+            self.event_record_qps = m.get('eventRecordQPS')
+        if m.get('evictionHard') is not None:
+            self.eviction_hard = m.get('evictionHard')
+        if m.get('evictionSoft') is not None:
+            self.eviction_soft = m.get('evictionSoft')
+        if m.get('evictionSoftGracePeriod') is not None:
+            self.eviction_soft_grace_period = m.get('evictionSoftGracePeriod')
+        if m.get('kubeAPIBurst') is not None:
+            self.kube_apiburst = m.get('kubeAPIBurst')
+        if m.get('kubeAPIQPS') is not None:
+            self.kube_apiqps = m.get('kubeAPIQPS')
+        if m.get('kubeReserved') is not None:
+            self.kube_reserved = m.get('kubeReserved')
+        if m.get('registryBurst') is not None:
+            self.registry_burst = m.get('registryBurst')
+        if m.get('registryPullQPS') is not None:
+            self.registry_pull_qps = m.get('registryPullQPS')
+        if m.get('serializeImagePulls') is not None:
+            self.serialize_image_pulls = m.get('serializeImagePulls')
+        if m.get('systemReserved') is not None:
+            self.system_reserved = m.get('systemReserved')
+        return self
+
+
+class ModifyClusterNodePoolRequestNodeConfigRolloutPolicy(TeaModel):
+    def __init__(self, max_unavailable=None):
+        self.max_unavailable = max_unavailable  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestNodeConfigRolloutPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_unavailable is not None:
+            result['max_unavailable'] = self.max_unavailable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('max_unavailable') is not None:
+            self.max_unavailable = m.get('max_unavailable')
+        return self
+
+
+class ModifyClusterNodePoolRequestNodeConfig(TeaModel):
+    def __init__(self, kubelet_configuration=None, rollout_policy=None):
+        self.kubelet_configuration = kubelet_configuration  # type: ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration
+        self.rollout_policy = rollout_policy  # type: ModifyClusterNodePoolRequestNodeConfigRolloutPolicy
+
+    def validate(self):
+        if self.kubelet_configuration:
+            self.kubelet_configuration.validate()
+        if self.rollout_policy:
+            self.rollout_policy.validate()
+
+    def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestNodeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.kubelet_configuration is not None:
+            result['kubelet_configuration'] = self.kubelet_configuration.to_map()
+        if self.rollout_policy is not None:
+            result['rollout_policy'] = self.rollout_policy.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('kubelet_configuration') is not None:
+            temp_model = ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration()
+            self.kubelet_configuration = temp_model.from_map(m['kubelet_configuration'])
+        if m.get('rollout_policy') is not None:
+            temp_model = ModifyClusterNodePoolRequestNodeConfigRolloutPolicy()
+            self.rollout_policy = temp_model.from_map(m['rollout_policy'])
+        return self
+
+
 class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
     def __init__(self, name=None, resource_group_id=None):
-        # 节点池名称。
         self.name = name  # type: str
-        # 资源组ID。
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -12202,9 +11954,7 @@ class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
 
 class ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
-        # 抢占式实例规格
         self.instance_type = instance_type  # type: str
-        # 单台实例上限价格，单位：元/小时。
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -12238,63 +11988,34 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
                  on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, rds_instances=None, scaling_policy=None,
                  spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
                  system_disk_category=None, system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
-        # 节点池节点是启用自动续费
         self.auto_renew = auto_renew  # type: bool
-        # 节点池节点自动续费周期
         self.auto_renew_period = auto_renew_period  # type: long
-        # 当MultiAZPolicy取值为COST_OPTIMIZED时，如果因价格、库存等原因无法创建足够的抢占式实例，是否允许自动尝试创建按量实例满足ECS实例数量要求。取值范围：true：允许。false：不允许。默认值：true
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
-        # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
-        # 节点池期望节点数
         self.desired_size = desired_size  # type: long
-        # 自定义镜像
         self.image_id = image_id  # type: str
-        # 节点付费类型。
         self.instance_charge_type = instance_charge_type  # type: str
-        # 节点实例规格。
         self.instance_types = instance_types  # type: list[str]
-        # 节点公网IP网络计费类型
         self.internet_charge_type = internet_charge_type  # type: str
-        # 节点公网IP出带宽最大值，单位为Mbps（Mega bit per second），取值范围：1~100
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
-        # 密钥对名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # SSH登录密码，和key_pari二选一。
         self.login_password = login_password  # type: str
-        # 多可用区伸缩组ECS实例扩缩容策略
         self.multi_az_policy = multi_az_policy  # type: str
-        # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
-        # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
-        # 包年包月时长
         self.period = period  # type: long
-        # 付费周期
         self.period_unit = period_unit  # type: str
-        # 操作系统发行版。
         self.platform = platform  # type: str
-        # RDS实例列表。
         self.rds_instances = rds_instances  # type: list[str]
-        # 扩容策略。
         self.scaling_policy = scaling_policy  # type: str
-        # 指定可用实例规格的个数，伸缩组将按成本最低的多个规格均衡创建抢占式实例。取值范围：1~10。
         self.spot_instance_pools = spot_instance_pools  # type: long
-        # 是否开启补齐抢占式实例。开启后，当收到抢占式实例将被回收的系统消息时，伸缩组将尝试创建新的实例，替换掉将被回收的抢占式实例。
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
-        # 抢占实例价格上限配置
         self.spot_price_limit = spot_price_limit  # type: list[ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit]
-        # 抢占式实例类型
         self.spot_strategy = spot_strategy  # type: str
-        # 节点系统盘类型。
         self.system_disk_category = system_disk_category  # type: str
-        # 节点系统盘磁盘性能，只针对ESSD磁盘生效
         self.system_disk_performance_level = system_disk_performance_level  # type: str
-        # 节点系统盘大小。
         self.system_disk_size = system_disk_size  # type: long
-        # ECS标签。
         self.tags = tags  # type: list[Tag]
-        # 节点使用的虚拟交换机ID。
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -12457,7 +12178,6 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
 
 class ModifyClusterNodePoolRequestTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
-        # 是否为加密计算节点池。
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -12481,21 +12201,15 @@ class ModifyClusterNodePoolRequestTeeConfig(TeaModel):
 
 
 class ModifyClusterNodePoolRequest(TeaModel):
-    def __init__(self, auto_scaling=None, kubernetes_config=None, management=None, nodepool_info=None,
-                 scaling_group=None, tee_config=None, update_nodes=None):
-        # 自动伸缩节点池配置。
+    def __init__(self, auto_scaling=None, kubernetes_config=None, management=None, node_config=None,
+                 nodepool_info=None, scaling_group=None, tee_config=None, update_nodes=None):
         self.auto_scaling = auto_scaling  # type: ModifyClusterNodePoolRequestAutoScaling
-        # 集群配置。
         self.kubernetes_config = kubernetes_config  # type: ModifyClusterNodePoolRequestKubernetesConfig
-        # 托管版节点池配置。
         self.management = management  # type: ModifyClusterNodePoolRequestManagement
-        # 节点池配置。
+        self.node_config = node_config  # type: ModifyClusterNodePoolRequestNodeConfig
         self.nodepool_info = nodepool_info  # type: ModifyClusterNodePoolRequestNodepoolInfo
-        # 扩容组配置。
         self.scaling_group = scaling_group  # type: ModifyClusterNodePoolRequestScalingGroup
-        # 加密计算配置。
         self.tee_config = tee_config  # type: ModifyClusterNodePoolRequestTeeConfig
-        # 是否同步更新节点标签及污点。
         self.update_nodes = update_nodes  # type: bool
 
     def validate(self):
@@ -12505,6 +12219,8 @@ class ModifyClusterNodePoolRequest(TeaModel):
             self.kubernetes_config.validate()
         if self.management:
             self.management.validate()
+        if self.node_config:
+            self.node_config.validate()
         if self.nodepool_info:
             self.nodepool_info.validate()
         if self.scaling_group:
@@ -12524,6 +12240,8 @@ class ModifyClusterNodePoolRequest(TeaModel):
             result['kubernetes_config'] = self.kubernetes_config.to_map()
         if self.management is not None:
             result['management'] = self.management.to_map()
+        if self.node_config is not None:
+            result['node_config'] = self.node_config.to_map()
         if self.nodepool_info is not None:
             result['nodepool_info'] = self.nodepool_info.to_map()
         if self.scaling_group is not None:
@@ -12545,6 +12263,9 @@ class ModifyClusterNodePoolRequest(TeaModel):
         if m.get('management') is not None:
             temp_model = ModifyClusterNodePoolRequestManagement()
             self.management = temp_model.from_map(m['management'])
+        if m.get('node_config') is not None:
+            temp_model = ModifyClusterNodePoolRequestNodeConfig()
+            self.node_config = temp_model.from_map(m['node_config'])
         if m.get('nodepool_info') is not None:
             temp_model = ModifyClusterNodePoolRequestNodepoolInfo()
             self.nodepool_info = temp_model.from_map(m['nodepool_info'])
@@ -12561,9 +12282,7 @@ class ModifyClusterNodePoolRequest(TeaModel):
 
 class ModifyClusterNodePoolResponseBody(TeaModel):
     def __init__(self, nodepool_id=None, task_id=None):
-        # 节点池ID。
         self.nodepool_id = nodepool_id  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -12631,7 +12350,6 @@ class ModifyClusterNodePoolResponse(TeaModel):
 
 class ModifyClusterTagsRequest(TeaModel):
     def __init__(self, body=None):
-        # 集群标签列表。
         self.body = body  # type: list[Tag]
 
     def validate(self):
@@ -12694,13 +12412,9 @@ class ModifyClusterTagsResponse(TeaModel):
 
 class ModifyPolicyInstanceRequest(TeaModel):
     def __init__(self, action=None, instance_name=None, namespaces=None, parameters=None):
-        # 规则治理动作
         self.action = action  # type: str
-        # 策略规则实例id
         self.instance_name = instance_name  # type: str
-        # 限制策略实施的命名空间，为空时表示所有命名空间
         self.namespaces = namespaces  # type: list[str]
-        # 当前规则实例的配置参数
         self.parameters = parameters  # type: dict[str, any]
 
     def validate(self):
@@ -12800,7 +12514,6 @@ class ModifyPolicyInstanceResponse(TeaModel):
 
 class OpenAckServiceRequest(TeaModel):
     def __init__(self, type=None):
-        # 要开通的服务类型
         self.type = type  # type: str
 
     def validate(self):
@@ -12825,9 +12538,7 @@ class OpenAckServiceRequest(TeaModel):
 
 class OpenAckServiceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
-        # 开通服务的订单号。
         self.order_id = order_id  # type: str
-        # 请求ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12985,11 +12696,8 @@ class PauseTaskResponse(TeaModel):
 
 class RemoveClusterNodesRequest(TeaModel):
     def __init__(self, drain_node=None, nodes=None, release_node=None):
-        # 是否排空节点上的Pod。
         self.drain_node = drain_node  # type: bool
-        # 要移除的Node列表。
         self.nodes = nodes  # type: list[str]
-        # 是否同时释放ECS。
         self.release_node = release_node  # type: bool
 
     def validate(self):
@@ -13082,7 +12790,6 @@ class RemoveWorkflowResponse(TeaModel):
 
 class RepairClusterNodePoolRequest(TeaModel):
     def __init__(self, nodes=None):
-        # 节点列表，如果不指定则表示当前节点池内所有节点
         self.nodes = nodes  # type: list[str]
 
     def validate(self):
@@ -13107,9 +12814,7 @@ class RepairClusterNodePoolRequest(TeaModel):
 
 class RepairClusterNodePoolResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
-        # 请求ID
         self.request_id = request_id  # type: str
-        # 任务ID
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13267,7 +12972,6 @@ class ResumeUpgradeClusterResponse(TeaModel):
 
 class ScaleClusterRequestTags(TeaModel):
     def __init__(self, key=None):
-        # 标签值。
         self.key = key  # type: str
 
     def validate(self):
@@ -13292,11 +12996,8 @@ class ScaleClusterRequestTags(TeaModel):
 
 class ScaleClusterRequestTaints(TeaModel):
     def __init__(self, effect=None, key=None, value=None):
-        # 污点生效策略。
         self.effect = effect  # type: str
-        # 污点键。
         self.key = key  # type: str
-        # 污点值。
         self.value = value  # type: str
 
     def validate(self):
@@ -13329,11 +13030,8 @@ class ScaleClusterRequestTaints(TeaModel):
 
 class ScaleClusterRequestWorkerDataDisks(TeaModel):
     def __init__(self, category=None, encrypted=None, size=None):
-        # 数据盘类型。
         self.category = category  # type: str
-        # 是否对数据盘加密。
         self.encrypted = encrypted  # type: str
-        # 数据盘大小。
         self.size = size  # type: str
 
     def validate(self):
@@ -13370,43 +13068,24 @@ class ScaleClusterRequest(TeaModel):
                  worker_auto_renew_period=None, worker_data_disk=None, worker_data_disks=None, worker_instance_charge_type=None,
                  worker_instance_types=None, worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
                  worker_system_disk_size=None):
-        # 节点是否安装云监控插件。
         self.cloud_monitor_flags = cloud_monitor_flags  # type: bool
-        # 扩容节点数。
         self.count = count  # type: long
-        # 节点CPU策略。
         self.cpu_policy = cpu_policy  # type: str
-        # 失败是否回滚。
         self.disable_rollback = disable_rollback  # type: bool
-        # keypair名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # SSH登录密码。和keypair二选一。
         self.login_password = login_password  # type: str
-        # 集群标签。
         self.tags = tags  # type: list[ScaleClusterRequestTags]
-        # 节点污点标记。
         self.taints = taints  # type: list[ScaleClusterRequestTaints]
-        # 节点交换机ID列表。
         self.vswitch_ids = vswitch_ids  # type: list[str]
-        # 节点是否开启Worker节点自动续费。
         self.worker_auto_renew = worker_auto_renew  # type: bool
-        # 自动续费周期。
         self.worker_auto_renew_period = worker_auto_renew_period  # type: long
-        # 是否挂载数据盘。
         self.worker_data_disk = worker_data_disk  # type: bool
-        # Worker数据盘类型、大小等配置的组合。
         self.worker_data_disks = worker_data_disks  # type: list[ScaleClusterRequestWorkerDataDisks]
-        # 节点付费类型。
         self.worker_instance_charge_type = worker_instance_charge_type  # type: str
-        # Worker节点ECS规格类型。
         self.worker_instance_types = worker_instance_types  # type: list[str]
-        # 节点包年包月时长。
         self.worker_period = worker_period  # type: long
-        # 当指定为PrePaid的时候需要指定周期。
         self.worker_period_unit = worker_period_unit  # type: str
-        # 节点系统盘类型。
         self.worker_system_disk_category = worker_system_disk_category  # type: str
-        # 节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
 
     def validate(self):
@@ -13529,11 +13208,8 @@ class ScaleClusterRequest(TeaModel):
 
 class ScaleClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13605,7 +13281,6 @@ class ScaleClusterResponse(TeaModel):
 
 class ScaleClusterNodePoolRequest(TeaModel):
     def __init__(self, count=None):
-        # 扩容节点数量
         self.count = count  # type: long
 
     def validate(self):
@@ -13630,7 +13305,6 @@ class ScaleClusterNodePoolRequest(TeaModel):
 
 class ScaleClusterNodePoolResponseBody(TeaModel):
     def __init__(self, task_id=None):
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13694,13 +13368,9 @@ class ScaleClusterNodePoolResponse(TeaModel):
 
 class ScaleOutClusterRequestWorkerDataDisks(TeaModel):
     def __init__(self, auto_snapshot_policy_id=None, category=None, encrypted=None, size=None):
-        # 自动快照策略ID，云盘会按照快照策略自动备份。
         self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
-        # 数据盘类型,默认值：cloud_efficiency
         self.category = category  # type: str
-        # 是否对数据盘加密
         self.encrypted = encrypted  # type: str
-        # 数据盘大小，单位为GiB。  取值范围：[40,32768]
         self.size = size  # type: str
 
     def validate(self):
@@ -13741,46 +13411,26 @@ class ScaleOutClusterRequest(TeaModel):
                  worker_auto_renew=None, worker_auto_renew_period=None, worker_data_disks=None, worker_instance_charge_type=None,
                  worker_instance_types=None, worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
                  worker_system_disk_size=None):
-        # 在节点上安装云监控
         self.cloud_monitor_flags = cloud_monitor_flags  # type: bool
-        # 扩容节点数
         self.count = count  # type: long
-        # CPU亲和性策略
         self.cpu_policy = cpu_policy  # type: str
-        # 自定义镜像
         self.image_id = image_id  # type: str
-        # keypair名称，和login_password二选一。
         self.key_pair = key_pair  # type: str
-        # SSH登录密码，和key_pair二选一。
         self.login_password = login_password  # type: str
-        # RDS白名单
         self.rds_instances = rds_instances  # type: list[str]
         self.runtime = runtime  # type: Runtime
-        # 节点标签
         self.tags = tags  # type: list[Tag]
-        # 节点污点信息
         self.taints = taints  # type: list[Taint]
-        # 节点自定义数据
         self.user_data = user_data  # type: str
-        # 虚拟交换机
         self.vswitch_ids = vswitch_ids  # type: list[str]
-        # Worker节点到期是否自动续费
         self.worker_auto_renew = worker_auto_renew  # type: bool
-        # Worker节点自动续费时长
         self.worker_auto_renew_period = worker_auto_renew_period  # type: long
-        # Worker节点数据盘配置
         self.worker_data_disks = worker_data_disks  # type: list[ScaleOutClusterRequestWorkerDataDisks]
-        # Worker节点付费类型
         self.worker_instance_charge_type = worker_instance_charge_type  # type: str
-        # Worker节点实例规格
         self.worker_instance_types = worker_instance_types  # type: list[str]
-        # Worker节点包年包月时长
         self.worker_period = worker_period  # type: long
-        # Worker节点包年包月周期
         self.worker_period_unit = worker_period_unit  # type: str
-        # Worker节点系统盘类型
         self.worker_system_disk_category = worker_system_disk_category  # type: str
-        # Worker节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
 
     def validate(self):
@@ -13914,11 +13564,8 @@ class ScaleOutClusterRequest(TeaModel):
 
 class ScaleOutClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
-        # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 任务ID。
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13994,43 +13641,24 @@ class StartWorkflowRequest(TeaModel):
                  mapping_oss_region=None, mapping_reference_path=None, service=None, wgs_bucket_name=None,
                  wgs_fastq_first_filename=None, wgs_fastq_path=None, wgs_fastq_second_filename=None, wgs_oss_region=None,
                  wgs_reference_path=None, wgs_vcf_out_filename=None, wgs_vcf_out_path=None, workflow_type=None):
-        # bam文件输出名称。
         self.mapping_bam_out_filename = mapping_bam_out_filename  # type: str
-        # bam文件输出路径。
         self.mapping_bam_out_path = mapping_bam_out_path  # type: str
-        # 存放mapping的bucket名称。
         self.mapping_bucket_name = mapping_bucket_name  # type: str
-        # mapping的第一个fastq文件名。
         self.mapping_fastq_first_filename = mapping_fastq_first_filename  # type: str
-        # mapping的fastq文件路径。
         self.mapping_fastq_path = mapping_fastq_path  # type: str
-        # mapping的第二个fastq文件名。
         self.mapping_fastq_second_filename = mapping_fastq_second_filename  # type: str
-        # 是否进行dup。
         self.mapping_is_mark_dup = mapping_is_mark_dup  # type: str
-        # mapping oss数据的存放region。
         self.mapping_oss_region = mapping_oss_region  # type: str
-        # mapping的reference文件位置。
         self.mapping_reference_path = mapping_reference_path  # type: str
-        # SLA类型，可选值：s、g、p。 白银级（s）：超过90 Gbp的部分，按1.5 Gbp/min计算增加的时间。 黄金级（g）：超过90 Gbp的部分，按2 Gbp/min计算增加的时间。 铂金级（p）：超过90 Gbp的部分，按3 Gbp/min计算增加的时间。
         self.service = service  # type: str
-        # 存放wgs的bucket名称。
         self.wgs_bucket_name = wgs_bucket_name  # type: str
-        # wgs的第一个fastq文件名。
         self.wgs_fastq_first_filename = wgs_fastq_first_filename  # type: str
-        # wgs的fastq文件路径。
         self.wgs_fastq_path = wgs_fastq_path  # type: str
-        # wgs的第二个fastq文件名。
         self.wgs_fastq_second_filename = wgs_fastq_second_filename  # type: str
-        # wgs oss数据的存放region。
         self.wgs_oss_region = wgs_oss_region  # type: str
-        # wgs的reference文件路径。
         self.wgs_reference_path = wgs_reference_path  # type: str
-        # wgs的vcf输出文件名称。
         self.wgs_vcf_out_filename = wgs_vcf_out_filename  # type: str
-        # wgs的vcf输出路径。
         self.wgs_vcf_out_path = wgs_vcf_out_path  # type: str
-        # 工作流类型，可选值：wgs或mapping。
         self.workflow_type = workflow_type  # type: str
 
     def validate(self):
@@ -14127,7 +13755,6 @@ class StartWorkflowRequest(TeaModel):
 
 class StartWorkflowResponseBody(TeaModel):
     def __init__(self, job_name=None):
-        # 工作流名称
         self.job_name = job_name  # type: str
 
     def validate(self):
@@ -14191,13 +13818,9 @@ class StartWorkflowResponse(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_ids=None, resource_type=None, tags=None):
-        # 资源所属的地域ID
         self.region_id = region_id  # type: str
-        # 资源ID列表
         self.resource_ids = resource_ids  # type: list[str]
-        # 资源类型定义。取值范围：  只支持CLUSTER这一种资源类型
         self.resource_type = resource_type  # type: str
-        # 资源的标签键值对。数组长度范围：1~20。一旦传值，则不允许为空字符串。最多支持128个字符，不能以aliyun和acs:开头，不能包含http://或者https://。
         self.tags = tags  # type: list[Tag]
 
     def validate(self):
@@ -14242,7 +13865,6 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # 请求id。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14306,7 +13928,6 @@ class TagResourcesResponse(TeaModel):
 
 class UnInstallClusterAddonsRequestAddons(TeaModel):
     def __init__(self, name=None):
-        # 组件名称。
         self.name = name  # type: str
 
     def validate(self):
@@ -14331,7 +13952,6 @@ class UnInstallClusterAddonsRequestAddons(TeaModel):
 
 class UnInstallClusterAddonsRequest(TeaModel):
     def __init__(self, addons=None):
-        # 卸载组件列表。
         self.addons = addons  # type: list[UnInstallClusterAddonsRequestAddons]
 
     def validate(self):
@@ -14394,15 +14014,10 @@ class UnInstallClusterAddonsResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_ids=None, resource_type=None, tag_keys=None):
-        # 是否删除全部自定义标签，仅当tag_keys为空时生效，取值：[true,false]。
         self.all = all  # type: bool
-        # 资源所属的地域ID
         self.region_id = region_id  # type: str
-        # 资源ID。数组长度取值范围为：1~50
         self.resource_ids = resource_ids  # type: list[str]
-        # 资源类型定义。取值范围： 只支持CLUSTER这一种资源类型
         self.resource_type = resource_type  # type: str
-        # 资源的标签键。N的取值范围：1~20
         self.tag_keys = tag_keys  # type: list[str]
 
     def validate(self):
@@ -14443,7 +14058,6 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # 请求id。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14537,9 +14151,7 @@ class UpdateContactGroupForAlertResponse(TeaModel):
 
 class UpdateK8sClusterUserConfigExpireRequest(TeaModel):
     def __init__(self, expire_hour=None, user=None):
-        # kubeconfig过期小时
         self.expire_hour = expire_hour  # type: long
-        # 指定用户id
         self.user = user  # type: str
 
     def validate(self):
@@ -14598,15 +14210,10 @@ class UpdateK8sClusterUserConfigExpireResponse(TeaModel):
 
 class UpdateTemplateRequest(TeaModel):
     def __init__(self, description=None, name=None, tags=None, template=None, template_type=None):
-        # 部署模板描述信息。
         self.description = description  # type: str
-        # 部署模板名称。
         self.name = name  # type: str
-        # 部署模板标签
         self.tags = tags  # type: str
-        # 部署模板yaml。
         self.template = template  # type: str
-        # 部署模板类型。
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -14677,11 +14284,8 @@ class UpdateTemplateResponse(TeaModel):
 
 class UpgradeClusterRequest(TeaModel):
     def __init__(self, component_name=None, next_version=None, version=None):
-        # 组件名称，集群升级时取值"k8s"。
         self.component_name = component_name  # type: str
-        # 目标版本。
         self.next_version = next_version  # type: str
-        # 当前版本。
         self.version = version  # type: str
 
     def validate(self):
@@ -14744,13 +14348,9 @@ class UpgradeClusterResponse(TeaModel):
 
 class UpgradeClusterAddonsRequestBody(TeaModel):
     def __init__(self, component_name=None, config=None, next_version=None, version=None):
-        # 组件名称
         self.component_name = component_name  # type: str
-        # 组件自定义参数
         self.config = config  # type: str
-        # 可升级版本
         self.next_version = next_version  # type: str
-        # 当前版本
         self.version = version  # type: str
 
     def validate(self):
@@ -14787,7 +14387,6 @@ class UpgradeClusterAddonsRequestBody(TeaModel):
 
 class UpgradeClusterAddonsRequest(TeaModel):
     def __init__(self, body=None):
-        # Request body，类型是对象数组
         self.body = body  # type: list[UpgradeClusterAddonsRequestBody]
 
     def validate(self):
@@ -14850,15 +14449,10 @@ class UpgradeClusterAddonsResponse(TeaModel):
 
 class StandardComponentsValue(TeaModel):
     def __init__(self, name=None, version=None, description=None, required=None, disabled=None):
-        # 组件名称。
         self.name = name  # type: str
-        # 组件版本。
         self.version = version  # type: str
-        # 组件描述信息。
         self.description = description  # type: str
-        # 是否为必需组件。
         self.required = required  # type: str
-        # 是否禁止默认安装。
         self.disabled = disabled  # type: bool
 
     def validate(self):
