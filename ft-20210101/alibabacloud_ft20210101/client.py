@@ -2,12 +2,15 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_ft20210101 import models as ft_20210101_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -80,8 +83,20 @@ class Client(OpenApiClient):
 
     def data_rate_limit_test_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return ft_20210101_models.DataRateLimitTestResponse().from_map(
-            self.do_rpcrequest('DataRateLimitTest', '2021-01-01', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        params = open_api_models.Params(
+            action='DataRateLimitTest',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.DataRateLimitTestResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def data_rate_limit_test(self):
@@ -90,8 +105,20 @@ class Client(OpenApiClient):
 
     def normal_rpc_hsf_api_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return ft_20210101_models.NormalRpcHsfApiResponse().from_map(
-            self.do_rpcrequest('NormalRpcHsfApi', '2021-01-01', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        params = open_api_models.Params(
+            action='NormalRpcHsfApi',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.NormalRpcHsfApiResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def normal_rpc_hsf_api(self):
@@ -100,10 +127,106 @@ class Client(OpenApiClient):
 
     def normal_rpc_http_api_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return ft_20210101_models.NormalRpcHttpApiResponse().from_map(
-            self.do_rpcrequest('NormalRpcHttpApi', '2021-01-01', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        params = open_api_models.Params(
+            action='NormalRpcHttpApi',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.NormalRpcHttpApiResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def normal_rpc_http_api(self):
         runtime = util_models.RuntimeOptions()
         return self.normal_rpc_http_api_with_options(runtime)
+
+    def rpc_data_upload_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_1):
+            query['query1'] = request.query_1
+        if not UtilClient.is_unset(request.query_2):
+            query['query2'] = request.query_2
+        body = {}
+        if not UtilClient.is_unset(request.large_param):
+            body['largeParam'] = request.large_param
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RpcDataUpload',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.RpcDataUploadResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rpc_data_upload(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.rpc_data_upload_with_options(request, runtime)
+
+    def rpc_data_upload_and_download_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_1):
+            query['query1'] = request.query_1
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RpcDataUploadAndDownload',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.RpcDataUploadAndDownloadResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rpc_data_upload_and_download(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.rpc_data_upload_and_download_with_options(request, runtime)
+
+    def rpc_data_upload_test_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='RpcDataUploadTest',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ft_20210101_models.RpcDataUploadTestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rpc_data_upload_test(self):
+        runtime = util_models.RuntimeOptions()
+        return self.rpc_data_upload_test_with_options(runtime)
