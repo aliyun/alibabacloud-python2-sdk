@@ -61,7 +61,6 @@ class AddDNSAuthorizationRuleRequest(TeaModel):
 class AddDNSAuthorizationRuleResponseBody(TeaModel):
     def __init__(self, authorization_rule_id=None, request_id=None):
         self.authorization_rule_id = authorization_rule_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -89,12 +88,14 @@ class AddDNSAuthorizationRuleResponseBody(TeaModel):
 
 
 class AddDNSAuthorizationRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddDNSAuthorizationRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -107,6 +108,8 @@ class AddDNSAuthorizationRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -115,6 +118,8 @@ class AddDNSAuthorizationRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddDNSAuthorizationRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -178,7 +183,6 @@ class AttachVpcToNetLinkRequest(TeaModel):
 
 class AttachVpcToNetLinkResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -202,12 +206,14 @@ class AttachVpcToNetLinkResponseBody(TeaModel):
 
 
 class AttachVpcToNetLinkResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachVpcToNetLinkResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -220,6 +226,8 @@ class AttachVpcToNetLinkResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -228,6 +236,8 @@ class AttachVpcToNetLinkResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachVpcToNetLinkResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -235,15 +245,18 @@ class AttachVpcToNetLinkResponse(TeaModel):
 
 
 class CreateAuthorizationRuleRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, destination=None, destination_type=None, dry_run=None,
-                 name=None, policy=None, source_cidr=None, wireless_cloud_connector_id=None):
+    def __init__(self, client_token=None, description=None, destination=None, destination_port=None,
+                 destination_type=None, dry_run=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 wireless_cloud_connector_id=None):
         self.client_token = client_token  # type: str
         self.description = description  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dry_run = dry_run  # type: bool
         self.name = name  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.source_cidr = source_cidr  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
@@ -262,6 +275,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             result['Description'] = self.description
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dry_run is not None:
@@ -270,6 +285,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             result['Name'] = self.name
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.source_cidr is not None:
             result['SourceCidr'] = self.source_cidr
         if self.wireless_cloud_connector_id is not None:
@@ -284,6 +301,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DryRun') is not None:
@@ -292,6 +311,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('SourceCidr') is not None:
             self.source_cidr = m.get('SourceCidr')
         if m.get('WirelessCloudConnectorId') is not None:
@@ -302,7 +323,6 @@ class CreateAuthorizationRuleRequest(TeaModel):
 class CreateAuthorizationRuleResponseBody(TeaModel):
     def __init__(self, authorization_rule_id=None, request_id=None):
         self.authorization_rule_id = authorization_rule_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -330,12 +350,14 @@ class CreateAuthorizationRuleResponseBody(TeaModel):
 
 
 class CreateAuthorizationRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateAuthorizationRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -348,6 +370,8 @@ class CreateAuthorizationRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -356,8 +380,261 @@ class CreateAuthorizationRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateBatchOperateCardsTaskRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, dry_run=None, effect_type=None, iccids=None,
+                 iccids_oss_file_path=None, name=None, operate_type=None, region_id=None, threshold=None,
+                 wireless_cloud_connector_ids=None):
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.effect_type = effect_type  # type: str
+        self.iccids = iccids  # type: list[str]
+        self.iccids_oss_file_path = iccids_oss_file_path  # type: str
+        self.name = name  # type: str
+        self.operate_type = operate_type  # type: str
+        self.region_id = region_id  # type: str
+        self.threshold = threshold  # type: long
+        self.wireless_cloud_connector_ids = wireless_cloud_connector_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateBatchOperateCardsTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.effect_type is not None:
+            result['EffectType'] = self.effect_type
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.iccids_oss_file_path is not None:
+            result['IccidsOssFilePath'] = self.iccids_oss_file_path
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        if self.wireless_cloud_connector_ids is not None:
+            result['WirelessCloudConnectorIds'] = self.wireless_cloud_connector_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EffectType') is not None:
+            self.effect_type = m.get('EffectType')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('IccidsOssFilePath') is not None:
+            self.iccids_oss_file_path = m.get('IccidsOssFilePath')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        if m.get('WirelessCloudConnectorIds') is not None:
+            self.wireless_cloud_connector_ids = m.get('WirelessCloudConnectorIds')
+        return self
+
+
+class CreateBatchOperateCardsTaskResponseBody(TeaModel):
+    def __init__(self, batch_operate_cards_task_id=None, operate_result_oss_file_path=None, request_id=None):
+        self.batch_operate_cards_task_id = batch_operate_cards_task_id  # type: str
+        self.operate_result_oss_file_path = operate_result_oss_file_path  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateBatchOperateCardsTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_operate_cards_task_id is not None:
+            result['BatchOperateCardsTaskId'] = self.batch_operate_cards_task_id
+        if self.operate_result_oss_file_path is not None:
+            result['OperateResultOssFilePath'] = self.operate_result_oss_file_path
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchOperateCardsTaskId') is not None:
+            self.batch_operate_cards_task_id = m.get('BatchOperateCardsTaskId')
+        if m.get('OperateResultOssFilePath') is not None:
+            self.operate_result_oss_file_path = m.get('OperateResultOssFilePath')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateBatchOperateCardsTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateBatchOperateCardsTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateBatchOperateCardsTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateBatchOperateCardsTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateIoTCloudConnectorBackhaulRouteRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, net_link_id=None, wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.net_link_id = net_link_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIoTCloudConnectorBackhaulRouteRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class CreateIoTCloudConnectorBackhaulRouteResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIoTCloudConnectorBackhaulRouteResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateIoTCloudConnectorBackhaulRouteResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateIoTCloudConnectorBackhaulRouteResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateIoTCloudConnectorBackhaulRouteResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateIoTCloudConnectorBackhaulRouteResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -402,8 +679,9 @@ class CreateWirelessCloudConnectorRequestNetLinks(TeaModel):
 
 
 class CreateWirelessCloudConnectorRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, dry_run=None, isp=None, name=None, net_links=None,
-                 region_id=None, use_case=None):
+    def __init__(self, business_type=None, client_token=None, description=None, dry_run=None, isp=None, name=None,
+                 net_links=None, region_id=None, use_case=None):
+        self.business_type = business_type  # type: str
         self.client_token = client_token  # type: str
         self.description = description  # type: str
         self.dry_run = dry_run  # type: bool
@@ -425,6 +703,8 @@ class CreateWirelessCloudConnectorRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -447,6 +727,8 @@ class CreateWirelessCloudConnectorRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -471,7 +753,6 @@ class CreateWirelessCloudConnectorRequest(TeaModel):
 
 class CreateWirelessCloudConnectorResponseBody(TeaModel):
     def __init__(self, request_id=None, wireless_cloud_connector_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
@@ -500,12 +781,14 @@ class CreateWirelessCloudConnectorResponseBody(TeaModel):
 
 
 class CreateWirelessCloudConnectorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateWirelessCloudConnectorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -518,6 +801,8 @@ class CreateWirelessCloudConnectorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -526,6 +811,8 @@ class CreateWirelessCloudConnectorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateWirelessCloudConnectorResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -574,7 +861,6 @@ class DeleteAuthorizationRuleRequest(TeaModel):
 
 class DeleteAuthorizationRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -598,12 +884,14 @@ class DeleteAuthorizationRuleResponseBody(TeaModel):
 
 
 class DeleteAuthorizationRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteAuthorizationRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -616,6 +904,8 @@ class DeleteAuthorizationRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -624,8 +914,214 @@ class DeleteAuthorizationRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteBatchOperateCardsTaskRequest(TeaModel):
+    def __init__(self, batch_operate_cards_task_id=None, client_token=None, dry_run=None, region_id=None):
+        self.batch_operate_cards_task_id = batch_operate_cards_task_id  # type: str
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBatchOperateCardsTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_operate_cards_task_id is not None:
+            result['BatchOperateCardsTaskId'] = self.batch_operate_cards_task_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchOperateCardsTaskId') is not None:
+            self.batch_operate_cards_task_id = m.get('BatchOperateCardsTaskId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteBatchOperateCardsTaskResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBatchOperateCardsTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteBatchOperateCardsTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteBatchOperateCardsTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteBatchOperateCardsTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteBatchOperateCardsTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteIoTCloudConnectorBackhaulRouteRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, net_link_id=None, wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.net_link_id = net_link_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteIoTCloudConnectorBackhaulRouteRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class DeleteIoTCloudConnectorBackhaulRouteResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteIoTCloudConnectorBackhaulRouteResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteIoTCloudConnectorBackhaulRouteResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteIoTCloudConnectorBackhaulRouteResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteIoTCloudConnectorBackhaulRouteResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteIoTCloudConnectorBackhaulRouteResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -666,7 +1162,6 @@ class DeleteWirelessCloudConnectorRequest(TeaModel):
 
 class DeleteWirelessCloudConnectorResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -690,12 +1185,14 @@ class DeleteWirelessCloudConnectorResponseBody(TeaModel):
 
 
 class DeleteWirelessCloudConnectorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteWirelessCloudConnectorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -708,6 +1205,8 @@ class DeleteWirelessCloudConnectorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -716,6 +1215,8 @@ class DeleteWirelessCloudConnectorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteWirelessCloudConnectorResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -763,7 +1264,6 @@ class DetachVpcFromNetLinkRequest(TeaModel):
 
 class DetachVpcFromNetLinkResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -787,12 +1287,14 @@ class DetachVpcFromNetLinkResponseBody(TeaModel):
 
 
 class DetachVpcFromNetLinkResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachVpcFromNetLinkResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -805,6 +1307,8 @@ class DetachVpcFromNetLinkResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -813,8 +1317,410 @@ class DetachVpcFromNetLinkResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachVpcFromNetLinkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCardRequest(TeaModel):
+    def __init__(self, iccid=None):
+        self.iccid = iccid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        return self
+
+
+class GetCardResponseBody(TeaModel):
+    def __init__(self, apn=None, activated_time=None, alarm_threshold=None, cloud_connector_id=None,
+                 description=None, isp=None, iccid=None, imei=None, imsi=None, ip_address=None, limit_threshold=None, lock=None,
+                 msisdn=None, name=None, net_type=None, order_id=None, request_id=None, sim_status=None, spec=None,
+                 status=None, stop_threshold=None, usage_data_month=None, usage_data_total=None,
+                 wireless_cloud_connector_id=None):
+        self.apn = apn  # type: str
+        self.activated_time = activated_time  # type: str
+        self.alarm_threshold = alarm_threshold  # type: long
+        self.cloud_connector_id = cloud_connector_id  # type: str
+        self.description = description  # type: str
+        self.isp = isp  # type: str
+        self.iccid = iccid  # type: str
+        self.imei = imei  # type: str
+        self.imsi = imsi  # type: str
+        self.ip_address = ip_address  # type: str
+        self.limit_threshold = limit_threshold  # type: long
+        self.lock = lock  # type: str
+        self.msisdn = msisdn  # type: str
+        self.name = name  # type: str
+        self.net_type = net_type  # type: str
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
+        self.sim_status = sim_status  # type: str
+        self.spec = spec  # type: str
+        self.status = status  # type: str
+        self.stop_threshold = stop_threshold  # type: long
+        self.usage_data_month = usage_data_month  # type: int
+        self.usage_data_total = usage_data_total  # type: long
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apn is not None:
+            result['APN'] = self.apn
+        if self.activated_time is not None:
+            result['ActivatedTime'] = self.activated_time
+        if self.alarm_threshold is not None:
+            result['AlarmThreshold'] = self.alarm_threshold
+        if self.cloud_connector_id is not None:
+            result['CloudConnectorId'] = self.cloud_connector_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.isp is not None:
+            result['ISP'] = self.isp
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        if self.imei is not None:
+            result['Imei'] = self.imei
+        if self.imsi is not None:
+            result['Imsi'] = self.imsi
+        if self.ip_address is not None:
+            result['IpAddress'] = self.ip_address
+        if self.limit_threshold is not None:
+            result['LimitThreshold'] = self.limit_threshold
+        if self.lock is not None:
+            result['Lock'] = self.lock
+        if self.msisdn is not None:
+            result['Msisdn'] = self.msisdn
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.net_type is not None:
+            result['NetType'] = self.net_type
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.sim_status is not None:
+            result['SimStatus'] = self.sim_status
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.stop_threshold is not None:
+            result['StopThreshold'] = self.stop_threshold
+        if self.usage_data_month is not None:
+            result['UsageDataMonth'] = self.usage_data_month
+        if self.usage_data_total is not None:
+            result['UsageDataTotal'] = self.usage_data_total
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('APN') is not None:
+            self.apn = m.get('APN')
+        if m.get('ActivatedTime') is not None:
+            self.activated_time = m.get('ActivatedTime')
+        if m.get('AlarmThreshold') is not None:
+            self.alarm_threshold = m.get('AlarmThreshold')
+        if m.get('CloudConnectorId') is not None:
+            self.cloud_connector_id = m.get('CloudConnectorId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ISP') is not None:
+            self.isp = m.get('ISP')
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        if m.get('Imei') is not None:
+            self.imei = m.get('Imei')
+        if m.get('Imsi') is not None:
+            self.imsi = m.get('Imsi')
+        if m.get('IpAddress') is not None:
+            self.ip_address = m.get('IpAddress')
+        if m.get('LimitThreshold') is not None:
+            self.limit_threshold = m.get('LimitThreshold')
+        if m.get('Lock') is not None:
+            self.lock = m.get('Lock')
+        if m.get('Msisdn') is not None:
+            self.msisdn = m.get('Msisdn')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NetType') is not None:
+            self.net_type = m.get('NetType')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SimStatus') is not None:
+            self.sim_status = m.get('SimStatus')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StopThreshold') is not None:
+            self.stop_threshold = m.get('StopThreshold')
+        if m.get('UsageDataMonth') is not None:
+            self.usage_data_month = m.get('UsageDataMonth')
+        if m.get('UsageDataTotal') is not None:
+            self.usage_data_total = m.get('UsageDataTotal')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class GetCardResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCardResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCardLockReasonRequest(TeaModel):
+    def __init__(self, iccid=None):
+        self.iccid = iccid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCardLockReasonRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        return self
+
+
+class GetCardLockReasonResponseBody(TeaModel):
+    def __init__(self, lock_reason=None, request_id=None):
+        self.lock_reason = lock_reason  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCardLockReasonResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lock_reason is not None:
+            result['LockReason'] = self.lock_reason
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LockReason') is not None:
+            self.lock_reason = m.get('LockReason')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetCardLockReasonResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCardLockReasonResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCardLockReasonResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCardLockReasonResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCreateCustomerInformationRequest(TeaModel):
+    def __init__(self, region_id=None, wireless_cloud_connector_id=None):
+        self.region_id = region_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCreateCustomerInformationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class GetCreateCustomerInformationResponseBody(TeaModel):
+    def __init__(self, can_buy_card=None, request_id=None, url=None):
+        self.can_buy_card = can_buy_card  # type: str
+        self.request_id = request_id  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCreateCustomerInformationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.can_buy_card is not None:
+            result['CanBuyCard'] = self.can_buy_card
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.url is not None:
+            result['URL'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CanBuyCard') is not None:
+            self.can_buy_card = m.get('CanBuyCard')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('URL') is not None:
+            self.url = m.get('URL')
+        return self
+
+
+class GetCreateCustomerInformationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCreateCustomerInformationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCreateCustomerInformationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCreateCustomerInformationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -855,9 +1761,7 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.isp = isp  # type: str
-        # 创建时间
         self.name = name  # type: str
-        # 资源名称
         self.net_link_id = net_link_id  # type: str
         self.region_id = region_id  # type: str
         self.status = status  # type: str
@@ -921,19 +1825,19 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
 
 
 class GetWirelessCloudConnectorResponseBody(TeaModel):
-    def __init__(self, card_count=None, create_time=None, data_package_id=None, data_package_type=None,
-                 description=None, name=None, net_links=None, region_id=None, request_id=None, status=None, use_case=None,
-                 wireless_cloud_connector_id=None):
+    def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
+                 data_package_type=None, description=None, features=None, name=None, net_links=None, region_id=None, request_id=None,
+                 status=None, use_case=None, wireless_cloud_connector_id=None):
+        self.business_type = business_type  # type: str
         self.card_count = card_count  # type: str
         self.create_time = create_time  # type: str
         self.data_package_id = data_package_id  # type: str
         self.data_package_type = data_package_type  # type: str
         self.description = description  # type: str
+        self.features = features  # type: list[str]
         self.name = name  # type: str
-        # 数组，返回示例目录。
         self.net_links = net_links  # type: list[GetWirelessCloudConnectorResponseBodyNetLinks]
         self.region_id = region_id  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.status = status  # type: str
         self.use_case = use_case  # type: str
@@ -951,6 +1855,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.card_count is not None:
             result['CardCount'] = self.card_count
         if self.create_time is not None:
@@ -961,6 +1867,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             result['DataPackageType'] = self.data_package_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.features is not None:
+            result['Features'] = self.features
         if self.name is not None:
             result['Name'] = self.name
         result['NetLinks'] = []
@@ -981,6 +1889,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('CardCount') is not None:
             self.card_count = m.get('CardCount')
         if m.get('CreateTime') is not None:
@@ -991,6 +1901,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             self.data_package_type = m.get('DataPackageType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('Features') is not None:
+            self.features = m.get('Features')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         self.net_links = []
@@ -1012,12 +1924,14 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
 
 
 class GetWirelessCloudConnectorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetWirelessCloudConnectorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1030,6 +1944,8 @@ class GetWirelessCloudConnectorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1038,6 +1954,8 @@ class GetWirelessCloudConnectorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetWirelessCloudConnectorResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1045,17 +1963,19 @@ class GetWirelessCloudConnectorResponse(TeaModel):
 
 
 class ListAuthorizationRulesRequest(TeaModel):
-    def __init__(self, authorization_rule_ids=None, destination=None, destination_type=None, dns=None,
-                 max_results=None, names=None, next_token=None, policy=None, statuses=None, type=None,
-                 wireless_cloud_connector_id=None):
+    def __init__(self, authorization_rule_ids=None, destination=None, destination_port=None, destination_type=None,
+                 dns=None, max_results=None, names=None, next_token=None, policy=None, protocol=None, statuses=None,
+                 type=None, wireless_cloud_connector_id=None):
         self.authorization_rule_ids = authorization_rule_ids  # type: list[str]
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dns = dns  # type: bool
         self.max_results = max_results  # type: long
         self.names = names  # type: list[str]
         self.next_token = next_token  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.statuses = statuses  # type: list[str]
         self.type = type  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
@@ -1073,6 +1993,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             result['AuthorizationRuleIds'] = self.authorization_rule_ids
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dns is not None:
@@ -1085,6 +2007,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.statuses is not None:
             result['Statuses'] = self.statuses
         if self.type is not None:
@@ -1099,6 +2023,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             self.authorization_rule_ids = m.get('AuthorizationRuleIds')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('Dns') is not None:
@@ -1111,6 +2037,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('Statuses') is not None:
             self.statuses = m.get('Statuses')
         if m.get('Type') is not None:
@@ -1122,19 +2050,19 @@ class ListAuthorizationRulesRequest(TeaModel):
 
 class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
     def __init__(self, authorization_rule_id=None, create_time=None, description=None, destination=None,
-                 destination_type=None, dns=None, name=None, policy=None, source_cidr=None, status=None, type=None):
-        # 资源一级ID
+                 destination_port=None, destination_type=None, dns=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 status=None, type=None):
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
-        self.dns = dns  # type: str
-        # 创建时间
+        self.dns = dns  # type: bool
         self.name = name  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.source_cidr = source_cidr  # type: str
-        # 资源名称
         self.status = status  # type: str
         self.type = type  # type: str
 
@@ -1155,6 +2083,8 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             result['Description'] = self.description
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dns is not None:
@@ -1163,6 +2093,8 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             result['Name'] = self.name
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.source_cidr is not None:
             result['SourceCidr'] = self.source_cidr
         if self.status is not None:
@@ -1181,6 +2113,8 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             self.description = m.get('Description')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('Dns') is not None:
@@ -1189,6 +2123,8 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             self.name = m.get('Name')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('SourceCidr') is not None:
             self.source_cidr = m.get('SourceCidr')
         if m.get('Status') is not None:
@@ -1201,11 +2137,9 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
 class ListAuthorizationRulesResponseBody(TeaModel):
     def __init__(self, authorization_rules=None, max_results=None, next_token=None, request_id=None,
                  total_count=None):
-        # 数组，返回示例目录。
         self.authorization_rules = authorization_rules  # type: list[ListAuthorizationRulesResponseBodyAuthorizationRules]
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -1254,12 +2188,14 @@ class ListAuthorizationRulesResponseBody(TeaModel):
 
 
 class ListAuthorizationRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListAuthorizationRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1272,6 +2208,8 @@ class ListAuthorizationRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1280,17 +2218,274 @@ class ListAuthorizationRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAuthorizationRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class ListBatchOperateCardsTasksRequest(TeaModel):
+    def __init__(self, batch_operate_cards_task_ids=None, max_results=None, names=None, next_token=None,
+                 region_id=None, statuses=None):
+        self.batch_operate_cards_task_ids = batch_operate_cards_task_ids  # type: list[str]
+        self.max_results = max_results  # type: long
+        self.names = names  # type: list[str]
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.statuses = statuses  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBatchOperateCardsTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_operate_cards_task_ids is not None:
+            result['BatchOperateCardsTaskIds'] = self.batch_operate_cards_task_ids
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.names is not None:
+            result['Names'] = self.names
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.statuses is not None:
+            result['Statuses'] = self.statuses
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchOperateCardsTaskIds') is not None:
+            self.batch_operate_cards_task_ids = m.get('BatchOperateCardsTaskIds')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('Names') is not None:
+            self.names = m.get('Names')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Statuses') is not None:
+            self.statuses = m.get('Statuses')
+        return self
+
+
+class ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasksWirelessCloudConnectors(TeaModel):
+    def __init__(self, status=None, wireless_cloud_connector_id=None):
+        self.status = status  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasksWirelessCloudConnectors, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasks(TeaModel):
+    def __init__(self, batch_operate_cards_task_id=None, create_time=None, description=None, effect_type=None,
+                 iccids_oss_file_path=None, name=None, operate_result_oss_file_path=None, operate_type=None, status=None, threshold=None,
+                 wireless_cloud_connectors=None):
+        self.batch_operate_cards_task_id = batch_operate_cards_task_id  # type: str
+        self.create_time = create_time  # type: str
+        self.description = description  # type: str
+        self.effect_type = effect_type  # type: str
+        self.iccids_oss_file_path = iccids_oss_file_path  # type: str
+        self.name = name  # type: str
+        self.operate_result_oss_file_path = operate_result_oss_file_path  # type: str
+        self.operate_type = operate_type  # type: str
+        self.status = status  # type: str
+        self.threshold = threshold  # type: str
+        self.wireless_cloud_connectors = wireless_cloud_connectors  # type: list[ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasksWirelessCloudConnectors]
+
+    def validate(self):
+        if self.wireless_cloud_connectors:
+            for k in self.wireless_cloud_connectors:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_operate_cards_task_id is not None:
+            result['BatchOperateCardsTaskId'] = self.batch_operate_cards_task_id
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.effect_type is not None:
+            result['EffectType'] = self.effect_type
+        if self.iccids_oss_file_path is not None:
+            result['IccidsOssFilePath'] = self.iccids_oss_file_path
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.operate_result_oss_file_path is not None:
+            result['OperateResultOssFilePath'] = self.operate_result_oss_file_path
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        result['WirelessCloudConnectors'] = []
+        if self.wireless_cloud_connectors is not None:
+            for k in self.wireless_cloud_connectors:
+                result['WirelessCloudConnectors'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchOperateCardsTaskId') is not None:
+            self.batch_operate_cards_task_id = m.get('BatchOperateCardsTaskId')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EffectType') is not None:
+            self.effect_type = m.get('EffectType')
+        if m.get('IccidsOssFilePath') is not None:
+            self.iccids_oss_file_path = m.get('IccidsOssFilePath')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OperateResultOssFilePath') is not None:
+            self.operate_result_oss_file_path = m.get('OperateResultOssFilePath')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        self.wireless_cloud_connectors = []
+        if m.get('WirelessCloudConnectors') is not None:
+            for k in m.get('WirelessCloudConnectors'):
+                temp_model = ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasksWirelessCloudConnectors()
+                self.wireless_cloud_connectors.append(temp_model.from_map(k))
+        return self
+
+
+class ListBatchOperateCardsTasksResponseBody(TeaModel):
+    def __init__(self, batch_operate_cards_tasks=None, max_results=None, next_token=None, request_id=None,
+                 total_count=None):
+        self.batch_operate_cards_tasks = batch_operate_cards_tasks  # type: list[ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasks]
+        self.max_results = max_results  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: str
+
+    def validate(self):
+        if self.batch_operate_cards_tasks:
+            for k in self.batch_operate_cards_tasks:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBatchOperateCardsTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BatchOperateCardsTasks'] = []
+        if self.batch_operate_cards_tasks is not None:
+            for k in self.batch_operate_cards_tasks:
+                result['BatchOperateCardsTasks'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.batch_operate_cards_tasks = []
+        if m.get('BatchOperateCardsTasks') is not None:
+            for k in m.get('BatchOperateCardsTasks'):
+                temp_model = ListBatchOperateCardsTasksResponseBodyBatchOperateCardsTasks()
+                self.batch_operate_cards_tasks.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListBatchOperateCardsTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListBatchOperateCardsTasksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListBatchOperateCardsTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListBatchOperateCardsTasksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCardsRequest(TeaModel):
-    def __init__(self, apn=None, destination_type=None, iccids=None, ip_address=None, lock=None, max_results=None,
-                 net_link_id=None, next_token=None, online=None, statuses=None, vpc_id=None, wireless_cloud_connector_id=None):
+    def __init__(self, apn=None, iccid=None, iccids=None, ip_address=None, lock=None, max_results=None,
+                 net_link_id=None, next_token=None, online=None, statuses=None, wireless_cloud_connector_id=None):
         self.apn = apn  # type: str
-        self.destination_type = destination_type  # type: str
+        self.iccid = iccid  # type: str
         self.iccids = iccids  # type: list[str]
         self.ip_address = ip_address  # type: str
         self.lock = lock  # type: bool
@@ -1299,7 +2494,6 @@ class ListCardsRequest(TeaModel):
         self.next_token = next_token  # type: str
         self.online = online  # type: bool
         self.statuses = statuses  # type: list[str]
-        self.vpc_id = vpc_id  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
     def validate(self):
@@ -1313,8 +2507,8 @@ class ListCardsRequest(TeaModel):
         result = dict()
         if self.apn is not None:
             result['Apn'] = self.apn
-        if self.destination_type is not None:
-            result['DestinationType'] = self.destination_type
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
         if self.iccids is not None:
             result['Iccids'] = self.iccids
         if self.ip_address is not None:
@@ -1331,8 +2525,6 @@ class ListCardsRequest(TeaModel):
             result['Online'] = self.online
         if self.statuses is not None:
             result['Statuses'] = self.statuses
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
         if self.wireless_cloud_connector_id is not None:
             result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
         return result
@@ -1341,8 +2533,8 @@ class ListCardsRequest(TeaModel):
         m = m or dict()
         if m.get('Apn') is not None:
             self.apn = m.get('Apn')
-        if m.get('DestinationType') is not None:
-            self.destination_type = m.get('DestinationType')
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
         if m.get('Iccids') is not None:
             self.iccids = m.get('Iccids')
         if m.get('IpAddress') is not None:
@@ -1359,35 +2551,33 @@ class ListCardsRequest(TeaModel):
             self.online = m.get('Online')
         if m.get('Statuses') is not None:
             self.statuses = m.get('Statuses')
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
         if m.get('WirelessCloudConnectorId') is not None:
             self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
         return self
 
 
 class ListCardsResponseBodyCards(TeaModel):
-    def __init__(self, apn=None, activated_time=None, description=None, isp=None, iccid=None, imei=None, imsi=None,
-                 ip_address=None, lock=None, name=None, net_type=None, order_id=None, spec=None, status=None,
-                 usage_data_month=None):
-        # 创建时间
+    def __init__(self, apn=None, activated_time=None, business_status=None, description=None, isp=None, iccid=None,
+                 imei=None, imsi=None, ip_address=None, lock=None, msisdn=None, name=None, net_type=None, order_id=None,
+                 spec=None, status=None, usage_data_month=None, usage_data_total=None):
         self.apn = apn  # type: str
         self.activated_time = activated_time  # type: str
+        self.business_status = business_status  # type: str
         self.description = description  # type: str
         self.isp = isp  # type: str
-        # 资源一级ID
         self.iccid = iccid  # type: str
         self.imei = imei  # type: str
         self.imsi = imsi  # type: str
         self.ip_address = ip_address  # type: str
         self.lock = lock  # type: bool
+        self.msisdn = msisdn  # type: str
         self.name = name  # type: str
-        # 资源名称
         self.net_type = net_type  # type: str
         self.order_id = order_id  # type: str
         self.spec = spec  # type: str
         self.status = status  # type: str
         self.usage_data_month = usage_data_month  # type: long
+        self.usage_data_total = usage_data_total  # type: str
 
     def validate(self):
         pass
@@ -1402,6 +2592,8 @@ class ListCardsResponseBodyCards(TeaModel):
             result['APN'] = self.apn
         if self.activated_time is not None:
             result['ActivatedTime'] = self.activated_time
+        if self.business_status is not None:
+            result['BusinessStatus'] = self.business_status
         if self.description is not None:
             result['Description'] = self.description
         if self.isp is not None:
@@ -1416,6 +2608,8 @@ class ListCardsResponseBodyCards(TeaModel):
             result['IpAddress'] = self.ip_address
         if self.lock is not None:
             result['Lock'] = self.lock
+        if self.msisdn is not None:
+            result['Msisdn'] = self.msisdn
         if self.name is not None:
             result['Name'] = self.name
         if self.net_type is not None:
@@ -1428,6 +2622,8 @@ class ListCardsResponseBodyCards(TeaModel):
             result['Status'] = self.status
         if self.usage_data_month is not None:
             result['UsageDataMonth'] = self.usage_data_month
+        if self.usage_data_total is not None:
+            result['UsageDataTotal'] = self.usage_data_total
         return result
 
     def from_map(self, m=None):
@@ -1436,6 +2632,8 @@ class ListCardsResponseBodyCards(TeaModel):
             self.apn = m.get('APN')
         if m.get('ActivatedTime') is not None:
             self.activated_time = m.get('ActivatedTime')
+        if m.get('BusinessStatus') is not None:
+            self.business_status = m.get('BusinessStatus')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('ISP') is not None:
@@ -1450,6 +2648,8 @@ class ListCardsResponseBodyCards(TeaModel):
             self.ip_address = m.get('IpAddress')
         if m.get('Lock') is not None:
             self.lock = m.get('Lock')
+        if m.get('Msisdn') is not None:
+            self.msisdn = m.get('Msisdn')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('NetType') is not None:
@@ -1462,16 +2662,16 @@ class ListCardsResponseBodyCards(TeaModel):
             self.status = m.get('Status')
         if m.get('UsageDataMonth') is not None:
             self.usage_data_month = m.get('UsageDataMonth')
+        if m.get('UsageDataTotal') is not None:
+            self.usage_data_total = m.get('UsageDataTotal')
         return self
 
 
 class ListCardsResponseBody(TeaModel):
     def __init__(self, cards=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # 数组，返回示例目录。
         self.cards = cards  # type: list[ListCardsResponseBodyCards]
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -1520,12 +2720,14 @@ class ListCardsResponseBody(TeaModel):
 
 
 class ListCardsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListCardsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1538,6 +2740,8 @@ class ListCardsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1546,6 +2750,8 @@ class ListCardsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCardsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1610,10 +2816,8 @@ class ListDataPackagesResponseBodyDataPackages(TeaModel):
         self.data_package_id = data_package_id  # type: str
         self.expired_time = expired_time  # type: str
         self.isp = isp  # type: str
-        # 创建时间
         self.name = name  # type: str
         self.size = size  # type: str
-        # 资源名称
         self.status = status  # type: str
 
     def validate(self):
@@ -1666,11 +2870,9 @@ class ListDataPackagesResponseBodyDataPackages(TeaModel):
 
 class ListDataPackagesResponseBody(TeaModel):
     def __init__(self, data_packages=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # 数组，返回示例目录。
         self.data_packages = data_packages  # type: list[ListDataPackagesResponseBodyDataPackages]
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -1719,12 +2921,14 @@ class ListDataPackagesResponseBody(TeaModel):
 
 
 class ListDataPackagesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListDataPackagesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1737,6 +2941,8 @@ class ListDataPackagesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1745,8 +2951,170 @@ class ListDataPackagesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListDataPackagesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListIoTCloudConnectorBackhaulRouteRequest(TeaModel):
+    def __init__(self, net_link_id=None, region_id=None, wireless_cloud_connector_id=None):
+        self.net_link_id = net_link_id  # type: str
+        self.region_id = region_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorBackhaulRouteRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListIoTCloudConnectorBackhaulRouteResponseBodyRoutes(TeaModel):
+    def __init__(self, description=None, destination_cidr_block=None, next_hop_id=None, next_hop_type=None,
+                 status=None):
+        self.description = description  # type: str
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        self.next_hop_id = next_hop_id  # type: str
+        self.next_hop_type = next_hop_type  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorBackhaulRouteResponseBodyRoutes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination_cidr_block is not None:
+            result['DestinationCidrBlock'] = self.destination_cidr_block
+        if self.next_hop_id is not None:
+            result['NextHopId'] = self.next_hop_id
+        if self.next_hop_type is not None:
+            result['NextHopType'] = self.next_hop_type
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DestinationCidrBlock') is not None:
+            self.destination_cidr_block = m.get('DestinationCidrBlock')
+        if m.get('NextHopId') is not None:
+            self.next_hop_id = m.get('NextHopId')
+        if m.get('NextHopType') is not None:
+            self.next_hop_type = m.get('NextHopType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListIoTCloudConnectorBackhaulRouteResponseBody(TeaModel):
+    def __init__(self, net_link_id=None, request_id=None, routes=None):
+        self.net_link_id = net_link_id  # type: str
+        self.request_id = request_id  # type: str
+        self.routes = routes  # type: list[ListIoTCloudConnectorBackhaulRouteResponseBodyRoutes]
+
+    def validate(self):
+        if self.routes:
+            for k in self.routes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorBackhaulRouteResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Routes'] = []
+        if self.routes is not None:
+            for k in self.routes:
+                result['Routes'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.routes = []
+        if m.get('Routes') is not None:
+            for k in m.get('Routes'):
+                temp_model = ListIoTCloudConnectorBackhaulRouteResponseBodyRoutes()
+                self.routes.append(temp_model.from_map(k))
+        return self
+
+
+class ListIoTCloudConnectorBackhaulRouteResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListIoTCloudConnectorBackhaulRouteResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorBackhaulRouteResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListIoTCloudConnectorBackhaulRouteResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1806,7 +3174,6 @@ class ListOrdersResponseBodyOrders(TeaModel):
                  contact_phone=None, create_time=None, description=None, logistics_id=None, logistics_status=None,
                  logistics_type=None, logistics_update_time=None, order_id=None, pay_time=None, post_address=None, region_id=None,
                  status=None):
-        # 创建时间
         self.action = action  # type: str
         self.card_count = card_count  # type: str
         self.card_net_type = card_net_type  # type: str
@@ -1823,7 +3190,6 @@ class ListOrdersResponseBodyOrders(TeaModel):
         self.pay_time = pay_time  # type: str
         self.post_address = post_address  # type: str
         self.region_id = region_id  # type: str
-        # 资源名称
         self.status = status  # type: str
 
     def validate(self):
@@ -1914,9 +3280,7 @@ class ListOrdersResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, orders=None, request_id=None, total_count=None):
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # 数组，返回示例目录。
         self.orders = orders  # type: list[ListOrdersResponseBodyOrders]
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -1965,12 +3329,14 @@ class ListOrdersResponseBody(TeaModel):
 
 
 class ListOrdersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListOrdersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1983,6 +3349,8 @@ class ListOrdersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1991,6 +3359,8 @@ class ListOrdersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListOrdersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2028,11 +3398,8 @@ class ListRegionsRequest(TeaModel):
 
 class ListRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
-        # 资源名称
         self.local_name = local_name  # type: str
-        # 创建时间
         self.region_endpoint = region_endpoint  # type: str
-        # 资源一级ID
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2065,9 +3432,7 @@ class ListRegionsResponseBodyRegions(TeaModel):
 
 class ListRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
-        # 数组，返回示例目录。
         self.regions = regions  # type: list[ListRegionsResponseBodyRegions]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2103,12 +3468,14 @@ class ListRegionsResponseBody(TeaModel):
 
 
 class ListRegionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListRegionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2121,6 +3488,8 @@ class ListRegionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2129,6 +3498,8 @@ class ListRegionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListRegionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2136,8 +3507,9 @@ class ListRegionsResponse(TeaModel):
 
 
 class ListWirelessCloudConnectorsRequest(TeaModel):
-    def __init__(self, max_results=None, names=None, next_token=None, region_id=None, statuses=None,
-                 wireless_cloud_connector_ids=None):
+    def __init__(self, business_type=None, max_results=None, names=None, next_token=None, region_id=None,
+                 statuses=None, wireless_cloud_connector_ids=None):
+        self.business_type = business_type  # type: str
         self.max_results = max_results  # type: long
         self.names = names  # type: list[str]
         self.next_token = next_token  # type: str
@@ -2154,6 +3526,8 @@ class ListWirelessCloudConnectorsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.names is not None:
@@ -2170,6 +3544,8 @@ class ListWirelessCloudConnectorsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('Names') is not None:
@@ -2186,20 +3562,19 @@ class ListWirelessCloudConnectorsRequest(TeaModel):
 
 
 class ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors(TeaModel):
-    def __init__(self, card_count=None, create_time=None, data_package_id=None, data_package_type=None,
-                 description=None, name=None, region_id=None, status=None, use_case=None, wireless_cloud_connector_id=None):
+    def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
+                 data_package_type=None, description=None, name=None, region_id=None, status=None, use_case=None,
+                 wireless_cloud_connector_id=None):
+        self.business_type = business_type  # type: str
         self.card_count = card_count  # type: str
         self.create_time = create_time  # type: str
         self.data_package_id = data_package_id  # type: str
         self.data_package_type = data_package_type  # type: str
         self.description = description  # type: str
-        # 创建时间
         self.name = name  # type: str
         self.region_id = region_id  # type: str
-        # 资源名称
         self.status = status  # type: str
         self.use_case = use_case  # type: str
-        # 资源一级ID
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
     def validate(self):
@@ -2211,6 +3586,8 @@ class ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors(TeaModel):
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.card_count is not None:
             result['CardCount'] = self.card_count
         if self.create_time is not None:
@@ -2235,6 +3612,8 @@ class ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('CardCount') is not None:
             self.card_count = m.get('CardCount')
         if m.get('CreateTime') is not None:
@@ -2263,10 +3642,8 @@ class ListWirelessCloudConnectorsResponseBody(TeaModel):
                  wireless_cloud_connectors=None):
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
-        # 数组，返回示例目录。
         self.wireless_cloud_connectors = wireless_cloud_connectors  # type: list[ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors]
 
     def validate(self):
@@ -2314,12 +3691,14 @@ class ListWirelessCloudConnectorsResponseBody(TeaModel):
 
 
 class ListWirelessCloudConnectorsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListWirelessCloudConnectorsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2332,6 +3711,8 @@ class ListWirelessCloudConnectorsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2340,6 +3721,8 @@ class ListWirelessCloudConnectorsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListWirelessCloudConnectorsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2372,9 +3755,7 @@ class ListZonesRequest(TeaModel):
 
 class ListZonesResponseBodyZones(TeaModel):
     def __init__(self, local_name=None, zone_id=None):
-        # 创建时间
         self.local_name = local_name  # type: str
-        # 资源名称
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -2403,9 +3784,7 @@ class ListZonesResponseBodyZones(TeaModel):
 
 class ListZonesResponseBody(TeaModel):
     def __init__(self, request_id=None, zones=None):
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 数组，返回示例目录。
         self.zones = zones  # type: list[ListZonesResponseBodyZones]
 
     def validate(self):
@@ -2441,12 +3820,14 @@ class ListZonesResponseBody(TeaModel):
 
 
 class ListZonesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListZonesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2459,6 +3840,8 @@ class ListZonesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2467,8 +3850,220 @@ class ListZonesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListZonesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class LockCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LockCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class LockCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LockCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class LockCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: LockCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(LockCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = LockCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyWirelessCloudConnectorFeatureRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, feature_name=None, feature_value=None,
+                 wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.feature_name = feature_name  # type: str
+        self.feature_value = feature_value  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyWirelessCloudConnectorFeatureRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_value is not None:
+            result['FeatureValue'] = self.feature_value
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureValue') is not None:
+            self.feature_value = m.get('FeatureValue')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ModifyWirelessCloudConnectorFeatureResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyWirelessCloudConnectorFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyWirelessCloudConnectorFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyWirelessCloudConnectorFeatureResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyWirelessCloudConnectorFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyWirelessCloudConnectorFeatureResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2499,7 +4094,6 @@ class OpenCc5gServiceRequest(TeaModel):
 
 class OpenCc5gServiceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2523,12 +4117,14 @@ class OpenCc5gServiceResponseBody(TeaModel):
 
 
 class OpenCc5gServiceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: OpenCc5gServiceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2541,6 +4137,8 @@ class OpenCc5gServiceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2549,22 +4147,430 @@ class OpenCc5gServiceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = OpenCc5gServiceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class ResumeCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ResumeCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ResumeCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResumeCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResumeCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResumeCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StopCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StopCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StopCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StopCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SwitchWirelessCloudConnectorToBusinessRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SwitchWirelessCloudConnectorToBusinessRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class SwitchWirelessCloudConnectorToBusinessResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SwitchWirelessCloudConnectorToBusinessResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SwitchWirelessCloudConnectorToBusinessResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SwitchWirelessCloudConnectorToBusinessResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SwitchWirelessCloudConnectorToBusinessResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SwitchWirelessCloudConnectorToBusinessResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UnlockCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnlockCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UnlockCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnlockCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnlockCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UnlockCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnlockCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UnlockCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_id=None, client_token=None, description=None, destination=None,
-                 dry_run=None, name=None, policy=None, source_cidr=None, wireless_cloud_connector_id=None):
+                 destination_port=None, dry_run=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 wireless_cloud_connector_id=None):
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.client_token = client_token  # type: str
         self.description = description  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.dry_run = dry_run  # type: bool
         self.name = name  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.source_cidr = source_cidr  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
@@ -2585,12 +4591,16 @@ class UpdateAuthorizationRuleRequest(TeaModel):
             result['Description'] = self.description
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
         if self.name is not None:
             result['Name'] = self.name
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.source_cidr is not None:
             result['SourceCidr'] = self.source_cidr
         if self.wireless_cloud_connector_id is not None:
@@ -2607,12 +4617,16 @@ class UpdateAuthorizationRuleRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('SourceCidr') is not None:
             self.source_cidr = m.get('SourceCidr')
         if m.get('WirelessCloudConnectorId') is not None:
@@ -2622,7 +4636,6 @@ class UpdateAuthorizationRuleRequest(TeaModel):
 
 class UpdateAuthorizationRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2646,12 +4659,14 @@ class UpdateAuthorizationRuleResponseBody(TeaModel):
 
 
 class UpdateAuthorizationRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateAuthorizationRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2664,6 +4679,8 @@ class UpdateAuthorizationRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2672,8 +4689,154 @@ class UpdateAuthorizationRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateBatchOperateCardsTaskRequest(TeaModel):
+    def __init__(self, batch_operate_cards_task_id=None, client_token=None, description=None, dry_run=None,
+                 effect_type=None, iccids=None, iccids_oss_file_path=None, name=None, operate_type=None, region_id=None,
+                 threshold=None, wireless_cloud_connector_ids=None):
+        self.batch_operate_cards_task_id = batch_operate_cards_task_id  # type: str
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.effect_type = effect_type  # type: str
+        self.iccids = iccids  # type: list[str]
+        self.iccids_oss_file_path = iccids_oss_file_path  # type: str
+        self.name = name  # type: str
+        self.operate_type = operate_type  # type: str
+        self.region_id = region_id  # type: str
+        self.threshold = threshold  # type: long
+        self.wireless_cloud_connector_ids = wireless_cloud_connector_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateBatchOperateCardsTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_operate_cards_task_id is not None:
+            result['BatchOperateCardsTaskId'] = self.batch_operate_cards_task_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.effect_type is not None:
+            result['EffectType'] = self.effect_type
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.iccids_oss_file_path is not None:
+            result['IccidsOssFilePath'] = self.iccids_oss_file_path
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        if self.wireless_cloud_connector_ids is not None:
+            result['WirelessCloudConnectorIds'] = self.wireless_cloud_connector_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchOperateCardsTaskId') is not None:
+            self.batch_operate_cards_task_id = m.get('BatchOperateCardsTaskId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EffectType') is not None:
+            self.effect_type = m.get('EffectType')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('IccidsOssFilePath') is not None:
+            self.iccids_oss_file_path = m.get('IccidsOssFilePath')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        if m.get('WirelessCloudConnectorIds') is not None:
+            self.wireless_cloud_connector_ids = m.get('WirelessCloudConnectorIds')
+        return self
+
+
+class UpdateBatchOperateCardsTaskResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateBatchOperateCardsTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateBatchOperateCardsTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateBatchOperateCardsTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateBatchOperateCardsTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateBatchOperateCardsTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2730,7 +4893,6 @@ class UpdateCardRequest(TeaModel):
 
 class UpdateCardResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2754,12 +4916,14 @@ class UpdateCardResponseBody(TeaModel):
 
 
 class UpdateCardResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateCardResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2772,6 +4936,8 @@ class UpdateCardResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2780,6 +4946,8 @@ class UpdateCardResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateCardResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2848,7 +5016,6 @@ class UpdateDNSAuthorizationRuleRequest(TeaModel):
 
 class UpdateDNSAuthorizationRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2872,12 +5039,14 @@ class UpdateDNSAuthorizationRuleResponseBody(TeaModel):
 
 
 class UpdateDNSAuthorizationRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateDNSAuthorizationRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2890,6 +5059,8 @@ class UpdateDNSAuthorizationRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2898,6 +5069,8 @@ class UpdateDNSAuthorizationRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateDNSAuthorizationRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2951,7 +5124,6 @@ class UpdateWirelessCloudConnectorRequest(TeaModel):
 
 class UpdateWirelessCloudConnectorResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2975,12 +5147,14 @@ class UpdateWirelessCloudConnectorResponseBody(TeaModel):
 
 
 class UpdateWirelessCloudConnectorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateWirelessCloudConnectorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2993,6 +5167,8 @@ class UpdateWirelessCloudConnectorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3001,6 +5177,8 @@ class UpdateWirelessCloudConnectorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateWirelessCloudConnectorResponseBody()
             self.body = temp_model.from_map(m['body'])
