@@ -578,16 +578,19 @@ class GetResourceTypeResponseBodyResourceTypeInfo(TeaModel):
 
 class GetResourceTypeResponseBodyResourceType(TeaModel):
     def __init__(self, create_only_properties=None, delete_only_properties=None, filter_properties=None,
-                 get_only_properties=None, handlers=None, info=None, list_only_properties=None, primary_identifier=None, product=None,
-                 properties=None, public_properties=None, read_only_properties=None, required=None, resource_type=None,
-                 resource_type_version=None, sensitive_info_properties=None, update_only_properties=None, update_type_properties=None):
+                 get_only_properties=None, get_response_properties=None, handlers=None, info=None, list_only_properties=None,
+                 list_response_properties=None, primary_identifier=None, product=None, properties=None, public_properties=None,
+                 read_only_properties=None, required=None, resource_type=None, resource_type_version=None,
+                 sensitive_info_properties=None, update_only_properties=None, update_type_properties=None):
         self.create_only_properties = create_only_properties  # type: list[str]
         self.delete_only_properties = delete_only_properties  # type: list[str]
         self.filter_properties = filter_properties  # type: list[str]
         self.get_only_properties = get_only_properties  # type: list[str]
+        self.get_response_properties = get_response_properties  # type: list[str]
         self.handlers = handlers  # type: GetResourceTypeResponseBodyResourceTypeHandlers
         self.info = info  # type: GetResourceTypeResponseBodyResourceTypeInfo
         self.list_only_properties = list_only_properties  # type: list[str]
+        self.list_response_properties = list_response_properties  # type: list[str]
         self.primary_identifier = primary_identifier  # type: str
         self.product = product  # type: str
         self.properties = properties  # type: dict[str, any]
@@ -620,12 +623,16 @@ class GetResourceTypeResponseBodyResourceType(TeaModel):
             result['filterProperties'] = self.filter_properties
         if self.get_only_properties is not None:
             result['getOnlyProperties'] = self.get_only_properties
+        if self.get_response_properties is not None:
+            result['getResponseProperties'] = self.get_response_properties
         if self.handlers is not None:
             result['handlers'] = self.handlers.to_map()
         if self.info is not None:
             result['info'] = self.info.to_map()
         if self.list_only_properties is not None:
             result['listOnlyProperties'] = self.list_only_properties
+        if self.list_response_properties is not None:
+            result['listResponseProperties'] = self.list_response_properties
         if self.primary_identifier is not None:
             result['primaryIdentifier'] = self.primary_identifier
         if self.product is not None:
@@ -660,6 +667,8 @@ class GetResourceTypeResponseBodyResourceType(TeaModel):
             self.filter_properties = m.get('filterProperties')
         if m.get('getOnlyProperties') is not None:
             self.get_only_properties = m.get('getOnlyProperties')
+        if m.get('getResponseProperties') is not None:
+            self.get_response_properties = m.get('getResponseProperties')
         if m.get('handlers') is not None:
             temp_model = GetResourceTypeResponseBodyResourceTypeHandlers()
             self.handlers = temp_model.from_map(m['handlers'])
@@ -668,6 +677,8 @@ class GetResourceTypeResponseBodyResourceType(TeaModel):
             self.info = temp_model.from_map(m['info'])
         if m.get('listOnlyProperties') is not None:
             self.list_only_properties = m.get('listOnlyProperties')
+        if m.get('listResponseProperties') is not None:
+            self.list_response_properties = m.get('listResponseProperties')
         if m.get('primaryIdentifier') is not None:
             self.primary_identifier = m.get('primaryIdentifier')
         if m.get('product') is not None:
@@ -1513,16 +1524,19 @@ class ListResourceTypesResponseBodyResourceTypesInfo(TeaModel):
 
 class ListResourceTypesResponseBodyResourceTypes(TeaModel):
     def __init__(self, create_only_properties=None, delete_only_properties=None, filter_properties=None,
-                 get_only_properties=None, handlers=None, info=None, list_only_properties=None, primary_identifier=None, product=None,
-                 properties=None, public_properties=None, read_only_properties=None, required=None, resource_type=None,
-                 resource_type_version=None, sensitive_info_properties=None, update_only_properties=None, update_type_properties=None):
+                 get_only_properties=None, get_response_properties=None, handlers=None, info=None, list_only_properties=None,
+                 list_response_properties=None, primary_identifier=None, product=None, properties=None, public_properties=None,
+                 read_only_properties=None, required=None, resource_type=None, resource_type_version=None,
+                 sensitive_info_properties=None, update_only_properties=None, update_type_properties=None):
         self.create_only_properties = create_only_properties  # type: list[str]
         self.delete_only_properties = delete_only_properties  # type: list[str]
         self.filter_properties = filter_properties  # type: list[str]
         self.get_only_properties = get_only_properties  # type: list[str]
+        self.get_response_properties = get_response_properties  # type: list[str]
         self.handlers = handlers  # type: ListResourceTypesResponseBodyResourceTypesHandlers
         self.info = info  # type: ListResourceTypesResponseBodyResourceTypesInfo
         self.list_only_properties = list_only_properties  # type: list[str]
+        self.list_response_properties = list_response_properties  # type: list[str]
         self.primary_identifier = primary_identifier  # type: str
         self.product = product  # type: str
         self.properties = properties  # type: dict[str, any]
@@ -1555,12 +1569,16 @@ class ListResourceTypesResponseBodyResourceTypes(TeaModel):
             result['filterProperties'] = self.filter_properties
         if self.get_only_properties is not None:
             result['getOnlyProperties'] = self.get_only_properties
+        if self.get_response_properties is not None:
+            result['getResponseProperties'] = self.get_response_properties
         if self.handlers is not None:
             result['handlers'] = self.handlers.to_map()
         if self.info is not None:
             result['info'] = self.info.to_map()
         if self.list_only_properties is not None:
             result['listOnlyProperties'] = self.list_only_properties
+        if self.list_response_properties is not None:
+            result['listResponseProperties'] = self.list_response_properties
         if self.primary_identifier is not None:
             result['primaryIdentifier'] = self.primary_identifier
         if self.product is not None:
@@ -1595,6 +1613,8 @@ class ListResourceTypesResponseBodyResourceTypes(TeaModel):
             self.filter_properties = m.get('filterProperties')
         if m.get('getOnlyProperties') is not None:
             self.get_only_properties = m.get('getOnlyProperties')
+        if m.get('getResponseProperties') is not None:
+            self.get_response_properties = m.get('getResponseProperties')
         if m.get('handlers') is not None:
             temp_model = ListResourceTypesResponseBodyResourceTypesHandlers()
             self.handlers = temp_model.from_map(m['handlers'])
@@ -1603,6 +1623,8 @@ class ListResourceTypesResponseBodyResourceTypes(TeaModel):
             self.info = temp_model.from_map(m['info'])
         if m.get('listOnlyProperties') is not None:
             self.list_only_properties = m.get('listOnlyProperties')
+        if m.get('listResponseProperties') is not None:
+            self.list_response_properties = m.get('listResponseProperties')
         if m.get('primaryIdentifier') is not None:
             self.primary_identifier = m.get('primaryIdentifier')
         if m.get('product') is not None:
