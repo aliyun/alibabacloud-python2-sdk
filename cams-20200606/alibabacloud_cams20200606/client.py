@@ -216,6 +216,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_chatapp_template_with_options(request, runtime)
 
+    def send_chatapp_mass_message_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.SendChatappMassMessageShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.sender_list):
+            request.sender_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sender_list, 'SenderList', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.channel_type):
+            body['ChannelType'] = request.channel_type
+        if not UtilClient.is_unset(request.cust_waba_id):
+            body['CustWabaId'] = request.cust_waba_id
+        if not UtilClient.is_unset(request.fall_back_content):
+            body['FallBackContent'] = request.fall_back_content
+        if not UtilClient.is_unset(request.fall_back_id):
+            body['FallBackId'] = request.fall_back_id
+        if not UtilClient.is_unset(request.from_):
+            body['From'] = request.from_
+        if not UtilClient.is_unset(request.language):
+            body['Language'] = request.language
+        if not UtilClient.is_unset(request.sender_list_shrink):
+            body['SenderList'] = request.sender_list_shrink
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SendChatappMassMessage',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.SendChatappMassMessageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def send_chatapp_mass_message(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_chatapp_mass_message_with_options(request, runtime)
+
     def send_chatapp_message_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = cams_20200606_models.SendChatappMessageShrinkRequest()
