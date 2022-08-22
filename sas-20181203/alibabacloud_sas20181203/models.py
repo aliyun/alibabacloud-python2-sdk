@@ -803,13 +803,46 @@ class CreateFileDetectResponse(TeaModel):
         return self
 
 
+class CreateFileDetectUploadUrlRequestHashKeyContextList(TeaModel):
+    def __init__(self, file_size=None, hash_key=None):
+        self.file_size = file_size  # type: int
+        self.hash_key = hash_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFileDetectUploadUrlRequestHashKeyContextList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_size is not None:
+            result['FileSize'] = self.file_size
+        if self.hash_key is not None:
+            result['HashKey'] = self.hash_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileSize') is not None:
+            self.file_size = m.get('FileSize')
+        if m.get('HashKey') is not None:
+            self.hash_key = m.get('HashKey')
+        return self
+
+
 class CreateFileDetectUploadUrlRequest(TeaModel):
-    def __init__(self, hash_key_list=None, type=None):
+    def __init__(self, hash_key_context_list=None, hash_key_list=None, type=None):
+        self.hash_key_context_list = hash_key_context_list  # type: list[CreateFileDetectUploadUrlRequestHashKeyContextList]
         self.hash_key_list = hash_key_list  # type: list[str]
         self.type = type  # type: int
 
     def validate(self):
-        pass
+        if self.hash_key_context_list:
+            for k in self.hash_key_context_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateFileDetectUploadUrlRequest, self).to_map()
@@ -817,6 +850,10 @@ class CreateFileDetectUploadUrlRequest(TeaModel):
             return _map
 
         result = dict()
+        result['HashKeyContextList'] = []
+        if self.hash_key_context_list is not None:
+            for k in self.hash_key_context_list:
+                result['HashKeyContextList'].append(k.to_map() if k else None)
         if self.hash_key_list is not None:
             result['HashKeyList'] = self.hash_key_list
         if self.type is not None:
@@ -825,6 +862,11 @@ class CreateFileDetectUploadUrlRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.hash_key_context_list = []
+        if m.get('HashKeyContextList') is not None:
+            for k in m.get('HashKeyContextList'):
+                temp_model = CreateFileDetectUploadUrlRequestHashKeyContextList()
+                self.hash_key_context_list.append(temp_model.from_map(k))
         if m.get('HashKeyList') is not None:
             self.hash_key_list = m.get('HashKeyList')
         if m.get('Type') is not None:
@@ -872,12 +914,15 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlListContext(TeaModel):
 
 
 class CreateFileDetectUploadUrlResponseBodyUploadUrlList(TeaModel):
-    def __init__(self, context=None, expire=None, file_exist=None, hash_key=None, internal_url=None, public_url=None):
+    def __init__(self, code=None, context=None, expire=None, file_exist=None, hash_key=None, internal_url=None,
+                 message=None, public_url=None):
+        self.code = code  # type: str
         self.context = context  # type: CreateFileDetectUploadUrlResponseBodyUploadUrlListContext
         self.expire = expire  # type: str
         self.file_exist = file_exist  # type: bool
         self.hash_key = hash_key  # type: str
         self.internal_url = internal_url  # type: str
+        self.message = message  # type: str
         self.public_url = public_url  # type: str
 
     def validate(self):
@@ -890,6 +935,8 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlList(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
         if self.context is not None:
             result['Context'] = self.context.to_map()
         if self.expire is not None:
@@ -900,12 +947,16 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlList(TeaModel):
             result['HashKey'] = self.hash_key
         if self.internal_url is not None:
             result['InternalUrl'] = self.internal_url
+        if self.message is not None:
+            result['Message'] = self.message
         if self.public_url is not None:
             result['PublicUrl'] = self.public_url
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('Context') is not None:
             temp_model = CreateFileDetectUploadUrlResponseBodyUploadUrlListContext()
             self.context = temp_model.from_map(m['Context'])
@@ -917,6 +968,8 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlList(TeaModel):
             self.hash_key = m.get('HashKey')
         if m.get('InternalUrl') is not None:
             self.internal_url = m.get('InternalUrl')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('PublicUrl') is not None:
             self.public_url = m.get('PublicUrl')
         return self
@@ -994,6 +1047,571 @@ class CreateFileDetectUploadUrlResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateFileDetectUploadUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateHoneypotRequest(TeaModel):
+    def __init__(self, honeypot_image_id=None, honeypot_image_name=None, honeypot_name=None, meta=None,
+                 node_id=None):
+        self.honeypot_image_id = honeypot_image_id  # type: str
+        self.honeypot_image_name = honeypot_image_name  # type: str
+        self.honeypot_name = honeypot_name  # type: str
+        self.meta = meta  # type: str
+        self.node_id = node_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.honeypot_image_id is not None:
+            result['HoneypotImageId'] = self.honeypot_image_id
+        if self.honeypot_image_name is not None:
+            result['HoneypotImageName'] = self.honeypot_image_name
+        if self.honeypot_name is not None:
+            result['HoneypotName'] = self.honeypot_name
+        if self.meta is not None:
+            result['Meta'] = self.meta
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HoneypotImageId') is not None:
+            self.honeypot_image_id = m.get('HoneypotImageId')
+        if m.get('HoneypotImageName') is not None:
+            self.honeypot_image_name = m.get('HoneypotImageName')
+        if m.get('HoneypotName') is not None:
+            self.honeypot_name = m.get('HoneypotName')
+        if m.get('Meta') is not None:
+            self.meta = m.get('Meta')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        return self
+
+
+class CreateHoneypotResponseBodyData(TeaModel):
+    def __init__(self, control_node_name=None, honeypot_id=None, honeypot_image_display_name=None,
+                 honeypot_image_name=None, honeypot_name=None, node_id=None, preset_id=None, state=None):
+        self.control_node_name = control_node_name  # type: str
+        self.honeypot_id = honeypot_id  # type: str
+        self.honeypot_image_display_name = honeypot_image_display_name  # type: str
+        self.honeypot_image_name = honeypot_image_name  # type: str
+        self.honeypot_name = honeypot_name  # type: str
+        self.node_id = node_id  # type: str
+        self.preset_id = preset_id  # type: str
+        self.state = state  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.control_node_name is not None:
+            result['ControlNodeName'] = self.control_node_name
+        if self.honeypot_id is not None:
+            result['HoneypotId'] = self.honeypot_id
+        if self.honeypot_image_display_name is not None:
+            result['HoneypotImageDisplayName'] = self.honeypot_image_display_name
+        if self.honeypot_image_name is not None:
+            result['HoneypotImageName'] = self.honeypot_image_name
+        if self.honeypot_name is not None:
+            result['HoneypotName'] = self.honeypot_name
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.preset_id is not None:
+            result['PresetId'] = self.preset_id
+        if self.state is not None:
+            result['State'] = self.state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ControlNodeName') is not None:
+            self.control_node_name = m.get('ControlNodeName')
+        if m.get('HoneypotId') is not None:
+            self.honeypot_id = m.get('HoneypotId')
+        if m.get('HoneypotImageDisplayName') is not None:
+            self.honeypot_image_display_name = m.get('HoneypotImageDisplayName')
+        if m.get('HoneypotImageName') is not None:
+            self.honeypot_image_name = m.get('HoneypotImageName')
+        if m.get('HoneypotName') is not None:
+            self.honeypot_name = m.get('HoneypotName')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('PresetId') is not None:
+            self.preset_id = m.get('PresetId')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        return self
+
+
+class CreateHoneypotResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateHoneypotResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateHoneypotResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateHoneypotResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateHoneypotResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateHoneypotResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateHoneypotNodeRequest(TeaModel):
+    def __init__(self, allow_honeypot_access_internet=None, available_probe_num=None, node_name=None,
+                 security_group_probe_ip_list=None):
+        self.allow_honeypot_access_internet = allow_honeypot_access_internet  # type: bool
+        self.available_probe_num = available_probe_num  # type: int
+        self.node_name = node_name  # type: str
+        self.security_group_probe_ip_list = security_group_probe_ip_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotNodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_honeypot_access_internet is not None:
+            result['AllowHoneypotAccessInternet'] = self.allow_honeypot_access_internet
+        if self.available_probe_num is not None:
+            result['AvailableProbeNum'] = self.available_probe_num
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.security_group_probe_ip_list is not None:
+            result['SecurityGroupProbeIpList'] = self.security_group_probe_ip_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowHoneypotAccessInternet') is not None:
+            self.allow_honeypot_access_internet = m.get('AllowHoneypotAccessInternet')
+        if m.get('AvailableProbeNum') is not None:
+            self.available_probe_num = m.get('AvailableProbeNum')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('SecurityGroupProbeIpList') is not None:
+            self.security_group_probe_ip_list = m.get('SecurityGroupProbeIpList')
+        return self
+
+
+class CreateHoneypotNodeResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotNodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateHoneypotNodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateHoneypotNodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotNodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateHoneypotNodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateHoneypotProbeRequestHoneypotBindListBindPortList(TeaModel):
+    def __init__(self, bind_port=None, end_port=None, fixed=None, start_port=None, target_port=None):
+        self.bind_port = bind_port  # type: bool
+        self.end_port = end_port  # type: int
+        self.fixed = fixed  # type: bool
+        self.start_port = start_port  # type: int
+        self.target_port = target_port  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotProbeRequestHoneypotBindListBindPortList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bind_port is not None:
+            result['BindPort'] = self.bind_port
+        if self.end_port is not None:
+            result['EndPort'] = self.end_port
+        if self.fixed is not None:
+            result['Fixed'] = self.fixed
+        if self.start_port is not None:
+            result['StartPort'] = self.start_port
+        if self.target_port is not None:
+            result['TargetPort'] = self.target_port
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BindPort') is not None:
+            self.bind_port = m.get('BindPort')
+        if m.get('EndPort') is not None:
+            self.end_port = m.get('EndPort')
+        if m.get('Fixed') is not None:
+            self.fixed = m.get('Fixed')
+        if m.get('StartPort') is not None:
+            self.start_port = m.get('StartPort')
+        if m.get('TargetPort') is not None:
+            self.target_port = m.get('TargetPort')
+        return self
+
+
+class CreateHoneypotProbeRequestHoneypotBindList(TeaModel):
+    def __init__(self, bind_port_list=None, honeypot_id=None):
+        self.bind_port_list = bind_port_list  # type: list[CreateHoneypotProbeRequestHoneypotBindListBindPortList]
+        self.honeypot_id = honeypot_id  # type: str
+
+    def validate(self):
+        if self.bind_port_list:
+            for k in self.bind_port_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotProbeRequestHoneypotBindList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BindPortList'] = []
+        if self.bind_port_list is not None:
+            for k in self.bind_port_list:
+                result['BindPortList'].append(k.to_map() if k else None)
+        if self.honeypot_id is not None:
+            result['HoneypotId'] = self.honeypot_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.bind_port_list = []
+        if m.get('BindPortList') is not None:
+            for k in m.get('BindPortList'):
+                temp_model = CreateHoneypotProbeRequestHoneypotBindListBindPortList()
+                self.bind_port_list.append(temp_model.from_map(k))
+        if m.get('HoneypotId') is not None:
+            self.honeypot_id = m.get('HoneypotId')
+        return self
+
+
+class CreateHoneypotProbeRequest(TeaModel):
+    def __init__(self, arp=None, business_group_id=None, control_node_id=None, display_name=None,
+                 honeypot_bind_list=None, ping=None, probe_type=None, probe_version=None, proxy_ip=None, uuid=None, vpc_id=None):
+        self.arp = arp  # type: bool
+        self.business_group_id = business_group_id  # type: str
+        self.control_node_id = control_node_id  # type: str
+        self.display_name = display_name  # type: str
+        self.honeypot_bind_list = honeypot_bind_list  # type: list[CreateHoneypotProbeRequestHoneypotBindList]
+        self.ping = ping  # type: bool
+        self.probe_type = probe_type  # type: str
+        self.probe_version = probe_version  # type: str
+        self.proxy_ip = proxy_ip  # type: str
+        self.uuid = uuid  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.honeypot_bind_list:
+            for k in self.honeypot_bind_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotProbeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arp is not None:
+            result['Arp'] = self.arp
+        if self.business_group_id is not None:
+            result['BusinessGroupId'] = self.business_group_id
+        if self.control_node_id is not None:
+            result['ControlNodeId'] = self.control_node_id
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
+        result['HoneypotBindList'] = []
+        if self.honeypot_bind_list is not None:
+            for k in self.honeypot_bind_list:
+                result['HoneypotBindList'].append(k.to_map() if k else None)
+        if self.ping is not None:
+            result['Ping'] = self.ping
+        if self.probe_type is not None:
+            result['ProbeType'] = self.probe_type
+        if self.probe_version is not None:
+            result['ProbeVersion'] = self.probe_version
+        if self.proxy_ip is not None:
+            result['ProxyIp'] = self.proxy_ip
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Arp') is not None:
+            self.arp = m.get('Arp')
+        if m.get('BusinessGroupId') is not None:
+            self.business_group_id = m.get('BusinessGroupId')
+        if m.get('ControlNodeId') is not None:
+            self.control_node_id = m.get('ControlNodeId')
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
+        self.honeypot_bind_list = []
+        if m.get('HoneypotBindList') is not None:
+            for k in m.get('HoneypotBindList'):
+                temp_model = CreateHoneypotProbeRequestHoneypotBindList()
+                self.honeypot_bind_list.append(temp_model.from_map(k))
+        if m.get('Ping') is not None:
+            self.ping = m.get('Ping')
+        if m.get('ProbeType') is not None:
+            self.probe_type = m.get('ProbeType')
+        if m.get('ProbeVersion') is not None:
+            self.probe_version = m.get('ProbeVersion')
+        if m.get('ProxyIp') is not None:
+            self.proxy_ip = m.get('ProxyIp')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class CreateHoneypotProbeResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHoneypotProbeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateHoneypotProbeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateHoneypotProbeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateHoneypotProbeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateHoneypotProbeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6496,13 +7114,14 @@ class DescribeCheckWarningSummaryResponse(TeaModel):
 
 class DescribeCheckWarningsRequest(TeaModel):
     def __init__(self, check_id=None, check_type=None, current_page=None, lang=None, page_size=None, risk_id=None,
-                 source_ip=None, uuid=None):
+                 risk_status=None, source_ip=None, uuid=None):
         self.check_id = check_id  # type: long
         self.check_type = check_type  # type: str
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
         self.page_size = page_size  # type: int
         self.risk_id = risk_id  # type: long
+        self.risk_status = risk_status  # type: int
         self.source_ip = source_ip  # type: str
         self.uuid = uuid  # type: str
 
@@ -6527,6 +7146,8 @@ class DescribeCheckWarningsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.risk_id is not None:
             result['RiskId'] = self.risk_id
+        if self.risk_status is not None:
+            result['RiskStatus'] = self.risk_status
         if self.source_ip is not None:
             result['SourceIp'] = self.source_ip
         if self.uuid is not None:
@@ -6547,6 +7168,8 @@ class DescribeCheckWarningsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RiskId') is not None:
             self.risk_id = m.get('RiskId')
+        if m.get('RiskStatus') is not None:
+            self.risk_status = m.get('RiskStatus')
         if m.get('SourceIp') is not None:
             self.source_ip = m.get('SourceIp')
         if m.get('Uuid') is not None:
@@ -26863,12 +27486,13 @@ class DescribeWarningExportInfoResponse(TeaModel):
 
 class DescribeWarningMachinesRequest(TeaModel):
     def __init__(self, cluster_id=None, container_field_name=None, container_field_value=None, current_page=None,
-                 lang=None, machine_name=None, page_size=None, risk_id=None, source_ip=None, strategy_id=None,
+                 have_risk=None, lang=None, machine_name=None, page_size=None, risk_id=None, source_ip=None, strategy_id=None,
                  target_type=None, uuids=None):
         self.cluster_id = cluster_id  # type: str
         self.container_field_name = container_field_name  # type: str
         self.container_field_value = container_field_value  # type: str
         self.current_page = current_page  # type: int
+        self.have_risk = have_risk  # type: int
         self.lang = lang  # type: str
         self.machine_name = machine_name  # type: str
         self.page_size = page_size  # type: int
@@ -26895,6 +27519,8 @@ class DescribeWarningMachinesRequest(TeaModel):
             result['ContainerFieldValue'] = self.container_field_value
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.have_risk is not None:
+            result['HaveRisk'] = self.have_risk
         if self.lang is not None:
             result['Lang'] = self.lang
         if self.machine_name is not None:
@@ -26923,6 +27549,8 @@ class DescribeWarningMachinesRequest(TeaModel):
             self.container_field_value = m.get('ContainerFieldValue')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('HaveRisk') is not None:
+            self.have_risk = m.get('HaveRisk')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
         if m.get('MachineName') is not None:
@@ -27543,6 +28171,258 @@ class DescribeWebLockConfigListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeWebLockConfigListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWebLockFileEventsRequest(TeaModel):
+    def __init__(self, current_page=None, dealed=None, page_size=None, process_name=None, remark=None, ts_begin=None,
+                 ts_end=None):
+        self.current_page = current_page  # type: int
+        self.dealed = dealed  # type: str
+        self.page_size = page_size  # type: int
+        self.process_name = process_name  # type: str
+        self.remark = remark  # type: str
+        self.ts_begin = ts_begin  # type: long
+        self.ts_end = ts_end  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWebLockFileEventsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.dealed is not None:
+            result['Dealed'] = self.dealed
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.process_name is not None:
+            result['ProcessName'] = self.process_name
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.ts_begin is not None:
+            result['TsBegin'] = self.ts_begin
+        if self.ts_end is not None:
+            result['TsEnd'] = self.ts_end
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Dealed') is not None:
+            self.dealed = m.get('Dealed')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProcessName') is not None:
+            self.process_name = m.get('ProcessName')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('TsBegin') is not None:
+            self.ts_begin = m.get('TsBegin')
+        if m.get('TsEnd') is not None:
+            self.ts_end = m.get('TsEnd')
+        return self
+
+
+class DescribeWebLockFileEventsResponseBodyList(TeaModel):
+    def __init__(self, count=None, ds=None, event_name=None, event_status=None, event_type=None, gmt_event=None,
+                 id=None, instance_name=None, internet_ip=None, intranet_ip=None, ip=None, level=None, path=None,
+                 process_name=None, process_path=None, status=None, uuid=None):
+        self.count = count  # type: long
+        self.ds = ds  # type: long
+        self.event_name = event_name  # type: str
+        self.event_status = event_status  # type: str
+        self.event_type = event_type  # type: str
+        self.gmt_event = gmt_event  # type: long
+        self.id = id  # type: long
+        self.instance_name = instance_name  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
+        self.ip = ip  # type: str
+        self.level = level  # type: str
+        self.path = path  # type: str
+        self.process_name = process_name  # type: str
+        self.process_path = process_path  # type: str
+        self.status = status  # type: str
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWebLockFileEventsResponseBodyList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.ds is not None:
+            result['Ds'] = self.ds
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.event_status is not None:
+            result['EventStatus'] = self.event_status
+        if self.event_type is not None:
+            result['EventType'] = self.event_type
+        if self.gmt_event is not None:
+            result['GmtEvent'] = self.gmt_event
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.internet_ip is not None:
+            result['InternetIp'] = self.internet_ip
+        if self.intranet_ip is not None:
+            result['IntranetIp'] = self.intranet_ip
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.level is not None:
+            result['Level'] = self.level
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.process_name is not None:
+            result['ProcessName'] = self.process_name
+        if self.process_path is not None:
+            result['ProcessPath'] = self.process_path
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Ds') is not None:
+            self.ds = m.get('Ds')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('EventStatus') is not None:
+            self.event_status = m.get('EventStatus')
+        if m.get('EventType') is not None:
+            self.event_type = m.get('EventType')
+        if m.get('GmtEvent') is not None:
+            self.gmt_event = m.get('GmtEvent')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('InternetIp') is not None:
+            self.internet_ip = m.get('InternetIp')
+        if m.get('IntranetIp') is not None:
+            self.intranet_ip = m.get('IntranetIp')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('Level') is not None:
+            self.level = m.get('Level')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('ProcessName') is not None:
+            self.process_name = m.get('ProcessName')
+        if m.get('ProcessPath') is not None:
+            self.process_path = m.get('ProcessPath')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class DescribeWebLockFileEventsResponseBody(TeaModel):
+    def __init__(self, current_page=None, list=None, page_size=None, request_id=None, total_count=None):
+        self.current_page = current_page  # type: int
+        self.list = list  # type: list[DescribeWebLockFileEventsResponseBodyList]
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWebLockFileEventsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = DescribeWebLockFileEventsResponseBodyList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeWebLockFileEventsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWebLockFileEventsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWebLockFileEventsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWebLockFileEventsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -28445,9 +29325,11 @@ class GetFileDetectResultRequest(TeaModel):
 
 
 class GetFileDetectResultResponseBodyResultList(TeaModel):
-    def __init__(self, ext=None, hash_key=None, result=None, score=None, virus_type=None):
+    def __init__(self, code=None, ext=None, hash_key=None, message=None, result=None, score=None, virus_type=None):
+        self.code = code  # type: str
         self.ext = ext  # type: str
         self.hash_key = hash_key  # type: str
+        self.message = message  # type: str
         self.result = result  # type: int
         self.score = score  # type: int
         self.virus_type = virus_type  # type: str
@@ -28461,10 +29343,14 @@ class GetFileDetectResultResponseBodyResultList(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
         if self.ext is not None:
             result['Ext'] = self.ext
         if self.hash_key is not None:
             result['HashKey'] = self.hash_key
+        if self.message is not None:
+            result['Message'] = self.message
         if self.result is not None:
             result['Result'] = self.result
         if self.score is not None:
@@ -28475,10 +29361,14 @@ class GetFileDetectResultResponseBodyResultList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('Ext') is not None:
             self.ext = m.get('Ext')
         if m.get('HashKey') is not None:
             self.hash_key = m.get('HashKey')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('Result') is not None:
             self.result = m.get('Result')
         if m.get('Score') is not None:
@@ -30064,6 +30954,841 @@ class ListCheckResultResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCheckResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListHoneypotRequest(TeaModel):
+    def __init__(self, current_page=None, honeypot_ids=None, honeypot_name=None, node_id=None, node_name=None,
+                 page_size=None):
+        self.current_page = current_page  # type: int
+        self.honeypot_ids = honeypot_ids  # type: list[str]
+        self.honeypot_name = honeypot_name  # type: str
+        self.node_id = node_id  # type: str
+        self.node_name = node_name  # type: str
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.honeypot_ids is not None:
+            result['HoneypotIds'] = self.honeypot_ids
+        if self.honeypot_name is not None:
+            result['HoneypotName'] = self.honeypot_name
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('HoneypotIds') is not None:
+            self.honeypot_ids = m.get('HoneypotIds')
+        if m.get('HoneypotName') is not None:
+            self.honeypot_name = m.get('HoneypotName')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListHoneypotResponseBodyList(TeaModel):
+    def __init__(self, control_node_name=None, honeypot_id=None, honeypot_image_display_name=None,
+                 honeypot_image_name=None, honeypot_name=None, node_id=None, preset_id=None, state=None):
+        self.control_node_name = control_node_name  # type: str
+        self.honeypot_id = honeypot_id  # type: str
+        self.honeypot_image_display_name = honeypot_image_display_name  # type: str
+        self.honeypot_image_name = honeypot_image_name  # type: str
+        self.honeypot_name = honeypot_name  # type: str
+        self.node_id = node_id  # type: str
+        self.preset_id = preset_id  # type: str
+        self.state = state  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotResponseBodyList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.control_node_name is not None:
+            result['ControlNodeName'] = self.control_node_name
+        if self.honeypot_id is not None:
+            result['HoneypotId'] = self.honeypot_id
+        if self.honeypot_image_display_name is not None:
+            result['HoneypotImageDisplayName'] = self.honeypot_image_display_name
+        if self.honeypot_image_name is not None:
+            result['HoneypotImageName'] = self.honeypot_image_name
+        if self.honeypot_name is not None:
+            result['HoneypotName'] = self.honeypot_name
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.preset_id is not None:
+            result['PresetId'] = self.preset_id
+        if self.state is not None:
+            result['State'] = self.state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ControlNodeName') is not None:
+            self.control_node_name = m.get('ControlNodeName')
+        if m.get('HoneypotId') is not None:
+            self.honeypot_id = m.get('HoneypotId')
+        if m.get('HoneypotImageDisplayName') is not None:
+            self.honeypot_image_display_name = m.get('HoneypotImageDisplayName')
+        if m.get('HoneypotImageName') is not None:
+            self.honeypot_image_name = m.get('HoneypotImageName')
+        if m.get('HoneypotName') is not None:
+            self.honeypot_name = m.get('HoneypotName')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('PresetId') is not None:
+            self.preset_id = m.get('PresetId')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        return self
+
+
+class ListHoneypotResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListHoneypotResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, list=None, message=None, page_info=None, request_id=None,
+                 success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.list = list  # type: list[ListHoneypotResponseBodyList]
+        self.message = message  # type: str
+        self.page_info = page_info  # type: ListHoneypotResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = ListHoneypotResponseBodyList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageInfo') is not None:
+            temp_model = ListHoneypotResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListHoneypotResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListHoneypotResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListHoneypotResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListHoneypotAlarmEventsRequest(TeaModel):
+    def __init__(self, current_page=None, dealed=None, dst_ip=None, page_size=None, request_id=None,
+                 risk_level_list=None, src_ip=None):
+        self.current_page = current_page  # type: int
+        self.dealed = dealed  # type: str
+        self.dst_ip = dst_ip  # type: str
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.risk_level_list = risk_level_list  # type: list[str]
+        self.src_ip = src_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.dealed is not None:
+            result['Dealed'] = self.dealed
+        if self.dst_ip is not None:
+            result['DstIp'] = self.dst_ip
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.risk_level_list is not None:
+            result['RiskLevelList'] = self.risk_level_list
+        if self.src_ip is not None:
+            result['SrcIp'] = self.src_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Dealed') is not None:
+            self.dealed = m.get('Dealed')
+        if m.get('DstIp') is not None:
+            self.dst_ip = m.get('DstIp')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RiskLevelList') is not None:
+            self.risk_level_list = m.get('RiskLevelList')
+        if m.get('SrcIp') is not None:
+            self.src_ip = m.get('SrcIp')
+        return self
+
+
+class ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEventsMergeFieldList(TeaModel):
+    def __init__(self, field_ext_info=None, field_key=None, field_type=None, field_value=None):
+        self.field_ext_info = field_ext_info  # type: str
+        self.field_key = field_key  # type: str
+        self.field_type = field_type  # type: str
+        self.field_value = field_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEventsMergeFieldList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_ext_info is not None:
+            result['FieldExtInfo'] = self.field_ext_info
+        if self.field_key is not None:
+            result['FieldKey'] = self.field_key
+        if self.field_type is not None:
+            result['FieldType'] = self.field_type
+        if self.field_value is not None:
+            result['FieldValue'] = self.field_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FieldExtInfo') is not None:
+            self.field_ext_info = m.get('FieldExtInfo')
+        if m.get('FieldKey') is not None:
+            self.field_key = m.get('FieldKey')
+        if m.get('FieldType') is not None:
+            self.field_type = m.get('FieldType')
+        if m.get('FieldValue') is not None:
+            self.field_value = m.get('FieldValue')
+        return self
+
+
+class ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEvents(TeaModel):
+    def __init__(self, alarm_event_id=None, alarm_event_name=None, alarm_event_type=None, alarm_unique_info=None,
+                 event_count=None, first_time=None, last_time=None, merge_field_list=None, operate_status=None, risk_level=None):
+        self.alarm_event_id = alarm_event_id  # type: long
+        self.alarm_event_name = alarm_event_name  # type: str
+        self.alarm_event_type = alarm_event_type  # type: str
+        self.alarm_unique_info = alarm_unique_info  # type: str
+        self.event_count = event_count  # type: int
+        self.first_time = first_time  # type: long
+        self.last_time = last_time  # type: long
+        self.merge_field_list = merge_field_list  # type: list[ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEventsMergeFieldList]
+        self.operate_status = operate_status  # type: int
+        self.risk_level = risk_level  # type: str
+
+    def validate(self):
+        if self.merge_field_list:
+            for k in self.merge_field_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEvents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alarm_event_id is not None:
+            result['AlarmEventId'] = self.alarm_event_id
+        if self.alarm_event_name is not None:
+            result['AlarmEventName'] = self.alarm_event_name
+        if self.alarm_event_type is not None:
+            result['AlarmEventType'] = self.alarm_event_type
+        if self.alarm_unique_info is not None:
+            result['AlarmUniqueInfo'] = self.alarm_unique_info
+        if self.event_count is not None:
+            result['EventCount'] = self.event_count
+        if self.first_time is not None:
+            result['FirstTime'] = self.first_time
+        if self.last_time is not None:
+            result['LastTime'] = self.last_time
+        result['MergeFieldList'] = []
+        if self.merge_field_list is not None:
+            for k in self.merge_field_list:
+                result['MergeFieldList'].append(k.to_map() if k else None)
+        if self.operate_status is not None:
+            result['OperateStatus'] = self.operate_status
+        if self.risk_level is not None:
+            result['RiskLevel'] = self.risk_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlarmEventId') is not None:
+            self.alarm_event_id = m.get('AlarmEventId')
+        if m.get('AlarmEventName') is not None:
+            self.alarm_event_name = m.get('AlarmEventName')
+        if m.get('AlarmEventType') is not None:
+            self.alarm_event_type = m.get('AlarmEventType')
+        if m.get('AlarmUniqueInfo') is not None:
+            self.alarm_unique_info = m.get('AlarmUniqueInfo')
+        if m.get('EventCount') is not None:
+            self.event_count = m.get('EventCount')
+        if m.get('FirstTime') is not None:
+            self.first_time = m.get('FirstTime')
+        if m.get('LastTime') is not None:
+            self.last_time = m.get('LastTime')
+        self.merge_field_list = []
+        if m.get('MergeFieldList') is not None:
+            for k in m.get('MergeFieldList'):
+                temp_model = ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEventsMergeFieldList()
+                self.merge_field_list.append(temp_model.from_map(k))
+        if m.get('OperateStatus') is not None:
+            self.operate_status = m.get('OperateStatus')
+        if m.get('RiskLevel') is not None:
+            self.risk_level = m.get('RiskLevel')
+        return self
+
+
+class ListHoneypotAlarmEventsResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, last_row_key=None, next_token=None, page_size=None,
+                 total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.last_row_key = last_row_key  # type: str
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.last_row_key is not None:
+            result['LastRowKey'] = self.last_row_key
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('LastRowKey') is not None:
+            self.last_row_key = m.get('LastRowKey')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListHoneypotAlarmEventsResponseBody(TeaModel):
+    def __init__(self, honeypot_alarm_events=None, page_info=None, request_id=None):
+        self.honeypot_alarm_events = honeypot_alarm_events  # type: list[ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEvents]
+        self.page_info = page_info  # type: ListHoneypotAlarmEventsResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.honeypot_alarm_events:
+            for k in self.honeypot_alarm_events:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['HoneypotAlarmEvents'] = []
+        if self.honeypot_alarm_events is not None:
+            for k in self.honeypot_alarm_events:
+                result['HoneypotAlarmEvents'].append(k.to_map() if k else None)
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.honeypot_alarm_events = []
+        if m.get('HoneypotAlarmEvents') is not None:
+            for k in m.get('HoneypotAlarmEvents'):
+                temp_model = ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEvents()
+                self.honeypot_alarm_events.append(temp_model.from_map(k))
+        if m.get('PageInfo') is not None:
+            temp_model = ListHoneypotAlarmEventsResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListHoneypotAlarmEventsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListHoneypotAlarmEventsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotAlarmEventsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListHoneypotAlarmEventsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListHoneypotNodeRequest(TeaModel):
+    def __init__(self, current_page=None, node_id=None, node_name=None, page_size=None):
+        self.current_page = current_page  # type: int
+        self.node_id = node_id  # type: str
+        self.node_name = node_name  # type: str
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotNodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListHoneypotNodeResponseBodyHoneypotNodeList(TeaModel):
+    def __init__(self, allow_honeypot_access_internet=None, create_time=None, default_node=None,
+                 ecs_instance_id=None, honeypot_total_count=None, honeypot_used_count=None, node_id=None, node_ip=None,
+                 node_name=None, node_version=None, probe_total_count=None, probe_used_count=None,
+                 security_group_probe_ip_list=None, total_status=None):
+        self.allow_honeypot_access_internet = allow_honeypot_access_internet  # type: bool
+        self.create_time = create_time  # type: str
+        self.default_node = default_node  # type: bool
+        self.ecs_instance_id = ecs_instance_id  # type: str
+        self.honeypot_total_count = honeypot_total_count  # type: int
+        self.honeypot_used_count = honeypot_used_count  # type: int
+        self.node_id = node_id  # type: str
+        self.node_ip = node_ip  # type: str
+        self.node_name = node_name  # type: str
+        self.node_version = node_version  # type: str
+        self.probe_total_count = probe_total_count  # type: int
+        self.probe_used_count = probe_used_count  # type: int
+        self.security_group_probe_ip_list = security_group_probe_ip_list  # type: list[str]
+        self.total_status = total_status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotNodeResponseBodyHoneypotNodeList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_honeypot_access_internet is not None:
+            result['AllowHoneypotAccessInternet'] = self.allow_honeypot_access_internet
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.default_node is not None:
+            result['DefaultNode'] = self.default_node
+        if self.ecs_instance_id is not None:
+            result['EcsInstanceId'] = self.ecs_instance_id
+        if self.honeypot_total_count is not None:
+            result['HoneypotTotalCount'] = self.honeypot_total_count
+        if self.honeypot_used_count is not None:
+            result['HoneypotUsedCount'] = self.honeypot_used_count
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_ip is not None:
+            result['NodeIp'] = self.node_ip
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.node_version is not None:
+            result['NodeVersion'] = self.node_version
+        if self.probe_total_count is not None:
+            result['ProbeTotalCount'] = self.probe_total_count
+        if self.probe_used_count is not None:
+            result['ProbeUsedCount'] = self.probe_used_count
+        if self.security_group_probe_ip_list is not None:
+            result['SecurityGroupProbeIpList'] = self.security_group_probe_ip_list
+        if self.total_status is not None:
+            result['TotalStatus'] = self.total_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowHoneypotAccessInternet') is not None:
+            self.allow_honeypot_access_internet = m.get('AllowHoneypotAccessInternet')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DefaultNode') is not None:
+            self.default_node = m.get('DefaultNode')
+        if m.get('EcsInstanceId') is not None:
+            self.ecs_instance_id = m.get('EcsInstanceId')
+        if m.get('HoneypotTotalCount') is not None:
+            self.honeypot_total_count = m.get('HoneypotTotalCount')
+        if m.get('HoneypotUsedCount') is not None:
+            self.honeypot_used_count = m.get('HoneypotUsedCount')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeIp') is not None:
+            self.node_ip = m.get('NodeIp')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('NodeVersion') is not None:
+            self.node_version = m.get('NodeVersion')
+        if m.get('ProbeTotalCount') is not None:
+            self.probe_total_count = m.get('ProbeTotalCount')
+        if m.get('ProbeUsedCount') is not None:
+            self.probe_used_count = m.get('ProbeUsedCount')
+        if m.get('SecurityGroupProbeIpList') is not None:
+            self.security_group_probe_ip_list = m.get('SecurityGroupProbeIpList')
+        if m.get('TotalStatus') is not None:
+            self.total_status = m.get('TotalStatus')
+        return self
+
+
+class ListHoneypotNodeResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHoneypotNodeResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListHoneypotNodeResponseBody(TeaModel):
+    def __init__(self, code=None, honeypot_node_list=None, http_status_code=None, message=None, page_info=None,
+                 request_id=None, success=None):
+        self.code = code  # type: str
+        self.honeypot_node_list = honeypot_node_list  # type: list[ListHoneypotNodeResponseBodyHoneypotNodeList]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.page_info = page_info  # type: ListHoneypotNodeResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.honeypot_node_list:
+            for k in self.honeypot_node_list:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotNodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['HoneypotNodeList'] = []
+        if self.honeypot_node_list is not None:
+            for k in self.honeypot_node_list:
+                result['HoneypotNodeList'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.honeypot_node_list = []
+        if m.get('HoneypotNodeList') is not None:
+            for k in m.get('HoneypotNodeList'):
+                temp_model = ListHoneypotNodeResponseBodyHoneypotNodeList()
+                self.honeypot_node_list.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageInfo') is not None:
+            temp_model = ListHoneypotNodeResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListHoneypotNodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListHoneypotNodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListHoneypotNodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListHoneypotNodeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
