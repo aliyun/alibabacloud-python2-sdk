@@ -144,6 +144,8 @@ class Client(OpenApiClient):
     def create_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.advanced_features):
+            query['AdvancedFeatures'] = request.advanced_features
         if not UtilClient.is_unset(request.category):
             query['Category'] = request.category
         if not UtilClient.is_unset(request.client_token):
@@ -554,6 +556,10 @@ class Client(OpenApiClient):
     def list_dbfs_attachable_ecs_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -749,38 +755,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.rename_dbfs_with_options(request, runtime)
 
-    def reset_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.fs_id):
-            query['FsId'] = request.fs_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.snapshot_id):
-            query['SnapshotId'] = request.snapshot_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ResetDbfs',
-            version='2020-04-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.ResetDbfsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def reset_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.reset_dbfs_with_options(request, runtime)
-
     def resize_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -844,3 +818,39 @@ class Client(OpenApiClient):
     def tag_dbfs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.tag_dbfs_with_options(request, runtime)
+
+    def update_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.advanced_features):
+            query['AdvancedFeatures'] = request.advanced_features
+        if not UtilClient.is_unset(request.fs_id):
+            query['FsId'] = request.fs_id
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.used_scene):
+            query['UsedScene'] = request.used_scene
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDbfs',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.UpdateDbfsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_dbfs_with_options(request, runtime)

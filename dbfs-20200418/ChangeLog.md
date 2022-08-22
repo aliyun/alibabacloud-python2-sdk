@@ -1,3 +1,6 @@
+2022-08-22 Version: 3.1.2
+- Automatically generate sdk tasks.
+
 2022-03-22 Version: 3.1.1
 - The new return value SourceFsStripeWidth is added to the ListSnapshot interface.
 
