@@ -122,6 +122,9 @@ class Client(OpenApiClient):
             request.traveler_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.traveler_list, 'traveler_list', 'json')
         if not UtilClient.is_unset(tmp_req.traveler_standard):
             request.traveler_standard_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.traveler_standard, 'traveler_standard', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.international_flight_cabins):
+            query['international_flight_cabins'] = request.international_flight_cabins
         body = {}
         if not UtilClient.is_unset(request.budget):
             body['budget'] = request.budget
@@ -179,6 +182,7 @@ class Client(OpenApiClient):
             body['vehicle_budget'] = request.vehicle_budget
         req = open_api_models.OpenApiRequest(
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -443,8 +447,6 @@ class Client(OpenApiClient):
     def car_apply_modify_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.corp_id):
-            body['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.operate_time):
             body['operate_time'] = request.operate_time
         if not UtilClient.is_unset(request.remark):
@@ -483,8 +485,6 @@ class Client(OpenApiClient):
     def car_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.created_end_at):
             query['created_end_at'] = request.created_end_at
         if not UtilClient.is_unset(request.created_start_at):
@@ -615,8 +615,6 @@ class Client(OpenApiClient):
             query['apply_id'] = request.apply_id
         if not UtilClient.is_unset(request.biz_category):
             query['biz_category'] = request.biz_category
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.user_id):
             query['user_id'] = request.user_id
         req = open_api_models.OpenApiRequest(
@@ -781,27 +779,28 @@ class Client(OpenApiClient):
 
     def cost_center_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = btrip_open_20220520_models.CostCenterQueryHeaders()
         return self.cost_center_query_with_options(request, headers, runtime)
 
     def cost_center_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
-        body = {}
         if not UtilClient.is_unset(request.need_org_entity):
-            body['need_org_entity'] = request.need_org_entity
+            query['need_org_entity'] = request.need_org_entity
         if not UtilClient.is_unset(request.thirdpart_id):
-            body['thirdpart_id'] = request.thirdpart_id
+            query['thirdpart_id'] = request.thirdpart_id
         if not UtilClient.is_unset(request.title):
-            body['title'] = request.title
+            query['title'] = request.title
         if not UtilClient.is_unset(request.user_id):
-            body['user_id'] = request.user_id
+            query['user_id'] = request.user_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CostCenterQuery',
@@ -811,7 +810,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='ROA',
-            req_body_type='formData',
+            req_body_type='json',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -829,8 +828,6 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.alipay_no):
             body['alipay_no'] = request.alipay_no
-        if not UtilClient.is_unset(request.corp_id):
-            body['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.number):
             body['number'] = request.number
         if not UtilClient.is_unset(request.scope):
@@ -1017,8 +1014,6 @@ class Client(OpenApiClient):
             query['apply_id'] = request.apply_id
         if not UtilClient.is_unset(request.biz_category):
             query['biz_category'] = request.biz_category
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.remark):
             query['remark'] = request.remark
         if not UtilClient.is_unset(request.status):
@@ -1093,8 +1088,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.apply_id):
             query['apply_id'] = request.apply_id
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1243,10 +1236,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.apply_id):
             query['apply_id'] = request.apply_id
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
-        if not UtilClient.is_unset(request.user_id):
-            query['user_id'] = request.user_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1483,6 +1472,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.title):
             query['title'] = request.title
+        if not UtilClient.is_unset(request.user_id):
+            query['user_id'] = request.user_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1577,8 +1568,6 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.code):
             body['code'] = request.code
-        if not UtilClient.is_unset(request.corp_id):
-            body['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.project_name):
             body['project_name'] = request.project_name
         if not UtilClient.is_unset(request.third_part_cost_center_id):
@@ -1647,8 +1636,6 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.code):
             body['code'] = request.code
-        if not UtilClient.is_unset(request.corp_id):
-            body['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.project_name):
             body['project_name'] = request.project_name
         if not UtilClient.is_unset(request.third_part_cost_center_id):
@@ -1723,10 +1710,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.apply_id):
             query['apply_id'] = request.apply_id
-        if not UtilClient.is_unset(request.corp_id):
-            query['corp_id'] = request.corp_id
-        if not UtilClient.is_unset(request.user_id):
-            query['user_id'] = request.user_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1839,8 +1822,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.modified_time_greater_or_equal_than):
             query['modified_time_greater_or_equal_than'] = request.modified_time_greater_or_equal_than
-        if not UtilClient.is_unset(request.third_part_corp_id):
-            query['third_part_corp_id'] = request.third_part_corp_id
         if not UtilClient.is_unset(request.third_part_job_no):
             query['third_part_job_no'] = request.third_part_job_no
         req = open_api_models.OpenApiRequest(

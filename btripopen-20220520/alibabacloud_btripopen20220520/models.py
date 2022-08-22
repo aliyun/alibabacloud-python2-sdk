@@ -695,9 +695,10 @@ class ApplyAddRequestTravelerStandard(TeaModel):
 class ApplyAddRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  external_traveler_list=None, external_traveler_standard=None, flight_budget=None, hotel_budget=None, hotel_share=None,
-                 itinerary_list=None, limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None,
-                 together_book_rule=None, train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None,
-                 trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 international_flight_cabins=None, itinerary_list=None, limit_traveler=None, status=None, thirdpart_apply_id=None,
+                 thirdpart_business_id=None, together_book_rule=None, train_budget=None, traveler_list=None, traveler_standard=None,
+                 trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None,
+                 vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -708,6 +709,7 @@ class ApplyAddRequest(TeaModel):
         self.flight_budget = flight_budget  # type: long
         self.hotel_budget = hotel_budget  # type: long
         self.hotel_share = hotel_share  # type: ApplyAddRequestHotelShare
+        self.international_flight_cabins = international_flight_cabins  # type: str
         self.itinerary_list = itinerary_list  # type: list[ApplyAddRequestItineraryList]
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
@@ -776,6 +778,8 @@ class ApplyAddRequest(TeaModel):
             result['hotel_budget'] = self.hotel_budget
         if self.hotel_share is not None:
             result['hotel_share'] = self.hotel_share.to_map()
+        if self.international_flight_cabins is not None:
+            result['international_flight_cabins'] = self.international_flight_cabins
         result['itinerary_list'] = []
         if self.itinerary_list is not None:
             for k in self.itinerary_list:
@@ -845,6 +849,8 @@ class ApplyAddRequest(TeaModel):
         if m.get('hotel_share') is not None:
             temp_model = ApplyAddRequestHotelShare()
             self.hotel_share = temp_model.from_map(m['hotel_share'])
+        if m.get('international_flight_cabins') is not None:
+            self.international_flight_cabins = m.get('international_flight_cabins')
         self.itinerary_list = []
         if m.get('itinerary_list') is not None:
             for k in m.get('itinerary_list'):
@@ -894,10 +900,10 @@ class ApplyAddRequest(TeaModel):
 class ApplyAddShrinkRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  external_traveler_list_shrink=None, external_traveler_standard_shrink=None, flight_budget=None, hotel_budget=None,
-                 hotel_share_shrink=None, itinerary_list_shrink=None, limit_traveler=None, status=None, thirdpart_apply_id=None,
-                 thirdpart_business_id=None, together_book_rule=None, train_budget=None, traveler_list_shrink=None,
-                 traveler_standard_shrink=None, trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None,
-                 user_name=None, vehicle_budget=None):
+                 hotel_share_shrink=None, international_flight_cabins=None, itinerary_list_shrink=None, limit_traveler=None,
+                 status=None, thirdpart_apply_id=None, thirdpart_business_id=None, together_book_rule=None,
+                 train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None, trip_cause=None, trip_day=None,
+                 trip_title=None, type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -908,6 +914,7 @@ class ApplyAddShrinkRequest(TeaModel):
         self.flight_budget = flight_budget  # type: long
         self.hotel_budget = hotel_budget  # type: long
         self.hotel_share_shrink = hotel_share_shrink  # type: str
+        self.international_flight_cabins = international_flight_cabins  # type: str
         self.itinerary_list_shrink = itinerary_list_shrink  # type: str
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
@@ -955,6 +962,8 @@ class ApplyAddShrinkRequest(TeaModel):
             result['hotel_budget'] = self.hotel_budget
         if self.hotel_share_shrink is not None:
             result['hotel_share'] = self.hotel_share_shrink
+        if self.international_flight_cabins is not None:
+            result['international_flight_cabins'] = self.international_flight_cabins
         if self.itinerary_list_shrink is not None:
             result['itinerary_list'] = self.itinerary_list_shrink
         if self.limit_traveler is not None:
@@ -1013,6 +1022,8 @@ class ApplyAddShrinkRequest(TeaModel):
             self.hotel_budget = m.get('hotel_budget')
         if m.get('hotel_share') is not None:
             self.hotel_share_shrink = m.get('hotel_share')
+        if m.get('international_flight_cabins') is not None:
+            self.international_flight_cabins = m.get('international_flight_cabins')
         if m.get('itinerary_list') is not None:
             self.itinerary_list_shrink = m.get('itinerary_list')
         if m.get('limit_traveler') is not None:
@@ -1435,9 +1446,9 @@ class ApplyListQueryResponseBodyModuleListTravelerList(TeaModel):
 class ApplyListQueryResponseBodyModuleList(TeaModel):
     def __init__(self, apply_show_id=None, approver_list=None, corp_id=None, corp_name=None, depart_id=None,
                  depart_name=None, external_traveler_list=None, flow_code=None, gmt_create=None, gmt_modified=None, id=None,
-                 itinerary_list=None, status=None, status_desc=None, thirdpart_business_id=None, thirdpart_id=None,
-                 traveler_list=None, trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None,
-                 user_name=None):
+                 itinerary_list=None, itinerary_rule=None, status=None, status_desc=None, thirdpart_business_id=None,
+                 thirdpart_id=None, traveler_list=None, trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None,
+                 user_id=None, user_name=None):
         self.apply_show_id = apply_show_id  # type: str
         self.approver_list = approver_list  # type: list[ApplyListQueryResponseBodyModuleListApproverList]
         self.corp_id = corp_id  # type: str
@@ -1450,6 +1461,7 @@ class ApplyListQueryResponseBodyModuleList(TeaModel):
         self.gmt_modified = gmt_modified  # type: str
         self.id = id  # type: long
         self.itinerary_list = itinerary_list  # type: list[ApplyListQueryResponseBodyModuleListItineraryList]
+        self.itinerary_rule = itinerary_rule  # type: int
         self.status = status  # type: int
         self.status_desc = status_desc  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
@@ -1517,6 +1529,8 @@ class ApplyListQueryResponseBodyModuleList(TeaModel):
         if self.itinerary_list is not None:
             for k in self.itinerary_list:
                 result['itinerary_list'].append(k.to_map() if k else None)
+        if self.itinerary_rule is not None:
+            result['itinerary_rule'] = self.itinerary_rule
         if self.status is not None:
             result['status'] = self.status
         if self.status_desc is not None:
@@ -1580,6 +1594,8 @@ class ApplyListQueryResponseBodyModuleList(TeaModel):
             for k in m.get('itinerary_list'):
                 temp_model = ApplyListQueryResponseBodyModuleListItineraryList()
                 self.itinerary_list.append(temp_model.from_map(k))
+        if m.get('itinerary_rule') is not None:
+            self.itinerary_rule = m.get('itinerary_rule')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('status_desc') is not None:
@@ -2989,9 +3005,9 @@ class ApplyQueryResponseBodyModule(TeaModel):
     def __init__(self, apply_show_id=None, approver_list=None, budget=None, budget_merge=None, corp_id=None,
                  corp_name=None, depart_id=None, depart_name=None, external_traveler_list=None, flight_budget=None,
                  gmt_create=None, gmt_modified=None, hotel_budget=None, hotel_share=None, id=None, itinerary_list=None,
-                 limit_traveler=None, status=None, status_desc=None, thirdpart_business_id=None, thirdpart_id=None,
-                 together_book_rule=None, train_budget=None, traveler_list=None, trip_cause=None, trip_day=None, trip_title=None,
-                 type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 itinerary_rule=None, limit_traveler=None, status=None, status_desc=None, thirdpart_business_id=None,
+                 thirdpart_id=None, together_book_rule=None, train_budget=None, traveler_list=None, trip_cause=None,
+                 trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.apply_show_id = apply_show_id  # type: str
         self.approver_list = approver_list  # type: list[ApplyQueryResponseBodyModuleApproverList]
         self.budget = budget  # type: long
@@ -3008,6 +3024,7 @@ class ApplyQueryResponseBodyModule(TeaModel):
         self.hotel_share = hotel_share  # type: ApplyQueryResponseBodyModuleHotelShare
         self.id = id  # type: long
         self.itinerary_list = itinerary_list  # type: list[ApplyQueryResponseBodyModuleItineraryList]
+        self.itinerary_rule = itinerary_rule  # type: int
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
         self.status_desc = status_desc  # type: str
@@ -3089,6 +3106,8 @@ class ApplyQueryResponseBodyModule(TeaModel):
         if self.itinerary_list is not None:
             for k in self.itinerary_list:
                 result['itinerary_list'].append(k.to_map() if k else None)
+        if self.itinerary_rule is not None:
+            result['itinerary_rule'] = self.itinerary_rule
         if self.limit_traveler is not None:
             result['limit_traveler'] = self.limit_traveler
         if self.status is not None:
@@ -3169,6 +3188,8 @@ class ApplyQueryResponseBodyModule(TeaModel):
             for k in m.get('itinerary_list'):
                 temp_model = ApplyQueryResponseBodyModuleItineraryList()
                 self.itinerary_list.append(temp_model.from_map(k))
+        if m.get('itinerary_rule') is not None:
+            self.itinerary_rule = m.get('itinerary_rule')
         if m.get('limit_traveler') is not None:
             self.limit_traveler = m.get('limit_traveler')
         if m.get('status') is not None:
@@ -3482,9 +3503,7 @@ class CarApplyAddResponse(TeaModel):
 
 
 class CarApplyModifyRequest(TeaModel):
-    def __init__(self, corp_id=None, operate_time=None, remark=None, status=None, third_part_apply_id=None,
-                 user_id=None):
-        self.corp_id = corp_id  # type: str
+    def __init__(self, operate_time=None, remark=None, status=None, third_part_apply_id=None, user_id=None):
         self.operate_time = operate_time  # type: str
         self.remark = remark  # type: str
         self.status = status  # type: int
@@ -3500,8 +3519,6 @@ class CarApplyModifyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.operate_time is not None:
             result['operate_time'] = self.operate_time
         if self.remark is not None:
@@ -3516,8 +3533,6 @@ class CarApplyModifyRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('operate_time') is not None:
             self.operate_time = m.get('operate_time')
         if m.get('remark') is not None:
@@ -3620,9 +3635,8 @@ class CarApplyModifyResponse(TeaModel):
 
 
 class CarApplyQueryRequest(TeaModel):
-    def __init__(self, corp_id=None, created_end_at=None, created_start_at=None, page_number=None, page_size=None,
+    def __init__(self, created_end_at=None, created_start_at=None, page_number=None, page_size=None,
                  third_part_apply_id=None, user_id=None):
-        self.corp_id = corp_id  # type: str
         self.created_end_at = created_end_at  # type: str
         self.created_start_at = created_start_at  # type: str
         self.page_number = page_number  # type: int
@@ -3639,8 +3653,6 @@ class CarApplyQueryRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.created_end_at is not None:
             result['created_end_at'] = self.created_end_at
         if self.created_start_at is not None:
@@ -3657,8 +3669,6 @@ class CarApplyQueryRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('created_end_at') is not None:
             self.created_end_at = m.get('created_end_at')
         if m.get('created_start_at') is not None:
@@ -4602,10 +4612,11 @@ class CarOrderListQueryRequest(TeaModel):
 
 
 class CarOrderListQueryResponseBodyModulePriceInfoList(TeaModel):
-    def __init__(self, category_code=None, category_type=None, passenger_name=None, pay_type=None,
+    def __init__(self, category_code=None, category_type=None, gmt_create=None, passenger_name=None, pay_type=None,
                  person_price=None, price=None, trade_id=None, type=None):
         self.category_code = category_code  # type: int
         self.category_type = category_type  # type: int
+        self.gmt_create = gmt_create  # type: str
         self.passenger_name = passenger_name  # type: str
         self.pay_type = pay_type  # type: int
         self.person_price = person_price  # type: float
@@ -4626,6 +4637,8 @@ class CarOrderListQueryResponseBodyModulePriceInfoList(TeaModel):
             result['category_code'] = self.category_code
         if self.category_type is not None:
             result['category_type'] = self.category_type
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
         if self.passenger_name is not None:
             result['passenger_name'] = self.passenger_name
         if self.pay_type is not None:
@@ -4646,6 +4659,8 @@ class CarOrderListQueryResponseBodyModulePriceInfoList(TeaModel):
             self.category_code = m.get('category_code')
         if m.get('category_type') is not None:
             self.category_type = m.get('category_type')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
         if m.get('passenger_name') is not None:
             self.passenger_name = m.get('passenger_name')
         if m.get('pay_type') is not None:
@@ -4695,9 +4710,9 @@ class CarOrderListQueryResponseBodyModule(TeaModel):
                  cancel_time=None, car_info=None, car_level=None, corp_id=None, corp_name=None, cost_center_id=None,
                  cost_center_name=None, cost_center_number=None, dept_id=None, dept_name=None, driver_confirm_time=None,
                  estimate_price=None, from_address=None, from_city_name=None, gmt_create=None, gmt_modified=None, id=None,
-                 invoice_id=None, invoice_title=None, is_special=None, memo=None, order_id=None, order_status=None,
-                 passenger_name=None, pay_time=None, price_info_list=None, project_code=None, project_id=None, project_title=None,
-                 provider=None, publish_time=None, real_from_address=None, real_from_city_name=None, real_to_address=None,
+                 invoice_id=None, invoice_title=None, is_special=None, memo=None, order_status=None, passenger_name=None,
+                 pay_time=None, price_info_list=None, project_code=None, project_id=None, project_title=None, provider=None,
+                 publish_time=None, real_from_address=None, real_from_city_name=None, real_to_address=None,
                  real_to_city_name=None, service_type=None, special_types=None, taken_time=None, thirdpart_apply_id=None,
                  thirdpart_itinerary_id=None, to_address=None, to_city_name=None, travel_distance=None, user_affiliate_list=None,
                  user_confirm=None, user_id=None, user_name=None):
@@ -4726,7 +4741,6 @@ class CarOrderListQueryResponseBodyModule(TeaModel):
         self.invoice_title = invoice_title  # type: str
         self.is_special = is_special  # type: bool
         self.memo = memo  # type: str
-        self.order_id = order_id  # type: str
         self.order_status = order_status  # type: int
         self.passenger_name = passenger_name  # type: str
         self.pay_time = pay_time  # type: str
@@ -4819,8 +4833,6 @@ class CarOrderListQueryResponseBodyModule(TeaModel):
             result['is_special'] = self.is_special
         if self.memo is not None:
             result['memo'] = self.memo
-        if self.order_id is not None:
-            result['order_id'] = self.order_id
         if self.order_status is not None:
             result['order_status'] = self.order_status
         if self.passenger_name is not None:
@@ -4929,8 +4941,6 @@ class CarOrderListQueryResponseBodyModule(TeaModel):
             self.is_special = m.get('is_special')
         if m.get('memo') is not None:
             self.memo = m.get('memo')
-        if m.get('order_id') is not None:
-            self.order_id = m.get('order_id')
         if m.get('order_status') is not None:
             self.order_status = m.get('order_status')
         if m.get('passenger_name') is not None:
@@ -5130,10 +5140,9 @@ class CarOrderListQueryResponse(TeaModel):
 
 
 class CommonApplyQueryRequest(TeaModel):
-    def __init__(self, apply_id=None, biz_category=None, corp_id=None, user_id=None):
+    def __init__(self, apply_id=None, biz_category=None, user_id=None):
         self.apply_id = apply_id  # type: long
         self.biz_category = biz_category  # type: int
-        self.corp_id = corp_id  # type: str
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -5149,8 +5158,6 @@ class CommonApplyQueryRequest(TeaModel):
             result['apply_id'] = self.apply_id
         if self.biz_category is not None:
             result['biz_category'] = self.biz_category
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.user_id is not None:
             result['user_id'] = self.user_id
         return result
@@ -5161,8 +5168,6 @@ class CommonApplyQueryRequest(TeaModel):
             self.apply_id = m.get('apply_id')
         if m.get('biz_category') is not None:
             self.biz_category = m.get('biz_category')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         return self
@@ -5639,11 +5644,8 @@ class CostCenterDeleteRequest(TeaModel):
 
 
 class CostCenterDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.module = module  # type: dict[str, any]
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -5660,10 +5662,6 @@ class CostCenterDeleteResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.module is not None:
-            result['module'] = self.module
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -5678,10 +5676,6 @@ class CostCenterDeleteResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('module') is not None:
-            self.module = m.get('module')
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -5777,11 +5771,8 @@ class CostCenterModifyRequest(TeaModel):
 
 
 class CostCenterModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.module = module  # type: dict[str, any]
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -5798,10 +5789,6 @@ class CostCenterModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.module is not None:
-            result['module'] = self.module
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -5816,10 +5803,6 @@ class CostCenterModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('module') is not None:
-            self.module = m.get('module')
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -5870,9 +5853,37 @@ class CostCenterModifyResponse(TeaModel):
         return self
 
 
+class CostCenterQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CostCenterQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
 class CostCenterQueryRequest(TeaModel):
-    def __init__(self, corp_id=None, need_org_entity=None, thirdpart_id=None, title=None, user_id=None):
-        self.corp_id = corp_id  # type: str
+    def __init__(self, need_org_entity=None, thirdpart_id=None, title=None, user_id=None):
         self.need_org_entity = need_org_entity  # type: bool
         self.thirdpart_id = thirdpart_id  # type: str
         self.title = title  # type: str
@@ -5887,8 +5898,6 @@ class CostCenterQueryRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.need_org_entity is not None:
             result['need_org_entity'] = self.need_org_entity
         if self.thirdpart_id is not None:
@@ -5901,8 +5910,6 @@ class CostCenterQueryRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('need_org_entity') is not None:
             self.need_org_entity = m.get('need_org_entity')
         if m.get('thirdpart_id') is not None:
@@ -6134,9 +6141,8 @@ class CostCenterQueryResponse(TeaModel):
 
 
 class CostCenterSaveRequest(TeaModel):
-    def __init__(self, alipay_no=None, corp_id=None, number=None, scope=None, thirdpart_id=None, title=None):
+    def __init__(self, alipay_no=None, number=None, scope=None, thirdpart_id=None, title=None):
         self.alipay_no = alipay_no  # type: str
-        self.corp_id = corp_id  # type: str
         self.number = number  # type: str
         self.scope = scope  # type: long
         self.thirdpart_id = thirdpart_id  # type: str
@@ -6153,8 +6159,6 @@ class CostCenterSaveRequest(TeaModel):
         result = dict()
         if self.alipay_no is not None:
             result['alipay_no'] = self.alipay_no
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.number is not None:
             result['number'] = self.number
         if self.scope is not None:
@@ -6169,8 +6173,6 @@ class CostCenterSaveRequest(TeaModel):
         m = m or dict()
         if m.get('alipay_no') is not None:
             self.alipay_no = m.get('alipay_no')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('number') is not None:
             self.number = m.get('number')
         if m.get('scope') is not None:
@@ -6207,11 +6209,9 @@ class CostCenterSaveResponseBodyModule(TeaModel):
 
 
 class CostCenterSaveResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
         self.module = module  # type: CostCenterSaveResponseBodyModule
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -6231,8 +6231,6 @@ class CostCenterSaveResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -6250,8 +6248,6 @@ class CostCenterSaveResponseBody(TeaModel):
         if m.get('module') is not None:
             temp_model = CostCenterSaveResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -6626,11 +6622,9 @@ class EntityAddResponseBodyModule(TeaModel):
 
 
 class EntityAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
         self.module = module  # type: EntityAddResponseBodyModule
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -6650,8 +6644,6 @@ class EntityAddResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -6669,8 +6661,6 @@ class EntityAddResponseBody(TeaModel):
         if m.get('module') is not None:
             temp_model = EntityAddResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -7177,11 +7167,10 @@ class EntitySetResponse(TeaModel):
 
 
 class ExceedApplySyncRequest(TeaModel):
-    def __init__(self, apply_id=None, biz_category=None, corp_id=None, remark=None, status=None,
-                 thirdparty_flow_id=None, user_id=None):
+    def __init__(self, apply_id=None, biz_category=None, remark=None, status=None, thirdparty_flow_id=None,
+                 user_id=None):
         self.apply_id = apply_id  # type: long
         self.biz_category = biz_category  # type: int
-        self.corp_id = corp_id  # type: str
         self.remark = remark  # type: str
         self.status = status  # type: int
         self.thirdparty_flow_id = thirdparty_flow_id  # type: str
@@ -7200,8 +7189,6 @@ class ExceedApplySyncRequest(TeaModel):
             result['apply_id'] = self.apply_id
         if self.biz_category is not None:
             result['biz_category'] = self.biz_category
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.remark is not None:
             result['remark'] = self.remark
         if self.status is not None:
@@ -7218,8 +7205,6 @@ class ExceedApplySyncRequest(TeaModel):
             self.apply_id = m.get('apply_id')
         if m.get('biz_category') is not None:
             self.biz_category = m.get('biz_category')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
         if m.get('status') is not None:
@@ -7894,9 +7879,8 @@ class FlightBillSettlementQueryResponse(TeaModel):
 
 
 class FlightExceedApplyQueryRequest(TeaModel):
-    def __init__(self, apply_id=None, corp_id=None):
+    def __init__(self, apply_id=None):
         self.apply_id = apply_id  # type: long
-        self.corp_id = corp_id  # type: str
 
     def validate(self):
         pass
@@ -7909,16 +7893,12 @@ class FlightExceedApplyQueryRequest(TeaModel):
         result = dict()
         if self.apply_id is not None:
             result['apply_id'] = self.apply_id
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('apply_id') is not None:
             self.apply_id = m.get('apply_id')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         return self
 
 
@@ -10221,10 +10201,8 @@ class HotelBillSettlementQueryResponse(TeaModel):
 
 
 class HotelExceedApplyQueryRequest(TeaModel):
-    def __init__(self, apply_id=None, corp_id=None, user_id=None):
+    def __init__(self, apply_id=None):
         self.apply_id = apply_id  # type: long
-        self.corp_id = corp_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -10237,20 +10215,12 @@ class HotelExceedApplyQueryRequest(TeaModel):
         result = dict()
         if self.apply_id is not None:
             result['apply_id'] = self.apply_id
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('apply_id') is not None:
             self.apply_id = m.get('apply_id')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -11142,11 +11112,8 @@ class InvoiceAddRequest(TeaModel):
 
 
 class InvoiceAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.module = module  # type: long
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -11163,10 +11130,6 @@ class InvoiceAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.module is not None:
-            result['module'] = self.module
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -11181,10 +11144,6 @@ class InvoiceAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('module') is not None:
-            self.module = m.get('module')
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -11260,11 +11219,8 @@ class InvoiceDeleteRequest(TeaModel):
 
 
 class InvoiceDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.module = module  # type: bool
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -11281,10 +11237,6 @@ class InvoiceDeleteResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.module is not None:
-            result['module'] = self.module
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -11299,10 +11251,6 @@ class InvoiceDeleteResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('module') is not None:
-            self.module = m.get('module')
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -11414,11 +11362,8 @@ class InvoiceModifyRequest(TeaModel):
 
 
 class InvoiceModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.module = module  # type: bool
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -11435,10 +11380,6 @@ class InvoiceModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.module is not None:
-            result['module'] = self.module
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -11453,10 +11394,6 @@ class InvoiceModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('module') is not None:
-            self.module = m.get('module')
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -11647,11 +11584,9 @@ class InvoiceRuleSaveResponseBodyModule(TeaModel):
 
 
 class InvoiceRuleSaveResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
         self.module = module  # type: InvoiceRuleSaveResponseBodyModule
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -11671,8 +11606,6 @@ class InvoiceRuleSaveResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -11690,8 +11623,6 @@ class InvoiceRuleSaveResponseBody(TeaModel):
         if m.get('module') is not None:
             temp_model = InvoiceRuleSaveResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -11743,8 +11674,9 @@ class InvoiceRuleSaveResponse(TeaModel):
 
 
 class InvoiceSearchRequest(TeaModel):
-    def __init__(self, title=None):
+    def __init__(self, title=None, user_id=None):
         self.title = title  # type: str
+        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -11757,12 +11689,16 @@ class InvoiceSearchRequest(TeaModel):
         result = dict()
         if self.title is not None:
             result['title'] = self.title
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('title') is not None:
             self.title = m.get('title')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
         return self
 
 
@@ -11801,11 +11737,9 @@ class InvoiceSearchResponseBodyModule(TeaModel):
 
 
 class InvoiceSearchResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
         self.module = module  # type: list[InvoiceSearchResponseBodyModule]
-        self.more_page = more_page  # type: bool
         self.result_code = result_code  # type: int
         self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
@@ -11829,8 +11763,6 @@ class InvoiceSearchResponseBody(TeaModel):
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
-        if self.more_page is not None:
-            result['more_page'] = self.more_page
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
@@ -11850,8 +11782,6 @@ class InvoiceSearchResponseBody(TeaModel):
             for k in m.get('module'):
                 temp_model = InvoiceSearchResponseBodyModule()
                 self.module.append(temp_model.from_map(k))
-        if m.get('more_page') is not None:
-            self.more_page = m.get('more_page')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
@@ -12282,10 +12212,9 @@ class MonthBillGetResponse(TeaModel):
 
 
 class ProjectAddRequest(TeaModel):
-    def __init__(self, code=None, corp_id=None, project_name=None, third_part_cost_center_id=None,
-                 third_part_id=None, third_part_invoice_id=None):
+    def __init__(self, code=None, project_name=None, third_part_cost_center_id=None, third_part_id=None,
+                 third_part_invoice_id=None):
         self.code = code  # type: str
-        self.corp_id = corp_id  # type: str
         self.project_name = project_name  # type: str
         self.third_part_cost_center_id = third_part_cost_center_id  # type: str
         self.third_part_id = third_part_id  # type: str
@@ -12302,8 +12231,6 @@ class ProjectAddRequest(TeaModel):
         result = dict()
         if self.code is not None:
             result['code'] = self.code
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.project_name is not None:
             result['project_name'] = self.project_name
         if self.third_part_cost_center_id is not None:
@@ -12318,8 +12245,6 @@ class ProjectAddRequest(TeaModel):
         m = m or dict()
         if m.get('code') is not None:
             self.code = m.get('code')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('project_name') is not None:
             self.project_name = m.get('project_name')
         if m.get('third_part_cost_center_id') is not None:
@@ -12538,10 +12463,9 @@ class ProjectDeleteResponse(TeaModel):
 
 
 class ProjectModifyRequest(TeaModel):
-    def __init__(self, code=None, corp_id=None, project_name=None, third_part_cost_center_id=None,
-                 third_part_id=None, third_part_invoice_id=None):
+    def __init__(self, code=None, project_name=None, third_part_cost_center_id=None, third_part_id=None,
+                 third_part_invoice_id=None):
         self.code = code  # type: str
-        self.corp_id = corp_id  # type: str
         self.project_name = project_name  # type: str
         self.third_part_cost_center_id = third_part_cost_center_id  # type: str
         self.third_part_id = third_part_id  # type: str
@@ -12558,8 +12482,6 @@ class ProjectModifyRequest(TeaModel):
         result = dict()
         if self.code is not None:
             result['code'] = self.code
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
         if self.project_name is not None:
             result['project_name'] = self.project_name
         if self.third_part_cost_center_id is not None:
@@ -12574,8 +12496,6 @@ class ProjectModifyRequest(TeaModel):
         m = m or dict()
         if m.get('code') is not None:
             self.code = m.get('code')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
         if m.get('project_name') is not None:
             self.project_name = m.get('project_name')
         if m.get('third_part_cost_center_id') is not None:
@@ -13135,10 +13055,8 @@ class TrainBillSettlementQueryResponse(TeaModel):
 
 
 class TrainExceedApplyQueryRequest(TeaModel):
-    def __init__(self, apply_id=None, corp_id=None, user_id=None):
+    def __init__(self, apply_id=None):
         self.apply_id = apply_id  # type: long
-        self.corp_id = corp_id  # type: str
-        self.user_id = user_id  # type: str
 
     def validate(self):
         pass
@@ -13151,20 +13069,12 @@ class TrainExceedApplyQueryRequest(TeaModel):
         result = dict()
         if self.apply_id is not None:
             result['apply_id'] = self.apply_id
-        if self.corp_id is not None:
-            result['corp_id'] = self.corp_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('apply_id') is not None:
             self.apply_id = m.get('apply_id')
-        if m.get('corp_id') is not None:
-            self.corp_id = m.get('corp_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
         return self
 
 
@@ -14331,15 +14241,13 @@ class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
 
 class TrainOrderQueryResponseBodyModulePassengerInfoList(TeaModel):
     def __init__(self, cost_center_id=None, cost_center_name=None, cost_center_number=None, project_code=None,
-                 project_id=None, project_title=None, thirdpart_cost_center_id=None, thirdpart_project_id=None, user_id=None,
-                 user_name=None, user_type=None):
+                 project_id=None, project_title=None, thirdpart_project_id=None, user_id=None, user_name=None, user_type=None):
         self.cost_center_id = cost_center_id  # type: long
         self.cost_center_name = cost_center_name  # type: str
         self.cost_center_number = cost_center_number  # type: str
         self.project_code = project_code  # type: str
         self.project_id = project_id  # type: long
         self.project_title = project_title  # type: str
-        self.thirdpart_cost_center_id = thirdpart_cost_center_id  # type: str
         self.thirdpart_project_id = thirdpart_project_id  # type: str
         self.user_id = user_id  # type: str
         self.user_name = user_name  # type: str
@@ -14366,8 +14274,6 @@ class TrainOrderQueryResponseBodyModulePassengerInfoList(TeaModel):
             result['project_id'] = self.project_id
         if self.project_title is not None:
             result['project_title'] = self.project_title
-        if self.thirdpart_cost_center_id is not None:
-            result['thirdpart_cost_center_id'] = self.thirdpart_cost_center_id
         if self.thirdpart_project_id is not None:
             result['thirdpart_project_id'] = self.thirdpart_project_id
         if self.user_id is not None:
@@ -14392,8 +14298,6 @@ class TrainOrderQueryResponseBodyModulePassengerInfoList(TeaModel):
             self.project_id = m.get('project_id')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
-        if m.get('thirdpart_cost_center_id') is not None:
-            self.thirdpart_cost_center_id = m.get('thirdpart_cost_center_id')
         if m.get('thirdpart_project_id') is not None:
             self.thirdpart_project_id = m.get('thirdpart_project_id')
         if m.get('user_id') is not None:
@@ -14870,9 +14774,8 @@ class TrainOrderQueryResponse(TeaModel):
 
 
 class UserQueryRequest(TeaModel):
-    def __init__(self, modified_time_greater_or_equal_than=None, third_part_corp_id=None, third_part_job_no=None):
+    def __init__(self, modified_time_greater_or_equal_than=None, third_part_job_no=None):
         self.modified_time_greater_or_equal_than = modified_time_greater_or_equal_than  # type: str
-        self.third_part_corp_id = third_part_corp_id  # type: str
         self.third_part_job_no = third_part_job_no  # type: str
 
     def validate(self):
@@ -14886,8 +14789,6 @@ class UserQueryRequest(TeaModel):
         result = dict()
         if self.modified_time_greater_or_equal_than is not None:
             result['modified_time_greater_or_equal_than'] = self.modified_time_greater_or_equal_than
-        if self.third_part_corp_id is not None:
-            result['third_part_corp_id'] = self.third_part_corp_id
         if self.third_part_job_no is not None:
             result['third_part_job_no'] = self.third_part_job_no
         return result
@@ -14896,8 +14797,6 @@ class UserQueryRequest(TeaModel):
         m = m or dict()
         if m.get('modified_time_greater_or_equal_than') is not None:
             self.modified_time_greater_or_equal_than = m.get('modified_time_greater_or_equal_than')
-        if m.get('third_part_corp_id') is not None:
-            self.third_part_corp_id = m.get('third_part_corp_id')
         if m.get('third_part_job_no') is not None:
             self.third_part_job_no = m.get('third_part_job_no')
         return self
