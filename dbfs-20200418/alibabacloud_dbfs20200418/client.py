@@ -556,6 +556,10 @@ class Client(OpenApiClient):
     def list_dbfs_attachable_ecs_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.filter_key):
+            query['FilterKey'] = request.filter_key
+        if not UtilClient.is_unset(request.filter_value):
+            query['FilterValue'] = request.filter_value
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
