@@ -118,6 +118,8 @@ class Client(OpenApiClient):
             request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.hotel_share), 'hotel_share', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_list):
             request.itinerary_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_list, 'itinerary_list', 'json')
+        if not UtilClient.is_unset(tmp_req.itinerary_set_list):
+            request.itinerary_set_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_set_list, 'itinerary_set_list', 'json')
         if not UtilClient.is_unset(tmp_req.traveler_list):
             request.traveler_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.traveler_list, 'traveler_list', 'json')
         if not UtilClient.is_unset(tmp_req.traveler_standard):
@@ -148,6 +150,10 @@ class Client(OpenApiClient):
             body['hotel_share'] = request.hotel_share_shrink
         if not UtilClient.is_unset(request.itinerary_list_shrink):
             body['itinerary_list'] = request.itinerary_list_shrink
+        if not UtilClient.is_unset(request.itinerary_rule):
+            body['itinerary_rule'] = request.itinerary_rule
+        if not UtilClient.is_unset(request.itinerary_set_list_shrink):
+            body['itinerary_set_list'] = request.itinerary_set_list_shrink
         if not UtilClient.is_unset(request.limit_traveler):
             body['limit_traveler'] = request.limit_traveler
         if not UtilClient.is_unset(request.status):
@@ -268,6 +274,8 @@ class Client(OpenApiClient):
             request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.hotel_share), 'hotel_share', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_list):
             request.itinerary_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_list, 'itinerary_list', 'json')
+        if not UtilClient.is_unset(tmp_req.itinerary_set_list):
+            request.itinerary_set_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_set_list, 'itinerary_set_list', 'json')
         if not UtilClient.is_unset(tmp_req.traveler_list):
             request.traveler_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.traveler_list, 'traveler_list', 'json')
         if not UtilClient.is_unset(tmp_req.traveler_standard):
@@ -295,6 +303,10 @@ class Client(OpenApiClient):
             body['hotel_share'] = request.hotel_share_shrink
         if not UtilClient.is_unset(request.itinerary_list_shrink):
             body['itinerary_list'] = request.itinerary_list_shrink
+        if not UtilClient.is_unset(request.itinerary_rule):
+            body['itinerary_rule'] = request.itinerary_rule
+        if not UtilClient.is_unset(request.itinerary_set_list_shrink):
+            body['itinerary_set_list'] = request.itinerary_set_list_shrink
         if not UtilClient.is_unset(request.limit_traveler):
             body['limit_traveler'] = request.limit_traveler
         if not UtilClient.is_unset(request.status):
