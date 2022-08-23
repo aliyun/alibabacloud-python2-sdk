@@ -6,25 +6,15 @@ from Tea.model import TeaModel
 class RecognizeAdvancedRequest(TeaModel):
     def __init__(self, need_rotate=None, need_sort_page=None, no_stamp=None, output_char_info=None,
                  output_figure=None, output_table=None, paragraph=None, row=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否按顺序输出文字块。false表示从左往右，从上到下的顺序；true表示从上到下，从左往右的顺序
         self.need_sort_page = need_sort_page  # type: bool
-        # 是否需要去除印章功能，默认不需要。true：需要 false：不需要
         self.no_stamp = no_stamp  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否需要图案检测功能，默认不需要。true：需要 false：不需要
         self.output_figure = output_figure  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 是否需要分段功能，默认不需要。true：需要 false：不需要
         self.paragraph = paragraph  # type: bool
-        # 是否需要成行返回功能，默认不需要
         self.row = row  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -85,13 +75,9 @@ class RecognizeAdvancedRequest(TeaModel):
 
 class RecognizeAdvancedResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -167,9 +153,7 @@ class RecognizeAdvancedResponse(TeaModel):
 
 class RecognizeAirItineraryRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -276,9 +260,7 @@ class RecognizeAirItineraryResponse(TeaModel):
 
 class RecognizeBankAcceptanceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -307,13 +289,9 @@ class RecognizeBankAcceptanceRequest(TeaModel):
 
 class RecognizeBankAcceptanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -389,9 +367,7 @@ class RecognizeBankAcceptanceResponse(TeaModel):
 
 class RecognizeBankAccountLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -498,9 +474,7 @@ class RecognizeBankAccountLicenseResponse(TeaModel):
 
 class RecognizeBankCardRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -607,9 +581,7 @@ class RecognizeBankCardResponse(TeaModel):
 
 class RecognizeBasicRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -714,161 +686,9 @@ class RecognizeBasicResponse(TeaModel):
         return self
 
 
-class RecognizeBatchRecognizeRequest(TeaModel):
-    def __init__(self, image_name=None, image_op=None, image_oss_key=None, need_rotate=None, need_sort_page=None,
-                 output_char_info=None, output_table=None, url=None):
-        # 图片名称
-        self.image_name = image_name  # type: str
-        # 图片识别op类型
-        self.image_op = image_op  # type: str
-        # 图片存入oss中的key
-        self.image_oss_key = image_oss_key  # type: str
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
-        self.need_rotate = need_rotate  # type: bool
-        # 是否按顺序输出文字块。false表示从左往右，从上到下的顺序；true表示从上到下，从左往右的顺序
-        self.need_sort_page = need_sort_page  # type: bool
-        # 是否输出单字识别结果
-        self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
-        self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
-        self.url = url  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeBatchRecognizeRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.image_name is not None:
-            result['ImageName'] = self.image_name
-        if self.image_op is not None:
-            result['ImageOp'] = self.image_op
-        if self.image_oss_key is not None:
-            result['ImageOssKey'] = self.image_oss_key
-        if self.need_rotate is not None:
-            result['NeedRotate'] = self.need_rotate
-        if self.need_sort_page is not None:
-            result['NeedSortPage'] = self.need_sort_page
-        if self.output_char_info is not None:
-            result['OutputCharInfo'] = self.output_char_info
-        if self.output_table is not None:
-            result['OutputTable'] = self.output_table
-        if self.url is not None:
-            result['Url'] = self.url
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ImageName') is not None:
-            self.image_name = m.get('ImageName')
-        if m.get('ImageOp') is not None:
-            self.image_op = m.get('ImageOp')
-        if m.get('ImageOssKey') is not None:
-            self.image_oss_key = m.get('ImageOssKey')
-        if m.get('NeedRotate') is not None:
-            self.need_rotate = m.get('NeedRotate')
-        if m.get('NeedSortPage') is not None:
-            self.need_sort_page = m.get('NeedSortPage')
-        if m.get('OutputCharInfo') is not None:
-            self.output_char_info = m.get('OutputCharInfo')
-        if m.get('OutputTable') is not None:
-            self.output_table = m.get('OutputTable')
-        if m.get('Url') is not None:
-            self.url = m.get('Url')
-        return self
-
-
-class RecognizeBatchRecognizeResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
-        self.code = code  # type: str
-        # 返回数据
-        self.data = data  # type: str
-        # 错误提示
-        self.message = message  # type: str
-        # 请求唯一 ID
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeBatchRecognizeResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class RecognizeBatchRecognizeResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: RecognizeBatchRecognizeResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RecognizeBatchRecognizeResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = RecognizeBatchRecognizeResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class RecognizeBirthCertificationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -975,9 +795,7 @@ class RecognizeBirthCertificationResponse(TeaModel):
 
 class RecognizeBusShipTicketRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1006,13 +824,9 @@ class RecognizeBusShipTicketRequest(TeaModel):
 
 class RecognizeBusShipTicketResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1088,9 +902,7 @@ class RecognizeBusShipTicketResponse(TeaModel):
 
 class RecognizeBusinessLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1197,9 +1009,7 @@ class RecognizeBusinessLicenseResponse(TeaModel):
 
 class RecognizeCarInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1306,9 +1116,7 @@ class RecognizeCarInvoiceResponse(TeaModel):
 
 class RecognizeCarNumberRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1415,9 +1223,7 @@ class RecognizeCarNumberResponse(TeaModel):
 
 class RecognizeCarVinCodeRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1524,11 +1330,8 @@ class RecognizeCarVinCodeResponse(TeaModel):
 
 class RecognizeChinesePassportRequest(TeaModel):
     def __init__(self, output_figure=None, url=None, body=None):
-        # 是否需要图案检测功能，默认需要
         self.output_figure = output_figure  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1561,13 +1364,9 @@ class RecognizeChinesePassportRequest(TeaModel):
 
 class RecognizeChinesePassportResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1643,9 +1442,7 @@ class RecognizeChinesePassportResponse(TeaModel):
 
 class RecognizeCommonPrintedInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1674,13 +1471,9 @@ class RecognizeCommonPrintedInvoiceRequest(TeaModel):
 
 class RecognizeCommonPrintedInvoiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1756,9 +1549,7 @@ class RecognizeCommonPrintedInvoiceResponse(TeaModel):
 
 class RecognizeCosmeticProduceLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1866,9 +1657,7 @@ class RecognizeCosmeticProduceLicenseResponse(TeaModel):
 class RecognizeCovidTestReportRequest(TeaModel):
     def __init__(self, multiple_result=None, url=None, body=None):
         self.multiple_result = multiple_result  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -1901,13 +1690,9 @@ class RecognizeCovidTestReportRequest(TeaModel):
 
 class RecognizeCovidTestReportResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1983,9 +1768,7 @@ class RecognizeCovidTestReportResponse(TeaModel):
 
 class RecognizeCtwoMedicalDeviceManageLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2090,46 +1873,93 @@ class RecognizeCtwoMedicalDeviceManageLicenseResponse(TeaModel):
         return self
 
 
-class RecognizeDeleteExcelRecordRequest(TeaModel):
-    def __init__(self, id=None):
-        self.id = id  # type: str
+class RecognizeDocumentStructureRequest(TeaModel):
+    def __init__(self, need_rotate=None, need_sort_page=None, no_stamp=None, output_char_info=None,
+                 output_table=None, page=None, paragraph=None, row=None, url=None, use_new_style_output=None, body=None):
+        self.need_rotate = need_rotate  # type: bool
+        self.need_sort_page = need_sort_page  # type: bool
+        self.no_stamp = no_stamp  # type: bool
+        self.output_char_info = output_char_info  # type: bool
+        self.output_table = output_table  # type: bool
+        self.page = page  # type: bool
+        self.paragraph = paragraph  # type: bool
+        self.row = row  # type: bool
+        self.url = url  # type: str
+        self.use_new_style_output = use_new_style_output  # type: bool
+        self.body = body  # type: READABLE
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(RecognizeDeleteExcelRecordRequest, self).to_map()
+        _map = super(RecognizeDocumentStructureRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.id is not None:
-            result['Id'] = self.id
+        if self.need_rotate is not None:
+            result['NeedRotate'] = self.need_rotate
+        if self.need_sort_page is not None:
+            result['NeedSortPage'] = self.need_sort_page
+        if self.no_stamp is not None:
+            result['NoStamp'] = self.no_stamp
+        if self.output_char_info is not None:
+            result['OutputCharInfo'] = self.output_char_info
+        if self.output_table is not None:
+            result['OutputTable'] = self.output_table
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.paragraph is not None:
+            result['Paragraph'] = self.paragraph
+        if self.row is not None:
+            result['Row'] = self.row
+        if self.url is not None:
+            result['Url'] = self.url
+        if self.use_new_style_output is not None:
+            result['UseNewStyleOutput'] = self.use_new_style_output
+        if self.body is not None:
+            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('NeedRotate') is not None:
+            self.need_rotate = m.get('NeedRotate')
+        if m.get('NeedSortPage') is not None:
+            self.need_sort_page = m.get('NeedSortPage')
+        if m.get('NoStamp') is not None:
+            self.no_stamp = m.get('NoStamp')
+        if m.get('OutputCharInfo') is not None:
+            self.output_char_info = m.get('OutputCharInfo')
+        if m.get('OutputTable') is not None:
+            self.output_table = m.get('OutputTable')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('Paragraph') is not None:
+            self.paragraph = m.get('Paragraph')
+        if m.get('Row') is not None:
+            self.row = m.get('Row')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        if m.get('UseNewStyleOutput') is not None:
+            self.use_new_style_output = m.get('UseNewStyleOutput')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
-class RecognizeDeleteExcelRecordResponseBody(TeaModel):
+class RecognizeDocumentStructureResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(RecognizeDeleteExcelRecordResponseBody, self).to_map()
+        _map = super(RecognizeDocumentStructureResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -2157,11 +1987,11 @@ class RecognizeDeleteExcelRecordResponseBody(TeaModel):
         return self
 
 
-class RecognizeDeleteExcelRecordResponse(TeaModel):
+class RecognizeDocumentStructureResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
-        self.body = body  # type: RecognizeDeleteExcelRecordResponseBody
+        self.body = body  # type: RecognizeDocumentStructureResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -2171,7 +2001,7 @@ class RecognizeDeleteExcelRecordResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(RecognizeDeleteExcelRecordResponse, self).to_map()
+        _map = super(RecognizeDocumentStructureResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -2191,16 +2021,14 @@ class RecognizeDeleteExcelRecordResponse(TeaModel):
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = RecognizeDeleteExcelRecordResponseBody()
+            temp_model = RecognizeDocumentStructureResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
 class RecognizeDrivingLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2307,9 +2135,7 @@ class RecognizeDrivingLicenseResponse(TeaModel):
 
 class RecognizeEduFormulaRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2416,9 +2242,7 @@ class RecognizeEduFormulaResponse(TeaModel):
 
 class RecognizeEduOralCalculationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2525,15 +2349,10 @@ class RecognizeEduOralCalculationResponse(TeaModel):
 
 class RecognizeEduPaperCutRequest(TeaModel):
     def __init__(self, cut_type=None, image_type=None, subject=None, url=None, body=None):
-        # 切题类型
         self.cut_type = cut_type  # type: str
-        # 图片类型
         self.image_type = image_type  # type: str
-        # 年级学科
         self.subject = subject  # type: str
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2652,15 +2471,10 @@ class RecognizeEduPaperCutResponse(TeaModel):
 
 class RecognizeEduPaperOcrRequest(TeaModel):
     def __init__(self, image_type=None, output_oricoord=None, subject=None, url=None, body=None):
-        # 图片类型
         self.image_type = image_type  # type: str
-        # 是否输出原图坐标信息(如果图片被做过旋转，图片校正等处理)
         self.output_oricoord = output_oricoord  # type: bool
-        # 年级学科
         self.subject = subject  # type: str
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2779,13 +2593,9 @@ class RecognizeEduPaperOcrResponse(TeaModel):
 
 class RecognizeEduPaperStructedRequest(TeaModel):
     def __init__(self, need_rotate=None, subject=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 学科类型
         self.subject = subject  # type: str
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -2900,11 +2710,8 @@ class RecognizeEduPaperStructedResponse(TeaModel):
 
 class RecognizeEduQuestionOcrRequest(TeaModel):
     def __init__(self, need_rotate=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3015,13 +2822,9 @@ class RecognizeEduQuestionOcrResponse(TeaModel):
 
 class RecognizeEnglishRequest(TeaModel):
     def __init__(self, need_rotate=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3136,9 +2939,7 @@ class RecognizeEnglishResponse(TeaModel):
 
 class RecognizeEstateCertificationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3243,257 +3044,10 @@ class RecognizeEstateCertificationResponse(TeaModel):
         return self
 
 
-class RecognizeExcelExportRequest(TeaModel):
-    def __init__(self, file_name=None, image_op=None, ocr_image_count=None, ocr_result=None, ocr_type=None):
-        # 文件名称
-        self.file_name = file_name  # type: str
-        # 图片识别op类型
-        self.image_op = image_op  # type: str
-        # 识别图片数量
-        self.ocr_image_count = ocr_image_count  # type: long
-        # 存储图片识别结果集的oss地址
-        self.ocr_result = ocr_result  # type: str
-        # 票证类型
-        self.ocr_type = ocr_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeExcelExportRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.file_name is not None:
-            result['FileName'] = self.file_name
-        if self.image_op is not None:
-            result['ImageOp'] = self.image_op
-        if self.ocr_image_count is not None:
-            result['OcrImageCount'] = self.ocr_image_count
-        if self.ocr_result is not None:
-            result['OcrResult'] = self.ocr_result
-        if self.ocr_type is not None:
-            result['OcrType'] = self.ocr_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('FileName') is not None:
-            self.file_name = m.get('FileName')
-        if m.get('ImageOp') is not None:
-            self.image_op = m.get('ImageOp')
-        if m.get('OcrImageCount') is not None:
-            self.ocr_image_count = m.get('OcrImageCount')
-        if m.get('OcrResult') is not None:
-            self.ocr_result = m.get('OcrResult')
-        if m.get('OcrType') is not None:
-            self.ocr_type = m.get('OcrType')
-        return self
-
-
-class RecognizeExcelExportResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
-        self.code = code  # type: str
-        # 返回数据
-        self.data = data  # type: str
-        # 错误提示
-        self.message = message  # type: str
-        # 请求唯一 ID
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeExcelExportResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class RecognizeExcelExportResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: RecognizeExcelExportResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RecognizeExcelExportResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = RecognizeExcelExportResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class RecognizeExcelRecordRequest(TeaModel):
-    def __init__(self, curr_page=None, page_size=None):
-        # 页码
-        self.curr_page = curr_page  # type: long
-        # 每页数据
-        self.page_size = page_size  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeExcelRecordRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.curr_page is not None:
-            result['CurrPage'] = self.curr_page
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CurrPage') is not None:
-            self.curr_page = m.get('CurrPage')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        return self
-
-
-class RecognizeExcelRecordResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
-        self.code = code  # type: str
-        # 返回数据
-        self.data = data  # type: str
-        # 错误提示
-        self.message = message  # type: str
-        # 请求唯一 ID
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RecognizeExcelRecordResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class RecognizeExcelRecordResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: RecognizeExcelRecordResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RecognizeExcelRecordResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = RecognizeExcelRecordResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class RecognizeExitEntryPermitToHKRequest(TeaModel):
     def __init__(self, output_figure=None, url=None, body=None):
-        # 图案坐标信息输出，针对结构化，如身份证人脸头像
         self.output_figure = output_figure  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3526,13 +3080,9 @@ class RecognizeExitEntryPermitToHKRequest(TeaModel):
 
 class RecognizeExitEntryPermitToHKResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3608,11 +3158,8 @@ class RecognizeExitEntryPermitToHKResponse(TeaModel):
 
 class RecognizeExitEntryPermitToMainlandRequest(TeaModel):
     def __init__(self, output_figure=None, url=None, body=None):
-        # 图案坐标信息输出，针对结构化，如身份证人脸头像
         self.output_figure = output_figure  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3645,13 +3192,9 @@ class RecognizeExitEntryPermitToMainlandRequest(TeaModel):
 
 class RecognizeExitEntryPermitToMainlandResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3727,9 +3270,7 @@ class RecognizeExitEntryPermitToMainlandResponse(TeaModel):
 
 class RecognizeFoodManageLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3836,9 +3377,7 @@ class RecognizeFoodManageLicenseResponse(TeaModel):
 
 class RecognizeFoodProduceLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -3945,9 +3484,7 @@ class RecognizeFoodProduceLicenseResponse(TeaModel):
 
 class RecognizeGeneralRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4055,17 +3592,11 @@ class RecognizeGeneralResponse(TeaModel):
 class RecognizeHandwritingRequest(TeaModel):
     def __init__(self, need_rotate=None, need_sort_page=None, output_char_info=None, output_table=None, url=None,
                  body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否按顺序输出文字块。false表示从左往右，从上到下的顺序；true表示从上到下，从左往右的顺序
         self.need_sort_page = need_sort_page  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4188,9 +3719,7 @@ class RecognizeHandwritingResponse(TeaModel):
 
 class RecognizeHealthCodeRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4219,13 +3748,9 @@ class RecognizeHealthCodeRequest(TeaModel):
 
 class RecognizeHealthCodeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4301,9 +3826,7 @@ class RecognizeHealthCodeResponse(TeaModel):
 
 class RecognizeHotelConsumeRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4411,9 +3934,7 @@ class RecognizeHotelConsumeResponse(TeaModel):
 class RecognizeHouseholdRequest(TeaModel):
     def __init__(self, is_resident_page=None, url=None, body=None):
         self.is_resident_page = is_resident_page  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4524,11 +4045,8 @@ class RecognizeHouseholdResponse(TeaModel):
 
 class RecognizeIdcardRequest(TeaModel):
     def __init__(self, output_figure=None, url=None, body=None):
-        # 是否需要图案检测功能，默认不需要
         self.output_figure = output_figure  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4639,9 +4157,7 @@ class RecognizeIdcardResponse(TeaModel):
 
 class RecognizeInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4748,15 +4264,10 @@ class RecognizeInvoiceResponse(TeaModel):
 
 class RecognizeJanpaneseRequest(TeaModel):
     def __init__(self, need_rotate=None, output_char_info=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -4875,15 +4386,10 @@ class RecognizeJanpaneseResponse(TeaModel):
 
 class RecognizeKoreanRequest(TeaModel):
     def __init__(self, need_rotate=None, output_char_info=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5002,15 +4508,10 @@ class RecognizeKoreanResponse(TeaModel):
 
 class RecognizeLatinRequest(TeaModel):
     def __init__(self, need_rotate=None, output_char_info=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5129,9 +4630,7 @@ class RecognizeLatinResponse(TeaModel):
 
 class RecognizeMedicalDeviceManageLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5238,9 +4737,7 @@ class RecognizeMedicalDeviceManageLicenseResponse(TeaModel):
 
 class RecognizeMedicalDeviceProduceLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5347,9 +4844,7 @@ class RecognizeMedicalDeviceProduceLicenseResponse(TeaModel):
 
 class RecognizeMixedInvoicesRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5457,19 +4952,12 @@ class RecognizeMixedInvoicesResponse(TeaModel):
 class RecognizeMultiLanguageRequest(TeaModel):
     def __init__(self, languages=None, need_rotate=None, need_sort_page=None, output_char_info=None,
                  output_table=None, url=None, body=None):
-        # 识别语种
         self.languages = languages  # type: list[str]
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否按顺序输出文字块。false表示从左往右，从上到下的顺序；true表示从上到下，从左往右的顺序
         self.need_sort_page = need_sort_page  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5519,19 +5007,12 @@ class RecognizeMultiLanguageRequest(TeaModel):
 class RecognizeMultiLanguageShrinkRequest(TeaModel):
     def __init__(self, languages_shrink=None, need_rotate=None, need_sort_page=None, output_char_info=None,
                  output_table=None, url=None, body=None):
-        # 识别语种
         self.languages_shrink = languages_shrink  # type: str
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否按顺序输出文字块。false表示从左往右，从上到下的顺序；true表示从上到下，从左往右的顺序
         self.need_sort_page = need_sort_page  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5658,9 +5139,7 @@ class RecognizeMultiLanguageResponse(TeaModel):
 
 class RecognizeNonTaxInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5767,9 +5246,7 @@ class RecognizeNonTaxInvoiceResponse(TeaModel):
 
 class RecognizePassportRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5876,9 +5353,7 @@ class RecognizePassportResponse(TeaModel):
 
 class RecognizePaymentRecordRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -5985,9 +5460,7 @@ class RecognizePaymentRecordResponse(TeaModel):
 
 class RecognizePurchaseRecordRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6094,9 +5567,7 @@ class RecognizePurchaseRecordResponse(TeaModel):
 
 class RecognizeQuotaInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6203,9 +5674,7 @@ class RecognizeQuotaInvoiceResponse(TeaModel):
 
 class RecognizeRideHailingItineraryRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6234,13 +5703,9 @@ class RecognizeRideHailingItineraryRequest(TeaModel):
 
 class RecognizeRideHailingItineraryResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6316,9 +5781,7 @@ class RecognizeRideHailingItineraryResponse(TeaModel):
 
 class RecognizeRollTicketRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6425,15 +5888,10 @@ class RecognizeRollTicketResponse(TeaModel):
 
 class RecognizeRussianRequest(TeaModel):
     def __init__(self, need_rotate=None, output_char_info=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6552,9 +6010,7 @@ class RecognizeRussianResponse(TeaModel):
 
 class RecognizeShoppingReceiptRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6583,13 +6039,9 @@ class RecognizeShoppingReceiptRequest(TeaModel):
 
 class RecognizeShoppingReceiptResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6665,9 +6117,7 @@ class RecognizeShoppingReceiptResponse(TeaModel):
 
 class RecognizeSocialSecurityCardRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6696,13 +6146,9 @@ class RecognizeSocialSecurityCardRequest(TeaModel):
 
 class RecognizeSocialSecurityCardResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6778,9 +6224,7 @@ class RecognizeSocialSecurityCardResponse(TeaModel):
 
 class RecognizeSocialSecurityCardVersionIIRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -6809,13 +6253,9 @@ class RecognizeSocialSecurityCardVersionIIRequest(TeaModel):
 
 class RecognizeSocialSecurityCardVersionIIResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6891,15 +6331,10 @@ class RecognizeSocialSecurityCardVersionIIResponse(TeaModel):
 
 class RecognizeTableOcrRequest(TeaModel):
     def __init__(self, line_less=None, need_rotate=None, skip_detection=None, url=None, body=None):
-        # 是否无线条
         self.line_less = line_less  # type: bool
-        # 是否需要自动旋转功能，默认需要
         self.need_rotate = need_rotate  # type: bool
-        # 是否跳过表格识别，如果没有检测到表格，可以设置"skip_detection":true
         self.skip_detection = skip_detection  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7018,9 +6453,7 @@ class RecognizeTableOcrResponse(TeaModel):
 
 class RecognizeTaxClearanceCertificateRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7049,13 +6482,9 @@ class RecognizeTaxClearanceCertificateRequest(TeaModel):
 
 class RecognizeTaxClearanceCertificateResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7131,9 +6560,7 @@ class RecognizeTaxClearanceCertificateResponse(TeaModel):
 
 class RecognizeTaxiInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7240,15 +6667,10 @@ class RecognizeTaxiInvoiceResponse(TeaModel):
 
 class RecognizeThaiRequest(TeaModel):
     def __init__(self, need_rotate=None, output_char_info=None, output_table=None, url=None, body=None):
-        # 是否需要自动旋转功能(结构化检测、混贴场景、教育相关场景会自动做旋转，无需设置)，返回角度信息
         self.need_rotate = need_rotate  # type: bool
-        # 是否输出单字识别结果
         self.output_char_info = output_char_info  # type: bool
-        # 是否输出表格识别结果，包含单元格信息
         self.output_table = output_table  # type: bool
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7367,9 +6789,7 @@ class RecognizeThaiResponse(TeaModel):
 
 class RecognizeTollInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7398,13 +6818,9 @@ class RecognizeTollInvoiceRequest(TeaModel):
 
 class RecognizeTollInvoiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7480,9 +6896,7 @@ class RecognizeTollInvoiceResponse(TeaModel):
 
 class RecognizeTradeMarkCertificationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7589,9 +7003,7 @@ class RecognizeTradeMarkCertificationResponse(TeaModel):
 
 class RecognizeTrainInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7698,9 +7110,7 @@ class RecognizeTrainInvoiceResponse(TeaModel):
 
 class RecognizeTravelCardRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7729,13 +7139,9 @@ class RecognizeTravelCardRequest(TeaModel):
 
 class RecognizeTravelCardResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7811,9 +7217,7 @@ class RecognizeTravelCardResponse(TeaModel):
 
 class RecognizeUsedCarInvoiceRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7842,13 +7246,9 @@ class RecognizeUsedCarInvoiceRequest(TeaModel):
 
 class RecognizeUsedCarInvoiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7924,9 +7324,7 @@ class RecognizeUsedCarInvoiceResponse(TeaModel):
 
 class RecognizeVehicleCertificationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -7955,13 +7353,9 @@ class RecognizeVehicleCertificationRequest(TeaModel):
 
 class RecognizeVehicleCertificationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8037,9 +7431,7 @@ class RecognizeVehicleCertificationResponse(TeaModel):
 
 class RecognizeVehicleLicenseRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -8146,9 +7538,7 @@ class RecognizeVehicleLicenseResponse(TeaModel):
 
 class RecognizeVehicleRegistrationRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
@@ -8177,13 +7567,9 @@ class RecognizeVehicleRegistrationRequest(TeaModel):
 
 class RecognizeVehicleRegistrationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # 错误码
         self.code = code  # type: str
-        # 返回数据
         self.data = data  # type: str
-        # 错误提示
         self.message = message  # type: str
-        # 请求唯一 ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8259,9 +7645,7 @@ class RecognizeVehicleRegistrationResponse(TeaModel):
 
 class RecognizeWaybillRequest(TeaModel):
     def __init__(self, url=None, body=None):
-        # 图片链接（长度不超 2048，不支持 base64）
         self.url = url  # type: str
-        # 图片二进制字节流，最大10MB
         self.body = body  # type: READABLE
 
     def validate(self):
