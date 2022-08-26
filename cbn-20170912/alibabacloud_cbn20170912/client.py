@@ -1849,6 +1849,8 @@ class Client(OpenApiClient):
             query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.next_hop):
             query['NextHop'] = request.next_hop
+        if not UtilClient.is_unset(request.next_hop_type):
+            query['NextHopType'] = request.next_hop_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
