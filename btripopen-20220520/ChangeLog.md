@@ -1,3 +1,6 @@
+2022-08-26 Version: 1.0.6
+- Add Header Parameter.
+
 2022-08-23 Version: 1.0.5
 - Change some input parameter type.
 
