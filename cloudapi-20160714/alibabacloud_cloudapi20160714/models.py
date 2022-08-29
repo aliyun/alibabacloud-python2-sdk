@@ -7967,15 +7967,17 @@ class DescribeApiGroupResponseBodyStageItems(TeaModel):
 
 
 class DescribeApiGroupResponseBody(TeaModel):
-    def __init__(self, base_path=None, billing_status=None, classic_vpc_sub_domain=None, cms_monitor_group=None,
-                 compatible_flags=None, created_time=None, custom_domains=None, custom_trace_config=None, customer_configs=None,
-                 default_domain=None, description=None, group_id=None, group_name=None, https_policy=None, illegal_status=None,
-                 instance_id=None, instance_type=None, instance_vip_list=None, ipv_6status=None, modified_time=None,
-                 passthrough_headers=None, region_id=None, request_id=None, rpc_pattern=None, stage_items=None, status=None,
-                 sub_domain=None, traffic_limit=None, user_log_config=None, vpc_domain=None, vpc_slb_intranet_domain=None):
+    def __init__(self, base_path=None, billing_status=None, classic_vpc_sub_domain=None,
+                 cloud_market_commodity=None, cms_monitor_group=None, compatible_flags=None, created_time=None, custom_domains=None,
+                 custom_trace_config=None, customer_configs=None, default_domain=None, description=None, group_id=None, group_name=None,
+                 https_policy=None, illegal_status=None, instance_id=None, instance_type=None, instance_vip_list=None,
+                 ipv_6status=None, modified_time=None, passthrough_headers=None, region_id=None, request_id=None,
+                 rpc_pattern=None, stage_items=None, status=None, sub_domain=None, traffic_limit=None, user_log_config=None,
+                 vpc_domain=None, vpc_slb_intranet_domain=None):
         self.base_path = base_path  # type: str
         self.billing_status = billing_status  # type: str
         self.classic_vpc_sub_domain = classic_vpc_sub_domain  # type: str
+        self.cloud_market_commodity = cloud_market_commodity  # type: bool
         self.cms_monitor_group = cms_monitor_group  # type: str
         self.compatible_flags = compatible_flags  # type: str
         self.created_time = created_time  # type: str
@@ -8023,6 +8025,8 @@ class DescribeApiGroupResponseBody(TeaModel):
             result['BillingStatus'] = self.billing_status
         if self.classic_vpc_sub_domain is not None:
             result['ClassicVpcSubDomain'] = self.classic_vpc_sub_domain
+        if self.cloud_market_commodity is not None:
+            result['CloudMarketCommodity'] = self.cloud_market_commodity
         if self.cms_monitor_group is not None:
             result['CmsMonitorGroup'] = self.cms_monitor_group
         if self.compatible_flags is not None:
@@ -8089,6 +8093,8 @@ class DescribeApiGroupResponseBody(TeaModel):
             self.billing_status = m.get('BillingStatus')
         if m.get('ClassicVpcSubDomain') is not None:
             self.classic_vpc_sub_domain = m.get('ClassicVpcSubDomain')
+        if m.get('CloudMarketCommodity') is not None:
+            self.cloud_market_commodity = m.get('CloudMarketCommodity')
         if m.get('CmsMonitorGroup') is not None:
             self.cms_monitor_group = m.get('CmsMonitorGroup')
         if m.get('CompatibleFlags') is not None:
@@ -11846,10 +11852,13 @@ class DescribeApisRequestTag(TeaModel):
 
 
 class DescribeApisRequest(TeaModel):
-    def __init__(self, api_id=None, api_name=None, catalog_id=None, enable_tag_auth=None, group_id=None,
-                 page_number=None, page_size=None, security_token=None, tag=None, visibility=None):
+    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, catalog_id=None,
+                 enable_tag_auth=None, group_id=None, page_number=None, page_size=None, security_token=None, tag=None,
+                 un_deployed=None, visibility=None):
         self.api_id = api_id  # type: str
+        self.api_method = api_method  # type: str
         self.api_name = api_name  # type: str
+        self.api_path = api_path  # type: str
         self.catalog_id = catalog_id  # type: str
         self.enable_tag_auth = enable_tag_auth  # type: bool
         self.group_id = group_id  # type: str
@@ -11857,6 +11866,7 @@ class DescribeApisRequest(TeaModel):
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
         self.tag = tag  # type: list[DescribeApisRequestTag]
+        self.un_deployed = un_deployed  # type: bool
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -11873,8 +11883,12 @@ class DescribeApisRequest(TeaModel):
         result = dict()
         if self.api_id is not None:
             result['ApiId'] = self.api_id
+        if self.api_method is not None:
+            result['ApiMethod'] = self.api_method
         if self.api_name is not None:
             result['ApiName'] = self.api_name
+        if self.api_path is not None:
+            result['ApiPath'] = self.api_path
         if self.catalog_id is not None:
             result['CatalogId'] = self.catalog_id
         if self.enable_tag_auth is not None:
@@ -11891,6 +11905,8 @@ class DescribeApisRequest(TeaModel):
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.un_deployed is not None:
+            result['UnDeployed'] = self.un_deployed
         if self.visibility is not None:
             result['Visibility'] = self.visibility
         return result
@@ -11899,8 +11915,12 @@ class DescribeApisRequest(TeaModel):
         m = m or dict()
         if m.get('ApiId') is not None:
             self.api_id = m.get('ApiId')
+        if m.get('ApiMethod') is not None:
+            self.api_method = m.get('ApiMethod')
         if m.get('ApiName') is not None:
             self.api_name = m.get('ApiName')
+        if m.get('ApiPath') is not None:
+            self.api_path = m.get('ApiPath')
         if m.get('CatalogId') is not None:
             self.catalog_id = m.get('CatalogId')
         if m.get('EnableTagAuth') is not None:
@@ -11918,16 +11938,20 @@ class DescribeApisRequest(TeaModel):
             for k in m.get('Tag'):
                 temp_model = DescribeApisRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('UnDeployed') is not None:
+            self.un_deployed = m.get('UnDeployed')
         if m.get('Visibility') is not None:
             self.visibility = m.get('Visibility')
         return self
 
 
 class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
-    def __init__(self, api_id=None, api_name=None, created_time=None, description=None, group_id=None,
-                 group_name=None, modified_time=None, region_id=None, visibility=None):
+    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, created_time=None,
+                 description=None, group_id=None, group_name=None, modified_time=None, region_id=None, visibility=None):
         self.api_id = api_id  # type: str
+        self.api_method = api_method  # type: str
         self.api_name = api_name  # type: str
+        self.api_path = api_path  # type: str
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.group_id = group_id  # type: str
@@ -11947,8 +11971,12 @@ class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
         result = dict()
         if self.api_id is not None:
             result['ApiId'] = self.api_id
+        if self.api_method is not None:
+            result['ApiMethod'] = self.api_method
         if self.api_name is not None:
             result['ApiName'] = self.api_name
+        if self.api_path is not None:
+            result['ApiPath'] = self.api_path
         if self.created_time is not None:
             result['CreatedTime'] = self.created_time
         if self.description is not None:
@@ -11969,8 +11997,12 @@ class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
         m = m or dict()
         if m.get('ApiId') is not None:
             self.api_id = m.get('ApiId')
+        if m.get('ApiMethod') is not None:
+            self.api_method = m.get('ApiMethod')
         if m.get('ApiName') is not None:
             self.api_name = m.get('ApiName')
+        if m.get('ApiPath') is not None:
+            self.api_path = m.get('ApiPath')
         if m.get('CreatedTime') is not None:
             self.created_time = m.get('CreatedTime')
         if m.get('Description') is not None:
@@ -14695,13 +14727,15 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigOssCon
 
 
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcConfig(TeaModel):
-    def __init__(self, instance_id=None, name=None, port=None, vpc_access_id=None, vpc_id=None, vpc_scheme=None):
+    def __init__(self, instance_id=None, name=None, port=None, vpc_access_id=None, vpc_id=None, vpc_scheme=None,
+                 vpc_target_host_name=None):
         self.instance_id = instance_id  # type: str
         self.name = name  # type: str
         self.port = port  # type: long
         self.vpc_access_id = vpc_access_id  # type: str
         self.vpc_id = vpc_id  # type: str
         self.vpc_scheme = vpc_scheme  # type: str
+        self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
         pass
@@ -14724,6 +14758,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcCon
             result['VpcId'] = self.vpc_id
         if self.vpc_scheme is not None:
             result['VpcScheme'] = self.vpc_scheme
+        if self.vpc_target_host_name is not None:
+            result['VpcTargetHostName'] = self.vpc_target_host_name
         return result
 
     def from_map(self, m=None):
@@ -14740,6 +14776,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcCon
             self.vpc_id = m.get('VpcId')
         if m.get('VpcScheme') is not None:
             self.vpc_scheme = m.get('VpcScheme')
+        if m.get('VpcTargetHostName') is not None:
+            self.vpc_target_host_name = m.get('VpcTargetHostName')
         return self
 
 
@@ -16681,10 +16719,12 @@ class DescribeDeployedApisRequestTag(TeaModel):
 
 
 class DescribeDeployedApisRequest(TeaModel):
-    def __init__(self, api_id=None, api_name=None, enable_tag_auth=None, group_id=None, page_number=None,
-                 page_size=None, security_token=None, stage_name=None, tag=None):
+    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, enable_tag_auth=None,
+                 group_id=None, page_number=None, page_size=None, security_token=None, stage_name=None, tag=None):
         self.api_id = api_id  # type: str
+        self.api_method = api_method  # type: str
         self.api_name = api_name  # type: str
+        self.api_path = api_path  # type: str
         self.enable_tag_auth = enable_tag_auth  # type: bool
         self.group_id = group_id  # type: str
         self.page_number = page_number  # type: int
@@ -16707,8 +16747,12 @@ class DescribeDeployedApisRequest(TeaModel):
         result = dict()
         if self.api_id is not None:
             result['ApiId'] = self.api_id
+        if self.api_method is not None:
+            result['ApiMethod'] = self.api_method
         if self.api_name is not None:
             result['ApiName'] = self.api_name
+        if self.api_path is not None:
+            result['ApiPath'] = self.api_path
         if self.enable_tag_auth is not None:
             result['EnableTagAuth'] = self.enable_tag_auth
         if self.group_id is not None:
@@ -16731,8 +16775,12 @@ class DescribeDeployedApisRequest(TeaModel):
         m = m or dict()
         if m.get('ApiId') is not None:
             self.api_id = m.get('ApiId')
+        if m.get('ApiMethod') is not None:
+            self.api_method = m.get('ApiMethod')
         if m.get('ApiName') is not None:
             self.api_name = m.get('ApiName')
+        if m.get('ApiPath') is not None:
+            self.api_path = m.get('ApiPath')
         if m.get('EnableTagAuth') is not None:
             self.enable_tag_auth = m.get('EnableTagAuth')
         if m.get('GroupId') is not None:
@@ -16754,10 +16802,12 @@ class DescribeDeployedApisRequest(TeaModel):
 
 
 class DescribeDeployedApisResponseBodyDeployedApisDeployedApiItem(TeaModel):
-    def __init__(self, api_id=None, api_name=None, deployed_time=None, description=None, group_id=None,
-                 group_name=None, region_id=None, stage_name=None, visibility=None):
+    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, deployed_time=None,
+                 description=None, group_id=None, group_name=None, region_id=None, stage_name=None, visibility=None):
         self.api_id = api_id  # type: str
+        self.api_method = api_method  # type: str
         self.api_name = api_name  # type: str
+        self.api_path = api_path  # type: str
         self.deployed_time = deployed_time  # type: str
         self.description = description  # type: str
         self.group_id = group_id  # type: str
@@ -16777,8 +16827,12 @@ class DescribeDeployedApisResponseBodyDeployedApisDeployedApiItem(TeaModel):
         result = dict()
         if self.api_id is not None:
             result['ApiId'] = self.api_id
+        if self.api_method is not None:
+            result['ApiMethod'] = self.api_method
         if self.api_name is not None:
             result['ApiName'] = self.api_name
+        if self.api_path is not None:
+            result['ApiPath'] = self.api_path
         if self.deployed_time is not None:
             result['DeployedTime'] = self.deployed_time
         if self.description is not None:
@@ -16799,8 +16853,12 @@ class DescribeDeployedApisResponseBodyDeployedApisDeployedApiItem(TeaModel):
         m = m or dict()
         if m.get('ApiId') is not None:
             self.api_id = m.get('ApiId')
+        if m.get('ApiMethod') is not None:
+            self.api_method = m.get('ApiMethod')
         if m.get('ApiName') is not None:
             self.api_name = m.get('ApiName')
+        if m.get('ApiPath') is not None:
+            self.api_path = m.get('ApiPath')
         if m.get('DeployedTime') is not None:
             self.deployed_time = m.get('DeployedTime')
         if m.get('Description') is not None:
@@ -17482,17 +17540,19 @@ class DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttribu
 
 class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, acl_status=None, acl_type=None, classic_egress_address=None,
-                 created_time=None, egress_ipv_6enable=None, expired_time=None, https_policies=None, instance_charge_type=None,
-                 instance_id=None, instance_name=None, instance_rps_limit=None, instance_spec=None,
-                 instance_spec_attributes=None, instance_type=None, internet_egress_address=None, region_id=None, status=None,
-                 support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None, vpc_egress_address=None,
-                 vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None, zone_local_name=None):
+                 created_time=None, egress_address_change_notify=None, egress_ipv_6enable=None, expired_time=None,
+                 https_policies=None, instance_charge_type=None, instance_id=None, instance_name=None, instance_rps_limit=None,
+                 instance_spec=None, instance_spec_attributes=None, instance_type=None, internet_egress_address=None,
+                 region_id=None, status=None, support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None,
+                 vpc_egress_address=None, vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None,
+                 zone_local_name=None):
         self.acl_id = acl_id  # type: str
         self.acl_name = acl_name  # type: str
         self.acl_status = acl_status  # type: str
         self.acl_type = acl_type  # type: str
         self.classic_egress_address = classic_egress_address  # type: str
         self.created_time = created_time  # type: str
+        self.egress_address_change_notify = egress_address_change_notify  # type: bool
         self.egress_ipv_6enable = egress_ipv_6enable  # type: bool
         self.expired_time = expired_time  # type: str
         self.https_policies = https_policies  # type: str
@@ -17539,6 +17599,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             result['ClassicEgressAddress'] = self.classic_egress_address
         if self.created_time is not None:
             result['CreatedTime'] = self.created_time
+        if self.egress_address_change_notify is not None:
+            result['EgressAddressChangeNotify'] = self.egress_address_change_notify
         if self.egress_ipv_6enable is not None:
             result['EgressIpv6Enable'] = self.egress_ipv_6enable
         if self.expired_time is not None:
@@ -17601,6 +17663,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             self.classic_egress_address = m.get('ClassicEgressAddress')
         if m.get('CreatedTime') is not None:
             self.created_time = m.get('CreatedTime')
+        if m.get('EgressAddressChangeNotify') is not None:
+            self.egress_address_change_notify = m.get('EgressAddressChangeNotify')
         if m.get('EgressIpv6Enable') is not None:
             self.egress_ipv_6enable = m.get('EgressIpv6Enable')
         if m.get('ExpiredTime') is not None:
@@ -21350,10 +21414,9 @@ class DescribeTrafficControlsResponse(TeaModel):
 
 
 class DescribeTrafficControlsByApiRequest(TeaModel):
-    def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+    def __init__(self, api_id=None, group_id=None, stage_name=None):
         self.api_id = api_id  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -21369,8 +21432,6 @@ class DescribeTrafficControlsByApiRequest(TeaModel):
             result['ApiId'] = self.api_id
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         return result
@@ -21381,8 +21442,6 @@ class DescribeTrafficControlsByApiRequest(TeaModel):
             self.api_id = m.get('ApiId')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         return self
@@ -21525,9 +21584,8 @@ class DescribeTrafficControlsByApiResponse(TeaModel):
 
 
 class DescribeUpdateBackendTaskRequest(TeaModel):
-    def __init__(self, operation_uid=None, security_token=None):
+    def __init__(self, operation_uid=None):
         self.operation_uid = operation_uid  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -21540,16 +21598,12 @@ class DescribeUpdateBackendTaskRequest(TeaModel):
         result = dict()
         if self.operation_uid is not None:
             result['OperationUid'] = self.operation_uid
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('OperationUid') is not None:
             self.operation_uid = m.get('OperationUid')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -21721,9 +21775,8 @@ class DescribeUpdateBackendTaskResponse(TeaModel):
 
 
 class DescribeUpdateVpcInfoTaskRequest(TeaModel):
-    def __init__(self, operation_uid=None, security_token=None):
+    def __init__(self, operation_uid=None):
         self.operation_uid = operation_uid  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -21736,16 +21789,12 @@ class DescribeUpdateVpcInfoTaskRequest(TeaModel):
         result = dict()
         if self.operation_uid is not None:
             result['OperationUid'] = self.operation_uid
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('OperationUid') is not None:
             self.operation_uid = m.get('OperationUid')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -22422,10 +22471,9 @@ class DetachPluginResponse(TeaModel):
 
 
 class DisableInstanceAccessControlRequest(TeaModel):
-    def __init__(self, acl_id=None, instance_id=None, security_token=None):
+    def __init__(self, acl_id=None, instance_id=None):
         self.acl_id = acl_id  # type: str
         self.instance_id = instance_id  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -22440,8 +22488,6 @@ class DisableInstanceAccessControlRequest(TeaModel):
             result['AclId'] = self.acl_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -22450,8 +22496,6 @@ class DisableInstanceAccessControlRequest(TeaModel):
             self.acl_id = m.get('AclId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -22998,11 +23042,10 @@ class DryRunSwaggerResponse(TeaModel):
 
 
 class EnableInstanceAccessControlRequest(TeaModel):
-    def __init__(self, acl_id=None, acl_type=None, instance_id=None, security_token=None):
+    def __init__(self, acl_id=None, acl_type=None, instance_id=None):
         self.acl_id = acl_id  # type: str
         self.acl_type = acl_type  # type: str
         self.instance_id = instance_id  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -23019,8 +23062,6 @@ class EnableInstanceAccessControlRequest(TeaModel):
             result['AclType'] = self.acl_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -23031,8 +23072,6 @@ class EnableInstanceAccessControlRequest(TeaModel):
             self.acl_type = m.get('AclType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -24508,6 +24547,124 @@ class ModifyApiGroupResponse(TeaModel):
         return self
 
 
+class ModifyApiGroupNetworkPolicyRequest(TeaModel):
+    def __init__(self, group_id=None, https_policy=None, internet_enable=None, internet_ipv6enable=None,
+                 security_token=None, vpc_intranet_enable=None, vpc_slb_intranet_enable=None):
+        self.group_id = group_id  # type: str
+        self.https_policy = https_policy  # type: str
+        self.internet_enable = internet_enable  # type: bool
+        self.internet_ipv6enable = internet_ipv6enable  # type: bool
+        self.security_token = security_token  # type: str
+        self.vpc_intranet_enable = vpc_intranet_enable  # type: bool
+        self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.https_policy is not None:
+            result['HttpsPolicy'] = self.https_policy
+        if self.internet_enable is not None:
+            result['InternetEnable'] = self.internet_enable
+        if self.internet_ipv6enable is not None:
+            result['InternetIPV6Enable'] = self.internet_ipv6enable
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.vpc_intranet_enable is not None:
+            result['VpcIntranetEnable'] = self.vpc_intranet_enable
+        if self.vpc_slb_intranet_enable is not None:
+            result['VpcSlbIntranetEnable'] = self.vpc_slb_intranet_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('HttpsPolicy') is not None:
+            self.https_policy = m.get('HttpsPolicy')
+        if m.get('InternetEnable') is not None:
+            self.internet_enable = m.get('InternetEnable')
+        if m.get('InternetIPV6Enable') is not None:
+            self.internet_ipv6enable = m.get('InternetIPV6Enable')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('VpcIntranetEnable') is not None:
+            self.vpc_intranet_enable = m.get('VpcIntranetEnable')
+        if m.get('VpcSlbIntranetEnable') is not None:
+            self.vpc_slb_intranet_enable = m.get('VpcSlbIntranetEnable')
+        return self
+
+
+class ModifyApiGroupNetworkPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyApiGroupNetworkPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyApiGroupNetworkPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyApiGroupNetworkPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyApiGroupVpcWhitelistRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, vpc_ids=None):
         self.group_id = group_id  # type: str
@@ -24980,11 +25137,13 @@ class ModifyBackendModelResponse(TeaModel):
 
 
 class ModifyInstanceSpecRequest(TeaModel):
-    def __init__(self, auto_pay=None, instance_id=None, instance_spec=None, modify_action=None, token=None):
+    def __init__(self, auto_pay=None, instance_id=None, instance_spec=None, modify_action=None,
+                 skip_wait_switch=None, token=None):
         self.auto_pay = auto_pay  # type: bool
         self.instance_id = instance_id  # type: str
         self.instance_spec = instance_spec  # type: str
         self.modify_action = modify_action  # type: str
+        self.skip_wait_switch = skip_wait_switch  # type: bool
         self.token = token  # type: str
 
     def validate(self):
@@ -25004,6 +25163,8 @@ class ModifyInstanceSpecRequest(TeaModel):
             result['InstanceSpec'] = self.instance_spec
         if self.modify_action is not None:
             result['ModifyAction'] = self.modify_action
+        if self.skip_wait_switch is not None:
+            result['SkipWaitSwitch'] = self.skip_wait_switch
         if self.token is not None:
             result['Token'] = self.token
         return result
@@ -25018,6 +25179,8 @@ class ModifyInstanceSpecRequest(TeaModel):
             self.instance_spec = m.get('InstanceSpec')
         if m.get('ModifyAction') is not None:
             self.modify_action = m.get('ModifyAction')
+        if m.get('SkipWaitSwitch') is not None:
+            self.skip_wait_switch = m.get('SkipWaitSwitch')
         if m.get('Token') is not None:
             self.token = m.get('Token')
         return self
@@ -25087,11 +25250,10 @@ class ModifyInstanceSpecResponse(TeaModel):
 
 
 class ModifyIpControlRequest(TeaModel):
-    def __init__(self, description=None, ip_control_id=None, ip_control_name=None, security_token=None):
+    def __init__(self, description=None, ip_control_id=None, ip_control_name=None):
         self.description = description  # type: str
         self.ip_control_id = ip_control_id  # type: str
         self.ip_control_name = ip_control_name  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -25108,8 +25270,6 @@ class ModifyIpControlRequest(TeaModel):
             result['IpControlId'] = self.ip_control_id
         if self.ip_control_name is not None:
             result['IpControlName'] = self.ip_control_name
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -25120,8 +25280,6 @@ class ModifyIpControlRequest(TeaModel):
             self.ip_control_id = m.get('IpControlId')
         if m.get('IpControlName') is not None:
             self.ip_control_name = m.get('IpControlName')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -25655,9 +25813,7 @@ class ModifyPluginResponse(TeaModel):
 
 
 class ModifySignatureRequest(TeaModel):
-    def __init__(self, security_token=None, signature_id=None, signature_key=None, signature_name=None,
-                 signature_secret=None):
-        self.security_token = security_token  # type: str
+    def __init__(self, signature_id=None, signature_key=None, signature_name=None, signature_secret=None):
         self.signature_id = signature_id  # type: str
         self.signature_key = signature_key  # type: str
         self.signature_name = signature_name  # type: str
@@ -25672,8 +25828,6 @@ class ModifySignatureRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.signature_id is not None:
             result['SignatureId'] = self.signature_id
         if self.signature_key is not None:
@@ -25686,8 +25840,6 @@ class ModifySignatureRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('SignatureId') is not None:
             self.signature_id = m.get('SignatureId')
         if m.get('SignatureKey') is not None:
@@ -25773,12 +25925,11 @@ class ModifySignatureResponse(TeaModel):
 
 
 class ModifyTrafficControlRequest(TeaModel):
-    def __init__(self, api_default=None, app_default=None, description=None, security_token=None,
-                 traffic_control_id=None, traffic_control_name=None, traffic_control_unit=None, user_default=None):
+    def __init__(self, api_default=None, app_default=None, description=None, traffic_control_id=None,
+                 traffic_control_name=None, traffic_control_unit=None, user_default=None):
         self.api_default = api_default  # type: int
         self.app_default = app_default  # type: int
         self.description = description  # type: str
-        self.security_token = security_token  # type: str
         self.traffic_control_id = traffic_control_id  # type: str
         self.traffic_control_name = traffic_control_name  # type: str
         self.traffic_control_unit = traffic_control_unit  # type: str
@@ -25799,8 +25950,6 @@ class ModifyTrafficControlRequest(TeaModel):
             result['AppDefault'] = self.app_default
         if self.description is not None:
             result['Description'] = self.description
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.traffic_control_id is not None:
             result['TrafficControlId'] = self.traffic_control_id
         if self.traffic_control_name is not None:
@@ -25819,8 +25968,6 @@ class ModifyTrafficControlRequest(TeaModel):
             self.app_default = m.get('AppDefault')
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('TrafficControlId') is not None:
             self.traffic_control_id = m.get('TrafficControlId')
         if m.get('TrafficControlName') is not None:
@@ -25964,10 +26111,9 @@ class OpenApiGatewayServiceResponse(TeaModel):
 
 
 class ReactivateDomainRequest(TeaModel):
-    def __init__(self, domain_name=None, group_id=None, security_token=None):
+    def __init__(self, domain_name=None, group_id=None):
         self.domain_name = domain_name  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -25982,8 +26128,6 @@ class ReactivateDomainRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -25992,8 +26136,6 @@ class ReactivateDomainRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -26061,10 +26203,9 @@ class ReactivateDomainResponse(TeaModel):
 
 
 class RemoveAccessControlListEntryRequest(TeaModel):
-    def __init__(self, acl_entrys=None, acl_id=None, security_token=None):
+    def __init__(self, acl_entrys=None, acl_id=None):
         self.acl_entrys = acl_entrys  # type: str
         self.acl_id = acl_id  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -26079,8 +26220,6 @@ class RemoveAccessControlListEntryRequest(TeaModel):
             result['AclEntrys'] = self.acl_entrys
         if self.acl_id is not None:
             result['AclId'] = self.acl_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -26089,8 +26228,6 @@ class RemoveAccessControlListEntryRequest(TeaModel):
             self.acl_entrys = m.get('AclEntrys')
         if m.get('AclId') is not None:
             self.acl_id = m.get('AclId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -26158,13 +26295,11 @@ class RemoveAccessControlListEntryResponse(TeaModel):
 
 
 class RemoveApisAuthoritiesRequest(TeaModel):
-    def __init__(self, api_ids=None, app_id=None, description=None, group_id=None, security_token=None,
-                 stage_name=None):
+    def __init__(self, api_ids=None, app_id=None, description=None, group_id=None, stage_name=None):
         self.api_ids = api_ids  # type: str
         self.app_id = app_id  # type: long
         self.description = description  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -26184,8 +26319,6 @@ class RemoveApisAuthoritiesRequest(TeaModel):
             result['Description'] = self.description
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         return result
@@ -26200,8 +26333,6 @@ class RemoveApisAuthoritiesRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         return self
@@ -26485,10 +26616,9 @@ class RemoveIpControlApisResponse(TeaModel):
 
 
 class RemoveIpControlPolicyItemRequest(TeaModel):
-    def __init__(self, ip_control_id=None, policy_item_ids=None, security_token=None):
+    def __init__(self, ip_control_id=None, policy_item_ids=None):
         self.ip_control_id = ip_control_id  # type: str
         self.policy_item_ids = policy_item_ids  # type: str
-        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -26503,8 +26633,6 @@ class RemoveIpControlPolicyItemRequest(TeaModel):
             result['IpControlId'] = self.ip_control_id
         if self.policy_item_ids is not None:
             result['PolicyItemIds'] = self.policy_item_ids
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -26513,8 +26641,6 @@ class RemoveIpControlPolicyItemRequest(TeaModel):
             self.ip_control_id = m.get('IpControlId')
         if m.get('PolicyItemIds') is not None:
             self.policy_item_ids = m.get('PolicyItemIds')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -26582,10 +26708,9 @@ class RemoveIpControlPolicyItemResponse(TeaModel):
 
 
 class RemoveSignatureApisRequest(TeaModel):
-    def __init__(self, api_ids=None, group_id=None, security_token=None, signature_id=None, stage_name=None):
+    def __init__(self, api_ids=None, group_id=None, signature_id=None, stage_name=None):
         self.api_ids = api_ids  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.signature_id = signature_id  # type: str
         self.stage_name = stage_name  # type: str
 
@@ -26602,8 +26727,6 @@ class RemoveSignatureApisRequest(TeaModel):
             result['ApiIds'] = self.api_ids
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.signature_id is not None:
             result['SignatureId'] = self.signature_id
         if self.stage_name is not None:
@@ -26616,8 +26739,6 @@ class RemoveSignatureApisRequest(TeaModel):
             self.api_ids = m.get('ApiIds')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('SignatureId') is not None:
             self.signature_id = m.get('SignatureId')
         if m.get('StageName') is not None:
@@ -26689,10 +26810,9 @@ class RemoveSignatureApisResponse(TeaModel):
 
 
 class RemoveTrafficControlApisRequest(TeaModel):
-    def __init__(self, api_ids=None, group_id=None, security_token=None, stage_name=None, traffic_control_id=None):
+    def __init__(self, api_ids=None, group_id=None, stage_name=None, traffic_control_id=None):
         self.api_ids = api_ids  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
         self.traffic_control_id = traffic_control_id  # type: str
 
@@ -26709,8 +26829,6 @@ class RemoveTrafficControlApisRequest(TeaModel):
             result['ApiIds'] = self.api_ids
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         if self.traffic_control_id is not None:
@@ -26723,8 +26841,6 @@ class RemoveTrafficControlApisRequest(TeaModel):
             self.api_ids = m.get('ApiIds')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         if m.get('TrafficControlId') is not None:
@@ -28402,10 +28518,9 @@ class SetIpControlApisResponse(TeaModel):
 
 
 class SetSignatureApisRequest(TeaModel):
-    def __init__(self, api_ids=None, group_id=None, security_token=None, signature_id=None, stage_name=None):
+    def __init__(self, api_ids=None, group_id=None, signature_id=None, stage_name=None):
         self.api_ids = api_ids  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.signature_id = signature_id  # type: str
         self.stage_name = stage_name  # type: str
 
@@ -28422,8 +28537,6 @@ class SetSignatureApisRequest(TeaModel):
             result['ApiIds'] = self.api_ids
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.signature_id is not None:
             result['SignatureId'] = self.signature_id
         if self.stage_name is not None:
@@ -28436,8 +28549,6 @@ class SetSignatureApisRequest(TeaModel):
             self.api_ids = m.get('ApiIds')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('SignatureId') is not None:
             self.signature_id = m.get('SignatureId')
         if m.get('StageName') is not None:
@@ -28509,10 +28620,9 @@ class SetSignatureApisResponse(TeaModel):
 
 
 class SetTrafficControlApisRequest(TeaModel):
-    def __init__(self, api_ids=None, group_id=None, security_token=None, stage_name=None, traffic_control_id=None):
+    def __init__(self, api_ids=None, group_id=None, stage_name=None, traffic_control_id=None):
         self.api_ids = api_ids  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
         self.traffic_control_id = traffic_control_id  # type: str
 
@@ -28529,8 +28639,6 @@ class SetTrafficControlApisRequest(TeaModel):
             result['ApiIds'] = self.api_ids
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         if self.traffic_control_id is not None:
@@ -28543,8 +28651,6 @@ class SetTrafficControlApisRequest(TeaModel):
             self.api_ids = m.get('ApiIds')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         if m.get('TrafficControlId') is not None:
@@ -28734,10 +28840,9 @@ class SetVpcAccessResponse(TeaModel):
 
 
 class SetWildcardDomainPatternsRequest(TeaModel):
-    def __init__(self, domain_name=None, group_id=None, security_token=None, wildcard_domain_patterns=None):
+    def __init__(self, domain_name=None, group_id=None, wildcard_domain_patterns=None):
         self.domain_name = domain_name  # type: str
         self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
         self.wildcard_domain_patterns = wildcard_domain_patterns  # type: str
 
     def validate(self):
@@ -28753,8 +28858,6 @@ class SetWildcardDomainPatternsRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.wildcard_domain_patterns is not None:
             result['WildcardDomainPatterns'] = self.wildcard_domain_patterns
         return result
@@ -28765,8 +28868,6 @@ class SetWildcardDomainPatternsRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('WildcardDomainPatterns') is not None:
             self.wildcard_domain_patterns = m.get('WildcardDomainPatterns')
         return self
