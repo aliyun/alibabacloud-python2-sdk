@@ -1,3 +1,6 @@
+2022-08-29 Version: 1.3.9
+- DescribeDiskReplicaPairProgress to public.
+
 2022-07-18 Version: 1.3.6
 - Add pageNumber pageSize for describePairs.
 

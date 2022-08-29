@@ -44,7 +44,6 @@ class AddDiskReplicaPairRequest(TeaModel):
 
 class AddDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -106,9 +105,132 @@ class AddDiskReplicaPairResponse(TeaModel):
         return self
 
 
+class CreateDedicatedBlockStorageClusterRequest(TeaModel):
+    def __init__(self, azone=None, capacity=None, dbsc_id=None, dbsc_name=None, region_id=None, type=None):
+        self.azone = azone  # type: str
+        self.capacity = capacity  # type: long
+        self.dbsc_id = dbsc_id  # type: str
+        self.dbsc_name = dbsc_name  # type: str
+        self.region_id = region_id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDedicatedBlockStorageClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.azone is not None:
+            result['Azone'] = self.azone
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.dbsc_name is not None:
+            result['DbscName'] = self.dbsc_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Azone') is not None:
+            self.azone = m.get('Azone')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('DbscName') is not None:
+            self.dbsc_name = m.get('DbscName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class CreateDedicatedBlockStorageClusterResponseBody(TeaModel):
+    def __init__(self, dbsc_id=None, order_id=None, request_id=None):
+        self.dbsc_id = dbsc_id  # type: str
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDedicatedBlockStorageClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDedicatedBlockStorageClusterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDedicatedBlockStorageClusterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDedicatedBlockStorageClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDedicatedBlockStorageClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDiskReplicaGroupRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, destination_region_id=None, destination_zone_id=None,
-                 group_name=None, rpo=None, region_id=None, source_zone_id=None):
+    def __init__(self, bandwidth=None, client_token=None, description=None, destination_region_id=None,
+                 destination_zone_id=None, group_name=None, rpo=None, region_id=None, source_zone_id=None):
+        self.bandwidth = bandwidth  # type: long
         self.client_token = client_token  # type: str
         self.description = description  # type: str
         self.destination_region_id = destination_region_id  # type: str
@@ -127,6 +249,8 @@ class CreateDiskReplicaGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -147,6 +271,8 @@ class CreateDiskReplicaGroupRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -434,7 +560,6 @@ class DeleteDiskReplicaGroupRequest(TeaModel):
 
 class DeleteDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -532,7 +657,6 @@ class DeleteDiskReplicaPairRequest(TeaModel):
 
 class DeleteDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -594,13 +718,642 @@ class DeleteDiskReplicaPairResponse(TeaModel):
         return self
 
 
+class DescribeDedicatedBlockStorageClusterDisksRequest(TeaModel):
+    def __init__(self, dbsc_id=None, max_results=None, next_token=None, region_id=None):
+        self.dbsc_id = dbsc_id  # type: str
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDiskTags(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDiskTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk(TeaModel):
+    def __init__(self, attached_time=None, bdf_id=None, category=None, delete_auto_snapshot=None,
+                 delete_with_instance=None, description=None, detached_time=None, device=None, disk_charge_type=None, disk_id=None,
+                 disk_name=None, enable_auto_snapshot=None, encrypted=None, iops=None, image_id=None, instance_id=None,
+                 kmskey_id=None, mount_instance_num=None, multi_attach=None, performance_level=None, portable=None,
+                 region_id=None, size=None, source_snapshot_id=None, status=None, storage_cluster_id=None,
+                 storage_set_id=None, storage_set_partition_number=None, tags=None, type=None, zone_id=None):
+        self.attached_time = attached_time  # type: str
+        self.bdf_id = bdf_id  # type: str
+        self.category = category  # type: str
+        self.delete_auto_snapshot = delete_auto_snapshot  # type: bool
+        self.delete_with_instance = delete_with_instance  # type: bool
+        self.description = description  # type: str
+        self.detached_time = detached_time  # type: str
+        self.device = device  # type: str
+        self.disk_charge_type = disk_charge_type  # type: str
+        self.disk_id = disk_id  # type: str
+        self.disk_name = disk_name  # type: str
+        self.enable_auto_snapshot = enable_auto_snapshot  # type: bool
+        self.encrypted = encrypted  # type: bool
+        self.iops = iops  # type: long
+        self.image_id = image_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.kmskey_id = kmskey_id  # type: str
+        self.mount_instance_num = mount_instance_num  # type: int
+        self.multi_attach = multi_attach  # type: str
+        self.performance_level = performance_level  # type: str
+        self.portable = portable  # type: bool
+        self.region_id = region_id  # type: str
+        self.size = size  # type: int
+        self.source_snapshot_id = source_snapshot_id  # type: str
+        self.status = status  # type: str
+        self.storage_cluster_id = storage_cluster_id  # type: str
+        self.storage_set_id = storage_set_id  # type: str
+        self.storage_set_partition_number = storage_set_partition_number  # type: int
+        self.tags = tags  # type: list[DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDiskTags]
+        self.type = type  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attached_time is not None:
+            result['AttachedTime'] = self.attached_time
+        if self.bdf_id is not None:
+            result['BdfId'] = self.bdf_id
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.delete_auto_snapshot is not None:
+            result['DeleteAutoSnapshot'] = self.delete_auto_snapshot
+        if self.delete_with_instance is not None:
+            result['DeleteWithInstance'] = self.delete_with_instance
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.detached_time is not None:
+            result['DetachedTime'] = self.detached_time
+        if self.device is not None:
+            result['Device'] = self.device
+        if self.disk_charge_type is not None:
+            result['DiskChargeType'] = self.disk_charge_type
+        if self.disk_id is not None:
+            result['DiskId'] = self.disk_id
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.enable_auto_snapshot is not None:
+            result['EnableAutoSnapshot'] = self.enable_auto_snapshot
+        if self.encrypted is not None:
+            result['Encrypted'] = self.encrypted
+        if self.iops is not None:
+            result['IOPS'] = self.iops
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kmskey_id is not None:
+            result['KMSKeyId'] = self.kmskey_id
+        if self.mount_instance_num is not None:
+            result['MountInstanceNum'] = self.mount_instance_num
+        if self.multi_attach is not None:
+            result['MultiAttach'] = self.multi_attach
+        if self.performance_level is not None:
+            result['PerformanceLevel'] = self.performance_level
+        if self.portable is not None:
+            result['Portable'] = self.portable
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.source_snapshot_id is not None:
+            result['SourceSnapshotId'] = self.source_snapshot_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.storage_cluster_id is not None:
+            result['StorageClusterId'] = self.storage_cluster_id
+        if self.storage_set_id is not None:
+            result['StorageSetId'] = self.storage_set_id
+        if self.storage_set_partition_number is not None:
+            result['StorageSetPartitionNumber'] = self.storage_set_partition_number
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttachedTime') is not None:
+            self.attached_time = m.get('AttachedTime')
+        if m.get('BdfId') is not None:
+            self.bdf_id = m.get('BdfId')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('DeleteAutoSnapshot') is not None:
+            self.delete_auto_snapshot = m.get('DeleteAutoSnapshot')
+        if m.get('DeleteWithInstance') is not None:
+            self.delete_with_instance = m.get('DeleteWithInstance')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DetachedTime') is not None:
+            self.detached_time = m.get('DetachedTime')
+        if m.get('Device') is not None:
+            self.device = m.get('Device')
+        if m.get('DiskChargeType') is not None:
+            self.disk_charge_type = m.get('DiskChargeType')
+        if m.get('DiskId') is not None:
+            self.disk_id = m.get('DiskId')
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('EnableAutoSnapshot') is not None:
+            self.enable_auto_snapshot = m.get('EnableAutoSnapshot')
+        if m.get('Encrypted') is not None:
+            self.encrypted = m.get('Encrypted')
+        if m.get('IOPS') is not None:
+            self.iops = m.get('IOPS')
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KMSKeyId') is not None:
+            self.kmskey_id = m.get('KMSKeyId')
+        if m.get('MountInstanceNum') is not None:
+            self.mount_instance_num = m.get('MountInstanceNum')
+        if m.get('MultiAttach') is not None:
+            self.multi_attach = m.get('MultiAttach')
+        if m.get('PerformanceLevel') is not None:
+            self.performance_level = m.get('PerformanceLevel')
+        if m.get('Portable') is not None:
+            self.portable = m.get('Portable')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('SourceSnapshotId') is not None:
+            self.source_snapshot_id = m.get('SourceSnapshotId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StorageClusterId') is not None:
+            self.storage_cluster_id = m.get('StorageClusterId')
+        if m.get('StorageSetId') is not None:
+            self.storage_set_id = m.get('StorageSetId')
+        if m.get('StorageSetPartitionNumber') is not None:
+            self.storage_set_partition_number = m.get('StorageSetPartitionNumber')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDiskTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisks(TeaModel):
+    def __init__(self, disk=None):
+        self.disk = disk  # type: list[DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk]
+
+    def validate(self):
+        if self.disk:
+            for k in self.disk:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksResponseBodyDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Disk'] = []
+        if self.disk is not None:
+            for k in self.disk:
+                result['Disk'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.disk = []
+        if m.get('Disk') is not None:
+            for k in m.get('Disk'):
+                temp_model = DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk()
+                self.disk.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDedicatedBlockStorageClusterDisksResponseBody(TeaModel):
+    def __init__(self, disks=None, next_token=None, request_id=None):
+        self.disks = disks  # type: DescribeDedicatedBlockStorageClusterDisksResponseBodyDisks
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.disks:
+            self.disks.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disks is not None:
+            result['Disks'] = self.disks.to_map()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Disks') is not None:
+            temp_model = DescribeDedicatedBlockStorageClusterDisksResponseBodyDisks()
+            self.disks = temp_model.from_map(m['Disks'])
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDedicatedBlockStorageClusterDisksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDedicatedBlockStorageClusterDisksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClusterDisksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDedicatedBlockStorageClusterDisksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDedicatedBlockStorageClustersRequest(TeaModel):
+    def __init__(self, azone_id=None, category=None, client_token=None, dedicated_block_storage_cluster_id=None,
+                 max_results=None, next_token=None, region_id=None, status=None):
+        self.azone_id = azone_id  # type: str
+        self.category = category  # type: str
+        self.client_token = client_token  # type: str
+        self.dedicated_block_storage_cluster_id = dedicated_block_storage_cluster_id  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClustersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.azone_id is not None:
+            result['AzoneId'] = self.azone_id
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dedicated_block_storage_cluster_id is not None:
+            result['DedicatedBlockStorageClusterId'] = self.dedicated_block_storage_cluster_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AzoneId') is not None:
+            self.azone_id = m.get('AzoneId')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DedicatedBlockStorageClusterId') is not None:
+            self.dedicated_block_storage_cluster_id = m.get('DedicatedBlockStorageClusterId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClustersDedicatedBlockStorageClusterCapacity(TeaModel):
+    def __init__(self, available_capacity=None, delivery_capacity=None, total_capacity=None, used_capacity=None):
+        self.available_capacity = available_capacity  # type: long
+        self.delivery_capacity = delivery_capacity  # type: long
+        self.total_capacity = total_capacity  # type: long
+        self.used_capacity = used_capacity  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClustersDedicatedBlockStorageClusterCapacity, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_capacity is not None:
+            result['AvailableCapacity'] = self.available_capacity
+        if self.delivery_capacity is not None:
+            result['DeliveryCapacity'] = self.delivery_capacity
+        if self.total_capacity is not None:
+            result['TotalCapacity'] = self.total_capacity
+        if self.used_capacity is not None:
+            result['UsedCapacity'] = self.used_capacity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableCapacity') is not None:
+            self.available_capacity = m.get('AvailableCapacity')
+        if m.get('DeliveryCapacity') is not None:
+            self.delivery_capacity = m.get('DeliveryCapacity')
+        if m.get('TotalCapacity') is not None:
+            self.total_capacity = m.get('TotalCapacity')
+        if m.get('UsedCapacity') is not None:
+            self.used_capacity = m.get('UsedCapacity')
+        return self
+
+
+class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClusters(TeaModel):
+    def __init__(self, category=None, create_time=None, dedicated_block_storage_cluster_capacity=None,
+                 dedicated_block_storage_cluster_id=None, dedicated_block_storage_cluster_name=None, description=None, expired_time=None,
+                 performance_level=None, region_id=None, status=None, supported_category=None, type=None, zone_id=None):
+        self.category = category  # type: str
+        self.create_time = create_time  # type: str
+        self.dedicated_block_storage_cluster_capacity = dedicated_block_storage_cluster_capacity  # type: DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClustersDedicatedBlockStorageClusterCapacity
+        self.dedicated_block_storage_cluster_id = dedicated_block_storage_cluster_id  # type: str
+        self.dedicated_block_storage_cluster_name = dedicated_block_storage_cluster_name  # type: str
+        self.description = description  # type: str
+        self.expired_time = expired_time  # type: str
+        self.performance_level = performance_level  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: str
+        self.supported_category = supported_category  # type: str
+        self.type = type  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.dedicated_block_storage_cluster_capacity:
+            self.dedicated_block_storage_cluster_capacity.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClusters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.dedicated_block_storage_cluster_capacity is not None:
+            result['DedicatedBlockStorageClusterCapacity'] = self.dedicated_block_storage_cluster_capacity.to_map()
+        if self.dedicated_block_storage_cluster_id is not None:
+            result['DedicatedBlockStorageClusterId'] = self.dedicated_block_storage_cluster_id
+        if self.dedicated_block_storage_cluster_name is not None:
+            result['DedicatedBlockStorageClusterName'] = self.dedicated_block_storage_cluster_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.performance_level is not None:
+            result['PerformanceLevel'] = self.performance_level
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.supported_category is not None:
+            result['SupportedCategory'] = self.supported_category
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DedicatedBlockStorageClusterCapacity') is not None:
+            temp_model = DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClustersDedicatedBlockStorageClusterCapacity()
+            self.dedicated_block_storage_cluster_capacity = temp_model.from_map(m['DedicatedBlockStorageClusterCapacity'])
+        if m.get('DedicatedBlockStorageClusterId') is not None:
+            self.dedicated_block_storage_cluster_id = m.get('DedicatedBlockStorageClusterId')
+        if m.get('DedicatedBlockStorageClusterName') is not None:
+            self.dedicated_block_storage_cluster_name = m.get('DedicatedBlockStorageClusterName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('PerformanceLevel') is not None:
+            self.performance_level = m.get('PerformanceLevel')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SupportedCategory') is not None:
+            self.supported_category = m.get('SupportedCategory')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeDedicatedBlockStorageClustersResponseBody(TeaModel):
+    def __init__(self, dedicated_block_storage_clusters=None, next_token=None, request_id=None):
+        self.dedicated_block_storage_clusters = dedicated_block_storage_clusters  # type: list[DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClusters]
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.dedicated_block_storage_clusters:
+            for k in self.dedicated_block_storage_clusters:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClustersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DedicatedBlockStorageClusters'] = []
+        if self.dedicated_block_storage_clusters is not None:
+            for k in self.dedicated_block_storage_clusters:
+                result['DedicatedBlockStorageClusters'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dedicated_block_storage_clusters = []
+        if m.get('DedicatedBlockStorageClusters') is not None:
+            for k in m.get('DedicatedBlockStorageClusters'):
+                temp_model = DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClusters()
+                self.dedicated_block_storage_clusters.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDedicatedBlockStorageClustersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDedicatedBlockStorageClustersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDedicatedBlockStorageClustersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDedicatedBlockStorageClustersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDiskReplicaGroupsRequest(TeaModel):
     def __init__(self, group_ids=None, max_results=None, next_token=None, region_id=None, site=None):
         self.group_ids = group_ids  # type: str
         self.max_results = max_results  # type: long
         self.next_token = next_token  # type: str
         self.region_id = region_id  # type: str
-        # production或backup，表示数据从主或备站点获取，默认为production。
         self.site = site  # type: str
 
     def validate(self):
@@ -640,31 +1393,26 @@ class DescribeDiskReplicaGroupsRequest(TeaModel):
 
 
 class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
-    def __init__(self, description=None, destination_region_id=None, destination_zone_id=None, group_name=None,
-                 last_recover_point=None, pair_ids=None, pair_number=None, primary_region=None, primary_zone=None, rpo=None,
-                 replica_group_id=None, site=None, source_region_id=None, source_zone_id=None, standby_region=None,
-                 standby_zone=None, status=None):
+    def __init__(self, bandwidth=None, description=None, destination_region_id=None, destination_zone_id=None,
+                 group_name=None, last_recover_point=None, pair_ids=None, pair_number=None, primary_region=None,
+                 primary_zone=None, rpo=None, replica_group_id=None, site=None, source_region_id=None, source_zone_id=None,
+                 standby_region=None, standby_zone=None, status=None):
+        self.bandwidth = bandwidth  # type: long
         self.description = description  # type: str
         self.destination_region_id = destination_region_id  # type: str
         self.destination_zone_id = destination_zone_id  # type: str
         self.group_name = group_name  # type: str
         self.last_recover_point = last_recover_point  # type: long
         self.pair_ids = pair_ids  # type: list[bytes]
-        # 复制组中的复制对个数
         self.pair_number = pair_number  # type: long
-        # 复制组的初始源地域。
         self.primary_region = primary_region  # type: str
-        # 复制组的初始源可用区。
         self.primary_zone = primary_zone  # type: str
         self.rpo = rpo  # type: long
         self.replica_group_id = replica_group_id  # type: str
-        # pair信息的后端站点来源，production或backup
         self.site = site  # type: str
         self.source_region_id = source_region_id  # type: str
         self.source_zone_id = source_zone_id  # type: str
-        # 复制组的初始目的地域。
         self.standby_region = standby_region  # type: str
-        # 复制组的初始目的可用区。
         self.standby_zone = standby_zone  # type: str
         self.status = status  # type: str
 
@@ -677,6 +1425,8 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
             return _map
 
         result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
         if self.description is not None:
             result['Description'] = self.description
         if self.destination_region_id is not None:
@@ -715,6 +1465,8 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('DestinationRegionId') is not None:
@@ -756,7 +1508,6 @@ class DescribeDiskReplicaGroupsResponseBody(TeaModel):
     def __init__(self, next_token=None, replica_groups=None, request_id=None):
         self.next_token = next_token  # type: str
         self.replica_groups = replica_groups  # type: list[DescribeDiskReplicaGroupsResponseBodyReplicaGroups]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -834,27 +1585,118 @@ class DescribeDiskReplicaGroupsResponse(TeaModel):
         return self
 
 
+class DescribeDiskReplicaPairProgressRequest(TeaModel):
+    def __init__(self, region_id=None, replica_pair_id=None):
+        self.region_id = region_id  # type: str
+        self.replica_pair_id = replica_pair_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDiskReplicaPairProgressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.replica_pair_id is not None:
+            result['ReplicaPairId'] = self.replica_pair_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReplicaPairId') is not None:
+            self.replica_pair_id = m.get('ReplicaPairId')
+        return self
+
+
+class DescribeDiskReplicaPairProgressResponseBody(TeaModel):
+    def __init__(self, progress=None, recover_point=None, request_id=None):
+        self.progress = progress  # type: int
+        self.recover_point = recover_point  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDiskReplicaPairProgressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.recover_point is not None:
+            result['RecoverPoint'] = self.recover_point
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('RecoverPoint') is not None:
+            self.recover_point = m.get('RecoverPoint')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDiskReplicaPairProgressResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDiskReplicaPairProgressResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDiskReplicaPairProgressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDiskReplicaPairProgressResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDiskReplicaPairsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, page_number=None, page_size=None, pair_ids=None,
                  region_id=None, replica_group_id=None, site=None):
-        # 分页查询时每页的最大条目数。取值范围：1~500
-        # 
-        # 默认值：10
         self.max_results = max_results  # type: long
-        # 查询凭证（Token）。取值为上一次调用该接口返回的NextToken参数值，初次调用接口时无需设置该参数。如果设置了NextToken，则请求参数PageSize和PageNumber将失效，且返回数据中的TotalCount无效。
         self.next_token = next_token  # type: str
-        # 分页查询时的页码。
         self.page_number = page_number  # type: int
-        # 分页查询时设置的每页行数。
         self.page_size = page_size  # type: int
-        # 异步复制关系ID列表。您可以指定一个或多个异步复制关系ID进行查询。格式为：pair-cn-dsa****,pair-cn-asd****。
-        # 
-        # 默认值为空，表示查询当前地域下所有的异步复制关系。
         self.pair_ids = pair_ids  # type: str
         self.region_id = region_id  # type: str
-        # 所属复制组id。
         self.replica_group_id = replica_group_id  # type: str
-        # production或backup，表示获取本地为生产站点或灾备站点的复制对数据，默认为production。
         self.site = site  # type: str
 
     def validate(self):
@@ -911,65 +1753,29 @@ class DescribeDiskReplicaPairsResponseBodyReplicaPairs(TeaModel):
                  last_recover_point=None, pair_name=None, primary_region=None, primary_zone=None, rpo=None, replica_group_id=None,
                  replica_group_name=None, replica_pair_id=None, site=None, source_disk_id=None, source_region=None,
                  source_zone_id=None, standby_region=None, standby_zone=None, status=None, status_message=None):
-        # 异步复制时使用的带宽。单位为Kbps。
         self.bandwidth = bandwidth  # type: long
-        # 付费类型。PREPAY：预付费；POSTPAY：后付费。
         self.charge_type = charge_type  # type: str
-        # 创建时间。1970年1月1日0点0分以来的秒数。
         self.create_time = create_time  # type: long
         self.description = description  # type: str
         self.destination_disk_id = destination_disk_id  # type: str
         self.destination_region = destination_region  # type: str
-        # 从盘所属的可用区。
         self.destination_zone_id = destination_zone_id  # type: str
         self.expired_time = expired_time  # type: long
-        # 最近一次异步复制操作完成的时间。该参数以时间戳的形式提供返回值。单位为秒。
         self.last_recover_point = last_recover_point  # type: long
         self.pair_name = pair_name  # type: str
-        # 复制对的初始源地域。
         self.primary_region = primary_region  # type: str
-        # 复制对的初始源可用区。
         self.primary_zone = primary_zone  # type: str
-        # 复制对的RPO值。单位为秒。
         self.rpo = rpo  # type: long
-        # 所属复制组id。
         self.replica_group_id = replica_group_id  # type: str
-        # 所属复制组名称。
         self.replica_group_name = replica_group_name  # type: str
         self.replica_pair_id = replica_pair_id  # type: str
-        # 复制对信息的后端站点来源，production或backup。
         self.site = site  # type: str
         self.source_disk_id = source_disk_id  # type: str
         self.source_region = source_region  # type: str
-        # 主盘所属的可用区。
         self.source_zone_id = source_zone_id  # type: str
-        # 复制对的初始目的地域。
         self.standby_region = standby_region  # type: str
-        # 复制对的初始目的可用区。
         self.standby_zone = standby_zone  # type: str
-        # 异步复制关系的状态。可能值：
-        # 
-        # - invalid：失效。该状态表示异步复制关系存在异常。
-        # - creating：创建中。
-        # - created：已创建。
-        # - create_failed：创建失败。
-        # - initial_syncing：初始同步中。异步复制在创建并启动后，主盘数据初次异步复制到从盘的过程中，将处于该状态。
-        # - syncing：同步中。主盘和从盘之间非第一次进行异步复制数据时，将处于该状态。
-        # - manual_syncing：单次同步中。单次同步，同步完成后恢复到stopped状态。如果是第一次单次同步，则同步中也显示为状态manual_syncing。
-        # - normal：正常。当异步复制的当前周期内数据复制完成时，将处于该状态。
-        # - stopping：停止中。
-        # - stopped：已停止。
-        # - stop_failed：停止失败。
-        # - failovering：故障切换中。
-        # - failovered：故障切换完成。
-        # - failover_failed：故障切换失败。
-        # - reprotecting：反向复制操作中。
-        # - reprotect_failed：反向复制失败。
-        # - deleting：删除中。
-        # - delete_failed：删除失败。
-        # - deleted：已删除。
         self.status = status  # type: str
-        # 复制对的状态提示信息。比如invalid时，可能值：DeviceRemoved：主盘或者从盘被删除。DeviceKeyChanged：主盘或从盘的DeviceKey映射发生变化。
         self.status_message = status_message  # type: str
 
     def validate(self):
@@ -1087,16 +1893,11 @@ class DescribeDiskReplicaPairsResponseBodyReplicaPairs(TeaModel):
 class DescribeDiskReplicaPairsResponseBody(TeaModel):
     def __init__(self, next_token=None, page_number=None, page_size=None, replica_pairs=None, request_id=None,
                  total_count=None):
-        # 查询凭证（Token）。取值为上一次调用该接口返回的NextToken参数值，初次调用接口时无需设置该参数。如果设置了NextToken，则请求参数PageSize和PageNumber将失效，且返回数据中的TotalCount无效。
         self.next_token = next_token  # type: str
-        # 参数页码。
         self.page_number = page_number  # type: int
-        # 参数页行数。
         self.page_size = page_size  # type: int
         self.replica_pairs = replica_pairs  # type: list[DescribeDiskReplicaPairsResponseBodyReplicaPairs]
-        # Id of the request
         self.request_id = request_id  # type: str
-        # 分页查询时的结果总条数。
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -1299,7 +2100,6 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1409,7 +2209,6 @@ class FailoverDiskReplicaGroupRequest(TeaModel):
 
 class FailoverDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1507,7 +2306,6 @@ class FailoverDiskReplicaPairRequest(TeaModel):
 
 class FailoverDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1569,9 +2367,117 @@ class FailoverDiskReplicaPairResponse(TeaModel):
         return self
 
 
+class ModifyDedicatedBlockStorageClusterAttributeRequest(TeaModel):
+    def __init__(self, client_token=None, dbsc_id=None, dbsc_name=None, description=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dbsc_id = dbsc_id  # type: str
+        self.dbsc_name = dbsc_name  # type: str
+        self.description = description  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDedicatedBlockStorageClusterAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.dbsc_name is not None:
+            result['DbscName'] = self.dbsc_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('DbscName') is not None:
+            self.dbsc_name = m.get('DbscName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyDedicatedBlockStorageClusterAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDedicatedBlockStorageClusterAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDedicatedBlockStorageClusterAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDedicatedBlockStorageClusterAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDedicatedBlockStorageClusterAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDedicatedBlockStorageClusterAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyDiskReplicaGroupRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, group_name=None, rpo=None, region_id=None,
-                 replica_group_id=None):
+    def __init__(self, bandwidth=None, client_token=None, description=None, group_name=None, rpo=None,
+                 region_id=None, replica_group_id=None):
+        self.bandwidth = bandwidth  # type: long
         self.client_token = client_token  # type: str
         self.description = description  # type: str
         self.group_name = group_name  # type: str
@@ -1588,6 +2494,8 @@ class ModifyDiskReplicaGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -1604,6 +2512,8 @@ class ModifyDiskReplicaGroupRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -1621,7 +2531,6 @@ class ModifyDiskReplicaGroupRequest(TeaModel):
 
 class ModifyDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1740,7 +2649,6 @@ class ModifyDiskReplicaPairRequest(TeaModel):
 
 class ModifyDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1843,7 +2751,6 @@ class RemoveDiskReplicaPairRequest(TeaModel):
 
 class RemoveDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1941,7 +2848,6 @@ class ReprotectDiskReplicaGroupRequest(TeaModel):
 
 class ReprotectDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2039,7 +2945,6 @@ class ReprotectDiskReplicaPairRequest(TeaModel):
 
 class ReprotectDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2142,7 +3047,6 @@ class StartDiskReplicaGroupRequest(TeaModel):
 
 class StartDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2245,7 +3149,6 @@ class StartDiskReplicaPairRequest(TeaModel):
 
 class StartDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2343,7 +3246,6 @@ class StopDiskReplicaGroupRequest(TeaModel):
 
 class StopDiskReplicaGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2441,7 +3343,6 @@ class StopDiskReplicaPairRequest(TeaModel):
 
 class StopDiskReplicaPairResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
