@@ -9314,6 +9314,157 @@ class DescribePolicyInstancesStatusResponse(TeaModel):
         return self
 
 
+class DescribeTaskInfoResponseBodyError(TeaModel):
+    def __init__(self, code=None, message=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTaskInfoResponseBodyError, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class DescribeTaskInfoResponseBodyEvents(TeaModel):
+    def __init__(self, action=None, level=None, message=None, reason=None, source=None, timestamp=None):
+        self.action = action  # type: str
+        self.level = level  # type: str
+        self.message = message  # type: str
+        self.reason = reason  # type: str
+        self.source = source  # type: str
+        self.timestamp = timestamp  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTaskInfoResponseBodyEvents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action is not None:
+            result['action'] = self.action
+        if self.level is not None:
+            result['level'] = self.level
+        if self.message is not None:
+            result['message'] = self.message
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.source is not None:
+            result['source'] = self.source
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('action') is not None:
+            self.action = m.get('action')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class DescribeTaskInfoResponseBodyStages(TeaModel):
+    def __init__(self, end_time=None, message=None, outputs=None, start_time=None, state=None):
+        self.end_time = end_time  # type: str
+        self.message = message  # type: str
+        self.outputs = outputs  # type: dict[str, any]
+        self.start_time = start_time  # type: str
+        self.state = state  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTaskInfoResponseBodyStages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.message is not None:
+            result['message'] = self.message
+        if self.outputs is not None:
+            result['outputs'] = self.outputs
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.state is not None:
+            result['state'] = self.state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('outputs') is not None:
+            self.outputs = m.get('outputs')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        return self
+
+
+class DescribeTaskInfoResponseBodyTarget(TeaModel):
+    def __init__(self, id=None, type=None):
+        self.id = id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTaskInfoResponseBodyTarget, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
 class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
     def __init__(self, data=None, status=None):
         self.data = data  # type: str
@@ -9344,17 +9495,35 @@ class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
 
 
 class DescribeTaskInfoResponseBody(TeaModel):
-    def __init__(self, cluster_id=None, created=None, state=None, task_id=None, task_result=None, task_type=None,
-                 updated=None):
+    def __init__(self, cluster_id=None, created=None, current_stage=None, error=None, events=None, parameters=None,
+                 stages=None, state=None, target=None, task_id=None, task_result=None, task_type=None, updated=None):
         self.cluster_id = cluster_id  # type: str
         self.created = created  # type: str
+        self.current_stage = current_stage  # type: str
+        self.error = error  # type: DescribeTaskInfoResponseBodyError
+        self.events = events  # type: list[DescribeTaskInfoResponseBodyEvents]
+        self.parameters = parameters  # type: dict[str, any]
+        self.stages = stages  # type: list[DescribeTaskInfoResponseBodyStages]
         self.state = state  # type: str
+        self.target = target  # type: DescribeTaskInfoResponseBodyTarget
         self.task_id = task_id  # type: str
         self.task_result = task_result  # type: list[DescribeTaskInfoResponseBodyTaskResult]
         self.task_type = task_type  # type: str
         self.updated = updated  # type: str
 
     def validate(self):
+        if self.error:
+            self.error.validate()
+        if self.events:
+            for k in self.events:
+                if k:
+                    k.validate()
+        if self.stages:
+            for k in self.stages:
+                if k:
+                    k.validate()
+        if self.target:
+            self.target.validate()
         if self.task_result:
             for k in self.task_result:
                 if k:
@@ -9370,8 +9539,24 @@ class DescribeTaskInfoResponseBody(TeaModel):
             result['cluster_id'] = self.cluster_id
         if self.created is not None:
             result['created'] = self.created
+        if self.current_stage is not None:
+            result['current_stage'] = self.current_stage
+        if self.error is not None:
+            result['error'] = self.error.to_map()
+        result['events'] = []
+        if self.events is not None:
+            for k in self.events:
+                result['events'].append(k.to_map() if k else None)
+        if self.parameters is not None:
+            result['parameters'] = self.parameters
+        result['stages'] = []
+        if self.stages is not None:
+            for k in self.stages:
+                result['stages'].append(k.to_map() if k else None)
         if self.state is not None:
             result['state'] = self.state
+        if self.target is not None:
+            result['target'] = self.target.to_map()
         if self.task_id is not None:
             result['task_id'] = self.task_id
         result['task_result'] = []
@@ -9390,8 +9575,28 @@ class DescribeTaskInfoResponseBody(TeaModel):
             self.cluster_id = m.get('cluster_id')
         if m.get('created') is not None:
             self.created = m.get('created')
+        if m.get('current_stage') is not None:
+            self.current_stage = m.get('current_stage')
+        if m.get('error') is not None:
+            temp_model = DescribeTaskInfoResponseBodyError()
+            self.error = temp_model.from_map(m['error'])
+        self.events = []
+        if m.get('events') is not None:
+            for k in m.get('events'):
+                temp_model = DescribeTaskInfoResponseBodyEvents()
+                self.events.append(temp_model.from_map(k))
+        if m.get('parameters') is not None:
+            self.parameters = m.get('parameters')
+        self.stages = []
+        if m.get('stages') is not None:
+            for k in m.get('stages'):
+                temp_model = DescribeTaskInfoResponseBodyStages()
+                self.stages.append(temp_model.from_map(k))
         if m.get('state') is not None:
             self.state = m.get('state')
+        if m.get('target') is not None:
+            temp_model = DescribeTaskInfoResponseBodyTarget()
+            self.target = temp_model.from_map(m['target'])
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         self.task_result = []
@@ -11779,150 +11984,6 @@ class ModifyClusterNodePoolRequestManagement(TeaModel):
         return self
 
 
-class ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration(TeaModel):
-    def __init__(self, cpu_manager_policy=None, event_burst=None, event_record_qps=None, eviction_hard=None,
-                 eviction_soft=None, eviction_soft_grace_period=None, kube_apiburst=None, kube_apiqps=None, kube_reserved=None,
-                 registry_burst=None, registry_pull_qps=None, serialize_image_pulls=None, system_reserved=None):
-        self.cpu_manager_policy = cpu_manager_policy  # type: str
-        self.event_burst = event_burst  # type: long
-        self.event_record_qps = event_record_qps  # type: long
-        self.eviction_hard = eviction_hard  # type: dict[str, any]
-        self.eviction_soft = eviction_soft  # type: dict[str, any]
-        self.eviction_soft_grace_period = eviction_soft_grace_period  # type: dict[str, any]
-        self.kube_apiburst = kube_apiburst  # type: long
-        self.kube_apiqps = kube_apiqps  # type: long
-        self.kube_reserved = kube_reserved  # type: dict[str, any]
-        self.registry_burst = registry_burst  # type: long
-        self.registry_pull_qps = registry_pull_qps  # type: long
-        self.serialize_image_pulls = serialize_image_pulls  # type: bool
-        self.system_reserved = system_reserved  # type: dict[str, any]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cpu_manager_policy is not None:
-            result['cpuManagerPolicy'] = self.cpu_manager_policy
-        if self.event_burst is not None:
-            result['eventBurst'] = self.event_burst
-        if self.event_record_qps is not None:
-            result['eventRecordQPS'] = self.event_record_qps
-        if self.eviction_hard is not None:
-            result['evictionHard'] = self.eviction_hard
-        if self.eviction_soft is not None:
-            result['evictionSoft'] = self.eviction_soft
-        if self.eviction_soft_grace_period is not None:
-            result['evictionSoftGracePeriod'] = self.eviction_soft_grace_period
-        if self.kube_apiburst is not None:
-            result['kubeAPIBurst'] = self.kube_apiburst
-        if self.kube_apiqps is not None:
-            result['kubeAPIQPS'] = self.kube_apiqps
-        if self.kube_reserved is not None:
-            result['kubeReserved'] = self.kube_reserved
-        if self.registry_burst is not None:
-            result['registryBurst'] = self.registry_burst
-        if self.registry_pull_qps is not None:
-            result['registryPullQPS'] = self.registry_pull_qps
-        if self.serialize_image_pulls is not None:
-            result['serializeImagePulls'] = self.serialize_image_pulls
-        if self.system_reserved is not None:
-            result['systemReserved'] = self.system_reserved
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('cpuManagerPolicy') is not None:
-            self.cpu_manager_policy = m.get('cpuManagerPolicy')
-        if m.get('eventBurst') is not None:
-            self.event_burst = m.get('eventBurst')
-        if m.get('eventRecordQPS') is not None:
-            self.event_record_qps = m.get('eventRecordQPS')
-        if m.get('evictionHard') is not None:
-            self.eviction_hard = m.get('evictionHard')
-        if m.get('evictionSoft') is not None:
-            self.eviction_soft = m.get('evictionSoft')
-        if m.get('evictionSoftGracePeriod') is not None:
-            self.eviction_soft_grace_period = m.get('evictionSoftGracePeriod')
-        if m.get('kubeAPIBurst') is not None:
-            self.kube_apiburst = m.get('kubeAPIBurst')
-        if m.get('kubeAPIQPS') is not None:
-            self.kube_apiqps = m.get('kubeAPIQPS')
-        if m.get('kubeReserved') is not None:
-            self.kube_reserved = m.get('kubeReserved')
-        if m.get('registryBurst') is not None:
-            self.registry_burst = m.get('registryBurst')
-        if m.get('registryPullQPS') is not None:
-            self.registry_pull_qps = m.get('registryPullQPS')
-        if m.get('serializeImagePulls') is not None:
-            self.serialize_image_pulls = m.get('serializeImagePulls')
-        if m.get('systemReserved') is not None:
-            self.system_reserved = m.get('systemReserved')
-        return self
-
-
-class ModifyClusterNodePoolRequestNodeConfigRolloutPolicy(TeaModel):
-    def __init__(self, max_unavailable=None):
-        self.max_unavailable = max_unavailable  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyClusterNodePoolRequestNodeConfigRolloutPolicy, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_unavailable is not None:
-            result['max_unavailable'] = self.max_unavailable
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('max_unavailable') is not None:
-            self.max_unavailable = m.get('max_unavailable')
-        return self
-
-
-class ModifyClusterNodePoolRequestNodeConfig(TeaModel):
-    def __init__(self, kubelet_configuration=None, rollout_policy=None):
-        self.kubelet_configuration = kubelet_configuration  # type: ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration
-        self.rollout_policy = rollout_policy  # type: ModifyClusterNodePoolRequestNodeConfigRolloutPolicy
-
-    def validate(self):
-        if self.kubelet_configuration:
-            self.kubelet_configuration.validate()
-        if self.rollout_policy:
-            self.rollout_policy.validate()
-
-    def to_map(self):
-        _map = super(ModifyClusterNodePoolRequestNodeConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.kubelet_configuration is not None:
-            result['kubelet_configuration'] = self.kubelet_configuration.to_map()
-        if self.rollout_policy is not None:
-            result['rollout_policy'] = self.rollout_policy.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('kubelet_configuration') is not None:
-            temp_model = ModifyClusterNodePoolRequestNodeConfigKubeletConfiguration()
-            self.kubelet_configuration = temp_model.from_map(m['kubelet_configuration'])
-        if m.get('rollout_policy') is not None:
-            temp_model = ModifyClusterNodePoolRequestNodeConfigRolloutPolicy()
-            self.rollout_policy = temp_model.from_map(m['rollout_policy'])
-        return self
-
-
 class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
     def __init__(self, name=None, resource_group_id=None):
         self.name = name  # type: str
@@ -12201,12 +12262,11 @@ class ModifyClusterNodePoolRequestTeeConfig(TeaModel):
 
 
 class ModifyClusterNodePoolRequest(TeaModel):
-    def __init__(self, auto_scaling=None, kubernetes_config=None, management=None, node_config=None,
-                 nodepool_info=None, scaling_group=None, tee_config=None, update_nodes=None):
+    def __init__(self, auto_scaling=None, kubernetes_config=None, management=None, nodepool_info=None,
+                 scaling_group=None, tee_config=None, update_nodes=None):
         self.auto_scaling = auto_scaling  # type: ModifyClusterNodePoolRequestAutoScaling
         self.kubernetes_config = kubernetes_config  # type: ModifyClusterNodePoolRequestKubernetesConfig
         self.management = management  # type: ModifyClusterNodePoolRequestManagement
-        self.node_config = node_config  # type: ModifyClusterNodePoolRequestNodeConfig
         self.nodepool_info = nodepool_info  # type: ModifyClusterNodePoolRequestNodepoolInfo
         self.scaling_group = scaling_group  # type: ModifyClusterNodePoolRequestScalingGroup
         self.tee_config = tee_config  # type: ModifyClusterNodePoolRequestTeeConfig
@@ -12219,8 +12279,6 @@ class ModifyClusterNodePoolRequest(TeaModel):
             self.kubernetes_config.validate()
         if self.management:
             self.management.validate()
-        if self.node_config:
-            self.node_config.validate()
         if self.nodepool_info:
             self.nodepool_info.validate()
         if self.scaling_group:
@@ -12240,8 +12298,6 @@ class ModifyClusterNodePoolRequest(TeaModel):
             result['kubernetes_config'] = self.kubernetes_config.to_map()
         if self.management is not None:
             result['management'] = self.management.to_map()
-        if self.node_config is not None:
-            result['node_config'] = self.node_config.to_map()
         if self.nodepool_info is not None:
             result['nodepool_info'] = self.nodepool_info.to_map()
         if self.scaling_group is not None:
@@ -12263,9 +12319,6 @@ class ModifyClusterNodePoolRequest(TeaModel):
         if m.get('management') is not None:
             temp_model = ModifyClusterNodePoolRequestManagement()
             self.management = temp_model.from_map(m['management'])
-        if m.get('node_config') is not None:
-            temp_model = ModifyClusterNodePoolRequestNodeConfig()
-            self.node_config = temp_model.from_map(m['node_config'])
         if m.get('nodepool_info') is not None:
             temp_model = ModifyClusterNodePoolRequestNodepoolInfo()
             self.nodepool_info = temp_model.from_map(m['nodepool_info'])
@@ -12407,6 +12460,223 @@ class ModifyClusterTagsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class ModifyNodePoolNodeConfigRequestKubeletConfig(TeaModel):
+    def __init__(self, cpu_manager_policy=None, event_burst=None, event_record_qps=None, eviction_hard=None,
+                 eviction_soft=None, eviction_soft_grace_period=None, kube_apiburst=None, kube_apiqps=None, kube_reserved=None,
+                 registry_burst=None, registry_pull_qps=None, serialize_image_pulls=None, system_reserved=None):
+        self.cpu_manager_policy = cpu_manager_policy  # type: str
+        self.event_burst = event_burst  # type: long
+        self.event_record_qps = event_record_qps  # type: long
+        self.eviction_hard = eviction_hard  # type: dict[str, any]
+        self.eviction_soft = eviction_soft  # type: dict[str, any]
+        self.eviction_soft_grace_period = eviction_soft_grace_period  # type: dict[str, any]
+        self.kube_apiburst = kube_apiburst  # type: long
+        self.kube_apiqps = kube_apiqps  # type: long
+        self.kube_reserved = kube_reserved  # type: dict[str, any]
+        self.registry_burst = registry_burst  # type: long
+        self.registry_pull_qps = registry_pull_qps  # type: long
+        self.serialize_image_pulls = serialize_image_pulls  # type: bool
+        self.system_reserved = system_reserved  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyNodePoolNodeConfigRequestKubeletConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu_manager_policy is not None:
+            result['cpuManagerPolicy'] = self.cpu_manager_policy
+        if self.event_burst is not None:
+            result['eventBurst'] = self.event_burst
+        if self.event_record_qps is not None:
+            result['eventRecordQPS'] = self.event_record_qps
+        if self.eviction_hard is not None:
+            result['evictionHard'] = self.eviction_hard
+        if self.eviction_soft is not None:
+            result['evictionSoft'] = self.eviction_soft
+        if self.eviction_soft_grace_period is not None:
+            result['evictionSoftGracePeriod'] = self.eviction_soft_grace_period
+        if self.kube_apiburst is not None:
+            result['kubeAPIBurst'] = self.kube_apiburst
+        if self.kube_apiqps is not None:
+            result['kubeAPIQPS'] = self.kube_apiqps
+        if self.kube_reserved is not None:
+            result['kubeReserved'] = self.kube_reserved
+        if self.registry_burst is not None:
+            result['registryBurst'] = self.registry_burst
+        if self.registry_pull_qps is not None:
+            result['registryPullQPS'] = self.registry_pull_qps
+        if self.serialize_image_pulls is not None:
+            result['serializeImagePulls'] = self.serialize_image_pulls
+        if self.system_reserved is not None:
+            result['systemReserved'] = self.system_reserved
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cpuManagerPolicy') is not None:
+            self.cpu_manager_policy = m.get('cpuManagerPolicy')
+        if m.get('eventBurst') is not None:
+            self.event_burst = m.get('eventBurst')
+        if m.get('eventRecordQPS') is not None:
+            self.event_record_qps = m.get('eventRecordQPS')
+        if m.get('evictionHard') is not None:
+            self.eviction_hard = m.get('evictionHard')
+        if m.get('evictionSoft') is not None:
+            self.eviction_soft = m.get('evictionSoft')
+        if m.get('evictionSoftGracePeriod') is not None:
+            self.eviction_soft_grace_period = m.get('evictionSoftGracePeriod')
+        if m.get('kubeAPIBurst') is not None:
+            self.kube_apiburst = m.get('kubeAPIBurst')
+        if m.get('kubeAPIQPS') is not None:
+            self.kube_apiqps = m.get('kubeAPIQPS')
+        if m.get('kubeReserved') is not None:
+            self.kube_reserved = m.get('kubeReserved')
+        if m.get('registryBurst') is not None:
+            self.registry_burst = m.get('registryBurst')
+        if m.get('registryPullQPS') is not None:
+            self.registry_pull_qps = m.get('registryPullQPS')
+        if m.get('serializeImagePulls') is not None:
+            self.serialize_image_pulls = m.get('serializeImagePulls')
+        if m.get('systemReserved') is not None:
+            self.system_reserved = m.get('systemReserved')
+        return self
+
+
+class ModifyNodePoolNodeConfigRequestRollingPolicy(TeaModel):
+    def __init__(self, max_parallelism=None):
+        self.max_parallelism = max_parallelism  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyNodePoolNodeConfigRequestRollingPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_parallelism is not None:
+            result['max_parallelism'] = self.max_parallelism
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('max_parallelism') is not None:
+            self.max_parallelism = m.get('max_parallelism')
+        return self
+
+
+class ModifyNodePoolNodeConfigRequest(TeaModel):
+    def __init__(self, kubelet_config=None, rolling_policy=None):
+        self.kubelet_config = kubelet_config  # type: ModifyNodePoolNodeConfigRequestKubeletConfig
+        self.rolling_policy = rolling_policy  # type: ModifyNodePoolNodeConfigRequestRollingPolicy
+
+    def validate(self):
+        if self.kubelet_config:
+            self.kubelet_config.validate()
+        if self.rolling_policy:
+            self.rolling_policy.validate()
+
+    def to_map(self):
+        _map = super(ModifyNodePoolNodeConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.kubelet_config is not None:
+            result['kubelet_config'] = self.kubelet_config.to_map()
+        if self.rolling_policy is not None:
+            result['rolling_policy'] = self.rolling_policy.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('kubelet_config') is not None:
+            temp_model = ModifyNodePoolNodeConfigRequestKubeletConfig()
+            self.kubelet_config = temp_model.from_map(m['kubelet_config'])
+        if m.get('rolling_policy') is not None:
+            temp_model = ModifyNodePoolNodeConfigRequestRollingPolicy()
+            self.rolling_policy = temp_model.from_map(m['rolling_policy'])
+        return self
+
+
+class ModifyNodePoolNodeConfigResponseBody(TeaModel):
+    def __init__(self, nodepool_id=None, request_id=None, task_id=None):
+        self.nodepool_id = nodepool_id  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyNodePoolNodeConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nodepool_id is not None:
+            result['nodepool_id'] = self.nodepool_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('nodepool_id') is not None:
+            self.nodepool_id = m.get('nodepool_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class ModifyNodePoolNodeConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyNodePoolNodeConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyNodePoolNodeConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyNodePoolNodeConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
