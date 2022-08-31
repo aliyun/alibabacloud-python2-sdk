@@ -7936,7 +7936,7 @@ class DescribeDcdnDomainHttpCodeDataByLayerResponseBodyHttpCodeDataIntervalDataM
     def __init__(self, time_stamp=None, total_value=None, value=None):
         self.time_stamp = time_stamp  # type: str
         self.total_value = total_value  # type: str
-        self.value = value  # type: str
+        self.value = value  # type: dict[str, any]
 
     def validate(self):
         pass
