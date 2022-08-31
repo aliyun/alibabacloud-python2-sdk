@@ -213,6 +213,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_security_event_id_with_options(request, runtime)
 
+    def check_user_has_ecs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckUserHasEcs',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CheckUserHasEcsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_user_has_ecs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.check_user_has_ecs_with_options(request, runtime)
+
     def create_anti_brute_force_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
