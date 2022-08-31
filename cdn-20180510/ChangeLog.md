@@ -1,3 +1,6 @@
+2022-08-31 Version: 0.0.9
+- Support STS.
+
 2022-07-28 Version: 0.0.8
  - Update SetDomainServerCertificate.
 
