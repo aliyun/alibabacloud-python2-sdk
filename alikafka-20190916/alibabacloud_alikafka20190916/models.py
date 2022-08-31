@@ -489,13 +489,14 @@ class CreateConsumerGroupResponse(TeaModel):
 
 class CreatePostPayOrderRequest(TeaModel):
     def __init__(self, deploy_type=None, disk_size=None, disk_type=None, eip_max=None, io_max=None, io_max_spec=None,
-                 region_id=None, resource_group_id=None, spec_type=None, topic_quota=None):
+                 partition_num=None, region_id=None, resource_group_id=None, spec_type=None, topic_quota=None):
         self.deploy_type = deploy_type  # type: int
         self.disk_size = disk_size  # type: int
         self.disk_type = disk_type  # type: str
         self.eip_max = eip_max  # type: int
         self.io_max = io_max  # type: int
         self.io_max_spec = io_max_spec  # type: str
+        self.partition_num = partition_num  # type: int
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.spec_type = spec_type  # type: str
@@ -522,6 +523,8 @@ class CreatePostPayOrderRequest(TeaModel):
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -546,6 +549,8 @@ class CreatePostPayOrderRequest(TeaModel):
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -642,13 +647,14 @@ class CreatePostPayOrderResponse(TeaModel):
 
 class CreatePrePayOrderRequest(TeaModel):
     def __init__(self, deploy_type=None, disk_size=None, disk_type=None, eip_max=None, io_max=None, io_max_spec=None,
-                 region_id=None, resource_group_id=None, spec_type=None, topic_quota=None):
+                 partition_num=None, region_id=None, resource_group_id=None, spec_type=None, topic_quota=None):
         self.deploy_type = deploy_type  # type: int
         self.disk_size = disk_size  # type: int
         self.disk_type = disk_type  # type: str
         self.eip_max = eip_max  # type: int
         self.io_max = io_max  # type: int
         self.io_max_spec = io_max_spec  # type: str
+        self.partition_num = partition_num  # type: int
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.spec_type = spec_type  # type: str
@@ -675,6 +681,8 @@ class CreatePrePayOrderRequest(TeaModel):
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -699,6 +707,8 @@ class CreatePrePayOrderRequest(TeaModel):
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -3305,10 +3315,10 @@ class GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo(
 class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
     def __init__(self, all_config=None, create_time=None, deploy_type=None, disk_size=None, disk_type=None,
                  domain_endpoint=None, eip_max=None, end_point=None, expired_time=None, instance_id=None, io_max=None,
-                 msg_retain=None, name=None, paid_type=None, region_id=None, resource_group_id=None, sasl_domain_endpoint=None,
-                 security_group=None, service_status=None, spec_type=None, ssl_domain_endpoint=None, ssl_end_point=None, tags=None,
-                 topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None, used_partition_count=None,
-                 used_topic_count=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 kms_key_id=None, msg_retain=None, name=None, paid_type=None, region_id=None, resource_group_id=None,
+                 sasl_domain_endpoint=None, security_group=None, service_status=None, spec_type=None, ssl_domain_endpoint=None,
+                 ssl_end_point=None, tags=None, topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None,
+                 used_partition_count=None, used_topic_count=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.all_config = all_config  # type: str
         self.create_time = create_time  # type: long
         self.deploy_type = deploy_type  # type: int
@@ -3320,6 +3330,7 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.expired_time = expired_time  # type: long
         self.instance_id = instance_id  # type: str
         self.io_max = io_max  # type: int
+        self.kms_key_id = kms_key_id  # type: str
         self.msg_retain = msg_retain  # type: int
         self.name = name  # type: str
         self.paid_type = paid_type  # type: int
@@ -3375,6 +3386,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.io_max is not None:
             result['IoMax'] = self.io_max
+        if self.kms_key_id is not None:
+            result['KmsKeyId'] = self.kms_key_id
         if self.msg_retain is not None:
             result['MsgRetain'] = self.msg_retain
         if self.name is not None:
@@ -3441,6 +3454,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('IoMax') is not None:
             self.io_max = m.get('IoMax')
+        if m.get('KmsKeyId') is not None:
+            self.kms_key_id = m.get('KmsKeyId')
         if m.get('MsgRetain') is not None:
             self.msg_retain = m.get('MsgRetain')
         if m.get('Name') is not None:
@@ -5634,13 +5649,14 @@ class UpgradeInstanceVersionResponse(TeaModel):
 
 class UpgradePostPayOrderRequest(TeaModel):
     def __init__(self, disk_size=None, eip_max=None, eip_model=None, instance_id=None, io_max=None, io_max_spec=None,
-                 region_id=None, spec_type=None, topic_quota=None):
+                 partition_num=None, region_id=None, spec_type=None, topic_quota=None):
         self.disk_size = disk_size  # type: int
         self.eip_max = eip_max  # type: int
         self.eip_model = eip_model  # type: bool
         self.instance_id = instance_id  # type: str
         self.io_max = io_max  # type: int
         self.io_max_spec = io_max_spec  # type: str
+        self.partition_num = partition_num  # type: int
         self.region_id = region_id  # type: str
         self.spec_type = spec_type  # type: str
         self.topic_quota = topic_quota  # type: int
@@ -5666,6 +5682,8 @@ class UpgradePostPayOrderRequest(TeaModel):
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.spec_type is not None:
@@ -5688,6 +5706,8 @@ class UpgradePostPayOrderRequest(TeaModel):
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SpecType') is not None:
@@ -5777,13 +5797,14 @@ class UpgradePostPayOrderResponse(TeaModel):
 
 class UpgradePrePayOrderRequest(TeaModel):
     def __init__(self, disk_size=None, eip_max=None, eip_model=None, instance_id=None, io_max=None, io_max_spec=None,
-                 region_id=None, spec_type=None, topic_quota=None):
+                 partition_num=None, region_id=None, spec_type=None, topic_quota=None):
         self.disk_size = disk_size  # type: int
         self.eip_max = eip_max  # type: int
         self.eip_model = eip_model  # type: bool
         self.instance_id = instance_id  # type: str
         self.io_max = io_max  # type: int
         self.io_max_spec = io_max_spec  # type: str
+        self.partition_num = partition_num  # type: int
         self.region_id = region_id  # type: str
         self.spec_type = spec_type  # type: str
         self.topic_quota = topic_quota  # type: int
@@ -5809,6 +5830,8 @@ class UpgradePrePayOrderRequest(TeaModel):
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.spec_type is not None:
@@ -5831,6 +5854,8 @@ class UpgradePrePayOrderRequest(TeaModel):
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SpecType') is not None:
