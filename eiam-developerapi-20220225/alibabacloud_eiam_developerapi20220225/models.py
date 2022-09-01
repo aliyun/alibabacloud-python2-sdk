@@ -1663,6 +1663,122 @@ class GetUserIdByUserExternalIdResponse(TeaModel):
         return self
 
 
+class GetUserIdByUsernameHeaders(TeaModel):
+    def __init__(self, common_headers=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserIdByUsernameHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class GetUserIdByUsernameRequest(TeaModel):
+    def __init__(self, username=None):
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserIdByUsernameRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.username is not None:
+            result['username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        return self
+
+
+class GetUserIdByUsernameResponseBody(TeaModel):
+    def __init__(self, user_id=None):
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserIdByUsernameResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        return self
+
+
+class GetUserIdByUsernameResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetUserIdByUsernameResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetUserIdByUsernameResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetUserIdByUsernameResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetUserInfoHeaders(TeaModel):
     def __init__(self, common_headers=None, authorization=None):
         self.common_headers = common_headers  # type: dict[str, str]

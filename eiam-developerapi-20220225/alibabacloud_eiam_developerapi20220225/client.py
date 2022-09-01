@@ -538,6 +538,43 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_user_id_by_username(self, instance_id, application_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.GetUserIdByUsernameHeaders()
+        return self.get_user_id_by_username_with_options(instance_id, application_id, request, headers, runtime)
+
+    def get_user_id_by_username_with_options(self, instance_id, application_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        application_id = OpenApiUtilClient.get_encode_param(application_id)
+        body = {}
+        if not UtilClient.is_unset(request.username):
+            body['username'] = request.username
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetUserIdByUsername',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/_/actions/getUserIdByUsername' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.GetUserIdByUsernameResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_user_info(self, instance_id, application_id):
         runtime = util_models.RuntimeOptions()
         headers = eiam_developerapi_20220225_models.GetUserInfoHeaders()
