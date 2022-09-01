@@ -33,11 +33,12 @@ class Client(OpenApiClient):
     def add_external_samlid_pcertificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['X509Certificate'] = request.x_509certificate
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.x_509certificate):
+            query['X509Certificate'] = request.x_509certificate
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddExternalSAMLIdPCertificate',
@@ -47,7 +48,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -62,14 +63,18 @@ class Client(OpenApiClient):
     def add_permission_policy_to_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['InlinePolicyDocument'] = request.inline_policy_document
-        query['PermissionPolicyName'] = request.permission_policy_name
-        query['PermissionPolicyType'] = request.permission_policy_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.inline_policy_document):
+            query['InlinePolicyDocument'] = request.inline_policy_document
+        if not UtilClient.is_unset(request.permission_policy_name):
+            query['PermissionPolicyName'] = request.permission_policy_name
+        if not UtilClient.is_unset(request.permission_policy_type):
+            query['PermissionPolicyType'] = request.permission_policy_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddPermissionPolicyToAccessConfiguration',
@@ -79,7 +84,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -94,12 +99,14 @@ class Client(OpenApiClient):
     def add_user_to_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddUserToGroup',
@@ -109,7 +116,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -124,10 +131,10 @@ class Client(OpenApiClient):
     def clear_external_samlidentity_provider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ClearExternalSAMLIdentityProvider',
@@ -137,7 +144,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -152,15 +159,20 @@ class Client(OpenApiClient):
     def create_access_assignment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['PrincipalId'] = request.principal_id
-        query['PrincipalType'] = request.principal_type
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateAccessAssignment',
@@ -170,7 +182,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -185,14 +197,18 @@ class Client(OpenApiClient):
     def create_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationName'] = request.access_configuration_name
-        query['Description'] = request.description
-        query['DirectoryId'] = request.directory_id
-        query['RelayState'] = request.relay_state
-        query['SessionDuration'] = request.session_duration
+        if not UtilClient.is_unset(request.access_configuration_name):
+            query['AccessConfigurationName'] = request.access_configuration_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.relay_state):
+            query['RelayState'] = request.relay_state
+        if not UtilClient.is_unset(request.session_duration):
+            query['SessionDuration'] = request.session_duration
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateAccessConfiguration',
@@ -202,7 +218,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -217,10 +233,10 @@ class Client(OpenApiClient):
     def create_directory_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryName'] = request.directory_name
+        if not UtilClient.is_unset(request.directory_name):
+            query['DirectoryName'] = request.directory_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateDirectory',
@@ -230,7 +246,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -245,12 +261,14 @@ class Client(OpenApiClient):
     def create_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['DirectoryId'] = request.directory_id
-        query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateGroup',
@@ -260,7 +278,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -275,10 +293,10 @@ class Client(OpenApiClient):
     def create_scimserver_credential_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateSCIMServerCredential',
@@ -288,7 +306,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -303,17 +321,24 @@ class Client(OpenApiClient):
     def create_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['DirectoryId'] = request.directory_id
-        query['DisplayName'] = request.display_name
-        query['Email'] = request.email
-        query['FirstName'] = request.first_name
-        query['LastName'] = request.last_name
-        query['Status'] = request.status
-        query['UserName'] = request.user_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.first_name):
+            query['FirstName'] = request.first_name
+        if not UtilClient.is_unset(request.last_name):
+            query['LastName'] = request.last_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.user_name):
+            query['UserName'] = request.user_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateUser',
@@ -323,7 +348,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -338,16 +363,22 @@ class Client(OpenApiClient):
     def delete_access_assignment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DeprovisionStrategy'] = request.deprovision_strategy
-        query['DirectoryId'] = request.directory_id
-        query['PrincipalId'] = request.principal_id
-        query['PrincipalType'] = request.principal_type
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.deprovision_strategy):
+            query['DeprovisionStrategy'] = request.deprovision_strategy
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteAccessAssignment',
@@ -357,7 +388,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -372,12 +403,14 @@ class Client(OpenApiClient):
     def delete_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['ForceRemovePermissionPolicies'] = request.force_remove_permission_policies
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.force_remove_permission_policies):
+            query['ForceRemovePermissionPolicies'] = request.force_remove_permission_policies
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteAccessConfiguration',
@@ -387,7 +420,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -402,10 +435,10 @@ class Client(OpenApiClient):
     def delete_directory_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDirectory',
@@ -415,7 +448,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -430,11 +463,12 @@ class Client(OpenApiClient):
     def delete_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteGroup',
@@ -444,7 +478,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -459,12 +493,14 @@ class Client(OpenApiClient):
     def delete_mfadevice_for_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['MFADeviceId'] = request.mfadevice_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.mfadevice_id):
+            query['MFADeviceId'] = request.mfadevice_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteMFADeviceForUser',
@@ -474,7 +510,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -489,11 +525,12 @@ class Client(OpenApiClient):
     def delete_scimserver_credential_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CredentialId'] = request.credential_id
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.credential_id):
+            query['CredentialId'] = request.credential_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteSCIMServerCredential',
@@ -503,7 +540,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -518,11 +555,12 @@ class Client(OpenApiClient):
     def delete_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteUser',
@@ -532,7 +570,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -547,13 +585,16 @@ class Client(OpenApiClient):
     def deprovision_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeprovisionAccessConfiguration',
@@ -563,7 +604,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -585,7 +626,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -607,7 +648,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -622,11 +663,12 @@ class Client(OpenApiClient):
     def get_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetAccessConfiguration',
@@ -636,7 +678,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -651,10 +693,10 @@ class Client(OpenApiClient):
     def get_directory_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDirectory',
@@ -664,7 +706,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -679,10 +721,10 @@ class Client(OpenApiClient):
     def get_directory_samlservice_provider_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDirectorySAMLServiceProviderInfo',
@@ -692,7 +734,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -707,10 +749,10 @@ class Client(OpenApiClient):
     def get_directory_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDirectoryStatistics',
@@ -720,7 +762,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -735,10 +777,10 @@ class Client(OpenApiClient):
     def get_external_samlidentity_provider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetExternalSAMLIdentityProvider',
@@ -748,7 +790,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -763,11 +805,12 @@ class Client(OpenApiClient):
     def get_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetGroup',
@@ -777,7 +820,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -789,13 +832,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_group_with_options(request, runtime)
 
+    def get_mfaauthentication_settings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMFAAuthenticationSettings',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetMFAAuthenticationSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_mfaauthentication_settings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_mfaauthentication_settings_with_options(request, runtime)
+
     def get_mfaauthentication_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMFAAuthenticationStatus',
@@ -805,7 +876,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -820,10 +891,10 @@ class Client(OpenApiClient):
     def get_scimsynchronization_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetSCIMSynchronizationStatus',
@@ -833,7 +904,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -855,7 +926,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -870,11 +941,12 @@ class Client(OpenApiClient):
     def get_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetTask',
@@ -884,7 +956,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -899,11 +971,12 @@ class Client(OpenApiClient):
     def get_task_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetTaskStatus',
@@ -913,7 +986,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -928,11 +1001,12 @@ class Client(OpenApiClient):
     def get_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetUser',
@@ -942,7 +1016,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -954,20 +1028,57 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_user_with_options(request, runtime)
 
+    def get_user_mfaauthentication_settings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserMFAAuthenticationSettings',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserMFAAuthenticationSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_mfaauthentication_settings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_mfaauthentication_settings_with_options(request, runtime)
+
     def list_access_assignments_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['PrincipalId'] = request.principal_id
-        query['PrincipalType'] = request.principal_type
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListAccessAssignments',
@@ -977,7 +1088,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -992,16 +1103,22 @@ class Client(OpenApiClient):
     def list_access_configuration_provisionings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['ProvisioningStatus'] = request.provisioning_status
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.provisioning_status):
+            query['ProvisioningStatus'] = request.provisioning_status
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListAccessConfigurationProvisionings',
@@ -1011,7 +1128,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1026,14 +1143,18 @@ class Client(OpenApiClient):
     def list_access_configurations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['Filter'] = request.filter
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['StatusNotifications'] = request.status_notifications
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.status_notifications):
+            query['StatusNotifications'] = request.status_notifications
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListAccessConfigurations',
@@ -1043,7 +1164,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1065,7 +1186,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1080,10 +1201,10 @@ class Client(OpenApiClient):
     def list_external_samlid_pcertificates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListExternalSAMLIdPCertificates',
@@ -1093,7 +1214,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1108,13 +1229,16 @@ class Client(OpenApiClient):
     def list_group_members_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListGroupMembers',
@@ -1124,7 +1248,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1139,14 +1263,18 @@ class Client(OpenApiClient):
     def list_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['Filter'] = request.filter
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['ProvisionType'] = request.provision_type
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.provision_type):
+            query['ProvisionType'] = request.provision_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListGroups',
@@ -1156,7 +1284,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1171,13 +1299,16 @@ class Client(OpenApiClient):
     def list_joined_groups_for_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListJoinedGroupsForUser',
@@ -1187,7 +1318,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1202,11 +1333,12 @@ class Client(OpenApiClient):
     def list_mfadevices_for_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListMFADevicesForUser',
@@ -1216,7 +1348,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1231,12 +1363,14 @@ class Client(OpenApiClient):
     def list_permission_policies_in_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['PermissionPolicyType'] = request.permission_policy_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.permission_policy_type):
+            query['PermissionPolicyType'] = request.permission_policy_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListPermissionPoliciesInAccessConfiguration',
@@ -1246,7 +1380,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1261,10 +1395,10 @@ class Client(OpenApiClient):
     def list_scimserver_credentials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListSCIMServerCredentials',
@@ -1274,7 +1408,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1289,20 +1423,30 @@ class Client(OpenApiClient):
     def list_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['Filter'] = request.filter
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['PrincipalId'] = request.principal_id
-        query['PrincipalType'] = request.principal_type
-        query['Status'] = request.status
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListTasks',
@@ -1312,7 +1456,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1327,15 +1471,20 @@ class Client(OpenApiClient):
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['Filter'] = request.filter
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['ProvisionType'] = request.provision_type
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.provision_type):
+            query['ProvisionType'] = request.provision_type
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListUsers',
@@ -1345,7 +1494,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1360,13 +1509,16 @@ class Client(OpenApiClient):
     def provision_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['TargetId'] = request.target_id
-        query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ProvisionAccessConfiguration',
@@ -1376,7 +1528,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1391,11 +1543,12 @@ class Client(OpenApiClient):
     def remove_external_samlid_pcertificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CertificateId'] = request.certificate_id
-        query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.certificate_id):
+            query['CertificateId'] = request.certificate_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveExternalSAMLIdPCertificate',
@@ -1405,7 +1558,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1420,13 +1573,16 @@ class Client(OpenApiClient):
     def remove_permission_policy_from_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['PermissionPolicyName'] = request.permission_policy_name
-        query['PermissionPolicyType'] = request.permission_policy_type
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.permission_policy_name):
+            query['PermissionPolicyName'] = request.permission_policy_name
+        if not UtilClient.is_unset(request.permission_policy_type):
+            query['PermissionPolicyType'] = request.permission_policy_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemovePermissionPolicyFromAccessConfiguration',
@@ -1436,7 +1592,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1451,12 +1607,14 @@ class Client(OpenApiClient):
     def remove_user_from_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveUserFromGroup',
@@ -1466,7 +1624,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1481,14 +1639,18 @@ class Client(OpenApiClient):
     def reset_user_password_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GenerateRandomPassword'] = request.generate_random_password
-        query['Password'] = request.password
-        query['RequirePasswordResetForNextLogin'] = request.require_password_reset_for_next_login
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.generate_random_password):
+            query['GenerateRandomPassword'] = request.generate_random_password
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.require_password_reset_for_next_login):
+            query['RequirePasswordResetForNextLogin'] = request.require_password_reset_for_next_login
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ResetUserPassword',
@@ -1498,7 +1660,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1513,16 +1675,22 @@ class Client(OpenApiClient):
     def set_external_samlidentity_provider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['EncodedMetadataDocument'] = request.encoded_metadata_document
-        query['EntityId'] = request.entity_id
-        query['LoginUrl'] = request.login_url
-        query['SSOStatus'] = request.ssostatus
-        query['WantRequestSigned'] = request.want_request_signed
-        query['X509Certificate'] = request.x_509certificate
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.encoded_metadata_document):
+            query['EncodedMetadataDocument'] = request.encoded_metadata_document
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.login_url):
+            query['LoginUrl'] = request.login_url
+        if not UtilClient.is_unset(request.ssostatus):
+            query['SSOStatus'] = request.ssostatus
+        if not UtilClient.is_unset(request.want_request_signed):
+            query['WantRequestSigned'] = request.want_request_signed
+        if not UtilClient.is_unset(request.x_509certificate):
+            query['X509Certificate'] = request.x_509certificate
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetExternalSAMLIdentityProvider',
@@ -1532,7 +1700,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1547,11 +1715,12 @@ class Client(OpenApiClient):
     def set_mfaauthentication_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['MFAAuthenticationStatus'] = request.mfaauthentication_status
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.mfaauthentication_status):
+            query['MFAAuthenticationStatus'] = request.mfaauthentication_status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetMFAAuthenticationStatus',
@@ -1561,7 +1730,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1576,11 +1745,12 @@ class Client(OpenApiClient):
     def set_scimsynchronization_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['SCIMSynchronizationStatus'] = request.scimsynchronization_status
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.scimsynchronization_status):
+            query['SCIMSynchronizationStatus'] = request.scimsynchronization_status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetSCIMSynchronizationStatus',
@@ -1590,7 +1760,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1605,14 +1775,18 @@ class Client(OpenApiClient):
     def update_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['NewDescription'] = request.new_description
-        query['NewRelayState'] = request.new_relay_state
-        query['NewSessionDuration'] = request.new_session_duration
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.new_relay_state):
+            query['NewRelayState'] = request.new_relay_state
+        if not UtilClient.is_unset(request.new_session_duration):
+            query['NewSessionDuration'] = request.new_session_duration
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateAccessConfiguration',
@@ -1622,7 +1796,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1637,11 +1811,12 @@ class Client(OpenApiClient):
     def update_directory_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['NewDirectoryName'] = request.new_directory_name
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_directory_name):
+            query['NewDirectoryName'] = request.new_directory_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateDirectory',
@@ -1651,7 +1826,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1666,13 +1841,16 @@ class Client(OpenApiClient):
     def update_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['GroupId'] = request.group_id
-        query['NewDescription'] = request.new_description
-        query['NewGroupName'] = request.new_group_name
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.new_group_name):
+            query['NewGroupName'] = request.new_group_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateGroup',
@@ -1682,7 +1860,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1697,13 +1875,16 @@ class Client(OpenApiClient):
     def update_inline_policy_for_access_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessConfigurationId'] = request.access_configuration_id
-        query['DirectoryId'] = request.directory_id
-        query['InlinePolicyName'] = request.inline_policy_name
-        query['NewInlinePolicyDocument'] = request.new_inline_policy_document
+        if not UtilClient.is_unset(request.access_configuration_id):
+            query['AccessConfigurationId'] = request.access_configuration_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.inline_policy_name):
+            query['InlinePolicyName'] = request.inline_policy_name
+        if not UtilClient.is_unset(request.new_inline_policy_document):
+            query['NewInlinePolicyDocument'] = request.new_inline_policy_document
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateInlinePolicyForAccessConfiguration',
@@ -1713,7 +1894,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1725,15 +1906,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_inline_policy_for_access_configuration_with_options(request, runtime)
 
+    def update_mfaauthentication_settings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.mfaauthentication_settings):
+            query['MFAAuthenticationSettings'] = request.mfaauthentication_settings
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateMFAAuthenticationSettings',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.UpdateMFAAuthenticationSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_mfaauthentication_settings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_mfaauthentication_settings_with_options(request, runtime)
+
     def update_scimserver_credential_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CredentialId'] = request.credential_id
-        query['DirectoryId'] = request.directory_id
-        query['NewStatus'] = request.new_status
+        if not UtilClient.is_unset(request.credential_id):
+            query['CredentialId'] = request.credential_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_status):
+            query['NewStatus'] = request.new_status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateSCIMServerCredentialStatus',
@@ -1743,7 +1956,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1758,16 +1971,22 @@ class Client(OpenApiClient):
     def update_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['NewDescription'] = request.new_description
-        query['NewDisplayName'] = request.new_display_name
-        query['NewEmail'] = request.new_email
-        query['NewFirstName'] = request.new_first_name
-        query['NewLastName'] = request.new_last_name
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.new_display_name):
+            query['NewDisplayName'] = request.new_display_name
+        if not UtilClient.is_unset(request.new_email):
+            query['NewEmail'] = request.new_email
+        if not UtilClient.is_unset(request.new_first_name):
+            query['NewFirstName'] = request.new_first_name
+        if not UtilClient.is_unset(request.new_last_name):
+            query['NewLastName'] = request.new_last_name
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateUser',
@@ -1777,7 +1996,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1789,15 +2008,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_user_with_options(request, runtime)
 
+    def update_user_mfaauthentication_settings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_mfaauthentication_settings):
+            query['UserMFAAuthenticationSettings'] = request.user_mfaauthentication_settings
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserMFAAuthenticationSettings',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.UpdateUserMFAAuthenticationSettingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_mfaauthentication_settings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_mfaauthentication_settings_with_options(request, runtime)
+
     def update_user_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DirectoryId'] = request.directory_id
-        query['NewStatus'] = request.new_status
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_status):
+            query['NewStatus'] = request.new_status
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateUserStatus',
@@ -1807,7 +2060,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
