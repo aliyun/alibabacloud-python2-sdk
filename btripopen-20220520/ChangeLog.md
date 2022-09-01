@@ -1,3 +1,6 @@
+2022-09-01 Version: 1.0.8
+- Add some api.
+
 2022-08-26 Version: 1.0.7
 - Add some api.
 
