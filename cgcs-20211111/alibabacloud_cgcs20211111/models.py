@@ -5,9 +5,7 @@ from Tea.model import TeaModel
 
 class CancelReserveTaskRequest(TeaModel):
     def __init__(self, client_token=None, task_id=None):
-        # 客户端幂等性 token
         self.client_token = client_token  # type: str
-        # 创建容量预定任务时返回的 taskId
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -36,7 +34,6 @@ class CancelReserveTaskRequest(TeaModel):
 
 class CancelReserveTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
-        # pop的requestId
         self.request_id = request_id  # type: str
         self.task_id = task_id  # type: str
 
@@ -369,7 +366,6 @@ class CreateAppResponse(TeaModel):
 
 class CreateAppSessionRequestStartParameters(TeaModel):
     def __init__(self, key=None, value=None):
-        # key
         self.key = key  # type: str
         self.value = value  # type: str
 
@@ -428,21 +424,15 @@ class CreateAppSessionRequestSystemInfo(TeaModel):
 
 class CreateAppSessionRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, client_ip=None, custom_session_id=None, custom_user_id=None,
-                 enable_postpaid=None, start_parameters=None, system_info=None, timeout=None):
-        # 应用ID
+                 enable_postpaid=None, project_id=None, start_parameters=None, system_info=None, timeout=None):
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
-        # 客户端ip
         self.client_ip = client_ip  # type: str
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 自定义用户id
         self.custom_user_id = custom_user_id  # type: str
         self.enable_postpaid = enable_postpaid  # type: bool
-        # 启动参数
+        self.project_id = project_id  # type: str
         self.start_parameters = start_parameters  # type: list[CreateAppSessionRequestStartParameters]
-        # 系统信息：如端侧机型等信息
         self.system_info = system_info  # type: list[CreateAppSessionRequestSystemInfo]
         self.timeout = timeout  # type: long
 
@@ -474,6 +464,8 @@ class CreateAppSessionRequest(TeaModel):
             result['CustomUserId'] = self.custom_user_id
         if self.enable_postpaid is not None:
             result['EnablePostpaid'] = self.enable_postpaid
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
         result['StartParameters'] = []
         if self.start_parameters is not None:
             for k in self.start_parameters:
@@ -500,6 +492,8 @@ class CreateAppSessionRequest(TeaModel):
             self.custom_user_id = m.get('CustomUserId')
         if m.get('EnablePostpaid') is not None:
             self.enable_postpaid = m.get('EnablePostpaid')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
         self.start_parameters = []
         if m.get('StartParameters') is not None:
             for k in m.get('StartParameters'):
@@ -518,15 +512,10 @@ class CreateAppSessionRequest(TeaModel):
 class CreateAppSessionResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, custom_session_id=None, platform_session_id=None,
                  request_id=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -601,6 +590,40 @@ class CreateAppSessionResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = CreateAppSessionResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateAppSessionBatchSyncRequestAppInfosMatchRules(TeaModel):
+    def __init__(self, key=None, type=None, values=None):
+        self.key = key  # type: str
+        self.type = type  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppSessionBatchSyncRequestAppInfosMatchRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
         return self
 
 
@@ -692,20 +715,27 @@ class CreateAppSessionBatchSyncRequestAppInfosTags(TeaModel):
 
 
 class CreateAppSessionBatchSyncRequestAppInfos(TeaModel):
-    def __init__(self, app_id=None, app_version=None, client_ip=None, custom_user_id=None, customer_session_id=None,
-                 district_id=None, project_id=None, start_parameters=None, system_info=None, tags=None):
+    def __init__(self, adapter_file_id=None, app_id=None, app_version=None, client_ip=None, custom_user_id=None,
+                 customer_session_id=None, district_id=None, match_rules=None, project_id=None, start_parameters=None, system_info=None,
+                 tags=None):
+        self.adapter_file_id = adapter_file_id  # type: str
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
         self.client_ip = client_ip  # type: str
         self.custom_user_id = custom_user_id  # type: str
         self.customer_session_id = customer_session_id  # type: str
         self.district_id = district_id  # type: str
+        self.match_rules = match_rules  # type: list[CreateAppSessionBatchSyncRequestAppInfosMatchRules]
         self.project_id = project_id  # type: str
         self.start_parameters = start_parameters  # type: list[CreateAppSessionBatchSyncRequestAppInfosStartParameters]
         self.system_info = system_info  # type: list[CreateAppSessionBatchSyncRequestAppInfosSystemInfo]
         self.tags = tags  # type: list[CreateAppSessionBatchSyncRequestAppInfosTags]
 
     def validate(self):
+        if self.match_rules:
+            for k in self.match_rules:
+                if k:
+                    k.validate()
         if self.start_parameters:
             for k in self.start_parameters:
                 if k:
@@ -725,6 +755,8 @@ class CreateAppSessionBatchSyncRequestAppInfos(TeaModel):
             return _map
 
         result = dict()
+        if self.adapter_file_id is not None:
+            result['AdapterFileId'] = self.adapter_file_id
         if self.app_id is not None:
             result['AppId'] = self.app_id
         if self.app_version is not None:
@@ -737,6 +769,10 @@ class CreateAppSessionBatchSyncRequestAppInfos(TeaModel):
             result['CustomerSessionId'] = self.customer_session_id
         if self.district_id is not None:
             result['DistrictId'] = self.district_id
+        result['MatchRules'] = []
+        if self.match_rules is not None:
+            for k in self.match_rules:
+                result['MatchRules'].append(k.to_map() if k else None)
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
         result['StartParameters'] = []
@@ -755,6 +791,8 @@ class CreateAppSessionBatchSyncRequestAppInfos(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AdapterFileId') is not None:
+            self.adapter_file_id = m.get('AdapterFileId')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
         if m.get('AppVersion') is not None:
@@ -767,6 +805,11 @@ class CreateAppSessionBatchSyncRequestAppInfos(TeaModel):
             self.customer_session_id = m.get('CustomerSessionId')
         if m.get('DistrictId') is not None:
             self.district_id = m.get('DistrictId')
+        self.match_rules = []
+        if m.get('MatchRules') is not None:
+            for k in m.get('MatchRules'):
+                temp_model = CreateAppSessionBatchSyncRequestAppInfosMatchRules()
+                self.match_rules.append(temp_model.from_map(k))
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
         self.start_parameters = []
@@ -1007,14 +1050,10 @@ class CreateAppSessionBatchSyncResponseBodyResultListBizInfo(TeaModel):
 class CreateAppSessionBatchSyncResponseBodyResultList(TeaModel):
     def __init__(self, app_id=None, app_version=None, biz_info=None, custom_session_id=None,
                  platform_session_id=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
         self.biz_info = biz_info  # type: CreateAppSessionBatchSyncResponseBodyResultListBizInfo
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
 
     def validate(self):
@@ -1057,10 +1096,8 @@ class CreateAppSessionBatchSyncResponseBodyResultList(TeaModel):
 
 class CreateAppSessionBatchSyncResponseBody(TeaModel):
     def __init__(self, batch_id=None, failed_list=None, request_id=None, result_list=None):
-        # 自定义会话id
         self.batch_id = batch_id  # type: str
         self.failed_list = failed_list  # type: list[CreateAppSessionBatchSyncResponseBodyFailedList]
-        # 请求id
         self.request_id = request_id  # type: str
         self.result_list = result_list  # type: list[CreateAppSessionBatchSyncResponseBodyResultList]
 
@@ -1152,11 +1189,43 @@ class CreateAppSessionBatchSyncResponse(TeaModel):
         return self
 
 
+class CreateAppSessionSyncRequestMatchRules(TeaModel):
+    def __init__(self, key=None, type=None, values=None):
+        self.key = key  # type: str
+        self.type = type  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppSessionSyncRequestMatchRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
 class CreateAppSessionSyncRequestStartParameters(TeaModel):
     def __init__(self, key=None, value=None):
-        # key
         self.key = key  # type: str
-        # value
         self.value = value  # type: str
 
     def validate(self):
@@ -1242,27 +1311,27 @@ class CreateAppSessionSyncRequestTags(TeaModel):
 
 
 class CreateAppSessionSyncRequest(TeaModel):
-    def __init__(self, app_id=None, app_version=None, client_ip=None, custom_session_id=None, custom_user_id=None,
-                 district_id=None, project_id=None, start_parameters=None, system_info=None, tags=None):
-        # 应用ID
+    def __init__(self, adapter_file_id=None, app_id=None, app_version=None, client_ip=None, custom_session_id=None,
+                 custom_user_id=None, district_id=None, match_rules=None, project_id=None, start_parameters=None, system_info=None,
+                 tags=None):
+        self.adapter_file_id = adapter_file_id  # type: str
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
-        # 客户端ip
         self.client_ip = client_ip  # type: str
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 自定义用户id
         self.custom_user_id = custom_user_id  # type: str
         self.district_id = district_id  # type: str
+        self.match_rules = match_rules  # type: list[CreateAppSessionSyncRequestMatchRules]
         self.project_id = project_id  # type: str
-        # 启动参数
         self.start_parameters = start_parameters  # type: list[CreateAppSessionSyncRequestStartParameters]
-        # 系统信息：如端侧机型等信息
         self.system_info = system_info  # type: list[CreateAppSessionSyncRequestSystemInfo]
         self.tags = tags  # type: list[CreateAppSessionSyncRequestTags]
 
     def validate(self):
+        if self.match_rules:
+            for k in self.match_rules:
+                if k:
+                    k.validate()
         if self.start_parameters:
             for k in self.start_parameters:
                 if k:
@@ -1282,6 +1351,8 @@ class CreateAppSessionSyncRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.adapter_file_id is not None:
+            result['AdapterFileId'] = self.adapter_file_id
         if self.app_id is not None:
             result['AppId'] = self.app_id
         if self.app_version is not None:
@@ -1294,6 +1365,10 @@ class CreateAppSessionSyncRequest(TeaModel):
             result['CustomUserId'] = self.custom_user_id
         if self.district_id is not None:
             result['DistrictId'] = self.district_id
+        result['MatchRules'] = []
+        if self.match_rules is not None:
+            for k in self.match_rules:
+                result['MatchRules'].append(k.to_map() if k else None)
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
         result['StartParameters'] = []
@@ -1312,6 +1387,8 @@ class CreateAppSessionSyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AdapterFileId') is not None:
+            self.adapter_file_id = m.get('AdapterFileId')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
         if m.get('AppVersion') is not None:
@@ -1324,6 +1401,11 @@ class CreateAppSessionSyncRequest(TeaModel):
             self.custom_user_id = m.get('CustomUserId')
         if m.get('DistrictId') is not None:
             self.district_id = m.get('DistrictId')
+        self.match_rules = []
+        if m.get('MatchRules') is not None:
+            for k in m.get('MatchRules'):
+                temp_model = CreateAppSessionSyncRequestMatchRules()
+                self.match_rules.append(temp_model.from_map(k))
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
         self.start_parameters = []
@@ -1433,16 +1515,11 @@ class CreateAppSessionSyncResponseBodyBizInfo(TeaModel):
 class CreateAppSessionSyncResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, biz_info=None, custom_session_id=None,
                  platform_session_id=None, request_id=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
         self.biz_info = biz_info  # type: CreateAppSessionSyncResponseBodyBizInfo
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1626,19 +1703,12 @@ class CreateAppVersionResponse(TeaModel):
 class CreateCapacityReservationRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, client_token=None, district_id=None,
                  expect_resource_ready_time=None, expect_session_capacity=None, project_id=None):
-        # 应用ID
         self.app_id = app_id  # type: str
-        # 应用版本ID，如果不填，采用控制台设置的默认版本
         self.app_version = app_version  # type: str
-        # 客户端 token，保持幂等性。
         self.client_token = client_token  # type: str
-        # 大区 id
         self.district_id = district_id  # type: str
-        # 预期资源ready可服务时间 时间格式 yyyy-mm-dd HH:MM:SS 比如
         self.expect_resource_ready_time = expect_resource_ready_time  # type: str
-        # 预期创建出的容器能支持的 session 数量。GCS 内部会根据适配自动计算出所需要的资源量，以及多种机型的配比。
         self.expect_session_capacity = expect_session_capacity  # type: int
-        # 项目ID
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -1687,11 +1757,8 @@ class CreateCapacityReservationRequest(TeaModel):
 
 class CreateCapacityReservationResponseBody(TeaModel):
     def __init__(self, curr_max_allocatable_session_capacity=None, request_id=None, task_id=None):
-        # 当前最大可分配的 session 库存，注意两次调用之间，该库存值可能有变动
         self.curr_max_allocatable_session_capacity = curr_max_allocatable_session_capacity  # type: int
-        # pop的requestId
         self.request_id = request_id  # type: str
-        # 容器创建任务 id
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1757,299 +1824,6 @@ class CreateCapacityReservationResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateCapacityReservationResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class CreateProjectRequestProjectQuotaLimit(TeaModel):
-    def __init__(self, district_limit_map=None, limit_type=None):
-        # key - districtId
-        self.district_limit_map = district_limit_map  # type: dict[str, ProjectQuotaLimitDistrictLimitMapValue]
-        # 限制类型 ：目前默认 - ReserveContainer
-        self.limit_type = limit_type  # type: str
-
-    def validate(self):
-        if self.district_limit_map:
-            for v in self.district_limit_map.values():
-                if v:
-                    v.validate()
-
-    def to_map(self):
-        _map = super(CreateProjectRequestProjectQuotaLimit, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DistrictLimitMap'] = {}
-        if self.district_limit_map is not None:
-            for k, v in self.district_limit_map.items():
-                result['DistrictLimitMap'][k] = v.to_map()
-        if self.limit_type is not None:
-            result['LimitType'] = self.limit_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.district_limit_map = {}
-        if m.get('DistrictLimitMap') is not None:
-            for k, v in m.get('DistrictLimitMap').items():
-                temp_model = ProjectQuotaLimitDistrictLimitMapValue()
-                self.district_limit_map[k] = temp_model.from_map(v)
-        if m.get('LimitType') is not None:
-            self.limit_type = m.get('LimitType')
-        return self
-
-
-class CreateProjectRequest(TeaModel):
-    def __init__(self, bound_app_id_list=None, operator_id=None, operator_type=None, project_memo=None,
-                 project_name=None, project_quota_limit=None):
-        self.bound_app_id_list = bound_app_id_list  # type: list[str]
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        self.project_memo = project_memo  # type: str
-        # project name
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit = project_quota_limit  # type: CreateProjectRequestProjectQuotaLimit
-
-    def validate(self):
-        if self.project_quota_limit:
-            self.project_quota_limit.validate()
-
-    def to_map(self):
-        _map = super(CreateProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_id_list is not None:
-            result['BoundAppIdList'] = self.bound_app_id_list
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppIdList') is not None:
-            self.bound_app_id_list = m.get('BoundAppIdList')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            temp_model = CreateProjectRequestProjectQuotaLimit()
-            self.project_quota_limit = temp_model.from_map(m['ProjectQuotaLimit'])
-        return self
-
-
-class CreateProjectShrinkRequest(TeaModel):
-    def __init__(self, bound_app_id_list_shrink=None, operator_id=None, operator_type=None, project_memo=None,
-                 project_name=None, project_quota_limit_shrink=None):
-        self.bound_app_id_list_shrink = bound_app_id_list_shrink  # type: str
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        self.project_memo = project_memo  # type: str
-        # project name
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit_shrink = project_quota_limit_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateProjectShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_id_list_shrink is not None:
-            result['BoundAppIdList'] = self.bound_app_id_list_shrink
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit_shrink is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppIdList') is not None:
-            self.bound_app_id_list_shrink = m.get('BoundAppIdList')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            self.project_quota_limit_shrink = m.get('ProjectQuotaLimit')
-        return self
-
-
-class CreateProjectResponseBodyData(TeaModel):
-    def __init__(self, code=None, data=None, message=None, project_id=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: dict[str, any]
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        self.project_id = project_id  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateProjectResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class CreateProjectResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: CreateProjectResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(CreateProjectResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = CreateProjectResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class CreateProjectResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: CreateProjectResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateProjectResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = CreateProjectResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2234,157 +2008,6 @@ class DeleteAppVersionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteAppVersionResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DeleteProjectRequest(TeaModel):
-    def __init__(self, operator_id=None, operator_type=None, project_id=None):
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # project Id
-        self.project_id = project_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        return self
-
-
-class DeleteProjectResponseBodyData(TeaModel):
-    def __init__(self, success=None):
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteProjectResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class DeleteProjectResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: DeleteProjectResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(DeleteProjectResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = DeleteProjectResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class DeleteProjectResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DeleteProjectResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DeleteProjectResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DeleteProjectResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2678,10 +2301,8 @@ class GetAppResponse(TeaModel):
 
 class GetAppCcuRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, project_id=None):
-        # 自定义会话id
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
-        # 平台会话id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -2712,15 +2333,56 @@ class GetAppCcuRequest(TeaModel):
         return self
 
 
-class GetAppCcuResponseBody(TeaModel):
-    def __init__(self, request_id=None, timestamp=None):
-        # 请求id
-        self.request_id = request_id  # type: str
-        # 自定义会话id
-        self.timestamp = timestamp  # type: str
+class GetAppCcuResponseBodyDetailList(TeaModel):
+    def __init__(self, app_id=None, ccu=None, district_id=None, project_id=None):
+        self.app_id = app_id  # type: str
+        self.ccu = ccu  # type: str
+        self.district_id = district_id  # type: str
+        self.project_id = project_id  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(GetAppCcuResponseBodyDetailList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.ccu is not None:
+            result['Ccu'] = self.ccu
+        if self.district_id is not None:
+            result['DistrictId'] = self.district_id
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('Ccu') is not None:
+            self.ccu = m.get('Ccu')
+        if m.get('DistrictId') is not None:
+            self.district_id = m.get('DistrictId')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        return self
+
+
+class GetAppCcuResponseBody(TeaModel):
+    def __init__(self, detail_list=None, request_id=None, timestamp=None):
+        self.detail_list = detail_list  # type: list[GetAppCcuResponseBodyDetailList]
+        self.request_id = request_id  # type: str
+        self.timestamp = timestamp  # type: str
+
+    def validate(self):
+        if self.detail_list:
+            for k in self.detail_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetAppCcuResponseBody, self).to_map()
@@ -2728,6 +2390,10 @@ class GetAppCcuResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['DetailList'] = []
+        if self.detail_list is not None:
+            for k in self.detail_list:
+                result['DetailList'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.timestamp is not None:
@@ -2736,6 +2402,11 @@ class GetAppCcuResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.detail_list = []
+        if m.get('DetailList') is not None:
+            for k in m.get('DetailList'):
+                temp_model = GetAppCcuResponseBodyDetailList()
+                self.detail_list.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Timestamp') is not None:
@@ -2784,9 +2455,7 @@ class GetAppCcuResponse(TeaModel):
 
 class GetAppSessionRequest(TeaModel):
     def __init__(self, custom_session_id=None, platform_session_id=None):
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
 
     def validate(self):
@@ -2845,18 +2514,12 @@ class GetAppSessionResponseBodyBizInfo(TeaModel):
 class GetAppSessionResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, biz_info=None, custom_session_id=None,
                  platform_session_id=None, request_id=None, status=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
         self.biz_info = biz_info  # type: GetAppSessionResponseBodyBizInfo
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 状态
         self.status = status  # type: str
 
     def validate(self):
@@ -3096,17 +2759,11 @@ class GetAppVersionResponse(TeaModel):
 class GetCapacityRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, district_id=None, page_num=None, page_size=None,
                  project_id=None):
-        # 按照 appId 来匹配
         self.app_id = app_id  # type: str
-        # 按照 app 版本来匹配
         self.app_version = app_version  # type: str
-        # 大区 id
         self.district_id = district_id  # type: str
-        # 第几页，默认从 1 开始
         self.page_num = page_num  # type: int
-        # 一页大小，默认 20，最大 100
         self.page_size = page_size  # type: int
-        # 项目 id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -3151,13 +2808,9 @@ class GetCapacityRequest(TeaModel):
 
 class GetCapacityResponseBodyCapacities(TeaModel):
     def __init__(self, app_id=None, app_version=None, district_id=None, session_capacity=None):
-        # 创建容器时指定的 appId
         self.app_id = app_id  # type: str
-        # 创建容器时指定的版本
         self.app_version = app_version  # type: str
-        # 该容器所属大区 id
         self.district_id = district_id  # type: str
-        # 可支撑 session 数量
         self.session_capacity = session_capacity  # type: int
 
     def validate(self):
@@ -3194,15 +2847,10 @@ class GetCapacityResponseBodyCapacities(TeaModel):
 
 class GetCapacityResponseBody(TeaModel):
     def __init__(self, capacities=None, page_num=None, page_size=None, request_id=None, total=None):
-        # 回满足匹配的
         self.capacities = capacities  # type: list[GetCapacityResponseBodyCapacities]
-        # 第几页
         self.page_num = page_num  # type: int
-        # 每页大小
         self.page_size = page_size  # type: int
-        # pop的requestId
         self.request_id = request_id  # type: str
-        # 满足匹配条件的总量
         self.total = total  # type: int
 
     def validate(self):
@@ -3288,234 +2936,8 @@ class GetCapacityResponse(TeaModel):
         return self
 
 
-class GetProjectRequest(TeaModel):
-    def __init__(self, operator_id=None, operator_type=None, project_id=None):
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # project id
-        self.project_id = project_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        return self
-
-
-class GetProjectResponseBodyDataProjectQuotaLimit(TeaModel):
-    def __init__(self, district_limit_map=None, limit_type=None):
-        # key - districtId
-        self.district_limit_map = district_limit_map  # type: dict[str, DataProjectQuotaLimitDistrictLimitMapValue]
-        # 限制类型 ：目前默认 - ReserveContainer
-        self.limit_type = limit_type  # type: str
-
-    def validate(self):
-        if self.district_limit_map:
-            for v in self.district_limit_map.values():
-                if v:
-                    v.validate()
-
-    def to_map(self):
-        _map = super(GetProjectResponseBodyDataProjectQuotaLimit, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DistrictLimitMap'] = {}
-        if self.district_limit_map is not None:
-            for k, v in self.district_limit_map.items():
-                result['DistrictLimitMap'][k] = v.to_map()
-        if self.limit_type is not None:
-            result['LimitType'] = self.limit_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.district_limit_map = {}
-        if m.get('DistrictLimitMap') is not None:
-            for k, v in m.get('DistrictLimitMap').items():
-                temp_model = DataProjectQuotaLimitDistrictLimitMapValue()
-                self.district_limit_map[k] = temp_model.from_map(v)
-        if m.get('LimitType') is not None:
-            self.limit_type = m.get('LimitType')
-        return self
-
-
-class GetProjectResponseBodyData(TeaModel):
-    def __init__(self, bound_app_nums=None, gmt_create=None, gmt_modified=None, project_id=None, project_memo=None,
-                 project_name=None, project_quota_limit=None):
-        # 项目关联的应用数量
-        self.bound_app_nums = bound_app_nums  # type: long
-        self.gmt_create = gmt_create  # type: str
-        self.gmt_modified = gmt_modified  # type: str
-        self.project_id = project_id  # type: str
-        self.project_memo = project_memo  # type: str
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit = project_quota_limit  # type: GetProjectResponseBodyDataProjectQuotaLimit
-
-    def validate(self):
-        if self.project_quota_limit:
-            self.project_quota_limit.validate()
-
-    def to_map(self):
-        _map = super(GetProjectResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_nums is not None:
-            result['BoundAppNums'] = self.bound_app_nums
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppNums') is not None:
-            self.bound_app_nums = m.get('BoundAppNums')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            temp_model = GetProjectResponseBodyDataProjectQuotaLimit()
-            self.project_quota_limit = temp_model.from_map(m['ProjectQuotaLimit'])
-        return self
-
-
-class GetProjectResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: GetProjectResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetProjectResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = GetProjectResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class GetProjectResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetProjectResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetProjectResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetProjectResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetReserveTaskDetailRequest(TeaModel):
     def __init__(self, task_id=None):
-        # 创建容量预定任务时返回的 taskId
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3542,25 +2964,15 @@ class GetReserveTaskDetailResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, curr_completed_session_capacity=None, district_id=None,
                  expect_resource_ready_time=None, expect_session_capacity=None, project_id=None, request_id=None, task_id=None,
                  task_status=None):
-        # 容量预定时的 appId
         self.app_id = app_id  # type: str
-        # 容量预定时的 appVersion
         self.app_version = app_version  # type: str
-        # 当前任务已经生产完成的会话路数
         self.curr_completed_session_capacity = curr_completed_session_capacity  # type: int
-        # 容量预定时指定的大区id
         self.district_id = district_id  # type: str
-        # 容量预定，期望生效时间
         self.expect_resource_ready_time = expect_resource_ready_time  # type: str
-        # 容量预定期望的会话路数
         self.expect_session_capacity = expect_session_capacity  # type: int
-        # 容量预定时的 projectId
         self.project_id = project_id  # type: str
-        # pop的requestId
         self.request_id = request_id  # type: str
-        # 容器创建任务 id
         self.task_id = task_id  # type: str
-        # 任务状态
         self.task_status = task_status  # type: str
 
     def validate(self):
@@ -3660,11 +3072,8 @@ class GetReserveTaskDetailResponse(TeaModel):
 
 class GetResourcePublicIPsRequest(TeaModel):
     def __init__(self, page_num=None, page_size=None, project_id=None):
-        # 第几页，默认从 1 开始
         self.page_num = page_num  # type: int
-        # 一页大小，默认 20，最大 100
         self.page_size = page_size  # type: int
-        # 项目 id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -3697,9 +3106,7 @@ class GetResourcePublicIPsRequest(TeaModel):
 
 class GetResourcePublicIPsResponseBodyIpList(TeaModel):
     def __init__(self, ip=None, project_id=None):
-        # ip
         self.ip = ip  # type: str
-        # 项目 id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -3728,15 +3135,10 @@ class GetResourcePublicIPsResponseBodyIpList(TeaModel):
 
 class GetResourcePublicIPsResponseBody(TeaModel):
     def __init__(self, ip_list=None, page_num=None, page_size=None, request_id=None, total=None):
-        # ip 列表
         self.ip_list = ip_list  # type: list[GetResourcePublicIPsResponseBodyIpList]
-        # 第几页
         self.page_num = page_num  # type: int
-        # 每页大小
         self.page_size = page_size  # type: int
-        # pop的requestId
         self.request_id = request_id  # type: str
-        # 满足匹配条件的总量
         self.total = total  # type: int
 
     def validate(self):
@@ -3818,164 +3220,6 @@ class GetResourcePublicIPsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetResourcePublicIPsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetTenantResponseBodyData(TeaModel):
-    def __init__(self, charge_mode=None, contacts_mobile=None, contacts_name=None, industry_category=None,
-                 scence_desc=None, status=None, tenant_id=None, tenant_name=None):
-        # 计收模式
-        self.charge_mode = charge_mode  # type: str
-        # 联系人电话
-        self.contacts_mobile = contacts_mobile  # type: str
-        # 联系人
-        self.contacts_name = contacts_name  # type: str
-        # 租户所属行业(Code)
-        self.industry_category = industry_category  # type: str
-        # 业务场景描述
-        self.scence_desc = scence_desc  # type: str
-        # 租户状态
-        self.status = status  # type: str
-        # 租户ID(AlipayUserId)
-        self.tenant_id = tenant_id  # type: str
-        # 租户名称
-        self.tenant_name = tenant_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetTenantResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.charge_mode is not None:
-            result['ChargeMode'] = self.charge_mode
-        if self.contacts_mobile is not None:
-            result['ContactsMobile'] = self.contacts_mobile
-        if self.contacts_name is not None:
-            result['ContactsName'] = self.contacts_name
-        if self.industry_category is not None:
-            result['IndustryCategory'] = self.industry_category
-        if self.scence_desc is not None:
-            result['ScenceDesc'] = self.scence_desc
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.tenant_id is not None:
-            result['TenantId'] = self.tenant_id
-        if self.tenant_name is not None:
-            result['TenantName'] = self.tenant_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ChargeMode') is not None:
-            self.charge_mode = m.get('ChargeMode')
-        if m.get('ContactsMobile') is not None:
-            self.contacts_mobile = m.get('ContactsMobile')
-        if m.get('ContactsName') is not None:
-            self.contacts_name = m.get('ContactsName')
-        if m.get('IndustryCategory') is not None:
-            self.industry_category = m.get('IndustryCategory')
-        if m.get('ScenceDesc') is not None:
-            self.scence_desc = m.get('ScenceDesc')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('TenantId') is not None:
-            self.tenant_id = m.get('TenantId')
-        if m.get('TenantName') is not None:
-            self.tenant_name = m.get('TenantName')
-        return self
-
-
-class GetTenantResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: GetTenantResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetTenantResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = GetTenantResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class GetTenantResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetTenantResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetTenantResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetTenantResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4154,13 +3398,9 @@ class ListAppSessionsRequest(TeaModel):
     def __init__(self, app_id=None, custom_session_ids=None, page_number=None, page_size=None,
                  platform_session_ids=None):
         self.app_id = app_id  # type: str
-        # 自定义会话id
         self.custom_session_ids = custom_session_ids  # type: list[str]
-        # 页码
         self.page_number = page_number  # type: int
-        # 分页大小
         self.page_size = page_size  # type: int
-        # 自定义用户id
         self.platform_session_ids = platform_session_ids  # type: list[str]
 
     def validate(self):
@@ -4231,16 +3471,11 @@ class ListAppSessionsResponseBodyAppSessionsBizInfo(TeaModel):
 class ListAppSessionsResponseBodyAppSessions(TeaModel):
     def __init__(self, app_id=None, app_version=None, biz_info=None, custom_session_id=None,
                  platform_session_id=None, status=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
         self.biz_info = biz_info  # type: ListAppSessionsResponseBodyAppSessionsBizInfo
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
-        # 状态
         self.status = status  # type: str
 
     def validate(self):
@@ -4290,7 +3525,6 @@ class ListAppSessionsResponseBody(TeaModel):
         self.app_sessions = app_sessions  # type: list[ListAppSessionsResponseBodyAppSessions]
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # 请求id
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
 
@@ -4767,1012 +4001,13 @@ class ModifyAppVersionResponse(TeaModel):
         return self
 
 
-class ModifyProjectRequestProjectQuotaLimit(TeaModel):
-    def __init__(self, district_limit_map=None, limit_type=None):
-        # key - districtId
-        self.district_limit_map = district_limit_map  # type: dict[str, ProjectQuotaLimitDistrictLimitMapValue]
-        # 限制类型 ：目前默认 - ReserveContainer
-        self.limit_type = limit_type  # type: str
-
-    def validate(self):
-        if self.district_limit_map:
-            for v in self.district_limit_map.values():
-                if v:
-                    v.validate()
-
-    def to_map(self):
-        _map = super(ModifyProjectRequestProjectQuotaLimit, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DistrictLimitMap'] = {}
-        if self.district_limit_map is not None:
-            for k, v in self.district_limit_map.items():
-                result['DistrictLimitMap'][k] = v.to_map()
-        if self.limit_type is not None:
-            result['LimitType'] = self.limit_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.district_limit_map = {}
-        if m.get('DistrictLimitMap') is not None:
-            for k, v in m.get('DistrictLimitMap').items():
-                temp_model = ProjectQuotaLimitDistrictLimitMapValue()
-                self.district_limit_map[k] = temp_model.from_map(v)
-        if m.get('LimitType') is not None:
-            self.limit_type = m.get('LimitType')
-        return self
-
-
-class ModifyProjectRequest(TeaModel):
-    def __init__(self, bound_app_id_list=None, operator_id=None, operator_type=None, project_id=None,
-                 project_memo=None, project_name=None, project_quota_limit=None):
-        self.bound_app_id_list = bound_app_id_list  # type: list[str]
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # project Id
-        self.project_id = project_id  # type: str
-        self.project_memo = project_memo  # type: str
-        # project name
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit = project_quota_limit  # type: ModifyProjectRequestProjectQuotaLimit
-
-    def validate(self):
-        if self.project_quota_limit:
-            self.project_quota_limit.validate()
-
-    def to_map(self):
-        _map = super(ModifyProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_id_list is not None:
-            result['BoundAppIdList'] = self.bound_app_id_list
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppIdList') is not None:
-            self.bound_app_id_list = m.get('BoundAppIdList')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            temp_model = ModifyProjectRequestProjectQuotaLimit()
-            self.project_quota_limit = temp_model.from_map(m['ProjectQuotaLimit'])
-        return self
-
-
-class ModifyProjectShrinkRequest(TeaModel):
-    def __init__(self, bound_app_id_list_shrink=None, operator_id=None, operator_type=None, project_id=None,
-                 project_memo=None, project_name=None, project_quota_limit_shrink=None):
-        self.bound_app_id_list_shrink = bound_app_id_list_shrink  # type: str
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # project Id
-        self.project_id = project_id  # type: str
-        self.project_memo = project_memo  # type: str
-        # project name
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit_shrink = project_quota_limit_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyProjectShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_id_list_shrink is not None:
-            result['BoundAppIdList'] = self.bound_app_id_list_shrink
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit_shrink is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppIdList') is not None:
-            self.bound_app_id_list_shrink = m.get('BoundAppIdList')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            self.project_quota_limit_shrink = m.get('ProjectQuotaLimit')
-        return self
-
-
-class ModifyProjectResponseBodyData(TeaModel):
-    def __init__(self, success=None):
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyProjectResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class ModifyProjectResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: ModifyProjectResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(ModifyProjectResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = ModifyProjectResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class ModifyProjectResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ModifyProjectResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ModifyProjectResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ModifyProjectResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class PageQueryProjectRequest(TeaModel):
-    def __init__(self, key_search=None, operator_id=None, operator_type=None, page_number=None, page_size=None):
-        # projectId or projectName like
-        self.key_search = key_search  # type: str
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # 当前页码，默认1
-        self.page_number = page_number  # type: int
-        # 每页项数，默认20,最大100
-        self.page_size = page_size  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(PageQueryProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.key_search is not None:
-            result['KeySearch'] = self.key_search
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('KeySearch') is not None:
-            self.key_search = m.get('KeySearch')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        return self
-
-
-class PageQueryProjectResponseBodyDataRecordsProjectQuotaLimit(TeaModel):
-    def __init__(self, district_limit_map=None, limit_type=None):
-        # key - districtId
-        self.district_limit_map = district_limit_map  # type: dict[str, DataRecordsProjectQuotaLimitDistrictLimitMapValue]
-        # 限制类型 ：目前默认 - ReserveContainer
-        self.limit_type = limit_type  # type: str
-
-    def validate(self):
-        if self.district_limit_map:
-            for v in self.district_limit_map.values():
-                if v:
-                    v.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectResponseBodyDataRecordsProjectQuotaLimit, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DistrictLimitMap'] = {}
-        if self.district_limit_map is not None:
-            for k, v in self.district_limit_map.items():
-                result['DistrictLimitMap'][k] = v.to_map()
-        if self.limit_type is not None:
-            result['LimitType'] = self.limit_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.district_limit_map = {}
-        if m.get('DistrictLimitMap') is not None:
-            for k, v in m.get('DistrictLimitMap').items():
-                temp_model = DataRecordsProjectQuotaLimitDistrictLimitMapValue()
-                self.district_limit_map[k] = temp_model.from_map(v)
-        if m.get('LimitType') is not None:
-            self.limit_type = m.get('LimitType')
-        return self
-
-
-class PageQueryProjectResponseBodyDataRecords(TeaModel):
-    def __init__(self, bound_app_nums=None, gmt_create=None, gmt_modified=None, project_id=None, project_memo=None,
-                 project_name=None, project_quota_limit=None):
-        # 项目关联的应用数量
-        self.bound_app_nums = bound_app_nums  # type: long
-        self.gmt_create = gmt_create  # type: str
-        self.gmt_modified = gmt_modified  # type: str
-        self.project_id = project_id  # type: str
-        self.project_memo = project_memo  # type: str
-        self.project_name = project_name  # type: str
-        # key : districtId
-        self.project_quota_limit = project_quota_limit  # type: PageQueryProjectResponseBodyDataRecordsProjectQuotaLimit
-
-    def validate(self):
-        if self.project_quota_limit:
-            self.project_quota_limit.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectResponseBodyDataRecords, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bound_app_nums is not None:
-            result['BoundAppNums'] = self.bound_app_nums
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        if self.project_memo is not None:
-            result['ProjectMemo'] = self.project_memo
-        if self.project_name is not None:
-            result['ProjectName'] = self.project_name
-        if self.project_quota_limit is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BoundAppNums') is not None:
-            self.bound_app_nums = m.get('BoundAppNums')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        if m.get('ProjectMemo') is not None:
-            self.project_memo = m.get('ProjectMemo')
-        if m.get('ProjectName') is not None:
-            self.project_name = m.get('ProjectName')
-        if m.get('ProjectQuotaLimit') is not None:
-            temp_model = PageQueryProjectResponseBodyDataRecordsProjectQuotaLimit()
-            self.project_quota_limit = temp_model.from_map(m['ProjectQuotaLimit'])
-        return self
-
-
-class PageQueryProjectResponseBodyData(TeaModel):
-    def __init__(self, page_number=None, page_size=None, pages=None, records=None, total_count=None):
-        # 当前页码，默认1
-        self.page_number = page_number  # type: long
-        # 每页项数，默认20,最大100
-        self.page_size = page_size  # type: long
-        # 总页数
-        self.pages = pages  # type: long
-        # 结果集
-        self.records = records  # type: list[PageQueryProjectResponseBodyDataRecords]
-        # 总共项数
-        self.total_count = total_count  # type: long
-
-    def validate(self):
-        if self.records:
-            for k in self.records:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.pages is not None:
-            result['Pages'] = self.pages
-        result['Records'] = []
-        if self.records is not None:
-            for k in self.records:
-                result['Records'].append(k.to_map() if k else None)
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Pages') is not None:
-            self.pages = m.get('Pages')
-        self.records = []
-        if m.get('Records') is not None:
-            for k in m.get('Records'):
-                temp_model = PageQueryProjectResponseBodyDataRecords()
-                self.records.append(temp_model.from_map(k))
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class PageQueryProjectResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: PageQueryProjectResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = PageQueryProjectResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class PageQueryProjectResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: PageQueryProjectResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = PageQueryProjectResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class PageQueryProjectAppsRequest(TeaModel):
-    def __init__(self, app_id=None, operator_id=None, operator_type=None, page_number=None, page_size=None,
-                 project_id=None):
-        self.app_id = app_id  # type: str
-        # 请求操作人Id
-        self.operator_id = operator_id  # type: str
-        # 请求操作人类型
-        self.operator_type = operator_type  # type: str
-        # 当前页码，默认1
-        self.page_number = page_number  # type: int
-        # 每页项数，默认20,最大100
-        self.page_size = page_size  # type: int
-        # projectId
-        self.project_id = project_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(PageQueryProjectAppsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.app_id is not None:
-            result['AppId'] = self.app_id
-        if self.operator_id is not None:
-            result['OperatorId'] = self.operator_id
-        if self.operator_type is not None:
-            result['OperatorType'] = self.operator_type
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AppId') is not None:
-            self.app_id = m.get('AppId')
-        if m.get('OperatorId') is not None:
-            self.operator_id = m.get('OperatorId')
-        if m.get('OperatorType') is not None:
-            self.operator_type = m.get('OperatorType')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        return self
-
-
-class PageQueryProjectAppsResponseBodyDataRecords(TeaModel):
-    def __init__(self, app_id=None, app_name=None, gmt_create=None, project_id=None):
-        self.app_id = app_id  # type: str
-        self.app_name = app_name  # type: str
-        self.gmt_create = gmt_create  # type: str
-        self.project_id = project_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(PageQueryProjectAppsResponseBodyDataRecords, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.app_id is not None:
-            result['AppId'] = self.app_id
-        if self.app_name is not None:
-            result['AppName'] = self.app_name
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AppId') is not None:
-            self.app_id = m.get('AppId')
-        if m.get('AppName') is not None:
-            self.app_name = m.get('AppName')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
-        return self
-
-
-class PageQueryProjectAppsResponseBodyData(TeaModel):
-    def __init__(self, page_number=None, page_size=None, pages=None, records=None, total_count=None):
-        # 当前页码，默认1
-        self.page_number = page_number  # type: long
-        # 每页项数，默认20,最大100
-        self.page_size = page_size  # type: long
-        # 总页数
-        self.pages = pages  # type: long
-        # 结果集
-        self.records = records  # type: list[PageQueryProjectAppsResponseBodyDataRecords]
-        # 总共项数
-        self.total_count = total_count  # type: long
-
-    def validate(self):
-        if self.records:
-            for k in self.records:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectAppsResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.pages is not None:
-            result['Pages'] = self.pages
-        result['Records'] = []
-        if self.records is not None:
-            for k in self.records:
-                result['Records'].append(k.to_map() if k else None)
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Pages') is not None:
-            self.pages = m.get('Pages')
-        self.records = []
-        if m.get('Records') is not None:
-            for k in m.get('Records'):
-                temp_model = PageQueryProjectAppsResponseBodyDataRecords()
-                self.records.append(temp_model.from_map(k))
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class PageQueryProjectAppsResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: PageQueryProjectAppsResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectAppsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = PageQueryProjectAppsResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class PageQueryProjectAppsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: PageQueryProjectAppsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(PageQueryProjectAppsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = PageQueryProjectAppsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class RefreshDistrictMetaResponseBodyDataProjectQuotaLimit(TeaModel):
-    def __init__(self, district_limit_map=None, limit_type=None):
-        # key - districtId
-        self.district_limit_map = district_limit_map  # type: dict[str, DataProjectQuotaLimitDistrictLimitMapValue]
-        # 限制类型 ：目前默认 - ReserveContainer
-        self.limit_type = limit_type  # type: str
-
-    def validate(self):
-        if self.district_limit_map:
-            for v in self.district_limit_map.values():
-                if v:
-                    v.validate()
-
-    def to_map(self):
-        _map = super(RefreshDistrictMetaResponseBodyDataProjectQuotaLimit, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['DistrictLimitMap'] = {}
-        if self.district_limit_map is not None:
-            for k, v in self.district_limit_map.items():
-                result['DistrictLimitMap'][k] = v.to_map()
-        if self.limit_type is not None:
-            result['LimitType'] = self.limit_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.district_limit_map = {}
-        if m.get('DistrictLimitMap') is not None:
-            for k, v in m.get('DistrictLimitMap').items():
-                temp_model = DataProjectQuotaLimitDistrictLimitMapValue()
-                self.district_limit_map[k] = temp_model.from_map(v)
-        if m.get('LimitType') is not None:
-            self.limit_type = m.get('LimitType')
-        return self
-
-
-class RefreshDistrictMetaResponseBodyData(TeaModel):
-    def __init__(self, code=None, data=None, message=None, project_quota_limit=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: dict[str, any]
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        self.project_quota_limit = project_quota_limit  # type: RefreshDistrictMetaResponseBodyDataProjectQuotaLimit
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.project_quota_limit:
-            self.project_quota_limit.validate()
-
-    def to_map(self):
-        _map = super(RefreshDistrictMetaResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.project_quota_limit is not None:
-            result['ProjectQuotaLimit'] = self.project_quota_limit.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('ProjectQuotaLimit') is not None:
-            temp_model = RefreshDistrictMetaResponseBodyDataProjectQuotaLimit()
-            self.project_quota_limit = temp_model.from_map(m['ProjectQuotaLimit'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class RefreshDistrictMetaResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # 业务处理结果Code
-        self.code = code  # type: str
-        # 业务对象
-        self.data = data  # type: RefreshDistrictMetaResponseBodyData
-        # 业务处理消息摘要
-        self.message = message  # type: str
-        # 操作请求ID
-        self.request_id = request_id  # type: str
-        # 业务处理是否成功
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(RefreshDistrictMetaResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = RefreshDistrictMetaResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class RefreshDistrictMetaResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: RefreshDistrictMetaResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RefreshDistrictMetaResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = RefreshDistrictMetaResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ReleaseCapacityRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, district_id=None, expect_release_session_capacity=None,
                  project_id=None):
-        # app id
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
-        # 大区 id
         self.district_id = district_id  # type: str
-        # 期望释放的会话路数
         self.expect_release_session_capacity = expect_release_session_capacity  # type: int
-        # 项目 id
         self.project_id = project_id  # type: str
 
     def validate(self):
@@ -5813,9 +4048,7 @@ class ReleaseCapacityRequest(TeaModel):
 
 class ReleaseCapacityResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
-        # pop的requestId
         self.request_id = request_id  # type: str
-        # 容器异步释放任务 id
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -5912,9 +4145,7 @@ class StopAppSessionRequestStopParam(TeaModel):
 
 class StopAppSessionRequest(TeaModel):
     def __init__(self, custom_session_id=None, platform_session_id=None, stop_param=None):
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 自定义用户id
         self.platform_session_id = platform_session_id  # type: str
         self.stop_param = stop_param  # type: list[StopAppSessionRequestStopParam]
 
@@ -5956,9 +4187,7 @@ class StopAppSessionRequest(TeaModel):
 
 class StopAppSessionShrinkRequest(TeaModel):
     def __init__(self, custom_session_id=None, platform_session_id=None, stop_param_shrink=None):
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 自定义用户id
         self.platform_session_id = platform_session_id  # type: str
         self.stop_param_shrink = stop_param_shrink  # type: str
 
@@ -5993,15 +4222,10 @@ class StopAppSessionShrinkRequest(TeaModel):
 class StopAppSessionResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, custom_session_id=None, platform_session_id=None,
                  request_id=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 应用版本
         self.app_version = app_version  # type: str
-        # 自定义会话id
         self.custom_session_id = custom_session_id  # type: str
-        # 平台会话id
         self.platform_session_id = platform_session_id  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6141,9 +4365,7 @@ class StopAppSessionBatchRequest(TeaModel):
     def __init__(self, app_id=None, app_version=None, batch_id=None, project_id=None, stop_param=None, tags=None):
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
-        # 自定义用户id
         self.batch_id = batch_id  # type: str
-        # 自定义会话id
         self.project_id = project_id  # type: str
         self.stop_param = stop_param  # type: list[StopAppSessionBatchRequestStopParam]
         self.tags = tags  # type: list[StopAppSessionBatchRequestTags]
@@ -6239,9 +4461,7 @@ class StopAppSessionBatchShrinkRequest(TeaModel):
                  tags=None):
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
-        # 自定义用户id
         self.batch_id = batch_id  # type: str
-        # 自定义会话id
         self.project_id = project_id  # type: str
         self.stop_param_shrink = stop_param_shrink  # type: str
         self.tags = tags  # type: list[StopAppSessionBatchShrinkRequestTags]
@@ -6296,13 +4516,9 @@ class StopAppSessionBatchShrinkRequest(TeaModel):
 
 class StopAppSessionBatchResponseBody(TeaModel):
     def __init__(self, app_id=None, batch_id=None, project_id=None, request_id=None):
-        # 应用id
         self.app_id = app_id  # type: str
-        # 自定义会话id
         self.batch_id = batch_id  # type: str
-        # 平台会话id
         self.project_id = project_id  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6373,224 +4589,6 @@ class StopAppSessionBatchResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = StopAppSessionBatchResponseBody()
             self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class VersionCheckSameNameServiceRequest(TeaModel):
-    def __init__(self, app_id=None, app_version_name=None):
-        self.app_id = app_id  # type: str
-        self.app_version_name = app_version_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VersionCheckSameNameServiceRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.app_id is not None:
-            result['AppId'] = self.app_id
-        if self.app_version_name is not None:
-            result['AppVersionName'] = self.app_version_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AppId') is not None:
-            self.app_id = m.get('AppId')
-        if m.get('AppVersionName') is not None:
-            self.app_version_name = m.get('AppVersionName')
-        return self
-
-
-class VersionCheckSameNameServiceResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VersionCheckSameNameServiceResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class VersionCheckSameNameServiceResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: VersionCheckSameNameServiceResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(VersionCheckSameNameServiceResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = VersionCheckSameNameServiceResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ProjectQuotaLimitDistrictLimitMapValue(TeaModel):
-    def __init__(self, district_id=None, district_name=None, max_limit=None):
-        # 大区ID
-        self.district_id = district_id  # type: str
-        # 大区名称
-        self.district_name = district_name  # type: str
-        # 上限
-        self.max_limit = max_limit  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ProjectQuotaLimitDistrictLimitMapValue, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.district_id is not None:
-            result['DistrictId'] = self.district_id
-        if self.district_name is not None:
-            result['DistrictName'] = self.district_name
-        if self.max_limit is not None:
-            result['MaxLimit'] = self.max_limit
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DistrictId') is not None:
-            self.district_id = m.get('DistrictId')
-        if m.get('DistrictName') is not None:
-            self.district_name = m.get('DistrictName')
-        if m.get('MaxLimit') is not None:
-            self.max_limit = m.get('MaxLimit')
-        return self
-
-
-class DataProjectQuotaLimitDistrictLimitMapValue(TeaModel):
-    def __init__(self, district_id=None, district_name=None, max_limit=None):
-        # 大区ID
-        self.district_id = district_id  # type: str
-        # 大区名称
-        self.district_name = district_name  # type: str
-        # 上限
-        self.max_limit = max_limit  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DataProjectQuotaLimitDistrictLimitMapValue, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.district_id is not None:
-            result['DistrictId'] = self.district_id
-        if self.district_name is not None:
-            result['DistrictName'] = self.district_name
-        if self.max_limit is not None:
-            result['MaxLimit'] = self.max_limit
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DistrictId') is not None:
-            self.district_id = m.get('DistrictId')
-        if m.get('DistrictName') is not None:
-            self.district_name = m.get('DistrictName')
-        if m.get('MaxLimit') is not None:
-            self.max_limit = m.get('MaxLimit')
-        return self
-
-
-class DataRecordsProjectQuotaLimitDistrictLimitMapValue(TeaModel):
-    def __init__(self, district_id=None, district_name=None, max_limit=None):
-        # 大区ID
-        self.district_id = district_id  # type: str
-        # 大区名称
-        self.district_name = district_name  # type: str
-        # 上限
-        self.max_limit = max_limit  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DataRecordsProjectQuotaLimitDistrictLimitMapValue, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.district_id is not None:
-            result['DistrictId'] = self.district_id
-        if self.district_name is not None:
-            result['DistrictName'] = self.district_name
-        if self.max_limit is not None:
-            result['MaxLimit'] = self.max_limit
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DistrictId') is not None:
-            self.district_id = m.get('DistrictId')
-        if m.get('DistrictName') is not None:
-            self.district_name = m.get('DistrictName')
-        if m.get('MaxLimit') is not None:
-            self.max_limit = m.get('MaxLimit')
         return self
 
 
