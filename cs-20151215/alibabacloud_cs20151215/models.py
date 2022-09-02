@@ -8425,8 +8425,9 @@ class DescribeNodePoolVulsResponseBodyVulRecords(TeaModel):
 
 
 class DescribeNodePoolVulsResponseBody(TeaModel):
-    def __init__(self, vul_records=None):
+    def __init__(self, vul_records=None, vuls_fix_service_purchased=None):
         self.vul_records = vul_records  # type: list[DescribeNodePoolVulsResponseBodyVulRecords]
+        self.vuls_fix_service_purchased = vuls_fix_service_purchased  # type: bool
 
     def validate(self):
         if self.vul_records:
@@ -8444,6 +8445,8 @@ class DescribeNodePoolVulsResponseBody(TeaModel):
         if self.vul_records is not None:
             for k in self.vul_records:
                 result['vul_records'].append(k.to_map() if k else None)
+        if self.vuls_fix_service_purchased is not None:
+            result['vuls_fix_service_purchased'] = self.vuls_fix_service_purchased
         return result
 
     def from_map(self, m=None):
@@ -8453,6 +8456,8 @@ class DescribeNodePoolVulsResponseBody(TeaModel):
             for k in m.get('vul_records'):
                 temp_model = DescribeNodePoolVulsResponseBodyVulRecords()
                 self.vul_records.append(temp_model.from_map(k))
+        if m.get('vuls_fix_service_purchased') is not None:
+            self.vuls_fix_service_purchased = m.get('vuls_fix_service_purchased')
         return self
 
 
