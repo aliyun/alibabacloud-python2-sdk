@@ -330,6 +330,56 @@ class CustomDNS(TeaModel):
         return self
 
 
+class CustomHealthCheckConfig(TeaModel):
+    def __init__(self, failure_threshold=None, http_get_url=None, initial_delay_seconds=None, period_seconds=None,
+                 success_threshold=None, timeout_seconds=None):
+        self.failure_threshold = failure_threshold  # type: int
+        self.http_get_url = http_get_url  # type: str
+        self.initial_delay_seconds = initial_delay_seconds  # type: int
+        self.period_seconds = period_seconds  # type: int
+        self.success_threshold = success_threshold  # type: int
+        self.timeout_seconds = timeout_seconds  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CustomHealthCheckConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.failure_threshold is not None:
+            result['failureThreshold'] = self.failure_threshold
+        if self.http_get_url is not None:
+            result['httpGetUrl'] = self.http_get_url
+        if self.initial_delay_seconds is not None:
+            result['initialDelaySeconds'] = self.initial_delay_seconds
+        if self.period_seconds is not None:
+            result['periodSeconds'] = self.period_seconds
+        if self.success_threshold is not None:
+            result['successThreshold'] = self.success_threshold
+        if self.timeout_seconds is not None:
+            result['timeoutSeconds'] = self.timeout_seconds
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('failureThreshold') is not None:
+            self.failure_threshold = m.get('failureThreshold')
+        if m.get('httpGetUrl') is not None:
+            self.http_get_url = m.get('httpGetUrl')
+        if m.get('initialDelaySeconds') is not None:
+            self.initial_delay_seconds = m.get('initialDelaySeconds')
+        if m.get('periodSeconds') is not None:
+            self.period_seconds = m.get('periodSeconds')
+        if m.get('successThreshold') is not None:
+            self.success_threshold = m.get('successThreshold')
+        if m.get('timeoutSeconds') is not None:
+            self.timeout_seconds = m.get('timeoutSeconds')
+        return self
+
+
 class CustomRuntimeConfig(TeaModel):
     def __init__(self, args=None, command=None):
         self.args = args  # type: list[str]
@@ -1140,6 +1190,77 @@ class NASConfig(TeaModel):
                 self.mount_points.append(temp_model.from_map(k))
         if m.get('userId') is not None:
             self.user_id = m.get('userId')
+        return self
+
+
+class OSSMountConfigMountPoints(TeaModel):
+    def __init__(self, bucket_name=None, endpoint=None, mount_dir=None, read_only=None):
+        self.bucket_name = bucket_name  # type: str
+        self.endpoint = endpoint  # type: str
+        self.mount_dir = mount_dir  # type: str
+        self.read_only = read_only  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OSSMountConfigMountPoints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bucket_name is not None:
+            result['bucketName'] = self.bucket_name
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.mount_dir is not None:
+            result['mountDir'] = self.mount_dir
+        if self.read_only is not None:
+            result['readOnly'] = self.read_only
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bucketName') is not None:
+            self.bucket_name = m.get('bucketName')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('mountDir') is not None:
+            self.mount_dir = m.get('mountDir')
+        if m.get('readOnly') is not None:
+            self.read_only = m.get('readOnly')
+        return self
+
+
+class OSSMountConfig(TeaModel):
+    def __init__(self, mount_points=None):
+        self.mount_points = mount_points  # type: list[OSSMountConfigMountPoints]
+
+    def validate(self):
+        if self.mount_points:
+            for k in self.mount_points:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(OSSMountConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['mountPoints'] = []
+        if self.mount_points is not None:
+            for k in self.mount_points:
+                result['mountPoints'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.mount_points = []
+        if m.get('mountPoints') is not None:
+            for k in m.get('mountPoints'):
+                temp_model = OSSMountConfigMountPoints()
+                self.mount_points.append(temp_model.from_map(k))
         return self
 
 
@@ -2160,6 +2281,183 @@ class VendorConfig(TeaModel):
         return self
 
 
+class ClaimGPUInstanceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClaimGPUInstanceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
+class ClaimGPUInstanceRequest(TeaModel):
+    def __init__(self, disk_performance_level=None, disk_size_gigabytes=None, image_id=None, instance_type=None,
+                 internet_bandwidth_out=None, password=None, source_cidr_ip=None, tcp_port_range=None, udp_port_range=None):
+        self.disk_performance_level = disk_performance_level  # type: str
+        self.disk_size_gigabytes = disk_size_gigabytes  # type: str
+        self.image_id = image_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.internet_bandwidth_out = internet_bandwidth_out  # type: str
+        self.password = password  # type: str
+        self.source_cidr_ip = source_cidr_ip  # type: str
+        self.tcp_port_range = tcp_port_range  # type: list[str]
+        self.udp_port_range = udp_port_range  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClaimGPUInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk_performance_level is not None:
+            result['diskPerformanceLevel'] = self.disk_performance_level
+        if self.disk_size_gigabytes is not None:
+            result['diskSizeGigabytes'] = self.disk_size_gigabytes
+        if self.image_id is not None:
+            result['imageId'] = self.image_id
+        if self.instance_type is not None:
+            result['instanceType'] = self.instance_type
+        if self.internet_bandwidth_out is not None:
+            result['internetBandwidthOut'] = self.internet_bandwidth_out
+        if self.password is not None:
+            result['password'] = self.password
+        if self.source_cidr_ip is not None:
+            result['sourceCidrIp'] = self.source_cidr_ip
+        if self.tcp_port_range is not None:
+            result['tcpPortRange'] = self.tcp_port_range
+        if self.udp_port_range is not None:
+            result['udpPortRange'] = self.udp_port_range
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('diskPerformanceLevel') is not None:
+            self.disk_performance_level = m.get('diskPerformanceLevel')
+        if m.get('diskSizeGigabytes') is not None:
+            self.disk_size_gigabytes = m.get('diskSizeGigabytes')
+        if m.get('imageId') is not None:
+            self.image_id = m.get('imageId')
+        if m.get('instanceType') is not None:
+            self.instance_type = m.get('instanceType')
+        if m.get('internetBandwidthOut') is not None:
+            self.internet_bandwidth_out = m.get('internetBandwidthOut')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('sourceCidrIp') is not None:
+            self.source_cidr_ip = m.get('sourceCidrIp')
+        if m.get('tcpPortRange') is not None:
+            self.tcp_port_range = m.get('tcpPortRange')
+        if m.get('udpPortRange') is not None:
+            self.udp_port_range = m.get('udpPortRange')
+        return self
+
+
+class ClaimGPUInstanceResponseBody(TeaModel):
+    def __init__(self, created_time=None, instance_id=None, public_ip=None):
+        self.created_time = created_time  # type: str
+        self.instance_id = instance_id  # type: str
+        self.public_ip = public_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClaimGPUInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_time is not None:
+            result['createdTime'] = self.created_time
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.public_ip is not None:
+            result['publicIp'] = self.public_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdTime') is not None:
+            self.created_time = m.get('createdTime')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('publicIp') is not None:
+            self.public_ip = m.get('publicIp')
+        return self
+
+
+class ClaimGPUInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ClaimGPUInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ClaimGPUInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ClaimGPUInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAliasHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -2590,13 +2888,15 @@ class CreateFunctionHeaders(TeaModel):
 
 class CreateFunctionRequest(TeaModel):
     def __init__(self, ca_port=None, code=None, custom_container_config=None, custom_dns=None,
-                 custom_runtime_config=None, description=None, environment_variables=None, function_name=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
-                 instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_health_check_config=None, custom_runtime_config=None, description=None, environment_variables=None,
+                 function_name=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
+                 runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -2620,6 +2920,8 @@ class CreateFunctionRequest(TeaModel):
             self.custom_container_config.validate()
         if self.custom_dns:
             self.custom_dns.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.custom_runtime_config:
             self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
@@ -2639,6 +2941,8 @@ class CreateFunctionRequest(TeaModel):
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
             result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.custom_runtime_config is not None:
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
@@ -2684,6 +2988,9 @@ class CreateFunctionRequest(TeaModel):
         if m.get('customDNS') is not None:
             temp_model = CustomDNS()
             self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('customRuntimeConfig') is not None:
             temp_model = CustomRuntimeConfig()
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
@@ -2721,16 +3028,18 @@ class CreateFunctionRequest(TeaModel):
 
 class CreateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
-                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
-                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
+                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
+                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
+                 timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -2754,6 +3063,8 @@ class CreateFunctionResponseBody(TeaModel):
             self.custom_container_config.validate()
         if self.custom_dns:
             self.custom_dns.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.custom_runtime_config:
             self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
@@ -2777,6 +3088,8 @@ class CreateFunctionResponseBody(TeaModel):
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
             result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.custom_runtime_config is not None:
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
@@ -2829,6 +3142,9 @@ class CreateFunctionResponseBody(TeaModel):
         if m.get('customDNS') is not None:
             temp_model = CustomDNS()
             self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('customRuntimeConfig') is not None:
             temp_model = CustomRuntimeConfig()
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
@@ -3133,12 +3449,13 @@ class CreateServiceHeaders(TeaModel):
 
 
 class CreateServiceRequest(TeaModel):
-    def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None, role=None,
-                 service_name=None, tracing_config=None, vpc_config=None):
+    def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None,
+                 oss_mount_config=None, role=None, service_name=None, tracing_config=None, vpc_config=None):
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.service_name = service_name  # type: str
         self.tracing_config = tracing_config  # type: TracingConfig
@@ -3149,6 +3466,8 @@ class CreateServiceRequest(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -3168,6 +3487,8 @@ class CreateServiceRequest(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.service_name is not None:
@@ -3190,6 +3511,9 @@ class CreateServiceRequest(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('serviceName') is not None:
@@ -3205,14 +3529,15 @@ class CreateServiceRequest(TeaModel):
 
 class CreateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
-                 log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
+                 tracing_config=None, vpc_config=None):
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.last_modified_time = last_modified_time  # type: str
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
@@ -3224,6 +3549,8 @@ class CreateServiceResponseBody(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -3247,6 +3574,8 @@ class CreateServiceResponseBody(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.service_id is not None:
@@ -3275,6 +3604,9 @@ class CreateServiceResponseBody(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('serviceId') is not None:
@@ -4960,16 +5292,18 @@ class GetFunctionRequest(TeaModel):
 
 class GetFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
-                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
-                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
+                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
+                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
+                 timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfigInfo
         self.custom_dns = custom_dns  # type: CustomDNS
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -4993,6 +5327,8 @@ class GetFunctionResponseBody(TeaModel):
             self.custom_container_config.validate()
         if self.custom_dns:
             self.custom_dns.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.custom_runtime_config:
             self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
@@ -5016,6 +5352,8 @@ class GetFunctionResponseBody(TeaModel):
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
             result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.custom_runtime_config is not None:
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
@@ -5068,6 +5406,9 @@ class GetFunctionResponseBody(TeaModel):
         if m.get('customDNS') is not None:
             temp_model = CustomDNS()
             self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('customRuntimeConfig') is not None:
             temp_model = CustomRuntimeConfig()
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
@@ -6025,14 +6366,15 @@ class GetServiceRequest(TeaModel):
 
 class GetServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
-                 log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
+                 tracing_config=None, vpc_config=None):
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.last_modified_time = last_modified_time  # type: str
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
@@ -6044,6 +6386,8 @@ class GetServiceResponseBody(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -6067,6 +6411,8 @@ class GetServiceResponseBody(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.service_id is not None:
@@ -6095,6 +6441,9 @@ class GetServiceResponseBody(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('serviceId') is not None:
@@ -7469,15 +7818,16 @@ class ListFunctionsRequest(TeaModel):
 
 class ListFunctionsResponseBodyFunctions(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, description=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
-                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
-                 memory_size=None, runtime=None, timeout=None):
+                 custom_container_config=None, custom_health_check_config=None, description=None, environment_variables=None,
+                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
+                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_id = function_id  # type: str
@@ -7498,6 +7848,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
     def validate(self):
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -7517,6 +7869,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -7564,6 +7918,9 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -8949,14 +9306,15 @@ class ListServicesRequest(TeaModel):
 
 class ListServicesResponseBodyServices(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
-                 log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
+                 tracing_config=None, vpc_config=None):
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.last_modified_time = last_modified_time  # type: str
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
@@ -8968,6 +9326,8 @@ class ListServicesResponseBodyServices(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -8991,6 +9351,8 @@ class ListServicesResponseBodyServices(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.service_id is not None:
@@ -9019,6 +9381,9 @@ class ListServicesResponseBodyServices(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('serviceId') is not None:
@@ -10857,6 +11222,75 @@ class RegisterEventSourceResponse(TeaModel):
         return self
 
 
+class ReleaseGPUInstanceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseGPUInstanceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
+class ReleaseGPUInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(ReleaseGPUInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class StopStatefulAsyncInvocationHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -11581,14 +12015,15 @@ class UpdateFunctionHeaders(TeaModel):
 
 class UpdateFunctionRequest(TeaModel):
     def __init__(self, instance_concurrency=None, ca_port=None, code=None, custom_container_config=None,
-                 custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
-                 instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_dns=None, custom_health_check_config=None, custom_runtime_config=None, description=None,
+                 environment_variables=None, handler=None, initialization_timeout=None, initializer=None, instance_lifecycle_config=None,
+                 instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
         self.instance_concurrency = instance_concurrency  # type: int
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -11610,6 +12045,8 @@ class UpdateFunctionRequest(TeaModel):
             self.custom_container_config.validate()
         if self.custom_dns:
             self.custom_dns.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.custom_runtime_config:
             self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
@@ -11631,6 +12068,8 @@ class UpdateFunctionRequest(TeaModel):
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
             result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.custom_runtime_config is not None:
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
@@ -11674,6 +12113,9 @@ class UpdateFunctionRequest(TeaModel):
         if m.get('customDNS') is not None:
             temp_model = CustomDNS()
             self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('customRuntimeConfig') is not None:
             temp_model = CustomRuntimeConfig()
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
@@ -11707,16 +12149,17 @@ class UpdateFunctionRequest(TeaModel):
 
 class UpdateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
-                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
-                 memory_size=None, runtime=None, timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
+                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
+                 instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
+        self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -11739,6 +12182,8 @@ class UpdateFunctionResponseBody(TeaModel):
             self.custom_container_config.validate()
         if self.custom_dns:
             self.custom_dns.validate()
+        if self.custom_health_check_config:
+            self.custom_health_check_config.validate()
         if self.custom_runtime_config:
             self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
@@ -11762,6 +12207,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
             result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_health_check_config is not None:
+            result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.custom_runtime_config is not None:
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
@@ -11812,6 +12259,9 @@ class UpdateFunctionResponseBody(TeaModel):
         if m.get('customDNS') is not None:
             temp_model = CustomDNS()
             self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customHealthCheckConfig') is not None:
+            temp_model = CustomHealthCheckConfig()
+            self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('customRuntimeConfig') is not None:
             temp_model = CustomRuntimeConfig()
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
@@ -11933,12 +12383,13 @@ class UpdateServiceHeaders(TeaModel):
 
 
 class UpdateServiceRequest(TeaModel):
-    def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None, role=None,
-                 tracing_config=None, vpc_config=None):
+    def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None,
+                 oss_mount_config=None, role=None, tracing_config=None, vpc_config=None):
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.tracing_config = tracing_config  # type: TracingConfig
         self.vpc_config = vpc_config  # type: VPCConfig
@@ -11948,6 +12399,8 @@ class UpdateServiceRequest(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -11967,6 +12420,8 @@ class UpdateServiceRequest(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.tracing_config is not None:
@@ -11987,6 +12442,9 @@ class UpdateServiceRequest(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('tracingConfig') is not None:
@@ -12000,14 +12458,15 @@ class UpdateServiceRequest(TeaModel):
 
 class UpdateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
-                 log_config=None, nas_config=None, role=None, service_id=None, service_name=None, tracing_config=None,
-                 vpc_config=None):
+                 log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
+                 tracing_config=None, vpc_config=None):
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.internet_access = internet_access  # type: bool
         self.last_modified_time = last_modified_time  # type: str
         self.log_config = log_config  # type: LogConfig
         self.nas_config = nas_config  # type: NASConfig
+        self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
@@ -12019,6 +12478,8 @@ class UpdateServiceResponseBody(TeaModel):
             self.log_config.validate()
         if self.nas_config:
             self.nas_config.validate()
+        if self.oss_mount_config:
+            self.oss_mount_config.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -12042,6 +12503,8 @@ class UpdateServiceResponseBody(TeaModel):
             result['logConfig'] = self.log_config.to_map()
         if self.nas_config is not None:
             result['nasConfig'] = self.nas_config.to_map()
+        if self.oss_mount_config is not None:
+            result['ossMountConfig'] = self.oss_mount_config.to_map()
         if self.role is not None:
             result['role'] = self.role
         if self.service_id is not None:
@@ -12070,6 +12533,9 @@ class UpdateServiceResponseBody(TeaModel):
         if m.get('nasConfig') is not None:
             temp_model = NASConfig()
             self.nas_config = temp_model.from_map(m['nasConfig'])
+        if m.get('ossMountConfig') is not None:
+            temp_model = OSSMountConfig()
+            self.oss_mount_config = temp_model.from_map(m['ossMountConfig'])
         if m.get('role') is not None:
             self.role = m.get('role')
         if m.get('serviceId') is not None:

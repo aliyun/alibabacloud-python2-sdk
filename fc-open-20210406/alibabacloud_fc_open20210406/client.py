@@ -2,8 +2,9 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.converter import TeaConverter
+from requests import Response, Request
 from Tea.core import TeaCore
+from Tea.converter import TeaConverter
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -12,6 +13,7 @@ from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_fc_open20210406 import models as fc__open_20210406_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
+from alibabacloud_gateway_fc_util.client import Client as FCUtilClient
 
 
 class Client(OpenApiClient):
@@ -53,6 +55,61 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def claim_gpuinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = fc__open_20210406_models.ClaimGPUInstanceHeaders()
+        return self.claim_gpuinstance_with_options(request, headers, runtime)
+
+    def claim_gpuinstance_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.disk_performance_level):
+            body['diskPerformanceLevel'] = request.disk_performance_level
+        if not UtilClient.is_unset(request.disk_size_gigabytes):
+            body['diskSizeGigabytes'] = request.disk_size_gigabytes
+        if not UtilClient.is_unset(request.image_id):
+            body['imageId'] = request.image_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.internet_bandwidth_out):
+            body['internetBandwidthOut'] = request.internet_bandwidth_out
+        if not UtilClient.is_unset(request.password):
+            body['password'] = request.password
+        if not UtilClient.is_unset(request.source_cidr_ip):
+            body['sourceCidrIp'] = request.source_cidr_ip
+        if not UtilClient.is_unset(request.tcp_port_range):
+            body['tcpPortRange'] = request.tcp_port_range
+        if not UtilClient.is_unset(request.udp_port_range):
+            body['udpPortRange'] = request.udp_port_range
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ClaimGPUInstance',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/gpuInstances',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc__open_20210406_models.ClaimGPUInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
 
     def create_alias(self, service_name, request):
         runtime = util_models.RuntimeOptions()
@@ -168,6 +225,8 @@ class Client(OpenApiClient):
             body['customContainerConfig'] = request.custom_container_config
         if not UtilClient.is_unset(request.custom_dns):
             body['customDNS'] = request.custom_dns
+        if not UtilClient.is_unset(request.custom_health_check_config):
+            body['customHealthCheckConfig'] = request.custom_health_check_config
         if not UtilClient.is_unset(request.custom_runtime_config):
             body['customRuntimeConfig'] = request.custom_runtime_config
         if not UtilClient.is_unset(request.description):
@@ -289,6 +348,8 @@ class Client(OpenApiClient):
             body['logConfig'] = request.log_config
         if not UtilClient.is_unset(request.nas_config):
             body['nasConfig'] = request.nas_config
+        if not UtilClient.is_unset(request.oss_mount_config):
+            body['ossMountConfig'] = request.oss_mount_config
         if not UtilClient.is_unset(request.role):
             body['role'] = request.role
         if not UtilClient.is_unset(request.service_name):
@@ -2487,6 +2548,41 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def release_gpuinstance(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = fc__open_20210406_models.ReleaseGPUInstanceHeaders()
+        return self.release_gpuinstance_with_options(instance_id, headers, runtime)
+
+    def release_gpuinstance_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='ReleaseGPUInstance',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/gpuInstances/%s' % TeaConverter.to_unicode(instance_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            fc__open_20210406_models.ReleaseGPUInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def stop_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.StopStatefulAsyncInvocationHeaders()
@@ -2730,6 +2826,8 @@ class Client(OpenApiClient):
             body['customContainerConfig'] = request.custom_container_config
         if not UtilClient.is_unset(request.custom_dns):
             body['customDNS'] = request.custom_dns
+        if not UtilClient.is_unset(request.custom_health_check_config):
+            body['customHealthCheckConfig'] = request.custom_health_check_config
         if not UtilClient.is_unset(request.custom_runtime_config):
             body['customRuntimeConfig'] = request.custom_runtime_config
         if not UtilClient.is_unset(request.description):
@@ -2806,6 +2904,8 @@ class Client(OpenApiClient):
             body['logConfig'] = request.log_config
         if not UtilClient.is_unset(request.nas_config):
             body['nasConfig'] = request.nas_config
+        if not UtilClient.is_unset(request.oss_mount_config):
+            body['ossMountConfig'] = request.oss_mount_config
         if not UtilClient.is_unset(request.role):
             body['role'] = request.role
         if not UtilClient.is_unset(request.tracing_config):
@@ -2892,3 +2992,38 @@ class Client(OpenApiClient):
             fc__open_20210406_models.UpdateTriggerResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def invoke_httptrigger(self, url, method, body, headers):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.invoke_httptrigger(url, method, body, headers)
+
+    def invoke_anonymous_httptrigger(self, url, method, body, headers):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.invoke_anonymous_httptrigger(url, method, body, headers)
+
+    def send_httprequest_with_authorization(self, req):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.send_httprequest_with_authorization(req)
+
+    def send_httprequest(self, req):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.send_httprequest(req)
+
+    def sign_request(self, req):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.sign_request(req)
+
+    def sign_request_with_content_md5(self, req, content_md5):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.sign_request_with_content_md5(req, content_md5)
+
+    def build_httprequest(self, url, method, body, headers):
+        cred = self._credential
+        util_client = FCUtilClient(cred)
+        return util_client.build_httprequest(url, method, body, headers)
