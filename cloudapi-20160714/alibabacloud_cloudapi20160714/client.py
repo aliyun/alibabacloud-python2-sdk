@@ -3487,6 +3487,8 @@ class Client(OpenApiClient):
             query['ApiId'] = request.api_id
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
@@ -3517,6 +3519,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.operation_uid):
             query['OperationUid'] = request.operation_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3545,6 +3549,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.operation_uid):
             query['OperationUid'] = request.operation_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3683,6 +3689,8 @@ class Client(OpenApiClient):
             query['AclId'] = request.acl_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3759,6 +3767,8 @@ class Client(OpenApiClient):
             query['AclType'] = request.acl_type
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4094,46 +4104,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_api_group_with_options(request, runtime)
 
-    def modify_api_group_network_policy_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.group_id):
-            query['GroupId'] = request.group_id
-        if not UtilClient.is_unset(request.https_policy):
-            query['HttpsPolicy'] = request.https_policy
-        if not UtilClient.is_unset(request.internet_enable):
-            query['InternetEnable'] = request.internet_enable
-        if not UtilClient.is_unset(request.internet_ipv6enable):
-            query['InternetIPV6Enable'] = request.internet_ipv6enable
-        if not UtilClient.is_unset(request.security_token):
-            query['SecurityToken'] = request.security_token
-        if not UtilClient.is_unset(request.vpc_intranet_enable):
-            query['VpcIntranetEnable'] = request.vpc_intranet_enable
-        if not UtilClient.is_unset(request.vpc_slb_intranet_enable):
-            query['VpcSlbIntranetEnable'] = request.vpc_slb_intranet_enable
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ModifyApiGroupNetworkPolicy',
-            version='2016-07-14',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cloud_api20160714_models.ModifyApiGroupNetworkPolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_api_group_network_policy(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_api_group_network_policy_with_options(request, runtime)
-
     def modify_api_group_vpc_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4325,6 +4295,8 @@ class Client(OpenApiClient):
             query['IpControlId'] = request.ip_control_id
         if not UtilClient.is_unset(request.ip_control_name):
             query['IpControlName'] = request.ip_control_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4495,6 +4467,8 @@ class Client(OpenApiClient):
     def modify_signature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.signature_id):
             query['SignatureId'] = request.signature_id
         if not UtilClient.is_unset(request.signature_key):
@@ -4535,6 +4509,8 @@ class Client(OpenApiClient):
             query['AppDefault'] = request.app_default
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.traffic_control_id):
             query['TrafficControlId'] = request.traffic_control_id
         if not UtilClient.is_unset(request.traffic_control_name):
@@ -4566,6 +4542,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_traffic_control_with_options(request, runtime)
 
+    def modify_vpc_access_and_update_apis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.need_batch_work):
+            query['NeedBatchWork'] = request.need_batch_work
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.refresh):
+            query['Refresh'] = request.refresh
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vpc_target_host_name):
+            query['VpcTargetHostName'] = request.vpc_target_host_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyVpcAccessAndUpdateApis',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyVpcAccessAndUpdateApisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_vpc_access_and_update_apis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_vpc_access_and_update_apis_with_options(request, runtime)
+
     def open_api_gateway_service_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -4595,6 +4615,8 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4625,6 +4647,8 @@ class Client(OpenApiClient):
             query['AclEntrys'] = request.acl_entrys
         if not UtilClient.is_unset(request.acl_id):
             query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4659,6 +4683,8 @@ class Client(OpenApiClient):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
@@ -4763,6 +4789,8 @@ class Client(OpenApiClient):
             query['IpControlId'] = request.ip_control_id
         if not UtilClient.is_unset(request.policy_item_ids):
             query['PolicyItemIds'] = request.policy_item_ids
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4793,6 +4821,8 @@ class Client(OpenApiClient):
             query['ApiIds'] = request.api_ids
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.signature_id):
             query['SignatureId'] = request.signature_id
         if not UtilClient.is_unset(request.stage_name):
@@ -4827,6 +4857,8 @@ class Client(OpenApiClient):
             query['ApiIds'] = request.api_ids
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         if not UtilClient.is_unset(request.traffic_control_id):
@@ -5355,6 +5387,8 @@ class Client(OpenApiClient):
             query['ApiIds'] = request.api_ids
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.signature_id):
             query['SignatureId'] = request.signature_id
         if not UtilClient.is_unset(request.stage_name):
@@ -5389,6 +5423,8 @@ class Client(OpenApiClient):
             query['ApiIds'] = request.api_ids
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         if not UtilClient.is_unset(request.traffic_control_id):
@@ -5463,6 +5499,8 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.wildcard_domain_patterns):
             query['WildcardDomainPatterns'] = request.wildcard_domain_patterns
         req = open_api_models.OpenApiRequest(
