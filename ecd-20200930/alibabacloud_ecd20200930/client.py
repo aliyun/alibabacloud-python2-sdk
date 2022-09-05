@@ -621,6 +621,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.comments):
             query['Comments'] = request.comments
+        if not UtilClient.is_unset(request.connect_duration):
+            query['ConnectDuration'] = request.connect_duration
         if not UtilClient.is_unset(request.default_init_desktop_count):
             query['DefaultInitDesktopCount'] = request.default_init_desktop_count
         if not UtilClient.is_unset(request.desktop_group_name):
@@ -629,6 +631,8 @@ class Client(OpenApiClient):
             query['DirectoryId'] = request.directory_id
         if not UtilClient.is_unset(request.end_user_ids):
             query['EndUserIds'] = request.end_user_ids
+        if not UtilClient.is_unset(request.idle_disconnect_duration):
+            query['IdleDisconnectDuration'] = request.idle_disconnect_duration
         if not UtilClient.is_unset(request.keep_duration):
             query['KeepDuration'] = request.keep_duration
         if not UtilClient.is_unset(request.load_policy):
@@ -647,12 +651,16 @@ class Client(OpenApiClient):
             query['PeriodUnit'] = request.period_unit
         if not UtilClient.is_unset(request.policy_group_id):
             query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.ratio_threshold):
+            query['RatioThreshold'] = request.ratio_threshold
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.reset_type):
             query['ResetType'] = request.reset_type
         if not UtilClient.is_unset(request.scale_strategy_id):
             query['ScaleStrategyId'] = request.scale_strategy_id
+        if not UtilClient.is_unset(request.stop_duration):
+            query['StopDuration'] = request.stop_duration
         if not UtilClient.is_unset(request.volume_encryption_enabled):
             query['VolumeEncryptionEnabled'] = request.volume_encryption_enabled
         if not UtilClient.is_unset(request.volume_encryption_key):
@@ -723,6 +731,8 @@ class Client(OpenApiClient):
             query['Tag'] = request.tag
         if not UtilClient.is_unset(request.user_assign_mode):
             query['UserAssignMode'] = request.user_assign_mode
+        if not UtilClient.is_unset(request.user_commands):
+            query['UserCommands'] = request.user_commands
         if not UtilClient.is_unset(request.user_name):
             query['UserName'] = request.user_name
         if not UtilClient.is_unset(request.volume_encryption_enabled):
@@ -781,6 +791,56 @@ class Client(OpenApiClient):
     def create_disk_encryption_service(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_disk_encryption_service_with_options(request, runtime)
+
+    def create_drive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ali_uid):
+            query['AliUid'] = request.ali_uid
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.drive_name):
+            query['DriveName'] = request.drive_name
+        if not UtilClient.is_unset(request.external_domain_id):
+            query['ExternalDomainId'] = request.external_domain_id
+        if not UtilClient.is_unset(request.profile_roaming):
+            query['ProfileRoaming'] = request.profile_roaming
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.total_size):
+            query['TotalSize'] = request.total_size
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        if not UtilClient.is_unset(request.used_size):
+            query['UsedSize'] = request.used_size
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDrive',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.CreateDriveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_drive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_drive_with_options(request, runtime)
 
     def create_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -911,6 +971,8 @@ class Client(OpenApiClient):
     def create_policy_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.app_content_protection):
+            query['AppContentProtection'] = request.app_content_protection
         if not UtilClient.is_unset(request.authorize_access_policy_rule):
             query['AuthorizeAccessPolicyRule'] = request.authorize_access_policy_rule
         if not UtilClient.is_unset(request.authorize_security_policy_rule):
@@ -941,10 +1003,16 @@ class Client(OpenApiClient):
             query['PreemptLoginUser'] = request.preempt_login_user
         if not UtilClient.is_unset(request.printer_redirection):
             query['PrinterRedirection'] = request.printer_redirection
+        if not UtilClient.is_unset(request.record_content):
+            query['RecordContent'] = request.record_content
+        if not UtilClient.is_unset(request.record_content_expires):
+            query['RecordContentExpires'] = request.record_content_expires
         if not UtilClient.is_unset(request.recording):
             query['Recording'] = request.recording
         if not UtilClient.is_unset(request.recording_end_time):
             query['RecordingEndTime'] = request.recording_end_time
+        if not UtilClient.is_unset(request.recording_expires):
+            query['RecordingExpires'] = request.recording_expires
         if not UtilClient.is_unset(request.recording_fps):
             query['RecordingFps'] = request.recording_fps
         if not UtilClient.is_unset(request.recording_start_time):
@@ -1142,6 +1210,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_bundles_with_options(request, runtime)
 
+    def delete_cloud_drive_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCloudDriveUsers',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DeleteCloudDriveUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_cloud_drive_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_cloud_drive_users_with_options(request, runtime)
+
     def delete_desktop_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1231,6 +1331,36 @@ class Client(OpenApiClient):
     def delete_directories(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_directories_with_options(request, runtime)
+
+    def delete_drive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.drive_id):
+            query['DriveId'] = request.drive_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDrive',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DeleteDriveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_drive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_drive_with_options(request, runtime)
 
     def delete_images_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1618,6 +1748,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_client_events_with_options(request, runtime)
 
+    def describe_cloud_drive_permissions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCloudDrivePermissions',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeCloudDrivePermissionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cloud_drive_permissions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cloud_drive_permissions_with_options(request, runtime)
+
     def describe_desktop_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1823,6 +1983,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.desktop_group_id):
             query['DesktopGroupId'] = request.desktop_group_id
+        if not UtilClient.is_unset(request.ignore_deleted):
+            query['IgnoreDeleted'] = request.ignore_deleted
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
@@ -1893,6 +2055,40 @@ class Client(OpenApiClient):
     def describe_directories(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_directories_with_options(request, runtime)
+
+    def describe_drives_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_ids):
+            query['DomainIds'] = request.domain_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDrives',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeDrivesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_drives(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_drives_with_options(request, runtime)
 
     def describe_flow_metric_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2444,41 +2640,11 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_policy_groups_with_options(request, runtime)
 
-    def describe_recordings_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.max_results):
-            query['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            query['NextToken'] = request.next_token
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRecordings',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeRecordingsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_recordings(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_recordings_with_options(request, runtime)
-
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -2834,6 +3000,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_users_in_group_with_options(request, runtime)
 
+    def describe_users_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUsersPassword',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeUsersPasswordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_users_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_users_password_with_options(request, runtime)
+
     def describe_virtual_mfadevices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2917,6 +3113,8 @@ class Client(OpenApiClient):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.necessity):
             query['Necessity'] = request.necessity
         if not UtilClient.is_unset(request.office_site_id):
@@ -3770,6 +3968,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_bundle_with_options(request, runtime)
 
+    def modify_cloud_drive_permission_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.download_end_user_ids):
+            query['DownloadEndUserIds'] = request.download_end_user_ids
+        if not UtilClient.is_unset(request.download_upload_end_user_ids):
+            query['DownloadUploadEndUserIds'] = request.download_upload_end_user_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCloudDrivePermission',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyCloudDrivePermissionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_cloud_drive_permission(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_cloud_drive_permission_with_options(request, runtime)
+
     def modify_desktop_charge_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3823,10 +4055,16 @@ class Client(OpenApiClient):
             query['Classify'] = request.classify
         if not UtilClient.is_unset(request.comments):
             query['Comments'] = request.comments
+        if not UtilClient.is_unset(request.connect_duration):
+            query['ConnectDuration'] = request.connect_duration
         if not UtilClient.is_unset(request.desktop_group_id):
             query['DesktopGroupId'] = request.desktop_group_id
         if not UtilClient.is_unset(request.desktop_group_name):
             query['DesktopGroupName'] = request.desktop_group_name
+        if not UtilClient.is_unset(request.disable_session_config):
+            query['DisableSessionConfig'] = request.disable_session_config
+        if not UtilClient.is_unset(request.idle_disconnect_duration):
+            query['IdleDisconnectDuration'] = request.idle_disconnect_duration
         if not UtilClient.is_unset(request.image_id):
             query['ImageId'] = request.image_id
         if not UtilClient.is_unset(request.keep_duration):
@@ -3841,12 +4079,16 @@ class Client(OpenApiClient):
             query['OwnBundleId'] = request.own_bundle_id
         if not UtilClient.is_unset(request.policy_group_id):
             query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.ratio_threshold):
+            query['RatioThreshold'] = request.ratio_threshold
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.reset_type):
             query['ResetType'] = request.reset_type
         if not UtilClient.is_unset(request.scale_strategy_id):
             query['ScaleStrategyId'] = request.scale_strategy_id
+        if not UtilClient.is_unset(request.stop_duration):
+            query['StopDuration'] = request.stop_duration
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4387,6 +4629,8 @@ class Client(OpenApiClient):
     def modify_policy_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.app_content_protection):
+            query['AppContentProtection'] = request.app_content_protection
         if not UtilClient.is_unset(request.authorize_access_policy_rule):
             query['AuthorizeAccessPolicyRule'] = request.authorize_access_policy_rule
         if not UtilClient.is_unset(request.authorize_security_policy_rule):
@@ -4419,10 +4663,16 @@ class Client(OpenApiClient):
             query['PreemptLoginUser'] = request.preempt_login_user
         if not UtilClient.is_unset(request.printer_redirection):
             query['PrinterRedirection'] = request.printer_redirection
+        if not UtilClient.is_unset(request.record_content):
+            query['RecordContent'] = request.record_content
+        if not UtilClient.is_unset(request.record_content_expires):
+            query['RecordContentExpires'] = request.record_content_expires
         if not UtilClient.is_unset(request.recording):
             query['Recording'] = request.recording
         if not UtilClient.is_unset(request.recording_end_time):
             query['RecordingEndTime'] = request.recording_end_time
+        if not UtilClient.is_unset(request.recording_expires):
+            query['RecordingExpires'] = request.recording_expires
         if not UtilClient.is_unset(request.recording_fps):
             query['RecordingFps'] = request.recording_fps
         if not UtilClient.is_unset(request.recording_start_time):
@@ -4947,6 +5197,78 @@ class Client(OpenApiClient):
     def send_verify_code(self, request):
         runtime = util_models.RuntimeOptions()
         return self.send_verify_code_with_options(request, runtime)
+
+    def set_desktop_group_timer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cron_expression):
+            query['CronExpression'] = request.cron_expression
+        if not UtilClient.is_unset(request.desktop_group_id):
+            query['DesktopGroupId'] = request.desktop_group_id
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.reset_type):
+            query['ResetType'] = request.reset_type
+        if not UtilClient.is_unset(request.timer_type):
+            query['TimerType'] = request.timer_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDesktopGroupTimer',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.SetDesktopGroupTimerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_desktop_group_timer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_desktop_group_timer_with_options(request, runtime)
+
+    def set_desktop_group_timer_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.desktop_group_id):
+            query['DesktopGroupId'] = request.desktop_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.timer_type):
+            query['TimerType'] = request.timer_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDesktopGroupTimerStatus',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.SetDesktopGroupTimerStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_desktop_group_timer_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_desktop_group_timer_status_with_options(request, runtime)
 
     def set_idp_metadata_with_options(self, request, runtime):
         UtilClient.validate_model(request)

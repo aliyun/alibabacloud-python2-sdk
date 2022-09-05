@@ -483,7 +483,6 @@ class ApproveFotaUpdateRequest(TeaModel):
 
 class ApproveFotaUpdateResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1891,10 +1890,11 @@ class CreateBundleResponse(TeaModel):
 class CreateDesktopGroupRequest(TeaModel):
     def __init__(self, all_classify_users=None, allow_auto_setup=None, allow_buffer_count=None, auto_pay=None,
                  bind_amount=None, bundle_id=None, charge_type=None, classify=None, client_token=None, comments=None,
-                 default_init_desktop_count=None, desktop_group_name=None, directory_id=None, end_user_ids=None, keep_duration=None,
-                 load_policy=None, max_desktops_count=None, min_desktops_count=None, office_site_id=None, own_type=None,
-                 period=None, period_unit=None, policy_group_id=None, region_id=None, reset_type=None,
-                 scale_strategy_id=None, volume_encryption_enabled=None, volume_encryption_key=None, vpc_id=None):
+                 connect_duration=None, default_init_desktop_count=None, desktop_group_name=None, directory_id=None,
+                 end_user_ids=None, idle_disconnect_duration=None, keep_duration=None, load_policy=None,
+                 max_desktops_count=None, min_desktops_count=None, office_site_id=None, own_type=None, period=None, period_unit=None,
+                 policy_group_id=None, ratio_threshold=None, region_id=None, reset_type=None, scale_strategy_id=None,
+                 stop_duration=None, volume_encryption_enabled=None, volume_encryption_key=None, vpc_id=None):
         self.all_classify_users = all_classify_users  # type: bool
         self.allow_auto_setup = allow_auto_setup  # type: int
         self.allow_buffer_count = allow_buffer_count  # type: int
@@ -1905,10 +1905,12 @@ class CreateDesktopGroupRequest(TeaModel):
         self.classify = classify  # type: str
         self.client_token = client_token  # type: str
         self.comments = comments  # type: str
+        self.connect_duration = connect_duration  # type: long
         self.default_init_desktop_count = default_init_desktop_count  # type: int
         self.desktop_group_name = desktop_group_name  # type: str
         self.directory_id = directory_id  # type: str
         self.end_user_ids = end_user_ids  # type: list[str]
+        self.idle_disconnect_duration = idle_disconnect_duration  # type: long
         self.keep_duration = keep_duration  # type: long
         self.load_policy = load_policy  # type: long
         self.max_desktops_count = max_desktops_count  # type: int
@@ -1918,9 +1920,11 @@ class CreateDesktopGroupRequest(TeaModel):
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
         self.policy_group_id = policy_group_id  # type: str
+        self.ratio_threshold = ratio_threshold  # type: float
         self.region_id = region_id  # type: str
         self.reset_type = reset_type  # type: long
         self.scale_strategy_id = scale_strategy_id  # type: str
+        self.stop_duration = stop_duration  # type: long
         self.volume_encryption_enabled = volume_encryption_enabled  # type: bool
         self.volume_encryption_key = volume_encryption_key  # type: str
         self.vpc_id = vpc_id  # type: str
@@ -1954,6 +1958,8 @@ class CreateDesktopGroupRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.comments is not None:
             result['Comments'] = self.comments
+        if self.connect_duration is not None:
+            result['ConnectDuration'] = self.connect_duration
         if self.default_init_desktop_count is not None:
             result['DefaultInitDesktopCount'] = self.default_init_desktop_count
         if self.desktop_group_name is not None:
@@ -1962,6 +1968,8 @@ class CreateDesktopGroupRequest(TeaModel):
             result['DirectoryId'] = self.directory_id
         if self.end_user_ids is not None:
             result['EndUserIds'] = self.end_user_ids
+        if self.idle_disconnect_duration is not None:
+            result['IdleDisconnectDuration'] = self.idle_disconnect_duration
         if self.keep_duration is not None:
             result['KeepDuration'] = self.keep_duration
         if self.load_policy is not None:
@@ -1980,12 +1988,16 @@ class CreateDesktopGroupRequest(TeaModel):
             result['PeriodUnit'] = self.period_unit
         if self.policy_group_id is not None:
             result['PolicyGroupId'] = self.policy_group_id
+        if self.ratio_threshold is not None:
+            result['RatioThreshold'] = self.ratio_threshold
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.reset_type is not None:
             result['ResetType'] = self.reset_type
         if self.scale_strategy_id is not None:
             result['ScaleStrategyId'] = self.scale_strategy_id
+        if self.stop_duration is not None:
+            result['StopDuration'] = self.stop_duration
         if self.volume_encryption_enabled is not None:
             result['VolumeEncryptionEnabled'] = self.volume_encryption_enabled
         if self.volume_encryption_key is not None:
@@ -2016,6 +2028,8 @@ class CreateDesktopGroupRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Comments') is not None:
             self.comments = m.get('Comments')
+        if m.get('ConnectDuration') is not None:
+            self.connect_duration = m.get('ConnectDuration')
         if m.get('DefaultInitDesktopCount') is not None:
             self.default_init_desktop_count = m.get('DefaultInitDesktopCount')
         if m.get('DesktopGroupName') is not None:
@@ -2024,6 +2038,8 @@ class CreateDesktopGroupRequest(TeaModel):
             self.directory_id = m.get('DirectoryId')
         if m.get('EndUserIds') is not None:
             self.end_user_ids = m.get('EndUserIds')
+        if m.get('IdleDisconnectDuration') is not None:
+            self.idle_disconnect_duration = m.get('IdleDisconnectDuration')
         if m.get('KeepDuration') is not None:
             self.keep_duration = m.get('KeepDuration')
         if m.get('LoadPolicy') is not None:
@@ -2042,12 +2058,16 @@ class CreateDesktopGroupRequest(TeaModel):
             self.period_unit = m.get('PeriodUnit')
         if m.get('PolicyGroupId') is not None:
             self.policy_group_id = m.get('PolicyGroupId')
+        if m.get('RatioThreshold') is not None:
+            self.ratio_threshold = m.get('RatioThreshold')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResetType') is not None:
             self.reset_type = m.get('ResetType')
         if m.get('ScaleStrategyId') is not None:
             self.scale_strategy_id = m.get('ScaleStrategyId')
+        if m.get('StopDuration') is not None:
+            self.stop_duration = m.get('StopDuration')
         if m.get('VolumeEncryptionEnabled') is not None:
             self.volume_encryption_enabled = m.get('VolumeEncryptionEnabled')
         if m.get('VolumeEncryptionKey') is not None:
@@ -2159,11 +2179,45 @@ class CreateDesktopsRequestTag(TeaModel):
         return self
 
 
+class CreateDesktopsRequestUserCommands(TeaModel):
+    def __init__(self, content=None, content_encoding=None, content_type=None):
+        self.content = content  # type: str
+        self.content_encoding = content_encoding  # type: str
+        self.content_type = content_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDesktopsRequestUserCommands, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_encoding is not None:
+            result['ContentEncoding'] = self.content_encoding
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentEncoding') is not None:
+            self.content_encoding = m.get('ContentEncoding')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        return self
+
+
 class CreateDesktopsRequest(TeaModel):
     def __init__(self, amount=None, auto_pay=None, auto_renew=None, bundle_id=None, charge_type=None,
                  desktop_name=None, desktop_name_suffix=None, directory_id=None, end_user_id=None, group_id=None, hostname=None,
                  office_site_id=None, period=None, period_unit=None, policy_group_id=None, promotion_id=None, region_id=None,
-                 tag=None, user_assign_mode=None, user_name=None, volume_encryption_enabled=None,
+                 tag=None, user_assign_mode=None, user_commands=None, user_name=None, volume_encryption_enabled=None,
                  volume_encryption_key=None, vpc_id=None):
         self.amount = amount  # type: int
         self.auto_pay = auto_pay  # type: bool
@@ -2184,6 +2238,7 @@ class CreateDesktopsRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.tag = tag  # type: list[CreateDesktopsRequestTag]
         self.user_assign_mode = user_assign_mode  # type: str
+        self.user_commands = user_commands  # type: list[CreateDesktopsRequestUserCommands]
         self.user_name = user_name  # type: str
         self.volume_encryption_enabled = volume_encryption_enabled  # type: bool
         self.volume_encryption_key = volume_encryption_key  # type: str
@@ -2192,6 +2247,10 @@ class CreateDesktopsRequest(TeaModel):
     def validate(self):
         if self.tag:
             for k in self.tag:
+                if k:
+                    k.validate()
+        if self.user_commands:
+            for k in self.user_commands:
                 if k:
                     k.validate()
 
@@ -2241,6 +2300,10 @@ class CreateDesktopsRequest(TeaModel):
                 result['Tag'].append(k.to_map() if k else None)
         if self.user_assign_mode is not None:
             result['UserAssignMode'] = self.user_assign_mode
+        result['UserCommands'] = []
+        if self.user_commands is not None:
+            for k in self.user_commands:
+                result['UserCommands'].append(k.to_map() if k else None)
         if self.user_name is not None:
             result['UserName'] = self.user_name
         if self.volume_encryption_enabled is not None:
@@ -2294,6 +2357,11 @@ class CreateDesktopsRequest(TeaModel):
                 self.tag.append(temp_model.from_map(k))
         if m.get('UserAssignMode') is not None:
             self.user_assign_mode = m.get('UserAssignMode')
+        self.user_commands = []
+        if m.get('UserCommands') is not None:
+            for k in m.get('UserCommands'):
+                temp_model = CreateDesktopsRequestUserCommands()
+                self.user_commands.append(temp_model.from_map(k))
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
         if m.get('VolumeEncryptionEnabled') is not None:
@@ -2471,6 +2539,272 @@ class CreateDiskEncryptionServiceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDiskEncryptionServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDriveRequest(TeaModel):
+    def __init__(self, ali_uid=None, description=None, domain_id=None, drive_name=None, external_domain_id=None,
+                 profile_roaming=None, region_id=None, resource_type=None, total_size=None, type=None, used_size=None, user_id=None):
+        self.ali_uid = ali_uid  # type: long
+        self.description = description  # type: str
+        self.domain_id = domain_id  # type: str
+        self.drive_name = drive_name  # type: str
+        self.external_domain_id = external_domain_id  # type: str
+        self.profile_roaming = profile_roaming  # type: bool
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.total_size = total_size  # type: long
+        self.type = type  # type: str
+        self.used_size = used_size  # type: long
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDriveRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.domain_id is not None:
+            result['DomainId'] = self.domain_id
+        if self.drive_name is not None:
+            result['DriveName'] = self.drive_name
+        if self.external_domain_id is not None:
+            result['ExternalDomainId'] = self.external_domain_id
+        if self.profile_roaming is not None:
+            result['ProfileRoaming'] = self.profile_roaming
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.used_size is not None:
+            result['UsedSize'] = self.used_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DomainId') is not None:
+            self.domain_id = m.get('DomainId')
+        if m.get('DriveName') is not None:
+            self.drive_name = m.get('DriveName')
+        if m.get('ExternalDomainId') is not None:
+            self.external_domain_id = m.get('ExternalDomainId')
+        if m.get('ProfileRoaming') is not None:
+            self.profile_roaming = m.get('ProfileRoaming')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UsedSize') is not None:
+            self.used_size = m.get('UsedSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class CreateDriveResponseBodyDrive(TeaModel):
+    def __init__(self, ali_uid=None, description=None, domain_id=None, drive_id=None, external_drive_id=None,
+                 external_user_id=None, gmt_create=None, gmt_modified=None, id=None, name=None, profile_roaming=None, status=None,
+                 total_size=None, type=None, used_size=None, user_id=None):
+        self.ali_uid = ali_uid  # type: str
+        self.description = description  # type: str
+        self.domain_id = domain_id  # type: str
+        self.drive_id = drive_id  # type: str
+        self.external_drive_id = external_drive_id  # type: str
+        self.external_user_id = external_user_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.profile_roaming = profile_roaming  # type: bool
+        self.status = status  # type: str
+        self.total_size = total_size  # type: long
+        self.type = type  # type: str
+        self.used_size = used_size  # type: long
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDriveResponseBodyDrive, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.domain_id is not None:
+            result['DomainId'] = self.domain_id
+        if self.drive_id is not None:
+            result['DriveId'] = self.drive_id
+        if self.external_drive_id is not None:
+            result['ExternalDriveId'] = self.external_drive_id
+        if self.external_user_id is not None:
+            result['ExternalUserId'] = self.external_user_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.profile_roaming is not None:
+            result['ProfileRoaming'] = self.profile_roaming
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.used_size is not None:
+            result['UsedSize'] = self.used_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DomainId') is not None:
+            self.domain_id = m.get('DomainId')
+        if m.get('DriveId') is not None:
+            self.drive_id = m.get('DriveId')
+        if m.get('ExternalDriveId') is not None:
+            self.external_drive_id = m.get('ExternalDriveId')
+        if m.get('ExternalUserId') is not None:
+            self.external_user_id = m.get('ExternalUserId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ProfileRoaming') is not None:
+            self.profile_roaming = m.get('ProfileRoaming')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UsedSize') is not None:
+            self.used_size = m.get('UsedSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class CreateDriveResponseBody(TeaModel):
+    def __init__(self, code=None, drive=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.drive = drive  # type: CreateDriveResponseBodyDrive
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.drive:
+            self.drive.validate()
+
+    def to_map(self):
+        _map = super(CreateDriveResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.drive is not None:
+            result['Drive'] = self.drive.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Drive') is not None:
+            temp_model = CreateDriveResponseBodyDrive()
+            self.drive = temp_model.from_map(m['Drive'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateDriveResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDriveResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDriveResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDriveResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3049,12 +3383,14 @@ class CreatePolicyGroupRequestUsbSupplyRedirectRule(TeaModel):
 
 
 class CreatePolicyGroupRequest(TeaModel):
-    def __init__(self, authorize_access_policy_rule=None, authorize_security_policy_rule=None,
-                 camera_redirect=None, client_type=None, clipboard=None, domain_list=None, gpu_acceleration=None, html_5access=None,
-                 html_5file_transfer=None, local_drive=None, name=None, net_redirect=None, preempt_login=None, preempt_login_user=None,
-                 printer_redirection=None, recording=None, recording_end_time=None, recording_fps=None, recording_start_time=None,
-                 region_id=None, usb_redirect=None, usb_supply_redirect_rule=None, visual_quality=None, watermark=None,
-                 watermark_transparency=None, watermark_type=None):
+    def __init__(self, app_content_protection=None, authorize_access_policy_rule=None,
+                 authorize_security_policy_rule=None, camera_redirect=None, client_type=None, clipboard=None, domain_list=None,
+                 gpu_acceleration=None, html_5access=None, html_5file_transfer=None, local_drive=None, name=None, net_redirect=None,
+                 preempt_login=None, preempt_login_user=None, printer_redirection=None, record_content=None,
+                 record_content_expires=None, recording=None, recording_end_time=None, recording_expires=None, recording_fps=None,
+                 recording_start_time=None, region_id=None, usb_redirect=None, usb_supply_redirect_rule=None, visual_quality=None,
+                 watermark=None, watermark_transparency=None, watermark_type=None):
+        self.app_content_protection = app_content_protection  # type: str
         self.authorize_access_policy_rule = authorize_access_policy_rule  # type: list[CreatePolicyGroupRequestAuthorizeAccessPolicyRule]
         self.authorize_security_policy_rule = authorize_security_policy_rule  # type: list[CreatePolicyGroupRequestAuthorizeSecurityPolicyRule]
         self.camera_redirect = camera_redirect  # type: str
@@ -3070,8 +3406,11 @@ class CreatePolicyGroupRequest(TeaModel):
         self.preempt_login = preempt_login  # type: str
         self.preempt_login_user = preempt_login_user  # type: list[str]
         self.printer_redirection = printer_redirection  # type: str
+        self.record_content = record_content  # type: str
+        self.record_content_expires = record_content_expires  # type: long
         self.recording = recording  # type: str
         self.recording_end_time = recording_end_time  # type: str
+        self.recording_expires = recording_expires  # type: long
         self.recording_fps = recording_fps  # type: long
         self.recording_start_time = recording_start_time  # type: str
         self.region_id = region_id  # type: str
@@ -3106,6 +3445,8 @@ class CreatePolicyGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.app_content_protection is not None:
+            result['AppContentProtection'] = self.app_content_protection
         result['AuthorizeAccessPolicyRule'] = []
         if self.authorize_access_policy_rule is not None:
             for k in self.authorize_access_policy_rule:
@@ -3142,10 +3483,16 @@ class CreatePolicyGroupRequest(TeaModel):
             result['PreemptLoginUser'] = self.preempt_login_user
         if self.printer_redirection is not None:
             result['PrinterRedirection'] = self.printer_redirection
+        if self.record_content is not None:
+            result['RecordContent'] = self.record_content
+        if self.record_content_expires is not None:
+            result['RecordContentExpires'] = self.record_content_expires
         if self.recording is not None:
             result['Recording'] = self.recording
         if self.recording_end_time is not None:
             result['RecordingEndTime'] = self.recording_end_time
+        if self.recording_expires is not None:
+            result['RecordingExpires'] = self.recording_expires
         if self.recording_fps is not None:
             result['RecordingFps'] = self.recording_fps
         if self.recording_start_time is not None:
@@ -3170,6 +3517,8 @@ class CreatePolicyGroupRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppContentProtection') is not None:
+            self.app_content_protection = m.get('AppContentProtection')
         self.authorize_access_policy_rule = []
         if m.get('AuthorizeAccessPolicyRule') is not None:
             for k in m.get('AuthorizeAccessPolicyRule'):
@@ -3209,10 +3558,16 @@ class CreatePolicyGroupRequest(TeaModel):
             self.preempt_login_user = m.get('PreemptLoginUser')
         if m.get('PrinterRedirection') is not None:
             self.printer_redirection = m.get('PrinterRedirection')
+        if m.get('RecordContent') is not None:
+            self.record_content = m.get('RecordContent')
+        if m.get('RecordContentExpires') is not None:
+            self.record_content_expires = m.get('RecordContentExpires')
         if m.get('Recording') is not None:
             self.recording = m.get('Recording')
         if m.get('RecordingEndTime') is not None:
             self.recording_end_time = m.get('RecordingEndTime')
+        if m.get('RecordingExpires') is not None:
+            self.recording_expires = m.get('RecordingExpires')
         if m.get('RecordingFps') is not None:
             self.recording_fps = m.get('RecordingFps')
         if m.get('RecordingStartTime') is not None:
@@ -3781,6 +4136,103 @@ class DeleteBundlesResponse(TeaModel):
         return self
 
 
+class DeleteCloudDriveUsersRequest(TeaModel):
+    def __init__(self, cds_id=None, end_user_id=None, region_id=None):
+        self.cds_id = cds_id  # type: str
+        self.end_user_id = end_user_id  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteCloudDriveUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cds_id is not None:
+            result['CdsId'] = self.cds_id
+        if self.end_user_id is not None:
+            result['EndUserId'] = self.end_user_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CdsId') is not None:
+            self.cds_id = m.get('CdsId')
+        if m.get('EndUserId') is not None:
+            self.end_user_id = m.get('EndUserId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteCloudDriveUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteCloudDriveUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteCloudDriveUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteCloudDriveUsersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteCloudDriveUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteCloudDriveUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteDesktopGroupRequest(TeaModel):
     def __init__(self, desktop_group_id=None, region_id=None):
         self.desktop_group_id = desktop_group_id  # type: str
@@ -4053,6 +4505,118 @@ class DeleteDirectoriesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteDirectoriesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDriveRequest(TeaModel):
+    def __init__(self, drive_id=None, region_id=None):
+        self.drive_id = drive_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDriveRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drive_id is not None:
+            result['DriveId'] = self.drive_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DriveId') is not None:
+            self.drive_id = m.get('DriveId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteDriveResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDriveResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteDriveResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDriveResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDriveResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDriveResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5746,6 +6310,140 @@ class DescribeClientEventsResponse(TeaModel):
         return self
 
 
+class DescribeCloudDrivePermissionsRequest(TeaModel):
+    def __init__(self, cds_id=None, region_id=None):
+        self.cds_id = cds_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCloudDrivePermissionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cds_id is not None:
+            result['CdsId'] = self.cds_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CdsId') is not None:
+            self.cds_id = m.get('CdsId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeCloudDrivePermissionsResponseBodyCloudDrivePermissionModels(TeaModel):
+    def __init__(self, end_users=None, permission=None):
+        self.end_users = end_users  # type: list[str]
+        self.permission = permission  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCloudDrivePermissionsResponseBodyCloudDrivePermissionModels, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_users is not None:
+            result['EndUsers'] = self.end_users
+        if self.permission is not None:
+            result['Permission'] = self.permission
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndUsers') is not None:
+            self.end_users = m.get('EndUsers')
+        if m.get('Permission') is not None:
+            self.permission = m.get('Permission')
+        return self
+
+
+class DescribeCloudDrivePermissionsResponseBody(TeaModel):
+    def __init__(self, cloud_drive_permission_models=None, request_id=None):
+        self.cloud_drive_permission_models = cloud_drive_permission_models  # type: list[DescribeCloudDrivePermissionsResponseBodyCloudDrivePermissionModels]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.cloud_drive_permission_models:
+            for k in self.cloud_drive_permission_models:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCloudDrivePermissionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CloudDrivePermissionModels'] = []
+        if self.cloud_drive_permission_models is not None:
+            for k in self.cloud_drive_permission_models:
+                result['CloudDrivePermissionModels'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.cloud_drive_permission_models = []
+        if m.get('CloudDrivePermissionModels') is not None:
+            for k in m.get('CloudDrivePermissionModels'):
+                temp_model = DescribeCloudDrivePermissionsResponseBodyCloudDrivePermissionModels()
+                self.cloud_drive_permission_models.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeCloudDrivePermissionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCloudDrivePermissionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCloudDrivePermissionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCloudDrivePermissionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDesktopGroupsRequest(TeaModel):
     def __init__(self, desktop_group_id=None, desktop_group_name=None, end_user_ids=None,
                  excluded_end_user_ids=None, max_results=None, next_token=None, office_site_id=None, own_type=None, period=None,
@@ -5833,15 +6531,17 @@ class DescribeDesktopGroupsRequest(TeaModel):
 
 
 class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
-    def __init__(self, bind_amount=None, comments=None, cpu=None, create_time=None, creator=None,
-                 data_disk_category=None, data_disk_size=None, desktop_group_id=None, desktop_group_name=None, end_user_count=None,
-                 expired_time=None, gpu_count=None, gpu_spec=None, image_id=None, keep_duration=None, load_policy=None,
-                 max_desktops_count=None, memory=None, min_desktops_count=None, office_site_id=None, office_site_name=None,
-                 office_site_type=None, own_bundle_id=None, own_bundle_name=None, own_type=None, pay_type=None, policy_group_id=None,
-                 policy_group_name=None, reset_type=None, status=None, system_disk_category=None, system_disk_size=None,
-                 volume_encryption_enabled=None, volume_encryption_key=None):
+    def __init__(self, bind_amount=None, comments=None, connect_duration=None, cpu=None, create_time=None,
+                 creator=None, data_disk_category=None, data_disk_size=None, desktop_group_id=None,
+                 desktop_group_name=None, end_user_count=None, expired_time=None, gpu_count=None, gpu_spec=None,
+                 idle_disconnect_duration=None, image_id=None, keep_duration=None, load_policy=None, max_desktops_count=None, memory=None,
+                 min_desktops_count=None, office_site_id=None, office_site_name=None, office_site_type=None, own_bundle_id=None,
+                 own_bundle_name=None, own_type=None, pay_type=None, policy_group_id=None, policy_group_name=None,
+                 ratio_threshold=None, reset_type=None, status=None, stop_duration=None, system_disk_category=None,
+                 system_disk_size=None, version=None, volume_encryption_enabled=None, volume_encryption_key=None):
         self.bind_amount = bind_amount  # type: long
         self.comments = comments  # type: str
+        self.connect_duration = connect_duration  # type: long
         self.cpu = cpu  # type: int
         self.create_time = create_time  # type: str
         self.creator = creator  # type: str
@@ -5853,6 +6553,7 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
         self.expired_time = expired_time  # type: str
         self.gpu_count = gpu_count  # type: float
         self.gpu_spec = gpu_spec  # type: str
+        self.idle_disconnect_duration = idle_disconnect_duration  # type: long
         self.image_id = image_id  # type: str
         self.keep_duration = keep_duration  # type: long
         self.load_policy = load_policy  # type: long
@@ -5868,10 +6569,13 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
         self.pay_type = pay_type  # type: str
         self.policy_group_id = policy_group_id  # type: str
         self.policy_group_name = policy_group_name  # type: str
+        self.ratio_threshold = ratio_threshold  # type: float
         self.reset_type = reset_type  # type: long
         self.status = status  # type: int
+        self.stop_duration = stop_duration  # type: long
         self.system_disk_category = system_disk_category  # type: str
         self.system_disk_size = system_disk_size  # type: int
+        self.version = version  # type: int
         self.volume_encryption_enabled = volume_encryption_enabled  # type: bool
         self.volume_encryption_key = volume_encryption_key  # type: str
 
@@ -5888,6 +6592,8 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             result['BindAmount'] = self.bind_amount
         if self.comments is not None:
             result['Comments'] = self.comments
+        if self.connect_duration is not None:
+            result['ConnectDuration'] = self.connect_duration
         if self.cpu is not None:
             result['Cpu'] = self.cpu
         if self.create_time is not None:
@@ -5910,6 +6616,8 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             result['GpuCount'] = self.gpu_count
         if self.gpu_spec is not None:
             result['GpuSpec'] = self.gpu_spec
+        if self.idle_disconnect_duration is not None:
+            result['IdleDisconnectDuration'] = self.idle_disconnect_duration
         if self.image_id is not None:
             result['ImageId'] = self.image_id
         if self.keep_duration is not None:
@@ -5940,14 +6648,20 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             result['PolicyGroupId'] = self.policy_group_id
         if self.policy_group_name is not None:
             result['PolicyGroupName'] = self.policy_group_name
+        if self.ratio_threshold is not None:
+            result['RatioThreshold'] = self.ratio_threshold
         if self.reset_type is not None:
             result['ResetType'] = self.reset_type
         if self.status is not None:
             result['Status'] = self.status
+        if self.stop_duration is not None:
+            result['StopDuration'] = self.stop_duration
         if self.system_disk_category is not None:
             result['SystemDiskCategory'] = self.system_disk_category
         if self.system_disk_size is not None:
             result['SystemDiskSize'] = self.system_disk_size
+        if self.version is not None:
+            result['Version'] = self.version
         if self.volume_encryption_enabled is not None:
             result['VolumeEncryptionEnabled'] = self.volume_encryption_enabled
         if self.volume_encryption_key is not None:
@@ -5960,6 +6674,8 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             self.bind_amount = m.get('BindAmount')
         if m.get('Comments') is not None:
             self.comments = m.get('Comments')
+        if m.get('ConnectDuration') is not None:
+            self.connect_duration = m.get('ConnectDuration')
         if m.get('Cpu') is not None:
             self.cpu = m.get('Cpu')
         if m.get('CreateTime') is not None:
@@ -5982,6 +6698,8 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             self.gpu_count = m.get('GpuCount')
         if m.get('GpuSpec') is not None:
             self.gpu_spec = m.get('GpuSpec')
+        if m.get('IdleDisconnectDuration') is not None:
+            self.idle_disconnect_duration = m.get('IdleDisconnectDuration')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
         if m.get('KeepDuration') is not None:
@@ -6012,14 +6730,20 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
             self.policy_group_id = m.get('PolicyGroupId')
         if m.get('PolicyGroupName') is not None:
             self.policy_group_name = m.get('PolicyGroupName')
+        if m.get('RatioThreshold') is not None:
+            self.ratio_threshold = m.get('RatioThreshold')
         if m.get('ResetType') is not None:
             self.reset_type = m.get('ResetType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StopDuration') is not None:
+            self.stop_duration = m.get('StopDuration')
         if m.get('SystemDiskCategory') is not None:
             self.system_disk_category = m.get('SystemDiskCategory')
         if m.get('SystemDiskSize') is not None:
             self.system_disk_size = m.get('SystemDiskSize')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         if m.get('VolumeEncryptionEnabled') is not None:
             self.volume_encryption_enabled = m.get('VolumeEncryptionEnabled')
         if m.get('VolumeEncryptionKey') is not None:
@@ -7162,8 +7886,10 @@ class DescribeDesktopsResponse(TeaModel):
 
 
 class DescribeDesktopsInGroupRequest(TeaModel):
-    def __init__(self, desktop_group_id=None, max_results=None, next_token=None, pay_type=None, region_id=None):
+    def __init__(self, desktop_group_id=None, ignore_deleted=None, max_results=None, next_token=None, pay_type=None,
+                 region_id=None):
         self.desktop_group_id = desktop_group_id  # type: str
+        self.ignore_deleted = ignore_deleted  # type: bool
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
         self.pay_type = pay_type  # type: str
@@ -7180,6 +7906,8 @@ class DescribeDesktopsInGroupRequest(TeaModel):
         result = dict()
         if self.desktop_group_id is not None:
             result['DesktopGroupId'] = self.desktop_group_id
+        if self.ignore_deleted is not None:
+            result['IgnoreDeleted'] = self.ignore_deleted
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -7194,6 +7922,8 @@ class DescribeDesktopsInGroupRequest(TeaModel):
         m = m or dict()
         if m.get('DesktopGroupId') is not None:
             self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('IgnoreDeleted') is not None:
+            self.ignore_deleted = m.get('IgnoreDeleted')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -7208,8 +7938,8 @@ class DescribeDesktopsInGroupRequest(TeaModel):
 class DescribeDesktopsInGroupResponseBodyPaidDesktops(TeaModel):
     def __init__(self, connection_status=None, desktop_id=None, desktop_name=None, desktop_status=None,
                  disk_type=None, end_user_id=None, end_user_ids=None, end_user_name=None, end_user_names=None,
-                 gpu_driver_version=None, image_id=None, image_name=None, management_flag=None, os_type=None, reset_time=None,
-                 system_disk_size=None):
+                 gpu_driver_version=None, image_id=None, image_name=None, management_flag=None, management_flags=None,
+                 member_eni_ip=None, os_type=None, primary_eni_ip=None, reset_time=None, system_disk_size=None):
         self.connection_status = connection_status  # type: str
         self.desktop_id = desktop_id  # type: str
         self.desktop_name = desktop_name  # type: str
@@ -7223,7 +7953,10 @@ class DescribeDesktopsInGroupResponseBodyPaidDesktops(TeaModel):
         self.image_id = image_id  # type: str
         self.image_name = image_name  # type: str
         self.management_flag = management_flag  # type: str
+        self.management_flags = management_flags  # type: list[str]
+        self.member_eni_ip = member_eni_ip  # type: str
         self.os_type = os_type  # type: str
+        self.primary_eni_ip = primary_eni_ip  # type: str
         self.reset_time = reset_time  # type: str
         self.system_disk_size = system_disk_size  # type: int
 
@@ -7262,8 +7995,14 @@ class DescribeDesktopsInGroupResponseBodyPaidDesktops(TeaModel):
             result['ImageName'] = self.image_name
         if self.management_flag is not None:
             result['ManagementFlag'] = self.management_flag
+        if self.management_flags is not None:
+            result['ManagementFlags'] = self.management_flags
+        if self.member_eni_ip is not None:
+            result['MemberEniIp'] = self.member_eni_ip
         if self.os_type is not None:
             result['OsType'] = self.os_type
+        if self.primary_eni_ip is not None:
+            result['PrimaryEniIp'] = self.primary_eni_ip
         if self.reset_time is not None:
             result['ResetTime'] = self.reset_time
         if self.system_disk_size is not None:
@@ -7298,8 +8037,14 @@ class DescribeDesktopsInGroupResponseBodyPaidDesktops(TeaModel):
             self.image_name = m.get('ImageName')
         if m.get('ManagementFlag') is not None:
             self.management_flag = m.get('ManagementFlag')
+        if m.get('ManagementFlags') is not None:
+            self.management_flags = m.get('ManagementFlags')
+        if m.get('MemberEniIp') is not None:
+            self.member_eni_ip = m.get('MemberEniIp')
         if m.get('OsType') is not None:
             self.os_type = m.get('OsType')
+        if m.get('PrimaryEniIp') is not None:
+            self.primary_eni_ip = m.get('PrimaryEniIp')
         if m.get('ResetTime') is not None:
             self.reset_time = m.get('ResetTime')
         if m.get('SystemDiskSize') is not None:
@@ -7310,8 +8055,9 @@ class DescribeDesktopsInGroupResponseBodyPaidDesktops(TeaModel):
 class DescribeDesktopsInGroupResponseBodyPostPaidDesktops(TeaModel):
     def __init__(self, connection_status=None, create_duration=None, create_time=None, desktop_id=None,
                  desktop_name=None, desktop_status=None, disk_type=None, end_user_id=None, end_user_ids=None, end_user_name=None,
-                 end_user_names=None, gpu_driver_version=None, image_id=None, image_name=None, management_flag=None, os_type=None,
-                 release_time=None, reset_time=None, system_disk_size=None):
+                 end_user_names=None, gpu_driver_version=None, image_id=None, image_name=None, management_flag=None,
+                 management_flags=None, member_eni_ip=None, os_type=None, primary_eni_ip=None, release_time=None, reset_time=None,
+                 system_disk_size=None):
         self.connection_status = connection_status  # type: str
         self.create_duration = create_duration  # type: str
         self.create_time = create_time  # type: str
@@ -7327,7 +8073,10 @@ class DescribeDesktopsInGroupResponseBodyPostPaidDesktops(TeaModel):
         self.image_id = image_id  # type: str
         self.image_name = image_name  # type: str
         self.management_flag = management_flag  # type: str
+        self.management_flags = management_flags  # type: list[str]
+        self.member_eni_ip = member_eni_ip  # type: str
         self.os_type = os_type  # type: str
+        self.primary_eni_ip = primary_eni_ip  # type: str
         self.release_time = release_time  # type: str
         self.reset_time = reset_time  # type: str
         self.system_disk_size = system_disk_size  # type: int
@@ -7371,8 +8120,14 @@ class DescribeDesktopsInGroupResponseBodyPostPaidDesktops(TeaModel):
             result['ImageName'] = self.image_name
         if self.management_flag is not None:
             result['ManagementFlag'] = self.management_flag
+        if self.management_flags is not None:
+            result['ManagementFlags'] = self.management_flags
+        if self.member_eni_ip is not None:
+            result['MemberEniIp'] = self.member_eni_ip
         if self.os_type is not None:
             result['OsType'] = self.os_type
+        if self.primary_eni_ip is not None:
+            result['PrimaryEniIp'] = self.primary_eni_ip
         if self.release_time is not None:
             result['ReleaseTime'] = self.release_time
         if self.reset_time is not None:
@@ -7413,8 +8168,14 @@ class DescribeDesktopsInGroupResponseBodyPostPaidDesktops(TeaModel):
             self.image_name = m.get('ImageName')
         if m.get('ManagementFlag') is not None:
             self.management_flag = m.get('ManagementFlag')
+        if m.get('ManagementFlags') is not None:
+            self.management_flags = m.get('ManagementFlags')
+        if m.get('MemberEniIp') is not None:
+            self.member_eni_ip = m.get('MemberEniIp')
         if m.get('OsType') is not None:
             self.os_type = m.get('OsType')
+        if m.get('PrimaryEniIp') is not None:
+            self.primary_eni_ip = m.get('PrimaryEniIp')
         if m.get('ReleaseTime') is not None:
             self.release_time = m.get('ReleaseTime')
         if m.get('ResetTime') is not None:
@@ -7962,6 +8723,295 @@ class DescribeDirectoriesResponse(TeaModel):
         return self
 
 
+class DescribeDrivesRequest(TeaModel):
+    def __init__(self, domain_ids=None, region_id=None, resource_type=None, user_id=None):
+        self.domain_ids = domain_ids  # type: list[str]
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDrivesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_ids is not None:
+            result['DomainIds'] = self.domain_ids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainIds') is not None:
+            self.domain_ids = m.get('DomainIds')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class DescribeDrivesResponseBodyDrivesDesktopGroups(TeaModel):
+    def __init__(self, desktop_group_id=None, desktop_group_name=None):
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.desktop_group_name = desktop_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDrivesResponseBodyDrivesDesktopGroups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.desktop_group_name is not None:
+            result['DesktopGroupName'] = self.desktop_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('DesktopGroupName') is not None:
+            self.desktop_group_name = m.get('DesktopGroupName')
+        return self
+
+
+class DescribeDrivesResponseBodyDrives(TeaModel):
+    def __init__(self, ali_uid=None, description=None, desktop_group_count=None, desktop_groups=None,
+                 domain_id=None, drive_id=None, enable_profile_management=None, external_domain_id=None,
+                 external_drive_id=None, external_user_id=None, gmt_create=None, gmt_modified=None, id=None, name=None,
+                 profile_roaming=None, status=None, total_size=None, type=None, used_size=None, user_id=None):
+        self.ali_uid = ali_uid  # type: long
+        self.description = description  # type: str
+        self.desktop_group_count = desktop_group_count  # type: int
+        self.desktop_groups = desktop_groups  # type: list[DescribeDrivesResponseBodyDrivesDesktopGroups]
+        self.domain_id = domain_id  # type: str
+        self.drive_id = drive_id  # type: str
+        self.enable_profile_management = enable_profile_management  # type: bool
+        self.external_domain_id = external_domain_id  # type: str
+        self.external_drive_id = external_drive_id  # type: str
+        self.external_user_id = external_user_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.profile_roaming = profile_roaming  # type: bool
+        self.status = status  # type: str
+        self.total_size = total_size  # type: long
+        self.type = type  # type: str
+        self.used_size = used_size  # type: long
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        if self.desktop_groups:
+            for k in self.desktop_groups:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDrivesResponseBodyDrives, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.desktop_group_count is not None:
+            result['DesktopGroupCount'] = self.desktop_group_count
+        result['DesktopGroups'] = []
+        if self.desktop_groups is not None:
+            for k in self.desktop_groups:
+                result['DesktopGroups'].append(k.to_map() if k else None)
+        if self.domain_id is not None:
+            result['DomainId'] = self.domain_id
+        if self.drive_id is not None:
+            result['DriveId'] = self.drive_id
+        if self.enable_profile_management is not None:
+            result['EnableProfileManagement'] = self.enable_profile_management
+        if self.external_domain_id is not None:
+            result['ExternalDomainId'] = self.external_domain_id
+        if self.external_drive_id is not None:
+            result['ExternalDriveId'] = self.external_drive_id
+        if self.external_user_id is not None:
+            result['ExternalUserId'] = self.external_user_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.profile_roaming is not None:
+            result['ProfileRoaming'] = self.profile_roaming
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.used_size is not None:
+            result['UsedSize'] = self.used_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DesktopGroupCount') is not None:
+            self.desktop_group_count = m.get('DesktopGroupCount')
+        self.desktop_groups = []
+        if m.get('DesktopGroups') is not None:
+            for k in m.get('DesktopGroups'):
+                temp_model = DescribeDrivesResponseBodyDrivesDesktopGroups()
+                self.desktop_groups.append(temp_model.from_map(k))
+        if m.get('DomainId') is not None:
+            self.domain_id = m.get('DomainId')
+        if m.get('DriveId') is not None:
+            self.drive_id = m.get('DriveId')
+        if m.get('EnableProfileManagement') is not None:
+            self.enable_profile_management = m.get('EnableProfileManagement')
+        if m.get('ExternalDomainId') is not None:
+            self.external_domain_id = m.get('ExternalDomainId')
+        if m.get('ExternalDriveId') is not None:
+            self.external_drive_id = m.get('ExternalDriveId')
+        if m.get('ExternalUserId') is not None:
+            self.external_user_id = m.get('ExternalUserId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ProfileRoaming') is not None:
+            self.profile_roaming = m.get('ProfileRoaming')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UsedSize') is not None:
+            self.used_size = m.get('UsedSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class DescribeDrivesResponseBody(TeaModel):
+    def __init__(self, code=None, drives=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.drives = drives  # type: list[DescribeDrivesResponseBodyDrives]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.drives:
+            for k in self.drives:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDrivesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Drives'] = []
+        if self.drives is not None:
+            for k in self.drives:
+                result['Drives'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.drives = []
+        if m.get('Drives') is not None:
+            for k in m.get('Drives'):
+                temp_model = DescribeDrivesResponseBodyDrives()
+                self.drives.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeDrivesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDrivesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDrivesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDrivesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeFlowMetricRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, instance_type=None, metric_type=None, period=None,
                  region_id=None, start_time=None):
@@ -8343,7 +9393,6 @@ class DescribeFotaPendingDesktopsResponseBody(TeaModel):
     def __init__(self, fota_pending_desktops=None, next_token=None, request_id=None):
         self.fota_pending_desktops = fota_pending_desktops  # type: list[DescribeFotaPendingDesktopsResponseBodyFotaPendingDesktops]
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10326,7 +11375,7 @@ class DescribeNetworkPackagesRequest(TeaModel):
 class DescribeNetworkPackagesResponseBodyNetworkPackages(TeaModel):
     def __init__(self, bandwidth=None, create_time=None, eip_addresses=None, expired_time=None,
                  internet_charge_type=None, network_package_id=None, network_package_status=None, office_site_id=None,
-                 office_site_name=None):
+                 office_site_name=None, office_site_vpc_type=None):
         self.bandwidth = bandwidth  # type: int
         self.create_time = create_time  # type: str
         self.eip_addresses = eip_addresses  # type: list[str]
@@ -10336,6 +11385,7 @@ class DescribeNetworkPackagesResponseBodyNetworkPackages(TeaModel):
         self.network_package_status = network_package_status  # type: str
         self.office_site_id = office_site_id  # type: str
         self.office_site_name = office_site_name  # type: str
+        self.office_site_vpc_type = office_site_vpc_type  # type: str
 
     def validate(self):
         pass
@@ -10364,6 +11414,8 @@ class DescribeNetworkPackagesResponseBodyNetworkPackages(TeaModel):
             result['OfficeSiteId'] = self.office_site_id
         if self.office_site_name is not None:
             result['OfficeSiteName'] = self.office_site_name
+        if self.office_site_vpc_type is not None:
+            result['OfficeSiteVpcType'] = self.office_site_vpc_type
         return result
 
     def from_map(self, m=None):
@@ -10386,6 +11438,8 @@ class DescribeNetworkPackagesResponseBodyNetworkPackages(TeaModel):
             self.office_site_id = m.get('OfficeSiteId')
         if m.get('OfficeSiteName') is not None:
             self.office_site_name = m.get('OfficeSiteName')
+        if m.get('OfficeSiteVpcType') is not None:
+            self.office_site_vpc_type = m.get('OfficeSiteVpcType')
         return self
 
 
@@ -11136,13 +12190,15 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroupsUsbSupplyRedirectRule(
 
 
 class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
-    def __init__(self, authorize_access_policy_rules=None, authorize_security_policy_rules=None,
-                 camera_redirect=None, client_types=None, clipboard=None, domain_list=None, eds_count=None, gpu_acceleration=None,
-                 html_5access=None, html_5file_transfer=None, local_drive=None, name=None, net_redirect=None,
+    def __init__(self, app_content_protection=None, authorize_access_policy_rules=None,
+                 authorize_security_policy_rules=None, camera_redirect=None, client_types=None, clipboard=None, domain_list=None, eds_count=None,
+                 gpu_acceleration=None, html_5access=None, html_5file_transfer=None, local_drive=None, name=None, net_redirect=None,
                  policy_group_id=None, policy_group_type=None, policy_status=None, preempt_login=None, preempt_login_users=None,
-                 printer_redirection=None, recording=None, recording_end_time=None, recording_fps=None, recording_start_time=None,
-                 usb_redirect=None, usb_supply_redirect_rule=None, visual_quality=None, watermark=None,
-                 watermark_custom_text=None, watermark_transparency=None, watermark_type=None):
+                 printer_redirection=None, record_content=None, record_content_expires=None, recording=None, recording_end_time=None,
+                 recording_expires=None, recording_fps=None, recording_start_time=None, usb_redirect=None,
+                 usb_supply_redirect_rule=None, visual_quality=None, watermark=None, watermark_custom_text=None,
+                 watermark_transparency=None, watermark_type=None):
+        self.app_content_protection = app_content_protection  # type: str
         self.authorize_access_policy_rules = authorize_access_policy_rules  # type: list[DescribePolicyGroupsResponseBodyDescribePolicyGroupsAuthorizeAccessPolicyRules]
         self.authorize_security_policy_rules = authorize_security_policy_rules  # type: list[DescribePolicyGroupsResponseBodyDescribePolicyGroupsAuthorizeSecurityPolicyRules]
         self.camera_redirect = camera_redirect  # type: str
@@ -11162,8 +12218,11 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
         self.preempt_login = preempt_login  # type: str
         self.preempt_login_users = preempt_login_users  # type: list[str]
         self.printer_redirection = printer_redirection  # type: str
+        self.record_content = record_content  # type: str
+        self.record_content_expires = record_content_expires  # type: long
         self.recording = recording  # type: str
         self.recording_end_time = recording_end_time  # type: str
+        self.recording_expires = recording_expires  # type: long
         self.recording_fps = recording_fps  # type: long
         self.recording_start_time = recording_start_time  # type: str
         self.usb_redirect = usb_redirect  # type: str
@@ -11198,6 +12257,8 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
             return _map
 
         result = dict()
+        if self.app_content_protection is not None:
+            result['AppContentProtection'] = self.app_content_protection
         result['AuthorizeAccessPolicyRules'] = []
         if self.authorize_access_policy_rules is not None:
             for k in self.authorize_access_policy_rules:
@@ -11242,10 +12303,16 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
             result['PreemptLoginUsers'] = self.preempt_login_users
         if self.printer_redirection is not None:
             result['PrinterRedirection'] = self.printer_redirection
+        if self.record_content is not None:
+            result['RecordContent'] = self.record_content
+        if self.record_content_expires is not None:
+            result['RecordContentExpires'] = self.record_content_expires
         if self.recording is not None:
             result['Recording'] = self.recording
         if self.recording_end_time is not None:
             result['RecordingEndTime'] = self.recording_end_time
+        if self.recording_expires is not None:
+            result['RecordingExpires'] = self.recording_expires
         if self.recording_fps is not None:
             result['RecordingFps'] = self.recording_fps
         if self.recording_start_time is not None:
@@ -11270,6 +12337,8 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppContentProtection') is not None:
+            self.app_content_protection = m.get('AppContentProtection')
         self.authorize_access_policy_rules = []
         if m.get('AuthorizeAccessPolicyRules') is not None:
             for k in m.get('AuthorizeAccessPolicyRules'):
@@ -11317,10 +12386,16 @@ class DescribePolicyGroupsResponseBodyDescribePolicyGroups(TeaModel):
             self.preempt_login_users = m.get('PreemptLoginUsers')
         if m.get('PrinterRedirection') is not None:
             self.printer_redirection = m.get('PrinterRedirection')
+        if m.get('RecordContent') is not None:
+            self.record_content = m.get('RecordContent')
+        if m.get('RecordContentExpires') is not None:
+            self.record_content_expires = m.get('RecordContentExpires')
         if m.get('Recording') is not None:
             self.recording = m.get('Recording')
         if m.get('RecordingEndTime') is not None:
             self.recording_end_time = m.get('RecordingEndTime')
+        if m.get('RecordingExpires') is not None:
+            self.recording_expires = m.get('RecordingExpires')
         if m.get('RecordingFps') is not None:
             self.recording_fps = m.get('RecordingFps')
         if m.get('RecordingStartTime') is not None:
@@ -11426,178 +12501,9 @@ class DescribePolicyGroupsResponse(TeaModel):
         return self
 
 
-class DescribeRecordingsRequest(TeaModel):
-    def __init__(self, max_results=None, next_token=None, region_id=None):
-        self.max_results = max_results  # type: int
-        self.next_token = next_token  # type: str
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeRecordingsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class DescribeRecordingsResponseBodyRecordings(TeaModel):
-    def __init__(self, desktop_id=None, end_time=None, end_user_ids=None, file_path=None, recording_size=None,
-                 recording_type=None, start_time=None):
-        self.desktop_id = desktop_id  # type: str
-        self.end_time = end_time  # type: str
-        self.end_user_ids = end_user_ids  # type: list[str]
-        self.file_path = file_path  # type: str
-        self.recording_size = recording_size  # type: int
-        self.recording_type = recording_type  # type: str
-        self.start_time = start_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeRecordingsResponseBodyRecordings, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.desktop_id is not None:
-            result['DesktopId'] = self.desktop_id
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.end_user_ids is not None:
-            result['EndUserIds'] = self.end_user_ids
-        if self.file_path is not None:
-            result['FilePath'] = self.file_path
-        if self.recording_size is not None:
-            result['RecordingSize'] = self.recording_size
-        if self.recording_type is not None:
-            result['RecordingType'] = self.recording_type
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DesktopId') is not None:
-            self.desktop_id = m.get('DesktopId')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('EndUserIds') is not None:
-            self.end_user_ids = m.get('EndUserIds')
-        if m.get('FilePath') is not None:
-            self.file_path = m.get('FilePath')
-        if m.get('RecordingSize') is not None:
-            self.recording_size = m.get('RecordingSize')
-        if m.get('RecordingType') is not None:
-            self.recording_type = m.get('RecordingType')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        return self
-
-
-class DescribeRecordingsResponseBody(TeaModel):
-    def __init__(self, next_token=None, recordings=None, request_id=None):
-        self.next_token = next_token  # type: str
-        self.recordings = recordings  # type: list[DescribeRecordingsResponseBodyRecordings]
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.recordings:
-            for k in self.recordings:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeRecordingsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        result['Recordings'] = []
-        if self.recordings is not None:
-            for k in self.recordings:
-                result['Recordings'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        self.recordings = []
-        if m.get('Recordings') is not None:
-            for k in m.get('Recordings'):
-                temp_model = DescribeRecordingsResponseBodyRecordings()
-                self.recordings.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DescribeRecordingsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DescribeRecordingsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeRecordingsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DescribeRecordingsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeRegionsRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, accept_language=None, region_id=None):
+        self.accept_language = accept_language  # type: str
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11609,19 +12515,24 @@ class DescribeRegionsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
 
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
-    def __init__(self, region_endpoint=None, region_id=None):
+    def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        self.local_name = local_name  # type: str
         self.region_endpoint = region_endpoint  # type: str
         self.region_id = region_id  # type: str
 
@@ -11634,6 +12545,8 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
             return _map
 
         result = dict()
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
         if self.region_endpoint is not None:
             result['RegionEndpoint'] = self.region_endpoint
         if self.region_id is not None:
@@ -11642,6 +12555,8 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
         if m.get('RegionEndpoint') is not None:
             self.region_endpoint = m.get('RegionEndpoint')
         if m.get('RegionId') is not None:
@@ -12160,13 +13075,14 @@ class DescribeSnapshotsRequest(TeaModel):
 
 
 class DescribeSnapshotsResponseBodySnapshots(TeaModel):
-    def __init__(self, creation_time=None, description=None, desktop_id=None, progress=None, remain_time=None,
-                 snapshot_id=None, snapshot_name=None, snapshot_type=None, source_disk_size=None, source_disk_type=None,
-                 status=None, volume_encryption_enabled=None, volume_encryption_key=None):
+    def __init__(self, creation_time=None, description=None, desktop_id=None, progress=None, protocol_type=None,
+                 remain_time=None, snapshot_id=None, snapshot_name=None, snapshot_type=None, source_disk_size=None,
+                 source_disk_type=None, status=None, volume_encryption_enabled=None, volume_encryption_key=None):
         self.creation_time = creation_time  # type: str
         self.description = description  # type: str
         self.desktop_id = desktop_id  # type: str
         self.progress = progress  # type: str
+        self.protocol_type = protocol_type  # type: str
         self.remain_time = remain_time  # type: int
         self.snapshot_id = snapshot_id  # type: str
         self.snapshot_name = snapshot_name  # type: str
@@ -12194,6 +13110,8 @@ class DescribeSnapshotsResponseBodySnapshots(TeaModel):
             result['DesktopId'] = self.desktop_id
         if self.progress is not None:
             result['Progress'] = self.progress
+        if self.protocol_type is not None:
+            result['ProtocolType'] = self.protocol_type
         if self.remain_time is not None:
             result['RemainTime'] = self.remain_time
         if self.snapshot_id is not None:
@@ -12224,6 +13142,8 @@ class DescribeSnapshotsResponseBodySnapshots(TeaModel):
             self.desktop_id = m.get('DesktopId')
         if m.get('Progress') is not None:
             self.progress = m.get('Progress')
+        if m.get('ProtocolType') is not None:
+            self.protocol_type = m.get('ProtocolType')
         if m.get('RemainTime') is not None:
             self.remain_time = m.get('RemainTime')
         if m.get('SnapshotId') is not None:
@@ -13370,7 +14290,7 @@ class DescribeUsersInGroupResponseBodyEndUsersUserSetPropertiesModels(TeaModel):
 class DescribeUsersInGroupResponseBodyEndUsers(TeaModel):
     def __init__(self, connection_status=None, desktop_id=None, desktop_name=None, end_user_email=None,
                  end_user_id=None, end_user_name=None, end_user_phone=None, end_user_type=None, external_info=None,
-                 user_set_properties_models=None):
+                 user_desktop_id=None, user_set_properties_models=None):
         self.connection_status = connection_status  # type: str
         self.desktop_id = desktop_id  # type: str
         self.desktop_name = desktop_name  # type: str
@@ -13380,6 +14300,7 @@ class DescribeUsersInGroupResponseBodyEndUsers(TeaModel):
         self.end_user_phone = end_user_phone  # type: str
         self.end_user_type = end_user_type  # type: str
         self.external_info = external_info  # type: DescribeUsersInGroupResponseBodyEndUsersExternalInfo
+        self.user_desktop_id = user_desktop_id  # type: str
         self.user_set_properties_models = user_set_properties_models  # type: list[DescribeUsersInGroupResponseBodyEndUsersUserSetPropertiesModels]
 
     def validate(self):
@@ -13414,6 +14335,8 @@ class DescribeUsersInGroupResponseBodyEndUsers(TeaModel):
             result['EndUserType'] = self.end_user_type
         if self.external_info is not None:
             result['ExternalInfo'] = self.external_info.to_map()
+        if self.user_desktop_id is not None:
+            result['UserDesktopId'] = self.user_desktop_id
         result['UserSetPropertiesModels'] = []
         if self.user_set_properties_models is not None:
             for k in self.user_set_properties_models:
@@ -13441,6 +14364,8 @@ class DescribeUsersInGroupResponseBodyEndUsers(TeaModel):
         if m.get('ExternalInfo') is not None:
             temp_model = DescribeUsersInGroupResponseBodyEndUsersExternalInfo()
             self.external_info = temp_model.from_map(m['ExternalInfo'])
+        if m.get('UserDesktopId') is not None:
+            self.user_desktop_id = m.get('UserDesktopId')
         self.user_set_properties_models = []
         if m.get('UserSetPropertiesModels') is not None:
             for k in m.get('UserSetPropertiesModels'):
@@ -13536,6 +14461,145 @@ class DescribeUsersInGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeUsersInGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeUsersPasswordRequest(TeaModel):
+    def __init__(self, desktop_id=None, region_id=None):
+        self.desktop_id = desktop_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUsersPasswordRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_id is not None:
+            result['DesktopId'] = self.desktop_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopId') is not None:
+            self.desktop_id = m.get('DesktopId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeUsersPasswordResponseBodyDesktopUsers(TeaModel):
+    def __init__(self, display_name=None, end_user_id=None, password=None):
+        self.display_name = display_name  # type: str
+        self.end_user_id = end_user_id  # type: str
+        self.password = password  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUsersPasswordResponseBodyDesktopUsers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
+        if self.end_user_id is not None:
+            result['EndUserId'] = self.end_user_id
+        if self.password is not None:
+            result['Password'] = self.password
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
+        if m.get('EndUserId') is not None:
+            self.end_user_id = m.get('EndUserId')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        return self
+
+
+class DescribeUsersPasswordResponseBody(TeaModel):
+    def __init__(self, desktop_users=None, request_id=None):
+        self.desktop_users = desktop_users  # type: list[DescribeUsersPasswordResponseBodyDesktopUsers]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.desktop_users:
+            for k in self.desktop_users:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeUsersPasswordResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DesktopUsers'] = []
+        if self.desktop_users is not None:
+            for k in self.desktop_users:
+                result['DesktopUsers'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.desktop_users = []
+        if m.get('DesktopUsers') is not None:
+            for k in m.get('DesktopUsers'):
+                temp_model = DescribeUsersPasswordResponseBodyDesktopUsers()
+                self.desktop_users.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeUsersPasswordResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeUsersPasswordResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeUsersPasswordResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeUsersPasswordResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -13885,12 +14949,13 @@ class DescribeVulDetailsResponse(TeaModel):
 
 
 class DescribeVulListRequest(TeaModel):
-    def __init__(self, alias_name=None, current_page=None, dealed=None, lang=None, necessity=None,
+    def __init__(self, alias_name=None, current_page=None, dealed=None, lang=None, name=None, necessity=None,
                  office_site_id=None, page_size=None, region_id=None, type=None):
         self.alias_name = alias_name  # type: str
         self.current_page = current_page  # type: int
         self.dealed = dealed  # type: str
         self.lang = lang  # type: str
+        self.name = name  # type: str
         self.necessity = necessity  # type: str
         self.office_site_id = office_site_id  # type: str
         self.page_size = page_size  # type: int
@@ -13914,6 +14979,8 @@ class DescribeVulListRequest(TeaModel):
             result['Dealed'] = self.dealed
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.name is not None:
+            result['Name'] = self.name
         if self.necessity is not None:
             result['Necessity'] = self.necessity
         if self.office_site_id is not None:
@@ -13936,6 +15003,8 @@ class DescribeVulListRequest(TeaModel):
             self.dealed = m.get('Dealed')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Necessity') is not None:
             self.necessity = m.get('Necessity')
         if m.get('OfficeSiteId') is not None:
@@ -14588,7 +15657,6 @@ class DisableDesktopsInGroupRequest(TeaModel):
 
 class DisableDesktopsInGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15398,8 +16466,9 @@ class GetDesktopGroupDetailRequest(TeaModel):
 
 
 class GetDesktopGroupDetailResponseBodyDesktopsTimerInfos(TeaModel):
-    def __init__(self, cron_expression=None, status=None, timer_type=None):
+    def __init__(self, cron_expression=None, forced=None, status=None, timer_type=None):
         self.cron_expression = cron_expression  # type: str
+        self.forced = forced  # type: bool
         self.status = status  # type: int
         self.timer_type = timer_type  # type: int
 
@@ -15414,6 +16483,8 @@ class GetDesktopGroupDetailResponseBodyDesktopsTimerInfos(TeaModel):
         result = dict()
         if self.cron_expression is not None:
             result['CronExpression'] = self.cron_expression
+        if self.forced is not None:
+            result['Forced'] = self.forced
         if self.status is not None:
             result['Status'] = self.status
         if self.timer_type is not None:
@@ -15424,6 +16495,8 @@ class GetDesktopGroupDetailResponseBodyDesktopsTimerInfos(TeaModel):
         m = m or dict()
         if m.get('CronExpression') is not None:
             self.cron_expression = m.get('CronExpression')
+        if m.get('Forced') is not None:
+            self.forced = m.get('Forced')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TimerType') is not None:
@@ -15432,17 +16505,19 @@ class GetDesktopGroupDetailResponseBodyDesktopsTimerInfos(TeaModel):
 
 
 class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
-    def __init__(self, allow_auto_setup=None, allow_buffer_count=None, bind_amount=None, comments=None, cpu=None,
-                 creation_time=None, creator=None, data_disk_category=None, data_disk_size=None, desktop_group_id=None,
-                 desktop_group_name=None, directory_id=None, directory_type=None, expired_time=None, gpu_count=None, gpu_spec=None,
-                 keep_duration=None, load_policy=None, max_desktops_count=None, memory=None, min_desktops_count=None,
-                 office_site_id=None, office_site_name=None, office_site_type=None, own_bundle_id=None, own_bundle_name=None,
-                 own_type=None, pay_type=None, policy_group_id=None, policy_group_name=None, res_type=None, reset_type=None,
-                 status=None, system_disk_category=None, system_disk_size=None, timer_infos=None):
+    def __init__(self, allow_auto_setup=None, allow_buffer_count=None, bind_amount=None, comments=None,
+                 connect_duration=None, cpu=None, creation_time=None, creator=None, data_disk_category=None, data_disk_size=None,
+                 desktop_group_id=None, desktop_group_name=None, directory_id=None, directory_type=None, expired_time=None,
+                 gpu_count=None, gpu_spec=None, idle_disconnect_duration=None, keep_duration=None, load_policy=None,
+                 max_desktops_count=None, memory=None, min_desktops_count=None, office_site_id=None, office_site_name=None,
+                 office_site_type=None, own_bundle_id=None, own_bundle_name=None, own_type=None, pay_type=None, policy_group_id=None,
+                 policy_group_name=None, ratio_threshold=None, res_type=None, reset_type=None, status=None, stop_duration=None,
+                 system_disk_category=None, system_disk_size=None, timer_infos=None, version=None):
         self.allow_auto_setup = allow_auto_setup  # type: int
         self.allow_buffer_count = allow_buffer_count  # type: int
         self.bind_amount = bind_amount  # type: int
         self.comments = comments  # type: str
+        self.connect_duration = connect_duration  # type: long
         self.cpu = cpu  # type: int
         self.creation_time = creation_time  # type: str
         self.creator = creator  # type: str
@@ -15455,6 +16530,7 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
         self.expired_time = expired_time  # type: str
         self.gpu_count = gpu_count  # type: float
         self.gpu_spec = gpu_spec  # type: str
+        self.idle_disconnect_duration = idle_disconnect_duration  # type: long
         self.keep_duration = keep_duration  # type: long
         self.load_policy = load_policy  # type: int
         self.max_desktops_count = max_desktops_count  # type: int
@@ -15469,12 +16545,15 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
         self.pay_type = pay_type  # type: str
         self.policy_group_id = policy_group_id  # type: str
         self.policy_group_name = policy_group_name  # type: str
+        self.ratio_threshold = ratio_threshold  # type: float
         self.res_type = res_type  # type: int
         self.reset_type = reset_type  # type: int
         self.status = status  # type: int
+        self.stop_duration = stop_duration  # type: long
         self.system_disk_category = system_disk_category  # type: str
         self.system_disk_size = system_disk_size  # type: int
         self.timer_infos = timer_infos  # type: list[GetDesktopGroupDetailResponseBodyDesktopsTimerInfos]
+        self.version = version  # type: long
 
     def validate(self):
         if self.timer_infos:
@@ -15496,6 +16575,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             result['BindAmount'] = self.bind_amount
         if self.comments is not None:
             result['Comments'] = self.comments
+        if self.connect_duration is not None:
+            result['ConnectDuration'] = self.connect_duration
         if self.cpu is not None:
             result['Cpu'] = self.cpu
         if self.creation_time is not None:
@@ -15520,6 +16601,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             result['GpuCount'] = self.gpu_count
         if self.gpu_spec is not None:
             result['GpuSpec'] = self.gpu_spec
+        if self.idle_disconnect_duration is not None:
+            result['IdleDisconnectDuration'] = self.idle_disconnect_duration
         if self.keep_duration is not None:
             result['KeepDuration'] = self.keep_duration
         if self.load_policy is not None:
@@ -15548,12 +16631,16 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             result['PolicyGroupId'] = self.policy_group_id
         if self.policy_group_name is not None:
             result['PolicyGroupName'] = self.policy_group_name
+        if self.ratio_threshold is not None:
+            result['RatioThreshold'] = self.ratio_threshold
         if self.res_type is not None:
             result['ResType'] = self.res_type
         if self.reset_type is not None:
             result['ResetType'] = self.reset_type
         if self.status is not None:
             result['Status'] = self.status
+        if self.stop_duration is not None:
+            result['StopDuration'] = self.stop_duration
         if self.system_disk_category is not None:
             result['SystemDiskCategory'] = self.system_disk_category
         if self.system_disk_size is not None:
@@ -15562,6 +16649,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
         if self.timer_infos is not None:
             for k in self.timer_infos:
                 result['TimerInfos'].append(k.to_map() if k else None)
+        if self.version is not None:
+            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -15574,6 +16663,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             self.bind_amount = m.get('BindAmount')
         if m.get('Comments') is not None:
             self.comments = m.get('Comments')
+        if m.get('ConnectDuration') is not None:
+            self.connect_duration = m.get('ConnectDuration')
         if m.get('Cpu') is not None:
             self.cpu = m.get('Cpu')
         if m.get('CreationTime') is not None:
@@ -15598,6 +16689,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             self.gpu_count = m.get('GpuCount')
         if m.get('GpuSpec') is not None:
             self.gpu_spec = m.get('GpuSpec')
+        if m.get('IdleDisconnectDuration') is not None:
+            self.idle_disconnect_duration = m.get('IdleDisconnectDuration')
         if m.get('KeepDuration') is not None:
             self.keep_duration = m.get('KeepDuration')
         if m.get('LoadPolicy') is not None:
@@ -15626,12 +16719,16 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             self.policy_group_id = m.get('PolicyGroupId')
         if m.get('PolicyGroupName') is not None:
             self.policy_group_name = m.get('PolicyGroupName')
+        if m.get('RatioThreshold') is not None:
+            self.ratio_threshold = m.get('RatioThreshold')
         if m.get('ResType') is not None:
             self.res_type = m.get('ResType')
         if m.get('ResetType') is not None:
             self.reset_type = m.get('ResetType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StopDuration') is not None:
+            self.stop_duration = m.get('StopDuration')
         if m.get('SystemDiskCategory') is not None:
             self.system_disk_category = m.get('SystemDiskCategory')
         if m.get('SystemDiskSize') is not None:
@@ -15641,6 +16738,8 @@ class GetDesktopGroupDetailResponseBodyDesktops(TeaModel):
             for k in m.get('TimerInfos'):
                 temp_model = GetDesktopGroupDetailResponseBodyDesktopsTimerInfos()
                 self.timer_infos.append(temp_model.from_map(k))
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -17429,6 +18528,108 @@ class ModifyBundleResponse(TeaModel):
         return self
 
 
+class ModifyCloudDrivePermissionRequest(TeaModel):
+    def __init__(self, cds_id=None, download_end_user_ids=None, download_upload_end_user_ids=None, region_id=None):
+        self.cds_id = cds_id  # type: str
+        self.download_end_user_ids = download_end_user_ids  # type: list[str]
+        self.download_upload_end_user_ids = download_upload_end_user_ids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyCloudDrivePermissionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cds_id is not None:
+            result['CdsId'] = self.cds_id
+        if self.download_end_user_ids is not None:
+            result['DownloadEndUserIds'] = self.download_end_user_ids
+        if self.download_upload_end_user_ids is not None:
+            result['DownloadUploadEndUserIds'] = self.download_upload_end_user_ids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CdsId') is not None:
+            self.cds_id = m.get('CdsId')
+        if m.get('DownloadEndUserIds') is not None:
+            self.download_end_user_ids = m.get('DownloadEndUserIds')
+        if m.get('DownloadUploadEndUserIds') is not None:
+            self.download_upload_end_user_ids = m.get('DownloadUploadEndUserIds')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyCloudDrivePermissionResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyCloudDrivePermissionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyCloudDrivePermissionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyCloudDrivePermissionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyCloudDrivePermissionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyCloudDrivePermissionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyDesktopChargeTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, charge_type=None, desktop_id=None, period=None, period_unit=None,
                  promotion_id=None, region_id=None):
@@ -17559,16 +18760,20 @@ class ModifyDesktopChargeTypeResponse(TeaModel):
 
 class ModifyDesktopGroupRequest(TeaModel):
     def __init__(self, allow_auto_setup=None, allow_buffer_count=None, bind_amount=None, classify=None,
-                 comments=None, desktop_group_id=None, desktop_group_name=None, image_id=None, keep_duration=None,
-                 load_policy=None, max_desktops_count=None, min_desktops_count=None, own_bundle_id=None, policy_group_id=None,
-                 region_id=None, reset_type=None, scale_strategy_id=None):
+                 comments=None, connect_duration=None, desktop_group_id=None, desktop_group_name=None,
+                 disable_session_config=None, idle_disconnect_duration=None, image_id=None, keep_duration=None, load_policy=None,
+                 max_desktops_count=None, min_desktops_count=None, own_bundle_id=None, policy_group_id=None, ratio_threshold=None,
+                 region_id=None, reset_type=None, scale_strategy_id=None, stop_duration=None):
         self.allow_auto_setup = allow_auto_setup  # type: int
         self.allow_buffer_count = allow_buffer_count  # type: int
         self.bind_amount = bind_amount  # type: long
         self.classify = classify  # type: str
         self.comments = comments  # type: str
+        self.connect_duration = connect_duration  # type: long
         self.desktop_group_id = desktop_group_id  # type: str
         self.desktop_group_name = desktop_group_name  # type: str
+        self.disable_session_config = disable_session_config  # type: bool
+        self.idle_disconnect_duration = idle_disconnect_duration  # type: long
         self.image_id = image_id  # type: str
         self.keep_duration = keep_duration  # type: long
         self.load_policy = load_policy  # type: long
@@ -17576,9 +18781,11 @@ class ModifyDesktopGroupRequest(TeaModel):
         self.min_desktops_count = min_desktops_count  # type: int
         self.own_bundle_id = own_bundle_id  # type: str
         self.policy_group_id = policy_group_id  # type: str
+        self.ratio_threshold = ratio_threshold  # type: float
         self.region_id = region_id  # type: str
         self.reset_type = reset_type  # type: long
         self.scale_strategy_id = scale_strategy_id  # type: str
+        self.stop_duration = stop_duration  # type: long
 
     def validate(self):
         pass
@@ -17599,10 +18806,16 @@ class ModifyDesktopGroupRequest(TeaModel):
             result['Classify'] = self.classify
         if self.comments is not None:
             result['Comments'] = self.comments
+        if self.connect_duration is not None:
+            result['ConnectDuration'] = self.connect_duration
         if self.desktop_group_id is not None:
             result['DesktopGroupId'] = self.desktop_group_id
         if self.desktop_group_name is not None:
             result['DesktopGroupName'] = self.desktop_group_name
+        if self.disable_session_config is not None:
+            result['DisableSessionConfig'] = self.disable_session_config
+        if self.idle_disconnect_duration is not None:
+            result['IdleDisconnectDuration'] = self.idle_disconnect_duration
         if self.image_id is not None:
             result['ImageId'] = self.image_id
         if self.keep_duration is not None:
@@ -17617,12 +18830,16 @@ class ModifyDesktopGroupRequest(TeaModel):
             result['OwnBundleId'] = self.own_bundle_id
         if self.policy_group_id is not None:
             result['PolicyGroupId'] = self.policy_group_id
+        if self.ratio_threshold is not None:
+            result['RatioThreshold'] = self.ratio_threshold
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.reset_type is not None:
             result['ResetType'] = self.reset_type
         if self.scale_strategy_id is not None:
             result['ScaleStrategyId'] = self.scale_strategy_id
+        if self.stop_duration is not None:
+            result['StopDuration'] = self.stop_duration
         return result
 
     def from_map(self, m=None):
@@ -17637,10 +18854,16 @@ class ModifyDesktopGroupRequest(TeaModel):
             self.classify = m.get('Classify')
         if m.get('Comments') is not None:
             self.comments = m.get('Comments')
+        if m.get('ConnectDuration') is not None:
+            self.connect_duration = m.get('ConnectDuration')
         if m.get('DesktopGroupId') is not None:
             self.desktop_group_id = m.get('DesktopGroupId')
         if m.get('DesktopGroupName') is not None:
             self.desktop_group_name = m.get('DesktopGroupName')
+        if m.get('DisableSessionConfig') is not None:
+            self.disable_session_config = m.get('DisableSessionConfig')
+        if m.get('IdleDisconnectDuration') is not None:
+            self.idle_disconnect_duration = m.get('IdleDisconnectDuration')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
         if m.get('KeepDuration') is not None:
@@ -17655,12 +18878,16 @@ class ModifyDesktopGroupRequest(TeaModel):
             self.own_bundle_id = m.get('OwnBundleId')
         if m.get('PolicyGroupId') is not None:
             self.policy_group_id = m.get('PolicyGroupId')
+        if m.get('RatioThreshold') is not None:
+            self.ratio_threshold = m.get('RatioThreshold')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResetType') is not None:
             self.reset_type = m.get('ResetType')
         if m.get('ScaleStrategyId') is not None:
             self.scale_strategy_id = m.get('ScaleStrategyId')
+        if m.get('StopDuration') is not None:
+            self.stop_duration = m.get('StopDuration')
         return self
 
 
@@ -19627,13 +20854,15 @@ class ModifyPolicyGroupRequestUsbSupplyRedirectRule(TeaModel):
 
 
 class ModifyPolicyGroupRequest(TeaModel):
-    def __init__(self, authorize_access_policy_rule=None, authorize_security_policy_rule=None,
-                 camera_redirect=None, client_type=None, clipboard=None, domain_list=None, gpu_acceleration=None, html_5access=None,
-                 html_5file_transfer=None, local_drive=None, name=None, net_redirect=None, policy_group_id=None, preempt_login=None,
-                 preempt_login_user=None, printer_redirection=None, recording=None, recording_end_time=None, recording_fps=None,
+    def __init__(self, app_content_protection=None, authorize_access_policy_rule=None,
+                 authorize_security_policy_rule=None, camera_redirect=None, client_type=None, clipboard=None, domain_list=None,
+                 gpu_acceleration=None, html_5access=None, html_5file_transfer=None, local_drive=None, name=None, net_redirect=None,
+                 policy_group_id=None, preempt_login=None, preempt_login_user=None, printer_redirection=None, record_content=None,
+                 record_content_expires=None, recording=None, recording_end_time=None, recording_expires=None, recording_fps=None,
                  recording_start_time=None, region_id=None, revoke_access_policy_rule=None, revoke_security_policy_rule=None,
                  usb_redirect=None, usb_supply_redirect_rule=None, visual_quality=None, watermark=None,
                  watermark_transparency=None, watermark_type=None):
+        self.app_content_protection = app_content_protection  # type: str
         self.authorize_access_policy_rule = authorize_access_policy_rule  # type: list[ModifyPolicyGroupRequestAuthorizeAccessPolicyRule]
         self.authorize_security_policy_rule = authorize_security_policy_rule  # type: list[ModifyPolicyGroupRequestAuthorizeSecurityPolicyRule]
         self.camera_redirect = camera_redirect  # type: str
@@ -19650,8 +20879,11 @@ class ModifyPolicyGroupRequest(TeaModel):
         self.preempt_login = preempt_login  # type: str
         self.preempt_login_user = preempt_login_user  # type: list[str]
         self.printer_redirection = printer_redirection  # type: str
+        self.record_content = record_content  # type: str
+        self.record_content_expires = record_content_expires  # type: long
         self.recording = recording  # type: str
         self.recording_end_time = recording_end_time  # type: str
+        self.recording_expires = recording_expires  # type: long
         self.recording_fps = recording_fps  # type: long
         self.recording_start_time = recording_start_time  # type: str
         self.region_id = region_id  # type: str
@@ -19696,6 +20928,8 @@ class ModifyPolicyGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.app_content_protection is not None:
+            result['AppContentProtection'] = self.app_content_protection
         result['AuthorizeAccessPolicyRule'] = []
         if self.authorize_access_policy_rule is not None:
             for k in self.authorize_access_policy_rule:
@@ -19734,10 +20968,16 @@ class ModifyPolicyGroupRequest(TeaModel):
             result['PreemptLoginUser'] = self.preempt_login_user
         if self.printer_redirection is not None:
             result['PrinterRedirection'] = self.printer_redirection
+        if self.record_content is not None:
+            result['RecordContent'] = self.record_content
+        if self.record_content_expires is not None:
+            result['RecordContentExpires'] = self.record_content_expires
         if self.recording is not None:
             result['Recording'] = self.recording
         if self.recording_end_time is not None:
             result['RecordingEndTime'] = self.recording_end_time
+        if self.recording_expires is not None:
+            result['RecordingExpires'] = self.recording_expires
         if self.recording_fps is not None:
             result['RecordingFps'] = self.recording_fps
         if self.recording_start_time is not None:
@@ -19770,6 +21010,8 @@ class ModifyPolicyGroupRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppContentProtection') is not None:
+            self.app_content_protection = m.get('AppContentProtection')
         self.authorize_access_policy_rule = []
         if m.get('AuthorizeAccessPolicyRule') is not None:
             for k in m.get('AuthorizeAccessPolicyRule'):
@@ -19811,10 +21053,16 @@ class ModifyPolicyGroupRequest(TeaModel):
             self.preempt_login_user = m.get('PreemptLoginUser')
         if m.get('PrinterRedirection') is not None:
             self.printer_redirection = m.get('PrinterRedirection')
+        if m.get('RecordContent') is not None:
+            self.record_content = m.get('RecordContent')
+        if m.get('RecordContentExpires') is not None:
+            self.record_content_expires = m.get('RecordContentExpires')
         if m.get('Recording') is not None:
             self.recording = m.get('Recording')
         if m.get('RecordingEndTime') is not None:
             self.recording_end_time = m.get('RecordingEndTime')
+        if m.get('RecordingExpires') is not None:
+            self.recording_expires = m.get('RecordingExpires')
         if m.get('RecordingFps') is not None:
             self.recording_fps = m.get('RecordingFps')
         if m.get('RecordingStartTime') is not None:
@@ -21417,6 +22665,241 @@ class SendVerifyCodeResponse(TeaModel):
         return self
 
 
+class SetDesktopGroupTimerRequest(TeaModel):
+    def __init__(self, cron_expression=None, desktop_group_id=None, force=None, region_id=None, reset_type=None,
+                 timer_type=None):
+        self.cron_expression = cron_expression  # type: str
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.force = force  # type: bool
+        self.region_id = region_id  # type: str
+        self.reset_type = reset_type  # type: int
+        self.timer_type = timer_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cron_expression is not None:
+            result['CronExpression'] = self.cron_expression
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.reset_type is not None:
+            result['ResetType'] = self.reset_type
+        if self.timer_type is not None:
+            result['TimerType'] = self.timer_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CronExpression') is not None:
+            self.cron_expression = m.get('CronExpression')
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResetType') is not None:
+            self.reset_type = m.get('ResetType')
+        if m.get('TimerType') is not None:
+            self.timer_type = m.get('TimerType')
+        return self
+
+
+class SetDesktopGroupTimerResponseBody(TeaModel):
+    def __init__(self, desktop_group_id=None, order_ids=None, request_id=None):
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.order_ids = order_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.order_ids is not None:
+            result['OrderIds'] = self.order_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('OrderIds') is not None:
+            self.order_ids = m.get('OrderIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDesktopGroupTimerResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetDesktopGroupTimerResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetDesktopGroupTimerResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDesktopGroupTimerStatusRequest(TeaModel):
+    def __init__(self, desktop_group_id=None, region_id=None, status=None, timer_type=None):
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: int
+        self.timer_type = timer_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.timer_type is not None:
+            result['TimerType'] = self.timer_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TimerType') is not None:
+            self.timer_type = m.get('TimerType')
+        return self
+
+
+class SetDesktopGroupTimerStatusResponseBody(TeaModel):
+    def __init__(self, desktop_group_id=None, order_ids=None, request_id=None):
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.order_ids = order_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.order_ids is not None:
+            result['OrderIds'] = self.order_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('OrderIds') is not None:
+            self.order_ids = m.get('OrderIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDesktopGroupTimerStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetDesktopGroupTimerStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDesktopGroupTimerStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetDesktopGroupTimerStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SetIdpMetadataRequest(TeaModel):
     def __init__(self, directory_id=None, idp_metadata=None, office_site_id=None, region_id=None):
         self.directory_id = directory_id  # type: str
@@ -22383,7 +23866,6 @@ class UpdateFotaTaskRequest(TeaModel):
 
 class UpdateFotaTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
