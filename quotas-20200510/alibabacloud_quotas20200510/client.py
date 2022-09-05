@@ -116,6 +116,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_quota_application_with_options(request, runtime)
 
+    def create_template_quota_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.desire_value):
+            body['DesireValue'] = request.desire_value
+        if not UtilClient.is_unset(request.dimensions):
+            body['Dimensions'] = request.dimensions
+        if not UtilClient.is_unset(request.env_language):
+            body['EnvLanguage'] = request.env_language
+        if not UtilClient.is_unset(request.notice_type):
+            body['NoticeType'] = request.notice_type
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.quota_action_code):
+            body['QuotaActionCode'] = request.quota_action_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTemplateQuotaItem',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.CreateTemplateQuotaItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_template_quota_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_template_quota_item_with_options(request, runtime)
+
     def delete_quota_alarm_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -143,6 +181,34 @@ class Client(OpenApiClient):
     def delete_quota_alarm(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_quota_alarm_with_options(request, runtime)
+
+    def delete_template_quota_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteTemplateQuotaItem',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.DeleteTemplateQuotaItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_template_quota_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_template_quota_item_with_options(request, runtime)
 
     def get_product_quota_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -263,6 +329,34 @@ class Client(OpenApiClient):
     def get_quota_application(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_quota_application_with_options(request, runtime)
+
+    def get_quota_template_service_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.resource_directory_id):
+            body['ResourceDirectoryId'] = request.resource_directory_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetQuotaTemplateServiceStatus',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.GetQuotaTemplateServiceStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_quota_template_service_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_quota_template_service_status_with_options(request, runtime)
 
     def list_alarm_histories_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -512,6 +606,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_quota_alarms_with_options(request, runtime)
 
+    def list_quota_application_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        body = {}
+        if not UtilClient.is_unset(request.dimensions):
+            body['Dimensions'] = request.dimensions
+        if not UtilClient.is_unset(request.max_results):
+            body['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.quota_action_code):
+            body['QuotaActionCode'] = request.quota_action_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListQuotaApplicationTemplates',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.ListQuotaApplicationTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_quota_application_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_quota_application_templates_with_options(request, runtime)
+
     def list_quota_applications_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -553,6 +685,74 @@ class Client(OpenApiClient):
     def list_quota_applications(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_quota_applications_with_options(request, runtime)
+
+    def modify_quota_template_service_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service_status):
+            body['ServiceStatus'] = request.service_status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyQuotaTemplateServiceStatus',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.ModifyQuotaTemplateServiceStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_quota_template_service_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_quota_template_service_status_with_options(request, runtime)
+
+    def modify_template_quota_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.desire_value):
+            body['DesireValue'] = request.desire_value
+        if not UtilClient.is_unset(request.dimensions):
+            body['Dimensions'] = request.dimensions
+        if not UtilClient.is_unset(request.env_language):
+            body['EnvLanguage'] = request.env_language
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.notice_type):
+            body['NoticeType'] = request.notice_type
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.quota_action_code):
+            body['QuotaActionCode'] = request.quota_action_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyTemplateQuotaItem',
+            version='2020-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quotas_20200510_models.ModifyTemplateQuotaItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_template_quota_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_template_quota_item_with_options(request, runtime)
 
     def update_quota_alarm_with_options(self, request, runtime):
         UtilClient.validate_model(request)
