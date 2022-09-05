@@ -150,12 +150,14 @@ class AssumeRoleResponseBody(TeaModel):
 
 
 class AssumeRoleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AssumeRoleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -168,6 +170,8 @@ class AssumeRoleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -176,6 +180,8 @@ class AssumeRoleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AssumeRoleResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -185,17 +191,11 @@ class AssumeRoleResponse(TeaModel):
 class AssumeRoleWithOIDCRequest(TeaModel):
     def __init__(self, duration_seconds=None, oidcprovider_arn=None, oidctoken=None, policy=None, role_arn=None,
                  role_session_name=None):
-        # Session过期时间，单位为秒。
         self.duration_seconds = duration_seconds  # type: long
-        # OIDC Provider的ARN
         self.oidcprovider_arn = oidcprovider_arn  # type: str
-        # OIDC的ID Token，需输入原始Token，无需Base64解码
         self.oidctoken = oidctoken  # type: str
-        # 权限策略。 生成STS Token时可以指定一个额外的权限策略，以进一步限制STS Token的权限。若不指定则返回的Token拥有指定角色的所有权限。
         self.policy = policy  # type: str
-        # 需要扮演的角色的ARN
         self.role_arn = role_arn  # type: str
-        # 用户自定义参数。此参数用来区分不同的令牌，可用于用户级别的访问审计。
         self.role_session_name = role_session_name  # type: str
 
     def validate(self):
@@ -388,12 +388,14 @@ class AssumeRoleWithOIDCResponseBody(TeaModel):
 
 
 class AssumeRoleWithOIDCResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AssumeRoleWithOIDCResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -406,6 +408,8 @@ class AssumeRoleWithOIDCResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -414,6 +418,8 @@ class AssumeRoleWithOIDCResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AssumeRoleWithOIDCResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -619,12 +625,14 @@ class AssumeRoleWithSAMLResponseBody(TeaModel):
 
 
 class AssumeRoleWithSAMLResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AssumeRoleWithSAMLResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -637,6 +645,8 @@ class AssumeRoleWithSAMLResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -645,6 +655,8 @@ class AssumeRoleWithSAMLResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AssumeRoleWithSAMLResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -707,12 +719,14 @@ class GetCallerIdentityResponseBody(TeaModel):
 
 
 class GetCallerIdentityResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetCallerIdentityResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -725,6 +739,8 @@ class GetCallerIdentityResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -733,6 +749,8 @@ class GetCallerIdentityResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetCallerIdentityResponseBody()
             self.body = temp_model.from_map(m['body'])

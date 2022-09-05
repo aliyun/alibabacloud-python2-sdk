@@ -1,3 +1,6 @@
+2022-09-05 Version: 1.0.2
+- Generated python2 2015-04-01 for Sts.
+
 2022-03-26 Version: 1.0.1
 - Generated python2 2015-04-01 for Sts.
 
