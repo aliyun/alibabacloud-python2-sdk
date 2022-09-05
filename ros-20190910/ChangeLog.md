@@ -1,3 +1,6 @@
+2022-09-05 Version: 2.2.9
+- Ros supports pre config.
+
 2022-07-21 Version: 2.2.8
 - GetTemplateSummary support Parameters and ClientToken.
 

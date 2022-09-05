@@ -2158,8 +2158,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.move_resource_group_with_options(request, runtime)
 
-    def preview_stack_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def preview_stack_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ros20190910_models.PreviewStackShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.resource_config_rules):
+            request.resource_config_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_config_rules, 'ResourceConfigRules', 'json')
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
@@ -2171,6 +2175,8 @@ class Client(OpenApiClient):
             query['Parameters'] = request.parameters
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_config_rules_shrink):
+            query['ResourceConfigRules'] = request.resource_config_rules_shrink
         if not UtilClient.is_unset(request.stack_id):
             query['StackId'] = request.stack_id
         if not UtilClient.is_unset(request.stack_name):
