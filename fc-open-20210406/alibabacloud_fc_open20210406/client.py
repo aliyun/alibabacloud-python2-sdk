@@ -2445,7 +2445,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='string'
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PutLayerACLResponse(),

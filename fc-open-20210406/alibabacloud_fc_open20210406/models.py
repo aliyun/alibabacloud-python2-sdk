@@ -10844,15 +10844,13 @@ class PutLayerACLRequest(TeaModel):
 
 
 class PutLayerACLResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
+    def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
-        self.body = body  # type: str
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
         self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
 
     def to_map(self):
         _map = super(PutLayerACLResponse, self).to_map()
@@ -10864,8 +10862,6 @@ class PutLayerACLResponse(TeaModel):
             result['headers'] = self.headers
         if self.status_code is not None:
             result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
@@ -10874,8 +10870,6 @@ class PutLayerACLResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            self.body = m.get('body')
         return self
 
 
