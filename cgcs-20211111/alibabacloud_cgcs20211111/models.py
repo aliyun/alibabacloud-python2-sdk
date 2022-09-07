@@ -2960,10 +2960,39 @@ class GetReserveTaskDetailRequest(TeaModel):
         return self
 
 
+class GetReserveTaskDetailResponseBodyResBatchList(TeaModel):
+    def __init__(self, res_batch_id=None, res_batch_tag_name=None):
+        self.res_batch_id = res_batch_id  # type: str
+        self.res_batch_tag_name = res_batch_tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetReserveTaskDetailResponseBodyResBatchList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.res_batch_id is not None:
+            result['ResBatchId'] = self.res_batch_id
+        if self.res_batch_tag_name is not None:
+            result['ResBatchTagName'] = self.res_batch_tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResBatchId') is not None:
+            self.res_batch_id = m.get('ResBatchId')
+        if m.get('ResBatchTagName') is not None:
+            self.res_batch_tag_name = m.get('ResBatchTagName')
+        return self
+
+
 class GetReserveTaskDetailResponseBody(TeaModel):
     def __init__(self, app_id=None, app_version=None, curr_completed_session_capacity=None, district_id=None,
-                 expect_resource_ready_time=None, expect_session_capacity=None, project_id=None, request_id=None, task_id=None,
-                 task_status=None):
+                 expect_resource_ready_time=None, expect_session_capacity=None, project_id=None, request_id=None, res_batch_list=None,
+                 task_id=None, task_status=None):
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
         self.curr_completed_session_capacity = curr_completed_session_capacity  # type: int
@@ -2972,11 +3001,15 @@ class GetReserveTaskDetailResponseBody(TeaModel):
         self.expect_session_capacity = expect_session_capacity  # type: int
         self.project_id = project_id  # type: str
         self.request_id = request_id  # type: str
+        self.res_batch_list = res_batch_list  # type: list[GetReserveTaskDetailResponseBodyResBatchList]
         self.task_id = task_id  # type: str
         self.task_status = task_status  # type: str
 
     def validate(self):
-        pass
+        if self.res_batch_list:
+            for k in self.res_batch_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetReserveTaskDetailResponseBody, self).to_map()
@@ -3000,6 +3033,10 @@ class GetReserveTaskDetailResponseBody(TeaModel):
             result['ProjectId'] = self.project_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        result['ResBatchList'] = []
+        if self.res_batch_list is not None:
+            for k in self.res_batch_list:
+                result['ResBatchList'].append(k.to_map() if k else None)
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_status is not None:
@@ -3024,6 +3061,11 @@ class GetReserveTaskDetailResponseBody(TeaModel):
             self.project_id = m.get('ProjectId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        self.res_batch_list = []
+        if m.get('ResBatchList') is not None:
+            for k in m.get('ResBatchList'):
+                temp_model = GetReserveTaskDetailResponseBodyResBatchList()
+                self.res_batch_list.append(temp_model.from_map(k))
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskStatus') is not None:
@@ -4110,6 +4152,93 @@ class ReleaseCapacityResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReleaseCapacityResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReleaseCapacityByBatchRequest(TeaModel):
+    def __init__(self, res_batch_id=None):
+        self.res_batch_id = res_batch_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseCapacityByBatchRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.res_batch_id is not None:
+            result['ResBatchId'] = self.res_batch_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResBatchId') is not None:
+            self.res_batch_id = m.get('ResBatchId')
+        return self
+
+
+class ReleaseCapacityByBatchResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseCapacityByBatchResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReleaseCapacityByBatchResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReleaseCapacityByBatchResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReleaseCapacityByBatchResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReleaseCapacityByBatchResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

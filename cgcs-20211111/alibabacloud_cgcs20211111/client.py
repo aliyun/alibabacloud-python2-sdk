@@ -816,6 +816,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_capacity_with_options(request, runtime)
 
+    def release_capacity_by_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.res_batch_id):
+            body['ResBatchId'] = request.res_batch_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReleaseCapacityByBatch',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ReleaseCapacityByBatchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_capacity_by_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_capacity_by_batch_with_options(request, runtime)
+
     def stop_app_session_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = cgcs20211111_models.StopAppSessionShrinkRequest()
