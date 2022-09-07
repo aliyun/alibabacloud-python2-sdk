@@ -455,18 +455,133 @@ class AssociateVSwitchWithIoTCloudConnectorResponse(TeaModel):
         return self
 
 
+class ConfirmIoTCloudConnectorRequest(TeaModel):
+    def __init__(self, client_token=None, confirm_status=None, dry_run=None, io_tcloud_connector_id=None,
+                 region_id=None):
+        self.client_token = client_token  # type: str
+        self.confirm_status = confirm_status  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmIoTCloudConnectorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.confirm_status is not None:
+            result['ConfirmStatus'] = self.confirm_status
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('ConfirmStatus') is not None:
+            self.confirm_status = m.get('ConfirmStatus')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ConfirmIoTCloudConnectorResponseBody(TeaModel):
+    def __init__(self, request_id=None, resource_id=None):
+        self.request_id = request_id  # type: str
+        self.resource_id = resource_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmIoTCloudConnectorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        return self
+
+
+class ConfirmIoTCloudConnectorResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ConfirmIoTCloudConnectorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ConfirmIoTCloudConnectorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ConfirmIoTCloudConnectorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_name=None, client_token=None,
-                 destination=None, destination_type=None, dry_run=None, io_tcloud_connector_id=None, policy=None,
-                 region_id=None, source_cidrs=None):
+                 destination=None, destination_port=None, destination_type=None, dry_run=None, io_tcloud_connector_id=None,
+                 policy=None, protocol=None, region_id=None, source_cidrs=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.client_token = client_token  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dry_run = dry_run  # type: bool
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.region_id = region_id  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
 
@@ -487,6 +602,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dry_run is not None:
@@ -495,6 +612,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.source_cidrs is not None:
@@ -511,6 +630,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DryRun') is not None:
@@ -519,6 +640,8 @@ class CreateAuthorizationRuleRequest(TeaModel):
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SourceCidrs') is not None:
@@ -590,6 +713,187 @@ class CreateAuthorizationRuleResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateAuthorizationRulesRequestAuthorizationRules(TeaModel):
+    def __init__(self, description=None, destination=None, destination_port=None, destination_type=None, name=None,
+                 policy=None, protocol=None, source_cidr=None):
+        self.description = description  # type: str
+        self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
+        self.destination_type = destination_type  # type: str
+        self.name = name  # type: str
+        self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
+        self.source_cidr = source_cidr  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAuthorizationRulesRequestAuthorizationRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.source_cidr is not None:
+            result['SourceCidr'] = self.source_cidr
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('SourceCidr') is not None:
+            self.source_cidr = m.get('SourceCidr')
+        return self
+
+
+class CreateAuthorizationRulesRequest(TeaModel):
+    def __init__(self, authorization_rules=None, client_token=None, dry_run=None, io_tcloud_connector_id=None,
+                 region_id=None):
+        self.authorization_rules = authorization_rules  # type: list[CreateAuthorizationRulesRequestAuthorizationRules]
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        if self.authorization_rules:
+            for k in self.authorization_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateAuthorizationRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AuthorizationRules'] = []
+        if self.authorization_rules is not None:
+            for k in self.authorization_rules:
+                result['AuthorizationRules'].append(k.to_map() if k else None)
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.authorization_rules = []
+        if m.get('AuthorizationRules') is not None:
+            for k in m.get('AuthorizationRules'):
+                temp_model = CreateAuthorizationRulesRequestAuthorizationRules()
+                self.authorization_rules.append(temp_model.from_map(k))
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateAuthorizationRulesResponseBody(TeaModel):
+    def __init__(self, authorization_rule_ids=None, request_id=None):
+        self.authorization_rule_ids = authorization_rule_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAuthorizationRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_ids is not None:
+            result['AuthorizationRuleIds'] = self.authorization_rule_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleIds') is not None:
+            self.authorization_rule_ids = m.get('AuthorizationRuleIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateAuthorizationRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateAuthorizationRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateAuthorizationRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateAuthorizationRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -857,16 +1161,18 @@ class CreateDNSServiceRuleResponse(TeaModel):
 
 class CreateGroupAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_name=None, client_token=None,
-                 destination=None, destination_type=None, dry_run=None, io_tcloud_connector_group_id=None, policy=None,
-                 region_id=None, source_cidrs=None, type=None):
+                 destination=None, destination_port=None, destination_type=None, dry_run=None,
+                 io_tcloud_connector_group_id=None, policy=None, protocol=None, region_id=None, source_cidrs=None, type=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.client_token = client_token  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dry_run = dry_run  # type: bool
         self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.region_id = region_id  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
         self.type = type  # type: str
@@ -888,6 +1194,8 @@ class CreateGroupAuthorizationRuleRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dry_run is not None:
@@ -896,6 +1204,8 @@ class CreateGroupAuthorizationRuleRequest(TeaModel):
             result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.source_cidrs is not None:
@@ -914,6 +1224,8 @@ class CreateGroupAuthorizationRuleRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DryRun') is not None:
@@ -922,6 +1234,8 @@ class CreateGroupAuthorizationRuleRequest(TeaModel):
             self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SourceCidrs') is not None:
@@ -1139,6 +1453,134 @@ class CreateGroupDNSServiceRuleResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateGroupDNSServiceRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateGroupIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, destination_ip=None, dry_run=None, io_tcloud_connector_group_id=None,
+                 ip_mapping_rule_description=None, ip_mapping_rule_name=None, mapping_ip=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateGroupIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, group_ip_mapping_rule_id=None, request_id=None):
+        self.group_ip_mapping_rule_id = group_ip_mapping_rule_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_ip_mapping_rule_id is not None:
+            result['GroupIpMappingRuleId'] = self.group_ip_mapping_rule_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupIpMappingRuleId') is not None:
+            self.group_ip_mapping_rule_id = m.get('GroupIpMappingRuleId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGroupIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGroupIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGroupIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGroupIpMappingRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1501,6 +1943,134 @@ class CreateIoTCloudConnectorGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateIoTCloudConnectorGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, destination_ip=None, dry_run=None, io_tcloud_connector_id=None,
+                 ip_mapping_rule_description=None, ip_mapping_rule_name=None, mapping_ip=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, ip_mapping_rule_id=None, request_id=None):
+        self.ip_mapping_rule_id = ip_mapping_rule_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip_mapping_rule_id is not None:
+            result['IpMappingRuleId'] = self.ip_mapping_rule_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IpMappingRuleId') is not None:
+            self.ip_mapping_rule_id = m.get('IpMappingRuleId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateIpMappingRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2296,6 +2866,114 @@ class DeleteGroupDNSServiceRuleResponse(TeaModel):
         return self
 
 
+class DeleteGroupIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, group_ip_mapping_rule_id=None,
+                 io_tcloud_connector_group_id=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.group_ip_mapping_rule_id = group_ip_mapping_rule_id  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.group_ip_mapping_rule_id is not None:
+            result['GroupIpMappingRuleId'] = self.group_ip_mapping_rule_id
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('GroupIpMappingRuleId') is not None:
+            self.group_ip_mapping_rule_id = m.get('GroupIpMappingRuleId')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteGroupIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGroupIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGroupIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGroupIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGroupIpMappingRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteIoTCloudConnectorRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, io_tcloud_connector_id=None, region_id=None):
         self.client_token = client_token  # type: str
@@ -2598,6 +3276,114 @@ class DeleteIoTCloudConnetorBackhaulRouteResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteIoTCloudConnetorBackhaulRouteResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, io_tcloud_connector_id=None, ip_mapping_rule_id=None,
+                 region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.ip_mapping_rule_id = ip_mapping_rule_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.ip_mapping_rule_id is not None:
+            result['IpMappingRuleId'] = self.ip_mapping_rule_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('IpMappingRuleId') is not None:
+            self.ip_mapping_rule_id = m.get('IpMappingRuleId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteIpMappingRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3299,9 +4085,7 @@ class GetConnectionPoolIpOperationResultRequest(TeaModel):
 
 class GetConnectionPoolIpOperationResultResponseBody(TeaModel):
     def __init__(self, request_id=None, result_file_paths=None):
-        # Id of the request
         self.request_id = request_id  # type: str
-        # OssPath
         self.result_file_paths = result_file_paths  # type: list[str]
 
     def validate(self):
@@ -3761,17 +4545,11 @@ class GetStsInfoAndOssPathRequest(TeaModel):
 class GetStsInfoAndOssPathResponseBody(TeaModel):
     def __init__(self, access_key_id=None, access_key_secret=None, expiration=None, oss_path=None, request_id=None,
                  security_token=None):
-        # Sts info of accessKeyId
         self.access_key_id = access_key_id  # type: str
-        # Sts info of accessKeySecret
         self.access_key_secret = access_key_secret  # type: str
-        # Sts info expiration time
         self.expiration = expiration  # type: str
-        # OssPath
         self.oss_path = oss_path  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
-        # Sts info of securityToken
         self.security_token = security_token  # type: str
 
     def validate(self):
@@ -3884,7 +4662,6 @@ class GrantVirtualBorderRouterRequest(TeaModel):
 
 class GrantVirtualBorderRouterResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3947,12 +4724,13 @@ class GrantVirtualBorderRouterResponse(TeaModel):
 
 
 class ListAPNsRequest(TeaModel):
-    def __init__(self, apn=None, isp=None, max_results=None, next_token=None, region_id=None):
+    def __init__(self, apn=None, isp=None, max_results=None, next_token=None, region_id=None, type=None):
         self.apn = apn  # type: str
         self.isp = isp  # type: str
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
         self.region_id = region_id  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -3973,6 +4751,8 @@ class ListAPNsRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
@@ -3987,6 +4767,8 @@ class ListAPNsRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -4132,18 +4914,20 @@ class ListAPNsResponse(TeaModel):
 
 class ListAuthorizationRulesRequest(TeaModel):
     def __init__(self, authorization_rule_ids=None, authorization_rule_name=None, authorization_rule_status=None,
-                 authorization_rule_type=None, destination=None, destination_type=None, io_tcloud_connector_id=None, max_results=None,
-                 next_token=None, policy=None, region_id=None):
+                 authorization_rule_type=None, destination=None, destination_port=None, destination_type=None, io_tcloud_connector_id=None,
+                 max_results=None, next_token=None, policy=None, protocol=None, region_id=None):
         self.authorization_rule_ids = authorization_rule_ids  # type: list[str]
         self.authorization_rule_name = authorization_rule_name  # type: list[str]
         self.authorization_rule_status = authorization_rule_status  # type: list[str]
         self.authorization_rule_type = authorization_rule_type  # type: str
         self.destination = destination  # type: list[str]
+        self.destination_port = destination_port  # type: list[str]
         self.destination_type = destination_type  # type: list[str]
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
         self.policy = policy  # type: list[str]
+        self.protocol = protocol  # type: list[str]
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4165,6 +4949,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             result['AuthorizationRuleType'] = self.authorization_rule_type
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.io_tcloud_connector_id is not None:
@@ -4175,6 +4961,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -4191,6 +4979,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             self.authorization_rule_type = m.get('AuthorizationRuleType')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('IoTCloudConnectorId') is not None:
@@ -4201,6 +4991,8 @@ class ListAuthorizationRulesRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -4209,16 +5001,19 @@ class ListAuthorizationRulesRequest(TeaModel):
 class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_id=None,
                  authorization_rule_name=None, authorization_rule_status=None, authorization_rule_type=None, destination=None,
-                 destination_type=None, io_tcloud_connector_id=None, policy=None, source_cidrs=None):
+                 destination_port=None, destination_type=None, io_tcloud_connector_id=None, policy=None, protocol=None,
+                 source_cidrs=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.authorization_rule_status = authorization_rule_status  # type: str
         self.authorization_rule_type = authorization_rule_type  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
 
     def validate(self):
@@ -4242,12 +5037,16 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             result['AuthorizationRuleType'] = self.authorization_rule_type
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.io_tcloud_connector_id is not None:
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.source_cidrs is not None:
             result['SourceCidrs'] = self.source_cidrs
         return result
@@ -4266,12 +5065,16 @@ class ListAuthorizationRulesResponseBodyAuthorizationRules(TeaModel):
             self.authorization_rule_type = m.get('AuthorizationRuleType')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('IoTCloudConnectorId') is not None:
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('SourceCidrs') is not None:
             self.source_cidrs = m.get('SourceCidrs')
         return self
@@ -5378,17 +6181,19 @@ class ListDiagnoseInfoForSingleCardResponse(TeaModel):
 
 class ListGroupAuthorizationRulesRequest(TeaModel):
     def __init__(self, authorization_rule_ids=None, authorization_rule_name=None, authorization_rule_status=None,
-                 destination=None, destination_type=None, io_tcloud_connector_group_id=None, max_results=None, next_token=None,
-                 policy=None, region_id=None, type=None):
+                 destination=None, destination_port=None, destination_type=None, io_tcloud_connector_group_id=None,
+                 max_results=None, next_token=None, policy=None, protocol=None, region_id=None, type=None):
         self.authorization_rule_ids = authorization_rule_ids  # type: list[str]
         self.authorization_rule_name = authorization_rule_name  # type: list[str]
         self.authorization_rule_status = authorization_rule_status  # type: list[str]
         self.destination = destination  # type: list[str]
+        self.destination_port = destination_port  # type: list[str]
         self.destination_type = destination_type  # type: list[str]
         self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
         self.policy = policy  # type: list[str]
+        self.protocol = protocol  # type: list[str]
         self.region_id = region_id  # type: str
         self.type = type  # type: str
 
@@ -5409,6 +6214,8 @@ class ListGroupAuthorizationRulesRequest(TeaModel):
             result['AuthorizationRuleStatus'] = self.authorization_rule_status
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.io_tcloud_connector_group_id is not None:
@@ -5419,6 +6226,8 @@ class ListGroupAuthorizationRulesRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.type is not None:
@@ -5435,6 +6244,8 @@ class ListGroupAuthorizationRulesRequest(TeaModel):
             self.authorization_rule_status = m.get('AuthorizationRuleStatus')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('IoTCloudConnectorGroupId') is not None:
@@ -5445,6 +6256,8 @@ class ListGroupAuthorizationRulesRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Type') is not None:
@@ -5454,16 +6267,18 @@ class ListGroupAuthorizationRulesRequest(TeaModel):
 
 class ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_id=None,
-                 authorization_rule_name=None, authorization_rule_status=None, destination=None, destination_type=None,
-                 io_tcloud_connector_group_id=None, policy=None, source_cidrs=None, type=None):
+                 authorization_rule_name=None, authorization_rule_status=None, destination=None, destination_port=None,
+                 destination_type=None, io_tcloud_connector_group_id=None, policy=None, protocol=None, source_cidrs=None, type=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.authorization_rule_status = authorization_rule_status  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
         self.type = type  # type: str
 
@@ -5486,12 +6301,16 @@ class ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules(TeaModel):
             result['AuthorizationRuleStatus'] = self.authorization_rule_status
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.io_tcloud_connector_group_id is not None:
             result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.source_cidrs is not None:
             result['SourceCidrs'] = self.source_cidrs
         if self.type is not None:
@@ -5510,12 +6329,16 @@ class ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules(TeaModel):
             self.authorization_rule_status = m.get('AuthorizationRuleStatus')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('IoTCloudConnectorGroupId') is not None:
             self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('SourceCidrs') is not None:
             self.source_cidrs = m.get('SourceCidrs')
         if m.get('Type') is not None:
@@ -5837,6 +6660,218 @@ class ListGroupDNSServiceRulesResponse(TeaModel):
         return self
 
 
+class ListGroupIpMappingRulesRequest(TeaModel):
+    def __init__(self, destination_ips=None, io_tcloud_connector_group_id=None, ip_mapping_rule_ids=None,
+                 ip_mapping_rule_names=None, ip_mapping_rule_statuses=None, mapping_ips=None, max_results=None, next_token=None,
+                 region_id=None):
+        self.destination_ips = destination_ips  # type: list[str]
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.ip_mapping_rule_ids = ip_mapping_rule_ids  # type: list[str]
+        self.ip_mapping_rule_names = ip_mapping_rule_names  # type: list[str]
+        self.ip_mapping_rule_statuses = ip_mapping_rule_statuses  # type: list[str]
+        self.mapping_ips = mapping_ips  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupIpMappingRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destination_ips is not None:
+            result['DestinationIps'] = self.destination_ips
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.ip_mapping_rule_ids is not None:
+            result['IpMappingRuleIds'] = self.ip_mapping_rule_ids
+        if self.ip_mapping_rule_names is not None:
+            result['IpMappingRuleNames'] = self.ip_mapping_rule_names
+        if self.ip_mapping_rule_statuses is not None:
+            result['IpMappingRuleStatuses'] = self.ip_mapping_rule_statuses
+        if self.mapping_ips is not None:
+            result['MappingIps'] = self.mapping_ips
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DestinationIps') is not None:
+            self.destination_ips = m.get('DestinationIps')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('IpMappingRuleIds') is not None:
+            self.ip_mapping_rule_ids = m.get('IpMappingRuleIds')
+        if m.get('IpMappingRuleNames') is not None:
+            self.ip_mapping_rule_names = m.get('IpMappingRuleNames')
+        if m.get('IpMappingRuleStatuses') is not None:
+            self.ip_mapping_rule_statuses = m.get('IpMappingRuleStatuses')
+        if m.get('MappingIps') is not None:
+            self.mapping_ips = m.get('MappingIps')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListGroupIpMappingRulesResponseBodyIpMappingRules(TeaModel):
+    def __init__(self, destination_ip=None, io_tcloud_connector_group_id=None, ip_mapping_rule_description=None,
+                 ip_mapping_rule_id=None, ip_mapping_rule_name=None, ip_mapping_rule_status=None, mapping_ip=None):
+        self.destination_ip = destination_ip  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_id = ip_mapping_rule_id  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.ip_mapping_rule_status = ip_mapping_rule_status  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupIpMappingRulesResponseBodyIpMappingRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_id is not None:
+            result['IpMappingRuleId'] = self.ip_mapping_rule_id
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.ip_mapping_rule_status is not None:
+            result['IpMappingRuleStatus'] = self.ip_mapping_rule_status
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleId') is not None:
+            self.ip_mapping_rule_id = m.get('IpMappingRuleId')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('IpMappingRuleStatus') is not None:
+            self.ip_mapping_rule_status = m.get('IpMappingRuleStatus')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        return self
+
+
+class ListGroupIpMappingRulesResponseBody(TeaModel):
+    def __init__(self, ip_mapping_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.ip_mapping_rules = ip_mapping_rules  # type: list[ListGroupIpMappingRulesResponseBodyIpMappingRules]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.ip_mapping_rules:
+            for k in self.ip_mapping_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGroupIpMappingRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['IpMappingRules'] = []
+        if self.ip_mapping_rules is not None:
+            for k in self.ip_mapping_rules:
+                result['IpMappingRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.ip_mapping_rules = []
+        if m.get('IpMappingRules') is not None:
+            for k in m.get('IpMappingRules'):
+                temp_model = ListGroupIpMappingRulesResponseBodyIpMappingRules()
+                self.ip_mapping_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListGroupIpMappingRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGroupIpMappingRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGroupIpMappingRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGroupIpMappingRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListIoTCloudConnectorAccessSessionLogsRequest(TeaModel):
     def __init__(self, destinations=None, end_time=None, io_tcloud_connector_id=None, max_results=None,
                  next_token=None, region_id=None, source_ips=None, start_time=None):
@@ -6151,6 +7186,128 @@ class ListIoTCloudConnectorAvailableZonesResponse(TeaModel):
         return self
 
 
+class ListIoTCloudConnectorEIPsRequest(TeaModel):
+    def __init__(self, io_tcloud_connector_id=None, max_results=None, next_token=None, region_id=None):
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorEIPsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListIoTCloudConnectorEIPsResponseBody(TeaModel):
+    def __init__(self, eips=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.eips = eips  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorEIPsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.eips is not None:
+            result['EIPs'] = self.eips
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EIPs') is not None:
+            self.eips = m.get('EIPs')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListIoTCloudConnectorEIPsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListIoTCloudConnectorEIPsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorEIPsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListIoTCloudConnectorEIPsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListIoTCloudConnectorGroupsRequest(TeaModel):
     def __init__(self, io_tcloud_connector_group_ids=None, io_tcloud_connector_group_name=None,
                  io_tcloud_connector_group_status=None, max_results=None, next_token=None, region_id=None, type=None):
@@ -6208,7 +7365,7 @@ class ListIoTCloudConnectorGroupsRequest(TeaModel):
 
 class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConnectors(TeaModel):
     def __init__(self, apn=None, create_time=None, isp=None, io_tcloud_connector_description=None,
-                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, io_tcloud_connector_status=None):
+                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, io_tcloud_connector_status=None, service_type=None):
         self.apn = apn  # type: str
         self.create_time = create_time  # type: long
         self.isp = isp  # type: str
@@ -6216,6 +7373,7 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConn
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.io_tcloud_connector_name = io_tcloud_connector_name  # type: str
         self.io_tcloud_connector_status = io_tcloud_connector_status  # type: str
+        self.service_type = service_type  # type: str
 
     def validate(self):
         pass
@@ -6240,6 +7398,8 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConn
             result['IoTCloudConnectorName'] = self.io_tcloud_connector_name
         if self.io_tcloud_connector_status is not None:
             result['IoTCloudConnectorStatus'] = self.io_tcloud_connector_status
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
         return result
 
     def from_map(self, m=None):
@@ -6258,18 +7418,21 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConn
             self.io_tcloud_connector_name = m.get('IoTCloudConnectorName')
         if m.get('IoTCloudConnectorStatus') is not None:
             self.io_tcloud_connector_status = m.get('IoTCloudConnectorStatus')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
         return self
 
 
 class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroups(TeaModel):
     def __init__(self, create_time=None, description=None, io_tcloud_connector_group_id=None,
-                 io_tcloud_connector_group_status=None, io_tcloud_connectors=None, name=None, type=None):
+                 io_tcloud_connector_group_status=None, io_tcloud_connectors=None, name=None, service_type=None, type=None):
         self.create_time = create_time  # type: long
         self.description = description  # type: str
         self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.io_tcloud_connector_group_status = io_tcloud_connector_group_status  # type: str
         self.io_tcloud_connectors = io_tcloud_connectors  # type: list[ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConnectors]
         self.name = name  # type: str
+        self.service_type = service_type  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -6298,6 +7461,8 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroups(TeaModel):
                 result['IoTCloudConnectors'].append(k.to_map() if k else None)
         if self.name is not None:
             result['Name'] = self.name
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -6319,6 +7484,8 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroups(TeaModel):
                 self.io_tcloud_connectors.append(temp_model.from_map(k))
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -6493,12 +7660,14 @@ class ListIoTCloudConnectorsRequest(TeaModel):
 
 
 class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
-    def __init__(self, apn=None, create_time=None, isp=None, io_tcloud_connector_business_status=None,
-                 io_tcloud_connector_description=None, io_tcloud_connector_group_id=None, io_tcloud_connector_id=None,
-                 io_tcloud_connector_name=None, io_tcloud_connector_status=None, ip_feature=None, mode=None, modify_time=None,
-                 rate_limit=None, type=None, v_switch_list=None, vpc_id=None, wildcard_domain_enabled=None):
+    def __init__(self, apn=None, create_time=None, grant_ali_uid=None, isp=None,
+                 io_tcloud_connector_business_status=None, io_tcloud_connector_description=None, io_tcloud_connector_group_id=None,
+                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, io_tcloud_connector_status=None, ip_feature=None, mode=None,
+                 modify_time=None, rate_limit=None, service_type=None, type=None, v_switch_list=None, vpc_id=None,
+                 wildcard_domain_enabled=None):
         self.apn = apn  # type: str
         self.create_time = create_time  # type: long
+        self.grant_ali_uid = grant_ali_uid  # type: str
         self.isp = isp  # type: str
         self.io_tcloud_connector_business_status = io_tcloud_connector_business_status  # type: str
         self.io_tcloud_connector_description = io_tcloud_connector_description  # type: str
@@ -6510,6 +7679,7 @@ class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
         self.mode = mode  # type: str
         self.modify_time = modify_time  # type: long
         self.rate_limit = rate_limit  # type: long
+        self.service_type = service_type  # type: str
         self.type = type  # type: str
         self.v_switch_list = v_switch_list  # type: list[str]
         self.vpc_id = vpc_id  # type: str
@@ -6528,6 +7698,8 @@ class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
             result['APN'] = self.apn
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.grant_ali_uid is not None:
+            result['GrantAliUid'] = self.grant_ali_uid
         if self.isp is not None:
             result['ISP'] = self.isp
         if self.io_tcloud_connector_business_status is not None:
@@ -6550,6 +7722,8 @@ class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
             result['ModifyTime'] = self.modify_time
         if self.rate_limit is not None:
             result['RateLimit'] = self.rate_limit
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
         if self.type is not None:
             result['Type'] = self.type
         if self.v_switch_list is not None:
@@ -6566,6 +7740,8 @@ class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
             self.apn = m.get('APN')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('GrantAliUid') is not None:
+            self.grant_ali_uid = m.get('GrantAliUid')
         if m.get('ISP') is not None:
             self.isp = m.get('ISP')
         if m.get('IoTCloudConnectorBusinessStatus') is not None:
@@ -6588,6 +7764,8 @@ class ListIoTCloudConnectorsResponseBodyIoTCloudConnectors(TeaModel):
             self.modify_time = m.get('ModifyTime')
         if m.get('RateLimit') is not None:
             self.rate_limit = m.get('RateLimit')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('VSwitchList') is not None:
@@ -6862,6 +8040,218 @@ class ListIoTCoudConnectorBackhaulRouteResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListIoTCoudConnectorBackhaulRouteResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListIpMappingRulesRequest(TeaModel):
+    def __init__(self, destination_ips=None, io_tcloud_connector_id=None, ip_mapping_rule_ids=None,
+                 ip_mapping_rule_names=None, ip_mapping_rule_statuses=None, mapping_ips=None, max_results=None, next_token=None,
+                 region_id=None):
+        self.destination_ips = destination_ips  # type: list[str]
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.ip_mapping_rule_ids = ip_mapping_rule_ids  # type: list[str]
+        self.ip_mapping_rule_names = ip_mapping_rule_names  # type: list[str]
+        self.ip_mapping_rule_statuses = ip_mapping_rule_statuses  # type: list[str]
+        self.mapping_ips = mapping_ips  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIpMappingRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destination_ips is not None:
+            result['DestinationIps'] = self.destination_ips
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.ip_mapping_rule_ids is not None:
+            result['IpMappingRuleIds'] = self.ip_mapping_rule_ids
+        if self.ip_mapping_rule_names is not None:
+            result['IpMappingRuleNames'] = self.ip_mapping_rule_names
+        if self.ip_mapping_rule_statuses is not None:
+            result['IpMappingRuleStatuses'] = self.ip_mapping_rule_statuses
+        if self.mapping_ips is not None:
+            result['MappingIps'] = self.mapping_ips
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DestinationIps') is not None:
+            self.destination_ips = m.get('DestinationIps')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('IpMappingRuleIds') is not None:
+            self.ip_mapping_rule_ids = m.get('IpMappingRuleIds')
+        if m.get('IpMappingRuleNames') is not None:
+            self.ip_mapping_rule_names = m.get('IpMappingRuleNames')
+        if m.get('IpMappingRuleStatuses') is not None:
+            self.ip_mapping_rule_statuses = m.get('IpMappingRuleStatuses')
+        if m.get('MappingIps') is not None:
+            self.mapping_ips = m.get('MappingIps')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListIpMappingRulesResponseBodyIpMappingRules(TeaModel):
+    def __init__(self, destination_ip=None, io_tcloud_connector_id=None, ip_mapping_rule_description=None,
+                 ip_mapping_rule_id=None, ip_mapping_rule_name=None, ip_mapping_rule_status=None, mapping_ip=None):
+        self.destination_ip = destination_ip  # type: str
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_id = ip_mapping_rule_id  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.ip_mapping_rule_status = ip_mapping_rule_status  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIpMappingRulesResponseBodyIpMappingRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_id is not None:
+            result['IpMappingRuleId'] = self.ip_mapping_rule_id
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.ip_mapping_rule_status is not None:
+            result['IpMappingRuleStatus'] = self.ip_mapping_rule_status
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleId') is not None:
+            self.ip_mapping_rule_id = m.get('IpMappingRuleId')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('IpMappingRuleStatus') is not None:
+            self.ip_mapping_rule_status = m.get('IpMappingRuleStatus')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        return self
+
+
+class ListIpMappingRulesResponseBody(TeaModel):
+    def __init__(self, ip_mapping_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.ip_mapping_rules = ip_mapping_rules  # type: list[ListIpMappingRulesResponseBodyIpMappingRules]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.ip_mapping_rules:
+            for k in self.ip_mapping_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListIpMappingRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['IpMappingRules'] = []
+        if self.ip_mapping_rules is not None:
+            for k in self.ip_mapping_rules:
+                result['IpMappingRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.ip_mapping_rules = []
+        if m.get('IpMappingRules') is not None:
+            for k in m.get('IpMappingRules'):
+                temp_model = ListIpMappingRulesResponseBodyIpMappingRules()
+                self.ip_mapping_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListIpMappingRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListIpMappingRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListIpMappingRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListIpMappingRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7824,6 +9214,113 @@ class RemoveIoTCloudConnectorFromGroupResponse(TeaModel):
         return self
 
 
+class RevertIoTCloudConnectorRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, io_tcloud_connector_id=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RevertIoTCloudConnectorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class RevertIoTCloudConnectorResponseBody(TeaModel):
+    def __init__(self, request_id=None, resource_id=None):
+        self.request_id = request_id  # type: str
+        self.resource_id = resource_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RevertIoTCloudConnectorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        return self
+
+
+class RevertIoTCloudConnectorResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RevertIoTCloudConnectorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RevertIoTCloudConnectorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RevertIoTCloudConnectorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SubmitDiagnoseTaskForSingleCardRequest(TeaModel):
     def __init__(self, begin_time=None, destination=None, destination_type=None, end_time=None,
                  io_tcloud_connector_id=None, region_id=None, resource_uid=None, source=None, source_type=None):
@@ -7959,17 +9456,19 @@ class SubmitDiagnoseTaskForSingleCardResponse(TeaModel):
 
 class UpdateAuthorizationRuleAttributeRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_id=None,
-                 authorization_rule_name=None, client_token=None, destination=None, destination_type=None, dry_run=None,
-                 io_tcloud_connector_id=None, policy=None, region_id=None, source_cidrs=None):
+                 authorization_rule_name=None, client_token=None, destination=None, destination_port=None, destination_type=None,
+                 dry_run=None, io_tcloud_connector_id=None, policy=None, protocol=None, region_id=None, source_cidrs=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.client_token = client_token  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dry_run = dry_run  # type: bool
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.region_id = region_id  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
 
@@ -7992,6 +9491,8 @@ class UpdateAuthorizationRuleAttributeRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dry_run is not None:
@@ -8000,6 +9501,8 @@ class UpdateAuthorizationRuleAttributeRequest(TeaModel):
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.source_cidrs is not None:
@@ -8018,6 +9521,8 @@ class UpdateAuthorizationRuleAttributeRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DryRun') is not None:
@@ -8026,6 +9531,8 @@ class UpdateAuthorizationRuleAttributeRequest(TeaModel):
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SourceCidrs') is not None:
@@ -8360,17 +9867,20 @@ class UpdateDNSServiceRuleAttributeResponse(TeaModel):
 
 class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_id=None,
-                 authorization_rule_name=None, client_token=None, destination=None, destination_type=None, dry_run=None,
-                 io_tcloud_connector_group_id=None, policy=None, region_id=None, source_cidrs=None):
+                 authorization_rule_name=None, client_token=None, destination=None, destination_port=None, destination_type=None,
+                 dry_run=None, io_tcloud_connector_group_id=None, policy=None, protocol=None, region_id=None,
+                 source_cidrs=None):
         self.authorization_rule_description = authorization_rule_description  # type: str
         self.authorization_rule_id = authorization_rule_id  # type: str
         self.authorization_rule_name = authorization_rule_name  # type: str
         self.client_token = client_token  # type: str
         self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
         self.destination_type = destination_type  # type: str
         self.dry_run = dry_run  # type: bool
         self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
         self.region_id = region_id  # type: str
         self.source_cidrs = source_cidrs  # type: list[str]
 
@@ -8393,6 +9903,8 @@ class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.dry_run is not None:
@@ -8401,6 +9913,8 @@ class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
             result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.source_cidrs is not None:
@@ -8419,6 +9933,8 @@ class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DryRun') is not None:
@@ -8427,6 +9943,8 @@ class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
             self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SourceCidrs') is not None:
@@ -8641,14 +10159,154 @@ class UpdateGroupDNSServiceRuleAttributeResponse(TeaModel):
         return self
 
 
+class UpdateGroupIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, destination_ip=None, dry_run=None, group_ip_mapping_rule_id=None,
+                 io_tcloud_connector_group_id=None, ip_mapping_rule_description=None, ip_mapping_rule_name=None, mapping_ip=None,
+                 region_id=None):
+        self.client_token = client_token  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.group_ip_mapping_rule_id = group_ip_mapping_rule_id  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.group_ip_mapping_rule_id is not None:
+            result['GroupIpMappingRuleId'] = self.group_ip_mapping_rule_id
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('GroupIpMappingRuleId') is not None:
+            self.group_ip_mapping_rule_id = m.get('GroupIpMappingRuleId')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpdateGroupIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, authorization_rule_id=None, io_tcloud_connector_group_id=None, request_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGroupIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGroupIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGroupIpMappingRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateIoTCloudConnectorAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, io_tcloud_connector_description=None,
-                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, region_id=None, wildcard_domain_enabled=None):
+                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, mode=None, region_id=None, wildcard_domain_enabled=None):
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
         self.io_tcloud_connector_description = io_tcloud_connector_description  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.io_tcloud_connector_name = io_tcloud_connector_name  # type: str
+        self.mode = mode  # type: str
         self.region_id = region_id  # type: str
         self.wildcard_domain_enabled = wildcard_domain_enabled  # type: bool
 
@@ -8671,6 +10329,8 @@ class UpdateIoTCloudConnectorAttributeRequest(TeaModel):
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.io_tcloud_connector_name is not None:
             result['IoTCloudConnectorName'] = self.io_tcloud_connector_name
+        if self.mode is not None:
+            result['Mode'] = self.mode
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.wildcard_domain_enabled is not None:
@@ -8689,6 +10349,8 @@ class UpdateIoTCloudConnectorAttributeRequest(TeaModel):
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('IoTCloudConnectorName') is not None:
             self.io_tcloud_connector_name = m.get('IoTCloudConnectorName')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('WildcardDomainEnabled') is not None:
@@ -8873,6 +10535,134 @@ class UpdateIoTCloudConnectorGroupAttributeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateIoTCloudConnectorGroupAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateIpMappingRuleRequest(TeaModel):
+    def __init__(self, client_token=None, destination_ip=None, dry_run=None, io_tcloud_connector_id=None,
+                 ip_mapping_rule_description=None, ip_mapping_rule_id=None, ip_mapping_rule_name=None, mapping_ip=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.ip_mapping_rule_description = ip_mapping_rule_description  # type: str
+        self.ip_mapping_rule_id = ip_mapping_rule_id  # type: str
+        self.ip_mapping_rule_name = ip_mapping_rule_name  # type: str
+        self.mapping_ip = mapping_ip  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateIpMappingRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.ip_mapping_rule_description is not None:
+            result['IpMappingRuleDescription'] = self.ip_mapping_rule_description
+        if self.ip_mapping_rule_id is not None:
+            result['IpMappingRuleId'] = self.ip_mapping_rule_id
+        if self.ip_mapping_rule_name is not None:
+            result['IpMappingRuleName'] = self.ip_mapping_rule_name
+        if self.mapping_ip is not None:
+            result['MappingIp'] = self.mapping_ip
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('IpMappingRuleDescription') is not None:
+            self.ip_mapping_rule_description = m.get('IpMappingRuleDescription')
+        if m.get('IpMappingRuleId') is not None:
+            self.ip_mapping_rule_id = m.get('IpMappingRuleId')
+        if m.get('IpMappingRuleName') is not None:
+            self.ip_mapping_rule_name = m.get('IpMappingRuleName')
+        if m.get('MappingIp') is not None:
+            self.mapping_ip = m.get('MappingIp')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpdateIpMappingRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateIpMappingRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateIpMappingRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateIpMappingRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateIpMappingRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateIpMappingRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
