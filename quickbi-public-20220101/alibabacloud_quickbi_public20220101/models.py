@@ -1182,6 +1182,233 @@ class AuthorizeMenuResponse(TeaModel):
         return self
 
 
+class BatchAddFeishuUsersRequest(TeaModel):
+    def __init__(self, feishu_users=None, is_admin=None, is_auth_admin=None, user_group_ids=None, user_type=None):
+        self.feishu_users = feishu_users  # type: str
+        self.is_admin = is_admin  # type: bool
+        self.is_auth_admin = is_auth_admin  # type: bool
+        self.user_group_ids = user_group_ids  # type: str
+        self.user_type = user_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.feishu_users is not None:
+            result['FeishuUsers'] = self.feishu_users
+        if self.is_admin is not None:
+            result['IsAdmin'] = self.is_admin
+        if self.is_auth_admin is not None:
+            result['IsAuthAdmin'] = self.is_auth_admin
+        if self.user_group_ids is not None:
+            result['UserGroupIds'] = self.user_group_ids
+        if self.user_type is not None:
+            result['UserType'] = self.user_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FeishuUsers') is not None:
+            self.feishu_users = m.get('FeishuUsers')
+        if m.get('IsAdmin') is not None:
+            self.is_admin = m.get('IsAdmin')
+        if m.get('IsAuthAdmin') is not None:
+            self.is_auth_admin = m.get('IsAuthAdmin')
+        if m.get('UserGroupIds') is not None:
+            self.user_group_ids = m.get('UserGroupIds')
+        if m.get('UserType') is not None:
+            self.user_type = m.get('UserType')
+        return self
+
+
+class BatchAddFeishuUsersResponseBodyResultFailResultsFailInfos(TeaModel):
+    def __init__(self, code=None, code_desc=None, input=None):
+        self.code = code  # type: str
+        self.code_desc = code_desc  # type: str
+        self.input = input  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersResponseBodyResultFailResultsFailInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.code_desc is not None:
+            result['CodeDesc'] = self.code_desc
+        if self.input is not None:
+            result['Input'] = self.input
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CodeDesc') is not None:
+            self.code_desc = m.get('CodeDesc')
+        if m.get('Input') is not None:
+            self.input = m.get('Input')
+        return self
+
+
+class BatchAddFeishuUsersResponseBodyResultFailResults(TeaModel):
+    def __init__(self, fail_infos=None):
+        self.fail_infos = fail_infos  # type: list[BatchAddFeishuUsersResponseBodyResultFailResultsFailInfos]
+
+    def validate(self):
+        if self.fail_infos:
+            for k in self.fail_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersResponseBodyResultFailResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['FailInfos'] = []
+        if self.fail_infos is not None:
+            for k in self.fail_infos:
+                result['FailInfos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.fail_infos = []
+        if m.get('FailInfos') is not None:
+            for k in m.get('FailInfos'):
+                temp_model = BatchAddFeishuUsersResponseBodyResultFailResultsFailInfos()
+                self.fail_infos.append(temp_model.from_map(k))
+        return self
+
+
+class BatchAddFeishuUsersResponseBodyResult(TeaModel):
+    def __init__(self, fail_count=None, fail_results=None, ok_count=None):
+        self.fail_count = fail_count  # type: int
+        self.fail_results = fail_results  # type: list[BatchAddFeishuUsersResponseBodyResultFailResults]
+        self.ok_count = ok_count  # type: int
+
+    def validate(self):
+        if self.fail_results:
+            for k in self.fail_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_count is not None:
+            result['FailCount'] = self.fail_count
+        result['FailResults'] = []
+        if self.fail_results is not None:
+            for k in self.fail_results:
+                result['FailResults'].append(k.to_map() if k else None)
+        if self.ok_count is not None:
+            result['OkCount'] = self.ok_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailCount') is not None:
+            self.fail_count = m.get('FailCount')
+        self.fail_results = []
+        if m.get('FailResults') is not None:
+            for k in m.get('FailResults'):
+                temp_model = BatchAddFeishuUsersResponseBodyResultFailResults()
+                self.fail_results.append(temp_model.from_map(k))
+        if m.get('OkCount') is not None:
+            self.ok_count = m.get('OkCount')
+        return self
+
+
+class BatchAddFeishuUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: BatchAddFeishuUsersResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = BatchAddFeishuUsersResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BatchAddFeishuUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchAddFeishuUsersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchAddFeishuUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchAddFeishuUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CancelAuthorizationMenuRequest(TeaModel):
     def __init__(self, data_portal_id=None, menu_ids=None, user_group_ids=None, user_ids=None):
         self.data_portal_id = data_portal_id  # type: str
