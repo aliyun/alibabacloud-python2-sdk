@@ -636,11 +636,8 @@ class AddUserGroupMembersRequest(TeaModel):
 
 class AddUserGroupMembersResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 接口执行结果。取值范围：true：请求成功false：请求失败
         self.result = result  # type: bool
-        # 是否请求成功。取值范围：true：请求成功false：请求失败
         self.success = success  # type: bool
 
     def validate(self):
@@ -8798,7 +8795,6 @@ class QueryUserTagValueListResponse(TeaModel):
 
 class QueryWorksRequest(TeaModel):
     def __init__(self, works_id=None):
-        # 报表ID
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -8823,13 +8819,9 @@ class QueryWorksRequest(TeaModel):
 
 class QueryWorksResponseBodyResultDirectory(TeaModel):
     def __init__(self, id=None, name=None, path_id=None, path_name=None):
-        # 目录ID
         self.id = id  # type: str
-        # 目录名称
         self.name = name  # type: str
-        # 目录ID的路径，例如：aa/bb/cc/dd
         self.path_id = path_id  # type: str
-        # 目录ID的路径名称，例如：一层目录/二层目录
         self.path_name = path_name  # type: str
 
     def validate(self):
@@ -8868,35 +8860,20 @@ class QueryWorksResponseBodyResult(TeaModel):
     def __init__(self, auth_3rd_flag=None, description=None, directory=None, gmt_create=None, gmt_modify=None,
                  modify_name=None, owner_id=None, owner_name=None, security_level=None, status=None, work_name=None,
                  work_type=None, works_id=None, workspace_id=None, workspace_name=None):
-        # 第三方嵌入状态
         self.auth_3rd_flag = auth_3rd_flag  # type: int
-        # 描述
         self.description = description  # type: str
-        # 所属空间目录信息
         self.directory = directory  # type: QueryWorksResponseBodyResultDirectory
-        # 创建时间d
         self.gmt_create = gmt_create  # type: str
-        # 修改时间
         self.gmt_modify = gmt_modify  # type: str
-        # 修改显示名称
         self.modify_name = modify_name  # type: str
-        # 所有者Id
         self.owner_id = owner_id  # type: str
-        # 所有者显示名称
         self.owner_name = owner_name  # type: str
-        # 安全策略：0 私有 1 协同编辑。 （
         self.security_level = security_level  # type: str
-        # 报表发布状态 @PublishStatusEnum
         self.status = status  # type: int
-        # 作品名称
         self.work_name = work_name  # type: str
-        # 作品类型
         self.work_type = work_type  # type: str
-        # 作品ID
         self.works_id = works_id  # type: str
-        # 所属工作空间
         self.workspace_id = workspace_id  # type: str
-        # 所属空间名称
         self.workspace_name = workspace_name  # type: str
 
     def validate(self):
@@ -8980,7 +8957,6 @@ class QueryWorksResponseBodyResult(TeaModel):
 class QueryWorksResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
         self.request_id = request_id  # type: str
-        # QueryWorksModel
         self.result = result  # type: QueryWorksResponseBodyResult
         self.success = success  # type: bool
 
@@ -9055,7 +9031,6 @@ class QueryWorksResponse(TeaModel):
 
 class QueryWorksBloodRelationshipRequest(TeaModel):
     def __init__(self, works_id=None):
-        # 报表ID
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -9081,18 +9056,12 @@ class QueryWorksBloodRelationshipRequest(TeaModel):
 class QueryWorksBloodRelationshipResponseBodyResultQueryParams(TeaModel):
     def __init__(self, area_id=None, area_name=None, caption=None, data_type=None, is_measure=None, path_id=None,
                  uid=None):
-        # 所属位置：
         self.area_id = area_id  # type: str
         self.area_name = area_name  # type: str
-        # 字段显示名称
         self.caption = caption  # type: str
-        # 字段类型
         self.data_type = data_type  # type: str
-        # 是否是度量
         self.is_measure = is_measure  # type: bool
-        # 全局唯一的PathId。位于cube的level中pathId
         self.path_id = path_id  # type: str
-        # 字段唯一ID。即cube中的name
         self.uid = uid  # type: str
 
     def validate(self):
@@ -9142,15 +9111,11 @@ class QueryWorksBloodRelationshipResponseBodyResultQueryParams(TeaModel):
 class QueryWorksBloodRelationshipResponseBodyResult(TeaModel):
     def __init__(self, component_id=None, component_name=None, component_type=None, component_type_name=None,
                  dataset_id=None, query_params=None):
-        # 组件ID or  sheetId
         self.component_id = component_id  # type: str
         self.component_name = component_name  # type: str
-        # 组件类型
         self.component_type = component_type  # type: int
         self.component_type_name = component_type_name  # type: str
-        # 数据集ID
         self.dataset_id = dataset_id  # type: str
-        # 查询参数引用的列信息
         self.query_params = query_params  # type: list[QueryWorksBloodRelationshipResponseBodyResultQueryParams]
 
     def validate(self):
