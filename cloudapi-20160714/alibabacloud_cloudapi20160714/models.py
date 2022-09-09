@@ -17542,9 +17542,10 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, acl_status=None, acl_type=None, classic_egress_address=None,
                  created_time=None, egress_ipv_6enable=None, expired_time=None, https_policies=None, instance_charge_type=None,
                  instance_id=None, instance_name=None, instance_rps_limit=None, instance_spec=None,
-                 instance_spec_attributes=None, instance_type=None, internet_egress_address=None, region_id=None, status=None,
-                 support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None, vpc_egress_address=None,
-                 vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None, zone_local_name=None):
+                 instance_spec_attributes=None, instance_type=None, internet_egress_address=None, intranet_segments=None, region_id=None,
+                 status=None, support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None,
+                 vpc_egress_address=None, vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None,
+                 zone_local_name=None):
         self.acl_id = acl_id  # type: str
         self.acl_name = acl_name  # type: str
         self.acl_status = acl_status  # type: str
@@ -17562,6 +17563,7 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
         self.instance_spec_attributes = instance_spec_attributes  # type: DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes
         self.instance_type = instance_type  # type: str
         self.internet_egress_address = internet_egress_address  # type: str
+        self.intranet_segments = intranet_segments  # type: str
         self.region_id = region_id  # type: str
         self.status = status  # type: str
         self.support_ipv_6 = support_ipv_6  # type: bool
@@ -17619,6 +17621,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             result['InstanceType'] = self.instance_type
         if self.internet_egress_address is not None:
             result['InternetEgressAddress'] = self.internet_egress_address
+        if self.intranet_segments is not None:
+            result['IntranetSegments'] = self.intranet_segments
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.status is not None:
@@ -17682,6 +17686,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             self.instance_type = m.get('InstanceType')
         if m.get('InternetEgressAddress') is not None:
             self.internet_egress_address = m.get('InternetEgressAddress')
+        if m.get('IntranetSegments') is not None:
+            self.intranet_segments = m.get('IntranetSegments')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Status') is not None:
@@ -28390,11 +28396,12 @@ class SetDomainCertificateResponse(TeaModel):
 
 
 class SetDomainWebSocketStatusRequest(TeaModel):
-    def __init__(self, action_value=None, domain_name=None, group_id=None, security_token=None):
+    def __init__(self, action_value=None, domain_name=None, group_id=None, security_token=None, wssenable=None):
         self.action_value = action_value  # type: str
         self.domain_name = domain_name  # type: str
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        self.wssenable = wssenable  # type: str
 
     def validate(self):
         pass
@@ -28413,6 +28420,8 @@ class SetDomainWebSocketStatusRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.wssenable is not None:
+            result['WSSEnable'] = self.wssenable
         return result
 
     def from_map(self, m=None):
@@ -28425,6 +28434,8 @@ class SetDomainWebSocketStatusRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('WSSEnable') is not None:
+            self.wssenable = m.get('WSSEnable')
         return self
 
 
