@@ -1600,34 +1600,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_ddos_service_with_options(request, runtime)
 
-    def describe_dcdn_ddos_spec_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeDcdnDdosSpecInfo',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnDdosSpecInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_dcdn_ddos_spec_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_ddos_spec_info_with_options(request, runtime)
-
     def describe_dcdn_deleted_domains_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3525,36 +3497,6 @@ class Client(OpenApiClient):
     def describe_dcdn_l2vips(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_l2vips_with_options(request, runtime)
-
-    def describe_dcdn_l2vips_by_domain_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.domain_name):
-            query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeDcdnL2VipsByDomain',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnL2VipsByDomainResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_dcdn_l2vips_by_domain(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_l2vips_by_domain_with_options(request, runtime)
 
     def describe_dcdn_real_time_delivery_field_with_options(self, request, runtime):
         UtilClient.validate_model(request)
