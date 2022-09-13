@@ -33,11 +33,10 @@ class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
 
 class CreateConsumerGroupRequest(TeaModel):
-    def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None, resource_group_id=None):
+    def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None):
         self.consume_retry_policy = consume_retry_policy  # type: CreateConsumerGroupRequestConsumeRetryPolicy
         self.delivery_order_type = delivery_order_type  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         if self.consume_retry_policy:
@@ -55,8 +54,6 @@ class CreateConsumerGroupRequest(TeaModel):
             result['deliveryOrderType'] = self.delivery_order_type
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -68,8 +65,6 @@ class CreateConsumerGroupRequest(TeaModel):
             self.delivery_order_type = m.get('deliveryOrderType')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
@@ -173,10 +168,9 @@ class CreateConsumerGroupResponse(TeaModel):
 
 
 class CreateTopicRequest(TeaModel):
-    def __init__(self, message_type=None, remark=None, resource_group_id=None):
+    def __init__(self, message_type=None, remark=None):
         self.message_type = message_type  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -191,8 +185,6 @@ class CreateTopicRequest(TeaModel):
             result['messageType'] = self.message_type
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -201,8 +193,6 @@ class CreateTopicRequest(TeaModel):
             self.message_type = m.get('messageType')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
@@ -633,8 +623,7 @@ class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
 
 class GetConsumerGroupResponseBodyData(TeaModel):
     def __init__(self, consume_retry_policy=None, consumer_group_id=None, create_time=None,
-                 delivery_order_type=None, instance_id=None, region_id=None, remark=None, resource_group_id=None, status=None,
-                 update_time=None):
+                 delivery_order_type=None, instance_id=None, region_id=None, remark=None, status=None, update_time=None):
         self.consume_retry_policy = consume_retry_policy  # type: GetConsumerGroupResponseBodyDataConsumeRetryPolicy
         self.consumer_group_id = consumer_group_id  # type: str
         self.create_time = create_time  # type: str
@@ -642,7 +631,6 @@ class GetConsumerGroupResponseBodyData(TeaModel):
         self.instance_id = instance_id  # type: str
         self.region_id = region_id  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.update_time = update_time  # type: str
 
@@ -670,8 +658,6 @@ class GetConsumerGroupResponseBodyData(TeaModel):
             result['regionId'] = self.region_id
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['status'] = self.status
         if self.update_time is not None:
@@ -695,8 +681,6 @@ class GetConsumerGroupResponseBodyData(TeaModel):
             self.region_id = m.get('regionId')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('updateTime') is not None:
@@ -806,8 +790,7 @@ class GetConsumerGroupResponse(TeaModel):
 
 
 class GetInstanceResponseBodyDataAccountInfo(TeaModel):
-    def __init__(self, password=None, username=None):
-        self.password = password  # type: str
+    def __init__(self, username=None):
         self.username = username  # type: str
 
     def validate(self):
@@ -819,16 +802,12 @@ class GetInstanceResponseBodyDataAccountInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.password is not None:
-            result['password'] = self.password
         if self.username is not None:
             result['username'] = self.username
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('password') is not None:
-            self.password = m.get('password')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
@@ -1044,15 +1023,17 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
 
 class GetInstanceResponseBodyData(TeaModel):
     def __init__(self, account_info=None, bid=None, commodity_code=None, create_time=None, expire_time=None,
-                 ext_config=None, instance_id=None, instance_name=None, instance_quotas=None, network_info=None,
-                 payment_type=None, region_id=None, release_time=None, remark=None, resource_group_id=None, series_code=None,
-                 service_code=None, start_time=None, status=None, sub_series_code=None, update_time=None, user_id=None):
+                 ext_config=None, group_count=None, instance_id=None, instance_name=None, instance_quotas=None,
+                 network_info=None, payment_type=None, region_id=None, release_time=None, remark=None, series_code=None,
+                 service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None, update_time=None,
+                 user_id=None):
         self.account_info = account_info  # type: GetInstanceResponseBodyDataAccountInfo
         self.bid = bid  # type: str
         self.commodity_code = commodity_code  # type: str
         self.create_time = create_time  # type: str
         self.expire_time = expire_time  # type: str
         self.ext_config = ext_config  # type: GetInstanceResponseBodyDataExtConfig
+        self.group_count = group_count  # type: long
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_quotas = instance_quotas  # type: list[GetInstanceResponseBodyDataInstanceQuotas]
@@ -1061,12 +1042,12 @@ class GetInstanceResponseBodyData(TeaModel):
         self.region_id = region_id  # type: str
         self.release_time = release_time  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.series_code = series_code  # type: str
         self.service_code = service_code  # type: str
         self.start_time = start_time  # type: str
         self.status = status  # type: str
         self.sub_series_code = sub_series_code  # type: str
+        self.topic_count = topic_count  # type: long
         self.update_time = update_time  # type: str
         self.user_id = user_id  # type: str
 
@@ -1100,6 +1081,8 @@ class GetInstanceResponseBodyData(TeaModel):
             result['expireTime'] = self.expire_time
         if self.ext_config is not None:
             result['extConfig'] = self.ext_config.to_map()
+        if self.group_count is not None:
+            result['groupCount'] = self.group_count
         if self.instance_id is not None:
             result['instanceId'] = self.instance_id
         if self.instance_name is not None:
@@ -1118,8 +1101,6 @@ class GetInstanceResponseBodyData(TeaModel):
             result['releaseTime'] = self.release_time
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.series_code is not None:
             result['seriesCode'] = self.series_code
         if self.service_code is not None:
@@ -1130,6 +1111,8 @@ class GetInstanceResponseBodyData(TeaModel):
             result['status'] = self.status
         if self.sub_series_code is not None:
             result['subSeriesCode'] = self.sub_series_code
+        if self.topic_count is not None:
+            result['topicCount'] = self.topic_count
         if self.update_time is not None:
             result['updateTime'] = self.update_time
         if self.user_id is not None:
@@ -1152,6 +1135,8 @@ class GetInstanceResponseBodyData(TeaModel):
         if m.get('extConfig') is not None:
             temp_model = GetInstanceResponseBodyDataExtConfig()
             self.ext_config = temp_model.from_map(m['extConfig'])
+        if m.get('groupCount') is not None:
+            self.group_count = m.get('groupCount')
         if m.get('instanceId') is not None:
             self.instance_id = m.get('instanceId')
         if m.get('instanceName') is not None:
@@ -1172,8 +1157,6 @@ class GetInstanceResponseBodyData(TeaModel):
             self.release_time = m.get('releaseTime')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('seriesCode') is not None:
             self.series_code = m.get('seriesCode')
         if m.get('serviceCode') is not None:
@@ -1184,6 +1167,8 @@ class GetInstanceResponseBodyData(TeaModel):
             self.status = m.get('status')
         if m.get('subSeriesCode') is not None:
             self.sub_series_code = m.get('subSeriesCode')
+        if m.get('topicCount') is not None:
+            self.topic_count = m.get('topicCount')
         if m.get('updateTime') is not None:
             self.update_time = m.get('updateTime')
         if m.get('userId') is not None:
@@ -1294,13 +1279,12 @@ class GetInstanceResponse(TeaModel):
 
 class GetTopicResponseBodyData(TeaModel):
     def __init__(self, create_time=None, instance_id=None, message_type=None, region_id=None, remark=None,
-                 resource_group_id=None, status=None, topic_name=None, update_time=None):
+                 status=None, topic_name=None, update_time=None):
         self.create_time = create_time  # type: str
         self.instance_id = instance_id  # type: str
         self.message_type = message_type  # type: str
         self.region_id = region_id  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.topic_name = topic_name  # type: str
         self.update_time = update_time  # type: str
@@ -1324,8 +1308,6 @@ class GetTopicResponseBodyData(TeaModel):
             result['regionId'] = self.region_id
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['status'] = self.status
         if self.topic_name is not None:
@@ -1346,8 +1328,6 @@ class GetTopicResponseBodyData(TeaModel):
             self.region_id = m.get('regionId')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('topicName') is not None:
@@ -1459,11 +1439,10 @@ class GetTopicResponse(TeaModel):
 
 
 class ListConsumerGroupsRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None):
+    def __init__(self, filter=None, page_number=None, page_size=None):
         self.filter = filter  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -1480,8 +1459,6 @@ class ListConsumerGroupsRequest(TeaModel):
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
             result['pageSize'] = self.page_size
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -1492,20 +1469,17 @@ class ListConsumerGroupsRequest(TeaModel):
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
 class ListConsumerGroupsResponseBodyDataList(TeaModel):
     def __init__(self, consumer_group_id=None, create_time=None, instance_id=None, region_id=None, remark=None,
-                 resource_group_id=None, status=None, update_time=None):
+                 status=None, update_time=None):
         self.consumer_group_id = consumer_group_id  # type: str
         self.create_time = create_time  # type: str
         self.instance_id = instance_id  # type: str
         self.region_id = region_id  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.update_time = update_time  # type: str
 
@@ -1528,8 +1502,6 @@ class ListConsumerGroupsResponseBodyDataList(TeaModel):
             result['regionId'] = self.region_id
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['status'] = self.status
         if self.update_time is not None:
@@ -1548,8 +1520,6 @@ class ListConsumerGroupsResponseBodyDataList(TeaModel):
             self.region_id = m.get('regionId')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('updateTime') is not None:
@@ -1706,11 +1676,10 @@ class ListConsumerGroupsResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None):
+    def __init__(self, filter=None, page_number=None, page_size=None):
         self.filter = filter  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -1727,8 +1696,6 @@ class ListInstancesRequest(TeaModel):
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
             result['pageSize'] = self.page_size
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -1739,16 +1706,14 @@ class ListInstancesRequest(TeaModel):
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
 class ListInstancesResponseBodyDataList(TeaModel):
     def __init__(self, commodity_code=None, create_time=None, expire_time=None, group_count=None, instance_id=None,
-                 instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, resource_group_id=None,
-                 series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None,
-                 update_time=None, user_id=None):
+                 instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, series_code=None,
+                 service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None, update_time=None,
+                 user_id=None):
         self.commodity_code = commodity_code  # type: str
         self.create_time = create_time  # type: str
         self.expire_time = expire_time  # type: str
@@ -1759,7 +1724,6 @@ class ListInstancesResponseBodyDataList(TeaModel):
         self.region_id = region_id  # type: str
         self.release_time = release_time  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.series_code = series_code  # type: str
         self.service_code = service_code  # type: str
         self.start_time = start_time  # type: str
@@ -1798,8 +1762,6 @@ class ListInstancesResponseBodyDataList(TeaModel):
             result['releaseTime'] = self.release_time
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.series_code is not None:
             result['seriesCode'] = self.series_code
         if self.service_code is not None:
@@ -1840,8 +1802,6 @@ class ListInstancesResponseBodyDataList(TeaModel):
             self.release_time = m.get('releaseTime')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('seriesCode') is not None:
             self.series_code = m.get('seriesCode')
         if m.get('serviceCode') is not None:
@@ -2010,11 +1970,10 @@ class ListInstancesResponse(TeaModel):
 
 
 class ListTopicsRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None):
+    def __init__(self, filter=None, page_number=None, page_size=None):
         self.filter = filter  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -2031,8 +1990,6 @@ class ListTopicsRequest(TeaModel):
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
             result['pageSize'] = self.page_size
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -2043,20 +2000,17 @@ class ListTopicsRequest(TeaModel):
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
 class ListTopicsResponseBodyDataList(TeaModel):
     def __init__(self, create_time=None, instance_id=None, message_type=None, region_id=None, remark=None,
-                 resource_group_id=None, status=None, topic_name=None, update_time=None):
+                 status=None, topic_name=None, update_time=None):
         self.create_time = create_time  # type: str
         self.instance_id = instance_id  # type: str
         self.message_type = message_type  # type: str
         self.region_id = region_id  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.topic_name = topic_name  # type: str
         self.update_time = update_time  # type: str
@@ -2080,8 +2034,6 @@ class ListTopicsResponseBodyDataList(TeaModel):
             result['regionId'] = self.region_id
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['status'] = self.status
         if self.topic_name is not None:
@@ -2102,8 +2054,6 @@ class ListTopicsResponseBodyDataList(TeaModel):
             self.region_id = m.get('regionId')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('topicName') is not None:
@@ -2291,11 +2241,10 @@ class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
 
 class UpdateConsumerGroupRequest(TeaModel):
-    def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None, resource_group_id=None):
+    def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None):
         self.consume_retry_policy = consume_retry_policy  # type: UpdateConsumerGroupRequestConsumeRetryPolicy
         self.delivery_order_type = delivery_order_type  # type: str
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         if self.consume_retry_policy:
@@ -2313,8 +2262,6 @@ class UpdateConsumerGroupRequest(TeaModel):
             result['deliveryOrderType'] = self.delivery_order_type
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -2326,8 +2273,6 @@ class UpdateConsumerGroupRequest(TeaModel):
             self.delivery_order_type = m.get('deliveryOrderType')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
@@ -2526,12 +2471,11 @@ class UpdateInstanceRequestNetworkInfo(TeaModel):
 
 
 class UpdateInstanceRequest(TeaModel):
-    def __init__(self, ext_config=None, instance_name=None, network_info=None, remark=None, resource_group_id=None):
+    def __init__(self, ext_config=None, instance_name=None, network_info=None, remark=None):
         self.ext_config = ext_config  # type: UpdateInstanceRequestExtConfig
         self.instance_name = instance_name  # type: str
         self.network_info = network_info  # type: UpdateInstanceRequestNetworkInfo
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         if self.ext_config:
@@ -2553,8 +2497,6 @@ class UpdateInstanceRequest(TeaModel):
             result['networkInfo'] = self.network_info.to_map()
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -2569,8 +2511,6 @@ class UpdateInstanceRequest(TeaModel):
             self.network_info = temp_model.from_map(m['networkInfo'])
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
@@ -2674,9 +2614,8 @@ class UpdateInstanceResponse(TeaModel):
 
 
 class UpdateTopicRequest(TeaModel):
-    def __init__(self, remark=None, resource_group_id=None):
+    def __init__(self, remark=None):
         self.remark = remark  # type: str
-        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -2689,16 +2628,12 @@ class UpdateTopicRequest(TeaModel):
         result = dict()
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.resource_group_id is not None:
-            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('resourceGroupId') is not None:
-            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 

@@ -38,8 +38,6 @@ class Client(OpenApiClient):
 
     def create_consumer_group_with_options(self, instance_id, consumer_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        consumer_group_id = OpenApiUtilClient.get_encode_param(consumer_group_id)
         body = {}
         if not UtilClient.is_unset(request.consume_retry_policy):
             body['consumeRetryPolicy'] = request.consume_retry_policy
@@ -47,8 +45,6 @@ class Client(OpenApiClient):
             body['deliveryOrderType'] = request.delivery_order_type
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -57,7 +53,7 @@ class Client(OpenApiClient):
             action='CreateConsumerGroup',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(consumer_group_id)),
+            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(consumer_group_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -76,15 +72,11 @@ class Client(OpenApiClient):
 
     def create_topic_with_options(self, instance_id, topic_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        topic_name = OpenApiUtilClient.get_encode_param(topic_name)
         body = {}
         if not UtilClient.is_unset(request.message_type):
             body['messageType'] = request.message_type
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -93,7 +85,7 @@ class Client(OpenApiClient):
             action='CreateTopic',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(topic_name)),
+            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(topic_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -111,8 +103,6 @@ class Client(OpenApiClient):
         return self.delete_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
 
     def delete_consumer_group_with_options(self, instance_id, consumer_group_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        consumer_group_id = OpenApiUtilClient.get_encode_param(consumer_group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -120,7 +110,7 @@ class Client(OpenApiClient):
             action='DeleteConsumerGroup',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(consumer_group_id)),
+            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(consumer_group_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -138,7 +128,6 @@ class Client(OpenApiClient):
         return self.delete_instance_with_options(instance_id, headers, runtime)
 
     def delete_instance_with_options(self, instance_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -146,7 +135,7 @@ class Client(OpenApiClient):
             action='DeleteInstance',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s' % TeaConverter.to_unicode(instance_id),
+            pathname='/instances/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -164,8 +153,6 @@ class Client(OpenApiClient):
         return self.delete_topic_with_options(instance_id, topic_name, headers, runtime)
 
     def delete_topic_with_options(self, instance_id, topic_name, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        topic_name = OpenApiUtilClient.get_encode_param(topic_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -173,7 +160,7 @@ class Client(OpenApiClient):
             action='DeleteTopic',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(topic_name)),
+            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(topic_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -191,8 +178,6 @@ class Client(OpenApiClient):
         return self.get_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
 
     def get_consumer_group_with_options(self, instance_id, consumer_group_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        consumer_group_id = OpenApiUtilClient.get_encode_param(consumer_group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -200,7 +185,7 @@ class Client(OpenApiClient):
             action='GetConsumerGroup',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(consumer_group_id)),
+            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(consumer_group_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -218,7 +203,6 @@ class Client(OpenApiClient):
         return self.get_instance_with_options(instance_id, headers, runtime)
 
     def get_instance_with_options(self, instance_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -226,7 +210,7 @@ class Client(OpenApiClient):
             action='GetInstance',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s' % TeaConverter.to_unicode(instance_id),
+            pathname='/instances/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -244,8 +228,6 @@ class Client(OpenApiClient):
         return self.get_topic_with_options(instance_id, topic_name, headers, runtime)
 
     def get_topic_with_options(self, instance_id, topic_name, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        topic_name = OpenApiUtilClient.get_encode_param(topic_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -253,7 +235,7 @@ class Client(OpenApiClient):
             action='GetTopic',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(topic_name)),
+            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(topic_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -272,7 +254,6 @@ class Client(OpenApiClient):
 
     def list_consumer_groups_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
         if not UtilClient.is_unset(request.filter):
             query['filter'] = request.filter
@@ -280,8 +261,6 @@ class Client(OpenApiClient):
             query['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -290,7 +269,7 @@ class Client(OpenApiClient):
             action='ListConsumerGroups',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/consumerGroups' % TeaConverter.to_unicode(instance_id),
+            pathname='/instances/%s/consumerGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -316,8 +295,6 @@ class Client(OpenApiClient):
             query['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -345,7 +322,6 @@ class Client(OpenApiClient):
 
     def list_topics_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
         if not UtilClient.is_unset(request.filter):
             query['filter'] = request.filter
@@ -353,8 +329,6 @@ class Client(OpenApiClient):
             query['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -363,7 +337,7 @@ class Client(OpenApiClient):
             action='ListTopics',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/topics' % TeaConverter.to_unicode(instance_id),
+            pathname='/instances/%s/topics' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -382,8 +356,6 @@ class Client(OpenApiClient):
 
     def update_consumer_group_with_options(self, instance_id, consumer_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        consumer_group_id = OpenApiUtilClient.get_encode_param(consumer_group_id)
         body = {}
         if not UtilClient.is_unset(request.consume_retry_policy):
             body['consumeRetryPolicy'] = request.consume_retry_policy
@@ -391,8 +363,6 @@ class Client(OpenApiClient):
             body['deliveryOrderType'] = request.delivery_order_type
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -401,7 +371,7 @@ class Client(OpenApiClient):
             action='UpdateConsumerGroup',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(consumer_group_id)),
+            pathname='/instances/%s/consumerGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(consumer_group_id))),
             method='PATCH',
             auth_type='AK',
             style='ROA',
@@ -420,7 +390,6 @@ class Client(OpenApiClient):
 
     def update_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         body = {}
         if not UtilClient.is_unset(request.ext_config):
             body['extConfig'] = request.ext_config
@@ -430,8 +399,6 @@ class Client(OpenApiClient):
             body['networkInfo'] = request.network_info
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -440,7 +407,7 @@ class Client(OpenApiClient):
             action='UpdateInstance',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s' % TeaConverter.to_unicode(instance_id),
+            pathname='/instances/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='PATCH',
             auth_type='AK',
             style='ROA',
@@ -459,13 +426,9 @@ class Client(OpenApiClient):
 
     def update_topic_with_options(self, instance_id, topic_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        topic_name = OpenApiUtilClient.get_encode_param(topic_name)
         body = {}
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
-        if not UtilClient.is_unset(request.resource_group_id):
-            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -474,7 +437,7 @@ class Client(OpenApiClient):
             action='UpdateTopic',
             version='2022-08-01',
             protocol='HTTPS',
-            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(topic_name)),
+            pathname='/instances/%s/topics/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(topic_name))),
             method='PATCH',
             auth_type='AK',
             style='ROA',
