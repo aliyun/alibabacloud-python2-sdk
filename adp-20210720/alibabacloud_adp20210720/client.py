@@ -38,7 +38,6 @@ class Client(OpenApiClient):
 
     def add_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.application_disk):
             body['applicationDisk'] = request.application_disk
@@ -78,7 +77,7 @@ class Client(OpenApiClient):
             action='AddEnvironmentNodes',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/nodes' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/nodes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -97,8 +96,9 @@ class Client(OpenApiClient):
 
     def add_environment_product_versions_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.product_version_info_list):
+            body['productVersionInfoList'] = request.product_version_info_list
         if not UtilClient.is_unset(request.product_version_uidlist):
             body['productVersionUIDList'] = request.product_version_uidlist
         req = open_api_models.OpenApiRequest(
@@ -109,7 +109,7 @@ class Client(OpenApiClient):
             action='AddEnvironmentProductVersions',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/product-versions' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/product-versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -128,8 +128,6 @@ class Client(OpenApiClient):
 
     def add_product_component_version_with_options(self, uid, component_version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        component_version_uid = OpenApiUtilClient.get_encode_param(component_version_uid)
         body = {}
         if not UtilClient.is_unset(request.release_name):
             body['releaseName'] = request.release_name
@@ -141,7 +139,7 @@ class Client(OpenApiClient):
             action='AddProductComponentVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/product-versions/%s/component-versions/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(component_version_uid)),
+            pathname='/integration/api/v2/product-versions/%s/component-versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_version_uid))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -160,16 +158,21 @@ class Client(OpenApiClient):
 
     def add_product_version_config_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.component_release_name):
+            body['componentReleaseName'] = request.component_release_name
         if not UtilClient.is_unset(request.component_version_uid):
             body['componentVersionUID'] = request.component_version_uid
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         if not UtilClient.is_unset(request.name):
             body['name'] = request.name
+        if not UtilClient.is_unset(request.parent_component_release_name):
+            body['parentComponentReleaseName'] = request.parent_component_release_name
         if not UtilClient.is_unset(request.parent_component_version_uid):
             body['parentComponentVersionUID'] = request.parent_component_version_uid
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
         if not UtilClient.is_unset(request.value):
             body['value'] = request.value
         if not UtilClient.is_unset(request.value_type):
@@ -182,7 +185,7 @@ class Client(OpenApiClient):
             action='AddProductVersionConfig',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/configs' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/configs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -206,9 +209,13 @@ class Client(OpenApiClient):
             query['clusterUID'] = request.cluster_uid
         if not UtilClient.is_unset(request.product_version_uid):
             query['productVersionUID'] = request.product_version_uid
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='AddResourceSnapshot',
@@ -233,7 +240,6 @@ class Client(OpenApiClient):
 
     def batch_add_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.instance_list):
             body['instanceList'] = request.instance_list
@@ -247,7 +253,7 @@ class Client(OpenApiClient):
             action='BatchAddEnvironmentNodes',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/batch/nodes' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/batch/nodes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -266,7 +272,6 @@ class Client(OpenApiClient):
 
     def batch_add_product_version_config_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.product_version_config_list):
             body['productVersionConfigList'] = request.product_version_config_list
@@ -278,7 +283,7 @@ class Client(OpenApiClient):
             action='BatchAddProductVersionConfig',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/batch/configs' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/batch/configs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -348,12 +353,13 @@ class Client(OpenApiClient):
 
     def create_environment_license_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.company_name):
             body['companyName'] = request.company_name
         if not UtilClient.is_unset(request.contact):
             body['contact'] = request.contact
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
         if not UtilClient.is_unset(request.license_quota):
             body['licenseQuota'] = request.license_quota
         if not UtilClient.is_unset(request.machine_fingerprint):
@@ -376,7 +382,7 @@ class Client(OpenApiClient):
             action='CreateEnvironmentLicense',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/licenses' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/licenses' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -428,12 +434,18 @@ class Client(OpenApiClient):
     def create_product_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.categories):
+            body['categories'] = request.categories
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
         if not UtilClient.is_unset(request.foundation_version_uid):
             body['foundationVersionUID'] = request.foundation_version_uid
         if not UtilClient.is_unset(request.product_name):
             body['productName'] = request.product_name
+        if not UtilClient.is_unset(request.vendor):
+            body['vendor'] = request.vendor
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -506,7 +518,6 @@ class Client(OpenApiClient):
 
     def create_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.base_product_version_uid):
             query['baseProductVersionUID'] = request.base_product_version_uid
@@ -518,7 +529,7 @@ class Client(OpenApiClient):
             action='CreateProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/products/%s/versions' % TeaConverter.to_unicode(uid),
+            pathname='/integration/api/v2/products/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -537,10 +548,13 @@ class Client(OpenApiClient):
 
     def create_product_version_package_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.cluster_engine_type):
             query['clusterEngineType'] = request.cluster_engine_type
+        if not UtilClient.is_unset(request.foundation_reference_uid):
+            query['foundationReferenceUID'] = request.foundation_reference_uid
+        if not UtilClient.is_unset(request.old_foundation_reference_uid):
+            query['oldFoundationReferenceUID'] = request.old_foundation_reference_uid
         if not UtilClient.is_unset(request.old_product_version_uid):
             query['oldProductVersionUID'] = request.old_product_version_uid
         if not UtilClient.is_unset(request.package_content_type):
@@ -564,7 +578,7 @@ class Client(OpenApiClient):
             action='CreateProductVersionPackage',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/hosting/product-versions/%s/packages' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/hosting/product-versions/%s/packages' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -582,7 +596,6 @@ class Client(OpenApiClient):
         return self.delete_environment_with_options(uid, headers, runtime)
 
     def delete_environment_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -590,7 +603,7 @@ class Client(OpenApiClient):
             action='DeleteEnvironment',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -608,8 +621,6 @@ class Client(OpenApiClient):
         return self.delete_environment_license_with_options(uid, license_uid, headers, runtime)
 
     def delete_environment_license_with_options(self, uid, license_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        license_uid = OpenApiUtilClient.get_encode_param(license_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -617,7 +628,7 @@ class Client(OpenApiClient):
             action='DeleteEnvironmentLicense',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/licenses/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(license_uid)),
+            pathname='/api/v2/environments/%s/licenses/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(license_uid))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -635,8 +646,6 @@ class Client(OpenApiClient):
         return self.delete_environment_node_with_options(uid, node_uid, headers, runtime)
 
     def delete_environment_node_with_options(self, uid, node_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        node_uid = OpenApiUtilClient.get_encode_param(node_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -644,7 +653,7 @@ class Client(OpenApiClient):
             action='DeleteEnvironmentNode',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(node_uid)),
+            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(node_uid))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -662,8 +671,6 @@ class Client(OpenApiClient):
         return self.delete_environment_product_version_with_options(uid, product_version_uid, headers, runtime)
 
     def delete_environment_product_version_with_options(self, uid, product_version_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        product_version_uid = OpenApiUtilClient.get_encode_param(product_version_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -671,7 +678,7 @@ class Client(OpenApiClient):
             action='DeleteEnvironmentProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/product-versions/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(product_version_uid)),
+            pathname='/api/v2/environments/%s/product-versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_version_uid))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -689,7 +696,6 @@ class Client(OpenApiClient):
         return self.delete_product_with_options(uid, headers, runtime)
 
     def delete_product_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -697,7 +703,7 @@ class Client(OpenApiClient):
             action='DeleteProduct',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/products/%s' % TeaConverter.to_unicode(uid),
+            pathname='/integration/api/v2/products/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -715,8 +721,6 @@ class Client(OpenApiClient):
         return self.delete_product_component_version_with_options(uid, relation_uid, headers, runtime)
 
     def delete_product_component_version_with_options(self, uid, relation_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        relation_uid = OpenApiUtilClient.get_encode_param(relation_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -724,7 +728,7 @@ class Client(OpenApiClient):
             action='DeleteProductComponentVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(relation_uid)),
+            pathname='/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(relation_uid))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -743,7 +747,6 @@ class Client(OpenApiClient):
 
     def delete_product_instance_config_with_options(self, config_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        config_uid = OpenApiUtilClient.get_encode_param(config_uid)
         query = {}
         if not UtilClient.is_unset(request.environment_uid):
             query['environmentUID'] = request.environment_uid
@@ -757,7 +760,7 @@ class Client(OpenApiClient):
             action='DeleteProductInstanceConfig',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-instances/configs/%s' % TeaConverter.to_unicode(config_uid),
+            pathname='/api/v2/product-instances/configs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(config_uid)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -775,7 +778,6 @@ class Client(OpenApiClient):
         return self.delete_product_version_with_options(uid, headers, runtime)
 
     def delete_product_version_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -783,7 +785,7 @@ class Client(OpenApiClient):
             action='DeleteProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -801,8 +803,6 @@ class Client(OpenApiClient):
         return self.delete_product_version_config_with_options(uid, config_uid, headers, runtime)
 
     def delete_product_version_config_with_options(self, uid, config_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        config_uid = OpenApiUtilClient.get_encode_param(config_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -810,7 +810,7 @@ class Client(OpenApiClient):
             action='DeleteProductVersionConfig',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/configs/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(config_uid)),
+            pathname='/api/v2/product-versions/%s/configs/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(config_uid))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -836,6 +836,8 @@ class Client(OpenApiClient):
             body['packageUID'] = request.package_uid
         if not UtilClient.is_unset(request.product_version_uid):
             body['productVersionUID'] = request.product_version_uid
+        if not UtilClient.is_unset(request.product_version_uidlist):
+            body['productVersionUIDList'] = request.product_version_uidlist
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -862,7 +864,6 @@ class Client(OpenApiClient):
         return self.get_component_with_options(uid, headers, runtime)
 
     def get_component_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -870,7 +871,7 @@ class Client(OpenApiClient):
             action='GetComponent',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/components/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/components/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -889,8 +890,6 @@ class Client(OpenApiClient):
 
     def get_component_version_with_options(self, uid, version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        version_uid = OpenApiUtilClient.get_encode_param(version_uid)
         query = {}
         if not UtilClient.is_unset(request.without_chart_content):
             query['withoutChartContent'] = request.without_chart_content
@@ -902,7 +901,7 @@ class Client(OpenApiClient):
             action='GetComponentVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/components/%s/versions/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(version_uid)),
+            pathname='/integration/api/v2/components/%s/versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -921,7 +920,6 @@ class Client(OpenApiClient):
 
     def get_environment_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         request = adp_20210720_models.GetEnvironmentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
@@ -937,7 +935,7 @@ class Client(OpenApiClient):
             action='GetEnvironment',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -956,8 +954,6 @@ class Client(OpenApiClient):
 
     def get_environment_license_with_options(self, uid, license_uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        license_uid = OpenApiUtilClient.get_encode_param(license_uid)
         request = adp_20210720_models.GetEnvironmentLicenseShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
@@ -973,7 +969,7 @@ class Client(OpenApiClient):
             action='GetEnvironmentLicense',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/licenses/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(license_uid)),
+            pathname='/api/v2/environments/%s/licenses/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(license_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -991,8 +987,6 @@ class Client(OpenApiClient):
         return self.get_environment_node_with_options(uid, node_uid, headers, runtime)
 
     def get_environment_node_with_options(self, uid, node_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        node_uid = OpenApiUtilClient.get_encode_param(node_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1000,7 +994,7 @@ class Client(OpenApiClient):
             action='GetEnvironmentNode',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(node_uid)),
+            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(node_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1018,8 +1012,6 @@ class Client(OpenApiClient):
         return self.get_foundation_component_reference_with_options(component_reference_uid, uid, headers, runtime)
 
     def get_foundation_component_reference_with_options(self, component_reference_uid, uid, headers, runtime):
-        component_reference_uid = OpenApiUtilClient.get_encode_param(component_reference_uid)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1027,7 +1019,7 @@ class Client(OpenApiClient):
             action='GetFoundationComponentReference',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation-references/%s/components/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(component_reference_uid)),
+            pathname='/api/v2/foundation-references/%s/components/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_reference_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1045,7 +1037,6 @@ class Client(OpenApiClient):
         return self.get_foundation_reference_with_options(uid, headers, runtime)
 
     def get_foundation_reference_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1053,7 +1044,7 @@ class Client(OpenApiClient):
             action='GetFoundationReference',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation-references/%s/info' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/foundation-references/%s/info' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1071,7 +1062,6 @@ class Client(OpenApiClient):
         return self.get_foundation_version_with_options(uid, headers, runtime)
 
     def get_foundation_version_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1079,7 +1069,7 @@ class Client(OpenApiClient):
             action='GetFoundationVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation/versions/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/foundation/versions/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1091,21 +1081,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product(self, uid):
+    def get_product(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_with_options(uid, headers, runtime)
+        return self.get_product_with_options(uid, request, headers, runtime)
 
-    def get_product_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
+    def get_product_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.with_icon_url):
+            query['withIconURL'] = request.with_icon_url
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProduct',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/products/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/products/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1123,8 +1117,6 @@ class Client(OpenApiClient):
         return self.get_product_component_version_with_options(relation_uid, uid, headers, runtime)
 
     def get_product_component_version_with_options(self, relation_uid, uid, headers, runtime):
-        relation_uid = OpenApiUtilClient.get_encode_param(relation_uid)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1132,7 +1124,7 @@ class Client(OpenApiClient):
             action='GetProductComponentVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(relation_uid)),
+            pathname='/integration/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(relation_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1151,7 +1143,6 @@ class Client(OpenApiClient):
 
     def get_product_deployment_with_options(self, deployment_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        deployment_uid = OpenApiUtilClient.get_encode_param(deployment_uid)
         query = {}
         if not UtilClient.is_unset(request.environment_uid):
             query['environmentUID'] = request.environment_uid
@@ -1167,7 +1158,7 @@ class Client(OpenApiClient):
             action='GetProductDeployment',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-instances/deployments/%s' % TeaConverter.to_unicode(deployment_uid),
+            pathname='/api/v2/product-instances/deployments/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deployment_uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1179,21 +1170,27 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_version(self, uid):
+    def get_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_version_with_options(uid, headers, runtime)
+        return self.get_product_version_with_options(uid, request, headers, runtime)
 
-    def get_product_version_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
+    def get_product_version_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.with_documentation_url):
+            query['withDocumentationURL'] = request.with_documentation_url
+        if not UtilClient.is_unset(request.with_extend_resource_url):
+            query['withExtendResourceURL'] = request.with_extend_resource_url
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1212,8 +1209,6 @@ class Client(OpenApiClient):
 
     def get_product_version_differences_with_options(self, uid, version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        version_uid = OpenApiUtilClient.get_encode_param(version_uid)
         query = {}
         if not UtilClient.is_unset(request.pre_version_uid):
             query['preVersionUID'] = request.pre_version_uid
@@ -1225,7 +1220,7 @@ class Client(OpenApiClient):
             action='GetProductVersionDifferences',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/integration/api/v2/products/%s/versions/%s/differences' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(version_uid)),
+            pathname='/integration/api/v2/products/%s/versions/%s/differences' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version_uid))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1244,8 +1239,11 @@ class Client(OpenApiClient):
 
     def get_product_version_package_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
+        if not UtilClient.is_unset(request.foundation_reference_uid):
+            query['foundationReferenceUID'] = request.foundation_reference_uid
+        if not UtilClient.is_unset(request.old_foundation_reference_uid):
+            query['oldFoundationReferenceUID'] = request.old_foundation_reference_uid
         if not UtilClient.is_unset(request.old_product_version_uid):
             query['oldProductVersionUID'] = request.old_product_version_uid
         if not UtilClient.is_unset(request.package_content_type):
@@ -1266,7 +1264,7 @@ class Client(OpenApiClient):
             action='GetProductVersionPackage',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/hosting/product-versions/%s/packages' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/hosting/product-versions/%s/packages' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1288,6 +1286,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.product_version_uid):
             query['productVersionUID'] = request.product_version_uid
+        if not UtilClient.is_unset(request.uid):
+            query['uid'] = request.uid
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1347,7 +1347,6 @@ class Client(OpenApiClient):
 
     def init_environment_resource_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.access_key_id):
             body['accessKeyID'] = request.access_key_id
@@ -1363,7 +1362,7 @@ class Client(OpenApiClient):
             action='InitEnvironmentResource',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/resources' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/resources' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1382,7 +1381,6 @@ class Client(OpenApiClient):
 
     def list_component_versions_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         request = adp_20210720_models.ListComponentVersionsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.platforms):
@@ -1402,7 +1400,7 @@ class Client(OpenApiClient):
             action='ListComponentVersions',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/components/%s/versions' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/components/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1461,7 +1459,6 @@ class Client(OpenApiClient):
 
     def list_environment_licenses_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
@@ -1479,7 +1476,7 @@ class Client(OpenApiClient):
             action='ListEnvironmentLicenses',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/licenses' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/licenses' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1498,7 +1495,6 @@ class Client(OpenApiClient):
 
     def list_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
@@ -1512,7 +1508,7 @@ class Client(OpenApiClient):
             action='ListEnvironmentNodes',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/nodes' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/nodes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1530,7 +1526,6 @@ class Client(OpenApiClient):
         return self.list_environment_tunnels_with_options(uid, headers, runtime)
 
     def list_environment_tunnels_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1538,7 +1533,7 @@ class Client(OpenApiClient):
             action='ListEnvironmentTunnels',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/tunnels' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/tunnels' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1602,7 +1597,6 @@ class Client(OpenApiClient):
         return self.list_foundation_component_versions_with_options(uid, headers, runtime)
 
     def list_foundation_component_versions_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1610,7 +1604,7 @@ class Client(OpenApiClient):
             action='ListFoundationComponentVersions',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation/versions/%s/component-versions' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/foundation/versions/%s/component-versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1658,14 +1652,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_foundation_versions(self):
+    def list_foundation_versions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_foundation_versions_with_options(headers, runtime)
+        return self.list_foundation_versions_with_options(request, headers, runtime)
 
-    def list_foundation_versions_with_options(self, headers, runtime):
+    def list_foundation_versions_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.sort_direct):
+            query['sortDirect'] = request.sort_direct
+        if not UtilClient.is_unset(request.sort_key):
+            query['sortKey'] = request.sort_key
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListFoundationVersions',
@@ -1690,7 +1693,6 @@ class Client(OpenApiClient):
 
     def list_product_component_versions_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -1710,7 +1712,7 @@ class Client(OpenApiClient):
             action='ListProductComponentVersions',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/component-versions' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/component-versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1765,9 +1767,10 @@ class Client(OpenApiClient):
 
     def list_product_environments_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         request = adp_20210720_models.ListProductEnvironmentsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.options):
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
         if not UtilClient.is_unset(tmp_req.platforms):
             request.platforms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.platforms, 'platforms', 'json')
         query = {}
@@ -1775,8 +1778,12 @@ class Client(OpenApiClient):
             query['compatibleProductVersionUID'] = request.compatible_product_version_uid
         if not UtilClient.is_unset(request.env_type):
             query['envType'] = request.env_type
+        if not UtilClient.is_unset(request.options_shrink):
+            query['options'] = request.options_shrink
         if not UtilClient.is_unset(request.platforms_shrink):
             query['platforms'] = request.platforms_shrink
+        if not UtilClient.is_unset(request.product_version_spec_uid):
+            query['productVersionSpecUID'] = request.product_version_spec_uid
         if not UtilClient.is_unset(request.product_version_uid):
             query['productVersionUID'] = request.product_version_uid
         req = open_api_models.OpenApiRequest(
@@ -1787,7 +1794,7 @@ class Client(OpenApiClient):
             action='ListProductEnvironments',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/hosting/products/%s/environments' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/hosting/products/%s/environments' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1805,7 +1812,6 @@ class Client(OpenApiClient):
         return self.list_product_foundation_references_with_options(uid, headers, runtime)
 
     def list_product_foundation_references_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1813,7 +1819,7 @@ class Client(OpenApiClient):
             action='ListProductFoundationReferences',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/foundation-references' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/foundation-references' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1868,11 +1874,17 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_product_instances_with_options(request, headers, runtime)
 
-    def list_product_instances_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def list_product_instances_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = adp_20210720_models.ListProductInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.options):
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
         query = {}
         if not UtilClient.is_unset(request.env_uid):
             query['envUID'] = request.env_uid
+        if not UtilClient.is_unset(request.options_shrink):
+            query['options'] = request.options_shrink
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -1906,7 +1918,6 @@ class Client(OpenApiClient):
 
     def list_product_version_configs_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         query = {}
         if not UtilClient.is_unset(request.config_type):
             query['configType'] = request.config_type
@@ -1914,6 +1925,10 @@ class Client(OpenApiClient):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parameter):
+            query['parameter'] = request.parameter
+        if not UtilClient.is_unset(request.scope):
+            query['scope'] = request.scope
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1922,7 +1937,7 @@ class Client(OpenApiClient):
             action='ListProductVersionConfigs',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/configs' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/configs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2027,8 +2042,6 @@ class Client(OpenApiClient):
 
     def list_workflow_task_logs_with_options(self, step_name, task_name, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        step_name = OpenApiUtilClient.get_encode_param(step_name)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         request = adp_20210720_models.ListWorkflowTaskLogsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.filter_values):
@@ -2054,7 +2067,7 @@ class Client(OpenApiClient):
             action='ListWorkflowTaskLogs',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/workflows/steps/%s/tasks/%s/logs' % (TeaConverter.to_unicode(step_name), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/workflows/steps/%s/tasks/%s/logs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(step_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2073,7 +2086,6 @@ class Client(OpenApiClient):
 
     def put_environment_tunnel_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.tunnel_config):
             body['tunnelConfig'] = request.tunnel_config
@@ -2087,7 +2099,7 @@ class Client(OpenApiClient):
             action='PutEnvironmentTunnel',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/tunnels' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/tunnels' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2159,8 +2171,6 @@ class Client(OpenApiClient):
         return self.set_environment_foundation_reference_with_options(uid, foundation_reference_uid, headers, runtime)
 
     def set_environment_foundation_reference_with_options(self, uid, foundation_reference_uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        foundation_reference_uid = OpenApiUtilClient.get_encode_param(foundation_reference_uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2168,7 +2178,7 @@ class Client(OpenApiClient):
             action='SetEnvironmentFoundationReference',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/foundation-references/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(foundation_reference_uid)),
+            pathname='/api/v2/environments/%s/foundation-references/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(foundation_reference_uid))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2187,8 +2197,9 @@ class Client(OpenApiClient):
 
     def update_environment_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.advanced_configs):
+            body['advancedConfigs'] = request.advanced_configs
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         if not UtilClient.is_unset(request.location):
@@ -2203,7 +2214,7 @@ class Client(OpenApiClient):
             action='UpdateEnvironment',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2222,8 +2233,6 @@ class Client(OpenApiClient):
 
     def update_environment_node_with_options(self, uid, node_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        node_uid = OpenApiUtilClient.get_encode_param(node_uid)
         body = {}
         if not UtilClient.is_unset(request.application_disk):
             body['applicationDisk'] = request.application_disk
@@ -2247,7 +2256,7 @@ class Client(OpenApiClient):
             action='UpdateEnvironmentNode',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(node_uid)),
+            pathname='/api/v2/environments/%s/nodes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(node_uid))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2266,10 +2275,13 @@ class Client(OpenApiClient):
 
     def update_environment_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.old_product_version_spec_uid):
+            body['oldProductVersionSpecUID'] = request.old_product_version_spec_uid
         if not UtilClient.is_unset(request.old_product_version_uid):
             body['oldProductVersionUID'] = request.old_product_version_uid
+        if not UtilClient.is_unset(request.product_version_spec_uid):
+            body['productVersionSpecUID'] = request.product_version_spec_uid
         if not UtilClient.is_unset(request.product_version_uid):
             body['productVersionUID'] = request.product_version_uid
         req = open_api_models.OpenApiRequest(
@@ -2280,7 +2292,7 @@ class Client(OpenApiClient):
             action='UpdateEnvironmentProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/product-versions' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/product-versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2299,8 +2311,6 @@ class Client(OpenApiClient):
 
     def update_foundation_component_reference_with_options(self, uid, component_reference_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        component_reference_uid = OpenApiUtilClient.get_encode_param(component_reference_uid)
         body = {}
         if not UtilClient.is_unset(request.component_orchestration_values):
             body['componentOrchestrationValues'] = request.component_orchestration_values
@@ -2314,7 +2324,7 @@ class Client(OpenApiClient):
             action='UpdateFoundationComponentReference',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation-references/%s/components/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(component_reference_uid)),
+            pathname='/api/v2/foundation-references/%s/components/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_reference_uid))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2333,7 +2343,6 @@ class Client(OpenApiClient):
 
     def update_foundation_reference_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.cluster_config):
             body['clusterConfig'] = request.cluster_config
@@ -2345,7 +2354,7 @@ class Client(OpenApiClient):
             action='UpdateFoundationReference',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/foundation-references/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/foundation-references/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2364,10 +2373,15 @@ class Client(OpenApiClient):
 
     def update_product_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.categories):
+            body['categories'] = request.categories
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.vendor):
+            body['vendor'] = request.vendor
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -2376,7 +2390,7 @@ class Client(OpenApiClient):
             action='UpdateProduct',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/products/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/products/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2395,8 +2409,6 @@ class Client(OpenApiClient):
 
     def update_product_component_version_with_options(self, uid, relation_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        relation_uid = OpenApiUtilClient.get_encode_param(relation_uid)
         body = {}
         if not UtilClient.is_unset(request.component_orchestration_values):
             body['componentOrchestrationValues'] = request.component_orchestration_values
@@ -2404,6 +2416,8 @@ class Client(OpenApiClient):
             body['enable'] = request.enable
         if not UtilClient.is_unset(request.new_component_version_uid):
             body['newComponentVersionUID'] = request.new_component_version_uid
+        if not UtilClient.is_unset(request.policy):
+            body['policy'] = request.policy
         if not UtilClient.is_unset(request.release_name):
             body['releaseName'] = request.release_name
         req = open_api_models.OpenApiRequest(
@@ -2414,7 +2428,7 @@ class Client(OpenApiClient):
             action='UpdateProductComponentVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(relation_uid)),
+            pathname='/api/v2/product-versions/%s/relations/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(relation_uid))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2433,7 +2447,6 @@ class Client(OpenApiClient):
 
     def update_product_foundation_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.foundation_version_uid):
             body['foundationVersionUID'] = request.foundation_version_uid
@@ -2445,7 +2458,7 @@ class Client(OpenApiClient):
             action='UpdateProductFoundationVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/foundation' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s/foundation' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2464,8 +2477,9 @@ class Client(OpenApiClient):
 
     def update_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
+        if not UtilClient.is_unset(request.continuous_integration):
+            body['continuousIntegration'] = request.continuous_integration
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         if not UtilClient.is_unset(request.version):
@@ -2478,7 +2492,7 @@ class Client(OpenApiClient):
             action='UpdateProductVersion',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/product-versions/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2497,8 +2511,6 @@ class Client(OpenApiClient):
 
     def update_product_version_config_with_options(self, uid, config_uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
-        config_uid = OpenApiUtilClient.get_encode_param(config_uid)
         body = {}
         if not UtilClient.is_unset(request.component_version_uid):
             body['componentVersionUID'] = request.component_version_uid
@@ -2520,7 +2532,7 @@ class Client(OpenApiClient):
             action='UpdateProductVersionConfig',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/product-versions/%s/configs/%s' % (TeaConverter.to_unicode(uid), TeaConverter.to_unicode(config_uid)),
+            pathname='/api/v2/product-versions/%s/configs/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(config_uid))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2539,7 +2551,6 @@ class Client(OpenApiClient):
 
     def validate_environment_tunnel_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         body = {}
         if not UtilClient.is_unset(request.tunnel_config):
             body['tunnelConfig'] = request.tunnel_config
@@ -2553,7 +2564,7 @@ class Client(OpenApiClient):
             action='ValidateEnvironmentTunnel',
             version='2021-07-20',
             protocol='HTTPS',
-            pathname='/api/v2/environments/%s/tunnels/validation' % TeaConverter.to_unicode(uid),
+            pathname='/api/v2/environments/%s/tunnels/validation' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='PUT',
             auth_type='AK',
             style='ROA',
