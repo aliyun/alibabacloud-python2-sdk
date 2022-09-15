@@ -38,9 +38,6 @@ class Client(OpenApiClient):
 
     def add_work_node_workforce_with_options(self, tenant_id, task_id, work_node_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
-        work_node_id = OpenApiUtilClient.get_encode_param(work_node_id)
         body = {}
         if not UtilClient.is_unset(request.user_ids):
             body['UserIds'] = request.user_ids
@@ -52,7 +49,7 @@ class Client(OpenApiClient):
             action='AddWorkNodeWorkforce',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/worknodes/%s/workforce' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id), TeaConverter.to_unicode(work_node_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/worknodes/%s/workforce' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(work_node_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -71,7 +68,6 @@ class Client(OpenApiClient):
 
     def create_task_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
@@ -80,7 +76,7 @@ class Client(OpenApiClient):
             action='CreateTask',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -99,7 +95,6 @@ class Client(OpenApiClient):
 
     def create_template_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
@@ -108,7 +103,7 @@ class Client(OpenApiClient):
             action='CreateTemplate',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/templates' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -127,7 +122,6 @@ class Client(OpenApiClient):
 
     def create_user_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         body = {}
         if not UtilClient.is_unset(request.account_no):
             body['AccountNo'] = request.account_no
@@ -145,7 +139,7 @@ class Client(OpenApiClient):
             action='CreateUser',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/users' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/users' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -163,8 +157,6 @@ class Client(OpenApiClient):
         return self.delete_task_with_options(tenant_id, task_id, headers, runtime)
 
     def delete_task_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -172,7 +164,7 @@ class Client(OpenApiClient):
             action='DeleteTask',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -190,8 +182,6 @@ class Client(OpenApiClient):
         return self.delete_template_with_options(tenant_id, template_id, headers, runtime)
 
     def delete_template_with_options(self, tenant_id, template_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -199,7 +189,7 @@ class Client(OpenApiClient):
             action='DeleteTemplate',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(template_id)),
+            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -217,8 +207,6 @@ class Client(OpenApiClient):
         return self.delete_user_with_options(tenant_id, user_id, headers, runtime)
 
     def delete_user_with_options(self, tenant_id, user_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -226,7 +214,7 @@ class Client(OpenApiClient):
             action='DeleteUser',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(user_id)),
+            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -245,8 +233,6 @@ class Client(OpenApiClient):
 
     def export_annotations_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         query = {}
         if not UtilClient.is_unset(request.oss_path):
             query['OssPath'] = request.oss_path
@@ -262,7 +248,7 @@ class Client(OpenApiClient):
             action='ExportAnnotations',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/annotations/export' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/annotations/export' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -281,8 +267,6 @@ class Client(OpenApiClient):
 
     def get_job_with_options(self, tenant_id, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         query = {}
         if not UtilClient.is_unset(request.job_type):
             query['JobType'] = request.job_type
@@ -294,7 +278,7 @@ class Client(OpenApiClient):
             action='GetJob',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/jobs/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(job_id)),
+            pathname='/openapi/api/v1/tenants/%s/jobs/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -312,9 +296,6 @@ class Client(OpenApiClient):
         return self.get_subtask_with_options(tenant_id, task_id, subtask_id, headers, runtime)
 
     def get_subtask_with_options(self, tenant_id, task_id, subtask_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
-        subtask_id = OpenApiUtilClient.get_encode_param(subtask_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -322,7 +303,7 @@ class Client(OpenApiClient):
             action='GetSubtask',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id), TeaConverter.to_unicode(subtask_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(subtask_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -340,10 +321,6 @@ class Client(OpenApiClient):
         return self.get_subtask_item_with_options(tenant_id, task_id, subtask_id, item_id, headers, runtime)
 
     def get_subtask_item_with_options(self, tenant_id, task_id, subtask_id, item_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
-        subtask_id = OpenApiUtilClient.get_encode_param(subtask_id)
-        item_id = OpenApiUtilClient.get_encode_param(item_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -351,7 +328,7 @@ class Client(OpenApiClient):
             action='GetSubtaskItem',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s/items/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id), TeaConverter.to_unicode(subtask_id), TeaConverter.to_unicode(item_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s/items/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(subtask_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(item_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -369,8 +346,6 @@ class Client(OpenApiClient):
         return self.get_task_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -378,7 +353,7 @@ class Client(OpenApiClient):
             action='GetTask',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -397,8 +372,6 @@ class Client(OpenApiClient):
 
     def get_task_statistics_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         query = {}
         if not UtilClient.is_unset(request.stat_type):
             query['StatType'] = request.stat_type
@@ -410,7 +383,7 @@ class Client(OpenApiClient):
             action='GetTaskStatistics',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/statistics' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/statistics' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -428,8 +401,6 @@ class Client(OpenApiClient):
         return self.get_task_status_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_status_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -437,7 +408,7 @@ class Client(OpenApiClient):
             action='GetTaskStatus',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/status' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/status' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -455,8 +426,6 @@ class Client(OpenApiClient):
         return self.get_task_template_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -464,7 +433,7 @@ class Client(OpenApiClient):
             action='GetTaskTemplate',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -482,8 +451,6 @@ class Client(OpenApiClient):
         return self.get_task_template_questions_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_questions_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -491,7 +458,7 @@ class Client(OpenApiClient):
             action='GetTaskTemplateQuestions',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template/questions' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template/questions' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -509,8 +476,6 @@ class Client(OpenApiClient):
         return self.get_task_template_views_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_views_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -518,7 +483,7 @@ class Client(OpenApiClient):
             action='GetTaskTemplateViews',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template/views' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/template/views' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -536,8 +501,6 @@ class Client(OpenApiClient):
         return self.get_task_workforce_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_workforce_with_options(self, tenant_id, task_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -545,7 +508,7 @@ class Client(OpenApiClient):
             action='GetTaskWorkforce',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -564,8 +527,6 @@ class Client(OpenApiClient):
 
     def get_task_workforce_statistic_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -581,7 +542,7 @@ class Client(OpenApiClient):
             action='GetTaskWorkforceStatistic',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce/statistic' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce/statistic' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -599,8 +560,6 @@ class Client(OpenApiClient):
         return self.get_template_with_options(tenant_id, template_id, headers, runtime)
 
     def get_template_with_options(self, tenant_id, template_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -608,7 +567,7 @@ class Client(OpenApiClient):
             action='GetTemplate',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(template_id)),
+            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -626,8 +585,6 @@ class Client(OpenApiClient):
         return self.get_template_questions_with_options(tenant_id, template_id, headers, runtime)
 
     def get_template_questions_with_options(self, tenant_id, template_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -635,7 +592,7 @@ class Client(OpenApiClient):
             action='GetTemplateQuestions',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates/%s/questions' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(template_id)),
+            pathname='/openapi/api/v1/tenants/%s/templates/%s/questions' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -653,8 +610,6 @@ class Client(OpenApiClient):
         return self.get_template_view_with_options(tenant_id, template_id, headers, runtime)
 
     def get_template_view_with_options(self, tenant_id, template_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -662,7 +617,7 @@ class Client(OpenApiClient):
             action='GetTemplateView',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates/%s/views' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(template_id)),
+            pathname='/openapi/api/v1/tenants/%s/templates/%s/views' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -680,7 +635,6 @@ class Client(OpenApiClient):
         return self.get_tenant_with_options(tenant_id, headers, runtime)
 
     def get_tenant_with_options(self, tenant_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -688,7 +642,7 @@ class Client(OpenApiClient):
             action='GetTenant',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -706,8 +660,6 @@ class Client(OpenApiClient):
         return self.get_user_with_options(tenant_id, user_id, headers, runtime)
 
     def get_user_with_options(self, tenant_id, user_id, headers, runtime):
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -715,7 +667,7 @@ class Client(OpenApiClient):
             action='GetUser',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(user_id)),
+            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -734,7 +686,6 @@ class Client(OpenApiClient):
 
     def list_jobs_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         query = {}
         if not UtilClient.is_unset(request.job_type):
             query['JobType'] = request.job_type
@@ -750,7 +701,7 @@ class Client(OpenApiClient):
             action='ListJobs',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/jobs' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/jobs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -769,9 +720,6 @@ class Client(OpenApiClient):
 
     def list_subtask_items_with_options(self, tenant_id, task_id, subtask_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
-        subtask_id = OpenApiUtilClient.get_encode_param(subtask_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -785,7 +733,7 @@ class Client(OpenApiClient):
             action='ListSubtaskItems',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s/items' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id), TeaConverter.to_unicode(subtask_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks/%s/items' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(subtask_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -804,8 +752,6 @@ class Client(OpenApiClient):
 
     def list_subtasks_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -819,7 +765,7 @@ class Client(OpenApiClient):
             action='ListSubtasks',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/subtasks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -838,7 +784,6 @@ class Client(OpenApiClient):
 
     def list_tasks_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -852,7 +797,7 @@ class Client(OpenApiClient):
             action='ListTasks',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -869,9 +814,12 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_templates_with_options(tenant_id, request, headers, runtime)
 
-    def list_templates_with_options(self, tenant_id, request, headers, runtime):
-        UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
+    def list_templates_with_options(self, tenant_id, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = open_itag_20220616_models.ListTemplatesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.types):
+            request.types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.types, 'Types', 'simple')
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -879,6 +827,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.search_key):
             query['SearchKey'] = request.search_key
+        if not UtilClient.is_unset(request.types_shrink):
+            query['Types'] = request.types_shrink
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -887,7 +837,7 @@ class Client(OpenApiClient):
             action='ListTemplates',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/templates' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -938,7 +888,6 @@ class Client(OpenApiClient):
 
     def list_users_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -952,7 +901,7 @@ class Client(OpenApiClient):
             action='ListUsers',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/users' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s/users' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -971,9 +920,6 @@ class Client(OpenApiClient):
 
     def remove_work_node_workforce_with_options(self, tenant_id, task_id, work_node_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
-        work_node_id = OpenApiUtilClient.get_encode_param(work_node_id)
         body = {}
         if not UtilClient.is_unset(request.user_ids):
             body['UserIds'] = request.user_ids
@@ -985,7 +931,7 @@ class Client(OpenApiClient):
             action='RemoveWorkNodeWorkforce',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/worknodes/%s/workforce' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id), TeaConverter.to_unicode(work_node_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/worknodes/%s/workforce' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(work_node_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1004,8 +950,6 @@ class Client(OpenApiClient):
 
     def update_task_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
@@ -1014,7 +958,7 @@ class Client(OpenApiClient):
             action='UpdateTask',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1033,8 +977,6 @@ class Client(OpenApiClient):
 
     def update_task_workforce_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         body = {}
         if not UtilClient.is_unset(request.workforce):
             body['Workforce'] = request.workforce
@@ -1046,7 +988,7 @@ class Client(OpenApiClient):
             action='UpdateTaskWorkforce',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(task_id)),
+            pathname='/openapi/api/v1/tenants/%s/tasks/%s/workforce' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1065,8 +1007,6 @@ class Client(OpenApiClient):
 
     def update_template_with_options(self, tenant_id, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
@@ -1075,7 +1015,7 @@ class Client(OpenApiClient):
             action='UpdateTemplate',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(template_id)),
+            pathname='/openapi/api/v1/tenants/%s/templates/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1094,7 +1034,6 @@ class Client(OpenApiClient):
 
     def update_tenant_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
@@ -1108,7 +1047,7 @@ class Client(OpenApiClient):
             action='UpdateTenant',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s' % TeaConverter.to_unicode(tenant_id),
+            pathname='/openapi/api/v1/tenants/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1127,8 +1066,6 @@ class Client(OpenApiClient):
 
     def update_user_with_options(self, tenant_id, user_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tenant_id = OpenApiUtilClient.get_encode_param(tenant_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         body = {}
         if not UtilClient.is_unset(request.role):
             body['Role'] = request.role
@@ -1142,7 +1079,7 @@ class Client(OpenApiClient):
             action='UpdateUser',
             version='2022-06-16',
             protocol='HTTPS',
-            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(tenant_id), TeaConverter.to_unicode(user_id)),
+            pathname='/openapi/api/v1/tenants/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tenant_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',

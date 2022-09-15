@@ -1931,11 +1931,14 @@ class TaskTemplateConfig(TeaModel):
         self.exif = exif  # type: dict[str, str]
         self.resource_key = resource_key  # type: str
         self.select_questions = select_questions  # type: list[str]
-        self.template_option_map = template_option_map  # type: dict[str, str]
+        self.template_option_map = template_option_map  # type: dict[str, TaskTemplateOptionConfig]
         self.template_relation_id = template_relation_id  # type: str
 
     def validate(self):
-        pass
+        if self.template_option_map:
+            for v in self.template_option_map.values():
+                if v:
+                    v.validate()
 
     def to_map(self):
         _map = super(TaskTemplateConfig, self).to_map()
@@ -1949,8 +1952,10 @@ class TaskTemplateConfig(TeaModel):
             result['ResourceKey'] = self.resource_key
         if self.select_questions is not None:
             result['SelectQuestions'] = self.select_questions
+        result['TemplateOptionMap'] = {}
         if self.template_option_map is not None:
-            result['TemplateOptionMap'] = self.template_option_map
+            for k, v in self.template_option_map.items():
+                result['TemplateOptionMap'][k] = v.to_map()
         if self.template_relation_id is not None:
             result['TemplateRelationId'] = self.template_relation_id
         return result
@@ -1963,10 +1968,60 @@ class TaskTemplateConfig(TeaModel):
             self.resource_key = m.get('ResourceKey')
         if m.get('SelectQuestions') is not None:
             self.select_questions = m.get('SelectQuestions')
+        self.template_option_map = {}
         if m.get('TemplateOptionMap') is not None:
-            self.template_option_map = m.get('TemplateOptionMap')
+            for k, v in m.get('TemplateOptionMap').items():
+                temp_model = TaskTemplateOptionConfig()
+                self.template_option_map[k] = temp_model.from_map(v)
         if m.get('TemplateRelationId') is not None:
             self.template_relation_id = m.get('TemplateRelationId')
+        return self
+
+
+class TaskTemplateOptionConfig(TeaModel):
+    def __init__(self, default_result=None, options=None, pre_options=None, rule=None):
+        self.default_result = default_result  # type: str
+        self.options = options  # type: list[QuestionOption]
+        self.pre_options = pre_options  # type: list[str]
+        self.rule = rule  # type: str
+
+    def validate(self):
+        if self.options:
+            for k in self.options:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TaskTemplateOptionConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_result is not None:
+            result['DefaultResult'] = self.default_result
+        result['Options'] = []
+        if self.options is not None:
+            for k in self.options:
+                result['Options'].append(k.to_map() if k else None)
+        if self.pre_options is not None:
+            result['PreOptions'] = self.pre_options
+        if self.rule is not None:
+            result['Rule'] = self.rule
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultResult') is not None:
+            self.default_result = m.get('DefaultResult')
+        self.options = []
+        if m.get('Options') is not None:
+            for k in m.get('Options'):
+                temp_model = QuestionOption()
+                self.options.append(temp_model.from_map(k))
+        if m.get('PreOptions') is not None:
+            self.pre_options = m.get('PreOptions')
+        if m.get('Rule') is not None:
+            self.rule = m.get('Rule')
         return self
 
 
@@ -2695,9 +2750,10 @@ class AddWorkNodeWorkforceRequest(TeaModel):
 
 
 class AddWorkNodeWorkforceResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -2715,6 +2771,8 @@ class AddWorkNodeWorkforceResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -2729,6 +2787,8 @@ class AddWorkNodeWorkforceResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -2804,9 +2864,11 @@ class CreateTaskRequest(TeaModel):
 
 
 class CreateTaskResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, task_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 task_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -2825,6 +2887,8 @@ class CreateTaskResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -2841,6 +2905,8 @@ class CreateTaskResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -2918,9 +2984,11 @@ class CreateTemplateRequest(TeaModel):
 
 
 class CreateTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, template_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 template_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -2939,6 +3007,8 @@ class CreateTemplateResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -2955,6 +3025,8 @@ class CreateTemplateResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3045,9 +3117,11 @@ class CreateUserRequest(TeaModel):
 
 
 class CreateUserResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, user_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 user_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3066,6 +3140,8 @@ class CreateUserResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3082,6 +3158,8 @@ class CreateUserResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3133,9 +3211,10 @@ class CreateUserResponse(TeaModel):
 
 
 class DeleteTaskResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3153,6 +3232,8 @@ class DeleteTaskResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3167,6 +3248,8 @@ class DeleteTaskResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3216,9 +3299,11 @@ class DeleteTaskResponse(TeaModel):
 
 
 class DeleteTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, template_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 template_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3237,6 +3322,8 @@ class DeleteTemplateResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3253,6 +3340,8 @@ class DeleteTemplateResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3304,9 +3393,10 @@ class DeleteTemplateResponse(TeaModel):
 
 
 class DeleteUserResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3324,6 +3414,8 @@ class DeleteUserResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3338,6 +3430,8 @@ class DeleteUserResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3421,9 +3515,11 @@ class ExportAnnotationsRequest(TeaModel):
 
 
 class ExportAnnotationsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, flow_job=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, flow_job=None, message=None, request_id=None,
+                 success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.flow_job = flow_job  # type: FlowJobInfo
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -3443,6 +3539,8 @@ class ExportAnnotationsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.flow_job is not None:
             result['FlowJob'] = self.flow_job.to_map()
         if self.message is not None:
@@ -3459,6 +3557,8 @@ class ExportAnnotationsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('FlowJob') is not None:
             temp_model = FlowJobInfo()
             self.flow_job = temp_model.from_map(m['FlowJob'])
@@ -3535,9 +3635,11 @@ class GetJobRequest(TeaModel):
 
 
 class GetJobResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, job=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, job=None, message=None, request_id=None,
+                 success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.job = job  # type: Job
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -3557,6 +3659,8 @@ class GetJobResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.job is not None:
             result['Job'] = self.job.to_map()
         if self.message is not None:
@@ -3573,6 +3677,8 @@ class GetJobResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Job') is not None:
             temp_model = Job()
             self.job = temp_model.from_map(m['Job'])
@@ -3625,9 +3731,11 @@ class GetJobResponse(TeaModel):
 
 
 class GetSubtaskResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, subtask=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, subtask=None,
+                 success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.subtask = subtask  # type: SimpleSubtask
@@ -3647,6 +3755,8 @@ class GetSubtaskResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3663,6 +3773,8 @@ class GetSubtaskResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3715,9 +3827,11 @@ class GetSubtaskResponse(TeaModel):
 
 
 class GetSubtaskItemResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, item=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, item=None, message=None, request_id=None,
+                 success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.item = item  # type: SubtaskItemDetail
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -3737,6 +3851,8 @@ class GetSubtaskItemResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.item is not None:
             result['Item'] = self.item.to_map()
         if self.message is not None:
@@ -3753,6 +3869,8 @@ class GetSubtaskItemResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Item') is not None:
             temp_model = SubtaskItemDetail()
             self.item = temp_model.from_map(m['Item'])
@@ -3805,9 +3923,11 @@ class GetSubtaskItemResponse(TeaModel):
 
 
 class GetTaskResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, task=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 task=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3827,6 +3947,8 @@ class GetTaskResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3843,6 +3965,8 @@ class GetTaskResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -3919,9 +4043,11 @@ class GetTaskStatisticsRequest(TeaModel):
 
 
 class GetTaskStatisticsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, task_statistics=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 task_statistics=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -3941,6 +4067,8 @@ class GetTaskStatisticsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3957,6 +4085,8 @@ class GetTaskStatisticsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4009,9 +4139,11 @@ class GetTaskStatisticsResponse(TeaModel):
 
 
 class GetTaskStatusResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, task_status=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 task_status=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4030,6 +4162,8 @@ class GetTaskStatusResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4046,6 +4180,8 @@ class GetTaskStatusResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4097,9 +4233,11 @@ class GetTaskStatusResponse(TeaModel):
 
 
 class GetTaskTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, template=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 template=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4119,6 +4257,8 @@ class GetTaskTemplateResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4135,6 +4275,8 @@ class GetTaskTemplateResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4187,9 +4329,11 @@ class GetTaskTemplateResponse(TeaModel):
 
 
 class GetTaskTemplateQuestionsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, questions=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, questions=None, request_id=None,
+                 success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.questions = questions  # type: list[QuestionPlugin]
         self.request_id = request_id  # type: str
@@ -4211,6 +4355,8 @@ class GetTaskTemplateQuestionsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         result['Questions'] = []
@@ -4229,6 +4375,8 @@ class GetTaskTemplateQuestionsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.questions = []
@@ -4315,9 +4463,11 @@ class GetTaskTemplateViewsResponseBodyViews(TeaModel):
 
 
 class GetTaskTemplateViewsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, views=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 views=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4337,6 +4487,8 @@ class GetTaskTemplateViewsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4353,6 +4505,8 @@ class GetTaskTemplateViewsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4405,9 +4559,11 @@ class GetTaskTemplateViewsResponse(TeaModel):
 
 
 class GetTaskWorkforceResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, workforce=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 workforce=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4429,6 +4585,8 @@ class GetTaskWorkforceResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4447,6 +4605,8 @@ class GetTaskWorkforceResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4535,10 +4695,11 @@ class GetTaskWorkforceStatisticRequest(TeaModel):
 
 
 class GetTaskWorkforceStatisticResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 success=None, total_count=None, total_page=None, users_statistic=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, total_count=None, total_page=None, users_statistic=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -4564,6 +4725,8 @@ class GetTaskWorkforceStatisticResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -4590,6 +4753,8 @@ class GetTaskWorkforceStatisticResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -4652,9 +4817,11 @@ class GetTaskWorkforceStatisticResponse(TeaModel):
 
 
 class GetTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, template=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 template=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4674,6 +4841,8 @@ class GetTemplateResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4690,6 +4859,8 @@ class GetTemplateResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4742,9 +4913,11 @@ class GetTemplateResponse(TeaModel):
 
 
 class GetTemplateQuestionsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, question_configs=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, question_configs=None,
+                 request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.question_configs = question_configs  # type: list[QuestionPlugin]
         self.request_id = request_id  # type: str
@@ -4766,6 +4939,8 @@ class GetTemplateQuestionsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         result['QuestionConfigs'] = []
@@ -4784,6 +4959,8 @@ class GetTemplateQuestionsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.question_configs = []
@@ -4870,9 +5047,11 @@ class GetTemplateViewResponseBodyViewConfigs(TeaModel):
 
 
 class GetTemplateViewResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, view_configs=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 view_configs=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4892,6 +5071,8 @@ class GetTemplateViewResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4908,6 +5089,8 @@ class GetTemplateViewResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4960,9 +5143,11 @@ class GetTemplateViewResponse(TeaModel):
 
 
 class GetTenantResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, tenant=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 tenant=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -4982,6 +5167,8 @@ class GetTenantResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4998,6 +5185,8 @@ class GetTenantResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -5050,9 +5239,11 @@ class GetTenantResponse(TeaModel):
 
 
 class GetUserResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, user=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 user=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -5072,6 +5263,8 @@ class GetUserResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -5088,6 +5281,8 @@ class GetUserResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -5174,10 +5369,11 @@ class ListJobsRequest(TeaModel):
 
 
 class ListJobsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, jobs=None, message=None, page_number=None, page_size=None,
-                 request_id=None, success=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, jobs=None, message=None, page_number=None,
+                 page_size=None, request_id=None, success=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.jobs = jobs  # type: list[Job]
         self.message = message  # type: str
         self.page_number = page_number  # type: int
@@ -5203,6 +5399,8 @@ class ListJobsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         result['Jobs'] = []
         if self.jobs is not None:
             for k in self.jobs:
@@ -5229,6 +5427,8 @@ class ListJobsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         self.jobs = []
         if m.get('Jobs') is not None:
             for k in m.get('Jobs'):
@@ -5320,10 +5520,11 @@ class ListSubtaskItemsRequest(TeaModel):
 
 
 class ListSubtaskItemsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, items=None, message=None, page_number=None, page_size=None,
-                 request_id=None, success=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, items=None, message=None, page_number=None,
+                 page_size=None, request_id=None, success=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.items = items  # type: list[SubtaskItemDetail]
         self.message = message  # type: str
         self.page_number = page_number  # type: int
@@ -5349,6 +5550,8 @@ class ListSubtaskItemsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         result['Items'] = []
         if self.items is not None:
             for k in self.items:
@@ -5375,6 +5578,8 @@ class ListSubtaskItemsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         self.items = []
         if m.get('Items') is not None:
             for k in m.get('Items'):
@@ -5466,10 +5671,11 @@ class ListSubtasksRequest(TeaModel):
 
 
 class ListSubtasksResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 subtasks=None, success=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, subtasks=None, success=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -5495,6 +5701,8 @@ class ListSubtasksResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -5521,6 +5729,8 @@ class ListSubtasksResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -5612,10 +5822,11 @@ class ListTasksRequest(TeaModel):
 
 
 class ListTasksResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 success=None, tasks=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, tasks=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -5641,6 +5852,8 @@ class ListTasksResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -5667,6 +5880,8 @@ class ListTasksResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -5729,10 +5944,11 @@ class ListTasksResponse(TeaModel):
 
 
 class ListTemplatesRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, search_key=None):
+    def __init__(self, page_number=None, page_size=None, search_key=None, types=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.search_key = search_key  # type: str
+        self.types = types  # type: list[str]
 
     def validate(self):
         pass
@@ -5749,6 +5965,8 @@ class ListTemplatesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.search_key is not None:
             result['SearchKey'] = self.search_key
+        if self.types is not None:
+            result['Types'] = self.types
         return result
 
     def from_map(self, m=None):
@@ -5759,14 +5977,56 @@ class ListTemplatesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('SearchKey') is not None:
             self.search_key = m.get('SearchKey')
+        if m.get('Types') is not None:
+            self.types = m.get('Types')
+        return self
+
+
+class ListTemplatesShrinkRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, search_key=None, types_shrink=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.search_key = search_key  # type: str
+        self.types_shrink = types_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTemplatesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.search_key is not None:
+            result['SearchKey'] = self.search_key
+        if self.types_shrink is not None:
+            result['Types'] = self.types_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SearchKey') is not None:
+            self.search_key = m.get('SearchKey')
+        if m.get('Types') is not None:
+            self.types_shrink = m.get('Types')
         return self
 
 
 class ListTemplatesResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 success=None, templates=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, templates=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -5792,6 +6052,8 @@ class ListTemplatesResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -5818,6 +6080,8 @@ class ListTemplatesResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -5909,10 +6173,11 @@ class ListTenantsRequest(TeaModel):
 
 
 class ListTenantsResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 success=None, tenants=None, total_count=None, total_page=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, tenants=None, total_count=None, total_page=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -5938,6 +6203,8 @@ class ListTenantsResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -5964,6 +6231,8 @@ class ListTenantsResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -6055,10 +6324,11 @@ class ListUsersRequest(TeaModel):
 
 
 class ListUsersResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, page_number=None, page_size=None, request_id=None,
-                 success=None, total_count=None, total_page=None, users=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, total_count=None, total_page=None, users=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -6084,6 +6354,8 @@ class ListUsersResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.page_number is not None:
@@ -6110,6 +6382,8 @@ class ListUsersResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('PageNumber') is not None:
@@ -6196,9 +6470,10 @@ class RemoveWorkNodeWorkforceRequest(TeaModel):
 
 
 class RemoveWorkNodeWorkforceResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6216,6 +6491,8 @@ class RemoveWorkNodeWorkforceResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6230,6 +6507,8 @@ class RemoveWorkNodeWorkforceResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6305,9 +6584,10 @@ class UpdateTaskRequest(TeaModel):
 
 
 class UpdateTaskResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6325,6 +6605,8 @@ class UpdateTaskResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6339,6 +6621,8 @@ class UpdateTaskResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6420,9 +6704,10 @@ class UpdateTaskWorkforceRequest(TeaModel):
 
 
 class UpdateTaskWorkforceResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6440,6 +6725,8 @@ class UpdateTaskWorkforceResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6454,6 +6741,8 @@ class UpdateTaskWorkforceResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6529,9 +6818,11 @@ class UpdateTemplateRequest(TeaModel):
 
 
 class UpdateTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, template_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 template_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6550,6 +6841,8 @@ class UpdateTemplateResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6566,6 +6859,8 @@ class UpdateTemplateResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6646,9 +6941,10 @@ class UpdateTenantRequest(TeaModel):
 
 
 class UpdateTenantResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6666,6 +6962,8 @@ class UpdateTenantResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6680,6 +6978,8 @@ class UpdateTenantResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6758,9 +7058,11 @@ class UpdateUserRequest(TeaModel):
 
 
 class UpdateUserResponseBody(TeaModel):
-    def __init__(self, code=None, details=None, message=None, request_id=None, success=None, user_id=None):
+    def __init__(self, code=None, details=None, error_code=None, message=None, request_id=None, success=None,
+                 user_id=None):
         self.code = code  # type: int
         self.details = details  # type: str
+        self.error_code = error_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -6779,6 +7081,8 @@ class UpdateUserResponseBody(TeaModel):
             result['Code'] = self.code
         if self.details is not None:
             result['Details'] = self.details
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6795,6 +7099,8 @@ class UpdateUserResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Details') is not None:
             self.details = m.get('Details')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
