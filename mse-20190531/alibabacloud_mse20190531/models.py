@@ -428,12 +428,13 @@ class TrafficPolicy(TeaModel):
 
 
 class AddAuthResourceRequest(TeaModel):
-    def __init__(self, accept_language=None, auth_id=None, domain_id=None, gateway_unique_id=None,
+    def __init__(self, accept_language=None, auth_id=None, domain_id=None, gateway_unique_id=None, match_type=None,
                  mse_session_id=None, path=None):
         self.accept_language = accept_language  # type: str
         self.auth_id = auth_id  # type: long
         self.domain_id = domain_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.match_type = match_type  # type: str
         self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
 
@@ -454,6 +455,8 @@ class AddAuthResourceRequest(TeaModel):
             result['DomainId'] = self.domain_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.match_type is not None:
+            result['MatchType'] = self.match_type
         if self.mse_session_id is not None:
             result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
@@ -470,6 +473,8 @@ class AddAuthResourceRequest(TeaModel):
             self.domain_id = m.get('DomainId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MatchType') is not None:
+            self.match_type = m.get('MatchType')
         if m.get('MseSessionId') is not None:
             self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
