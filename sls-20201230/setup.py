@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_sls20201230_py2.
 
-Created on 01/08/2022
+Created on 15/09/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -40,7 +40,7 @@ VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "alibabacloud_tea_util_py2>=0.0.6, <1.0.0",
     "alibabacloud_gateway_spi_py2>=0.0.1, <1.0.0",
-    "alibabacloud_gateway_sls_py2>=0.0.3, <1.0.0",
+    "alibabacloud_gateway_sls_py2>=0.0.4, <1.0.0",
     "alibabacloud_tea_openapi_py2>=0.1.3, <1.0.0",
     "alibabacloud_openapi_util_py2>=0.0.8, <1.0.0"
 ]
