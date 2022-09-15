@@ -6,25 +6,15 @@ from Tea.model import TeaModel
 class GatewayDomain(TeaModel):
     def __init__(self, cert_identifier=None, gateway_id=None, gateway_name=None, gateway_unique_id=None,
                  gmt_create=None, gmt_modified=None, id=None, must_https=None, name=None, protocol=None):
-        # 使用的证书Id
         self.cert_identifier = cert_identifier  # type: str
-        # 网关ID
         self.gateway_id = gateway_id  # type: long
-        # 网关名称
         self.gateway_name = gateway_name  # type: str
-        # 网关唯一标识
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: str
-        # 修改时间
         self.gmt_modified = gmt_modified  # type: str
-        # Domain Id
         self.id = id  # type: long
-        # 是否强制跳转
         self.must_https = must_https  # type: str
-        # Domain Name
         self.name = name  # type: str
-        # domainn的协议
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -85,11 +75,8 @@ class GatewayDomain(TeaModel):
 
 class GatewayOptionLogConfigDetails(TeaModel):
     def __init__(self, log_enabled=None, log_store_name=None, project_name=None):
-        # 是否开启日志投递
         self.log_enabled = log_enabled  # type: bool
-        # 投递的目标logstore
         self.log_store_name = log_store_name  # type: str
-        # 投递的目标project
         self.project_name = project_name  # type: str
 
     def validate(self):
@@ -122,9 +109,7 @@ class GatewayOptionLogConfigDetails(TeaModel):
 
 class GatewayOptionTraceDetails(TeaModel):
     def __init__(self, sample=None, trace_enabled=None):
-        # trace 采样率
         self.sample = sample  # type: long
-        # trace是否开启
         self.trace_enabled = trace_enabled  # type: bool
 
     def validate(self):
@@ -154,15 +139,10 @@ class GatewayOptionTraceDetails(TeaModel):
 class GatewayOption(TeaModel):
     def __init__(self, disable_http_2alpn=None, enable_hardware_acceleration=None, enable_waf=None,
                  log_config_details=None, trace_details=None):
-        # 是否禁用http
         self.disable_http_2alpn = disable_http_2alpn  # type: bool
-        # 是否开启硬件加速
         self.enable_hardware_acceleration = enable_hardware_acceleration  # type: bool
-        # 是否开启waf
         self.enable_waf = enable_waf  # type: bool
-        # 日志配置详情
         self.log_config_details = log_config_details  # type: GatewayOptionLogConfigDetails
-        # xtrace config option
         self.trace_details = trace_details  # type: GatewayOptionTraceDetails
 
     def validate(self):
@@ -209,21 +189,13 @@ class GatewayOption(TeaModel):
 class GatewayService(TeaModel):
     def __init__(self, gateway_traffic_policy=None, gateway_unique_id=None, group_name=None, id=None,
                  meta_info=None, name=None, namespace=None, source_type=None):
-        # 服务的策略
         self.gateway_traffic_policy = gateway_traffic_policy  # type: TrafficPolicy
-        # 网关uniqueId
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # 服务所属group
         self.group_name = group_name  # type: str
-        # 服务id
         self.id = id  # type: long
-        # 元信息
         self.meta_info = meta_info  # type: str
-        # 服务名
         self.name = name  # type: str
-        # 服务所属namesapce
         self.namespace = namespace  # type: str
-        # 服务来源
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -278,11 +250,8 @@ class GatewayService(TeaModel):
 
 class TrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie(TeaModel):
     def __init__(self, name=None, path=None, ttl=None):
-        # cookie名
         self.name = name  # type: str
-        # cookie path
         self.path = path  # type: str
-        # cookie生命周期
         self.ttl = ttl  # type: str
 
     def validate(self):
@@ -315,11 +284,8 @@ class TrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie(TeaModel
 
 class TrafficPolicyLoadBalancerSettingsConsistentHashLBConfig(TeaModel):
     def __init__(self, consistent_hash_lbtype=None, http_cookie=None, parameter_name=None):
-        # HEADER, COOKIE, SOURCE_IP, QUERY_PARAMETER
         self.consistent_hash_lbtype = consistent_hash_lbtype  # type: str
-        # 使用cookie时配置
         self.http_cookie = http_cookie  # type: TrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie
-        # 使用根据header和参数路由时生效
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -354,11 +320,8 @@ class TrafficPolicyLoadBalancerSettingsConsistentHashLBConfig(TeaModel):
 
 class TrafficPolicyLoadBalancerSettings(TeaModel):
     def __init__(self, consistent_hash_lbconfig=None, loadbalancer_type=None, warmup_duration=None):
-        # 一致性hash相关配置
         self.consistent_hash_lbconfig = consistent_hash_lbconfig  # type: TrafficPolicyLoadBalancerSettingsConsistentHashLBConfig
-        # 负载均衡类型，枚举类可为ROUND_ROBIN, LEAST_CONN,RANDOM, CONSISTENT_HASH
         self.loadbalancer_type = loadbalancer_type  # type: str
-        # 预热时间(单位/s)
         self.warmup_duration = warmup_duration  # type: long
 
     def validate(self):
@@ -393,13 +356,9 @@ class TrafficPolicyLoadBalancerSettings(TeaModel):
 
 class TrafficPolicyTlsSetting(TeaModel):
     def __init__(self, ca_cert_content=None, cert_id=None, sni=None, tls_mode=None):
-        # ca证书内容
         self.ca_cert_content = ca_cert_content  # type: str
-        # 使用的证书id，仅当为mutual时需要填写
         self.cert_id = cert_id  # type: str
-        # 到后端服务些带
         self.sni = sni  # type: str
-        # tls模式。为枚举类，可为NONE, SIMPLE, MUITUAL
         self.tls_mode = tls_mode  # type: str
 
     def validate(self):
@@ -436,9 +395,7 @@ class TrafficPolicyTlsSetting(TeaModel):
 
 class TrafficPolicy(TeaModel):
     def __init__(self, load_balancer_settings=None, tls_setting=None):
-        # 负载均衡相关配置
         self.load_balancer_settings = load_balancer_settings  # type: TrafficPolicyLoadBalancerSettings
-        # tls相关配置
         self.tls_setting = tls_setting  # type: TrafficPolicyTlsSetting
 
     def validate(self):
@@ -471,11 +428,13 @@ class TrafficPolicy(TeaModel):
 
 
 class AddAuthResourceRequest(TeaModel):
-    def __init__(self, accept_language=None, auth_id=None, domain_id=None, gateway_unique_id=None, path=None):
+    def __init__(self, accept_language=None, auth_id=None, domain_id=None, gateway_unique_id=None,
+                 mse_session_id=None, path=None):
         self.accept_language = accept_language  # type: str
         self.auth_id = auth_id  # type: long
         self.domain_id = domain_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
 
     def validate(self):
@@ -495,6 +454,8 @@ class AddAuthResourceRequest(TeaModel):
             result['DomainId'] = self.domain_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         return result
@@ -509,6 +470,8 @@ class AddAuthResourceRequest(TeaModel):
             self.domain_id = m.get('DomainId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         return self
@@ -520,7 +483,6 @@ class AddAuthResourceResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -605,11 +567,12 @@ class AddAuthResourceResponse(TeaModel):
 
 class AddBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, content=None, gateway_unique_id=None, is_white=None,
-                 resource_type=None, status=None, type=None):
+                 mse_session_id=None, resource_type=None, status=None, type=None):
         self.accept_language = accept_language  # type: str
         self.content = content  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.is_white = is_white  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
         self.resource_type = resource_type  # type: str
         self.status = status  # type: str
         self.type = type  # type: str
@@ -631,6 +594,8 @@ class AddBlackWhiteListRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.is_white is not None:
             result['IsWhite'] = self.is_white
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
         if self.status is not None:
@@ -649,6 +614,8 @@ class AddBlackWhiteListRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('IsWhite') is not None:
             self.is_white = m.get('IsWhite')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
         if m.get('Status') is not None:
@@ -664,7 +631,6 @@ class AddBlackWhiteListResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -749,36 +715,24 @@ class AddBlackWhiteListResponse(TeaModel):
 
 class AddGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, enable_hardware_acceleration=None, enable_sls=None,
-                 enable_xtrace=None, enterprise_security_group=None, internet_slb_spec=None, name=None, region=None, replica=None,
-                 slb_spec=None, spec=None, v_switch_id=None, v_switch_id_2=None, vpc=None, xtrace_ratio=None):
+                 enable_xtrace=None, enterprise_security_group=None, internet_slb_spec=None, mse_session_id=None, name=None,
+                 region=None, replica=None, slb_spec=None, spec=None, v_switch_id=None, v_switch_id_2=None, vpc=None,
+                 xtrace_ratio=None):
         self.accept_language = accept_language  # type: str
-        # 是否开启硬件加速
         self.enable_hardware_acceleration = enable_hardware_acceleration  # type: bool
-        # 是否开启SLS日志投递
         self.enable_sls = enable_sls  # type: bool
-        # 是否开启xtrace
         self.enable_xtrace = enable_xtrace  # type: bool
-        # 是否企业安全组类型
         self.enterprise_security_group = enterprise_security_group  # type: bool
-        # 外网SLB规格
         self.internet_slb_spec = internet_slb_spec  # type: str
-        # 网关名称
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
-        # 地域
         self.region = region  # type: str
-        # 节点数量
         self.replica = replica  # type: int
-        # 内网SLB规格
         self.slb_spec = slb_spec  # type: str
-        # 节点规格
         self.spec = spec  # type: str
-        # 主交换机ID
         self.v_switch_id = v_switch_id  # type: str
-        # 备交换机ID
         self.v_switch_id_2 = v_switch_id_2  # type: str
-        # 专有网络ID
         self.vpc = vpc  # type: str
-        # xtrace采样率，取值[0,100]
         self.xtrace_ratio = xtrace_ratio  # type: str
 
     def validate(self):
@@ -802,6 +756,8 @@ class AddGatewayRequest(TeaModel):
             result['EnterpriseSecurityGroup'] = self.enterprise_security_group
         if self.internet_slb_spec is not None:
             result['InternetSlbSpec'] = self.internet_slb_spec
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.region is not None:
@@ -836,6 +792,8 @@ class AddGatewayRequest(TeaModel):
             self.enterprise_security_group = m.get('EnterpriseSecurityGroup')
         if m.get('InternetSlbSpec') is not None:
             self.internet_slb_spec = m.get('InternetSlbSpec')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Region') is not None:
@@ -887,7 +845,6 @@ class AddGatewayResponseBody(TeaModel):
         self.data = data  # type: AddGatewayResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -973,14 +930,18 @@ class AddGatewayResponse(TeaModel):
 
 
 class AddGatewayDomainRequest(TeaModel):
-    def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, must_https=None,
-                 name=None, protocol=None):
+    def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, http_2=None,
+                 mse_session_id=None, must_https=None, name=None, protocol=None, tls_max=None, tls_min=None):
         self.accept_language = accept_language  # type: str
         self.cert_identifier = cert_identifier  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.http_2 = http_2  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.must_https = must_https  # type: bool
         self.name = name  # type: str
         self.protocol = protocol  # type: str
+        self.tls_max = tls_max  # type: str
+        self.tls_min = tls_min  # type: str
 
     def validate(self):
         pass
@@ -997,12 +958,20 @@ class AddGatewayDomainRequest(TeaModel):
             result['CertIdentifier'] = self.cert_identifier
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.http_2 is not None:
+            result['Http2'] = self.http_2
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.must_https is not None:
             result['MustHttps'] = self.must_https
         if self.name is not None:
             result['Name'] = self.name
         if self.protocol is not None:
             result['Protocol'] = self.protocol
+        if self.tls_max is not None:
+            result['TlsMax'] = self.tls_max
+        if self.tls_min is not None:
+            result['TlsMin'] = self.tls_min
         return result
 
     def from_map(self, m=None):
@@ -1013,12 +982,20 @@ class AddGatewayDomainRequest(TeaModel):
             self.cert_identifier = m.get('CertIdentifier')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Http2') is not None:
+            self.http_2 = m.get('Http2')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('MustHttps') is not None:
             self.must_https = m.get('MustHttps')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
+        if m.get('TlsMax') is not None:
+            self.tls_max = m.get('TlsMax')
+        if m.get('TlsMin') is not None:
+            self.tls_min = m.get('TlsMin')
         return self
 
 
@@ -1028,7 +1005,6 @@ class AddGatewayDomainResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -1137,6 +1113,71 @@ class AddGatewayRouteRequestDirectResponseJSON(TeaModel):
             self.body = m.get('Body')
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        return self
+
+
+class AddGatewayRouteRequestFallbackServices(TeaModel):
+    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
+                 service_id=None, service_port=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
+        self.group_name = group_name  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.percent = percent  # type: int
+        self.service_id = service_id  # type: long
+        self.service_port = service_port  # type: int
+        self.source_type = source_type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddGatewayRouteRequestFallbackServices, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.percent is not None:
+            result['Percent'] = self.percent
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Percent') is not None:
+            self.percent = m.get('Percent')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -1335,19 +1376,157 @@ class AddGatewayRouteRequestRedirectJSON(TeaModel):
         return self
 
 
+class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList(TeaModel):
+    def __init__(self, extract_key=None, extract_key_spec=None, mapping_type=None):
+        self.extract_key = extract_key  # type: str
+        self.extract_key_spec = extract_key_spec  # type: str
+        self.mapping_type = mapping_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extract_key is not None:
+            result['ExtractKey'] = self.extract_key
+        if self.extract_key_spec is not None:
+            result['ExtractKeySpec'] = self.extract_key_spec
+        if self.mapping_type is not None:
+            result['MappingType'] = self.mapping_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExtractKey') is not None:
+            self.extract_key = m.get('ExtractKey')
+        if m.get('ExtractKeySpec') is not None:
+            self.extract_key_spec = m.get('ExtractKeySpec')
+        if m.get('MappingType') is not None:
+            self.mapping_type = m.get('MappingType')
+        return self
+
+
+class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
+    def __init__(self, dubbo_mothed_name=None, http_mothed=None, mothedpath=None, param_maps_list=None,
+                 pass_through_all_headers=None, pass_through_list=None):
+        self.dubbo_mothed_name = dubbo_mothed_name  # type: str
+        self.http_mothed = http_mothed  # type: str
+        self.mothedpath = mothedpath  # type: str
+        self.param_maps_list = param_maps_list  # type: list[AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList]
+        self.pass_through_all_headers = pass_through_all_headers  # type: str
+        self.pass_through_list = pass_through_list  # type: list[str]
+
+    def validate(self):
+        if self.param_maps_list:
+            for k in self.param_maps_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_mothed_name is not None:
+            result['DubboMothedName'] = self.dubbo_mothed_name
+        if self.http_mothed is not None:
+            result['HttpMothed'] = self.http_mothed
+        if self.mothedpath is not None:
+            result['Mothedpath'] = self.mothedpath
+        result['ParamMapsList'] = []
+        if self.param_maps_list is not None:
+            for k in self.param_maps_list:
+                result['ParamMapsList'].append(k.to_map() if k else None)
+        if self.pass_through_all_headers is not None:
+            result['PassThroughAllHeaders'] = self.pass_through_all_headers
+        if self.pass_through_list is not None:
+            result['PassThroughList'] = self.pass_through_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboMothedName') is not None:
+            self.dubbo_mothed_name = m.get('DubboMothedName')
+        if m.get('HttpMothed') is not None:
+            self.http_mothed = m.get('HttpMothed')
+        if m.get('Mothedpath') is not None:
+            self.mothedpath = m.get('Mothedpath')
+        self.param_maps_list = []
+        if m.get('ParamMapsList') is not None:
+            for k in m.get('ParamMapsList'):
+                temp_model = AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList()
+                self.param_maps_list.append(temp_model.from_map(k))
+        if m.get('PassThroughAllHeaders') is not None:
+            self.pass_through_all_headers = m.get('PassThroughAllHeaders')
+        if m.get('PassThroughList') is not None:
+            self.pass_through_list = m.get('PassThroughList')
+        return self
+
+
+class AddGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
+    def __init__(self, dubbo_service_name=None, dubbo_service_version=None, mothed_map_list=None):
+        self.dubbo_service_name = dubbo_service_name  # type: str
+        self.dubbo_service_version = dubbo_service_version  # type: str
+        self.mothed_map_list = mothed_map_list  # type: list[AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList]
+
+    def validate(self):
+        if self.mothed_map_list:
+            for k in self.mothed_map_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(AddGatewayRouteRequestServicesHttpDubboTranscoder, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_service_name is not None:
+            result['DubboServiceName'] = self.dubbo_service_name
+        if self.dubbo_service_version is not None:
+            result['DubboServiceVersion'] = self.dubbo_service_version
+        result['MothedMapList'] = []
+        if self.mothed_map_list is not None:
+            for k in self.mothed_map_list:
+                result['MothedMapList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboServiceName') is not None:
+            self.dubbo_service_name = m.get('DubboServiceName')
+        if m.get('DubboServiceVersion') is not None:
+            self.dubbo_service_version = m.get('DubboServiceVersion')
+        self.mothed_map_list = []
+        if m.get('MothedMapList') is not None:
+            for k in m.get('MothedMapList'):
+                temp_model = AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList()
+                self.mothed_map_list.append(temp_model.from_map(k))
+        return self
+
+
 class AddGatewayRouteRequestServices(TeaModel):
-    def __init__(self, group_name=None, name=None, namespace=None, percent=None, service_id=None, source_type=None,
-                 version=None):
+    def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
+                 percent=None, service_id=None, service_port=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
         self.group_name = group_name  # type: str
+        self.http_dubbo_transcoder = http_dubbo_transcoder  # type: AddGatewayRouteRequestServicesHttpDubboTranscoder
         self.name = name  # type: str
         self.namespace = namespace  # type: str
         self.percent = percent  # type: int
         self.service_id = service_id  # type: long
+        self.service_port = service_port  # type: int
         self.source_type = source_type  # type: str
         self.version = version  # type: str
 
     def validate(self):
-        pass
+        if self.http_dubbo_transcoder:
+            self.http_dubbo_transcoder.validate()
 
     def to_map(self):
         _map = super(AddGatewayRouteRequestServices, self).to_map()
@@ -1355,8 +1534,12 @@ class AddGatewayRouteRequestServices(TeaModel):
             return _map
 
         result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.http_dubbo_transcoder is not None:
+            result['HttpDubboTranscoder'] = self.http_dubbo_transcoder.to_map()
         if self.name is not None:
             result['Name'] = self.name
         if self.namespace is not None:
@@ -1365,6 +1548,8 @@ class AddGatewayRouteRequestServices(TeaModel):
             result['Percent'] = self.percent
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
         if self.source_type is not None:
             result['SourceType'] = self.source_type
         if self.version is not None:
@@ -1373,8 +1558,13 @@ class AddGatewayRouteRequestServices(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HttpDubboTranscoder') is not None:
+            temp_model = AddGatewayRouteRequestServicesHttpDubboTranscoder()
+            self.http_dubbo_transcoder = temp_model.from_map(m['HttpDubboTranscoder'])
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
@@ -1383,6 +1573,8 @@ class AddGatewayRouteRequestServices(TeaModel):
             self.percent = m.get('Percent')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
         if m.get('Version') is not None:
@@ -1392,16 +1584,20 @@ class AddGatewayRouteRequestServices(TeaModel):
 
 class AddGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_json=None, domain_id=None,
-                 domain_id_list_json=None, enable_waf=None, gateway_id=None, gateway_unique_id=None, name=None, predicates=None,
-                 redirect_json=None, route_order=None, services=None):
+                 domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
+                 gateway_unique_id=None, mse_session_id=None, name=None, predicates=None, redirect_json=None, route_order=None,
+                 services=None):
         self.accept_language = accept_language  # type: str
         self.destination_type = destination_type  # type: str
         self.direct_response_json = direct_response_json  # type: AddGatewayRouteRequestDirectResponseJSON
         self.domain_id = domain_id  # type: long
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
+        self.fallback = fallback  # type: bool
+        self.fallback_services = fallback_services  # type: list[AddGatewayRouteRequestFallbackServices]
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.predicates = predicates  # type: AddGatewayRouteRequestPredicates
         self.redirect_json = redirect_json  # type: AddGatewayRouteRequestRedirectJSON
@@ -1411,6 +1607,10 @@ class AddGatewayRouteRequest(TeaModel):
     def validate(self):
         if self.direct_response_json:
             self.direct_response_json.validate()
+        if self.fallback_services:
+            for k in self.fallback_services:
+                if k:
+                    k.validate()
         if self.predicates:
             self.predicates.validate()
         if self.redirect_json:
@@ -1438,10 +1638,18 @@ class AddGatewayRouteRequest(TeaModel):
             result['DomainIdListJSON'] = self.domain_id_list_json
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        result['FallbackServices'] = []
+        if self.fallback_services is not None:
+            for k in self.fallback_services:
+                result['FallbackServices'].append(k.to_map() if k else None)
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.predicates is not None:
@@ -1471,10 +1679,19 @@ class AddGatewayRouteRequest(TeaModel):
             self.domain_id_list_json = m.get('DomainIdListJSON')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        self.fallback_services = []
+        if m.get('FallbackServices') is not None:
+            for k in m.get('FallbackServices'):
+                temp_model = AddGatewayRouteRequestFallbackServices()
+                self.fallback_services.append(temp_model.from_map(k))
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Predicates') is not None:
@@ -1495,16 +1712,20 @@ class AddGatewayRouteRequest(TeaModel):
 
 class AddGatewayRouteShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_jsonshrink=None,
-                 domain_id=None, domain_id_list_json=None, enable_waf=None, gateway_id=None, gateway_unique_id=None,
-                 name=None, predicates_shrink=None, redirect_jsonshrink=None, route_order=None, services_shrink=None):
+                 domain_id=None, domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None,
+                 gateway_id=None, gateway_unique_id=None, mse_session_id=None, name=None, predicates_shrink=None,
+                 redirect_jsonshrink=None, route_order=None, services_shrink=None):
         self.accept_language = accept_language  # type: str
         self.destination_type = destination_type  # type: str
         self.direct_response_jsonshrink = direct_response_jsonshrink  # type: str
         self.domain_id = domain_id  # type: long
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
+        self.fallback = fallback  # type: bool
+        self.fallback_services_shrink = fallback_services_shrink  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.predicates_shrink = predicates_shrink  # type: str
         self.redirect_jsonshrink = redirect_jsonshrink  # type: str
@@ -1532,10 +1753,16 @@ class AddGatewayRouteShrinkRequest(TeaModel):
             result['DomainIdListJSON'] = self.domain_id_list_json
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        if self.fallback_services_shrink is not None:
+            result['FallbackServices'] = self.fallback_services_shrink
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.predicates_shrink is not None:
@@ -1562,10 +1789,16 @@ class AddGatewayRouteShrinkRequest(TeaModel):
             self.domain_id_list_json = m.get('DomainIdListJSON')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        if m.get('FallbackServices') is not None:
+            self.fallback_services_shrink = m.get('FallbackServices')
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Predicates') is not None:
@@ -1585,7 +1818,6 @@ class AddGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -1669,9 +1901,11 @@ class AddGatewayRouteResponse(TeaModel):
 
 
 class AddGatewayServiceVersionRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_id=None,
+                 service_version=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
         self.service_version = service_version  # type: str
 
@@ -1688,6 +1922,8 @@ class AddGatewayServiceVersionRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         if self.service_version is not None:
@@ -1700,6 +1936,8 @@ class AddGatewayServiceVersionRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         if m.get('ServiceVersion') is not None:
@@ -1713,7 +1951,6 @@ class AddGatewayServiceVersionResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -1797,11 +2034,18 @@ class AddGatewayServiceVersionResponse(TeaModel):
 
 
 class AddGatewaySlbRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, slb_id=None, type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, http_port=None, https_port=None,
+                 https_vserver_group_id=None, mse_session_id=None, service_weight=None, slb_id=None, type=None, vserver_group_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.http_port = http_port  # type: int
+        self.https_port = https_port  # type: int
+        self.https_vserver_group_id = https_vserver_group_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.service_weight = service_weight  # type: int
         self.slb_id = slb_id  # type: str
         self.type = type  # type: str
+        self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
         pass
@@ -1816,10 +2060,22 @@ class AddGatewaySlbRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.http_port is not None:
+            result['HttpPort'] = self.http_port
+        if self.https_port is not None:
+            result['HttpsPort'] = self.https_port
+        if self.https_vserver_group_id is not None:
+            result['HttpsVServerGroupId'] = self.https_vserver_group_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.service_weight is not None:
+            result['ServiceWeight'] = self.service_weight
         if self.slb_id is not None:
             result['SlbId'] = self.slb_id
         if self.type is not None:
             result['Type'] = self.type
+        if self.vserver_group_id is not None:
+            result['VServerGroupId'] = self.vserver_group_id
         return result
 
     def from_map(self, m=None):
@@ -1828,10 +2084,22 @@ class AddGatewaySlbRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('HttpPort') is not None:
+            self.http_port = m.get('HttpPort')
+        if m.get('HttpsPort') is not None:
+            self.https_port = m.get('HttpsPort')
+        if m.get('HttpsVServerGroupId') is not None:
+            self.https_vserver_group_id = m.get('HttpsVServerGroupId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('ServiceWeight') is not None:
+            self.service_weight = m.get('ServiceWeight')
         if m.get('SlbId') is not None:
             self.slb_id = m.get('SlbId')
         if m.get('Type') is not None:
             self.type = m.get('Type')
+        if m.get('VServerGroupId') is not None:
+            self.vserver_group_id = m.get('VServerGroupId')
         return self
 
 
@@ -1841,7 +2109,6 @@ class AddGatewaySlbResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -1926,14 +2193,15 @@ class AddGatewaySlbResponse(TeaModel):
 
 class AddMockRuleRequest(TeaModel):
     def __init__(self, accept_language=None, consumer_app_ids=None, dubbo_mock_items=None, enable=None,
-                 extra_json=None, mock_type=None, name=None, provider_app_id=None, provider_app_name=None, region=None,
-                 sc_mock_items=None, source=None):
+                 extra_json=None, mock_type=None, mse_session_id=None, name=None, provider_app_id=None, provider_app_name=None,
+                 region=None, sc_mock_items=None, source=None):
         self.accept_language = accept_language  # type: str
         self.consumer_app_ids = consumer_app_ids  # type: str
         self.dubbo_mock_items = dubbo_mock_items  # type: str
         self.enable = enable  # type: bool
         self.extra_json = extra_json  # type: str
         self.mock_type = mock_type  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.provider_app_id = provider_app_id  # type: str
         self.provider_app_name = provider_app_name  # type: str
@@ -1962,6 +2230,8 @@ class AddMockRuleRequest(TeaModel):
             result['ExtraJson'] = self.extra_json
         if self.mock_type is not None:
             result['MockType'] = self.mock_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.provider_app_id is not None:
@@ -1990,6 +2260,8 @@ class AddMockRuleRequest(TeaModel):
             self.extra_json = m.get('ExtraJson')
         if m.get('MockType') is not None:
             self.mock_type = m.get('MockType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('ProviderAppId') is not None:
@@ -2187,11 +2459,13 @@ class AddMockRuleResponse(TeaModel):
 
 
 class AddSSLCertRequest(TeaModel):
-    def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cert_identifier = cert_identifier  # type: str
         self.domain_id = domain_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -2210,6 +2484,8 @@ class AddSSLCertRequest(TeaModel):
             result['DomainId'] = self.domain_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -2222,6 +2498,8 @@ class AddSSLCertRequest(TeaModel):
             self.domain_id = m.get('DomainId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -2231,7 +2509,6 @@ class AddSSLCertResponseBody(TeaModel):
         self.data = data  # type: bool
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -2315,15 +2592,13 @@ class AddSSLCertResponse(TeaModel):
 
 
 class AddSecurityGroupRuleRequest(TeaModel):
-    def __init__(self, accept_language=None, description=None, gateway_unique_id=None, port_range=None,
-                 security_group_id=None):
+    def __init__(self, accept_language=None, description=None, gateway_unique_id=None, mse_session_id=None,
+                 port_range=None, security_group_id=None):
         self.accept_language = accept_language  # type: str
         self.description = description  # type: str
-        # 网关ID
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # 端口范围
+        self.mse_session_id = mse_session_id  # type: str
         self.port_range = port_range  # type: str
-        # 安全组ID
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -2341,6 +2616,8 @@ class AddSecurityGroupRuleRequest(TeaModel):
             result['Description'] = self.description
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.port_range is not None:
             result['PortRange'] = self.port_range
         if self.security_group_id is not None:
@@ -2355,6 +2632,8 @@ class AddSecurityGroupRuleRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PortRange') is not None:
             self.port_range = m.get('PortRange')
         if m.get('SecurityGroupId') is not None:
@@ -2368,7 +2647,6 @@ class AddSecurityGroupRuleResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -2486,12 +2764,14 @@ class AddServiceSourceRequestIngressOptionsRequest(TeaModel):
 
 
 class AddServiceSourceRequest(TeaModel):
-    def __init__(self, accept_language=None, address=None, gateway_unique_id=None, ingress_options_request=None,
-                 name=None, source=None, type=None):
+    def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list=None,
+                 ingress_options_request=None, mse_session_id=None, name=None, source=None, type=None):
         self.accept_language = accept_language  # type: str
         self.address = address  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.group_list = group_list  # type: list[str]
         self.ingress_options_request = ingress_options_request  # type: AddServiceSourceRequestIngressOptionsRequest
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.source = source  # type: str
         self.type = type  # type: str
@@ -2512,8 +2792,12 @@ class AddServiceSourceRequest(TeaModel):
             result['Address'] = self.address
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.group_list is not None:
+            result['GroupList'] = self.group_list
         if self.ingress_options_request is not None:
             result['IngressOptionsRequest'] = self.ingress_options_request.to_map()
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.source is not None:
@@ -2530,9 +2814,13 @@ class AddServiceSourceRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('GroupList') is not None:
+            self.group_list = m.get('GroupList')
         if m.get('IngressOptionsRequest') is not None:
             temp_model = AddServiceSourceRequestIngressOptionsRequest()
             self.ingress_options_request = temp_model.from_map(m['IngressOptionsRequest'])
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Source') is not None:
@@ -2543,12 +2831,14 @@ class AddServiceSourceRequest(TeaModel):
 
 
 class AddServiceSourceShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, address=None, gateway_unique_id=None,
-                 ingress_options_request_shrink=None, name=None, source=None, type=None):
+    def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list_shrink=None,
+                 ingress_options_request_shrink=None, mse_session_id=None, name=None, source=None, type=None):
         self.accept_language = accept_language  # type: str
         self.address = address  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.group_list_shrink = group_list_shrink  # type: str
         self.ingress_options_request_shrink = ingress_options_request_shrink  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.source = source  # type: str
         self.type = type  # type: str
@@ -2568,8 +2858,12 @@ class AddServiceSourceShrinkRequest(TeaModel):
             result['Address'] = self.address
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.group_list_shrink is not None:
+            result['GroupList'] = self.group_list_shrink
         if self.ingress_options_request_shrink is not None:
             result['IngressOptionsRequest'] = self.ingress_options_request_shrink
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.source is not None:
@@ -2586,8 +2880,12 @@ class AddServiceSourceShrinkRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('GroupList') is not None:
+            self.group_list_shrink = m.get('GroupList')
         if m.get('IngressOptionsRequest') is not None:
             self.ingress_options_request_shrink = m.get('IngressOptionsRequest')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Source') is not None:
@@ -2603,7 +2901,6 @@ class AddServiceSourceResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -2687,9 +2984,10 @@ class AddServiceSourceResponse(TeaModel):
 
 
 class ApplyGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, route_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -2705,6 +3003,8 @@ class ApplyGatewayRouteRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.route_id is not None:
             result['RouteId'] = self.route_id
         return result
@@ -2715,6 +3015,8 @@ class ApplyGatewayRouteRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RouteId') is not None:
             self.route_id = m.get('RouteId')
         return self
@@ -2726,7 +3028,6 @@ class ApplyGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: bool
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -2810,11 +3111,12 @@ class ApplyGatewayRouteResponse(TeaModel):
 
 
 class ApplyTagPoliciesRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, enable=None, namespace_id=None, region=None, rules=None,
-                 source=None):
+    def __init__(self, accept_language=None, app_id=None, enable=None, mse_session_id=None, namespace_id=None,
+                 region=None, rules=None, source=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.enable = enable  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.region = region  # type: str
         self.rules = rules  # type: str
@@ -2835,6 +3137,8 @@ class ApplyTagPoliciesRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.enable is not None:
             result['Enable'] = self.enable
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.region is not None:
@@ -2853,6 +3157,8 @@ class ApplyTagPoliciesRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Region') is not None:
@@ -3031,11 +3337,12 @@ class ApplyTagPoliciesResponse(TeaModel):
 
 
 class CloneNacosConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, ids=None, instance_id=None, origin_namespace_id=None, policy=None,
-                 target_namespace_id=None):
+    def __init__(self, accept_language=None, ids=None, instance_id=None, mse_session_id=None,
+                 origin_namespace_id=None, policy=None, target_namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.ids = ids  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.origin_namespace_id = origin_namespace_id  # type: str
         self.policy = policy  # type: str
         self.target_namespace_id = target_namespace_id  # type: str
@@ -3055,6 +3362,8 @@ class CloneNacosConfigRequest(TeaModel):
             result['Ids'] = self.ids
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.origin_namespace_id is not None:
             result['OriginNamespaceId'] = self.origin_namespace_id
         if self.policy is not None:
@@ -3071,6 +3380,8 @@ class CloneNacosConfigRequest(TeaModel):
             self.ids = m.get('Ids')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OriginNamespaceId') is not None:
             self.origin_namespace_id = m.get('OriginNamespaceId')
         if m.get('Policy') is not None:
@@ -3296,12 +3607,13 @@ class CloneNacosConfigResponse(TeaModel):
 
 
 class CreateApplicationRequest(TeaModel):
-    def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, region=None,
-                 sentinel_enable=None, source=None, switch_enable=None):
+    def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, mse_session_id=None,
+                 region=None, sentinel_enable=None, source=None, switch_enable=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.extra_info = extra_info  # type: str
         self.language = language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.sentinel_enable = sentinel_enable  # type: str
         self.source = source  # type: str
@@ -3324,6 +3636,8 @@ class CreateApplicationRequest(TeaModel):
             result['ExtraInfo'] = self.extra_info
         if self.language is not None:
             result['Language'] = self.language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.sentinel_enable is not None:
@@ -3344,6 +3658,8 @@ class CreateApplicationRequest(TeaModel):
             self.extra_info = m.get('ExtraInfo')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('SentinelEnable') is not None:
@@ -3522,9 +3838,9 @@ class CreateApplicationResponse(TeaModel):
 
 class CreateClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_specification=None, cluster_type=None, cluster_version=None,
-                 connection_type=None, disk_type=None, instance_count=None, mse_version=None, net_type=None,
-                 private_slb_specification=None, pub_network_flow=None, pub_slb_specification=None, region=None, request_pars=None,
-                 v_switch_id=None, vpc_id=None):
+                 connection_type=None, disk_type=None, instance_count=None, instance_name=None, mse_session_id=None,
+                 mse_version=None, net_type=None, private_slb_specification=None, pub_network_flow=None,
+                 pub_slb_specification=None, region=None, request_pars=None, resource_group_id=None, v_switch_id=None, vpc_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_specification = cluster_specification  # type: str
         self.cluster_type = cluster_type  # type: str
@@ -3532,7 +3848,8 @@ class CreateClusterRequest(TeaModel):
         self.connection_type = connection_type  # type: str
         self.disk_type = disk_type  # type: str
         self.instance_count = instance_count  # type: int
-        # 用于区分基础/专业版本
+        self.instance_name = instance_name  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.mse_version = mse_version  # type: str
         self.net_type = net_type  # type: str
         self.private_slb_specification = private_slb_specification  # type: str
@@ -3540,6 +3857,7 @@ class CreateClusterRequest(TeaModel):
         self.pub_slb_specification = pub_slb_specification  # type: str
         self.region = region  # type: str
         self.request_pars = request_pars  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.vpc_id = vpc_id  # type: str
 
@@ -3566,6 +3884,10 @@ class CreateClusterRequest(TeaModel):
             result['DiskType'] = self.disk_type
         if self.instance_count is not None:
             result['InstanceCount'] = self.instance_count
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.mse_version is not None:
             result['MseVersion'] = self.mse_version
         if self.net_type is not None:
@@ -3580,6 +3902,8 @@ class CreateClusterRequest(TeaModel):
             result['Region'] = self.region
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -3602,6 +3926,10 @@ class CreateClusterRequest(TeaModel):
             self.disk_type = m.get('DiskType')
         if m.get('InstanceCount') is not None:
             self.instance_count = m.get('InstanceCount')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('MseVersion') is not None:
             self.mse_version = m.get('MseVersion')
         if m.get('NetType') is not None:
@@ -3616,6 +3944,8 @@ class CreateClusterRequest(TeaModel):
             self.region = m.get('Region')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VpcId') is not None:
@@ -3712,13 +4042,14 @@ class CreateClusterResponse(TeaModel):
 
 
 class CreateEngineNamespaceRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None, name=None,
-                 service_count=None):
+    def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None,
+                 mse_session_id=None, name=None, service_count=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.desc = desc  # type: str
         self.id = id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.service_count = service_count  # type: int
 
@@ -3741,6 +4072,8 @@ class CreateEngineNamespaceRequest(TeaModel):
             result['Id'] = self.id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.service_count is not None:
@@ -3759,6 +4092,8 @@ class CreateEngineNamespaceRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('ServiceCount') is not None:
@@ -3912,12 +4247,14 @@ class CreateEngineNamespaceResponse(TeaModel):
 
 
 class CreateMseServiceApplicationRequest(TeaModel):
-    def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, region=None,
-                 sentinel_enable=None, source=None, switch_enable=None):
+    def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, mse_session_id=None,
+                 mse_version=None, region=None, sentinel_enable=None, source=None, switch_enable=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.extra_info = extra_info  # type: str
         self.language = language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.mse_version = mse_version  # type: str
         self.region = region  # type: str
         self.sentinel_enable = sentinel_enable  # type: str
         self.source = source  # type: str
@@ -3940,6 +4277,10 @@ class CreateMseServiceApplicationRequest(TeaModel):
             result['ExtraInfo'] = self.extra_info
         if self.language is not None:
             result['Language'] = self.language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.mse_version is not None:
+            result['MseVersion'] = self.mse_version
         if self.region is not None:
             result['Region'] = self.region
         if self.sentinel_enable is not None:
@@ -3960,6 +4301,10 @@ class CreateMseServiceApplicationRequest(TeaModel):
             self.extra_info = m.get('ExtraInfo')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('MseVersion') is not None:
+            self.mse_version = m.get('MseVersion')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('SentinelEnable') is not None:
@@ -4143,7 +4488,7 @@ class CreateMseServiceApplicationResponse(TeaModel):
 
 class CreateNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, beta_ips=None, content=None, data_id=None, desc=None,
-                 group=None, instance_id=None, namespace_id=None, tags=None, type=None):
+                 group=None, instance_id=None, mse_session_id=None, namespace_id=None, tags=None, type=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.beta_ips = beta_ips  # type: str
@@ -4152,6 +4497,7 @@ class CreateNacosConfigRequest(TeaModel):
         self.desc = desc  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.tags = tags  # type: str
         self.type = type  # type: str
@@ -4181,6 +4527,8 @@ class CreateNacosConfigRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.tags is not None:
@@ -4207,6 +4555,8 @@ class CreateNacosConfigRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Tags') is not None:
@@ -4306,29 +4656,20 @@ class CreateNacosConfigResponse(TeaModel):
 
 class CreateNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, enabled=None, ephemeral=None, group_name=None,
-                 instance_id=None, ip=None, metadata=None, namespace_id=None, port=None, service_name=None, weight=None):
+                 instance_id=None, ip=None, metadata=None, mse_session_id=None, namespace_id=None, port=None, service_name=None,
+                 weight=None):
         self.accept_language = accept_language  # type: str
-        # Nacos集群名
         self.cluster_name = cluster_name  # type: str
-        # 服务禁用标志
         self.enabled = enabled  # type: bool
-        # 临时节点标志
         self.ephemeral = ephemeral  # type: bool
-        # 分组名
         self.group_name = group_name  # type: str
-        # 实例id
         self.instance_id = instance_id  # type: str
-        # Nacos实例ip
         self.ip = ip  # type: str
-        # 节点元数据
         self.metadata = metadata  # type: str
-        # 命名空间id
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
-        # Nacos实例端口
         self.port = port  # type: int
-        # 服务名
         self.service_name = service_name  # type: str
-        # 权重
         self.weight = weight  # type: str
 
     def validate(self):
@@ -4356,6 +4697,8 @@ class CreateNacosInstanceRequest(TeaModel):
             result['Ip'] = self.ip
         if self.metadata is not None:
             result['Metadata'] = self.metadata
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.port is not None:
@@ -4384,6 +4727,8 @@ class CreateNacosInstanceRequest(TeaModel):
             self.ip = m.get('Ip')
         if m.get('Metadata') is not None:
             self.metadata = m.get('Metadata')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Port') is not None:
@@ -4397,17 +4742,11 @@ class CreateNacosInstanceRequest(TeaModel):
 
 class CreateNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # 响应码
         self.code = code  # type: int
-        # 修改结果
         self.data = data  # type: str
-        # http状态码
         self.http_status_code = http_status_code  # type: int
-        # 响应信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 成功标志
         self.success = success  # type: bool
 
     def validate(self):
@@ -4491,12 +4830,13 @@ class CreateNacosInstanceResponse(TeaModel):
 
 class CreateNacosServiceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, ephemeral=None, group_name=None, instance_id=None,
-                 namespace_id=None, protect_threshold=None, service_name=None):
+                 mse_session_id=None, namespace_id=None, protect_threshold=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.ephemeral = ephemeral  # type: bool
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.protect_threshold = protect_threshold  # type: str
         self.service_name = service_name  # type: str
@@ -4520,6 +4860,8 @@ class CreateNacosServiceRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.protect_threshold is not None:
@@ -4540,6 +4882,8 @@ class CreateNacosServiceRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('ProtectThreshold') is not None:
@@ -4708,10 +5052,11 @@ class CreateOrUpdateSwimmingLaneRequestEntryRulesRestItems(TeaModel):
 
 
 class CreateOrUpdateSwimmingLaneRequestEntryRules(TeaModel):
-    def __init__(self, condition=None, enable=None, path=None, priority=None, rest_items=None):
+    def __init__(self, condition=None, enable=None, path=None, paths=None, priority=None, rest_items=None):
         self.condition = condition  # type: str
         self.enable = enable  # type: bool
         self.path = path  # type: str
+        self.paths = paths  # type: list[str]
         self.priority = priority  # type: int
         self.rest_items = rest_items  # type: list[CreateOrUpdateSwimmingLaneRequestEntryRulesRestItems]
 
@@ -4733,6 +5078,8 @@ class CreateOrUpdateSwimmingLaneRequestEntryRules(TeaModel):
             result['Enable'] = self.enable
         if self.path is not None:
             result['Path'] = self.path
+        if self.paths is not None:
+            result['Paths'] = self.paths
         if self.priority is not None:
             result['Priority'] = self.priority
         result['RestItems'] = []
@@ -4749,6 +5096,8 @@ class CreateOrUpdateSwimmingLaneRequestEntryRules(TeaModel):
             self.enable = m.get('Enable')
         if m.get('Path') is not None:
             self.path = m.get('Path')
+        if m.get('Paths') is not None:
+            self.paths = m.get('Paths')
         if m.get('Priority') is not None:
             self.priority = m.get('Priority')
         self.rest_items = []
@@ -4761,37 +5110,24 @@ class CreateOrUpdateSwimmingLaneRequestEntryRules(TeaModel):
 
 class CreateOrUpdateSwimmingLaneRequest(TeaModel):
     def __init__(self, accept_language=None, enable=None, enable_rules=None, entry_rule=None, entry_rules=None,
-                 gmt_create=None, gmt_modified=None, group_id=None, id=None, license_key=None, name=None, region_id=None,
-                 source=None, status=None, tag=None, user_id=None):
+                 gmt_create=None, gmt_modified=None, group_id=None, id=None, license_key=None, mse_session_id=None, name=None,
+                 region_id=None, source=None, status=None, tag=None, user_id=None):
         self.accept_language = accept_language  # type: str
-        # 是否开启。
         self.enable = enable  # type: bool
         self.enable_rules = enable_rules  # type: bool
-        # json string
         self.entry_rule = entry_rule  # type: str
-        # SwimmingLane
         self.entry_rules = entry_rules  # type: list[CreateOrUpdateSwimmingLaneRequestEntryRules]
-        # 创建时间
         self.gmt_create = gmt_create  # type: str
-        # 更新时间
         self.gmt_modified = gmt_modified  # type: str
-        # 所属泳道组
         self.group_id = group_id  # type: long
-        # 主键ID。由SP生成(数据库自增主键)。
         self.id = id  # type: long
-        # 格式为UUID。比如48bd91e9-41d5-4dae-8a9a-439611742b45
         self.license_key = license_key  # type: str
-        # 名称
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
-        # region
         self.region_id = region_id  # type: str
-        # 来源。可选值为: EDAS。
         self.source = source  # type: str
-        # 0 未生效
         self.status = status  # type: int
-        # 标识
         self.tag = tag  # type: str
-        # EDAS账号。格式为数字，比如1362469756373809。
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4828,6 +5164,8 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
             result['Id'] = self.id
         if self.license_key is not None:
             result['LicenseKey'] = self.license_key
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.region_id is not None:
@@ -4867,6 +5205,8 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('LicenseKey') is not None:
             self.license_key = m.get('LicenseKey')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('RegionId') is not None:
@@ -4885,10 +5225,8 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
 class CreateOrUpdateSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -4985,31 +5323,23 @@ class CreateOrUpdateSwimmingLaneResponse(TeaModel):
 
 class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
     def __init__(self, accept_language=None, app_ids=None, enable=None, entry_app=None, gmt_create=None,
-                 gmt_modified=None, id=None, license_key=None, name=None, region=None, source=None, status=None, user_id=None):
+                 gmt_modified=None, id=None, license_key=None, message_queue_filter_side=None, message_queue_gray_enable=None,
+                 mse_session_id=None, name=None, region=None, source=None, status=None, user_id=None):
         self.accept_language = accept_language  # type: str
-        # 应用集合。以 "," 分割应用 id
         self.app_ids = app_ids  # type: str
-        # 是否开启。
         self.enable = enable  # type: bool
-        # 入口应用。格式 "来源系统:id"，比如 EDAS:UUID 或者 CSB:UUID
         self.entry_app = entry_app  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: str
-        # 更新时间
         self.gmt_modified = gmt_modified  # type: str
-        # 主键ID。由SP生成(数据库自增主键)。
         self.id = id  # type: long
-        # mse licenseKey
         self.license_key = license_key  # type: str
-        # 名称
+        self.message_queue_filter_side = message_queue_filter_side  # type: str
+        self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
-        # region
         self.region = region  # type: str
-        # 来源。可选值为: EDAS。
         self.source = source  # type: str
-        # 0 未生效
         self.status = status  # type: int
-        # 阿里云账号。格式为数字，比如1362469756373809。
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -5037,6 +5367,12 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             result['Id'] = self.id
         if self.license_key is not None:
             result['LicenseKey'] = self.license_key
+        if self.message_queue_filter_side is not None:
+            result['MessageQueueFilterSide'] = self.message_queue_filter_side
+        if self.message_queue_gray_enable is not None:
+            result['MessageQueueGrayEnable'] = self.message_queue_gray_enable
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.region is not None:
@@ -5067,6 +5403,12 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('LicenseKey') is not None:
             self.license_key = m.get('LicenseKey')
+        if m.get('MessageQueueFilterSide') is not None:
+            self.message_queue_filter_side = m.get('MessageQueueFilterSide')
+        if m.get('MessageQueueGrayEnable') is not None:
+            self.message_queue_gray_enable = m.get('MessageQueueGrayEnable')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Region') is not None:
@@ -5083,10 +5425,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
 class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -5182,10 +5522,11 @@ class CreateOrUpdateSwimmingLaneGroupResponse(TeaModel):
 
 
 class CreateZnodeRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, data=None, path=None):
+    def __init__(self, accept_language=None, cluster_id=None, data=None, mse_session_id=None, path=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.data = data  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
 
     def validate(self):
@@ -5203,6 +5544,8 @@ class CreateZnodeRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.data is not None:
             result['Data'] = self.data
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         return result
@@ -5215,6 +5558,8 @@ class CreateZnodeRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         return self
@@ -5350,10 +5695,11 @@ class CreateZnodeResponse(TeaModel):
 
 
 class DeleteAuthResourceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -5370,6 +5716,8 @@ class DeleteAuthResourceRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -5380,6 +5728,8 @@ class DeleteAuthResourceRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -5459,7 +5809,6 @@ class DeleteAuthResourceResponseBody(TeaModel):
         self.data = data  # type: DeleteAuthResourceResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -5545,9 +5894,10 @@ class DeleteAuthResourceResponse(TeaModel):
 
 
 class DeleteClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, instance_id=None):
+    def __init__(self, accept_language=None, instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -5562,6 +5912,8 @@ class DeleteClusterRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -5570,6 +5922,8 @@ class DeleteClusterRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -5657,11 +6011,12 @@ class DeleteClusterResponse(TeaModel):
 
 
 class DeleteEngineNamespaceRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None):
+    def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.id = id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -5680,6 +6035,8 @@ class DeleteEngineNamespaceRequest(TeaModel):
             result['Id'] = self.id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -5692,6 +6049,8 @@ class DeleteEngineNamespaceRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -5779,10 +6138,11 @@ class DeleteEngineNamespaceResponse(TeaModel):
 
 
 class DeleteGatewayRequest(TeaModel):
-    def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.delete_slb = delete_slb  # type: bool
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -5799,6 +6159,8 @@ class DeleteGatewayRequest(TeaModel):
             result['DeleteSlb'] = self.delete_slb
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -5809,6 +6171,8 @@ class DeleteGatewayRequest(TeaModel):
             self.delete_slb = m.get('DeleteSlb')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -5903,7 +6267,6 @@ class DeleteGatewayResponseBody(TeaModel):
         self.data = data  # type: DeleteGatewayResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -5989,10 +6352,11 @@ class DeleteGatewayResponse(TeaModel):
 
 
 class DeleteGatewayDomainRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -6009,6 +6373,8 @@ class DeleteGatewayDomainRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -6019,6 +6385,8 @@ class DeleteGatewayDomainRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -6093,7 +6461,6 @@ class DeleteGatewayDomainResponseBody(TeaModel):
         self.data = data  # type: DeleteGatewayDomainResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6179,9 +6546,10 @@ class DeleteGatewayDomainResponse(TeaModel):
 
 
 class DeleteGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, route_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -6197,6 +6565,8 @@ class DeleteGatewayRouteRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.route_id is not None:
             result['RouteId'] = self.route_id
         return result
@@ -6207,6 +6577,8 @@ class DeleteGatewayRouteRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RouteId') is not None:
             self.route_id = m.get('RouteId')
         return self
@@ -6288,7 +6660,6 @@ class DeleteGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: DeleteGatewayRouteResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6374,10 +6745,12 @@ class DeleteGatewayRouteResponse(TeaModel):
 
 
 class DeleteGatewayServiceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, service_id=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, mse_session_id=None,
+                 service_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: str
 
     def validate(self):
@@ -6395,6 +6768,8 @@ class DeleteGatewayServiceRequest(TeaModel):
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         return result
@@ -6407,6 +6782,8 @@ class DeleteGatewayServiceRequest(TeaModel):
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         return self
@@ -6504,7 +6881,6 @@ class DeleteGatewayServiceResponseBody(TeaModel):
         self.data = data  # type: DeleteGatewayServiceResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6590,9 +6966,11 @@ class DeleteGatewayServiceResponse(TeaModel):
 
 
 class DeleteGatewayServiceVersionRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_id=None,
+                 service_version=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
         self.service_version = service_version  # type: str
 
@@ -6609,6 +6987,8 @@ class DeleteGatewayServiceVersionRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         if self.service_version is not None:
@@ -6621,6 +7001,8 @@ class DeleteGatewayServiceVersionRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         if m.get('ServiceVersion') is not None:
@@ -6634,7 +7016,6 @@ class DeleteGatewayServiceVersionResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6718,11 +7099,12 @@ class DeleteGatewayServiceVersionResponse(TeaModel):
 
 
 class DeleteGatewaySlbRequest(TeaModel):
-    def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None, id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.delete_slb = delete_slb  # type: bool
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -6741,6 +7123,8 @@ class DeleteGatewaySlbRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -6753,6 +7137,8 @@ class DeleteGatewaySlbRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -6762,7 +7148,6 @@ class DeleteGatewaySlbResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6847,12 +7232,13 @@ class DeleteGatewaySlbResponse(TeaModel):
 
 class DeleteNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, beta=None, data_id=None, group=None, instance_id=None,
-                 namespace_id=None):
+                 mse_session_id=None, namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.beta = beta  # type: bool
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -6874,6 +7260,8 @@ class DeleteNacosConfigRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         return result
@@ -6890,6 +7278,8 @@ class DeleteNacosConfigRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         return self
@@ -6984,10 +7374,11 @@ class DeleteNacosConfigResponse(TeaModel):
 
 
 class DeleteNacosConfigsRequest(TeaModel):
-    def __init__(self, accept_language=None, ids=None, instance_id=None, namespace_id=None):
+    def __init__(self, accept_language=None, ids=None, instance_id=None, mse_session_id=None, namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.ids = ids  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -7005,6 +7396,8 @@ class DeleteNacosConfigsRequest(TeaModel):
             result['Ids'] = self.ids
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         return result
@@ -7017,6 +7410,8 @@ class DeleteNacosConfigsRequest(TeaModel):
             self.ids = m.get('Ids')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         return self
@@ -7112,13 +7507,14 @@ class DeleteNacosConfigsResponse(TeaModel):
 
 class DeleteNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, ephemeral=None, group_name=None, instance_id=None,
-                 ip=None, namespace_id=None, port=None, service_name=None):
+                 ip=None, mse_session_id=None, namespace_id=None, port=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_name = cluster_name  # type: str
         self.ephemeral = ephemeral  # type: bool
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
         self.ip = ip  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.port = port  # type: int
         self.service_name = service_name  # type: str
@@ -7144,6 +7540,8 @@ class DeleteNacosInstanceRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.ip is not None:
             result['Ip'] = self.ip
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.port is not None:
@@ -7166,6 +7564,8 @@ class DeleteNacosInstanceRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Port') is not None:
@@ -7178,10 +7578,8 @@ class DeleteNacosInstanceRequest(TeaModel):
 class DeleteNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: str
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -7277,11 +7675,12 @@ class DeleteNacosInstanceResponse(TeaModel):
 
 
 class DeleteNacosServiceRequest(TeaModel):
-    def __init__(self, accept_language=None, group_name=None, instance_id=None, namespace_id=None,
-                 service_name=None):
+    def __init__(self, accept_language=None, group_name=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.service_name = service_name  # type: str
 
@@ -7300,6 +7699,8 @@ class DeleteNacosServiceRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.service_name is not None:
@@ -7314,6 +7715,8 @@ class DeleteNacosServiceRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('ServiceName') is not None:
@@ -7323,17 +7726,11 @@ class DeleteNacosServiceRequest(TeaModel):
 
 class DeleteNacosServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # 响应码
         self.code = code  # type: int
-        # 删除服务的结果
         self.data = data  # type: str
-        # http状态码
         self.http_status_code = http_status_code  # type: int
-        # 响应信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 成功标志
         self.success = success  # type: bool
 
     def validate(self):
@@ -7416,10 +7813,11 @@ class DeleteNacosServiceResponse(TeaModel):
 
 
 class DeleteSecurityGroupRuleRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -7436,6 +7834,8 @@ class DeleteSecurityGroupRuleRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -7446,6 +7846,8 @@ class DeleteSecurityGroupRuleRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -7520,7 +7922,6 @@ class DeleteSecurityGroupRuleResponseBody(TeaModel):
         self.data = data  # type: DeleteSecurityGroupRuleResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -7606,9 +8007,10 @@ class DeleteSecurityGroupRuleResponse(TeaModel):
 
 
 class DeleteServiceSourceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, source_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, source_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.source_id = source_id  # type: long
 
     def validate(self):
@@ -7624,6 +8026,8 @@ class DeleteServiceSourceRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.source_id is not None:
             result['SourceId'] = self.source_id
         return result
@@ -7634,6 +8038,8 @@ class DeleteServiceSourceRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('SourceId') is not None:
             self.source_id = m.get('SourceId')
         return self
@@ -7644,7 +8050,6 @@ class DeleteServiceSourceResponseBody(TeaModel):
         self.code = code  # type: int
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -7724,9 +8129,10 @@ class DeleteServiceSourceResponse(TeaModel):
 
 
 class DeleteSwimmingLaneRequest(TeaModel):
-    def __init__(self, accept_language=None, lane_id=None):
+    def __init__(self, accept_language=None, lane_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.lane_id = lane_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -7741,6 +8147,8 @@ class DeleteSwimmingLaneRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.lane_id is not None:
             result['LaneId'] = self.lane_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -7749,16 +8157,16 @@ class DeleteSwimmingLaneRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('LaneId') is not None:
             self.lane_id = m.get('LaneId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class DeleteSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -7854,9 +8262,10 @@ class DeleteSwimmingLaneResponse(TeaModel):
 
 
 class DeleteSwimmingLaneGroupRequest(TeaModel):
-    def __init__(self, accept_language=None, group_id=None):
+    def __init__(self, accept_language=None, group_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.group_id = group_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -7871,6 +8280,8 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -7879,16 +8290,16 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class DeleteSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -7984,9 +8395,10 @@ class DeleteSwimmingLaneGroupResponse(TeaModel):
 
 
 class DeleteZnodeRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, path=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, path=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -8003,6 +8415,8 @@ class DeleteZnodeRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         if self.request_pars is not None:
@@ -8015,6 +8429,8 @@ class DeleteZnodeRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         if m.get('RequestPars') is not None:
@@ -8153,13 +8569,14 @@ class DeleteZnodeResponse(TeaModel):
 
 class ExportNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, data_id=None, group=None, ids=None, instance_id=None,
-                 namespace_id=None):
+                 mse_session_id=None, namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.ids = ids  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -8183,6 +8600,8 @@ class ExportNacosConfigRequest(TeaModel):
             result['Ids'] = self.ids
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         return result
@@ -8201,6 +8620,8 @@ class ExportNacosConfigRequest(TeaModel):
             self.ids = m.get('Ids')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         return self
@@ -8332,9 +8753,10 @@ class ExportNacosConfigResponse(TeaModel):
 
 
 class GetAppMessageQueueRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, region=None):
+    def __init__(self, accept_language=None, app_id=None, mse_session_id=None, region=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
 
     def validate(self):
@@ -8350,6 +8772,8 @@ class GetAppMessageQueueRouteRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         return result
@@ -8360,15 +8784,18 @@ class GetAppMessageQueueRouteRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         return self
 
 
 class GetAppMessageQueueRouteResponseBodyData(TeaModel):
-    def __init__(self, app_id=None, enable=None, region=None, tags=None):
+    def __init__(self, app_id=None, enable=None, filter_side=None, region=None, tags=None):
         self.app_id = app_id  # type: str
         self.enable = enable  # type: bool
+        self.filter_side = filter_side  # type: str
         self.region = region  # type: str
         self.tags = tags  # type: list[str]
 
@@ -8385,6 +8812,8 @@ class GetAppMessageQueueRouteResponseBodyData(TeaModel):
             result['AppId'] = self.app_id
         if self.enable is not None:
             result['Enable'] = self.enable
+        if self.filter_side is not None:
+            result['FilterSide'] = self.filter_side
         if self.region is not None:
             result['Region'] = self.region
         if self.tags is not None:
@@ -8397,6 +8826,8 @@ class GetAppMessageQueueRouteResponseBodyData(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
+        if m.get('FilterSide') is not None:
+            self.filter_side = m.get('FilterSide')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('Tags') is not None:
@@ -8495,12 +8926,13 @@ class GetAppMessageQueueRouteResponse(TeaModel):
 
 
 class GetApplicationListRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, app_name=None, language=None, page_number=None,
-                 page_size=None, region=None, sentinel_enable=None, source=None, switch_enable=None):
+    def __init__(self, accept_language=None, app_id=None, app_name=None, language=None, mse_session_id=None,
+                 page_number=None, page_size=None, region=None, sentinel_enable=None, source=None, switch_enable=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
         self.language = language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region = region  # type: str
@@ -8525,6 +8957,8 @@ class GetApplicationListRequest(TeaModel):
             result['AppName'] = self.app_name
         if self.language is not None:
             result['Language'] = self.language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -8549,6 +8983,8 @@ class GetApplicationListRequest(TeaModel):
             self.app_name = m.get('AppName')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -8772,10 +9208,12 @@ class GetApplicationListResponse(TeaModel):
 
 
 class GetBlackWhiteListRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, is_white=None, resource_type=None, type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, is_white=None, mse_session_id=None,
+                 resource_type=None, type=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.is_white = is_white  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
         self.resource_type = resource_type  # type: str
         self.type = type  # type: str
 
@@ -8794,6 +9232,8 @@ class GetBlackWhiteListRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.is_white is not None:
             result['IsWhite'] = self.is_white
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
         if self.type is not None:
@@ -8808,6 +9248,8 @@ class GetBlackWhiteListRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('IsWhite') is not None:
             self.is_white = m.get('IsWhite')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
         if m.get('Type') is not None:
@@ -8896,7 +9338,6 @@ class GetBlackWhiteListResponseBody(TeaModel):
         self.data = data  # type: GetBlackWhiteListResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -8982,11 +9423,12 @@ class GetBlackWhiteListResponse(TeaModel):
 
 
 class GetEngineNamepaceRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None):
+    def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.id = id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -9005,6 +9447,8 @@ class GetEngineNamepaceRequest(TeaModel):
             result['Id'] = self.id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -9017,6 +9461,8 @@ class GetEngineNamepaceRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -9135,9 +9581,10 @@ class GetEngineNamepaceResponse(TeaModel):
 
 
 class GetGatewayRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -9152,6 +9599,8 @@ class GetGatewayRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -9160,6 +9609,8 @@ class GetGatewayRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -9359,7 +9810,6 @@ class GetGatewayResponseBody(TeaModel):
         self.data = data  # type: GetGatewayResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -9445,10 +9895,11 @@ class GetGatewayResponse(TeaModel):
 
 
 class GetGatewayDomainDetailRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -9465,6 +9916,8 @@ class GetGatewayDomainDetailRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -9475,13 +9928,16 @@ class GetGatewayDomainDetailRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class GetGatewayDomainDetailResponseBodyData(TeaModel):
     def __init__(self, after_date=None, algorithm=None, before_date=None, cert_identifier=None, cert_name=None,
                  common_name=None, gateway_id=None, gateway_unique_id=None, gmt_after=None, gmt_before=None, gmt_create=None,
-                 gmt_modified=None, id=None, issuer=None, must_https=None, name=None, protocol=None, sans=None):
+                 gmt_modified=None, http_2=None, id=None, issuer=None, must_https=None, name=None, protocol=None, sans=None,
+                 tls_max=None, tls_min=None):
         self.after_date = after_date  # type: long
         self.algorithm = algorithm  # type: str
         self.before_date = before_date  # type: long
@@ -9494,12 +9950,15 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
         self.gmt_before = gmt_before  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
+        self.http_2 = http_2  # type: str
         self.id = id  # type: long
         self.issuer = issuer  # type: str
         self.must_https = must_https  # type: bool
         self.name = name  # type: str
         self.protocol = protocol  # type: str
         self.sans = sans  # type: str
+        self.tls_max = tls_max  # type: str
+        self.tls_min = tls_min  # type: str
 
     def validate(self):
         pass
@@ -9534,6 +9993,8 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
+        if self.http_2 is not None:
+            result['Http2'] = self.http_2
         if self.id is not None:
             result['Id'] = self.id
         if self.issuer is not None:
@@ -9546,6 +10007,10 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
             result['Protocol'] = self.protocol
         if self.sans is not None:
             result['Sans'] = self.sans
+        if self.tls_max is not None:
+            result['TlsMax'] = self.tls_max
+        if self.tls_min is not None:
+            result['TlsMin'] = self.tls_min
         return result
 
     def from_map(self, m=None):
@@ -9574,6 +10039,8 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
+        if m.get('Http2') is not None:
+            self.http_2 = m.get('Http2')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('Issuer') is not None:
@@ -9586,6 +10053,10 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
             self.protocol = m.get('Protocol')
         if m.get('Sans') is not None:
             self.sans = m.get('Sans')
+        if m.get('TlsMax') is not None:
+            self.tls_max = m.get('TlsMax')
+        if m.get('TlsMin') is not None:
+            self.tls_min = m.get('TlsMin')
         return self
 
 
@@ -9595,7 +10066,6 @@ class GetGatewayDomainDetailResponseBody(TeaModel):
         self.data = data  # type: GetGatewayDomainDetailResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -9681,10 +10151,11 @@ class GetGatewayDomainDetailResponse(TeaModel):
 
 
 class GetGatewayOptionRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -9701,6 +10172,8 @@ class GetGatewayOptionRequest(TeaModel):
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -9711,6 +10184,8 @@ class GetGatewayOptionRequest(TeaModel):
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -9720,7 +10195,6 @@ class GetGatewayOptionResponseBody(TeaModel):
         self.data = data  # type: GatewayOption
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -9806,9 +10280,10 @@ class GetGatewayOptionResponse(TeaModel):
 
 
 class GetGatewayRouteDetailRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, route_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.route_id = route_id  # type: long
 
     def validate(self):
@@ -9824,6 +10299,8 @@ class GetGatewayRouteDetailRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.route_id is not None:
             result['RouteId'] = self.route_id
         return result
@@ -9834,6 +10311,8 @@ class GetGatewayRouteDetailRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RouteId') is not None:
             self.route_id = m.get('RouteId')
         return self
@@ -9925,6 +10404,71 @@ class GetGatewayRouteDetailResponseBodyDataDirectResponse(TeaModel):
             self.body = m.get('Body')
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        return self
+
+
+class GetGatewayRouteDetailResponseBodyDataFallbackServices(TeaModel):
+    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
+                 service_id=None, service_name=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
+        self.group_name = group_name  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.percent = percent  # type: int
+        self.service_id = service_id  # type: long
+        self.service_name = service_name  # type: str
+        self.source_type = source_type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetGatewayRouteDetailResponseBodyDataFallbackServices, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.percent is not None:
+            result['Percent'] = self.percent
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Percent') is not None:
+            self.percent = m.get('Percent')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -10288,8 +10832,9 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicates(TeaModel):
 
 
 class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
-    def __init__(self, group_name=None, name=None, namespace=None, percent=None, service_id=None, service_name=None,
-                 source_type=None, version=None):
+    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
+                 service_id=None, service_name=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
         self.group_name = group_name  # type: str
         self.name = name  # type: str
         self.namespace = namespace  # type: str
@@ -10308,6 +10853,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
             return _map
 
         result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
         if self.name is not None:
@@ -10328,6 +10875,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
         if m.get('Name') is not None:
@@ -10384,9 +10933,10 @@ class GetGatewayRouteDetailResponseBodyDataTimeout(TeaModel):
 class GetGatewayRouteDetailResponseBodyData(TeaModel):
     def __init__(self, ahas_status=None, cors=None, default_service_id=None, default_service_name=None,
                  destination_type=None, direct_response=None, domain_id=None, domain_id_list=None, domain_name=None,
-                 domain_name_list=None, enable_waf=None, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None,
-                 httprewrite=None, header_op=None, id=None, name=None, predicates=None, redirect=None, retry=None,
-                 route_order=None, route_predicates=None, route_services=None, services=None, status=None, timeout=None):
+                 domain_name_list=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
+                 gateway_unique_id=None, gmt_create=None, gmt_modified=None, httprewrite=None, header_op=None, id=None, name=None,
+                 predicates=None, redirect=None, retry=None, route_order=None, route_predicates=None, route_services=None,
+                 services=None, status=None, timeout=None):
         self.ahas_status = ahas_status  # type: int
         self.cors = cors  # type: GetGatewayRouteDetailResponseBodyDataCors
         self.default_service_id = default_service_id  # type: long
@@ -10398,6 +10948,8 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
         self.domain_name = domain_name  # type: str
         self.domain_name_list = domain_name_list  # type: list[str]
         self.enable_waf = enable_waf  # type: bool
+        self.fallback = fallback  # type: bool
+        self.fallback_services = fallback_services  # type: list[GetGatewayRouteDetailResponseBodyDataFallbackServices]
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.gmt_create = gmt_create  # type: str
@@ -10421,6 +10973,10 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
             self.cors.validate()
         if self.direct_response:
             self.direct_response.validate()
+        if self.fallback_services:
+            for k in self.fallback_services:
+                if k:
+                    k.validate()
         if self.httprewrite:
             self.httprewrite.validate()
         if self.header_op:
@@ -10466,6 +11022,12 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
             result['DomainNameList'] = self.domain_name_list
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        result['FallbackServices'] = []
+        if self.fallback_services is not None:
+            for k in self.fallback_services:
+                result['FallbackServices'].append(k.to_map() if k else None)
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
@@ -10530,6 +11092,13 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
             self.domain_name_list = m.get('DomainNameList')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        self.fallback_services = []
+        if m.get('FallbackServices') is not None:
+            for k in m.get('FallbackServices'):
+                temp_model = GetGatewayRouteDetailResponseBodyDataFallbackServices()
+                self.fallback_services.append(temp_model.from_map(k))
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
@@ -10582,7 +11151,6 @@ class GetGatewayRouteDetailResponseBody(TeaModel):
         self.data = data  # type: GetGatewayRouteDetailResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -10668,9 +11236,10 @@ class GetGatewayRouteDetailResponse(TeaModel):
 
 
 class GetGatewayServiceDetailRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -10686,6 +11255,8 @@ class GetGatewayServiceDetailRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         return result
@@ -10696,6 +11267,8 @@ class GetGatewayServiceDetailRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         return self
@@ -10868,15 +11441,17 @@ class GetGatewayServiceDetailResponseBodyDataVersions(TeaModel):
 
 class GetGatewayServiceDetailResponseBodyData(TeaModel):
     def __init__(self, gateway_id=None, gateway_traffic_policy=None, gateway_unique_id=None, gmt_create=None,
-                 gmt_modified=None, group_name=None, id=None, ips=None, label_details=None, meta_info=None, name=None,
-                 namespace=None, service_name_in_registry=None, source_id=None, source_type=None, version_details=None,
-                 versions=None):
+                 gmt_modified=None, group_name=None, health_check=None, health_status=None, id=None, ips=None, label_details=None,
+                 meta_info=None, name=None, namespace=None, service_name_in_registry=None, service_protocol=None,
+                 source_id=None, source_type=None, version_details=None, versions=None):
         self.gateway_id = gateway_id  # type: long
         self.gateway_traffic_policy = gateway_traffic_policy  # type: TrafficPolicy
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.group_name = group_name  # type: str
+        self.health_check = health_check  # type: str
+        self.health_status = health_status  # type: str
         self.id = id  # type: long
         self.ips = ips  # type: list[str]
         self.label_details = label_details  # type: list[GetGatewayServiceDetailResponseBodyDataLabelDetails]
@@ -10884,6 +11459,7 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
         self.name = name  # type: str
         self.namespace = namespace  # type: str
         self.service_name_in_registry = service_name_in_registry  # type: str
+        self.service_protocol = service_protocol  # type: str
         self.source_id = source_id  # type: long
         self.source_type = source_type  # type: str
         self.version_details = version_details  # type: list[GetGatewayServiceDetailResponseBodyDataVersionDetails]
@@ -10923,6 +11499,10 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
             result['GmtModified'] = self.gmt_modified
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.health_check is not None:
+            result['HealthCheck'] = self.health_check
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
         if self.id is not None:
             result['Id'] = self.id
         if self.ips is not None:
@@ -10939,6 +11519,8 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
             result['Namespace'] = self.namespace
         if self.service_name_in_registry is not None:
             result['ServiceNameInRegistry'] = self.service_name_in_registry
+        if self.service_protocol is not None:
+            result['ServiceProtocol'] = self.service_protocol
         if self.source_id is not None:
             result['SourceId'] = self.source_id
         if self.source_type is not None:
@@ -10968,6 +11550,10 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
             self.gmt_modified = m.get('GmtModified')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HealthCheck') is not None:
+            self.health_check = m.get('HealthCheck')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('Ips') is not None:
@@ -10985,6 +11571,8 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
             self.namespace = m.get('Namespace')
         if m.get('ServiceNameInRegistry') is not None:
             self.service_name_in_registry = m.get('ServiceNameInRegistry')
+        if m.get('ServiceProtocol') is not None:
+            self.service_protocol = m.get('ServiceProtocol')
         if m.get('SourceId') is not None:
             self.source_id = m.get('SourceId')
         if m.get('SourceType') is not None:
@@ -11008,7 +11596,6 @@ class GetGatewayServiceDetailResponseBody(TeaModel):
         self.data = data  # type: GetGatewayServiceDetailResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -11094,9 +11681,10 @@ class GetGatewayServiceDetailResponse(TeaModel):
 
 
 class GetGovernanceKubernetesClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, region_id=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, region_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11112,6 +11700,8 @@ class GetGovernanceKubernetesClusterRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -11122,6 +11712,8 @@ class GetGovernanceKubernetesClusterRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -11315,9 +11907,9 @@ class GetGovernanceKubernetesClusterResponse(TeaModel):
 
 
 class GetImageRequest(TeaModel):
-    def __init__(self, accept_language=None, version_code=None):
+    def __init__(self, accept_language=None, mse_session_id=None, version_code=None):
         self.accept_language = accept_language  # type: str
-        # 集群版本
+        self.mse_session_id = mse_session_id  # type: str
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -11331,6 +11923,8 @@ class GetImageRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.version_code is not None:
             result['VersionCode'] = self.version_code
         return result
@@ -11339,6 +11933,8 @@ class GetImageRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('VersionCode') is not None:
             self.version_code = m.get('VersionCode')
         return self
@@ -11347,13 +11943,9 @@ class GetImageRequest(TeaModel):
 class GetImageResponseBodyData(TeaModel):
     def __init__(self, current_version_full_show_name=None, max_version_changelog_url=None, max_version_code=None,
                  max_version_full_show_name=None):
-        # 当前集群镜像版本的4位全名
         self.current_version_full_show_name = current_version_full_show_name  # type: str
-        # 可升级的最大版本变更日志url
         self.max_version_changelog_url = max_version_changelog_url  # type: str
-        # 可升级的增量版本Code
         self.max_version_code = max_version_code  # type: str
-        # 可升级的增量版本全名
         self.max_version_full_show_name = max_version_full_show_name  # type: str
 
     def validate(self):
@@ -11394,7 +11986,6 @@ class GetImageResponseBody(TeaModel):
         self.error_code = error_code  # type: str
         self.http_code = http_code  # type: str
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -11480,10 +12071,12 @@ class GetImageResponse(TeaModel):
 
 
 class GetImportFileUrlRequest(TeaModel):
-    def __init__(self, accept_language=None, content_type=None, instance_id=None, namespace_id=None):
+    def __init__(self, accept_language=None, content_type=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.content_type = content_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -11501,6 +12094,8 @@ class GetImportFileUrlRequest(TeaModel):
             result['ContentType'] = self.content_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         return result
@@ -11513,6 +12108,8 @@ class GetImportFileUrlRequest(TeaModel):
             self.content_type = m.get('ContentType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         return self
@@ -11644,9 +12241,10 @@ class GetImportFileUrlResponse(TeaModel):
 
 
 class GetKubernetesSourceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -11661,6 +12259,8 @@ class GetKubernetesSourceRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -11669,6 +12269,8 @@ class GetKubernetesSourceRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -11707,7 +12309,6 @@ class GetKubernetesSourceResponseBody(TeaModel):
         self.data = data  # type: list[GetKubernetesSourceResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -11799,8 +12400,9 @@ class GetKubernetesSourceResponse(TeaModel):
 
 
 class GetMseFeatureSwitchRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -11813,12 +12415,16 @@ class GetMseFeatureSwitchRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -11906,9 +12512,11 @@ class GetMseFeatureSwitchResponse(TeaModel):
 
 
 class GetMseSourceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, type=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -11923,6 +12531,10 @@ class GetMseSourceRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
@@ -11931,6 +12543,10 @@ class GetMseSourceRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -11984,7 +12600,6 @@ class GetMseSourceResponseBody(TeaModel):
         self.data = data  # type: list[GetMseSourceResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -12077,12 +12692,13 @@ class GetMseSourceResponse(TeaModel):
 
 class GetNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, beta=None, data_id=None, group=None, instance_id=None,
-                 namespace_id=None):
+                 mse_session_id=None, namespace_id=None):
         self.accept_language = accept_language  # type: str
         self.beta = beta  # type: bool
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -12104,6 +12720,8 @@ class GetNacosConfigRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         return result
@@ -12120,6 +12738,8 @@ class GetNacosConfigRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         return self
@@ -12281,11 +12901,13 @@ class GetNacosConfigResponse(TeaModel):
 
 
 class GetNacosHistoryConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None, nid=None):
+    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None, nid=None):
         self.accept_language = accept_language  # type: str
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.nid = nid  # type: str
 
@@ -12306,6 +12928,8 @@ class GetNacosHistoryConfigRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.nid is not None:
@@ -12322,6 +12946,8 @@ class GetNacosHistoryConfigRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Nid') is not None:
@@ -12470,8 +13096,9 @@ class GetNacosHistoryConfigResponse(TeaModel):
 
 
 class GetOverviewRequest(TeaModel):
-    def __init__(self, accept_language=None, period=None, region=None):
+    def __init__(self, accept_language=None, mse_session_id=None, period=None, region=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.period = period  # type: int
         self.region = region  # type: str
 
@@ -12486,6 +13113,8 @@ class GetOverviewRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.period is not None:
             result['Period'] = self.period
         if self.region is not None:
@@ -12496,6 +13125,8 @@ class GetOverviewRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Period') is not None:
             self.period = m.get('Period')
         if m.get('Region') is not None:
@@ -12591,11 +13222,589 @@ class GetOverviewResponse(TeaModel):
         return self
 
 
+class GetPluginConfigRequest(TeaModel):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, plugin_id=None):
+        self.accept_language = accept_language  # type: str
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.plugin_id = plugin_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPluginConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        return self
+
+
+class GetPluginConfigResponseBodyDataGatewayConfigList(TeaModel):
+    def __init__(self, config=None, config_level=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 gmt_create=None, gmt_modified=None, id=None, plugin_id=None):
+        self.config = config  # type: str
+        self.config_level = config_level  # type: int
+        self.enable = enable  # type: bool
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.plugin_id = plugin_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPluginConfigResponseBodyDataGatewayConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.config_level is not None:
+            result['ConfigLevel'] = self.config_level
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('ConfigLevel') is not None:
+            self.config_level = m.get('ConfigLevel')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        return self
+
+
+class GetPluginConfigResponseBodyData(TeaModel):
+    def __init__(self, category=None, config_check=None, gateway_config_list=None, id=None, image_name=None,
+                 mode=None, name=None, phase=None, primary_user=None, priority=None, publish_state=None, readme=None,
+                 readme_en=None, status=None, summary=None, type=None, version=None, wasm_lang=None):
+        self.category = category  # type: int
+        self.config_check = config_check  # type: str
+        self.gateway_config_list = gateway_config_list  # type: list[GetPluginConfigResponseBodyDataGatewayConfigList]
+        self.id = id  # type: long
+        self.image_name = image_name  # type: str
+        self.mode = mode  # type: int
+        self.name = name  # type: str
+        self.phase = phase  # type: int
+        self.primary_user = primary_user  # type: str
+        self.priority = priority  # type: int
+        self.publish_state = publish_state  # type: int
+        self.readme = readme  # type: str
+        self.readme_en = readme_en  # type: str
+        self.status = status  # type: str
+        self.summary = summary  # type: str
+        self.type = type  # type: int
+        self.version = version  # type: str
+        self.wasm_lang = wasm_lang  # type: int
+
+    def validate(self):
+        if self.gateway_config_list:
+            for k in self.gateway_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetPluginConfigResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.config_check is not None:
+            result['ConfigCheck'] = self.config_check
+        result['GatewayConfigList'] = []
+        if self.gateway_config_list is not None:
+            for k in self.gateway_config_list:
+                result['GatewayConfigList'].append(k.to_map() if k else None)
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.image_name is not None:
+            result['ImageName'] = self.image_name
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.phase is not None:
+            result['Phase'] = self.phase
+        if self.primary_user is not None:
+            result['PrimaryUser'] = self.primary_user
+        if self.priority is not None:
+            result['Priority'] = self.priority
+        if self.publish_state is not None:
+            result['PublishState'] = self.publish_state
+        if self.readme is not None:
+            result['Readme'] = self.readme
+        if self.readme_en is not None:
+            result['ReadmeEn'] = self.readme_en
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.summary is not None:
+            result['Summary'] = self.summary
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.version is not None:
+            result['Version'] = self.version
+        if self.wasm_lang is not None:
+            result['WasmLang'] = self.wasm_lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('ConfigCheck') is not None:
+            self.config_check = m.get('ConfigCheck')
+        self.gateway_config_list = []
+        if m.get('GatewayConfigList') is not None:
+            for k in m.get('GatewayConfigList'):
+                temp_model = GetPluginConfigResponseBodyDataGatewayConfigList()
+                self.gateway_config_list.append(temp_model.from_map(k))
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ImageName') is not None:
+            self.image_name = m.get('ImageName')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Phase') is not None:
+            self.phase = m.get('Phase')
+        if m.get('PrimaryUser') is not None:
+            self.primary_user = m.get('PrimaryUser')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
+        if m.get('PublishState') is not None:
+            self.publish_state = m.get('PublishState')
+        if m.get('Readme') is not None:
+            self.readme = m.get('Readme')
+        if m.get('ReadmeEn') is not None:
+            self.readme_en = m.get('ReadmeEn')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Summary') is not None:
+            self.summary = m.get('Summary')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        if m.get('WasmLang') is not None:
+            self.wasm_lang = m.get('WasmLang')
+        return self
+
+
+class GetPluginConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
+                 http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetPluginConfigResponseBodyData
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetPluginConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetPluginConfigResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPluginConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPluginConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPluginConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPluginConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPluginsRequest(TeaModel):
+    def __init__(self, accept_language=None, category=None, enable_only=None, gateway_unique_id=None,
+                 mse_session_id=None, name=None):
+        self.accept_language = accept_language  # type: str
+        self.category = category  # type: int
+        self.enable_only = enable_only  # type: bool
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPluginsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.enable_only is not None:
+            result['EnableOnly'] = self.enable_only
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('EnableOnly') is not None:
+            self.enable_only = m.get('EnableOnly')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class GetPluginsResponseBodyData(TeaModel):
+    def __init__(self, category=None, config_check=None, id=None, name=None, phase=None, primary_user=None,
+                 priority=None, publish_state=None, status=None, summary=None, version=None, wasm_file=None, wasm_lang=None):
+        self.category = category  # type: int
+        self.config_check = config_check  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.phase = phase  # type: int
+        self.primary_user = primary_user  # type: str
+        self.priority = priority  # type: int
+        self.publish_state = publish_state  # type: int
+        self.status = status  # type: str
+        self.summary = summary  # type: str
+        self.version = version  # type: str
+        self.wasm_file = wasm_file  # type: str
+        self.wasm_lang = wasm_lang  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPluginsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.config_check is not None:
+            result['ConfigCheck'] = self.config_check
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.phase is not None:
+            result['Phase'] = self.phase
+        if self.primary_user is not None:
+            result['PrimaryUser'] = self.primary_user
+        if self.priority is not None:
+            result['Priority'] = self.priority
+        if self.publish_state is not None:
+            result['PublishState'] = self.publish_state
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.summary is not None:
+            result['Summary'] = self.summary
+        if self.version is not None:
+            result['Version'] = self.version
+        if self.wasm_file is not None:
+            result['WasmFile'] = self.wasm_file
+        if self.wasm_lang is not None:
+            result['WasmLang'] = self.wasm_lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('ConfigCheck') is not None:
+            self.config_check = m.get('ConfigCheck')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Phase') is not None:
+            self.phase = m.get('Phase')
+        if m.get('PrimaryUser') is not None:
+            self.primary_user = m.get('PrimaryUser')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
+        if m.get('PublishState') is not None:
+            self.publish_state = m.get('PublishState')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Summary') is not None:
+            self.summary = m.get('Summary')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        if m.get('WasmFile') is not None:
+            self.wasm_file = m.get('WasmFile')
+        if m.get('WasmLang') is not None:
+            self.wasm_lang = m.get('WasmLang')
+        return self
+
+
+class GetPluginsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
+                 http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[GetPluginsResponseBodyData]
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetPluginsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetPluginsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPluginsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPluginsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPluginsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPluginsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetServiceListRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, ip=None, region=None, service_name=None, service_type=None):
+    def __init__(self, accept_language=None, app_id=None, ip=None, mse_session_id=None, region=None,
+                 service_name=None, service_type=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.ip = ip  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.service_name = service_name  # type: str
         self.service_type = service_type  # type: str
@@ -12615,6 +13824,8 @@ class GetServiceListRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.ip is not None:
             result['Ip'] = self.ip
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.service_name is not None:
@@ -12631,6 +13842,8 @@ class GetServiceListRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('ServiceName') is not None:
@@ -12864,10 +14077,269 @@ class GetServiceListResponse(TeaModel):
         return self
 
 
+class GetServiceListenersRequest(TeaModel):
+    def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, group_name=None, has_ip_count=None,
+                 instance_id=None, mse_session_id=None, namespace_id=None, page_num=None, page_size=None, region_id=None,
+                 request_pars=None, service_name=None):
+        self.accept_language = accept_language  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.group_name = group_name  # type: str
+        self.has_ip_count = has_ip_count  # type: str
+        self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.namespace_id = namespace_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+        self.service_name = service_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetServiceListenersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.has_ip_count is not None:
+            result['HasIpCount'] = self.has_ip_count
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('HasIpCount') is not None:
+            self.has_ip_count = m.get('HasIpCount')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        return self
+
+
+class GetServiceListenersResponseBodyData(TeaModel):
+    def __init__(self, addr=None, agent=None, app=None, cluster=None, ip=None, namespace_id=None, port=None,
+                 service_name=None):
+        self.addr = addr  # type: str
+        self.agent = agent  # type: str
+        self.app = app  # type: str
+        self.cluster = cluster  # type: str
+        self.ip = ip  # type: str
+        self.namespace_id = namespace_id  # type: str
+        self.port = port  # type: str
+        self.service_name = service_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetServiceListenersResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addr is not None:
+            result['Addr'] = self.addr
+        if self.agent is not None:
+            result['Agent'] = self.agent
+        if self.app is not None:
+            result['App'] = self.app
+        if self.cluster is not None:
+            result['Cluster'] = self.cluster
+        if self.ip is not None:
+            result['IP'] = self.ip
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Addr') is not None:
+            self.addr = m.get('Addr')
+        if m.get('Agent') is not None:
+            self.agent = m.get('Agent')
+        if m.get('App') is not None:
+            self.app = m.get('App')
+        if m.get('Cluster') is not None:
+            self.cluster = m.get('Cluster')
+        if m.get('IP') is not None:
+            self.ip = m.get('IP')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        return self
+
+
+class GetServiceListenersResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
+                 request_id=None, success=None, total_count=None):
+        self.data = data  # type: list[GetServiceListenersResponseBodyData]
+        self.error_code = error_code  # type: str
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetServiceListenersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetServiceListenersResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class GetServiceListenersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetServiceListenersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetServiceListenersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetServiceListenersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetTagsBySwimmingLaneGroupIdRequest(TeaModel):
-    def __init__(self, accept_language=None, group_id=None):
+    def __init__(self, accept_language=None, group_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.group_id = group_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -12882,6 +14354,8 @@ class GetTagsBySwimmingLaneGroupIdRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -12890,16 +14364,16 @@ class GetTagsBySwimmingLaneGroupIdRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class GetTagsBySwimmingLaneGroupIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -12995,10 +14469,12 @@ class GetTagsBySwimmingLaneGroupIdResponse(TeaModel):
 
 
 class ImportNacosConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, file_url=None, instance_id=None, namespace_id=None, policy=None):
+    def __init__(self, accept_language=None, file_url=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None, policy=None):
         self.accept_language = accept_language  # type: str
         self.file_url = file_url  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.policy = policy  # type: str
 
@@ -13017,6 +14493,8 @@ class ImportNacosConfigRequest(TeaModel):
             result['FileUrl'] = self.file_url
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.policy is not None:
@@ -13031,6 +14509,8 @@ class ImportNacosConfigRequest(TeaModel):
             self.file_url = m.get('FileUrl')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Policy') is not None:
@@ -13260,9 +14740,7 @@ class ImportServicesRequestServiceList(TeaModel):
         self.ips = ips  # type: list[str]
         self.name = name  # type: str
         self.namespace = namespace  # type: str
-        # 服务的端口
         self.service_port = service_port  # type: long
-        # 服务的协议版本
         self.service_protocol = service_protocol  # type: str
 
     def validate(self):
@@ -13306,14 +14784,14 @@ class ImportServicesRequestServiceList(TeaModel):
 
 
 class ImportServicesRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_list=None, source_id=None,
-                 source_type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_list=None,
+                 source_type=None, tls_setting=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_list = service_list  # type: list[ImportServicesRequestServiceList]
-        self.source_id = source_id  # type: str
-        # 服务来源
         self.source_type = source_type  # type: str
+        self.tls_setting = tls_setting  # type: str
 
     def validate(self):
         if self.service_list:
@@ -13331,14 +14809,16 @@ class ImportServicesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         result['ServiceList'] = []
         if self.service_list is not None:
             for k in self.service_list:
                 result['ServiceList'].append(k.to_map() if k else None)
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.tls_setting is not None:
+            result['TlsSetting'] = self.tls_setting
         return result
 
     def from_map(self, m=None):
@@ -13347,27 +14827,29 @@ class ImportServicesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         self.service_list = []
         if m.get('ServiceList') is not None:
             for k in m.get('ServiceList'):
                 temp_model = ImportServicesRequestServiceList()
                 self.service_list.append(temp_model.from_map(k))
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('TlsSetting') is not None:
+            self.tls_setting = m.get('TlsSetting')
         return self
 
 
 class ImportServicesShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_list_shrink=None, source_id=None,
-                 source_type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_list_shrink=None,
+                 source_type=None, tls_setting=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_list_shrink = service_list_shrink  # type: str
-        self.source_id = source_id  # type: str
-        # 服务来源
         self.source_type = source_type  # type: str
+        self.tls_setting = tls_setting  # type: str
 
     def validate(self):
         pass
@@ -13382,12 +14864,14 @@ class ImportServicesShrinkRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_list_shrink is not None:
             result['ServiceList'] = self.service_list_shrink
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.tls_setting is not None:
+            result['TlsSetting'] = self.tls_setting
         return result
 
     def from_map(self, m=None):
@@ -13396,12 +14880,14 @@ class ImportServicesShrinkRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceList') is not None:
             self.service_list_shrink = m.get('ServiceList')
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('TlsSetting') is not None:
+            self.tls_setting = m.get('TlsSetting')
         return self
 
 
@@ -13411,7 +14897,6 @@ class ImportServicesResponseBody(TeaModel):
         self.data = data  # type: bool
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -13496,12 +14981,13 @@ class ImportServicesResponse(TeaModel):
 
 class ListAnsInstancesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, group_name=None, instance_id=None,
-                 namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+                 mse_session_id=None, namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -13527,6 +15013,8 @@ class ListAnsInstancesRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.page_num is not None:
@@ -13551,6 +15039,8 @@ class ListAnsInstancesRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('PageNum') is not None:
@@ -13800,12 +15290,13 @@ class ListAnsInstancesResponse(TeaModel):
 
 class ListAnsServiceClustersRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, group_name=None, instance_id=None,
-                 namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+                 mse_session_id=None, namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -13831,6 +15322,8 @@ class ListAnsServiceClustersRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.page_num is not None:
@@ -13855,6 +15348,8 @@ class ListAnsServiceClustersRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('PageNum') is not None:
@@ -14073,12 +15568,13 @@ class ListAnsServiceClustersResponse(TeaModel):
 
 class ListAnsServicesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, group_name=None, has_ip_count=None, instance_id=None,
-                 namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+                 mse_session_id=None, namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.group_name = group_name  # type: str
         self.has_ip_count = has_ip_count  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -14104,6 +15600,8 @@ class ListAnsServicesRequest(TeaModel):
             result['HasIpCount'] = self.has_ip_count
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.page_num is not None:
@@ -14128,6 +15626,8 @@ class ListAnsServicesRequest(TeaModel):
             self.has_ip_count = m.get('HasIpCount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('PageNum') is not None:
@@ -14298,9 +15798,10 @@ class ListAnsServicesResponse(TeaModel):
 
 
 class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
-    def __init__(self, accept_language=None, group_id=None, tag=None):
+    def __init__(self, accept_language=None, group_id=None, mse_session_id=None, tag=None):
         self.accept_language = accept_language  # type: str
         self.group_id = group_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.tag = tag  # type: str
 
     def validate(self):
@@ -14316,6 +15817,8 @@ class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.tag is not None:
             result['Tag'] = self.tag
         return result
@@ -14326,6 +15829,8 @@ class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Tag') is not None:
             self.tag = m.get('Tag')
         return self
@@ -14334,10 +15839,8 @@ class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
 class ListAppBySwimmingLaneGroupTagResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -14433,11 +15936,12 @@ class ListAppBySwimmingLaneGroupTagResponse(TeaModel):
 
 
 class ListApplicationsWithTagRulesRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, app_name=None, page_number=None, page_size=None,
-                 region=None, source=None):
+    def __init__(self, accept_language=None, app_id=None, app_name=None, mse_session_id=None, page_number=None,
+                 page_size=None, region=None, source=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region = region  # type: str
@@ -14458,6 +15962,8 @@ class ListApplicationsWithTagRulesRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.app_name is not None:
             result['AppName'] = self.app_name
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -14476,6 +15982,8 @@ class ListApplicationsWithTagRulesRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -14747,8 +16255,9 @@ class ListApplicationsWithTagRulesResponse(TeaModel):
 
 
 class ListClusterConnectionTypesRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -14761,12 +16270,16 @@ class ListClusterConnectionTypesRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -14902,10 +16415,10 @@ class ListClusterConnectionTypesResponse(TeaModel):
 
 
 class ListClusterTypesRequest(TeaModel):
-    def __init__(self, accept_language=None, connect_type=None, region_id=None):
+    def __init__(self, accept_language=None, connect_type=None, mse_session_id=None, region_id=None):
         self.accept_language = accept_language  # type: str
-        # 网络连接类型
         self.connect_type = connect_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14921,6 +16434,8 @@ class ListClusterTypesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.connect_type is not None:
             result['ConnectType'] = self.connect_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -14931,6 +16446,8 @@ class ListClusterTypesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ConnectType') is not None:
             self.connect_type = m.get('ConnectType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -15068,9 +16585,10 @@ class ListClusterTypesResponse(TeaModel):
 
 
 class ListClusterVersionsRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_type=None):
+    def __init__(self, accept_language=None, cluster_type=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_type = cluster_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -15085,6 +16603,8 @@ class ListClusterVersionsRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_type is not None:
             result['ClusterType'] = self.cluster_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -15093,6 +16613,8 @@ class ListClusterVersionsRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterType') is not None:
             self.cluster_type = m.get('ClusterType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -15237,18 +16759,53 @@ class ListClusterVersionsResponse(TeaModel):
         return self
 
 
+class ListClustersRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClustersRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class ListClustersRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_alias_name=None, page_num=None, page_size=None, region_id=None,
-                 request_pars=None):
+    def __init__(self, accept_language=None, cluster_alias_name=None, mse_session_id=None, page_num=None,
+                 page_size=None, region_id=None, request_pars=None, resource_group_id=None, tag=None):
         self.accept_language = accept_language  # type: str
         self.cluster_alias_name = cluster_alias_name  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
         self.request_pars = request_pars  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.tag = tag  # type: list[ListClustersRequestTag]
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListClustersRequest, self).to_map()
@@ -15260,6 +16817,8 @@ class ListClustersRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_alias_name is not None:
             result['ClusterAliasName'] = self.cluster_alias_name
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_num is not None:
             result['PageNum'] = self.page_num
         if self.page_size is not None:
@@ -15268,6 +16827,12 @@ class ListClustersRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -15276,6 +16841,8 @@ class ListClustersRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterAliasName') is not None:
             self.cluster_alias_name = m.get('ClusterAliasName')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNum') is not None:
             self.page_num = m.get('PageNum')
         if m.get('PageSize') is not None:
@@ -15284,6 +16851,13 @@ class ListClustersRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListClustersRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -15291,7 +16865,7 @@ class ListClustersResponseBodyData(TeaModel):
     def __init__(self, app_version=None, can_update=None, charge_type=None, cluster_alias_name=None,
                  cluster_name=None, cluster_type=None, create_time=None, end_date=None, init_status=None, instance_count=None,
                  instance_id=None, internet_address=None, internet_domain=None, intranet_address=None, intranet_domain=None,
-                 mse_version=None, version_code=None):
+                 mse_version=None, resource_group_id=None, tags=None, version_code=None):
         self.app_version = app_version  # type: str
         self.can_update = can_update  # type: bool
         self.charge_type = charge_type  # type: str
@@ -15308,6 +16882,8 @@ class ListClustersResponseBodyData(TeaModel):
         self.intranet_address = intranet_address  # type: str
         self.intranet_domain = intranet_domain  # type: str
         self.mse_version = mse_version  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.tags = tags  # type: dict[str, any]
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -15351,6 +16927,10 @@ class ListClustersResponseBodyData(TeaModel):
             result['IntranetDomain'] = self.intranet_domain
         if self.mse_version is not None:
             result['MseVersion'] = self.mse_version
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
         if self.version_code is not None:
             result['VersionCode'] = self.version_code
         return result
@@ -15389,6 +16969,10 @@ class ListClustersResponseBodyData(TeaModel):
             self.intranet_domain = m.get('IntranetDomain')
         if m.get('MseVersion') is not None:
             self.mse_version = m.get('MseVersion')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         if m.get('VersionCode') is not None:
             self.version_code = m.get('VersionCode')
         return self
@@ -15507,9 +17091,10 @@ class ListClustersResponse(TeaModel):
 
 
 class ListEngineNamespacesRequest(TeaModel):
-    def __init__(self, accept_language=None, instance_id=None):
+    def __init__(self, accept_language=None, instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -15524,6 +17109,8 @@ class ListEngineNamespacesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -15532,6 +17119,8 @@ class ListEngineNamespacesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -15703,10 +17292,11 @@ class ListEngineNamespacesResponse(TeaModel):
 
 
 class ListEurekaInstancesRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, page_num=None, page_size=None, request_pars=None,
-                 service_name=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, page_num=None, page_size=None,
+                 request_pars=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.request_pars = request_pars  # type: str
@@ -15725,6 +17315,8 @@ class ListEurekaInstancesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_num is not None:
             result['PageNum'] = self.page_num
         if self.page_size is not None:
@@ -15741,6 +17333,8 @@ class ListEurekaInstancesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNum') is not None:
             self.page_num = m.get('PageNum')
         if m.get('PageSize') is not None:
@@ -15956,10 +17550,11 @@ class ListEurekaInstancesResponse(TeaModel):
 
 
 class ListEurekaServicesRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, page_num=None, page_size=None, region_id=None,
-                 request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, page_num=None, page_size=None,
+                 region_id=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
@@ -15978,6 +17573,8 @@ class ListEurekaServicesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_num is not None:
             result['PageNum'] = self.page_num
         if self.page_size is not None:
@@ -15994,6 +17591,8 @@ class ListEurekaServicesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNum') is not None:
             self.page_num = m.get('PageNum')
         if m.get('PageSize') is not None:
@@ -16196,11 +17795,12 @@ class ListGatewayRequestFilterParams(TeaModel):
 
 
 class ListGatewayRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
-                 page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params = filter_params  # type: ListGatewayRequestFilterParams
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -16221,6 +17821,8 @@ class ListGatewayRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params is not None:
             result['FilterParams'] = self.filter_params.to_map()
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -16238,6 +17840,8 @@ class ListGatewayRequest(TeaModel):
         if m.get('FilterParams') is not None:
             temp_model = ListGatewayRequestFilterParams()
             self.filter_params = temp_model.from_map(m['FilterParams'])
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
@@ -16248,11 +17852,12 @@ class ListGatewayRequest(TeaModel):
 
 
 class ListGatewayShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
-                 page_number=None, page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params_shrink = filter_params_shrink  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -16272,6 +17877,8 @@ class ListGatewayShrinkRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params_shrink is not None:
             result['FilterParams'] = self.filter_params_shrink
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -16288,6 +17895,8 @@ class ListGatewayShrinkRequest(TeaModel):
             self.desc_sort = m.get('DescSort')
         if m.get('FilterParams') is not None:
             self.filter_params_shrink = m.get('FilterParams')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
@@ -16697,7 +18306,6 @@ class ListGatewayResponseBody(TeaModel):
         self.data = data  # type: ListGatewayResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -16783,9 +18391,10 @@ class ListGatewayResponse(TeaModel):
 
 
 class ListGatewayDomainRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, type=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -16801,6 +18410,8 @@ class ListGatewayDomainRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -16811,6 +18422,8 @@ class ListGatewayDomainRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -16842,18 +18455,22 @@ class ListGatewayDomainResponseBodyDataComment(TeaModel):
 
 class ListGatewayDomainResponseBodyData(TeaModel):
     def __init__(self, cert_before_date=None, cert_identifier=None, comment=None, gateway_id=None, gmt_create=None,
-                 gmt_modified=None, id=None, must_https=None, name=None, protocol=None, status=None, type=None):
+                 gmt_modified=None, http_2=None, id=None, must_https=None, name=None, protocol=None, status=None, tls_max=None,
+                 tls_min=None, type=None):
         self.cert_before_date = cert_before_date  # type: str
         self.cert_identifier = cert_identifier  # type: str
         self.comment = comment  # type: ListGatewayDomainResponseBodyDataComment
         self.gateway_id = gateway_id  # type: long
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
+        self.http_2 = http_2  # type: str
         self.id = id  # type: long
         self.must_https = must_https  # type: bool
         self.name = name  # type: str
         self.protocol = protocol  # type: str
         self.status = status  # type: int
+        self.tls_max = tls_max  # type: str
+        self.tls_min = tls_min  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -16878,6 +18495,8 @@ class ListGatewayDomainResponseBodyData(TeaModel):
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
+        if self.http_2 is not None:
+            result['Http2'] = self.http_2
         if self.id is not None:
             result['Id'] = self.id
         if self.must_https is not None:
@@ -16888,6 +18507,10 @@ class ListGatewayDomainResponseBodyData(TeaModel):
             result['Protocol'] = self.protocol
         if self.status is not None:
             result['Status'] = self.status
+        if self.tls_max is not None:
+            result['TlsMax'] = self.tls_max
+        if self.tls_min is not None:
+            result['TlsMin'] = self.tls_min
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -16907,6 +18530,8 @@ class ListGatewayDomainResponseBodyData(TeaModel):
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
+        if m.get('Http2') is not None:
+            self.http_2 = m.get('Http2')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('MustHttps') is not None:
@@ -16917,6 +18542,10 @@ class ListGatewayDomainResponseBodyData(TeaModel):
             self.protocol = m.get('Protocol')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TlsMax') is not None:
+            self.tls_max = m.get('TlsMax')
+        if m.get('TlsMin') is not None:
+            self.tls_min = m.get('TlsMin')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -16928,7 +18557,6 @@ class ListGatewayDomainResponseBody(TeaModel):
         self.data = data  # type: list[ListGatewayDomainResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -17080,11 +18708,12 @@ class ListGatewayRouteRequestFilterParams(TeaModel):
 
 
 class ListGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
-                 page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params = filter_params  # type: ListGatewayRouteRequestFilterParams
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -17105,6 +18734,8 @@ class ListGatewayRouteRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params is not None:
             result['FilterParams'] = self.filter_params.to_map()
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -17122,6 +18753,8 @@ class ListGatewayRouteRequest(TeaModel):
         if m.get('FilterParams') is not None:
             temp_model = ListGatewayRouteRequestFilterParams()
             self.filter_params = temp_model.from_map(m['FilterParams'])
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
@@ -17132,11 +18765,12 @@ class ListGatewayRouteRequest(TeaModel):
 
 
 class ListGatewayRouteShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
-                 page_number=None, page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params_shrink = filter_params_shrink  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -17156,6 +18790,8 @@ class ListGatewayRouteShrinkRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params_shrink is not None:
             result['FilterParams'] = self.filter_params_shrink
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -17172,6 +18808,8 @@ class ListGatewayRouteShrinkRequest(TeaModel):
             self.desc_sort = m.get('DescSort')
         if m.get('FilterParams') is not None:
             self.filter_params_shrink = m.get('FilterParams')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
@@ -17231,6 +18869,71 @@ class ListGatewayRouteResponseBodyDataResultDirectResponse(TeaModel):
             self.body = m.get('Body')
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        return self
+
+
+class ListGatewayRouteResponseBodyDataResultFallbackServices(TeaModel):
+    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
+                 service_id=None, service_name=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
+        self.group_name = group_name  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.percent = percent  # type: int
+        self.service_id = service_id  # type: long
+        self.service_name = service_name  # type: str
+        self.source_type = source_type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayRouteResponseBodyDataResultFallbackServices, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.percent is not None:
+            result['Percent'] = self.percent
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Percent') is not None:
+            self.percent = m.get('Percent')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -17429,10 +19132,146 @@ class ListGatewayRouteResponseBodyDataResultRoutePredicates(TeaModel):
         return self
 
 
+class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList(TeaModel):
+    def __init__(self, extract_key=None, extract_key_spec=None, mapping_type=None):
+        self.extract_key = extract_key  # type: str
+        self.extract_key_spec = extract_key_spec  # type: str
+        self.mapping_type = mapping_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extract_key is not None:
+            result['ExtractKey'] = self.extract_key
+        if self.extract_key_spec is not None:
+            result['ExtractKeySpec'] = self.extract_key_spec
+        if self.mapping_type is not None:
+            result['MappingType'] = self.mapping_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExtractKey') is not None:
+            self.extract_key = m.get('ExtractKey')
+        if m.get('ExtractKeySpec') is not None:
+            self.extract_key_spec = m.get('ExtractKeySpec')
+        if m.get('MappingType') is not None:
+            self.mapping_type = m.get('MappingType')
+        return self
+
+
+class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList(TeaModel):
+    def __init__(self, dubbo_mothed_name=None, http_mothed=None, mothedpath=None, param_maps_list=None,
+                 pass_through_all_headers=None, pass_through_list=None):
+        self.dubbo_mothed_name = dubbo_mothed_name  # type: str
+        self.http_mothed = http_mothed  # type: str
+        self.mothedpath = mothedpath  # type: str
+        self.param_maps_list = param_maps_list  # type: list[ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList]
+        self.pass_through_all_headers = pass_through_all_headers  # type: str
+        self.pass_through_list = pass_through_list  # type: list[str]
+
+    def validate(self):
+        if self.param_maps_list:
+            for k in self.param_maps_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_mothed_name is not None:
+            result['DubboMothedName'] = self.dubbo_mothed_name
+        if self.http_mothed is not None:
+            result['HttpMothed'] = self.http_mothed
+        if self.mothedpath is not None:
+            result['Mothedpath'] = self.mothedpath
+        result['ParamMapsList'] = []
+        if self.param_maps_list is not None:
+            for k in self.param_maps_list:
+                result['ParamMapsList'].append(k.to_map() if k else None)
+        if self.pass_through_all_headers is not None:
+            result['PassThroughAllHeaders'] = self.pass_through_all_headers
+        if self.pass_through_list is not None:
+            result['PassThroughList'] = self.pass_through_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboMothedName') is not None:
+            self.dubbo_mothed_name = m.get('DubboMothedName')
+        if m.get('HttpMothed') is not None:
+            self.http_mothed = m.get('HttpMothed')
+        if m.get('Mothedpath') is not None:
+            self.mothedpath = m.get('Mothedpath')
+        self.param_maps_list = []
+        if m.get('ParamMapsList') is not None:
+            for k in m.get('ParamMapsList'):
+                temp_model = ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList()
+                self.param_maps_list.append(temp_model.from_map(k))
+        if m.get('PassThroughAllHeaders') is not None:
+            self.pass_through_all_headers = m.get('PassThroughAllHeaders')
+        if m.get('PassThroughList') is not None:
+            self.pass_through_list = m.get('PassThroughList')
+        return self
+
+
+class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder(TeaModel):
+    def __init__(self, dubbo_service_name=None, dubbo_service_version=None, mothed_map_list=None):
+        self.dubbo_service_name = dubbo_service_name  # type: str
+        self.dubbo_service_version = dubbo_service_version  # type: str
+        self.mothed_map_list = mothed_map_list  # type: list[ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList]
+
+    def validate(self):
+        if self.mothed_map_list:
+            for k in self.mothed_map_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_service_name is not None:
+            result['DubboServiceName'] = self.dubbo_service_name
+        if self.dubbo_service_version is not None:
+            result['DubboServiceVersion'] = self.dubbo_service_version
+        result['MothedMapList'] = []
+        if self.mothed_map_list is not None:
+            for k in self.mothed_map_list:
+                result['MothedMapList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboServiceName') is not None:
+            self.dubbo_service_name = m.get('DubboServiceName')
+        if m.get('DubboServiceVersion') is not None:
+            self.dubbo_service_version = m.get('DubboServiceVersion')
+        self.mothed_map_list = []
+        if m.get('MothedMapList') is not None:
+            for k in m.get('MothedMapList'):
+                temp_model = ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList()
+                self.mothed_map_list.append(temp_model.from_map(k))
+        return self
+
+
 class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
-    def __init__(self, group_name=None, name=None, namespace=None, percent=None, service_id=None, service_name=None,
-                 source_type=None, version=None):
+    def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
+                 percent=None, service_id=None, service_name=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
         self.group_name = group_name  # type: str
+        self.http_dubbo_transcoder = http_dubbo_transcoder  # type: ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder
         self.name = name  # type: str
         self.namespace = namespace  # type: str
         self.percent = percent  # type: int
@@ -17442,7 +19281,8 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
         self.version = version  # type: str
 
     def validate(self):
-        pass
+        if self.http_dubbo_transcoder:
+            self.http_dubbo_transcoder.validate()
 
     def to_map(self):
         _map = super(ListGatewayRouteResponseBodyDataResultRouteServices, self).to_map()
@@ -17450,8 +19290,12 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
             return _map
 
         result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.http_dubbo_transcoder is not None:
+            result['HttpDubboTranscoder'] = self.http_dubbo_transcoder.to_map()
         if self.name is not None:
             result['Name'] = self.name
         if self.namespace is not None:
@@ -17470,8 +19314,13 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HttpDubboTranscoder') is not None:
+            temp_model = ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder()
+            self.http_dubbo_transcoder = temp_model.from_map(m['HttpDubboTranscoder'])
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
@@ -17492,9 +19341,9 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
 class ListGatewayRouteResponseBodyDataResult(TeaModel):
     def __init__(self, comment=None, default_service_id=None, default_service_name=None, destination_type=None,
                  direct_response=None, domain_id=None, domain_id_list=None, domain_name=None, domain_name_list=None,
-                 enable_waf=None, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None, id=None,
-                 name=None, predicates=None, redirect=None, route_order=None, route_predicates=None, route_services=None,
-                 services=None, status=None, type=None):
+                 enable_waf=None, fallback=None, fallback_services=None, gateway_id=None, gateway_unique_id=None,
+                 gmt_create=None, gmt_modified=None, id=None, name=None, predicates=None, redirect=None, route_order=None,
+                 route_predicates=None, route_services=None, services=None, status=None, type=None):
         self.comment = comment  # type: ListGatewayRouteResponseBodyDataResultComment
         self.default_service_id = default_service_id  # type: long
         self.default_service_name = default_service_name  # type: str
@@ -17505,6 +19354,8 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
         self.domain_name = domain_name  # type: str
         self.domain_name_list = domain_name_list  # type: list[str]
         self.enable_waf = enable_waf  # type: str
+        self.fallback = fallback  # type: bool
+        self.fallback_services = fallback_services  # type: list[ListGatewayRouteResponseBodyDataResultFallbackServices]
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.gmt_create = gmt_create  # type: str
@@ -17525,6 +19376,10 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
             self.comment.validate()
         if self.direct_response:
             self.direct_response.validate()
+        if self.fallback_services:
+            for k in self.fallback_services:
+                if k:
+                    k.validate()
         if self.redirect:
             self.redirect.validate()
         if self.route_predicates:
@@ -17560,6 +19415,12 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
             result['DomainNameList'] = self.domain_name_list
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        result['FallbackServices'] = []
+        if self.fallback_services is not None:
+            for k in self.fallback_services:
+                result['FallbackServices'].append(k.to_map() if k else None)
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
@@ -17616,6 +19477,13 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
             self.domain_name_list = m.get('DomainNameList')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        self.fallback_services = []
+        if m.get('FallbackServices') is not None:
+            for k in m.get('FallbackServices'):
+                temp_model = ListGatewayRouteResponseBodyDataResultFallbackServices()
+                self.fallback_services.append(temp_model.from_map(k))
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
@@ -17705,7 +19573,6 @@ class ListGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: ListGatewayRouteResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -17791,11 +19658,13 @@ class ListGatewayRouteResponse(TeaModel):
 
 
 class ListGatewayServiceRequestFilterParams(TeaModel):
-    def __init__(self, gateway_unique_id=None, group_name=None, name=None, namespace=None, source_type=None):
+    def __init__(self, gateway_unique_id=None, group_name=None, name=None, namespace=None, service_protocol=None,
+                 source_type=None):
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.group_name = group_name  # type: str
         self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.service_protocol = service_protocol  # type: str
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -17815,6 +19684,8 @@ class ListGatewayServiceRequestFilterParams(TeaModel):
             result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.service_protocol is not None:
+            result['ServiceProtocol'] = self.service_protocol
         if self.source_type is not None:
             result['SourceType'] = self.source_type
         return result
@@ -17829,17 +19700,20 @@ class ListGatewayServiceRequestFilterParams(TeaModel):
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('ServiceProtocol') is not None:
+            self.service_protocol = m.get('ServiceProtocol')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
         return self
 
 
 class ListGatewayServiceRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
-                 page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params = filter_params  # type: ListGatewayServiceRequestFilterParams
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -17860,6 +19734,8 @@ class ListGatewayServiceRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params is not None:
             result['FilterParams'] = self.filter_params.to_map()
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -17877,6 +19753,8 @@ class ListGatewayServiceRequest(TeaModel):
         if m.get('FilterParams') is not None:
             temp_model = ListGatewayServiceRequestFilterParams()
             self.filter_params = temp_model.from_map(m['FilterParams'])
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
@@ -17887,11 +19765,12 @@ class ListGatewayServiceRequest(TeaModel):
 
 
 class ListGatewayServiceShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
-                 page_number=None, page_size=None):
+    def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, mse_session_id=None,
+                 order_item=None, page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
         self.desc_sort = desc_sort  # type: bool
         self.filter_params_shrink = filter_params_shrink  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.order_item = order_item  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -17911,6 +19790,8 @@ class ListGatewayServiceShrinkRequest(TeaModel):
             result['DescSort'] = self.desc_sort
         if self.filter_params_shrink is not None:
             result['FilterParams'] = self.filter_params_shrink
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_item is not None:
             result['OrderItem'] = self.order_item
         if self.page_number is not None:
@@ -17927,12 +19808,274 @@ class ListGatewayServiceShrinkRequest(TeaModel):
             self.desc_sort = m.get('DescSort')
         if m.get('FilterParams') is not None:
             self.filter_params_shrink = m.get('FilterParams')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderItem') is not None:
             self.order_item = m.get('OrderItem')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie(TeaModel):
+    def __init__(self, name=None, path=None, ttl=None):
+        self.name = name  # type: str
+        self.path = path  # type: str
+        self.ttl = ttl  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.ttl is not None:
+            result['Ttl'] = self.ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('Ttl') is not None:
+            self.ttl = m.get('Ttl')
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig(TeaModel):
+    def __init__(self, consistent_hash_lbtype=None, http_cookie=None, minimum_ring_size=None, parameter_name=None):
+        self.consistent_hash_lbtype = consistent_hash_lbtype  # type: str
+        self.http_cookie = http_cookie  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie
+        self.minimum_ring_size = minimum_ring_size  # type: long
+        self.parameter_name = parameter_name  # type: str
+
+    def validate(self):
+        if self.http_cookie:
+            self.http_cookie.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.consistent_hash_lbtype is not None:
+            result['ConsistentHashLBType'] = self.consistent_hash_lbtype
+        if self.http_cookie is not None:
+            result['HttpCookie'] = self.http_cookie.to_map()
+        if self.minimum_ring_size is not None:
+            result['MinimumRingSize'] = self.minimum_ring_size
+        if self.parameter_name is not None:
+            result['ParameterName'] = self.parameter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsistentHashLBType') is not None:
+            self.consistent_hash_lbtype = m.get('ConsistentHashLBType')
+        if m.get('HttpCookie') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie()
+            self.http_cookie = temp_model.from_map(m['HttpCookie'])
+        if m.get('MinimumRingSize') is not None:
+            self.minimum_ring_size = m.get('MinimumRingSize')
+        if m.get('ParameterName') is not None:
+            self.parameter_name = m.get('ParameterName')
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings(TeaModel):
+    def __init__(self, consistent_hash_lbconfig=None, loadbalancer_type=None, warmup_duration=None):
+        self.consistent_hash_lbconfig = consistent_hash_lbconfig  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig
+        self.loadbalancer_type = loadbalancer_type  # type: str
+        self.warmup_duration = warmup_duration  # type: int
+
+    def validate(self):
+        if self.consistent_hash_lbconfig:
+            self.consistent_hash_lbconfig.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.consistent_hash_lbconfig is not None:
+            result['ConsistentHashLBConfig'] = self.consistent_hash_lbconfig.to_map()
+        if self.loadbalancer_type is not None:
+            result['LoadbalancerType'] = self.loadbalancer_type
+        if self.warmup_duration is not None:
+            result['WarmupDuration'] = self.warmup_duration
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsistentHashLBConfig') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig()
+            self.consistent_hash_lbconfig = temp_model.from_map(m['ConsistentHashLBConfig'])
+        if m.get('LoadbalancerType') is not None:
+            self.loadbalancer_type = m.get('LoadbalancerType')
+        if m.get('WarmupDuration') is not None:
+            self.warmup_duration = m.get('WarmupDuration')
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls(TeaModel):
+    def __init__(self, ca_cert_content=None, ca_cert_id=None, cert_id=None, mode=None, sni=None,
+                 subject_alt_names=None):
+        self.ca_cert_content = ca_cert_content  # type: str
+        self.ca_cert_id = ca_cert_id  # type: str
+        self.cert_id = cert_id  # type: str
+        self.mode = mode  # type: str
+        self.sni = sni  # type: str
+        self.subject_alt_names = subject_alt_names  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ca_cert_content is not None:
+            result['CaCertContent'] = self.ca_cert_content
+        if self.ca_cert_id is not None:
+            result['CaCertId'] = self.ca_cert_id
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.sni is not None:
+            result['Sni'] = self.sni
+        if self.subject_alt_names is not None:
+            result['SubjectAltNames'] = self.subject_alt_names
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CaCertContent') is not None:
+            self.ca_cert_content = m.get('CaCertContent')
+        if m.get('CaCertId') is not None:
+            self.ca_cert_id = m.get('CaCertId')
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('Sni') is not None:
+            self.sni = m.get('Sni')
+        if m.get('SubjectAltNames') is not None:
+            self.subject_alt_names = m.get('SubjectAltNames')
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy(TeaModel):
+    def __init__(self, load_balancer_settings=None, tls=None):
+        self.load_balancer_settings = load_balancer_settings  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings
+        self.tls = tls  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls
+
+    def validate(self):
+        if self.load_balancer_settings:
+            self.load_balancer_settings.validate()
+        if self.tls:
+            self.tls.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.load_balancer_settings is not None:
+            result['LoadBalancerSettings'] = self.load_balancer_settings.to_map()
+        if self.tls is not None:
+            result['Tls'] = self.tls.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoadBalancerSettings') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings()
+            self.load_balancer_settings = temp_model.from_map(m['LoadBalancerSettings'])
+        if m.get('Tls') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls()
+            self.tls = temp_model.from_map(m['Tls'])
+        return self
+
+
+class ListGatewayServiceResponseBodyDataResultHealthCheckInfo(TeaModel):
+    def __init__(self, check=None, expected_statuses=None, healthy_threshold=None, http_host=None, http_path=None,
+                 interval=None, protocol=None, timeout=None, unhealthy_threshold=None):
+        self.check = check  # type: bool
+        self.expected_statuses = expected_statuses  # type: list[int]
+        self.healthy_threshold = healthy_threshold  # type: int
+        self.http_host = http_host  # type: str
+        self.http_path = http_path  # type: str
+        self.interval = interval  # type: int
+        self.protocol = protocol  # type: str
+        self.timeout = timeout  # type: int
+        self.unhealthy_threshold = unhealthy_threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayServiceResponseBodyDataResultHealthCheckInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check is not None:
+            result['Check'] = self.check
+        if self.expected_statuses is not None:
+            result['ExpectedStatuses'] = self.expected_statuses
+        if self.healthy_threshold is not None:
+            result['HealthyThreshold'] = self.healthy_threshold
+        if self.http_host is not None:
+            result['HttpHost'] = self.http_host
+        if self.http_path is not None:
+            result['HttpPath'] = self.http_path
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.unhealthy_threshold is not None:
+            result['UnhealthyThreshold'] = self.unhealthy_threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Check') is not None:
+            self.check = m.get('Check')
+        if m.get('ExpectedStatuses') is not None:
+            self.expected_statuses = m.get('ExpectedStatuses')
+        if m.get('HealthyThreshold') is not None:
+            self.healthy_threshold = m.get('HealthyThreshold')
+        if m.get('HttpHost') is not None:
+            self.http_host = m.get('HttpHost')
+        if m.get('HttpPath') is not None:
+            self.http_path = m.get('HttpPath')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('UnhealthyThreshold') is not None:
+            self.unhealthy_threshold = m.get('UnhealthyThreshold')
         return self
 
 
@@ -17961,15 +20104,21 @@ class ListGatewayServiceResponseBodyDataResultVersions(TeaModel):
 
 
 class ListGatewayServiceResponseBodyDataResult(TeaModel):
-    def __init__(self, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None, group_name=None,
-                 healeh_status=None, id=None, ips=None, meta_info=None, name=None, namespace=None, service_name_in_registry=None,
-                 service_port=None, service_protocol=None, source_id=None, source_type=None, versions=None):
+    def __init__(self, gateway_id=None, gateway_traffic_policy=None, gateway_unique_id=None, gmt_create=None,
+                 gmt_modified=None, group_name=None, healeh_status=None, health_check=None, health_check_info=None,
+                 health_status=None, id=None, ips=None, meta_info=None, name=None, namespace=None, service_name_in_registry=None,
+                 service_port=None, service_protocol=None, source_id=None, source_type=None, unhealthy_endpoints=None,
+                 versions=None):
         self.gateway_id = gateway_id  # type: long
+        self.gateway_traffic_policy = gateway_traffic_policy  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.group_name = group_name  # type: str
         self.healeh_status = healeh_status  # type: str
+        self.health_check = health_check  # type: bool
+        self.health_check_info = health_check_info  # type: ListGatewayServiceResponseBodyDataResultHealthCheckInfo
+        self.health_status = health_status  # type: str
         self.id = id  # type: long
         self.ips = ips  # type: list[str]
         self.meta_info = meta_info  # type: str
@@ -17980,9 +20129,14 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
         self.service_protocol = service_protocol  # type: str
         self.source_id = source_id  # type: long
         self.source_type = source_type  # type: str
+        self.unhealthy_endpoints = unhealthy_endpoints  # type: list[str]
         self.versions = versions  # type: list[ListGatewayServiceResponseBodyDataResultVersions]
 
     def validate(self):
+        if self.gateway_traffic_policy:
+            self.gateway_traffic_policy.validate()
+        if self.health_check_info:
+            self.health_check_info.validate()
         if self.versions:
             for k in self.versions:
                 if k:
@@ -17996,6 +20150,8 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
         result = dict()
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
+        if self.gateway_traffic_policy is not None:
+            result['GatewayTrafficPolicy'] = self.gateway_traffic_policy.to_map()
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.gmt_create is not None:
@@ -18006,6 +20162,12 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
             result['GroupName'] = self.group_name
         if self.healeh_status is not None:
             result['HealehStatus'] = self.healeh_status
+        if self.health_check is not None:
+            result['HealthCheck'] = self.health_check
+        if self.health_check_info is not None:
+            result['HealthCheckInfo'] = self.health_check_info.to_map()
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
         if self.id is not None:
             result['Id'] = self.id
         if self.ips is not None:
@@ -18026,6 +20188,8 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
             result['SourceId'] = self.source_id
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.unhealthy_endpoints is not None:
+            result['UnhealthyEndpoints'] = self.unhealthy_endpoints
         result['Versions'] = []
         if self.versions is not None:
             for k in self.versions:
@@ -18036,6 +20200,9 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
         m = m or dict()
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayTrafficPolicy') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy()
+            self.gateway_traffic_policy = temp_model.from_map(m['GatewayTrafficPolicy'])
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('GmtCreate') is not None:
@@ -18046,6 +20213,13 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('HealehStatus') is not None:
             self.healeh_status = m.get('HealehStatus')
+        if m.get('HealthCheck') is not None:
+            self.health_check = m.get('HealthCheck')
+        if m.get('HealthCheckInfo') is not None:
+            temp_model = ListGatewayServiceResponseBodyDataResultHealthCheckInfo()
+            self.health_check_info = temp_model.from_map(m['HealthCheckInfo'])
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('Ips') is not None:
@@ -18066,6 +20240,8 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
             self.source_id = m.get('SourceId')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('UnhealthyEndpoints') is not None:
+            self.unhealthy_endpoints = m.get('UnhealthyEndpoints')
         self.versions = []
         if m.get('Versions') is not None:
             for k in m.get('Versions'):
@@ -18127,7 +20303,6 @@ class ListGatewayServiceResponseBody(TeaModel):
         self.data = data  # type: ListGatewayServiceResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -18213,9 +20388,10 @@ class ListGatewayServiceResponse(TeaModel):
 
 
 class ListGatewaySlbRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -18230,6 +20406,8 @@ class ListGatewaySlbRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -18238,22 +20416,31 @@ class ListGatewaySlbRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class ListGatewaySlbResponseBodyData(TeaModel):
-    def __init__(self, gateway_id=None, gateway_slb_mode=None, gateway_slb_status=None, gmt_create=None, id=None,
-                 slb_id=None, slb_ip=None, slb_port=None, status_desc=None, type=None):
+    def __init__(self, edit_enable=None, gateway_id=None, gateway_slb_mode=None, gateway_slb_status=None,
+                 gmt_create=None, http_port=None, https_port=None, https_vserver_group_id=None, id=None, service_weight=None,
+                 slb_id=None, slb_ip=None, slb_port=None, status_desc=None, type=None, vserver_group_id=None):
+        self.edit_enable = edit_enable  # type: bool
         self.gateway_id = gateway_id  # type: str
         self.gateway_slb_mode = gateway_slb_mode  # type: str
         self.gateway_slb_status = gateway_slb_status  # type: str
         self.gmt_create = gmt_create  # type: str
+        self.http_port = http_port  # type: int
+        self.https_port = https_port  # type: int
+        self.https_vserver_group_id = https_vserver_group_id  # type: str
         self.id = id  # type: str
+        self.service_weight = service_weight  # type: int
         self.slb_id = slb_id  # type: str
         self.slb_ip = slb_ip  # type: str
         self.slb_port = slb_port  # type: str
         self.status_desc = status_desc  # type: str
         self.type = type  # type: str
+        self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
         pass
@@ -18264,6 +20451,8 @@ class ListGatewaySlbResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.edit_enable is not None:
+            result['EditEnable'] = self.edit_enable
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_slb_mode is not None:
@@ -18272,8 +20461,16 @@ class ListGatewaySlbResponseBodyData(TeaModel):
             result['GatewaySlbStatus'] = self.gateway_slb_status
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
+        if self.http_port is not None:
+            result['HttpPort'] = self.http_port
+        if self.https_port is not None:
+            result['HttpsPort'] = self.https_port
+        if self.https_vserver_group_id is not None:
+            result['HttpsVServerGroupId'] = self.https_vserver_group_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.service_weight is not None:
+            result['ServiceWeight'] = self.service_weight
         if self.slb_id is not None:
             result['SlbId'] = self.slb_id
         if self.slb_ip is not None:
@@ -18284,10 +20481,14 @@ class ListGatewaySlbResponseBodyData(TeaModel):
             result['StatusDesc'] = self.status_desc
         if self.type is not None:
             result['Type'] = self.type
+        if self.vserver_group_id is not None:
+            result['VServerGroupId'] = self.vserver_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EditEnable') is not None:
+            self.edit_enable = m.get('EditEnable')
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewaySlbMode') is not None:
@@ -18296,8 +20497,16 @@ class ListGatewaySlbResponseBodyData(TeaModel):
             self.gateway_slb_status = m.get('GatewaySlbStatus')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
+        if m.get('HttpPort') is not None:
+            self.http_port = m.get('HttpPort')
+        if m.get('HttpsPort') is not None:
+            self.https_port = m.get('HttpsPort')
+        if m.get('HttpsVServerGroupId') is not None:
+            self.https_vserver_group_id = m.get('HttpsVServerGroupId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('ServiceWeight') is not None:
+            self.service_weight = m.get('ServiceWeight')
         if m.get('SlbId') is not None:
             self.slb_id = m.get('SlbId')
         if m.get('SlbIp') is not None:
@@ -18308,6 +20517,8 @@ class ListGatewaySlbResponseBodyData(TeaModel):
             self.status_desc = m.get('StatusDesc')
         if m.get('Type') is not None:
             self.type = m.get('Type')
+        if m.get('VServerGroupId') is not None:
+            self.vserver_group_id = m.get('VServerGroupId')
         return self
 
 
@@ -18317,7 +20528,6 @@ class ListGatewaySlbResponseBody(TeaModel):
         self.data = data  # type: list[ListGatewaySlbResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -18409,8 +20619,9 @@ class ListGatewaySlbResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, accept_language=None, region=None, user_id=None):
+    def __init__(self, accept_language=None, mse_session_id=None, region=None, user_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.user_id = user_id  # type: str
 
@@ -18425,6 +20636,8 @@ class ListInstancesRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.user_id is not None:
@@ -18435,6 +20648,8 @@ class ListInstancesRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('UserId') is not None:
@@ -18454,7 +20669,7 @@ class ListInstancesResponseBodyData(TeaModel):
         self.db_password = db_password  # type: str
         self.db_url = db_url  # type: str
         self.db_user_name = db_user_name  # type: str
-        self.end_date = end_date  # type: long
+        self.end_date = end_date  # type: str
         self.environment_id = environment_id  # type: long
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
@@ -18637,7 +20852,6 @@ class ListInstancesResponseBody(TeaModel):
         self.data = data  # type: list[ListInstancesResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -18729,12 +20943,13 @@ class ListInstancesResponse(TeaModel):
 
 
 class ListListenersByConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None,
-                 request_pars=None):
+    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -18755,6 +20970,8 @@ class ListListenersByConfigRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.request_pars is not None:
@@ -18771,6 +20988,8 @@ class ListListenersByConfigRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('RequestPars') is not None:
@@ -18925,10 +21144,12 @@ class ListListenersByConfigResponse(TeaModel):
 
 
 class ListListenersByIpRequest(TeaModel):
-    def __init__(self, accept_language=None, instance_id=None, ip=None, namespace_id=None, request_pars=None):
+    def __init__(self, accept_language=None, instance_id=None, ip=None, mse_session_id=None, namespace_id=None,
+                 request_pars=None):
         self.accept_language = accept_language  # type: str
         self.instance_id = instance_id  # type: str
         self.ip = ip  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -18947,6 +21168,8 @@ class ListListenersByIpRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.ip is not None:
             result['Ip'] = self.ip
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.request_pars is not None:
@@ -18961,6 +21184,8 @@ class ListListenersByIpRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('RequestPars') is not None:
@@ -19116,12 +21341,14 @@ class ListListenersByIpResponse(TeaModel):
 
 class ListNacosConfigsRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, data_id=None, group=None, instance_id=None,
-                 namespace_id=None, page_num=None, page_size=None, region_id=None, request_pars=None, tags=None):
+                 mse_session_id=None, namespace_id=None, page_num=None, page_size=None, region_id=None, request_pars=None,
+                 tags=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -19148,6 +21375,8 @@ class ListNacosConfigsRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.page_num is not None:
@@ -19174,6 +21403,8 @@ class ListNacosConfigsRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('PageNum') is not None:
@@ -19346,12 +21577,13 @@ class ListNacosConfigsResponse(TeaModel):
 
 
 class ListNacosHistoryConfigsRequest(TeaModel):
-    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None,
-                 page_num=None, page_size=None, region_id=None, request_pars=None):
+    def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, mse_session_id=None,
+                 namespace_id=None, page_num=None, page_size=None, region_id=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.data_id = data_id  # type: str
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -19375,6 +21607,8 @@ class ListNacosHistoryConfigsRequest(TeaModel):
             result['Group'] = self.group
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.page_num is not None:
@@ -19397,6 +21631,8 @@ class ListNacosHistoryConfigsRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('PageNum') is not None:
@@ -19572,9 +21808,10 @@ class ListNacosHistoryConfigsResponse(TeaModel):
 
 
 class ListSSLCertRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -19589,6 +21826,8 @@ class ListSSLCertRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -19597,6 +21836,8 @@ class ListSSLCertRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -19676,7 +21917,6 @@ class ListSSLCertResponseBody(TeaModel):
         self.data = data  # type: list[ListSSLCertResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -19768,10 +22008,10 @@ class ListSSLCertResponse(TeaModel):
 
 
 class ListSecurityGroupRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
-        # 网关ID
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -19786,6 +22026,8 @@ class ListSecurityGroupRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -19794,6 +22036,8 @@ class ListSecurityGroupRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -19842,7 +22086,6 @@ class ListSecurityGroupResponseBody(TeaModel):
         self.data = data  # type: list[ListSecurityGroupResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -19934,10 +22177,10 @@ class ListSecurityGroupResponse(TeaModel):
 
 
 class ListSecurityGroupRuleRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
-        # 网关ID
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -19952,6 +22195,8 @@ class ListSecurityGroupRuleRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -19960,6 +22205,8 @@ class ListSecurityGroupRuleRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -20034,7 +22281,6 @@ class ListSecurityGroupRuleResponseBody(TeaModel):
         self.data = data  # type: list[ListSecurityGroupRuleResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -20126,9 +22372,10 @@ class ListSecurityGroupRuleResponse(TeaModel):
 
 
 class ListServiceSourceRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -20143,6 +22390,8 @@ class ListServiceSourceRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -20151,6 +22400,8 @@ class ListServiceSourceRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -20271,7 +22522,6 @@ class ListServiceSourceResponseBody(TeaModel):
         self.data = data  # type: list[ListServiceSourceResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -20362,9 +22612,578 @@ class ListServiceSourceResponse(TeaModel):
         return self
 
 
-class ListVgroupsRequest(TeaModel):
-    def __init__(self, accept_language=None, region=None, user_id=None):
+class ListTagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListTagResourcesRequest(TeaModel):
+    def __init__(self, accept_language=None, mse_session_id=None, next_token=None, region_id=None, resource_id=None,
+                 resource_type=None, tag=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[ListTagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListTagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
+    def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResourcesTagResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class ListTagResourcesResponseBodyTagResources(TeaModel):
+    def __init__(self, tag_resource=None):
+        self.tag_resource = tag_resource  # type: list[ListTagResourcesResponseBodyTagResourcesTagResource]
+
+    def validate(self):
+        if self.tag_resource:
+            for k in self.tag_resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResources, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['TagResource'] = []
+        if self.tag_resource is not None:
+            for k in self.tag_resource:
+                result['TagResource'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag_resource = []
+        if m.get('TagResource') is not None:
+            for k in m.get('TagResource'):
+                temp_model = ListTagResourcesResponseBodyTagResourcesTagResource()
+                self.tag_resource.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagResourcesResponseBody(TeaModel):
+    def __init__(self, error_code=None, message=None, next_token=None, request_id=None, success=None,
+                 tag_resources=None):
+        self.error_code = error_code  # type: str
+        self.message = message  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
+
+    def validate(self):
+        if self.tag_resources:
+            self.tag_resources.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.tag_resources is not None:
+            result['TagResources'] = self.tag_resources.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TagResources') is not None:
+            temp_model = ListTagResourcesResponseBodyTagResources()
+            self.tag_resources = temp_model.from_map(m['TagResources'])
+        return self
+
+
+class ListTagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUserInstancesRequest(TeaModel):
+    def __init__(self, accept_language=None, mse_session_id=None, region=None, user_id=None):
+        self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.region = region  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListUserInstancesResponseBodyData(TeaModel):
+    def __init__(self, app_cluster_id=None, app_version=None, db_password=None, db_url=None, db_user_name=None,
+                 end_date=None, environment_id=None, gmt_create=None, gmt_modified=None, id=None, image_version=None,
+                 instance_id=None, is_created_redis=None, k_8s_resource_id=None, name=None, name_server=None, order_id=None,
+                 pod_cidr=None, primary_user=None, region=None, replica=None, seata_server_unique_id=None,
+                 security_group=None, spec=None, start_date=None, status=None, status_desc=None, store_mode=None, vpc=None,
+                 vswitch=None, zone_id=None):
+        self.app_cluster_id = app_cluster_id  # type: str
+        self.app_version = app_version  # type: str
+        self.db_password = db_password  # type: str
+        self.db_url = db_url  # type: str
+        self.db_user_name = db_user_name  # type: str
+        self.end_date = end_date  # type: str
+        self.environment_id = environment_id  # type: long
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.image_version = image_version  # type: str
+        self.instance_id = instance_id  # type: str
+        self.is_created_redis = is_created_redis  # type: bool
+        self.k_8s_resource_id = k_8s_resource_id  # type: long
+        self.name = name  # type: str
+        self.name_server = name_server  # type: str
+        self.order_id = order_id  # type: str
+        self.pod_cidr = pod_cidr  # type: str
+        self.primary_user = primary_user  # type: str
+        self.region = region  # type: str
+        self.replica = replica  # type: long
+        self.seata_server_unique_id = seata_server_unique_id  # type: str
+        self.security_group = security_group  # type: str
+        self.spec = spec  # type: str
+        self.start_date = start_date  # type: str
+        self.status = status  # type: long
+        self.status_desc = status_desc  # type: str
+        self.store_mode = store_mode  # type: str
+        self.vpc = vpc  # type: str
+        self.vswitch = vswitch  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserInstancesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_cluster_id is not None:
+            result['AppClusterId'] = self.app_cluster_id
+        if self.app_version is not None:
+            result['AppVersion'] = self.app_version
+        if self.db_password is not None:
+            result['DbPassword'] = self.db_password
+        if self.db_url is not None:
+            result['DbUrl'] = self.db_url
+        if self.db_user_name is not None:
+            result['DbUserName'] = self.db_user_name
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.image_version is not None:
+            result['ImageVersion'] = self.image_version
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.is_created_redis is not None:
+            result['IsCreatedRedis'] = self.is_created_redis
+        if self.k_8s_resource_id is not None:
+            result['K8sResourceId'] = self.k_8s_resource_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.name_server is not None:
+            result['NameServer'] = self.name_server
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.pod_cidr is not None:
+            result['PodCidr'] = self.pod_cidr
+        if self.primary_user is not None:
+            result['PrimaryUser'] = self.primary_user
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.replica is not None:
+            result['Replica'] = self.replica
+        if self.seata_server_unique_id is not None:
+            result['SeataServerUniqueId'] = self.seata_server_unique_id
+        if self.security_group is not None:
+            result['SecurityGroup'] = self.security_group
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_desc is not None:
+            result['StatusDesc'] = self.status_desc
+        if self.store_mode is not None:
+            result['StoreMode'] = self.store_mode
+        if self.vpc is not None:
+            result['Vpc'] = self.vpc
+        if self.vswitch is not None:
+            result['Vswitch'] = self.vswitch
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppClusterId') is not None:
+            self.app_cluster_id = m.get('AppClusterId')
+        if m.get('AppVersion') is not None:
+            self.app_version = m.get('AppVersion')
+        if m.get('DbPassword') is not None:
+            self.db_password = m.get('DbPassword')
+        if m.get('DbUrl') is not None:
+            self.db_url = m.get('DbUrl')
+        if m.get('DbUserName') is not None:
+            self.db_user_name = m.get('DbUserName')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ImageVersion') is not None:
+            self.image_version = m.get('ImageVersion')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('IsCreatedRedis') is not None:
+            self.is_created_redis = m.get('IsCreatedRedis')
+        if m.get('K8sResourceId') is not None:
+            self.k_8s_resource_id = m.get('K8sResourceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NameServer') is not None:
+            self.name_server = m.get('NameServer')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('PodCidr') is not None:
+            self.pod_cidr = m.get('PodCidr')
+        if m.get('PrimaryUser') is not None:
+            self.primary_user = m.get('PrimaryUser')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Replica') is not None:
+            self.replica = m.get('Replica')
+        if m.get('SeataServerUniqueId') is not None:
+            self.seata_server_unique_id = m.get('SeataServerUniqueId')
+        if m.get('SecurityGroup') is not None:
+            self.security_group = m.get('SecurityGroup')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusDesc') is not None:
+            self.status_desc = m.get('StatusDesc')
+        if m.get('StoreMode') is not None:
+            self.store_mode = m.get('StoreMode')
+        if m.get('Vpc') is not None:
+            self.vpc = m.get('Vpc')
+        if m.get('Vswitch') is not None:
+            self.vswitch = m.get('Vswitch')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class ListUserInstancesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[ListUserInstancesResponseBodyData]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListUserInstancesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListUserInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListVgroupsRequest(TeaModel):
+    def __init__(self, accept_language=None, mse_session_id=None, region=None, user_id=None):
+        self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.user_id = user_id  # type: str
 
@@ -20379,6 +23198,8 @@ class ListVgroupsRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.user_id is not None:
@@ -20389,6 +23210,8 @@ class ListVgroupsRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('UserId') is not None:
@@ -20462,7 +23285,6 @@ class ListVgroupsResponseBody(TeaModel):
         self.data = data  # type: list[ListVgroupsResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -20554,9 +23376,10 @@ class ListVgroupsResponse(TeaModel):
 
 
 class ListZnodeChildrenRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, path=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, path=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
 
     def validate(self):
@@ -20572,6 +23395,8 @@ class ListZnodeChildrenRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         return result
@@ -20582,6 +23407,8 @@ class ListZnodeChildrenRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         return self
@@ -20718,9 +23545,11 @@ class ListZnodeChildrenResponse(TeaModel):
 
 
 class ModifyGovernanceKubernetesClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, namespace_infos=None, region_id=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, namespace_infos=None,
+                 region_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_infos = namespace_infos  # type: str
         self.region_id = region_id  # type: str
 
@@ -20737,6 +23566,8 @@ class ModifyGovernanceKubernetesClusterRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_infos is not None:
             result['NamespaceInfos'] = self.namespace_infos
         if self.region_id is not None:
@@ -20749,6 +23580,8 @@ class ModifyGovernanceKubernetesClusterRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceInfos') is not None:
             self.namespace_infos = m.get('NamespaceInfos')
         if m.get('RegionId') is not None:
@@ -20844,10 +23677,180 @@ class ModifyGovernanceKubernetesClusterResponse(TeaModel):
         return self
 
 
+class ModifyLosslessRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, aligned=None, app_id=None, app_name=None, delay_time=None, enable=None,
+                 func_type=None, mse_session_id=None, region_id=None, related=None, shutdown_wait_seconds=None, source=None,
+                 warmup_time=None):
+        self.accept_language = accept_language  # type: str
+        self.aligned = aligned  # type: bool
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        self.delay_time = delay_time  # type: long
+        self.enable = enable  # type: bool
+        self.func_type = func_type  # type: long
+        self.mse_session_id = mse_session_id  # type: str
+        self.region_id = region_id  # type: str
+        self.related = related  # type: bool
+        self.shutdown_wait_seconds = shutdown_wait_seconds  # type: int
+        self.source = source  # type: str
+        self.warmup_time = warmup_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyLosslessRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.aligned is not None:
+            result['Aligned'] = self.aligned
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.delay_time is not None:
+            result['DelayTime'] = self.delay_time
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.func_type is not None:
+            result['FuncType'] = self.func_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.related is not None:
+            result['Related'] = self.related
+        if self.shutdown_wait_seconds is not None:
+            result['ShutdownWaitSeconds'] = self.shutdown_wait_seconds
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.warmup_time is not None:
+            result['WarmupTime'] = self.warmup_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('Aligned') is not None:
+            self.aligned = m.get('Aligned')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('DelayTime') is not None:
+            self.delay_time = m.get('DelayTime')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('FuncType') is not None:
+            self.func_type = m.get('FuncType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Related') is not None:
+            self.related = m.get('Related')
+        if m.get('ShutdownWaitSeconds') is not None:
+            self.shutdown_wait_seconds = m.get('ShutdownWaitSeconds')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('WarmupTime') is not None:
+            self.warmup_time = m.get('WarmupTime')
+        return self
+
+
+class ModifyLosslessRuleResponseBody(TeaModel):
+    def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyLosslessRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ModifyLosslessRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyLosslessRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyLosslessRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyLosslessRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OfflineGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, route_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -20863,6 +23866,8 @@ class OfflineGatewayRouteRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.route_id is not None:
             result['RouteId'] = self.route_id
         return result
@@ -20873,6 +23878,8 @@ class OfflineGatewayRouteRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RouteId') is not None:
             self.route_id = m.get('RouteId')
         return self
@@ -20884,7 +23891,6 @@ class OfflineGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: bool
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -20968,9 +23974,12 @@ class OfflineGatewayRouteResponse(TeaModel):
 
 
 class PullServicesRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, source_type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, namespace=None,
+                 source_type=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.namespace = namespace  # type: str
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -20986,6 +23995,10 @@ class PullServicesRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
         if self.source_type is not None:
             result['SourceType'] = self.source_type
         return result
@@ -20996,6 +24009,10 @@ class PullServicesRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
         return self
@@ -21098,7 +24115,6 @@ class PullServicesResponseBody(TeaModel):
         self.data = data  # type: list[PullServicesResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -21190,9 +24206,10 @@ class PullServicesResponse(TeaModel):
 
 
 class QueryAllSwimmingLaneRequest(TeaModel):
-    def __init__(self, accept_language=None, group_id=None):
+    def __init__(self, accept_language=None, group_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.group_id = group_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -21207,6 +24224,8 @@ class QueryAllSwimmingLaneRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -21215,16 +24234,16 @@ class QueryAllSwimmingLaneRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class QueryAllSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -21320,8 +24339,9 @@ class QueryAllSwimmingLaneResponse(TeaModel):
 
 
 class QueryAllSwimmingLaneGroupRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -21334,22 +24354,24 @@ class QueryAllSwimmingLaneGroupRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -21445,8 +24467,9 @@ class QueryAllSwimmingLaneGroupResponse(TeaModel):
 
 
 class QueryBusinessLocationsRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -21459,12 +24482,16 @@ class QueryBusinessLocationsRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -21646,10 +24673,11 @@ class QueryBusinessLocationsResponse(TeaModel):
 
 
 class QueryClusterDetailRequest(TeaModel):
-    def __init__(self, accept_language=None, acl_switch=None, instance_id=None, order_id=None):
+    def __init__(self, accept_language=None, acl_switch=None, instance_id=None, mse_session_id=None, order_id=None):
         self.accept_language = accept_language  # type: str
         self.acl_switch = acl_switch  # type: bool
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.order_id = order_id  # type: str
 
     def validate(self):
@@ -21667,6 +24695,8 @@ class QueryClusterDetailRequest(TeaModel):
             result['AclSwitch'] = self.acl_switch
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.order_id is not None:
             result['OrderId'] = self.order_id
         return result
@@ -21679,6 +24709,8 @@ class QueryClusterDetailRequest(TeaModel):
             self.acl_switch = m.get('AclSwitch')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
         return self
@@ -21751,7 +24783,8 @@ class QueryClusterDetailResponseBodyData(TeaModel):
                  init_cost_time=None, init_status=None, instance_count=None, instance_id=None, instance_models=None,
                  internet_address=None, internet_domain=None, internet_port=None, intranet_address=None, intranet_domain=None,
                  intranet_port=None, memory_capacity=None, mse_version=None, net_type=None, order_cluster_version=None,
-                 pay_info=None, pub_network_flow=None, region_id=None, v_switch_id=None, vpc_id=None):
+                 pay_info=None, pub_network_flow=None, region_id=None, resource_group_id=None, tags=None, v_switch_id=None,
+                 vpc_id=None):
         self.acl_entry_list = acl_entry_list  # type: str
         self.acl_id = acl_id  # type: str
         self.app_version = app_version  # type: str
@@ -21785,6 +24818,8 @@ class QueryClusterDetailResponseBodyData(TeaModel):
         self.pay_info = pay_info  # type: str
         self.pub_network_flow = pub_network_flow  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.tags = tags  # type: dict[str, any]
         self.v_switch_id = v_switch_id  # type: str
         self.vpc_id = vpc_id  # type: str
 
@@ -21868,6 +24903,10 @@ class QueryClusterDetailResponseBodyData(TeaModel):
             result['PubNetworkFlow'] = self.pub_network_flow
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -21945,6 +24984,10 @@ class QueryClusterDetailResponseBodyData(TeaModel):
             self.pub_network_flow = m.get('PubNetworkFlow')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VpcId') is not None:
@@ -22038,9 +25081,10 @@ class QueryClusterDetailResponse(TeaModel):
 
 
 class QueryClusterDiskSpecificationRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_type=None):
+    def __init__(self, accept_language=None, cluster_type=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cluster_type = cluster_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -22055,6 +25099,8 @@ class QueryClusterDiskSpecificationRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_type is not None:
             result['ClusterType'] = self.cluster_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -22063,6 +25109,8 @@ class QueryClusterDiskSpecificationRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterType') is not None:
             self.cluster_type = m.get('ClusterType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -22202,10 +25250,10 @@ class QueryClusterDiskSpecificationResponse(TeaModel):
 
 
 class QueryClusterSpecificationRequest(TeaModel):
-    def __init__(self, accept_language=None, connect_type=None):
+    def __init__(self, accept_language=None, connect_type=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
-        # 网络连接类型
         self.connect_type = connect_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -22220,6 +25268,8 @@ class QueryClusterSpecificationRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.connect_type is not None:
             result['ConnectType'] = self.connect_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -22228,6 +25278,8 @@ class QueryClusterSpecificationRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ConnectType') is not None:
             self.connect_type = m.get('ConnectType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -22389,11 +25441,13 @@ class QueryClusterSpecificationResponse(TeaModel):
 
 
 class QueryConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, config_type=None, instance_id=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, config_type=None, instance_id=None,
+                 mse_session_id=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.config_type = config_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -22413,6 +25467,8 @@ class QueryConfigRequest(TeaModel):
             result['ConfigType'] = self.config_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         return result
@@ -22427,6 +25483,8 @@ class QueryConfigRequest(TeaModel):
             self.config_type = m.get('ConfigType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         return self
@@ -22436,8 +25494,9 @@ class QueryConfigResponseBodyData(TeaModel):
     def __init__(self, autopurge_purge_interval=None, autopurge_snap_retain_count=None, cluster_name=None,
                  config_auth_enabled=None, config_auth_supported=None, config_secret_enabled=None, config_secret_supported=None,
                  init_limit=None, jute_maxbuffer=None, jvm_flags_custom=None, mcpenabled=None, mcpsupported=None,
-                 max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None, naming_create_service_supported=None,
-                 open_super_acl=None, pass_word=None, restart_flag=None, sync_limit=None, tick_time=None, user_name=None):
+                 max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None, naming_auth_enabled=None,
+                 naming_auth_supported=None, naming_create_service_supported=None, open_super_acl=None, pass_word=None,
+                 restart_flag=None, snapshot_count=None, sync_limit=None, tick_time=None, user_name=None):
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
         self.cluster_name = cluster_name  # type: str
@@ -22451,14 +25510,15 @@ class QueryConfigResponseBodyData(TeaModel):
         self.mcpenabled = mcpenabled  # type: bool
         self.mcpsupported = mcpsupported  # type: bool
         self.max_client_cnxns = max_client_cnxns  # type: str
-        # 最大超时时间
         self.max_session_timeout = max_session_timeout  # type: str
-        # 最小超时时间
         self.min_session_timeout = min_session_timeout  # type: str
+        self.naming_auth_enabled = naming_auth_enabled  # type: bool
+        self.naming_auth_supported = naming_auth_supported  # type: bool
         self.naming_create_service_supported = naming_create_service_supported  # type: bool
         self.open_super_acl = open_super_acl  # type: bool
         self.pass_word = pass_word  # type: str
         self.restart_flag = restart_flag  # type: bool
+        self.snapshot_count = snapshot_count  # type: str
         self.sync_limit = sync_limit  # type: str
         self.tick_time = tick_time  # type: str
         self.user_name = user_name  # type: str
@@ -22502,6 +25562,10 @@ class QueryConfigResponseBodyData(TeaModel):
             result['MaxSessionTimeout'] = self.max_session_timeout
         if self.min_session_timeout is not None:
             result['MinSessionTimeout'] = self.min_session_timeout
+        if self.naming_auth_enabled is not None:
+            result['NamingAuthEnabled'] = self.naming_auth_enabled
+        if self.naming_auth_supported is not None:
+            result['NamingAuthSupported'] = self.naming_auth_supported
         if self.naming_create_service_supported is not None:
             result['NamingCreateServiceSupported'] = self.naming_create_service_supported
         if self.open_super_acl is not None:
@@ -22510,6 +25574,8 @@ class QueryConfigResponseBodyData(TeaModel):
             result['PassWord'] = self.pass_word
         if self.restart_flag is not None:
             result['RestartFlag'] = self.restart_flag
+        if self.snapshot_count is not None:
+            result['SnapshotCount'] = self.snapshot_count
         if self.sync_limit is not None:
             result['SyncLimit'] = self.sync_limit
         if self.tick_time is not None:
@@ -22550,6 +25616,10 @@ class QueryConfigResponseBodyData(TeaModel):
             self.max_session_timeout = m.get('MaxSessionTimeout')
         if m.get('MinSessionTimeout') is not None:
             self.min_session_timeout = m.get('MinSessionTimeout')
+        if m.get('NamingAuthEnabled') is not None:
+            self.naming_auth_enabled = m.get('NamingAuthEnabled')
+        if m.get('NamingAuthSupported') is not None:
+            self.naming_auth_supported = m.get('NamingAuthSupported')
         if m.get('NamingCreateServiceSupported') is not None:
             self.naming_create_service_supported = m.get('NamingCreateServiceSupported')
         if m.get('OpenSuperAcl') is not None:
@@ -22558,6 +25628,8 @@ class QueryConfigResponseBodyData(TeaModel):
             self.pass_word = m.get('PassWord')
         if m.get('RestartFlag') is not None:
             self.restart_flag = m.get('RestartFlag')
+        if m.get('SnapshotCount') is not None:
+            self.snapshot_count = m.get('SnapshotCount')
         if m.get('SyncLimit') is not None:
             self.sync_limit = m.get('SyncLimit')
         if m.get('TickTime') is not None:
@@ -22658,8 +25730,9 @@ class QueryConfigResponse(TeaModel):
 
 
 class QueryGatewayRegionRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -22672,12 +25745,16 @@ class QueryGatewayRegionRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -22687,7 +25764,6 @@ class QueryGatewayRegionResponseBody(TeaModel):
         self.data = data  # type: list[str]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -22771,8 +25847,9 @@ class QueryGatewayRegionResponse(TeaModel):
 
 
 class QueryGatewayTypeRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -22785,12 +25862,16 @@ class QueryGatewayTypeRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -22800,7 +25881,6 @@ class QueryGatewayTypeResponseBody(TeaModel):
         self.data = data  # type: list[str]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -22884,15 +25964,13 @@ class QueryGatewayTypeResponse(TeaModel):
 
 
 class QueryGovernanceKubernetesClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, page_number=None, page_size=None):
+    def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, mse_session_id=None,
+                 page_number=None, page_size=None):
         self.accept_language = accept_language  # type: str
-        # Kubernetes集群Id
         self.cluster_id = cluster_id  # type: str
-        # Kubernetes集群名
         self.cluster_name = cluster_name  # type: str
-        # 当前页码
+        self.mse_session_id = mse_session_id  # type: str
         self.page_number = page_number  # type: int
-        # 每页元素数量
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -22910,6 +25988,8 @@ class QueryGovernanceKubernetesClusterRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.cluster_name is not None:
             result['ClusterName'] = self.cluster_name
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -22924,6 +26004,8 @@ class QueryGovernanceKubernetesClusterRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('ClusterName') is not None:
             self.cluster_name = m.get('ClusterName')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -22934,17 +26016,11 @@ class QueryGovernanceKubernetesClusterRequest(TeaModel):
 class QueryGovernanceKubernetesClusterResponseBodyDataResult(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, k_8s_version=None, namespace_infos=None,
                  pilot_start_time=None, region=None):
-        # Kubernetes集群Id
         self.cluster_id = cluster_id  # type: str
-        # Kubernetes集群名
         self.cluster_name = cluster_name  # type: str
-        # Kubernetes集群版本
         self.k_8s_version = k_8s_version  # type: str
-        # Kubernetes集群命名空间信息（json格式）
         self.namespace_infos = namespace_infos  # type: str
-        # pilot启动时间
         self.pilot_start_time = pilot_start_time  # type: str
-        # Kubernetes集群所在的地域
         self.region = region  # type: str
 
     def validate(self):
@@ -22989,12 +26065,9 @@ class QueryGovernanceKubernetesClusterResponseBodyDataResult(TeaModel):
 
 class QueryGovernanceKubernetesClusterResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
-        # 当前页码
         self.page_number = page_number  # type: int
-        # 页大小
         self.page_size = page_size  # type: int
         self.result = result  # type: list[QueryGovernanceKubernetesClusterResponseBodyDataResult]
-        # 页码总数
         self.total_size = total_size  # type: int
 
     def validate(self):
@@ -23039,13 +26112,11 @@ class QueryGovernanceKubernetesClusterResponseBodyData(TeaModel):
 
 class QueryGovernanceKubernetesClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # 后端状态码
         self.code = code  # type: int
         self.data = data  # type: QueryGovernanceKubernetesClusterResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        # 是否成功
         self.success = success  # type: bool
 
     def validate(self):
@@ -23130,12 +26201,13 @@ class QueryGovernanceKubernetesClusterResponse(TeaModel):
 
 
 class QueryMonitorRequest(TeaModel):
-    def __init__(self, accept_language=None, end_time=None, instance_id=None, monitor_type=None, request_pars=None,
-                 start_time=None, step=None):
+    def __init__(self, accept_language=None, end_time=None, instance_id=None, monitor_type=None,
+                 mse_session_id=None, request_pars=None, start_time=None, step=None):
         self.accept_language = accept_language  # type: str
         self.end_time = end_time  # type: long
         self.instance_id = instance_id  # type: str
         self.monitor_type = monitor_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.request_pars = request_pars  # type: str
         self.start_time = start_time  # type: long
         self.step = step  # type: long
@@ -23157,6 +26229,8 @@ class QueryMonitorRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.monitor_type is not None:
             result['MonitorType'] = self.monitor_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         if self.start_time is not None:
@@ -23175,6 +26249,8 @@ class QueryMonitorRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('MonitorType') is not None:
             self.monitor_type = m.get('MonitorType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         if m.get('StartTime') is not None:
@@ -23310,8 +26386,9 @@ class QueryMonitorResponse(TeaModel):
 
 
 class QuerySlbSpecRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -23324,12 +26401,16 @@ class QuerySlbSpecRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -23388,7 +26469,6 @@ class QuerySlbSpecResponseBody(TeaModel):
         self.data = data  # type: list[QuerySlbSpecResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -23480,9 +26560,10 @@ class QuerySlbSpecResponse(TeaModel):
 
 
 class QuerySwimmingLaneByIdRequest(TeaModel):
-    def __init__(self, accept_language=None, lane_id=None):
+    def __init__(self, accept_language=None, lane_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.lane_id = lane_id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -23497,6 +26578,8 @@ class QuerySwimmingLaneByIdRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.lane_id is not None:
             result['LaneId'] = self.lane_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -23505,16 +26588,16 @@ class QuerySwimmingLaneByIdRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('LaneId') is not None:
             self.lane_id = m.get('LaneId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class QuerySwimmingLaneByIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
-        # code仅仅用来和success同步
         self.code = code  # type: int
         self.data = data  # type: any
-        # 动态错误信息中的占位符
         self.dynamic_message = dynamic_message  # type: str
         self.error_code = error_code  # type: str
         self.http_status_code = http_status_code  # type: int
@@ -23610,10 +26693,12 @@ class QuerySwimmingLaneByIdResponse(TeaModel):
 
 
 class QueryZnodeDetailRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, instance_id=None, path=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, instance_id=None, mse_session_id=None, path=None,
+                 request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -23632,6 +26717,8 @@ class QueryZnodeDetailRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         if self.request_pars is not None:
@@ -23646,6 +26733,8 @@ class QueryZnodeDetailRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         if m.get('RequestPars') is not None:
@@ -23778,11 +26867,12 @@ class QueryZnodeDetailResponse(TeaModel):
 
 
 class RestartClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, instance_id=None, pod_name_list=None,
-                 request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, instance_id=None, mse_session_id=None,
+                 pod_name_list=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.pod_name_list = pod_name_list  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -23801,6 +26891,8 @@ class RestartClusterRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.pod_name_list is not None:
             result['PodNameList'] = self.pod_name_list
         if self.request_pars is not None:
@@ -23815,6 +26907,8 @@ class RestartClusterRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('PodNameList') is not None:
             self.pod_name_list = m.get('PodNameList')
         if m.get('RequestPars') is not None:
@@ -23901,9 +26995,10 @@ class RestartClusterResponse(TeaModel):
 
 
 class RetryClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, instance_id=None, request_pars=None):
+    def __init__(self, accept_language=None, instance_id=None, mse_session_id=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -23919,6 +27014,8 @@ class RetryClusterRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         return result
@@ -23929,6 +27026,8 @@ class RetryClusterRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         return self
@@ -24013,9 +27112,10 @@ class RetryClusterResponse(TeaModel):
 
 
 class SelectGatewaySlbRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, name=None, type=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, name=None, type=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.type = type  # type: str
 
@@ -24032,6 +27132,8 @@ class SelectGatewaySlbRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.type is not None:
@@ -24044,6 +27146,8 @@ class SelectGatewaySlbRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Type') is not None:
@@ -24086,7 +27190,6 @@ class SelectGatewaySlbResponseBody(TeaModel):
         self.data = data  # type: list[SelectGatewaySlbResponseBodyData]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -24177,11 +27280,310 @@ class SelectGatewaySlbResponse(TeaModel):
         return self
 
 
+class TagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class TagResourcesRequest(TeaModel):
+    def __init__(self, accept_language=None, mse_session_id=None, region_id=None, resource_id=None,
+                 resource_type=None, tag=None):
+        self.accept_language = accept_language  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[TagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = TagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class TagResourcesResponseBody(TeaModel):
+    def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class TagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UntagResourcesRequest(TeaModel):
+    def __init__(self, accept_language=None, all=None, mse_session_id=None, region_id=None, resource_id=None,
+                 resource_type=None, tag_key=None):
+        self.accept_language = accept_language  # type: str
+        self.all = all  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.all is not None:
+            result['All'] = self.all
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('All') is not None:
+            self.all = m.get('All')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        return self
+
+
+class UntagResourcesResponseBody(TeaModel):
+    def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UntagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UntagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UntagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateAclRequest(TeaModel):
-    def __init__(self, accept_language=None, acl_entry_list=None, instance_id=None):
+    def __init__(self, accept_language=None, acl_entry_list=None, instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.acl_entry_list = acl_entry_list  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -24198,6 +27600,8 @@ class UpdateAclRequest(TeaModel):
             result['AclEntryList'] = self.acl_entry_list
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -24208,6 +27612,8 @@ class UpdateAclRequest(TeaModel):
             self.acl_entry_list = m.get('AclEntryList')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -24291,12 +27697,13 @@ class UpdateAclResponse(TeaModel):
 
 class UpdateBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, content=None, gateway_unique_id=None, id=None, is_white=None,
-                 resource_type=None, status=None, type=None):
+                 mse_session_id=None, resource_type=None, status=None, type=None):
         self.accept_language = accept_language  # type: str
         self.content = content  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
         self.is_white = is_white  # type: bool
+        self.mse_session_id = mse_session_id  # type: str
         self.resource_type = resource_type  # type: str
         self.status = status  # type: str
         self.type = type  # type: str
@@ -24320,6 +27727,8 @@ class UpdateBlackWhiteListRequest(TeaModel):
             result['Id'] = self.id
         if self.is_white is not None:
             result['IsWhite'] = self.is_white
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
         if self.status is not None:
@@ -24340,6 +27749,8 @@ class UpdateBlackWhiteListRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('IsWhite') is not None:
             self.is_white = m.get('IsWhite')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
         if m.get('Status') is not None:
@@ -24355,7 +27766,6 @@ class UpdateBlackWhiteListResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -24439,10 +27849,12 @@ class UpdateBlackWhiteListResponse(TeaModel):
 
 
 class UpdateClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_alias_name=None, instance_id=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_alias_name=None, instance_id=None, mse_session_id=None,
+                 request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_alias_name = cluster_alias_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -24460,6 +27872,8 @@ class UpdateClusterRequest(TeaModel):
             result['ClusterAliasName'] = self.cluster_alias_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         return result
@@ -24472,6 +27886,8 @@ class UpdateClusterRequest(TeaModel):
             self.cluster_alias_name = m.get('ClusterAliasName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         return self
@@ -24557,15 +27973,13 @@ class UpdateClusterResponse(TeaModel):
 
 class UpdateClusterSpecRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_specification=None, instance_count=None,
-                 instance_id=None):
+                 instance_id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
-        # 网关名称
         self.cluster_id = cluster_id  # type: str
         self.cluster_specification = cluster_specification  # type: str
-        # 节点数量
         self.instance_count = instance_count  # type: int
-        # 节点规格
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -24586,6 +28000,8 @@ class UpdateClusterSpecRequest(TeaModel):
             result['InstanceCount'] = self.instance_count
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -24600,6 +28016,8 @@ class UpdateClusterSpecRequest(TeaModel):
             self.instance_count = m.get('InstanceCount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -24609,7 +28027,6 @@ class UpdateClusterSpecResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -24696,8 +28113,8 @@ class UpdateConfigRequest(TeaModel):
     def __init__(self, accept_language=None, autopurge_purge_interval=None, autopurge_snap_retain_count=None,
                  cluster_id=None, config_auth_enabled=None, config_secret_enabled=None, config_type=None, init_limit=None,
                  instance_id=None, jute_maxbuffer=None, mcpenabled=None, max_client_cnxns=None, max_session_timeout=None,
-                 min_session_timeout=None, open_super_acl=None, pass_word=None, request_pars=None, sync_limit=None, tick_time=None,
-                 user_name=None):
+                 min_session_timeout=None, mse_session_id=None, naming_auth_enabled=None, open_super_acl=None, pass_word=None,
+                 request_pars=None, snapshot_count=None, sync_limit=None, tick_time=None, user_name=None):
         self.accept_language = accept_language  # type: str
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
@@ -24710,13 +28127,14 @@ class UpdateConfigRequest(TeaModel):
         self.jute_maxbuffer = jute_maxbuffer  # type: str
         self.mcpenabled = mcpenabled  # type: bool
         self.max_client_cnxns = max_client_cnxns  # type: str
-        # 最大超时时间
         self.max_session_timeout = max_session_timeout  # type: str
-        # 最小超时时间
         self.min_session_timeout = min_session_timeout  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.naming_auth_enabled = naming_auth_enabled  # type: bool
         self.open_super_acl = open_super_acl  # type: str
         self.pass_word = pass_word  # type: str
         self.request_pars = request_pars  # type: str
+        self.snapshot_count = snapshot_count  # type: str
         self.sync_limit = sync_limit  # type: str
         self.tick_time = tick_time  # type: str
         self.user_name = user_name  # type: str
@@ -24758,12 +28176,18 @@ class UpdateConfigRequest(TeaModel):
             result['MaxSessionTimeout'] = self.max_session_timeout
         if self.min_session_timeout is not None:
             result['MinSessionTimeout'] = self.min_session_timeout
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.naming_auth_enabled is not None:
+            result['NamingAuthEnabled'] = self.naming_auth_enabled
         if self.open_super_acl is not None:
             result['OpenSuperAcl'] = self.open_super_acl
         if self.pass_word is not None:
             result['PassWord'] = self.pass_word
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
+        if self.snapshot_count is not None:
+            result['SnapshotCount'] = self.snapshot_count
         if self.sync_limit is not None:
             result['SyncLimit'] = self.sync_limit
         if self.tick_time is not None:
@@ -24802,12 +28226,18 @@ class UpdateConfigRequest(TeaModel):
             self.max_session_timeout = m.get('MaxSessionTimeout')
         if m.get('MinSessionTimeout') is not None:
             self.min_session_timeout = m.get('MinSessionTimeout')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('NamingAuthEnabled') is not None:
+            self.naming_auth_enabled = m.get('NamingAuthEnabled')
         if m.get('OpenSuperAcl') is not None:
             self.open_super_acl = m.get('OpenSuperAcl')
         if m.get('PassWord') is not None:
             self.pass_word = m.get('PassWord')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
+        if m.get('SnapshotCount') is not None:
+            self.snapshot_count = m.get('SnapshotCount')
         if m.get('SyncLimit') is not None:
             self.sync_limit = m.get('SyncLimit')
         if m.get('TickTime') is not None:
@@ -24901,13 +28331,14 @@ class UpdateConfigResponse(TeaModel):
 
 
 class UpdateEngineNamespaceRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None, name=None,
-                 service_count=None):
+    def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None,
+                 mse_session_id=None, name=None, service_count=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.desc = desc  # type: str
         self.id = id  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.service_count = service_count  # type: int
 
@@ -24930,6 +28361,8 @@ class UpdateEngineNamespaceRequest(TeaModel):
             result['Id'] = self.id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.service_count is not None:
@@ -24948,6 +28381,8 @@ class UpdateEngineNamespaceRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('ServiceCount') is not None:
@@ -25091,14 +28526,18 @@ class UpdateEngineNamespaceResponse(TeaModel):
 
 
 class UpdateGatewayDomainRequest(TeaModel):
-    def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, id=None, must_https=None,
-                 protocol=None):
+    def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, http_2=None, id=None,
+                 mse_session_id=None, must_https=None, protocol=None, tls_max=None, tls_min=None):
         self.accept_language = accept_language  # type: str
         self.cert_identifier = cert_identifier  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.http_2 = http_2  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.must_https = must_https  # type: bool
         self.protocol = protocol  # type: str
+        self.tls_max = tls_max  # type: str
+        self.tls_min = tls_min  # type: str
 
     def validate(self):
         pass
@@ -25115,12 +28554,20 @@ class UpdateGatewayDomainRequest(TeaModel):
             result['CertIdentifier'] = self.cert_identifier
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.http_2 is not None:
+            result['Http2'] = self.http_2
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.must_https is not None:
             result['MustHttps'] = self.must_https
         if self.protocol is not None:
             result['Protocol'] = self.protocol
+        if self.tls_max is not None:
+            result['TlsMax'] = self.tls_max
+        if self.tls_min is not None:
+            result['TlsMin'] = self.tls_min
         return result
 
     def from_map(self, m=None):
@@ -25131,12 +28578,20 @@ class UpdateGatewayDomainRequest(TeaModel):
             self.cert_identifier = m.get('CertIdentifier')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Http2') is not None:
+            self.http_2 = m.get('Http2')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('MustHttps') is not None:
             self.must_https = m.get('MustHttps')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
+        if m.get('TlsMax') is not None:
+            self.tls_max = m.get('TlsMax')
+        if m.get('TlsMin') is not None:
+            self.tls_min = m.get('TlsMin')
         return self
 
 
@@ -25146,7 +28601,6 @@ class UpdateGatewayDomainResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -25230,9 +28684,10 @@ class UpdateGatewayDomainResponse(TeaModel):
 
 
 class UpdateGatewayNameRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, name=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, name=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
 
     def validate(self):
@@ -25248,6 +28703,8 @@ class UpdateGatewayNameRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         return result
@@ -25258,6 +28715,8 @@ class UpdateGatewayNameRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         return self
@@ -25269,7 +28728,6 @@ class UpdateGatewayNameResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -25353,11 +28811,13 @@ class UpdateGatewayNameResponse(TeaModel):
 
 
 class UpdateGatewayOptionRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_option=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_option=None, gateway_unique_id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_option = gateway_option  # type: GatewayOption
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         if self.gateway_option:
@@ -25377,6 +28837,8 @@ class UpdateGatewayOptionRequest(TeaModel):
             result['GatewayOption'] = self.gateway_option.to_map()
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -25390,15 +28852,19 @@ class UpdateGatewayOptionRequest(TeaModel):
             self.gateway_option = temp_model.from_map(m['GatewayOption'])
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class UpdateGatewayOptionShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_option_shrink=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_option_shrink=None, gateway_unique_id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_option_shrink = gateway_option_shrink  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -25417,6 +28883,8 @@ class UpdateGatewayOptionShrinkRequest(TeaModel):
             result['GatewayOption'] = self.gateway_option_shrink
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -25429,6 +28897,8 @@ class UpdateGatewayOptionShrinkRequest(TeaModel):
             self.gateway_option_shrink = m.get('GatewayOption')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -25438,7 +28908,6 @@ class UpdateGatewayOptionResponseBody(TeaModel):
         self.data = data  # type: GatewayOption
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -25549,6 +29018,71 @@ class UpdateGatewayRouteRequestDirectResponseJSON(TeaModel):
             self.body = m.get('Body')
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        return self
+
+
+class UpdateGatewayRouteRequestFallbackServices(TeaModel):
+    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
+                 service_id=None, service_port=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
+        self.group_name = group_name  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.percent = percent  # type: int
+        self.service_id = service_id  # type: long
+        self.service_port = service_port  # type: int
+        self.source_type = source_type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayRouteRequestFallbackServices, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.percent is not None:
+            result['Percent'] = self.percent
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Percent') is not None:
+            self.percent = m.get('Percent')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -25747,19 +29281,157 @@ class UpdateGatewayRouteRequestRedirectJSON(TeaModel):
         return self
 
 
+class UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList(TeaModel):
+    def __init__(self, extract_key=None, extract_key_spec=None, mapping_type=None):
+        self.extract_key = extract_key  # type: str
+        self.extract_key_spec = extract_key_spec  # type: str
+        self.mapping_type = mapping_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extract_key is not None:
+            result['ExtractKey'] = self.extract_key
+        if self.extract_key_spec is not None:
+            result['ExtractKeySpec'] = self.extract_key_spec
+        if self.mapping_type is not None:
+            result['MappingType'] = self.mapping_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExtractKey') is not None:
+            self.extract_key = m.get('ExtractKey')
+        if m.get('ExtractKeySpec') is not None:
+            self.extract_key_spec = m.get('ExtractKeySpec')
+        if m.get('MappingType') is not None:
+            self.mapping_type = m.get('MappingType')
+        return self
+
+
+class UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
+    def __init__(self, dubbo_mothed_name=None, http_mothed=None, mothedpath=None, param_maps_list=None,
+                 pass_through_all_headers=None, pass_through_list=None):
+        self.dubbo_mothed_name = dubbo_mothed_name  # type: str
+        self.http_mothed = http_mothed  # type: str
+        self.mothedpath = mothedpath  # type: str
+        self.param_maps_list = param_maps_list  # type: list[UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList]
+        self.pass_through_all_headers = pass_through_all_headers  # type: str
+        self.pass_through_list = pass_through_list  # type: list[str]
+
+    def validate(self):
+        if self.param_maps_list:
+            for k in self.param_maps_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_mothed_name is not None:
+            result['DubboMothedName'] = self.dubbo_mothed_name
+        if self.http_mothed is not None:
+            result['HttpMothed'] = self.http_mothed
+        if self.mothedpath is not None:
+            result['Mothedpath'] = self.mothedpath
+        result['ParamMapsList'] = []
+        if self.param_maps_list is not None:
+            for k in self.param_maps_list:
+                result['ParamMapsList'].append(k.to_map() if k else None)
+        if self.pass_through_all_headers is not None:
+            result['PassThroughAllHeaders'] = self.pass_through_all_headers
+        if self.pass_through_list is not None:
+            result['PassThroughList'] = self.pass_through_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboMothedName') is not None:
+            self.dubbo_mothed_name = m.get('DubboMothedName')
+        if m.get('HttpMothed') is not None:
+            self.http_mothed = m.get('HttpMothed')
+        if m.get('Mothedpath') is not None:
+            self.mothedpath = m.get('Mothedpath')
+        self.param_maps_list = []
+        if m.get('ParamMapsList') is not None:
+            for k in m.get('ParamMapsList'):
+                temp_model = UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList()
+                self.param_maps_list.append(temp_model.from_map(k))
+        if m.get('PassThroughAllHeaders') is not None:
+            self.pass_through_all_headers = m.get('PassThroughAllHeaders')
+        if m.get('PassThroughList') is not None:
+            self.pass_through_list = m.get('PassThroughList')
+        return self
+
+
+class UpdateGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
+    def __init__(self, dubbo_service_name=None, dubbo_service_version=None, mothed_map_list=None):
+        self.dubbo_service_name = dubbo_service_name  # type: str
+        self.dubbo_service_version = dubbo_service_version  # type: str
+        self.mothed_map_list = mothed_map_list  # type: list[UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList]
+
+    def validate(self):
+        if self.mothed_map_list:
+            for k in self.mothed_map_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayRouteRequestServicesHttpDubboTranscoder, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dubbo_service_name is not None:
+            result['DubboServiceName'] = self.dubbo_service_name
+        if self.dubbo_service_version is not None:
+            result['DubboServiceVersion'] = self.dubbo_service_version
+        result['MothedMapList'] = []
+        if self.mothed_map_list is not None:
+            for k in self.mothed_map_list:
+                result['MothedMapList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DubboServiceName') is not None:
+            self.dubbo_service_name = m.get('DubboServiceName')
+        if m.get('DubboServiceVersion') is not None:
+            self.dubbo_service_version = m.get('DubboServiceVersion')
+        self.mothed_map_list = []
+        if m.get('MothedMapList') is not None:
+            for k in m.get('MothedMapList'):
+                temp_model = UpdateGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList()
+                self.mothed_map_list.append(temp_model.from_map(k))
+        return self
+
+
 class UpdateGatewayRouteRequestServices(TeaModel):
-    def __init__(self, group_name=None, name=None, namespace=None, percent=None, service_id=None, source_type=None,
-                 version=None):
+    def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
+                 percent=None, service_id=None, service_port=None, source_type=None, version=None):
+        self.agreement_type = agreement_type  # type: str
         self.group_name = group_name  # type: str
+        self.http_dubbo_transcoder = http_dubbo_transcoder  # type: UpdateGatewayRouteRequestServicesHttpDubboTranscoder
         self.name = name  # type: str
         self.namespace = namespace  # type: str
         self.percent = percent  # type: int
         self.service_id = service_id  # type: long
+        self.service_port = service_port  # type: int
         self.source_type = source_type  # type: str
         self.version = version  # type: str
 
     def validate(self):
-        pass
+        if self.http_dubbo_transcoder:
+            self.http_dubbo_transcoder.validate()
 
     def to_map(self):
         _map = super(UpdateGatewayRouteRequestServices, self).to_map()
@@ -25767,8 +29439,12 @@ class UpdateGatewayRouteRequestServices(TeaModel):
             return _map
 
         result = dict()
+        if self.agreement_type is not None:
+            result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.http_dubbo_transcoder is not None:
+            result['HttpDubboTranscoder'] = self.http_dubbo_transcoder.to_map()
         if self.name is not None:
             result['Name'] = self.name
         if self.namespace is not None:
@@ -25777,6 +29453,8 @@ class UpdateGatewayRouteRequestServices(TeaModel):
             result['Percent'] = self.percent
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
         if self.source_type is not None:
             result['SourceType'] = self.source_type
         if self.version is not None:
@@ -25785,8 +29463,13 @@ class UpdateGatewayRouteRequestServices(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgreementType') is not None:
+            self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HttpDubboTranscoder') is not None:
+            temp_model = UpdateGatewayRouteRequestServicesHttpDubboTranscoder()
+            self.http_dubbo_transcoder = temp_model.from_map(m['HttpDubboTranscoder'])
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
@@ -25795,6 +29478,8 @@ class UpdateGatewayRouteRequestServices(TeaModel):
             self.percent = m.get('Percent')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
         if m.get('Version') is not None:
@@ -25804,16 +29489,20 @@ class UpdateGatewayRouteRequestServices(TeaModel):
 
 class UpdateGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_json=None,
-                 domain_id_list_json=None, enable_waf=None, gateway_id=None, gateway_unique_id=None, id=None, name=None, predicates=None,
-                 redirect_json=None, route_order=None, services=None):
+                 domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
+                 gateway_unique_id=None, id=None, mse_session_id=None, name=None, predicates=None, redirect_json=None,
+                 route_order=None, services=None):
         self.accept_language = accept_language  # type: str
         self.destination_type = destination_type  # type: str
         self.direct_response_json = direct_response_json  # type: UpdateGatewayRouteRequestDirectResponseJSON
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
+        self.fallback = fallback  # type: bool
+        self.fallback_services = fallback_services  # type: list[UpdateGatewayRouteRequestFallbackServices]
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.predicates = predicates  # type: UpdateGatewayRouteRequestPredicates
         self.redirect_json = redirect_json  # type: UpdateGatewayRouteRequestRedirectJSON
@@ -25823,6 +29512,10 @@ class UpdateGatewayRouteRequest(TeaModel):
     def validate(self):
         if self.direct_response_json:
             self.direct_response_json.validate()
+        if self.fallback_services:
+            for k in self.fallback_services:
+                if k:
+                    k.validate()
         if self.predicates:
             self.predicates.validate()
         if self.redirect_json:
@@ -25848,12 +29541,20 @@ class UpdateGatewayRouteRequest(TeaModel):
             result['DomainIdListJSON'] = self.domain_id_list_json
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        result['FallbackServices'] = []
+        if self.fallback_services is not None:
+            for k in self.fallback_services:
+                result['FallbackServices'].append(k.to_map() if k else None)
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.predicates is not None:
@@ -25881,12 +29582,21 @@ class UpdateGatewayRouteRequest(TeaModel):
             self.domain_id_list_json = m.get('DomainIdListJSON')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        self.fallback_services = []
+        if m.get('FallbackServices') is not None:
+            for k in m.get('FallbackServices'):
+                temp_model = UpdateGatewayRouteRequestFallbackServices()
+                self.fallback_services.append(temp_model.from_map(k))
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Predicates') is not None:
@@ -25907,16 +29617,20 @@ class UpdateGatewayRouteRequest(TeaModel):
 
 class UpdateGatewayRouteShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_jsonshrink=None,
-                 domain_id_list_json=None, enable_waf=None, gateway_id=None, gateway_unique_id=None, id=None, name=None,
-                 predicates_shrink=None, redirect_jsonshrink=None, route_order=None, services_shrink=None):
+                 domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None, gateway_id=None,
+                 gateway_unique_id=None, id=None, mse_session_id=None, name=None, predicates_shrink=None, redirect_jsonshrink=None,
+                 route_order=None, services_shrink=None):
         self.accept_language = accept_language  # type: str
         self.destination_type = destination_type  # type: str
         self.direct_response_jsonshrink = direct_response_jsonshrink  # type: str
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
+        self.fallback = fallback  # type: bool
+        self.fallback_services_shrink = fallback_services_shrink  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.predicates_shrink = predicates_shrink  # type: str
         self.redirect_jsonshrink = redirect_jsonshrink  # type: str
@@ -25942,12 +29656,18 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
             result['DomainIdListJSON'] = self.domain_id_list_json
         if self.enable_waf is not None:
             result['EnableWaf'] = self.enable_waf
+        if self.fallback is not None:
+            result['Fallback'] = self.fallback
+        if self.fallback_services_shrink is not None:
+            result['FallbackServices'] = self.fallback_services_shrink
         if self.gateway_id is not None:
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.predicates_shrink is not None:
@@ -25972,12 +29692,18 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
             self.domain_id_list_json = m.get('DomainIdListJSON')
         if m.get('EnableWaf') is not None:
             self.enable_waf = m.get('EnableWaf')
+        if m.get('Fallback') is not None:
+            self.fallback = m.get('Fallback')
+        if m.get('FallbackServices') is not None:
+            self.fallback_services_shrink = m.get('FallbackServices')
         if m.get('GatewayId') is not None:
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Predicates') is not None:
@@ -25997,7 +29723,6 @@ class UpdateGatewayRouteResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -26141,12 +29866,14 @@ class UpdateGatewayRouteCORSRequestCorsJSON(TeaModel):
 
 
 class UpdateGatewayRouteCORSRequest(TeaModel):
-    def __init__(self, accept_language=None, cors_json=None, gateway_id=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, cors_json=None, gateway_id=None, gateway_unique_id=None, id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cors_json = cors_json  # type: UpdateGatewayRouteCORSRequestCorsJSON
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         if self.cors_json:
@@ -26168,6 +29895,8 @@ class UpdateGatewayRouteCORSRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -26183,16 +29912,20 @@ class UpdateGatewayRouteCORSRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
 class UpdateGatewayRouteCORSShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, cors_jsonshrink=None, gateway_id=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, cors_jsonshrink=None, gateway_id=None, gateway_unique_id=None, id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cors_jsonshrink = cors_jsonshrink  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -26213,6 +29946,8 @@ class UpdateGatewayRouteCORSShrinkRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -26227,6 +29962,8 @@ class UpdateGatewayRouteCORSShrinkRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -26236,7 +29973,6 @@ class UpdateGatewayRouteCORSResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -26321,12 +30057,13 @@ class UpdateGatewayRouteCORSResponse(TeaModel):
 
 class UpdateGatewayRouteHTTPRewriteRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, http_rewrite_json=None,
-                 id=None):
+                 id=None, mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.http_rewrite_json = http_rewrite_json  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -26347,6 +30084,8 @@ class UpdateGatewayRouteHTTPRewriteRequest(TeaModel):
             result['HttpRewriteJSON'] = self.http_rewrite_json
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -26361,6 +30100,8 @@ class UpdateGatewayRouteHTTPRewriteRequest(TeaModel):
             self.http_rewrite_json = m.get('HttpRewriteJSON')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -26370,7 +30111,6 @@ class UpdateGatewayRouteHTTPRewriteResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -26454,12 +30194,14 @@ class UpdateGatewayRouteHTTPRewriteResponse(TeaModel):
 
 
 class UpdateGatewayRouteHeaderOpRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, header_op_json=None, id=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, header_op_json=None, id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.header_op_json = header_op_json  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -26480,6 +30222,8 @@ class UpdateGatewayRouteHeaderOpRequest(TeaModel):
             result['HeaderOpJSON'] = self.header_op_json
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -26494,6 +30238,8 @@ class UpdateGatewayRouteHeaderOpRequest(TeaModel):
             self.header_op_json = m.get('HeaderOpJSON')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -26503,7 +30249,6 @@ class UpdateGatewayRouteHeaderOpResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -26626,11 +30371,13 @@ class UpdateGatewayRouteRetryRequestRetryJSON(TeaModel):
 
 
 class UpdateGatewayRouteRetryRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, retry_json=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, mse_session_id=None,
+                 retry_json=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.retry_json = retry_json  # type: UpdateGatewayRouteRetryRequestRetryJSON
 
     def validate(self):
@@ -26651,6 +30398,8 @@ class UpdateGatewayRouteRetryRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.retry_json is not None:
             result['RetryJSON'] = self.retry_json.to_map()
         return result
@@ -26665,6 +30414,8 @@ class UpdateGatewayRouteRetryRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RetryJSON') is not None:
             temp_model = UpdateGatewayRouteRetryRequestRetryJSON()
             self.retry_json = temp_model.from_map(m['RetryJSON'])
@@ -26672,12 +30423,13 @@ class UpdateGatewayRouteRetryRequest(TeaModel):
 
 
 class UpdateGatewayRouteRetryShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None,
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, mse_session_id=None,
                  retry_jsonshrink=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.retry_jsonshrink = retry_jsonshrink  # type: str
 
     def validate(self):
@@ -26697,6 +30449,8 @@ class UpdateGatewayRouteRetryShrinkRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.retry_jsonshrink is not None:
             result['RetryJSON'] = self.retry_jsonshrink
         return result
@@ -26711,6 +30465,8 @@ class UpdateGatewayRouteRetryShrinkRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RetryJSON') is not None:
             self.retry_jsonshrink = m.get('RetryJSON')
         return self
@@ -26722,7 +30478,6 @@ class UpdateGatewayRouteRetryResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -26840,11 +30595,13 @@ class UpdateGatewayRouteTimeoutRequestTimeoutJSON(TeaModel):
 
 
 class UpdateGatewayRouteTimeoutRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, timeout_json=None):
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, mse_session_id=None,
+                 timeout_json=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.timeout_json = timeout_json  # type: UpdateGatewayRouteTimeoutRequestTimeoutJSON
 
     def validate(self):
@@ -26865,6 +30622,8 @@ class UpdateGatewayRouteTimeoutRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.timeout_json is not None:
             result['TimeoutJSON'] = self.timeout_json.to_map()
         return result
@@ -26879,6 +30638,8 @@ class UpdateGatewayRouteTimeoutRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('TimeoutJSON') is not None:
             temp_model = UpdateGatewayRouteTimeoutRequestTimeoutJSON()
             self.timeout_json = temp_model.from_map(m['TimeoutJSON'])
@@ -26886,12 +30647,13 @@ class UpdateGatewayRouteTimeoutRequest(TeaModel):
 
 
 class UpdateGatewayRouteTimeoutShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None,
+    def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, mse_session_id=None,
                  timeout_jsonshrink=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
         self.timeout_jsonshrink = timeout_jsonshrink  # type: str
 
     def validate(self):
@@ -26911,6 +30673,8 @@ class UpdateGatewayRouteTimeoutShrinkRequest(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
             result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.timeout_jsonshrink is not None:
             result['TimeoutJSON'] = self.timeout_jsonshrink
         return result
@@ -26925,6 +30689,8 @@ class UpdateGatewayRouteTimeoutShrinkRequest(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('TimeoutJSON') is not None:
             self.timeout_jsonshrink = m.get('TimeoutJSON')
         return self
@@ -26936,7 +30702,6 @@ class UpdateGatewayRouteTimeoutResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -27020,10 +30785,12 @@ class UpdateGatewayRouteTimeoutResponse(TeaModel):
 
 
 class UpdateGatewayRouteWafStatusRequest(TeaModel):
-    def __init__(self, accept_language=None, enable_waf=None, gateway_unique_id=None, route_id=None):
+    def __init__(self, accept_language=None, enable_waf=None, gateway_unique_id=None, mse_session_id=None,
+                 route_id=None):
         self.accept_language = accept_language  # type: str
         self.enable_waf = enable_waf  # type: bool
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.route_id = route_id  # type: long
 
     def validate(self):
@@ -27041,6 +30808,8 @@ class UpdateGatewayRouteWafStatusRequest(TeaModel):
             result['EnableWaf'] = self.enable_waf
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.route_id is not None:
             result['RouteId'] = self.route_id
         return result
@@ -27053,6 +30822,8 @@ class UpdateGatewayRouteWafStatusRequest(TeaModel):
             self.enable_waf = m.get('EnableWaf')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RouteId') is not None:
             self.route_id = m.get('RouteId')
         return self
@@ -27796,7 +31567,6 @@ class UpdateGatewayRouteWafStatusResponseBody(TeaModel):
         self.data = data  # type: UpdateGatewayRouteWafStatusResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -27883,11 +31653,12 @@ class UpdateGatewayRouteWafStatusResponse(TeaModel):
 
 class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_traffic_policy=None, gateway_unique_id=None,
-                 service_id=None):
+                 mse_session_id=None, service_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_traffic_policy = gateway_traffic_policy  # type: TrafficPolicy
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -27908,6 +31679,8 @@ class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
             result['GatewayTrafficPolicy'] = self.gateway_traffic_policy.to_map()
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         return result
@@ -27923,6 +31696,8 @@ class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
             self.gateway_traffic_policy = temp_model.from_map(m['GatewayTrafficPolicy'])
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         return self
@@ -27930,11 +31705,12 @@ class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
 
 class UpdateGatewayServiceTrafficPolicyShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_traffic_policy_shrink=None,
-                 gateway_unique_id=None, service_id=None):
+                 gateway_unique_id=None, mse_session_id=None, service_id=None):
         self.accept_language = accept_language  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_traffic_policy_shrink = gateway_traffic_policy_shrink  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -27954,6 +31730,8 @@ class UpdateGatewayServiceTrafficPolicyShrinkRequest(TeaModel):
             result['GatewayTrafficPolicy'] = self.gateway_traffic_policy_shrink
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         return result
@@ -27968,6 +31746,8 @@ class UpdateGatewayServiceTrafficPolicyShrinkRequest(TeaModel):
             self.gateway_traffic_policy_shrink = m.get('GatewayTrafficPolicy')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         return self
@@ -27979,7 +31759,6 @@ class UpdateGatewayServiceTrafficPolicyResponseBody(TeaModel):
         self.data = data  # type: GatewayService
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -28065,9 +31844,11 @@ class UpdateGatewayServiceTrafficPolicyResponse(TeaModel):
 
 
 class UpdateGatewayServiceVersionRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, service_id=None,
+                 service_version=None):
         self.accept_language = accept_language  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.service_id = service_id  # type: long
         self.service_version = service_version  # type: str
 
@@ -28084,6 +31865,8 @@ class UpdateGatewayServiceVersionRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.service_id is not None:
             result['ServiceId'] = self.service_id
         if self.service_version is not None:
@@ -28096,6 +31879,8 @@ class UpdateGatewayServiceVersionRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('ServiceId') is not None:
             self.service_id = m.get('ServiceId')
         if m.get('ServiceVersion') is not None:
@@ -28109,7 +31894,6 @@ class UpdateGatewayServiceVersionResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -28193,13 +31977,11 @@ class UpdateGatewayServiceVersionResponse(TeaModel):
 
 
 class UpdateGatewaySpecRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, replica=None, spec=None):
+    def __init__(self, accept_language=None, gateway_unique_id=None, mse_session_id=None, replica=None, spec=None):
         self.accept_language = accept_language  # type: str
-        # 网关名称
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # 节点数量
+        self.mse_session_id = mse_session_id  # type: str
         self.replica = replica  # type: int
-        # 节点规格
         self.spec = spec  # type: str
 
     def validate(self):
@@ -28215,6 +31997,8 @@ class UpdateGatewaySpecRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.replica is not None:
             result['Replica'] = self.replica
         if self.spec is not None:
@@ -28227,6 +32011,8 @@ class UpdateGatewaySpecRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Replica') is not None:
             self.replica = m.get('Replica')
         if m.get('Spec') is not None:
@@ -28240,7 +32026,6 @@ class UpdateGatewaySpecResponseBody(TeaModel):
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -28324,11 +32109,10 @@ class UpdateGatewaySpecResponse(TeaModel):
 
 
 class UpdateImageRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, version_code=None):
+    def __init__(self, accept_language=None, cluster_id=None, mse_session_id=None, version_code=None):
         self.accept_language = accept_language  # type: str
-        # 目标集群的id
         self.cluster_id = cluster_id  # type: str
-        # 想修改的镜像版本code
+        self.mse_session_id = mse_session_id  # type: str
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -28344,6 +32128,8 @@ class UpdateImageRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.version_code is not None:
             result['VersionCode'] = self.version_code
         return result
@@ -28354,6 +32140,8 @@ class UpdateImageRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('VersionCode') is not None:
             self.version_code = m.get('VersionCode')
         return self
@@ -28363,7 +32151,6 @@ class UpdateImageResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
         self.error_code = error_code  # type: str
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -28439,10 +32226,13 @@ class UpdateImageResponse(TeaModel):
 
 
 class UpdateMessageQueueRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, enable=None, region=None, tags=None):
+    def __init__(self, accept_language=None, app_id=None, enable=None, filter_side=None, mse_session_id=None,
+                 region=None, tags=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.enable = enable  # type: bool
+        self.filter_side = filter_side  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.tags = tags  # type: list[str]
 
@@ -28461,6 +32251,10 @@ class UpdateMessageQueueRouteRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.enable is not None:
             result['Enable'] = self.enable
+        if self.filter_side is not None:
+            result['FilterSide'] = self.filter_side
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.tags is not None:
@@ -28475,6 +32269,10 @@ class UpdateMessageQueueRouteRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
+        if m.get('FilterSide') is not None:
+            self.filter_side = m.get('FilterSide')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('Tags') is not None:
@@ -28483,10 +32281,13 @@ class UpdateMessageQueueRouteRequest(TeaModel):
 
 
 class UpdateMessageQueueRouteShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, app_id=None, enable=None, region=None, tags_shrink=None):
+    def __init__(self, accept_language=None, app_id=None, enable=None, filter_side=None, mse_session_id=None,
+                 region=None, tags_shrink=None):
         self.accept_language = accept_language  # type: str
         self.app_id = app_id  # type: str
         self.enable = enable  # type: bool
+        self.filter_side = filter_side  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.region = region  # type: str
         self.tags_shrink = tags_shrink  # type: str
 
@@ -28505,6 +32306,10 @@ class UpdateMessageQueueRouteShrinkRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.enable is not None:
             result['Enable'] = self.enable
+        if self.filter_side is not None:
+            result['FilterSide'] = self.filter_side
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.region is not None:
             result['Region'] = self.region
         if self.tags_shrink is not None:
@@ -28519,6 +32324,10 @@ class UpdateMessageQueueRouteShrinkRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
+        if m.get('FilterSide') is not None:
+            self.filter_side = m.get('FilterSide')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('Tags') is not None:
@@ -28616,23 +32425,17 @@ class UpdateMessageQueueRouteResponse(TeaModel):
 
 class UpdateNacosClusterRequest(TeaModel):
     def __init__(self, accept_language=None, check_port=None, cluster_name=None, group_name=None,
-                 health_checker=None, instance_id=None, namespace_id=None, service_name=None, use_instance_port_for_check=None):
+                 health_checker=None, instance_id=None, mse_session_id=None, namespace_id=None, service_name=None,
+                 use_instance_port_for_check=None):
         self.accept_language = accept_language  # type: str
-        # 健康检查端口
         self.check_port = check_port  # type: int
-        # Nacos集群名
         self.cluster_name = cluster_name  # type: str
-        # 分组名
         self.group_name = group_name  # type: str
-        # 健康检查类型
         self.health_checker = health_checker  # type: str
-        # 实例id
         self.instance_id = instance_id  # type: str
-        # 命名空间id
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
-        # 服务名
         self.service_name = service_name  # type: str
-        # 是否使用实例端口进行健康检查
         self.use_instance_port_for_check = use_instance_port_for_check  # type: bool
 
     def validate(self):
@@ -28656,6 +32459,8 @@ class UpdateNacosClusterRequest(TeaModel):
             result['HealthChecker'] = self.health_checker
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.service_name is not None:
@@ -28678,6 +32483,8 @@ class UpdateNacosClusterRequest(TeaModel):
             self.health_checker = m.get('HealthChecker')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('ServiceName') is not None:
@@ -28689,17 +32496,11 @@ class UpdateNacosClusterRequest(TeaModel):
 
 class UpdateNacosClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # 响应码
         self.code = code  # type: int
-        # 修改结果
         self.data = data  # type: str
-        # http状态码
         self.http_status_code = http_status_code  # type: int
-        # 响应信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 成功标志
         self.success = success  # type: bool
 
     def validate(self):
@@ -28783,7 +32584,8 @@ class UpdateNacosClusterResponse(TeaModel):
 
 class UpdateNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, beta_ips=None, content=None, data_id=None, desc=None,
-                 encrypted_data_key=None, group=None, instance_id=None, md_5=None, namespace_id=None, tags=None, type=None):
+                 encrypted_data_key=None, group=None, instance_id=None, md_5=None, mse_session_id=None, namespace_id=None, tags=None,
+                 type=None):
         self.accept_language = accept_language  # type: str
         self.app_name = app_name  # type: str
         self.beta_ips = beta_ips  # type: str
@@ -28794,6 +32596,7 @@ class UpdateNacosConfigRequest(TeaModel):
         self.group = group  # type: str
         self.instance_id = instance_id  # type: str
         self.md_5 = md_5  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.tags = tags  # type: str
         self.type = type  # type: str
@@ -28827,6 +32630,8 @@ class UpdateNacosConfigRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.md_5 is not None:
             result['Md5'] = self.md_5
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.tags is not None:
@@ -28857,6 +32662,8 @@ class UpdateNacosConfigRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Md5') is not None:
             self.md_5 = m.get('Md5')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Tags') is not None:
@@ -28951,29 +32758,20 @@ class UpdateNacosConfigResponse(TeaModel):
 
 class UpdateNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, enabled=None, ephemeral=None, group_name=None,
-                 instance_id=None, ip=None, metadata=None, namespace_id=None, port=None, service_name=None, weight=None):
+                 instance_id=None, ip=None, metadata=None, mse_session_id=None, namespace_id=None, port=None, service_name=None,
+                 weight=None):
         self.accept_language = accept_language  # type: str
-        # Nacos集群名
         self.cluster_name = cluster_name  # type: str
-        # 服务禁用标志
         self.enabled = enabled  # type: bool
-        # 临时节点标志
         self.ephemeral = ephemeral  # type: bool
-        # 分组名
         self.group_name = group_name  # type: str
-        # 实例id
         self.instance_id = instance_id  # type: str
-        # Nacos实例ip
         self.ip = ip  # type: str
-        # 节点元数据
         self.metadata = metadata  # type: str
-        # 命名空间id
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
-        # Nacos实例端口
         self.port = port  # type: int
-        # 服务名
         self.service_name = service_name  # type: str
-        # 权重
         self.weight = weight  # type: str
 
     def validate(self):
@@ -29001,6 +32799,8 @@ class UpdateNacosInstanceRequest(TeaModel):
             result['Ip'] = self.ip
         if self.metadata is not None:
             result['Metadata'] = self.metadata
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.port is not None:
@@ -29029,6 +32829,8 @@ class UpdateNacosInstanceRequest(TeaModel):
             self.ip = m.get('Ip')
         if m.get('Metadata') is not None:
             self.metadata = m.get('Metadata')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('Port') is not None:
@@ -29042,17 +32844,11 @@ class UpdateNacosInstanceRequest(TeaModel):
 
 class UpdateNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # 响应码
         self.code = code  # type: int
-        # 修改结果
         self.data = data  # type: str
-        # http状态码
         self.http_status_code = http_status_code  # type: int
-        # 响应信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 成功标志
         self.success = success  # type: bool
 
     def validate(self):
@@ -29135,12 +32931,13 @@ class UpdateNacosInstanceResponse(TeaModel):
 
 
 class UpdateNacosServiceRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, group_name=None, instance_id=None, namespace_id=None,
-                 protect_threshold=None, service_name=None):
+    def __init__(self, accept_language=None, cluster_id=None, group_name=None, instance_id=None,
+                 mse_session_id=None, namespace_id=None, protect_threshold=None, service_name=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.group_name = group_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.namespace_id = namespace_id  # type: str
         self.protect_threshold = protect_threshold  # type: str
         self.service_name = service_name  # type: str
@@ -29162,6 +32959,8 @@ class UpdateNacosServiceRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.namespace_id is not None:
             result['NamespaceId'] = self.namespace_id
         if self.protect_threshold is not None:
@@ -29180,6 +32979,8 @@ class UpdateNacosServiceRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('NamespaceId') is not None:
             self.namespace_id = m.get('NamespaceId')
         if m.get('ProtectThreshold') is not None:
@@ -29277,12 +33078,188 @@ class UpdateNacosServiceResponse(TeaModel):
         return self
 
 
+class UpdatePluginConfigRequest(TeaModel):
+    def __init__(self, accept_language=None, config=None, config_level=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, gmt_create=None, gmt_modified=None, id=None, mse_session_id=None, plugin_id=None):
+        self.accept_language = accept_language  # type: str
+        self.config = config  # type: str
+        self.config_level = config_level  # type: int
+        self.enable = enable  # type: bool
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.mse_session_id = mse_session_id  # type: str
+        self.plugin_id = plugin_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePluginConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.config_level is not None:
+            result['ConfigLevel'] = self.config_level
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('ConfigLevel') is not None:
+            self.config_level = m.get('ConfigLevel')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        return self
+
+
+class UpdatePluginConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
+                 message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: long
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePluginConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdatePluginConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdatePluginConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdatePluginConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdatePluginConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateSSLCertRequest(TeaModel):
-    def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None,
+                 mse_session_id=None):
         self.accept_language = accept_language  # type: str
         self.cert_identifier = cert_identifier  # type: str
         self.domain_id = domain_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
 
     def validate(self):
         pass
@@ -29301,6 +33278,8 @@ class UpdateSSLCertRequest(TeaModel):
             result['DomainId'] = self.domain_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         return result
 
     def from_map(self, m=None):
@@ -29313,6 +33292,8 @@ class UpdateSSLCertRequest(TeaModel):
             self.domain_id = m.get('DomainId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         return self
 
 
@@ -29322,7 +33303,6 @@ class UpdateSSLCertResponseBody(TeaModel):
         self.data = data  # type: bool
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -29441,13 +33421,14 @@ class UpdateServiceSourceRequestIngressOptionsRequest(TeaModel):
 
 class UpdateServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_id=None, gateway_unique_id=None, id=None,
-                 ingress_options_request=None, name=None, source=None, type=None):
+                 ingress_options_request=None, mse_session_id=None, name=None, source=None, type=None):
         self.accept_language = accept_language  # type: str
         self.address = address  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
         self.ingress_options_request = ingress_options_request  # type: UpdateServiceSourceRequestIngressOptionsRequest
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.source = source  # type: str
         self.type = type  # type: str
@@ -29474,6 +33455,8 @@ class UpdateServiceSourceRequest(TeaModel):
             result['Id'] = self.id
         if self.ingress_options_request is not None:
             result['IngressOptionsRequest'] = self.ingress_options_request.to_map()
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.source is not None:
@@ -29497,6 +33480,8 @@ class UpdateServiceSourceRequest(TeaModel):
         if m.get('IngressOptionsRequest') is not None:
             temp_model = UpdateServiceSourceRequestIngressOptionsRequest()
             self.ingress_options_request = temp_model.from_map(m['IngressOptionsRequest'])
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Source') is not None:
@@ -29508,13 +33493,14 @@ class UpdateServiceSourceRequest(TeaModel):
 
 class UpdateServiceSourceShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_id=None, gateway_unique_id=None, id=None,
-                 ingress_options_request_shrink=None, name=None, source=None, type=None):
+                 ingress_options_request_shrink=None, mse_session_id=None, name=None, source=None, type=None):
         self.accept_language = accept_language  # type: str
         self.address = address  # type: str
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.id = id  # type: long
         self.ingress_options_request_shrink = ingress_options_request_shrink  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.name = name  # type: str
         self.source = source  # type: str
         self.type = type  # type: str
@@ -29540,6 +33526,8 @@ class UpdateServiceSourceShrinkRequest(TeaModel):
             result['Id'] = self.id
         if self.ingress_options_request_shrink is not None:
             result['IngressOptionsRequest'] = self.ingress_options_request_shrink
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.name is not None:
             result['Name'] = self.name
         if self.source is not None:
@@ -29562,6 +33550,8 @@ class UpdateServiceSourceShrinkRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('IngressOptionsRequest') is not None:
             self.ingress_options_request_shrink = m.get('IngressOptionsRequest')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Source') is not None:
@@ -29577,7 +33567,6 @@ class UpdateServiceSourceResponseBody(TeaModel):
         self.data = data  # type: long
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -29661,10 +33650,12 @@ class UpdateServiceSourceResponse(TeaModel):
 
 
 class UpdateZnodeRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, data=None, path=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, data=None, mse_session_id=None, path=None,
+                 request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.data = data  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.path = path  # type: str
         self.request_pars = request_pars  # type: str
 
@@ -29683,6 +33674,8 @@ class UpdateZnodeRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.data is not None:
             result['Data'] = self.data
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.path is not None:
             result['Path'] = self.path
         if self.request_pars is not None:
@@ -29697,6 +33690,8 @@ class UpdateZnodeRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('Path') is not None:
             self.path = m.get('Path')
         if m.get('RequestPars') is not None:
@@ -29783,9 +33778,11 @@ class UpdateZnodeResponse(TeaModel):
 
 
 class UpgradeClusterRequest(TeaModel):
-    def __init__(self, accept_language=None, instance_id=None, request_pars=None, upgrade_version=None):
+    def __init__(self, accept_language=None, instance_id=None, mse_session_id=None, request_pars=None,
+                 upgrade_version=None):
         self.accept_language = accept_language  # type: str
         self.instance_id = instance_id  # type: str
+        self.mse_session_id = mse_session_id  # type: str
         self.request_pars = request_pars  # type: str
         self.upgrade_version = upgrade_version  # type: str
 
@@ -29802,6 +33799,8 @@ class UpgradeClusterRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         if self.upgrade_version is not None:
@@ -29814,6 +33813,8 @@ class UpgradeClusterRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         if m.get('UpgradeVersion') is not None:
