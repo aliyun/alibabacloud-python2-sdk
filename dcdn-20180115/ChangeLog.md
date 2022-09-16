@@ -1,3 +1,6 @@
+2022-09-16 Version: 1.0.18
+- Update DescribeDcdnReport.
+
 2022-09-13 Version: 1.0.17
 - Update DescribeDcdnL2Vips.
 
