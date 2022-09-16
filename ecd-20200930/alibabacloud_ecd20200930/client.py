@@ -96,6 +96,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_user_to_desktop_group_with_options(request, runtime)
 
+    def apply_coordinate_privilege_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.co_id):
+            query['CoId'] = request.co_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_type):
+            query['UserType'] = request.user_type
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ApplyCoordinatePrivilege',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ApplyCoordinatePrivilegeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def apply_coordinate_privilege(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.apply_coordinate_privilege_with_options(request, runtime)
+
     def apply_coordination_for_monitoring_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -552,6 +588,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_adconnector_office_site_with_options(request, runtime)
 
+    def create_and_bind_nas_file_system_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.desktop_group_id):
+            query['DesktopGroupId'] = request.desktop_group_id
+        if not UtilClient.is_unset(request.encrypt_type):
+            query['EncryptType'] = request.encrypt_type
+        if not UtilClient.is_unset(request.end_user_ids):
+            query['EndUserIds'] = request.end_user_ids
+        if not UtilClient.is_unset(request.file_system_name):
+            query['FileSystemName'] = request.file_system_name
+        if not UtilClient.is_unset(request.office_site_id):
+            query['OfficeSiteId'] = request.office_site_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.storage_type):
+            query['StorageType'] = request.storage_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAndBindNasFileSystem',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.CreateAndBindNasFileSystemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_and_bind_nas_file_system(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_and_bind_nas_file_system_with_options(request, runtime)
+
     def create_bundle_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -631,6 +709,8 @@ class Client(OpenApiClient):
             query['DirectoryId'] = request.directory_id
         if not UtilClient.is_unset(request.end_user_ids):
             query['EndUserIds'] = request.end_user_ids
+        if not UtilClient.is_unset(request.file_system_id):
+            query['FileSystemId'] = request.file_system_id
         if not UtilClient.is_unset(request.idle_disconnect_duration):
             query['IdleDisconnectDuration'] = request.idle_disconnect_duration
         if not UtilClient.is_unset(request.keep_duration):
@@ -651,6 +731,8 @@ class Client(OpenApiClient):
             query['PeriodUnit'] = request.period_unit
         if not UtilClient.is_unset(request.policy_group_id):
             query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.profile_follow_switch):
+            query['ProfileFollowSwitch'] = request.profile_follow_switch
         if not UtilClient.is_unset(request.ratio_threshold):
             query['RatioThreshold'] = request.ratio_threshold
         if not UtilClient.is_unset(request.region_id):
@@ -1019,6 +1101,8 @@ class Client(OpenApiClient):
             query['RecordingStartTime'] = request.recording_start_time
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.remote_coordinate):
+            query['RemoteCoordinate'] = request.remote_coordinate
         if not UtilClient.is_unset(request.usb_redirect):
             query['UsbRedirect'] = request.usb_redirect
         if not UtilClient.is_unset(request.usb_supply_redirect_rule):
@@ -1713,6 +1797,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.event_type):
             query['EventType'] = request.event_type
+        if not UtilClient.is_unset(request.event_types):
+            query['EventTypes'] = request.event_types
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
@@ -1777,6 +1863,38 @@ class Client(OpenApiClient):
     def describe_cloud_drive_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_cloud_drive_permissions_with_options(request, runtime)
+
+    def describe_customized_list_headers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang_type):
+            query['LangType'] = request.lang_type
+        if not UtilClient.is_unset(request.list_type):
+            query['ListType'] = request.list_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCustomizedListHeaders',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeCustomizedListHeadersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_customized_list_headers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_customized_list_headers_with_options(request, runtime)
 
     def describe_desktop_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2973,6 +3091,8 @@ class Client(OpenApiClient):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.org_id):
+            query['OrgId'] = request.org_id
         if not UtilClient.is_unset(request.query_user_detail):
             query['QueryUserDetail'] = request.query_user_detail
         if not UtilClient.is_unset(request.region_id):
@@ -3311,6 +3431,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.event_type):
             query['EventType'] = request.event_type
+        if not UtilClient.is_unset(request.event_types):
+            query['EventTypes'] = request.event_types
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.office_site_id):
@@ -4002,6 +4124,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_cloud_drive_permission_with_options(request, runtime)
 
+    def modify_customized_list_headers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.headers):
+            query['Headers'] = request.headers
+        if not UtilClient.is_unset(request.list_type):
+            query['ListType'] = request.list_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCustomizedListHeaders',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyCustomizedListHeadersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_customized_list_headers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_customized_list_headers_with_options(request, runtime)
+
     def modify_desktop_charge_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4063,6 +4217,8 @@ class Client(OpenApiClient):
             query['DesktopGroupName'] = request.desktop_group_name
         if not UtilClient.is_unset(request.disable_session_config):
             query['DisableSessionConfig'] = request.disable_session_config
+        if not UtilClient.is_unset(request.file_system_id):
+            query['FileSystemId'] = request.file_system_id
         if not UtilClient.is_unset(request.idle_disconnect_duration):
             query['IdleDisconnectDuration'] = request.idle_disconnect_duration
         if not UtilClient.is_unset(request.image_id):
@@ -4079,6 +4235,8 @@ class Client(OpenApiClient):
             query['OwnBundleId'] = request.own_bundle_id
         if not UtilClient.is_unset(request.policy_group_id):
             query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.profile_follow_switch):
+            query['ProfileFollowSwitch'] = request.profile_follow_switch
         if not UtilClient.is_unset(request.ratio_threshold):
             query['RatioThreshold'] = request.ratio_threshold
         if not UtilClient.is_unset(request.region_id):
@@ -4679,6 +4837,8 @@ class Client(OpenApiClient):
             query['RecordingStartTime'] = request.recording_start_time
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.remote_coordinate):
+            query['RemoteCoordinate'] = request.remote_coordinate
         if not UtilClient.is_unset(request.revoke_access_policy_rule):
             query['RevokeAccessPolicyRule'] = request.revoke_access_policy_rule
         if not UtilClient.is_unset(request.revoke_security_policy_rule):
@@ -5095,6 +5255,42 @@ class Client(OpenApiClient):
     def reset_snapshot(self, request):
         runtime = util_models.RuntimeOptions()
         return self.reset_snapshot_with_options(request, runtime)
+
+    def revoke_coordinate_privilege_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.co_id):
+            query['CoId'] = request.co_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_type):
+            query['UserType'] = request.user_type
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevokeCoordinatePrivilege',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.RevokeCoordinatePrivilegeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def revoke_coordinate_privilege(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.revoke_coordinate_privilege_with_options(request, runtime)
 
     def rollback_susp_event_quara_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
