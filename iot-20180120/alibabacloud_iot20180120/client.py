@@ -1861,6 +1861,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.copy_thing_model_with_options(request, runtime)
 
+    def count_speech_broadcast_hour_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_date_time_hour):
+            query['QueryDateTimeHour'] = request.query_date_time_hour
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.share_task_code):
+            body['ShareTaskCode'] = request.share_task_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CountSpeechBroadcastHour',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CountSpeechBroadcastHourResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def count_speech_broadcast_hour(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.count_speech_broadcast_hour_with_options(request, runtime)
+
     def create_consumer_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -7360,6 +7394,44 @@ class Client(OpenApiClient):
     def page_query_shared_speech_open(self, request):
         runtime = util_models.RuntimeOptions()
         return self.page_query_shared_speech_open_with_options(request, runtime)
+
+    def page_query_speech_broadcast_hour_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_date_time_hour):
+            query['QueryDateTimeHour'] = request.query_date_time_hour
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_token):
+            body['PageToken'] = request.page_token
+        if not UtilClient.is_unset(request.share_task_code):
+            body['ShareTaskCode'] = request.share_task_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PageQuerySpeechBroadcastHour',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.PageQuerySpeechBroadcastHourResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def page_query_speech_broadcast_hour(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.page_query_speech_broadcast_hour_with_options(request, runtime)
 
     def print_by_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)

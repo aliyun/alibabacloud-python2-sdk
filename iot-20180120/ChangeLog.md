@@ -1,3 +1,6 @@
+2022-09-16 Version: 1.2.8
+- Iot_20180120 TeaDSL SDK.
+
 2022-09-06 Version: 1.2.7
 - Iot_20180120 TeaDSL SDK.
 
