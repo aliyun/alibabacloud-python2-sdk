@@ -153,6 +153,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_vpc_honey_pot_with_options(request, runtime)
 
+    def bind_auth_to_machine_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_version):
+            query['AuthVersion'] = request.auth_version
+        if not UtilClient.is_unset(request.auto_bind):
+            query['AutoBind'] = request.auto_bind
+        if not UtilClient.is_unset(request.bind):
+            query['Bind'] = request.bind
+        if not UtilClient.is_unset(request.bind_all):
+            query['BindAll'] = request.bind_all
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.logical_exp):
+            query['LogicalExp'] = request.logical_exp
+        if not UtilClient.is_unset(request.un_bind):
+            query['UnBind'] = request.un_bind
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindAuthToMachine',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.BindAuthToMachineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_auth_to_machine(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_auth_to_machine_with_options(request, runtime)
+
     def check_quara_file_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -946,8 +986,14 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.container_id):
+            query['ContainerId'] = request.container_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
         if not UtilClient.is_unset(request.image_digest):
             query['ImageDigest'] = request.image_digest
         if not UtilClient.is_unset(request.image_layer):
@@ -956,10 +1002,16 @@ class Client(OpenApiClient):
             query['ImageTag'] = request.image_tag
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.levels):
+            query['Levels'] = request.levels
         if not UtilClient.is_unset(request.malicious_md_5):
             query['MaliciousMd5'] = request.malicious_md_5
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pod):
+            query['Pod'] = request.pod
         if not UtilClient.is_unset(request.repo_id):
             query['RepoId'] = request.repo_id
         if not UtilClient.is_unset(request.repo_instance_id):
@@ -970,6 +1022,8 @@ class Client(OpenApiClient):
             query['RepoNamespace'] = request.repo_namespace
         if not UtilClient.is_unset(request.repo_region_id):
             query['RepoRegionId'] = request.repo_region_id
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1244,6 +1298,8 @@ class Client(OpenApiClient):
     def describe_asset_detail_by_uuids_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.uuids):
             query['Uuids'] = request.uuids
         req = open_api_models.OpenApiRequest(
@@ -1674,6 +1730,8 @@ class Client(OpenApiClient):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.importance):
             query['Importance'] = request.importance
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.logical_exp):
             query['LogicalExp'] = request.logical_exp
         if not UtilClient.is_unset(request.machine_types):
@@ -2236,6 +2294,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.info):
             query['Info'] = request.info
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.operate_type):
             query['OperateType'] = request.operate_type
         if not UtilClient.is_unset(request.type):
@@ -2372,6 +2432,8 @@ class Client(OpenApiClient):
             query['RepoNamespace'] = request.repo_namespace
         if not UtilClient.is_unset(request.repo_region_id):
             query['RepoRegionId'] = request.repo_region_id
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2542,6 +2604,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.risk_level):
             query['RiskLevel'] = request.risk_level
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2642,6 +2706,8 @@ class Client(OpenApiClient):
             query['RepoNamespace'] = request.repo_namespace
         if not UtilClient.is_unset(request.repo_region_id):
             query['RepoRegionId'] = request.repo_region_id
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.uuids):
@@ -2676,24 +2742,36 @@ class Client(OpenApiClient):
             query['BaselineNameKey'] = request.baseline_name_key
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.container_id):
+            query['ContainerId'] = request.container_id
         if not UtilClient.is_unset(request.criteria):
             query['Criteria'] = request.criteria
         if not UtilClient.is_unset(request.criteria_type):
             query['CriteriaType'] = request.criteria_type
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
         if not UtilClient.is_unset(request.image_digest):
             query['ImageDigest'] = request.image_digest
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pod):
+            query['Pod'] = request.pod
         if not UtilClient.is_unset(request.repo_instance_id):
             query['RepoInstanceId'] = request.repo_instance_id
         if not UtilClient.is_unset(request.repo_name):
             query['RepoName'] = request.repo_name
         if not UtilClient.is_unset(request.repo_namespace):
             query['RepoNamespace'] = request.repo_namespace
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2768,22 +2846,32 @@ class Client(OpenApiClient):
             query['AliasName'] = request.alias_name
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.container_id):
+            query['ContainerId'] = request.container_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.dealed):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.digest):
             query['Digest'] = request.digest
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.necessity):
             query['Necessity'] = request.necessity
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pod):
+            query['Pod'] = request.pod
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.repo_id):
@@ -2800,6 +2888,8 @@ class Client(OpenApiClient):
             query['RepoNamespace'] = request.repo_namespace
         if not UtilClient.is_unset(request.repo_region_id):
             query['RepoRegionId'] = request.repo_region_id
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
         if not UtilClient.is_unset(request.status_list):
             query['StatusList'] = request.status_list
         if not UtilClient.is_unset(request.tag):
@@ -2888,6 +2978,10 @@ class Client(OpenApiClient):
     def describe_instance_anti_brute_force_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.source_ip):
@@ -4921,6 +5015,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vul_export_info_with_options(request, runtime)
 
+    def describe_vul_fix_statistics_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeVulFixStatistics',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeVulFixStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vul_fix_statistics(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vul_fix_statistics_with_options(runtime)
+
     def describe_vul_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5690,6 +5806,34 @@ class Client(OpenApiClient):
     def install_cloud_monitor(self, request):
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
+
+    def list_available_honeypot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAvailableHoneypot',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListAvailableHoneypotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_available_honeypot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_available_honeypot_with_options(request, runtime)
 
     def list_check_instance_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7436,6 +7580,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.asset_type):
             query['AssetType'] = request.asset_type
+        if not UtilClient.is_unset(request.cloud_asset_sub_type):
+            query['CloudAssetSubType'] = request.cloud_asset_sub_type
+        if not UtilClient.is_unset(request.cloud_asset_type):
+            query['CloudAssetType'] = request.cloud_asset_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
