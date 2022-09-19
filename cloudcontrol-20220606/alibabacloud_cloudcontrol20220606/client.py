@@ -31,6 +31,31 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def cancel_task(self, task_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_task_with_options(task_id, headers, runtime)
+
+    def cancel_task_with_options(self, task_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CancelTask',
+            version='2022-06-06',
+            protocol='HTTPS',
+            pathname='/api/v1/tasks/%s/operation/cancel' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudcontrol_20220606_models.CancelTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_resource(self, provider, product_code, resource_type_code, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -38,12 +63,11 @@ class Client(OpenApiClient):
 
     def create_resource_with_options(self, provider, product_code, resource_type_code, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
         query = {}
-        if not UtilClient.is_unset(request.resource_type_version):
-            query['resourceTypeVersion'] = request.resource_type_version
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['regionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -53,7 +77,7 @@ class Client(OpenApiClient):
             action='CreateResource',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -72,15 +96,11 @@ class Client(OpenApiClient):
 
     def delete_resource_with_options(self, provider, product_code, resource_type_code, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.region_id):
             query['regionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_type_version):
-            query['resourceTypeVersion'] = request.resource_type_version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -89,7 +109,7 @@ class Client(OpenApiClient):
             action='DeleteResource',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -108,10 +128,6 @@ class Client(OpenApiClient):
 
     def get_resource_with_options(self, provider, product_code, resource_type_code, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
         if not UtilClient.is_unset(request.region_id):
             query['regionId'] = request.region_id
@@ -125,7 +141,7 @@ class Client(OpenApiClient):
             action='GetResource',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -144,9 +160,6 @@ class Client(OpenApiClient):
 
     def get_resource_type_with_options(self, provider, product_code, resource_type_code, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
         query = {}
         if not UtilClient.is_unset(request.resource_type_version):
             query['resourceTypeVersion'] = request.resource_type_version
@@ -158,7 +171,7 @@ class Client(OpenApiClient):
             action='GetResourceType',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -176,7 +189,6 @@ class Client(OpenApiClient):
         return self.get_task_with_options(task_id, headers, runtime)
 
     def get_task_with_options(self, task_id, headers, runtime):
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -184,7 +196,7 @@ class Client(OpenApiClient):
             action='GetTask',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/tasks/%s' % TeaConverter.to_unicode(task_id),
+            pathname='/api/v1/tasks/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -203,10 +215,6 @@ class Client(OpenApiClient):
 
     def list_data_sources_with_options(self, provider, product_code, resource_type_code, attribute_name, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
-        attribute_name = OpenApiUtilClient.get_encode_param(attribute_name)
         request = cloudcontrol_20220606_models.ListDataSourcesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.filter):
@@ -222,7 +230,7 @@ class Client(OpenApiClient):
             action='ListDataSources',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/dataSources/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code), TeaConverter.to_unicode(attribute_name)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/dataSources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(attribute_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -241,7 +249,6 @@ class Client(OpenApiClient):
 
     def list_products_with_options(self, provider, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
         query = {}
         if not UtilClient.is_unset(request.max_results):
             query['maxResults'] = request.max_results
@@ -255,7 +262,7 @@ class Client(OpenApiClient):
             action='ListProducts',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products' % TeaConverter.to_unicode(provider),
+            pathname='/api/v1/providers/%s/products' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -274,8 +281,6 @@ class Client(OpenApiClient):
 
     def list_resource_types_with_options(self, provider, product_code, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
         request = cloudcontrol_20220606_models.ListResourceTypesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_type_codes):
@@ -295,7 +300,7 @@ class Client(OpenApiClient):
             action='ListResourceTypes',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -314,9 +319,6 @@ class Client(OpenApiClient):
 
     def list_resources_with_options(self, provider, product_code, resource_type_code, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
         request = cloudcontrol_20220606_models.ListResourcesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.filter):
@@ -342,7 +344,7 @@ class Client(OpenApiClient):
             action='ListResources',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -361,15 +363,11 @@ class Client(OpenApiClient):
 
     def update_resource_with_options(self, provider, product_code, resource_type_code, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        provider = OpenApiUtilClient.get_encode_param(provider)
-        product_code = OpenApiUtilClient.get_encode_param(product_code)
-        resource_type_code = OpenApiUtilClient.get_encode_param(resource_type_code)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.region_id):
             query['regionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_type_version):
-            query['resourceTypeVersion'] = request.resource_type_version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -379,7 +377,7 @@ class Client(OpenApiClient):
             action='UpdateResource',
             version='2022-06-06',
             protocol='HTTPS',
-            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(provider), TeaConverter.to_unicode(product_code), TeaConverter.to_unicode(resource_type_code), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v1/providers/%s/products/%s/resourceTypes/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(provider)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(product_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type_code)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
