@@ -16825,25 +16825,28 @@ class TrainOrderQueryRequest(TeaModel):
 
 class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
     def __init__(self, change_coach_no=None, change_gap_fee=None, change_handling_fee=None, change_seat_no=None,
-                 change_seat_type_name=None, change_service_fee=None, change_train_type_name=None, check_in_time=None,
-                 check_out_time=None, end_time=None, gmt_create=None, gmt_modify=None, origin_ticket_no=None,
-                 out_ticket_status=None, start_time=None, ticket_no=None):
+                 change_seat_type_name=None, change_service_fee=None, change_train_no=None, change_train_type_name=None,
+                 check_in_time=None, check_out_time=None, end_time=None, from_station_name=None, gmt_create=None, gmt_modify=None,
+                 origin_ticket_no=None, out_ticket_status=None, start_time=None, ticket_no=None, to_station_name=None):
         self.change_coach_no = change_coach_no  # type: str
         self.change_gap_fee = change_gap_fee  # type: float
         self.change_handling_fee = change_handling_fee  # type: float
         self.change_seat_no = change_seat_no  # type: str
         self.change_seat_type_name = change_seat_type_name  # type: str
         self.change_service_fee = change_service_fee  # type: float
+        self.change_train_no = change_train_no  # type: str
         self.change_train_type_name = change_train_type_name  # type: str
         self.check_in_time = check_in_time  # type: str
         self.check_out_time = check_out_time  # type: str
         self.end_time = end_time  # type: str
+        self.from_station_name = from_station_name  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modify = gmt_modify  # type: str
         self.origin_ticket_no = origin_ticket_no  # type: str
         self.out_ticket_status = out_ticket_status  # type: str
         self.start_time = start_time  # type: str
         self.ticket_no = ticket_no  # type: str
+        self.to_station_name = to_station_name  # type: str
 
     def validate(self):
         pass
@@ -16866,6 +16869,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             result['change_seat_type_name'] = self.change_seat_type_name
         if self.change_service_fee is not None:
             result['change_service_fee'] = self.change_service_fee
+        if self.change_train_no is not None:
+            result['change_train_no'] = self.change_train_no
         if self.change_train_type_name is not None:
             result['change_train_type_name'] = self.change_train_type_name
         if self.check_in_time is not None:
@@ -16874,6 +16879,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             result['check_out_time'] = self.check_out_time
         if self.end_time is not None:
             result['end_time'] = self.end_time
+        if self.from_station_name is not None:
+            result['from_station_name'] = self.from_station_name
         if self.gmt_create is not None:
             result['gmt_create'] = self.gmt_create
         if self.gmt_modify is not None:
@@ -16886,6 +16893,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             result['start_time'] = self.start_time
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
+        if self.to_station_name is not None:
+            result['to_station_name'] = self.to_station_name
         return result
 
     def from_map(self, m=None):
@@ -16902,6 +16911,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             self.change_seat_type_name = m.get('change_seat_type_name')
         if m.get('change_service_fee') is not None:
             self.change_service_fee = m.get('change_service_fee')
+        if m.get('change_train_no') is not None:
+            self.change_train_no = m.get('change_train_no')
         if m.get('change_train_type_name') is not None:
             self.change_train_type_name = m.get('change_train_type_name')
         if m.get('check_in_time') is not None:
@@ -16910,6 +16921,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             self.check_out_time = m.get('check_out_time')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
+        if m.get('from_station_name') is not None:
+            self.from_station_name = m.get('from_station_name')
         if m.get('gmt_create') is not None:
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modify') is not None:
@@ -16922,6 +16935,8 @@ class TrainOrderQueryResponseBodyModuleChangeTicketInfoList(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
+        if m.get('to_station_name') is not None:
+            self.to_station_name = m.get('to_station_name')
         return self
 
 
