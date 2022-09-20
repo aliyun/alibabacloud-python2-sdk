@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_cgcs20211111_py2.
 
-Created on 07/09/2022
+Created on 20/09/2022
 
 @author: Alibaba Cloud SDK
 """
