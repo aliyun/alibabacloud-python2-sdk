@@ -2930,6 +2930,8 @@ class Client(OpenApiClient):
             query['ConnectType'] = request.connect_type
         if not UtilClient.is_unset(request.mse_session_id):
             query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.mse_version):
+            query['MseVersion'] = request.mse_version
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -2964,6 +2966,8 @@ class Client(OpenApiClient):
             query['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.mse_session_id):
             query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.mse_version):
+            query['MseVersion'] = request.mse_version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
