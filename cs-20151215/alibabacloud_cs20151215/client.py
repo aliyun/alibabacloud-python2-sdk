@@ -71,7 +71,6 @@ class Client(OpenApiClient):
 
     def attach_instances_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.cpu_policy):
             body['cpu_policy'] = request.cpu_policy
@@ -107,7 +106,7 @@ class Client(OpenApiClient):
             action='AttachInstances',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/attach' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/attach' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -125,7 +124,6 @@ class Client(OpenApiClient):
         return self.cancel_cluster_upgrade_with_options(cluster_id, headers, runtime)
 
     def cancel_cluster_upgrade_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -133,7 +131,7 @@ class Client(OpenApiClient):
             action='CancelClusterUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/upgrade/cancel' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/upgrade/cancel' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -151,8 +149,6 @@ class Client(OpenApiClient):
         return self.cancel_component_upgrade_with_options(cluster_id, component_id, headers, runtime)
 
     def cancel_component_upgrade_with_options(self, cluster_id, component_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        component_id = OpenApiUtilClient.get_encode_param(component_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -160,7 +156,7 @@ class Client(OpenApiClient):
             action='CancelComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/cancel' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
+            pathname='/clusters/%s/components/%s/cancel' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -178,7 +174,6 @@ class Client(OpenApiClient):
         return self.cancel_task_with_options(task_id, headers, runtime)
 
     def cancel_task_with_options(self, task_id, headers, runtime):
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -186,7 +181,7 @@ class Client(OpenApiClient):
             action='CancelTask',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/tasks/%s/cancel' % TeaConverter.to_unicode(task_id),
+            pathname='/tasks/%s/cancel' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -205,7 +200,6 @@ class Client(OpenApiClient):
 
     def cancel_workflow_with_options(self, workflow_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        workflow_name = OpenApiUtilClient.get_encode_param(workflow_name)
         body = {}
         if not UtilClient.is_unset(request.action):
             body['action'] = request.action
@@ -217,7 +211,7 @@ class Client(OpenApiClient):
             action='CancelWorkflow',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(workflow_name),
+            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workflow_name)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -236,7 +230,6 @@ class Client(OpenApiClient):
 
     def create_autoscaling_config_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.cool_down_duration):
             body['cool_down_duration'] = request.cool_down_duration
@@ -260,7 +253,7 @@ class Client(OpenApiClient):
             action='CreateAutoscalingConfig',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/cluster/%s/autoscale/config/' % TeaConverter.to_unicode(cluster_id),
+            pathname='/cluster/%s/autoscale/config/' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -481,7 +474,6 @@ class Client(OpenApiClient):
 
     def create_cluster_node_pool_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.auto_scaling):
             body['auto_scaling'] = request.auto_scaling
@@ -511,7 +503,7 @@ class Client(OpenApiClient):
             action='CreateClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -638,7 +630,6 @@ class Client(OpenApiClient):
 
     def create_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.action):
             body['action'] = request.action
@@ -656,7 +647,7 @@ class Client(OpenApiClient):
             action='CreateTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/triggers' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/triggers' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -725,7 +716,6 @@ class Client(OpenApiClient):
 
     def delete_cluster_with_options(self, cluster_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         request = cs20151215_models.DeleteClusterShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.retain_resources):
@@ -745,7 +735,7 @@ class Client(OpenApiClient):
             action='DeleteCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -764,8 +754,6 @@ class Client(OpenApiClient):
 
     def delete_cluster_nodepool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         query = {}
         if not UtilClient.is_unset(request.force):
             query['force'] = request.force
@@ -777,7 +765,7 @@ class Client(OpenApiClient):
             action='DeleteClusterNodepool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -796,7 +784,6 @@ class Client(OpenApiClient):
 
     def delete_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.drain_node):
             body['drain_node'] = request.drain_node
@@ -812,7 +799,7 @@ class Client(OpenApiClient):
             action='DeleteClusterNodes',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodes' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -831,7 +818,6 @@ class Client(OpenApiClient):
 
     def delete_edge_machine_with_options(self, edge_machineid, request, headers, runtime):
         UtilClient.validate_model(request)
-        edge_machineid = OpenApiUtilClient.get_encode_param(edge_machineid)
         query = {}
         if not UtilClient.is_unset(request.force):
             query['force'] = request.force
@@ -843,7 +829,7 @@ class Client(OpenApiClient):
             action='DeleteEdgeMachine',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/edge_machines/[edge_machineid]',
+            pathname='/edge_machines/%5Bedge_machineid%5D',
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -861,7 +847,6 @@ class Client(OpenApiClient):
         return self.delete_kubernetes_trigger_with_options(id, headers, runtime)
 
     def delete_kubernetes_trigger_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -869,7 +854,7 @@ class Client(OpenApiClient):
             action='DeleteKubernetesTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/triggers/revoke/%s' % TeaConverter.to_unicode(id),
+            pathname='/triggers/revoke/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -888,8 +873,6 @@ class Client(OpenApiClient):
 
     def delete_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         query = {}
         if not UtilClient.is_unset(request.instance_name):
             query['instance_name'] = request.instance_name
@@ -901,7 +884,7 @@ class Client(OpenApiClient):
             action='DeletePolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(policy_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -919,7 +902,6 @@ class Client(OpenApiClient):
         return self.delete_template_with_options(template_id, headers, runtime)
 
     def delete_template_with_options(self, template_id, headers, runtime):
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -927,7 +909,7 @@ class Client(OpenApiClient):
             action='DeleteTemplate',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/templates/%s' % TeaConverter.to_unicode(template_id),
+            pathname='/templates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -945,8 +927,6 @@ class Client(OpenApiClient):
         return self.delete_trigger_with_options(cluster_id, id, headers, runtime)
 
     def delete_trigger_with_options(self, cluster_id, id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -954,7 +934,7 @@ class Client(OpenApiClient):
             action='DeleteTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/[cluster_id]/triggers/[Id]',
+            pathname='/clusters/%5Bcluster_id%5D/triggers/%5BId%5D',
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -973,8 +953,6 @@ class Client(OpenApiClient):
 
     def deploy_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         body = {}
         if not UtilClient.is_unset(request.action):
             body['action'] = request.action
@@ -990,7 +968,7 @@ class Client(OpenApiClient):
             action='DeployPolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(policy_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1008,7 +986,6 @@ class Client(OpenApiClient):
         return self.descirbe_workflow_with_options(workflow_name, headers, runtime)
 
     def descirbe_workflow_with_options(self, workflow_name, headers, runtime):
-        workflow_name = OpenApiUtilClient.get_encode_param(workflow_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1016,7 +993,7 @@ class Client(OpenApiClient):
             action='DescirbeWorkflow',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(workflow_name),
+            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workflow_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1066,9 +1043,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_addon_metadata_with_options(cluster_id, component_id, version, headers, runtime)
 
     def describe_cluster_addon_metadata_with_options(self, cluster_id, component_id, version, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        component_id = OpenApiUtilClient.get_encode_param(component_id)
-        version = OpenApiUtilClient.get_encode_param(version)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1076,7 +1050,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonMetadata',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/metadata' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
+            pathname='/clusters/%s/components/%s/metadata' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1094,8 +1068,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_addon_upgrade_status_with_options(cluster_id, component_id, headers, runtime)
 
     def describe_cluster_addon_upgrade_status_with_options(self, cluster_id, component_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        component_id = OpenApiUtilClient.get_encode_param(component_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1103,7 +1075,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonUpgradeStatus',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/upgradestatus' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
+            pathname='/clusters/%s/components/%s/upgradestatus' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1122,7 +1094,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_addons_upgrade_status_with_options(self, cluster_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         request = cs20151215_models.DescribeClusterAddonsUpgradeStatusShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.component_ids):
@@ -1138,7 +1109,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonsUpgradeStatus',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/upgradestatus' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/upgradestatus' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1156,7 +1127,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_addons_version_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_addons_version_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1164,7 +1134,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonsVersion',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/version' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/version' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1183,7 +1153,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_attach_scripts_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.arch):
             body['arch'] = request.arch
@@ -1205,7 +1174,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAttachScripts',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/attachscript' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/attachscript' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1223,7 +1192,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_detail_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_detail_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1231,7 +1199,7 @@ class Client(OpenApiClient):
             action='DescribeClusterDetail',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1250,7 +1218,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_events_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['page_number'] = request.page_number
@@ -1266,7 +1233,7 @@ class Client(OpenApiClient):
             action='DescribeClusterEvents',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/events' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/events' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1284,7 +1251,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_logs_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_logs_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1292,7 +1258,7 @@ class Client(OpenApiClient):
             action='DescribeClusterLogs',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/logs' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/logs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1310,8 +1276,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_node_pool_detail_with_options(cluster_id, nodepool_id, headers, runtime)
 
     def describe_cluster_node_pool_detail_with_options(self, cluster_id, nodepool_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1319,7 +1283,7 @@ class Client(OpenApiClient):
             action='DescribeClusterNodePoolDetail',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1337,7 +1301,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_node_pools_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_node_pools_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1345,7 +1308,7 @@ class Client(OpenApiClient):
             action='DescribeClusterNodePools',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1364,7 +1327,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.instance_ids):
             query['instanceIds'] = request.instance_ids
@@ -1384,7 +1346,7 @@ class Client(OpenApiClient):
             action='DescribeClusterNodes',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodes' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1402,7 +1364,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_resources_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_resources_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1410,7 +1371,7 @@ class Client(OpenApiClient):
             action='DescribeClusterResources',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/resources' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/resources' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1428,7 +1389,6 @@ class Client(OpenApiClient):
         return self.describe_cluster_tasks_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_tasks_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1436,7 +1396,7 @@ class Client(OpenApiClient):
             action='DescribeClusterTasks',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/tasks' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1455,7 +1415,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
@@ -1469,7 +1428,7 @@ class Client(OpenApiClient):
             action='DescribeClusterUserKubeconfig',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/k8s/%s/user_config' % TeaConverter.to_unicode(cluster_id),
+            pathname='/k8s/%s/user_config' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1488,7 +1447,6 @@ class Client(OpenApiClient):
 
     def describe_cluster_v2user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
@@ -1500,7 +1458,7 @@ class Client(OpenApiClient):
             action='DescribeClusterV2UserKubeconfig',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/k8s/%s/user_config' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/k8s/%s/user_config' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1592,7 +1550,6 @@ class Client(OpenApiClient):
         return self.describe_edge_machine_active_process_with_options(edge_machineid, headers, runtime)
 
     def describe_edge_machine_active_process_with_options(self, edge_machineid, headers, runtime):
-        edge_machineid = OpenApiUtilClient.get_encode_param(edge_machineid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1600,7 +1557,7 @@ class Client(OpenApiClient):
             action='DescribeEdgeMachineActiveProcess',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/edge_machines/[edge_machineid]/activeprocess',
+            pathname='/edge_machines/%5Bedge_machineid%5D/activeprocess',
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1643,7 +1600,6 @@ class Client(OpenApiClient):
         return self.describe_edge_machine_tunnel_config_detail_with_options(edge_machineid, headers, runtime)
 
     def describe_edge_machine_tunnel_config_detail_with_options(self, edge_machineid, headers, runtime):
-        edge_machineid = OpenApiUtilClient.get_encode_param(edge_machineid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1651,7 +1607,7 @@ class Client(OpenApiClient):
             action='DescribeEdgeMachineTunnelConfigDetail',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/edge_machines/[edge_machineid]/tunnelconfig',
+            pathname='/edge_machines/%5Bedge_machineid%5D/tunnelconfig',
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1746,7 +1702,6 @@ class Client(OpenApiClient):
 
     def describe_external_agent_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
@@ -1758,7 +1713,7 @@ class Client(OpenApiClient):
             action='DescribeExternalAgent',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/k8s/%s/external/agent/deployment' % TeaConverter.to_unicode(cluster_id),
+            pathname='/k8s/%s/external/agent/deployment' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1814,8 +1769,6 @@ class Client(OpenApiClient):
         return self.describe_node_pool_vuls_with_options(cluster_id, nodepool_id, headers, runtime)
 
     def describe_node_pool_vuls_with_options(self, cluster_id, nodepool_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1823,7 +1776,7 @@ class Client(OpenApiClient):
             action='DescribeNodePoolVuls',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s/vuls' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s/vuls' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1866,7 +1819,6 @@ class Client(OpenApiClient):
         return self.describe_policy_details_with_options(policy_name, headers, runtime)
 
     def describe_policy_details_with_options(self, policy_name, headers, runtime):
-        policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1874,7 +1826,7 @@ class Client(OpenApiClient):
             action='DescribePolicyDetails',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/policies/%s' % TeaConverter.to_unicode(policy_name),
+            pathname='/policies/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(policy_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1892,7 +1844,6 @@ class Client(OpenApiClient):
         return self.describe_policy_governance_in_cluster_with_options(cluster_id, headers, runtime)
 
     def describe_policy_governance_in_cluster_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1900,7 +1851,7 @@ class Client(OpenApiClient):
             action='DescribePolicyGovernanceInCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policygovernance' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policygovernance' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1919,7 +1870,6 @@ class Client(OpenApiClient):
 
     def describe_policy_instances_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.instance_name):
             query['instance_name'] = request.instance_name
@@ -1933,7 +1883,7 @@ class Client(OpenApiClient):
             action='DescribePolicyInstances',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policies' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1951,7 +1901,6 @@ class Client(OpenApiClient):
         return self.describe_policy_instances_status_with_options(cluster_id, headers, runtime)
 
     def describe_policy_instances_status_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1959,7 +1908,7 @@ class Client(OpenApiClient):
             action='DescribePolicyInstancesStatus',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/status' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policies/status' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1977,7 +1926,6 @@ class Client(OpenApiClient):
         return self.describe_task_info_with_options(task_id, headers, runtime)
 
     def describe_task_info_with_options(self, task_id, headers, runtime):
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1985,7 +1933,7 @@ class Client(OpenApiClient):
             action='DescribeTaskInfo',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/tasks/%s' % TeaConverter.to_unicode(task_id),
+            pathname='/tasks/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2004,7 +1952,6 @@ class Client(OpenApiClient):
 
     def describe_template_attribute_with_options(self, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         query = {}
         if not UtilClient.is_unset(request.template_type):
             query['template_type'] = request.template_type
@@ -2016,7 +1963,7 @@ class Client(OpenApiClient):
             action='DescribeTemplateAttribute',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/templates/%s' % TeaConverter.to_unicode(template_id),
+            pathname='/templates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2069,7 +2016,6 @@ class Client(OpenApiClient):
 
     def describe_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
@@ -2087,7 +2033,7 @@ class Client(OpenApiClient):
             action='DescribeTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/[cluster_id]/triggers',
+            pathname='/clusters/%5Bcluster_id%5D/triggers',
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2105,7 +2051,6 @@ class Client(OpenApiClient):
         return self.describe_user_permission_with_options(uid, headers, runtime)
 
     def describe_user_permission_with_options(self, uid, headers, runtime):
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2113,7 +2058,7 @@ class Client(OpenApiClient):
             action='DescribeUserPermission',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/permissions/users/%s' % TeaConverter.to_unicode(uid),
+            pathname='/permissions/users/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2182,8 +2127,6 @@ class Client(OpenApiClient):
 
     def edge_cluster_add_edge_machine_with_options(self, clusterid, edge_machineid, request, headers, runtime):
         UtilClient.validate_model(request)
-        clusterid = OpenApiUtilClient.get_encode_param(clusterid)
-        edge_machineid = OpenApiUtilClient.get_encode_param(edge_machineid)
         body = {}
         if not UtilClient.is_unset(request.expired):
             body['expired'] = request.expired
@@ -2199,7 +2142,7 @@ class Client(OpenApiClient):
             action='EdgeClusterAddEdgeMachine',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/[clusterid]/attachedgemachine/[edge_machineid]',
+            pathname='/clusters/%5Bclusterid%5D/attachedgemachine/%5Bedge_machineid%5D',
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2218,8 +2161,6 @@ class Client(OpenApiClient):
 
     def fix_node_pool_vuls_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         body = {}
         if not UtilClient.is_unset(request.nodes):
             body['nodes'] = request.nodes
@@ -2235,7 +2176,7 @@ class Client(OpenApiClient):
             action='FixNodePoolVuls',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s/vuls/fix' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s/vuls/fix' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2254,7 +2195,6 @@ class Client(OpenApiClient):
 
     def get_kubernetes_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
@@ -2272,7 +2212,7 @@ class Client(OpenApiClient):
             action='GetKubernetesTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/triggers/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/triggers/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2290,7 +2230,6 @@ class Client(OpenApiClient):
         return self.get_upgrade_status_with_options(cluster_id, headers, runtime)
 
     def get_upgrade_status_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2298,7 +2237,7 @@ class Client(OpenApiClient):
             action='GetUpgradeStatus',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/upgrade/status' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/upgrade/status' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2317,7 +2256,6 @@ class Client(OpenApiClient):
 
     def grant_permissions_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
-        uid = OpenApiUtilClient.get_encode_param(uid)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=UtilClient.to_array(request.body)
@@ -2326,7 +2264,7 @@ class Client(OpenApiClient):
             action='GrantPermissions',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/permissions/users/%s' % TeaConverter.to_unicode(uid),
+            pathname='/permissions/users/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2345,7 +2283,6 @@ class Client(OpenApiClient):
 
     def install_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=UtilClient.to_array(request.body)
@@ -2354,7 +2291,7 @@ class Client(OpenApiClient):
             action='InstallClusterAddons',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/install' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/install' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2417,7 +2354,6 @@ class Client(OpenApiClient):
 
     def migrate_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.oss_bucket_endpoint):
             body['oss_bucket_endpoint'] = request.oss_bucket_endpoint
@@ -2431,7 +2367,7 @@ class Client(OpenApiClient):
             action='MigrateCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/migrate' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/migrate' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2450,7 +2386,6 @@ class Client(OpenApiClient):
 
     def modify_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.api_server_eip):
             body['api_server_eip'] = request.api_server_eip
@@ -2478,7 +2413,7 @@ class Client(OpenApiClient):
             action='ModifyCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2497,8 +2432,6 @@ class Client(OpenApiClient):
 
     def modify_cluster_addon_with_options(self, cluster_id, component_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        component_id = OpenApiUtilClient.get_encode_param(component_id)
         body = {}
         if not UtilClient.is_unset(request.config):
             body['config'] = request.config
@@ -2510,7 +2443,7 @@ class Client(OpenApiClient):
             action='ModifyClusterAddon',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/config' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
+            pathname='/clusters/%s/components/%s/config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(component_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2529,7 +2462,6 @@ class Client(OpenApiClient):
 
     def modify_cluster_configuration_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.customize_config):
             body['customize_config'] = request.customize_config
@@ -2541,7 +2473,7 @@ class Client(OpenApiClient):
             action='ModifyClusterConfiguration',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/configuration' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/configuration' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2560,8 +2492,6 @@ class Client(OpenApiClient):
 
     def modify_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         body = {}
         if not UtilClient.is_unset(request.auto_scaling):
             body['auto_scaling'] = request.auto_scaling
@@ -2585,7 +2515,7 @@ class Client(OpenApiClient):
             action='ModifyClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2604,7 +2534,6 @@ class Client(OpenApiClient):
 
     def modify_cluster_tags_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=UtilClient.to_array(request.body)
@@ -2613,7 +2542,7 @@ class Client(OpenApiClient):
             action='ModifyClusterTags',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/tags' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/tags' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2632,8 +2561,6 @@ class Client(OpenApiClient):
 
     def modify_node_pool_node_config_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         body = {}
         if not UtilClient.is_unset(request.kubelet_config):
             body['kubelet_config'] = request.kubelet_config
@@ -2647,7 +2574,7 @@ class Client(OpenApiClient):
             action='ModifyNodePoolNodeConfig',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s/node_config' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s/node_config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2666,8 +2593,6 @@ class Client(OpenApiClient):
 
     def modify_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        policy_name = OpenApiUtilClient.get_encode_param(policy_name)
         body = {}
         if not UtilClient.is_unset(request.action):
             body['action'] = request.action
@@ -2685,7 +2610,7 @@ class Client(OpenApiClient):
             action='ModifyPolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(policy_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2733,7 +2658,6 @@ class Client(OpenApiClient):
         return self.pause_cluster_upgrade_with_options(cluster_id, headers, runtime)
 
     def pause_cluster_upgrade_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2741,7 +2665,7 @@ class Client(OpenApiClient):
             action='PauseClusterUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/upgrade/pause' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/upgrade/pause' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2759,8 +2683,6 @@ class Client(OpenApiClient):
         return self.pause_component_upgrade_with_options(clusterid, componentid, headers, runtime)
 
     def pause_component_upgrade_with_options(self, clusterid, componentid, headers, runtime):
-        clusterid = OpenApiUtilClient.get_encode_param(clusterid)
-        componentid = OpenApiUtilClient.get_encode_param(componentid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2768,7 +2690,7 @@ class Client(OpenApiClient):
             action='PauseComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/pause' % (TeaConverter.to_unicode(clusterid), TeaConverter.to_unicode(componentid)),
+            pathname='/clusters/%s/components/%s/pause' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(clusterid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(componentid))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2786,7 +2708,6 @@ class Client(OpenApiClient):
         return self.pause_task_with_options(task_id, headers, runtime)
 
     def pause_task_with_options(self, task_id, headers, runtime):
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2794,7 +2715,7 @@ class Client(OpenApiClient):
             action='PauseTask',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/tasks/%s/pause' % TeaConverter.to_unicode(task_id),
+            pathname='/tasks/%s/pause' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2813,7 +2734,6 @@ class Client(OpenApiClient):
 
     def remove_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.drain_node):
             body['drain_node'] = request.drain_node
@@ -2829,7 +2749,7 @@ class Client(OpenApiClient):
             action='RemoveClusterNodes',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/nodes/remove' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/nodes/remove' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2841,13 +2761,50 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def remove_node_pool_nodes(self, cluster_id, nodepool_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_node_pool_nodes_with_options(cluster_id, nodepool_id, request, headers, runtime)
+
+    def remove_node_pool_nodes_with_options(self, cluster_id, nodepool_id, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cs20151215_models.RemoveNodePoolNodesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.nodes):
+            request.nodes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.nodes, 'nodes', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.drain_node):
+            query['drain_node'] = request.drain_node
+        if not UtilClient.is_unset(request.nodes_shrink):
+            query['nodes'] = request.nodes_shrink
+        if not UtilClient.is_unset(request.release_node):
+            query['release_node'] = request.release_node
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveNodePoolNodes',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/nodepools/%s/nodes' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.RemoveNodePoolNodesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def remove_workflow(self, workflow_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.remove_workflow_with_options(workflow_name, headers, runtime)
 
     def remove_workflow_with_options(self, workflow_name, headers, runtime):
-        workflow_name = OpenApiUtilClient.get_encode_param(workflow_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2855,7 +2812,7 @@ class Client(OpenApiClient):
             action='RemoveWorkflow',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(workflow_name),
+            pathname='/gs/workflow/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workflow_name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -2874,8 +2831,6 @@ class Client(OpenApiClient):
 
     def repair_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         body = {}
         if not UtilClient.is_unset(request.nodes):
             body['nodes'] = request.nodes
@@ -2887,7 +2842,7 @@ class Client(OpenApiClient):
             action='RepairClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s/repair' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s/repair' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2905,8 +2860,6 @@ class Client(OpenApiClient):
         return self.resume_component_upgrade_with_options(clusterid, componentid, headers, runtime)
 
     def resume_component_upgrade_with_options(self, clusterid, componentid, headers, runtime):
-        clusterid = OpenApiUtilClient.get_encode_param(clusterid)
-        componentid = OpenApiUtilClient.get_encode_param(componentid)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2914,7 +2867,7 @@ class Client(OpenApiClient):
             action='ResumeComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/%s/resume' % (TeaConverter.to_unicode(clusterid), TeaConverter.to_unicode(componentid)),
+            pathname='/clusters/%s/components/%s/resume' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(clusterid)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(componentid))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2932,7 +2885,6 @@ class Client(OpenApiClient):
         return self.resume_task_with_options(task_id, headers, runtime)
 
     def resume_task_with_options(self, task_id, headers, runtime):
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2940,7 +2892,7 @@ class Client(OpenApiClient):
             action='ResumeTask',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/tasks/%s/resume' % TeaConverter.to_unicode(task_id),
+            pathname='/tasks/%s/resume' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2958,7 +2910,6 @@ class Client(OpenApiClient):
         return self.resume_upgrade_cluster_with_options(cluster_id, headers, runtime)
 
     def resume_upgrade_cluster_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2966,7 +2917,7 @@ class Client(OpenApiClient):
             action='ResumeUpgradeCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/upgrade/resume' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/upgrade/resume' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2985,7 +2936,6 @@ class Client(OpenApiClient):
 
     def scale_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.cloud_monitor_flags):
             body['cloud_monitor_flags'] = request.cloud_monitor_flags
@@ -3033,7 +2983,7 @@ class Client(OpenApiClient):
             action='ScaleCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3052,8 +3002,6 @@ class Client(OpenApiClient):
 
     def scale_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
         body = {}
         if not UtilClient.is_unset(request.count):
             body['count'] = request.count
@@ -3065,7 +3013,7 @@ class Client(OpenApiClient):
             action='ScaleClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3084,7 +3032,6 @@ class Client(OpenApiClient):
 
     def scale_out_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.cloud_monitor_flags):
             body['cloud_monitor_flags'] = request.cloud_monitor_flags
@@ -3136,7 +3083,7 @@ class Client(OpenApiClient):
             action='ScaleOutCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3257,7 +3204,6 @@ class Client(OpenApiClient):
 
     def un_install_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=UtilClient.to_array(request.addons)
@@ -3266,7 +3212,7 @@ class Client(OpenApiClient):
             action='UnInstallClusterAddons',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/uninstall' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/uninstall' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3322,7 +3268,6 @@ class Client(OpenApiClient):
         return self.update_contact_group_for_alert_with_options(cluster_id, headers, runtime)
 
     def update_contact_group_for_alert_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3330,7 +3275,7 @@ class Client(OpenApiClient):
             action='UpdateContactGroupForAlert',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/alert/%s/alert_rule/contact_groups' % TeaConverter.to_unicode(cluster_id),
+            pathname='/alert/%s/alert_rule/contact_groups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3349,7 +3294,6 @@ class Client(OpenApiClient):
 
     def update_k8s_cluster_user_config_expire_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.expire_hour):
             body['expire_hour'] = request.expire_hour
@@ -3363,7 +3307,7 @@ class Client(OpenApiClient):
             action='UpdateK8sClusterUserConfigExpire',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/k8s/%s/user_config/expire' % TeaConverter.to_unicode(cluster_id),
+            pathname='/k8s/%s/user_config/expire' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3382,7 +3326,6 @@ class Client(OpenApiClient):
 
     def update_template_with_options(self, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        template_id = OpenApiUtilClient.get_encode_param(template_id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -3402,7 +3345,7 @@ class Client(OpenApiClient):
             action='UpdateTemplate',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/templates/%s' % TeaConverter.to_unicode(template_id),
+            pathname='/templates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(template_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3421,7 +3364,6 @@ class Client(OpenApiClient):
 
     def upgrade_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         body = {}
         if not UtilClient.is_unset(request.component_name):
             body['component_name'] = request.component_name
@@ -3437,7 +3379,7 @@ class Client(OpenApiClient):
             action='UpgradeCluster',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/api/v2/clusters/%s/upgrade' % TeaConverter.to_unicode(cluster_id),
+            pathname='/api/v2/clusters/%s/upgrade' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3456,7 +3398,6 @@ class Client(OpenApiClient):
 
     def upgrade_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=UtilClient.to_array(request.body)
@@ -3465,7 +3406,7 @@ class Client(OpenApiClient):
             action='UpgradeClusterAddons',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/upgrade' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/upgrade' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
