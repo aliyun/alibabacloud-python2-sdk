@@ -20646,6 +20646,160 @@ class ListGatewaySlbResponse(TeaModel):
         return self
 
 
+class ListInstanceCountRequest(TeaModel):
+    def __init__(self, accept_language=None, cluster_type=None, mse_session_id=None, mse_version=None,
+                 region_id=None, request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.cluster_type = cluster_type  # type: str
+        self.mse_session_id = mse_session_id  # type: str
+        self.mse_version = mse_version  # type: str
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.cluster_type is not None:
+            result['ClusterType'] = self.cluster_type
+        if self.mse_session_id is not None:
+            result['MseSessionId'] = self.mse_session_id
+        if self.mse_version is not None:
+            result['MseVersion'] = self.mse_version
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ClusterType') is not None:
+            self.cluster_type = m.get('ClusterType')
+        if m.get('MseSessionId') is not None:
+            self.mse_session_id = m.get('MseSessionId')
+        if m.get('MseVersion') is not None:
+            self.mse_version = m.get('MseVersion')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class ListInstanceCountResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
+                 http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[int]
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListInstanceCountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInstanceCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInstanceCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInstanceCountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListInstancesRequest(TeaModel):
     def __init__(self, accept_language=None, mse_session_id=None, region=None, user_id=None):
         self.accept_language = accept_language  # type: str
@@ -25278,10 +25432,11 @@ class QueryClusterDiskSpecificationResponse(TeaModel):
 
 
 class QueryClusterSpecificationRequest(TeaModel):
-    def __init__(self, accept_language=None, connect_type=None, mse_session_id=None):
+    def __init__(self, accept_language=None, connect_type=None, mse_session_id=None, mse_version=None):
         self.accept_language = accept_language  # type: str
         self.connect_type = connect_type  # type: str
         self.mse_session_id = mse_session_id  # type: str
+        self.mse_version = mse_version  # type: str
 
     def validate(self):
         pass
@@ -25298,6 +25453,8 @@ class QueryClusterSpecificationRequest(TeaModel):
             result['ConnectType'] = self.connect_type
         if self.mse_session_id is not None:
             result['MseSessionId'] = self.mse_session_id
+        if self.mse_version is not None:
+            result['MseVersion'] = self.mse_version
         return result
 
     def from_map(self, m=None):
@@ -25308,6 +25465,8 @@ class QueryClusterSpecificationRequest(TeaModel):
             self.connect_type = m.get('ConnectType')
         if m.get('MseSessionId') is not None:
             self.mse_session_id = m.get('MseSessionId')
+        if m.get('MseVersion') is not None:
+            self.mse_version = m.get('MseVersion')
         return self
 
 

@@ -3293,6 +3293,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_gateway_slb_with_options(request, runtime)
 
+    def list_instance_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_type):
+            query['ClusterType'] = request.cluster_type
+        if not UtilClient.is_unset(request.mse_session_id):
+            query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.mse_version):
+            query['MseVersion'] = request.mse_version
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceCount',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListInstanceCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_instance_count_with_options(request, runtime)
+
     def list_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -4062,6 +4100,8 @@ class Client(OpenApiClient):
             query['ConnectType'] = request.connect_type
         if not UtilClient.is_unset(request.mse_session_id):
             query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.mse_version):
+            query['MseVersion'] = request.mse_version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
