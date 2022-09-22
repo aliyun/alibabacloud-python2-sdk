@@ -1271,113 +1271,6 @@ class CreateUploadPolicyResponse(TeaModel):
         return self
 
 
-class DecryptContentRequest(TeaModel):
-    def __init__(self, content=None):
-        self.content = content  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DecryptContentRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.content is not None:
-            result['Content'] = self.content
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
-        return self
-
-
-class DecryptContentResponseBody(TeaModel):
-    def __init__(self, code=None, content=None, message=None, request_id=None, success=None):
-        self.code = code  # type: long
-        self.content = content  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DecryptContentResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.content is not None:
-            result['Content'] = self.content
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class DecryptContentResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DecryptContentResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DecryptContentResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DecryptContentResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DetailProjectRequest(TeaModel):
     def __init__(self, id=None):
         self.id = id  # type: str
@@ -1569,13 +1462,53 @@ class DetailSceneResponseBodyCaptures(TeaModel):
         return self
 
 
+class DetailSceneResponseBodyFloorPlans(TeaModel):
+    def __init__(self, color_map_url=None, floor_label=None, floor_name=None, mini_map_url=None):
+        self.color_map_url = color_map_url  # type: str
+        self.floor_label = floor_label  # type: str
+        self.floor_name = floor_name  # type: str
+        self.mini_map_url = mini_map_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetailSceneResponseBodyFloorPlans, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.color_map_url is not None:
+            result['ColorMapUrl'] = self.color_map_url
+        if self.floor_label is not None:
+            result['FloorLabel'] = self.floor_label
+        if self.floor_name is not None:
+            result['FloorName'] = self.floor_name
+        if self.mini_map_url is not None:
+            result['MiniMapUrl'] = self.mini_map_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColorMapUrl') is not None:
+            self.color_map_url = m.get('ColorMapUrl')
+        if m.get('FloorLabel') is not None:
+            self.floor_label = m.get('FloorLabel')
+        if m.get('FloorName') is not None:
+            self.floor_name = m.get('FloorName')
+        if m.get('MiniMapUrl') is not None:
+            self.mini_map_url = m.get('MiniMapUrl')
+        return self
+
+
 class DetailSceneResponseBody(TeaModel):
-    def __init__(self, captures=None, code=None, cover_url=None, gmt_create=None, gmt_modified=None, id=None,
-                 message=None, name=None, preview_token=None, published=None, request_id=None, source_num=None, status=None,
-                 status_name=None, sub_scene_num=None, success=None, type=None):
+    def __init__(self, captures=None, code=None, cover_url=None, floor_plans=None, gmt_create=None,
+                 gmt_modified=None, id=None, message=None, name=None, preview_token=None, published=None, request_id=None,
+                 source_num=None, status=None, status_name=None, sub_scene_num=None, success=None, type=None):
         self.captures = captures  # type: list[DetailSceneResponseBodyCaptures]
         self.code = code  # type: long
         self.cover_url = cover_url  # type: str
+        self.floor_plans = floor_plans  # type: list[DetailSceneResponseBodyFloorPlans]
         self.gmt_create = gmt_create  # type: long
         self.gmt_modified = gmt_modified  # type: long
         self.id = id  # type: str
@@ -1596,6 +1529,10 @@ class DetailSceneResponseBody(TeaModel):
             for k in self.captures:
                 if k:
                     k.validate()
+        if self.floor_plans:
+            for k in self.floor_plans:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DetailSceneResponseBody, self).to_map()
@@ -1611,6 +1548,10 @@ class DetailSceneResponseBody(TeaModel):
             result['Code'] = self.code
         if self.cover_url is not None:
             result['CoverUrl'] = self.cover_url
+        result['FloorPlans'] = []
+        if self.floor_plans is not None:
+            for k in self.floor_plans:
+                result['FloorPlans'].append(k.to_map() if k else None)
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -1652,6 +1593,11 @@ class DetailSceneResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('CoverUrl') is not None:
             self.cover_url = m.get('CoverUrl')
+        self.floor_plans = []
+        if m.get('FloorPlans') is not None:
+            for k in m.get('FloorPlans'):
+                temp_model = DetailSceneResponseBodyFloorPlans()
+                self.floor_plans.append(temp_model.from_map(k))
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -2198,113 +2144,6 @@ class DropSubSceneResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DropSubSceneResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class EncryptContentRequest(TeaModel):
-    def __init__(self, content=None):
-        self.content = content  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EncryptContentRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.content is not None:
-            result['Content'] = self.content
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
-        return self
-
-
-class EncryptContentResponseBody(TeaModel):
-    def __init__(self, code=None, content=None, message=None, request_id=None, success=None):
-        self.code = code  # type: long
-        self.content = content  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EncryptContentResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.content is not None:
-            result['Content'] = self.content
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class EncryptContentResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: EncryptContentResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(EncryptContentResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = EncryptContentResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8180,6 +8019,113 @@ class SaveHotspotTagListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SaveHotspotTagListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SaveMinimapRequest(TeaModel):
+    def __init__(self, data=None, scene_id=None):
+        self.data = data  # type: str
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveMinimapRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class SaveMinimapResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveMinimapResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SaveMinimapResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SaveMinimapResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SaveMinimapResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SaveMinimapResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
