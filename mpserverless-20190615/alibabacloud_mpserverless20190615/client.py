@@ -325,12 +325,16 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.desc):
             body['Desc'] = request.desc
+        if not UtilClient.is_unset(request.memory):
+            body['Memory'] = request.memory
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.runtime):
             body['Runtime'] = request.runtime
         if not UtilClient.is_unset(request.space_id):
             body['SpaceId'] = request.space_id
+        if not UtilClient.is_unset(request.timeout):
+            body['Timeout'] = request.timeout
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -988,6 +992,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_space_client_config_with_options(request, runtime)
 
+    def describe_spaces_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mpserverless_20190615_models.DescribeSpacesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.space_ids):
+            request.space_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.space_ids, 'SpaceIds', 'simple')
+        body = {}
+        if not UtilClient.is_unset(request.emas_workspace_id):
+            body['EmasWorkspaceId'] = request.emas_workspace_id
+        if not UtilClient.is_unset(request.page_num):
+            body['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.space_ids_shrink):
+            body['SpaceIds'] = request.space_ids_shrink
+        if not UtilClient.is_unset(request.spec_code):
+            body['SpecCode'] = request.spec_code
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeSpaces',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.DescribeSpacesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_spaces(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_spaces_with_options(request, runtime)
+
     def describe_web_hosting_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1310,18 +1356,20 @@ class Client(OpenApiClient):
 
     def list_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         body = {}
         if not UtilClient.is_unset(request.file_id):
             body['FileId'] = request.file_id
         if not UtilClient.is_unset(request.keyword):
             body['Keyword'] = request.keyword
-        if not UtilClient.is_unset(request.page_num):
-            body['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             body['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.space_id):
             body['SpaceId'] = request.space_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -1493,6 +1541,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.space_ids):
             request.space_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.space_ids, 'SpaceIds', 'simple')
         body = {}
+        if not UtilClient.is_unset(request.emas_workspace_id):
+            body['EmasWorkspaceId'] = request.emas_workspace_id
         if not UtilClient.is_unset(request.page_num):
             body['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -1855,6 +1905,124 @@ class Client(OpenApiClient):
     def query_service_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_service_status_with_options(request, runtime)
+
+    def query_space_consumption_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.space_id):
+            body['SpaceId'] = request.space_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySpaceConsumption',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.QuerySpaceConsumptionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_space_consumption(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_space_consumption_with_options(request, runtime)
+
+    def query_space_spec_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.spec_code):
+            body['SpecCode'] = request.spec_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySpaceSpecDetail',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.QuerySpaceSpecDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_space_spec_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_space_spec_detail_with_options(request, runtime)
+
+    def query_space_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.space_id):
+            body['SpaceId'] = request.space_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySpaceUsage',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.QuerySpaceUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_space_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_space_usage_with_options(request, runtime)
+
+    def refresh_web_hosting_custom_domain_cache_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.space_id):
+            body['SpaceId'] = request.space_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RefreshWebHostingCustomDomainCache',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.RefreshWebHostingCustomDomainCacheResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_web_hosting_custom_domain_cache(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_web_hosting_custom_domain_cache_with_options(request, runtime)
 
     def register_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2263,6 +2431,8 @@ class Client(OpenApiClient):
             body['Timeout'] = request.timeout
         if not UtilClient.is_unset(request.timing_trigger_config):
             body['TimingTriggerConfig'] = request.timing_trigger_config
+        if not UtilClient.is_unset(request.timing_trigger_user_payload):
+            body['TimingTriggerUserPayload'] = request.timing_trigger_user_payload
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
