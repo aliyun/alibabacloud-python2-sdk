@@ -19,7 +19,33 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = 'central'
+        self._endpoint_map = {
+            'cn-beijing': 'adcp.cn-beijing.aliyuncs.com',
+            'cn-zhangjiakou': 'adcp.cn-zhangjiakou.aliyuncs.com',
+            'cn-hangzhou': 'adcp.cn-hangzhou.aliyuncs.com',
+            'cn-shanghai': 'adcp.cn-shanghai.aliyuncs.com',
+            'cn-shenzhen': 'adcp.cn-shenzhen.aliyuncs.com',
+            'cn-heyuan': 'adcp.cn-heyuan.aliyuncs.com',
+            'cn-hongkong': 'adcp.cn-hongkong.aliyuncs.com',
+            'ap-northeast-1': 'adcp.ap-northeast-1.aliyuncs.com',
+            'ap-southeast-1': 'adcp.ap-southeast-1.aliyuncs.com',
+            'ap-southeast-5': 'adcp.ap-southeast-5.aliyuncs.com',
+            'ap-south-1': 'adcp.ap-south-1.aliyuncs.com',
+            'ap-southeast-2': 'adcp.ap-southeast-2.aliyuncs.com',
+            'ap-southeast-3': 'adcp.ap-southeast-3.aliyuncs.com',
+            'cn-chengdu': 'adcp-vpc.cn-chengdu.aliyuncs.com',
+            'cn-huhehaote': 'adcp.cn-huhehaote.aliyuncs.com',
+            'cn-qingdao': 'adcp.cn-qingdao.aliyuncs.com',
+            'cn-shanghai-finance-1': 'adcp-vpc.cn-shanghai-finance-1.aliyuncs.com',
+            'cn-wulanchabu': 'adcp.cn-wulanchabu.aliyuncs.com',
+            'eu-central-1': 'adcp.eu-central-1.aliyuncs.com',
+            'eu-west-1': 'adcp-vpc.eu-west-1.aliyuncs.com',
+            'me-east-1': 'adcp.me-east-1.aliyuncs.com',
+            'us-east-1': 'adcp.us-east-1.aliyuncs.com',
+            'us-west-1': 'adcp.us-west-1.aliyuncs.com'
+        }
         self.check_config(config)
         self._endpoint = self.get_endpoint('adcp', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
 
@@ -33,6 +59,8 @@ class Client(OpenApiClient):
     def attach_cluster_to_hub_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.attach_to_mesh):
+            query['AttachToMesh'] = request.attach_to_mesh
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
         body = {}
@@ -69,20 +97,12 @@ class Client(OpenApiClient):
             body['ApiServerPublicEip'] = request.api_server_public_eip
         if not UtilClient.is_unset(request.audit_log_enabled):
             body['AuditLogEnabled'] = request.audit_log_enabled
-        if not UtilClient.is_unset(request.audit_log_project):
-            body['AuditLogProject'] = request.audit_log_project
-        if not UtilClient.is_unset(request.audit_log_store_ttl):
-            body['AuditLogStoreTTL'] = request.audit_log_store_ttl
-        if not UtilClient.is_unset(request.control_plane_log_enabled):
-            body['ControlPlaneLogEnabled'] = request.control_plane_log_enabled
-        if not UtilClient.is_unset(request.control_plane_log_project):
-            body['ControlPlaneLogProject'] = request.control_plane_log_project
-        if not UtilClient.is_unset(request.control_plane_log_ttl):
-            body['ControlPlaneLogTTL'] = request.control_plane_log_ttl
         if not UtilClient.is_unset(request.is_enterprise_security_group):
             body['IsEnterpriseSecurityGroup'] = request.is_enterprise_security_group
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
+        if not UtilClient.is_unset(request.profile):
+            body['Profile'] = request.profile
         if not UtilClient.is_unset(request.region_id):
             body['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.v_switches):
@@ -228,8 +248,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_hub_cluster_logs_with_options(request, runtime)
 
-    def describe_hub_clusters_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def describe_hub_clusters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.profile):
+            query['Profile'] = request.profile
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='DescribeHubClusters',
             version='2022-01-01',
@@ -246,9 +272,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_hub_clusters(self):
+    def describe_hub_clusters(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_hub_clusters_with_options(runtime)
+        return self.describe_hub_clusters_with_options(request, runtime)
 
     def describe_managed_clusters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -278,8 +304,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_managed_clusters_with_options(request, runtime)
 
-    def describe_regions_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def describe_regions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='DescribeRegions',
             version='2022-01-01',
@@ -296,15 +326,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def describe_regions(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_regions_with_options(runtime)
+        return self.describe_regions_with_options(request, runtime)
 
     def detach_cluster_from_hub_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.detach_from_mesh):
+            query['DetachFromMesh'] = request.detach_from_mesh
         body = {}
         if not UtilClient.is_unset(request.cluster_ids):
             body['ClusterIds'] = request.cluster_ids
@@ -331,3 +363,45 @@ class Client(OpenApiClient):
     def detach_cluster_from_hub(self, request):
         runtime = util_models.RuntimeOptions()
         return self.detach_cluster_from_hub_with_options(request, runtime)
+
+    def update_hub_cluster_feature_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_server_eip_id):
+            query['ApiServerEipId'] = request.api_server_eip_id
+        if not UtilClient.is_unset(request.audit_log_enabled):
+            query['AuditLogEnabled'] = request.audit_log_enabled
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.deletion_protection):
+            query['DeletionProtection'] = request.deletion_protection
+        if not UtilClient.is_unset(request.enable_argo_cd):
+            query['EnableArgoCD'] = request.enable_argo_cd
+        if not UtilClient.is_unset(request.enable_mesh):
+            query['EnableMesh'] = request.enable_mesh
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.public_api_server_enabled):
+            query['PublicApiServerEnabled'] = request.public_api_server_enabled
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateHubClusterFeature',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adcp_20220101_models.UpdateHubClusterFeatureResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_hub_cluster_feature(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_hub_cluster_feature_with_options(request, runtime)
