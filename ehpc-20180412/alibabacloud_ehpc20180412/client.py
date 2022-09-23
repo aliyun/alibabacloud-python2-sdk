@@ -602,6 +602,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_jobs_with_options(request, runtime)
 
+    def delete_local_image_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteLocalImage',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.DeleteLocalImageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_local_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_local_image_with_options(request, runtime)
+
     def delete_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -784,14 +810,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_container_app_with_options(request, runtime)
 
-    def describe_deploy_process_with_options(self, request, runtime):
+    def describe_estack_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeDeployProcess',
+            action='DescribeEstackImage',
             version='2018-04-12',
             protocol='HTTPS',
             pathname='/',
@@ -802,13 +828,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ehpc20180412_models.DescribeDeployProcessResponse(),
+            ehpc20180412_models.DescribeEstackImageResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_deploy_process(self, request):
+    def describe_estack_image(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_deploy_process_with_options(request, runtime)
+        return self.describe_estack_image_with_options(request, runtime)
 
     def describe_gwscluster_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1232,6 +1258,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_cluster_volumes_with_options(request, runtime)
 
+    def get_common_image_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCommonImage',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.GetCommonImageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_common_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_common_image_with_options(request, runtime)
+
     def get_gwsconnect_ticket_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1336,32 +1388,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_post_scripts_with_options(request, runtime)
 
-    def get_queue_conf_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetQueueConf',
-            version='2018-04-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ehpc20180412_models.GetQueueConfResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_queue_conf(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_queue_conf_with_options(request, runtime)
-
     def get_scheduler_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1387,6 +1413,32 @@ class Client(OpenApiClient):
     def get_scheduler_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_scheduler_info_with_options(request, runtime)
+
+    def get_user_image_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserImage',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.GetUserImageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_image_with_options(request, runtime)
 
     def get_visual_service_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1439,6 +1491,32 @@ class Client(OpenApiClient):
     def initialize_ehpc(self, request):
         runtime = util_models.RuntimeOptions()
         return self.initialize_ehpcwith_options(request, runtime)
+
+    def inspect_image_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InspectImage',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.InspectImageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def inspect_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.inspect_image_with_options(request, runtime)
 
     def install_software_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1647,6 +1725,32 @@ class Client(OpenApiClient):
     def list_commands(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_commands_with_options(request, runtime)
+
+    def list_community_images_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCommunityImages',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.ListCommunityImagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_community_images(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_community_images_with_options(request, runtime)
 
     def list_container_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2186,6 +2290,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_softwares_with_options(request, runtime)
 
+    def list_tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.ListTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_tag_resources_with_options(request, runtime)
+
     def list_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -2211,6 +2351,32 @@ class Client(OpenApiClient):
     def list_tasks(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tasks_with_options(request, runtime)
+
+    def list_upgrade_clients_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUpgradeClients',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.ListUpgradeClientsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_upgrade_clients(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_upgrade_clients_with_options(request, runtime)
 
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3054,6 +3220,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_job_with_options(request, runtime)
 
+    def summary_images_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SummaryImages',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.SummaryImagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def summary_images(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.summary_images_with_options(request, runtime)
+
+    def summary_images_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SummaryImagesInfo',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.SummaryImagesInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def summary_images_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.summary_images_info_with_options(request, runtime)
+
     def sync_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -3079,6 +3297,76 @@ class Client(OpenApiClient):
     def sync_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.sync_users_with_options(request, runtime)
+
+    def tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagResources',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.TagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.tag_resources_with_options(request, runtime)
+
+    def un_tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnTagResources',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.UnTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def un_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.un_tag_resources_with_options(request, runtime)
 
     def uninstall_software_with_options(self, request, runtime):
         UtilClient.validate_model(request)
