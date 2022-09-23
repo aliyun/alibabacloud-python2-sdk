@@ -1888,6 +1888,150 @@ class CreateCenInterRegionTrafficQosPolicyResponse(TeaModel):
         return self
 
 
+class CreateCenInterRegionTrafficQosQueueRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, dscps=None, owner_account=None, owner_id=None,
+                 qos_queue_description=None, qos_queue_name=None, remain_bandwidth_percent=None, resource_owner_account=None,
+                 resource_owner_id=None, traffic_qos_policy_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.dscps = dscps  # type: list[int]
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.qos_queue_description = qos_queue_description  # type: str
+        self.qos_queue_name = qos_queue_name  # type: str
+        self.remain_bandwidth_percent = remain_bandwidth_percent  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.traffic_qos_policy_id = traffic_qos_policy_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCenInterRegionTrafficQosQueueRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.dscps is not None:
+            result['Dscps'] = self.dscps
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.qos_queue_description is not None:
+            result['QosQueueDescription'] = self.qos_queue_description
+        if self.qos_queue_name is not None:
+            result['QosQueueName'] = self.qos_queue_name
+        if self.remain_bandwidth_percent is not None:
+            result['RemainBandwidthPercent'] = self.remain_bandwidth_percent
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.traffic_qos_policy_id is not None:
+            result['TrafficQosPolicyId'] = self.traffic_qos_policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Dscps') is not None:
+            self.dscps = m.get('Dscps')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('QosQueueDescription') is not None:
+            self.qos_queue_description = m.get('QosQueueDescription')
+        if m.get('QosQueueName') is not None:
+            self.qos_queue_name = m.get('QosQueueName')
+        if m.get('RemainBandwidthPercent') is not None:
+            self.remain_bandwidth_percent = m.get('RemainBandwidthPercent')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TrafficQosPolicyId') is not None:
+            self.traffic_qos_policy_id = m.get('TrafficQosPolicyId')
+        return self
+
+
+class CreateCenInterRegionTrafficQosQueueResponseBody(TeaModel):
+    def __init__(self, qos_queue_id=None, request_id=None):
+        self.qos_queue_id = qos_queue_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCenInterRegionTrafficQosQueueResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.qos_queue_id is not None:
+            result['QosQueueId'] = self.qos_queue_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('QosQueueId') is not None:
+            self.qos_queue_id = m.get('QosQueueId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateCenInterRegionTrafficQosQueueResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateCenInterRegionTrafficQosQueueResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateCenInterRegionTrafficQosQueueResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateCenInterRegionTrafficQosQueueResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateCenRouteMapRequest(TeaModel):
     def __init__(self, as_path_match_mode=None, cen_id=None, cen_region_id=None, cidr_match_mode=None,
                  community_match_mode=None, community_operate_mode=None, description=None, destination_child_instance_types=None,
@@ -11432,9 +11576,11 @@ class DescribeGeographicRegionMembershipResponse(TeaModel):
 
 
 class DescribeGrantRulesToCenRequest(TeaModel):
-    def __init__(self, cen_id=None, owner_account=None, owner_id=None, product_type=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, cen_id=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
+                 product_type=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
         self.cen_id = cen_id  # type: str
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.product_type = product_type  # type: str
@@ -11453,6 +11599,10 @@ class DescribeGrantRulesToCenRequest(TeaModel):
         result = dict()
         if self.cen_id is not None:
             result['CenId'] = self.cen_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -11471,6 +11621,10 @@ class DescribeGrantRulesToCenRequest(TeaModel):
         m = m or dict()
         if m.get('CenId') is not None:
             self.cen_id = m.get('CenId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -11487,9 +11641,10 @@ class DescribeGrantRulesToCenRequest(TeaModel):
 
 
 class DescribeGrantRulesToCenResponseBodyGrantRulesGrantRule(TeaModel):
-    def __init__(self, cen_id=None, child_instance_id=None, child_instance_owner_id=None,
+    def __init__(self, cen_id=None, cen_owner_id=None, child_instance_id=None, child_instance_owner_id=None,
                  child_instance_region_id=None, child_instance_type=None, order_type=None):
         self.cen_id = cen_id  # type: str
+        self.cen_owner_id = cen_owner_id  # type: long
         self.child_instance_id = child_instance_id  # type: str
         self.child_instance_owner_id = child_instance_owner_id  # type: long
         self.child_instance_region_id = child_instance_region_id  # type: str
@@ -11507,6 +11662,8 @@ class DescribeGrantRulesToCenResponseBodyGrantRulesGrantRule(TeaModel):
         result = dict()
         if self.cen_id is not None:
             result['CenId'] = self.cen_id
+        if self.cen_owner_id is not None:
+            result['CenOwnerId'] = self.cen_owner_id
         if self.child_instance_id is not None:
             result['ChildInstanceId'] = self.child_instance_id
         if self.child_instance_owner_id is not None:
@@ -11523,6 +11680,8 @@ class DescribeGrantRulesToCenResponseBodyGrantRulesGrantRule(TeaModel):
         m = m or dict()
         if m.get('CenId') is not None:
             self.cen_id = m.get('CenId')
+        if m.get('CenOwnerId') is not None:
+            self.cen_owner_id = m.get('CenOwnerId')
         if m.get('ChildInstanceId') is not None:
             self.child_instance_id = m.get('ChildInstanceId')
         if m.get('ChildInstanceOwnerId') is not None:
@@ -11569,9 +11728,12 @@ class DescribeGrantRulesToCenResponseBodyGrantRules(TeaModel):
 
 
 class DescribeGrantRulesToCenResponseBody(TeaModel):
-    def __init__(self, grant_rules=None, request_id=None):
+    def __init__(self, grant_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
         self.grant_rules = grant_rules  # type: DescribeGrantRulesToCenResponseBodyGrantRules
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
         self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.grant_rules:
@@ -11585,8 +11747,14 @@ class DescribeGrantRulesToCenResponseBody(TeaModel):
         result = dict()
         if self.grant_rules is not None:
             result['GrantRules'] = self.grant_rules.to_map()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
@@ -11594,8 +11762,14 @@ class DescribeGrantRulesToCenResponseBody(TeaModel):
         if m.get('GrantRules') is not None:
             temp_model = DescribeGrantRulesToCenResponseBodyGrantRules()
             self.grant_rules = temp_model.from_map(m['GrantRules'])
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -11634,6 +11808,196 @@ class DescribeGrantRulesToCenResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeGrantRulesToCenResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeGrantRulesToResourceRequest(TeaModel):
+    def __init__(self, max_results=None, next_token=None, owner_account=None, owner_id=None, product_type=None,
+                 region_id=None, resource_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.product_type = product_type  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGrantRulesToResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribeGrantRulesToResourceResponseBodyGrantRules(TeaModel):
+    def __init__(self, cen_id=None, cen_owner_id=None, order_type=None):
+        self.cen_id = cen_id  # type: str
+        self.cen_owner_id = cen_owner_id  # type: long
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGrantRulesToResourceResponseBodyGrantRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.cen_owner_id is not None:
+            result['CenOwnerId'] = self.cen_owner_id
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('CenOwnerId') is not None:
+            self.cen_owner_id = m.get('CenOwnerId')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DescribeGrantRulesToResourceResponseBody(TeaModel):
+    def __init__(self, grant_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.grant_rules = grant_rules  # type: list[DescribeGrantRulesToResourceResponseBodyGrantRules]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.grant_rules:
+            for k in self.grant_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeGrantRulesToResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GrantRules'] = []
+        if self.grant_rules is not None:
+            for k in self.grant_rules:
+                result['GrantRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.grant_rules = []
+        if m.get('GrantRules') is not None:
+            for k in m.get('GrantRules'):
+                temp_model = DescribeGrantRulesToResourceResponseBodyGrantRules()
+                self.grant_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeGrantRulesToResourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeGrantRulesToResourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeGrantRulesToResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeGrantRulesToResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -15083,11 +15447,10 @@ class ListTransitRouterAvailableResourceResponse(TeaModel):
 
 
 class ListTransitRouterMulticastDomainAssociationsRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, max_results=None, next_token=None, owner_account=None,
-                 owner_id=None, resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None,
+    def __init__(self, client_token=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
+                 resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None,
                  transit_router_attachment_id=None, transit_router_multicast_domain_id=None, v_switch_ids=None):
         self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
         self.max_results = max_results  # type: long
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
@@ -15111,8 +15474,6 @@ class ListTransitRouterMulticastDomainAssociationsRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
-        if self.dry_run is not None:
-            result['DryRun'] = self.dry_run
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -15141,8 +15502,6 @@ class ListTransitRouterMulticastDomainAssociationsRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
-        if m.get('DryRun') is not None:
-            self.dry_run = m.get('DryRun')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -15464,12 +15823,11 @@ class ListTransitRouterMulticastDomainVSwitchesResponse(TeaModel):
 
 
 class ListTransitRouterMulticastDomainsRequest(TeaModel):
-    def __init__(self, cen_id=None, client_token=None, dry_run=None, max_results=None, next_token=None,
-                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
-                 transit_router_id=None, transit_router_multicast_domain_id=None):
+    def __init__(self, cen_id=None, client_token=None, max_results=None, next_token=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, transit_router_id=None,
+                 transit_router_multicast_domain_id=None):
         self.cen_id = cen_id  # type: str
         self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
         self.max_results = max_results  # type: long
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
@@ -15493,8 +15851,6 @@ class ListTransitRouterMulticastDomainsRequest(TeaModel):
             result['CenId'] = self.cen_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
-        if self.dry_run is not None:
-            result['DryRun'] = self.dry_run
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -15521,8 +15877,6 @@ class ListTransitRouterMulticastDomainsRequest(TeaModel):
             self.cen_id = m.get('CenId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
-        if m.get('DryRun') is not None:
-            self.dry_run = m.get('DryRun')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -16290,13 +16644,14 @@ class ListTransitRouterPrefixListAssociationRequest(TeaModel):
 
 class ListTransitRouterPrefixListAssociationResponseBodyPrefixLists(TeaModel):
     def __init__(self, next_hop=None, next_hop_instance_id=None, next_hop_type=None, owner_uid=None,
-                 prefix_list_id=None, status=None, transit_router_table_id=None):
+                 prefix_list_id=None, status=None, transit_router_id=None, transit_router_table_id=None):
         self.next_hop = next_hop  # type: str
         self.next_hop_instance_id = next_hop_instance_id  # type: str
         self.next_hop_type = next_hop_type  # type: str
         self.owner_uid = owner_uid  # type: long
         self.prefix_list_id = prefix_list_id  # type: str
         self.status = status  # type: str
+        self.transit_router_id = transit_router_id  # type: str
         self.transit_router_table_id = transit_router_table_id  # type: str
 
     def validate(self):
@@ -16320,6 +16675,8 @@ class ListTransitRouterPrefixListAssociationResponseBodyPrefixLists(TeaModel):
             result['PrefixListId'] = self.prefix_list_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
         if self.transit_router_table_id is not None:
             result['TransitRouterTableId'] = self.transit_router_table_id
         return result
@@ -16338,6 +16695,8 @@ class ListTransitRouterPrefixListAssociationResponseBodyPrefixLists(TeaModel):
             self.prefix_list_id = m.get('PrefixListId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
         if m.get('TransitRouterTableId') is not None:
             self.transit_router_table_id = m.get('TransitRouterTableId')
         return self
@@ -19817,6 +20176,129 @@ class RegisterTransitRouterMulticastGroupSourcesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RegisterTransitRouterMulticastGroupSourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RemoveTrafficMatchRuleFromTrafficMarkingPolicyRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, traffic_mark_rule_ids=None, traffic_marking_policy_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.traffic_mark_rule_ids = traffic_mark_rule_ids  # type: list[str]
+        self.traffic_marking_policy_id = traffic_marking_policy_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveTrafficMatchRuleFromTrafficMarkingPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.traffic_mark_rule_ids is not None:
+            result['TrafficMarkRuleIds'] = self.traffic_mark_rule_ids
+        if self.traffic_marking_policy_id is not None:
+            result['TrafficMarkingPolicyId'] = self.traffic_marking_policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TrafficMarkRuleIds') is not None:
+            self.traffic_mark_rule_ids = m.get('TrafficMarkRuleIds')
+        if m.get('TrafficMarkingPolicyId') is not None:
+            self.traffic_marking_policy_id = m.get('TrafficMarkingPolicyId')
+        return self
+
+
+class RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
