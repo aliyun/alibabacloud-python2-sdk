@@ -576,8 +576,8 @@ class Client(OpenApiClient):
     def verify_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.identifier):
-            query['Identifier'] = request.identifier
+        if not UtilClient.is_unset(request.cert_identifier):
+            query['CertIdentifier'] = request.cert_identifier
         if not UtilClient.is_unset(request.message):
             query['Message'] = request.message
         if not UtilClient.is_unset(request.message_type):

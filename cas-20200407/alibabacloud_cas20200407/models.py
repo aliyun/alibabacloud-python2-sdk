@@ -1924,9 +1924,9 @@ class UploadPCACertResponse(TeaModel):
 
 
 class VerifyRequest(TeaModel):
-    def __init__(self, identifier=None, message=None, message_type=None, signature_value=None,
+    def __init__(self, cert_identifier=None, message=None, message_type=None, signature_value=None,
                  signing_algorithm=None):
-        self.identifier = identifier  # type: str
+        self.cert_identifier = cert_identifier  # type: str
         self.message = message  # type: str
         self.message_type = message_type  # type: str
         self.signature_value = signature_value  # type: str
@@ -1941,8 +1941,8 @@ class VerifyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.identifier is not None:
-            result['Identifier'] = self.identifier
+        if self.cert_identifier is not None:
+            result['CertIdentifier'] = self.cert_identifier
         if self.message is not None:
             result['Message'] = self.message
         if self.message_type is not None:
@@ -1955,8 +1955,8 @@ class VerifyRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Identifier') is not None:
-            self.identifier = m.get('Identifier')
+        if m.get('CertIdentifier') is not None:
+            self.cert_identifier = m.get('CertIdentifier')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('MessageType') is not None:
