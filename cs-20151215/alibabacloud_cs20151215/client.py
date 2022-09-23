@@ -319,6 +319,8 @@ class Client(OpenApiClient):
             body['image_type'] = request.image_type
         if not UtilClient.is_unset(request.instances):
             body['instances'] = request.instances
+        if not UtilClient.is_unset(request.ip_stack):
+            body['ip_stack'] = request.ip_stack
         if not UtilClient.is_unset(request.is_enterprise_security_group):
             body['is_enterprise_security_group'] = request.is_enterprise_security_group
         if not UtilClient.is_unset(request.keep_instance_name):

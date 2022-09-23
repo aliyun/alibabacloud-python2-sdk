@@ -737,7 +737,7 @@ class CreateClusterRequest(TeaModel):
                  cloud_monitor_flags=None, cluster_domain=None, cluster_spec=None, cluster_type=None, container_cidr=None,
                  controlplane_log_components=None, controlplane_log_project=None, controlplane_log_ttl=None, cpu_policy=None, custom_san=None,
                  deletion_protection=None, disable_rollback=None, enable_rrsa=None, encryption_provider_key=None,
-                 endpoint_public_access=None, format_disk=None, image_id=None, image_type=None, instances=None,
+                 endpoint_public_access=None, format_disk=None, image_id=None, image_type=None, instances=None, ip_stack=None,
                  is_enterprise_security_group=None, keep_instance_name=None, key_pair=None, kubernetes_version=None, load_balancer_spec=None,
                  logging_type=None, login_password=None, master_auto_renew=None, master_auto_renew_period=None,
                  master_count=None, master_instance_charge_type=None, master_instance_types=None, master_period=None,
@@ -776,6 +776,7 @@ class CreateClusterRequest(TeaModel):
         self.image_id = image_id  # type: str
         self.image_type = image_type  # type: str
         self.instances = instances  # type: list[str]
+        self.ip_stack = ip_stack  # type: str
         self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
         self.keep_instance_name = keep_instance_name  # type: bool
         self.key_pair = key_pair  # type: str
@@ -915,6 +916,8 @@ class CreateClusterRequest(TeaModel):
             result['image_type'] = self.image_type
         if self.instances is not None:
             result['instances'] = self.instances
+        if self.ip_stack is not None:
+            result['ip_stack'] = self.ip_stack
         if self.is_enterprise_security_group is not None:
             result['is_enterprise_security_group'] = self.is_enterprise_security_group
         if self.keep_instance_name is not None:
@@ -1102,6 +1105,8 @@ class CreateClusterRequest(TeaModel):
             self.image_type = m.get('image_type')
         if m.get('instances') is not None:
             self.instances = m.get('instances')
+        if m.get('ip_stack') is not None:
+            self.ip_stack = m.get('ip_stack')
         if m.get('is_enterprise_security_group') is not None:
             self.is_enterprise_security_group = m.get('is_enterprise_security_group')
         if m.get('keep_instance_name') is not None:
