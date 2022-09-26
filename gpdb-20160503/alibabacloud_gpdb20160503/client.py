@@ -234,6 +234,8 @@ class Client(OpenApiClient):
             query['StorageSize'] = request.storage_size
         if not UtilClient.is_unset(request.storage_type):
             query['StorageType'] = request.storage_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.used_time):
             query['UsedTime'] = request.used_time
         if not UtilClient.is_unset(request.vpcid):
@@ -1266,6 +1268,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.search_value):
             query['SearchValue'] = request.search_value
         req = open_api_models.OpenApiRequest(
@@ -1300,6 +1304,8 @@ class Client(OpenApiClient):
             query['Key'] = request.key
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -2051,6 +2057,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqllogs_on_slice_with_options(request, runtime)
 
+    def describe_sqllogs_v2with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.execute_cost):
+            query['ExecuteCost'] = request.execute_cost
+        if not UtilClient.is_unset(request.execute_state):
+            query['ExecuteState'] = request.execute_state
+        if not UtilClient.is_unset(request.max_execute_cost):
+            query['MaxExecuteCost'] = request.max_execute_cost
+        if not UtilClient.is_unset(request.min_execute_cost):
+            query['MinExecuteCost'] = request.min_execute_cost
+        if not UtilClient.is_unset(request.operation_class):
+            query['OperationClass'] = request.operation_class
+        if not UtilClient.is_unset(request.operation_type):
+            query['OperationType'] = request.operation_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_keywords):
+            query['QueryKeywords'] = request.query_keywords
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIP'] = request.source_ip
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLLogsV2',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeSQLLogsV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sqllogs_v2(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sqllogs_v2with_options(request, runtime)
+
     def describe_sample_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2220,6 +2286,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):

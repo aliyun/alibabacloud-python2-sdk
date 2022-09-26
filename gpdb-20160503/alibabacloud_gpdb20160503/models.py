@@ -443,12 +443,41 @@ class CreateAccountResponse(TeaModel):
         return self
 
 
+class CreateDBInstanceRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBInstanceRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, create_sample_data=None, dbinstance_category=None, dbinstance_class=None,
                  dbinstance_description=None, dbinstance_group_count=None, dbinstance_mode=None, engine=None, engine_version=None,
                  instance_network_type=None, instance_spec=None, master_node_num=None, owner_id=None, pay_type=None, period=None,
                  private_ip_address=None, region_id=None, resource_group_id=None, security_iplist=None, seg_node_num=None,
-                 seg_storage_type=None, storage_size=None, storage_type=None, used_time=None, vpcid=None, v_switch_id=None,
+                 seg_storage_type=None, storage_size=None, storage_type=None, tag=None, used_time=None, vpcid=None, v_switch_id=None,
                  zone_id=None):
         self.client_token = client_token  # type: str
         self.create_sample_data = create_sample_data  # type: bool
@@ -473,13 +502,17 @@ class CreateDBInstanceRequest(TeaModel):
         self.seg_storage_type = seg_storage_type  # type: str
         self.storage_size = storage_size  # type: long
         self.storage_type = storage_type  # type: str
+        self.tag = tag  # type: list[CreateDBInstanceRequestTag]
         self.used_time = used_time  # type: str
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateDBInstanceRequest, self).to_map()
@@ -533,6 +566,10 @@ class CreateDBInstanceRequest(TeaModel):
             result['StorageSize'] = self.storage_size
         if self.storage_type is not None:
             result['StorageType'] = self.storage_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.used_time is not None:
             result['UsedTime'] = self.used_time
         if self.vpcid is not None:
@@ -591,6 +628,11 @@ class CreateDBInstanceRequest(TeaModel):
             self.storage_size = m.get('StorageSize')
         if m.get('StorageType') is not None:
             self.storage_type = m.get('StorageType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateDBInstanceRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UsedTime') is not None:
             self.used_time = m.get('UsedTime')
         if m.get('VPCId') is not None:
@@ -6450,11 +6492,13 @@ class DescribeDataBackupsResponse(TeaModel):
 
 
 class DescribeDataShareInstancesRequest(TeaModel):
-    def __init__(self, owner_id=None, page_number=None, page_size=None, region_id=None, search_value=None):
+    def __init__(self, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
+                 search_value=None):
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.search_value = search_value  # type: str
 
     def validate(self):
@@ -6474,6 +6518,8 @@ class DescribeDataShareInstancesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.search_value is not None:
             result['SearchValue'] = self.search_value
         return result
@@ -6488,6 +6534,8 @@ class DescribeDataShareInstancesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SearchValue') is not None:
             self.search_value = m.get('SearchValue')
         return self
@@ -6662,10 +6710,11 @@ class DescribeDataShareInstancesResponse(TeaModel):
 
 
 class DescribeDataSharePerformanceRequest(TeaModel):
-    def __init__(self, end_time=None, key=None, region_id=None, start_time=None):
+    def __init__(self, end_time=None, key=None, region_id=None, resource_group_id=None, start_time=None):
         self.end_time = end_time  # type: str
         self.key = key  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -6683,6 +6732,8 @@ class DescribeDataSharePerformanceRequest(TeaModel):
             result['Key'] = self.key
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -6695,6 +6746,8 @@ class DescribeDataSharePerformanceRequest(TeaModel):
             self.key = m.get('Key')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -11156,6 +11209,285 @@ class DescribeSQLLogsOnSliceResponse(TeaModel):
         return self
 
 
+class DescribeSQLLogsV2Request(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, end_time=None, execute_cost=None, execute_state=None,
+                 max_execute_cost=None, min_execute_cost=None, operation_class=None, operation_type=None, page_number=None,
+                 page_size=None, query_keywords=None, region_id=None, resource_group_id=None, source_ip=None, start_time=None,
+                 user=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.end_time = end_time  # type: str
+        self.execute_cost = execute_cost  # type: str
+        self.execute_state = execute_state  # type: str
+        self.max_execute_cost = max_execute_cost  # type: str
+        self.min_execute_cost = min_execute_cost  # type: str
+        self.operation_class = operation_class  # type: str
+        self.operation_type = operation_type  # type: str
+        self.page_number = page_number  # type: str
+        self.page_size = page_size  # type: str
+        self.query_keywords = query_keywords  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.source_ip = source_ip  # type: str
+        self.start_time = start_time  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSQLLogsV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.execute_cost is not None:
+            result['ExecuteCost'] = self.execute_cost
+        if self.execute_state is not None:
+            result['ExecuteState'] = self.execute_state
+        if self.max_execute_cost is not None:
+            result['MaxExecuteCost'] = self.max_execute_cost
+        if self.min_execute_cost is not None:
+            result['MinExecuteCost'] = self.min_execute_cost
+        if self.operation_class is not None:
+            result['OperationClass'] = self.operation_class
+        if self.operation_type is not None:
+            result['OperationType'] = self.operation_type
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_keywords is not None:
+            result['QueryKeywords'] = self.query_keywords
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.source_ip is not None:
+            result['SourceIP'] = self.source_ip
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ExecuteCost') is not None:
+            self.execute_cost = m.get('ExecuteCost')
+        if m.get('ExecuteState') is not None:
+            self.execute_state = m.get('ExecuteState')
+        if m.get('MaxExecuteCost') is not None:
+            self.max_execute_cost = m.get('MaxExecuteCost')
+        if m.get('MinExecuteCost') is not None:
+            self.min_execute_cost = m.get('MinExecuteCost')
+        if m.get('OperationClass') is not None:
+            self.operation_class = m.get('OperationClass')
+        if m.get('OperationType') is not None:
+            self.operation_type = m.get('OperationType')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryKeywords') is not None:
+            self.query_keywords = m.get('QueryKeywords')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SourceIP') is not None:
+            self.source_ip = m.get('SourceIP')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class DescribeSQLLogsV2ResponseBodyItems(TeaModel):
+    def __init__(self, account_name=None, dbname=None, dbrole=None, execute_cost=None, execute_state=None,
+                 operation_class=None, operation_execute_time=None, operation_type=None, return_row_counts=None, sqltext=None,
+                 scan_row_counts=None, source_ip=None, source_port=None):
+        self.account_name = account_name  # type: str
+        self.dbname = dbname  # type: str
+        self.dbrole = dbrole  # type: str
+        self.execute_cost = execute_cost  # type: float
+        self.execute_state = execute_state  # type: str
+        self.operation_class = operation_class  # type: str
+        self.operation_execute_time = operation_execute_time  # type: str
+        self.operation_type = operation_type  # type: str
+        self.return_row_counts = return_row_counts  # type: long
+        self.sqltext = sqltext  # type: str
+        self.scan_row_counts = scan_row_counts  # type: long
+        self.source_ip = source_ip  # type: str
+        self.source_port = source_port  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSQLLogsV2ResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.dbname is not None:
+            result['DBName'] = self.dbname
+        if self.dbrole is not None:
+            result['DBRole'] = self.dbrole
+        if self.execute_cost is not None:
+            result['ExecuteCost'] = self.execute_cost
+        if self.execute_state is not None:
+            result['ExecuteState'] = self.execute_state
+        if self.operation_class is not None:
+            result['OperationClass'] = self.operation_class
+        if self.operation_execute_time is not None:
+            result['OperationExecuteTime'] = self.operation_execute_time
+        if self.operation_type is not None:
+            result['OperationType'] = self.operation_type
+        if self.return_row_counts is not None:
+            result['ReturnRowCounts'] = self.return_row_counts
+        if self.sqltext is not None:
+            result['SQLText'] = self.sqltext
+        if self.scan_row_counts is not None:
+            result['ScanRowCounts'] = self.scan_row_counts
+        if self.source_ip is not None:
+            result['SourceIP'] = self.source_ip
+        if self.source_port is not None:
+            result['SourcePort'] = self.source_port
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('DBName') is not None:
+            self.dbname = m.get('DBName')
+        if m.get('DBRole') is not None:
+            self.dbrole = m.get('DBRole')
+        if m.get('ExecuteCost') is not None:
+            self.execute_cost = m.get('ExecuteCost')
+        if m.get('ExecuteState') is not None:
+            self.execute_state = m.get('ExecuteState')
+        if m.get('OperationClass') is not None:
+            self.operation_class = m.get('OperationClass')
+        if m.get('OperationExecuteTime') is not None:
+            self.operation_execute_time = m.get('OperationExecuteTime')
+        if m.get('OperationType') is not None:
+            self.operation_type = m.get('OperationType')
+        if m.get('ReturnRowCounts') is not None:
+            self.return_row_counts = m.get('ReturnRowCounts')
+        if m.get('SQLText') is not None:
+            self.sqltext = m.get('SQLText')
+        if m.get('ScanRowCounts') is not None:
+            self.scan_row_counts = m.get('ScanRowCounts')
+        if m.get('SourceIP') is not None:
+            self.source_ip = m.get('SourceIP')
+        if m.get('SourcePort') is not None:
+            self.source_port = m.get('SourcePort')
+        return self
+
+
+class DescribeSQLLogsV2ResponseBody(TeaModel):
+    def __init__(self, items=None, page_number=None, page_record_count=None, request_id=None):
+        self.items = items  # type: list[DescribeSQLLogsV2ResponseBodyItems]
+        self.page_number = page_number  # type: int
+        self.page_record_count = page_record_count  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeSQLLogsV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeSQLLogsV2ResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeSQLLogsV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSQLLogsV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSQLLogsV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSQLLogsV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeSampleDataRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         self.dbinstance_id = dbinstance_id  # type: str
@@ -12010,11 +12342,12 @@ class DescribeSpecificationResponse(TeaModel):
 
 
 class DescribeTagsRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, resource_type=None):
+    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, resource_type=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.resource_type = resource_type  # type: str
@@ -12034,6 +12367,8 @@ class DescribeTagsRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12050,6 +12385,8 @@ class DescribeTagsRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
