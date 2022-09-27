@@ -350,6 +350,8 @@ class Client(OpenApiClient):
             body['Message'] = request.message
         if not UtilClient.is_unset(request.output):
             body['Output'] = request.output
+        if not UtilClient.is_unset(request.params):
+            body['Params'] = request.params
         if not UtilClient.is_unset(request.url):
             body['Url'] = request.url
         req = open_api_models.OpenApiRequest(

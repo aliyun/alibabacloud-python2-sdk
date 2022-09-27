@@ -6,17 +6,11 @@ from Tea.model import TeaModel
 class QueryCopyrightRequest(TeaModel):
     def __init__(self, create_time_end=None, create_time_start=None, job_id=None, level=None, page_number=None,
                  page_size=None):
-        # 创建时间截止
         self.create_time_end = create_time_end  # type: long
-        # 创建时间起始
         self.create_time_start = create_time_start  # type: long
-        # 任务id
         self.job_id = job_id  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 翻页下标
         self.page_number = page_number  # type: long
-        # 每页数量
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -62,31 +56,18 @@ class QueryCopyrightRequest(TeaModel):
 class QueryCopyrightResponseBodyData(TeaModel):
     def __init__(self, callback=None, gmt_create=None, gmt_modified=None, input=None, job_id=None, level=None,
                  message=None, message_id=None, output=None, result=None, status=None, user_data=None, user_id=None):
-        # 回调url
         self.callback = callback  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 水印视频输入
         self.input = input  # type: str
-        # 任务id
         self.job_id = job_id  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 水印信息
         self.message = message  # type: str
-        # 水印信息id
         self.message_id = message_id  # type: long
-        # 水印视频输出
         self.output = output  # type: str
-        # 任务结果
         self.result = result  # type: str
-        # 状态
         self.status = status  # type: str
-        # 用户数据
         self.user_data = user_data  # type: str
-        # 用户ID
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -161,7 +142,6 @@ class QueryCopyrightResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, status_code=None):
         self.data = data  # type: list[QueryCopyrightResponseBodyData]
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -241,7 +221,6 @@ class QueryCopyrightResponse(TeaModel):
 
 class QueryCopyrightExtractRequest(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -266,7 +245,6 @@ class QueryCopyrightExtractRequest(TeaModel):
 
 class QueryCopyrightExtractResponseBodyData(TeaModel):
     def __init__(self, message=None):
-        # 版权水印信息
         self.message = message  # type: str
 
     def validate(self):
@@ -292,10 +270,8 @@ class QueryCopyrightExtractResponseBodyData(TeaModel):
 class QueryCopyrightExtractResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
         self.data = data  # type: QueryCopyrightExtractResponseBodyData
-        # 返回信息
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -373,9 +349,7 @@ class QueryCopyrightExtractResponse(TeaModel):
 
 class QueryTraceAbRequest(TeaModel):
     def __init__(self, job_id=None, media_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
-        # 媒体id
         self.media_id = media_id  # type: str
 
     def validate(self):
@@ -405,29 +379,17 @@ class QueryTraceAbRequest(TeaModel):
 class QueryTraceAbResponseBodyData(TeaModel):
     def __init__(self, callback=None, gmt_create=None, gmt_modified=None, input=None, job_id=None, level=None,
                  media_id=None, output=None, result=None, status=None, user_data=None, user_id=None):
-        # 任务结果回调
         self.callback = callback  # type: str
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 输入oss地址
         self.input = input  # type: str
-        # 任务id
         self.job_id = job_id  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 媒体id
         self.media_id = media_id  # type: str
-        # 输出地址
         self.output = output  # type: str
-        # 任务结果
         self.result = result  # type: str
-        # 任务状态
         self.status = status  # type: str
-        # 用户数据
         self.user_data = user_data  # type: str
-        # uid
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -496,13 +458,9 @@ class QueryTraceAbResponseBodyData(TeaModel):
 
 class QueryTraceAbResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回结构
         self.data = data  # type: list[QueryTraceAbResponseBodyData]
-        # 返回信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -586,7 +544,6 @@ class QueryTraceAbResponse(TeaModel):
 
 class QueryTraceExtractRequest(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -611,7 +568,6 @@ class QueryTraceExtractRequest(TeaModel):
 
 class QueryTraceExtractResponseBodyData(TeaModel):
     def __init__(self, trace=None):
-        # 溯源水印信息
         self.trace = trace  # type: str
 
     def validate(self):
@@ -637,10 +593,8 @@ class QueryTraceExtractResponseBodyData(TeaModel):
 class QueryTraceExtractResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
         self.data = data  # type: QueryTraceExtractResponseBodyData
-        # 返回信息
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -719,19 +673,12 @@ class QueryTraceExtractResponse(TeaModel):
 class QueryTraceMuRequest(TeaModel):
     def __init__(self, create_time_end=None, create_time_start=None, job_id=None, level=None, message_id=None,
                  page_number=None, page_size=None):
-        # 创建时间起始
         self.create_time_end = create_time_end  # type: long
-        # 创建时间截止
         self.create_time_start = create_time_start  # type: long
-        # 任务id
         self.job_id = job_id  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 水印信息id
         self.message_id = message_id  # type: long
-        # 页偏移
         self.page_number = page_number  # type: long
-        # 每页数量
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -781,25 +728,15 @@ class QueryTraceMuRequest(TeaModel):
 class QueryTraceMuResponseBodyData(TeaModel):
     def __init__(self, gmt_create=None, gmt_modified=None, job_id=None, media_id=None, output=None, status=None,
                  trace=None, trace_id=None, user_data=None, user_id=None):
-        # 创建时间
         self.gmt_create = gmt_create  # type: long
-        # 最后修改时间
         self.gmt_modified = gmt_modified  # type: long
-        # 任务id
         self.job_id = job_id  # type: str
-        # 媒体id
         self.media_id = media_id  # type: str
-        # 输出oss地址
         self.output = output  # type: str
-        # 任务状态
         self.status = status  # type: str
-        # 溯源水印信息
         self.trace = trace  # type: str
-        # 溯源水印信息id
         self.trace_id = trace_id  # type: long
-        # 用户自定义数据
         self.user_data = user_data  # type: str
-        # uid
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -860,13 +797,9 @@ class QueryTraceMuResponseBodyData(TeaModel):
 
 class QueryTraceMuResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回数据结构
         self.data = data  # type: list[QueryTraceMuResponseBodyData]
-        # 返回信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -950,13 +883,9 @@ class QueryTraceMuResponse(TeaModel):
 
 class SubmitCopyrightExtractRequest(TeaModel):
     def __init__(self, call_back=None, input=None, url=None, user_data=None):
-        # 任务完成回调
         self.call_back = call_back  # type: str
-        # 输入文件oss地址
         self.input = input  # type: str
-        # url链接
         self.url = url  # type: str
-        # 用户数据
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -993,7 +922,6 @@ class SubmitCopyrightExtractRequest(TeaModel):
 
 class SubmitCopyrightExtractResponseBodyData(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1019,10 +947,8 @@ class SubmitCopyrightExtractResponseBodyData(TeaModel):
 class SubmitCopyrightExtractResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
         self.data = data  # type: SubmitCopyrightExtractResponseBodyData
-        # 返回消息
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -1101,27 +1027,16 @@ class SubmitCopyrightExtractResponse(TeaModel):
 class SubmitCopyrightJobRequest(TeaModel):
     def __init__(self, call_back=None, description=None, input=None, level=None, message=None, output=None,
                  start_time=None, total_time=None, url=None, user_data=None, visible_message=None):
-        # 任务结果回调url
         self.call_back = call_back  # type: str
-        # 水印信息描述
         self.description = description  # type: str
-        # 输入的视频，oss三元组
         self.input = input  # type: str
-        # 水印强度，取值1，2，3
         self.level = level  # type: long
-        # 水印信息
         self.message = message  # type: str
-        # 输出的视频，oss三元组
         self.output = output  # type: str
-        # 水印起始时间(单位是秒)，不填写默认为0
         self.start_time = start_time  # type: long
-        # 水印结束时间(单位是秒)，不填默认为60000
         self.total_time = total_time  # type: long
-        # 外部url链接(Input和url二选一)
         self.url = url  # type: str
-        # 用户自定义数据
         self.user_data = user_data  # type: str
-        # 可见水印(必须是英文字符)
         self.visible_message = visible_message  # type: str
 
     def validate(self):
@@ -1186,7 +1101,6 @@ class SubmitCopyrightJobRequest(TeaModel):
 
 class SubmitCopyrightJobResponseBodyData(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1211,13 +1125,9 @@ class SubmitCopyrightJobResponseBodyData(TeaModel):
 
 class SubmitCopyrightJobResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回数据
         self.data = data  # type: SubmitCopyrightJobResponseBodyData
-        # 返回信息
         self.message = message  # type: str
-        # 请求Id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -1294,16 +1204,12 @@ class SubmitCopyrightJobResponse(TeaModel):
 
 
 class SubmitImageCopyrightRequest(TeaModel):
-    def __init__(self, input=None, level=None, message=None, output=None, url=None):
-        # 需要加水印的图片oss地址(Input和url二选一)
+    def __init__(self, input=None, level=None, message=None, output=None, params=None, url=None):
         self.input = input  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 水印信息
         self.message = message  # type: str
-        # 水印图片输出oss地址
         self.output = output  # type: str
-        # 外部url链接(Input和url二选一)
+        self.params = params  # type: str
         self.url = url  # type: str
 
     def validate(self):
@@ -1323,6 +1229,8 @@ class SubmitImageCopyrightRequest(TeaModel):
             result['Message'] = self.message
         if self.output is not None:
             result['Output'] = self.output
+        if self.params is not None:
+            result['Params'] = self.params
         if self.url is not None:
             result['Url'] = self.url
         return result
@@ -1337,6 +1245,8 @@ class SubmitImageCopyrightRequest(TeaModel):
             self.message = m.get('Message')
         if m.get('Output') is not None:
             self.output = m.get('Output')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         return self
@@ -1344,7 +1254,6 @@ class SubmitImageCopyrightRequest(TeaModel):
 
 class SubmitImageCopyrightResponseBodyData(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1369,13 +1278,9 @@ class SubmitImageCopyrightResponseBodyData(TeaModel):
 
 class SubmitImageCopyrightResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回数据
         self.data = data  # type: SubmitImageCopyrightResponseBodyData
-        # 返回信息
         self.message = message  # type: str
-        # 请求id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -1454,23 +1359,14 @@ class SubmitImageCopyrightResponse(TeaModel):
 class SubmitTraceAbRequest(TeaModel):
     def __init__(self, call_back=None, cipher_base_64ed=None, input=None, level=None, output=None, start_time=None,
                  total_time=None, url=None, user_data=None):
-        # 任务结果回调
         self.call_back = call_back  # type: str
-        # 密钥base64串
         self.cipher_base_64ed = cipher_base_64ed  # type: str
-        # 溯源水印ab流处理视频输入
         self.input = input  # type: str
-        # 水印强度
         self.level = level  # type: long
-        # 溯源水印ab流处理输出
         self.output = output  # type: str
-        # 嵌入水印开始时间
         self.start_time = start_time  # type: long
-        # 嵌入水印总时长
         self.total_time = total_time  # type: long
-        # 外部url链接(Input和url二选一)
         self.url = url  # type: str
-        # 用户自定义数据，最大长度1024个字节
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -1527,9 +1423,7 @@ class SubmitTraceAbRequest(TeaModel):
 
 class SubmitTraceAbResponseBodyData(TeaModel):
     def __init__(self, job_id=None, media_id=None):
-        # 任务ID
         self.job_id = job_id  # type: str
-        # 媒体id
         self.media_id = media_id  # type: str
 
     def validate(self):
@@ -1558,13 +1452,9 @@ class SubmitTraceAbResponseBodyData(TeaModel):
 
 class SubmitTraceAbResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回数据
         self.data = data  # type: SubmitTraceAbResponseBodyData
-        # 返回信息
         self.message = message  # type: str
-        # 请求Id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -1642,13 +1532,9 @@ class SubmitTraceAbResponse(TeaModel):
 
 class SubmitTraceExtractRequest(TeaModel):
     def __init__(self, call_back=None, input=None, url=None, user_data=None):
-        # 任务完成回调
         self.call_back = call_back  # type: str
-        # 输入文件oss地址
         self.input = input  # type: str
-        # url链接
         self.url = url  # type: str
-        # 用户数据
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -1685,7 +1571,6 @@ class SubmitTraceExtractRequest(TeaModel):
 
 class SubmitTraceExtractResponseBodyData(TeaModel):
     def __init__(self, job_id=None):
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1711,10 +1596,8 @@ class SubmitTraceExtractResponseBodyData(TeaModel):
 class SubmitTraceExtractResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
         self.data = data  # type: SubmitTraceExtractResponseBodyData
-        # 返回消息
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
@@ -1792,13 +1675,9 @@ class SubmitTraceExtractResponse(TeaModel):
 
 class SubmitTracemuRequest(TeaModel):
     def __init__(self, key_uri=None, media_id=None, output=None, trace=None):
-        # 密钥服务器uri
         self.key_uri = key_uri  # type: str
-        # ab流处理后的媒体id
         self.media_id = media_id  # type: str
-        # m3u8文件输出oss地址
         self.output = output  # type: str
-        # 溯源水印信息
         self.trace = trace  # type: str
 
     def validate(self):
@@ -1835,9 +1714,7 @@ class SubmitTracemuRequest(TeaModel):
 
 class SubmitTracemuResponseBodyData(TeaModel):
     def __init__(self, code=None, job_id=None):
-        # 生成m3u8文件的code
         self.code = code  # type: str
-        # 任务id
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1866,13 +1743,9 @@ class SubmitTracemuResponseBodyData(TeaModel):
 
 class SubmitTracemuResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, status_code=None):
-        # 返回数据
         self.data = data  # type: SubmitTracemuResponseBodyData
-        # 返回信息
         self.message = message  # type: str
-        # 请求Id
         self.request_id = request_id  # type: str
-        # 状态码
         self.status_code = status_code  # type: long
 
     def validate(self):
