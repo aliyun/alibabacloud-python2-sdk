@@ -1,3 +1,6 @@
+2022-09-27 Version: 3.0.0
+- Modify Size type form int32 to int64 of `DescribePriceRequest` `DataDisk` param.
+
 2022-04-27 Version: 2.1.1
 - Support systemdisk encrypt and arns.
 
