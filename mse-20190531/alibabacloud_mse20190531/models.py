@@ -28124,8 +28124,9 @@ class UpdateClusterRequest(TeaModel):
 
 
 class UpdateClusterResponseBody(TeaModel):
-    def __init__(self, error_code=None, message=None, request_id=None, success=None):
+    def __init__(self, error_code=None, http_status_code=None, message=None, request_id=None, success=None):
         self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -28141,6 +28142,8 @@ class UpdateClusterResponseBody(TeaModel):
         result = dict()
         if self.error_code is not None:
             result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -28153,6 +28156,8 @@ class UpdateClusterResponseBody(TeaModel):
         m = m or dict()
         if m.get('ErrorCode') is not None:
             self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
