@@ -244,11 +244,11 @@ class AddressGetResponseBodyModule(TeaModel):
 
 
 class AddressGetResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: AddressGetResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -264,12 +264,12 @@ class AddressGetResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -280,13 +280,13 @@ class AddressGetResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = AddressGetResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -468,11 +468,11 @@ class AirportSearchResponseBodyModule(TeaModel):
 
 
 class AirportSearchResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: AirportSearchResponseBodyModule
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -486,14 +486,14 @@ class AirportSearchResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -502,15 +502,15 @@ class AirportSearchResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = AirportSearchResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -1489,11 +1489,11 @@ class ApplyAddResponseBodyModule(TeaModel):
 
 
 class ApplyAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: ApplyAddResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -1509,12 +1509,12 @@ class ApplyAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -1525,13 +1525,13 @@ class ApplyAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = ApplyAddResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -1657,11 +1657,11 @@ class ApplyApproveRequest(TeaModel):
 
 
 class ApplyApproveResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: str
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -1674,14 +1674,14 @@ class ApplyApproveResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
         if self.request_id is not None:
             result['request_id'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -1690,14 +1690,14 @@ class ApplyApproveResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('trace_id') is not None:
@@ -2299,12 +2299,11 @@ class ApplyListQueryResponseBodyModuleList(TeaModel):
 
 
 class ApplyListQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module_list=None, result_code=None, result_msg=None, success=None,
-                 trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module_list=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module_list = module_list  # type: list[ApplyListQueryResponseBodyModuleList]
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -2322,14 +2321,14 @@ class ApplyListQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module_list'] = []
         if self.module_list is not None:
             for k in self.module_list:
                 result['module_list'].append(k.to_map() if k else None)
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -2340,15 +2339,15 @@ class ApplyListQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module_list = []
         if m.get('module_list') is not None:
             for k in m.get('module_list'):
                 temp_model = ApplyListQueryResponseBodyModuleList()
                 self.module_list.append(temp_model.from_map(k))
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -3306,11 +3305,11 @@ class ApplyModifyResponseBodyModule(TeaModel):
 
 
 class ApplyModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: ApplyModifyResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -3326,12 +3325,12 @@ class ApplyModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -3342,13 +3341,13 @@ class ApplyModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = ApplyModifyResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -4155,11 +4154,11 @@ class ApplyQueryResponseBodyModule(TeaModel):
 
 
 class ApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: ApplyQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -4175,12 +4174,12 @@ class ApplyQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -4191,13 +4190,13 @@ class ApplyQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = ApplyQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -4370,10 +4369,10 @@ class CarApplyAddRequest(TeaModel):
 
 
 class CarApplyAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, err_code=None, err_msg=None, module=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.err_code = err_code  # type: int
-        self.err_msg = err_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: long
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
@@ -4389,10 +4388,10 @@ class CarApplyAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.err_code is not None:
-            result['err_code'] = self.err_code
-        if self.err_msg is not None:
-            result['err_msg'] = self.err_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
         if self.success is not None:
@@ -4405,10 +4404,10 @@ class CarApplyAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('err_code') is not None:
-            self.err_code = m.get('err_code')
-        if m.get('err_msg') is not None:
-            self.err_msg = m.get('err_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
         if m.get('success') is not None:
@@ -4531,10 +4530,10 @@ class CarApplyModifyRequest(TeaModel):
 
 
 class CarApplyModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, err_code=None, err_msg=None, module=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.err_code = err_code  # type: int
-        self.err_msg = err_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: bool
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
@@ -4550,10 +4549,10 @@ class CarApplyModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.err_code is not None:
-            result['err_code'] = self.err_code
-        if self.err_msg is not None:
-            result['err_msg'] = self.err_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
         if self.success is not None:
@@ -4566,10 +4565,10 @@ class CarApplyModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('err_code') is not None:
-            self.err_code = m.get('err_code')
-        if m.get('err_msg') is not None:
-            self.err_msg = m.get('err_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
         if m.get('success') is not None:
@@ -4947,12 +4946,12 @@ class CarApplyQueryResponseBodyApplyList(TeaModel):
 
 
 class CarApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, apply_list=None, err_code=None, err_msg=None, success=None, total=None,
+    def __init__(self, request_id=None, apply_list=None, code=None, message=None, success=None, total=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
         self.apply_list = apply_list  # type: list[CarApplyQueryResponseBodyApplyList]
-        self.err_code = err_code  # type: int
-        self.err_msg = err_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.total = total  # type: int
         self.trace_id = trace_id  # type: str
@@ -4975,10 +4974,10 @@ class CarApplyQueryResponseBody(TeaModel):
         if self.apply_list is not None:
             for k in self.apply_list:
                 result['apply_list'].append(k.to_map() if k else None)
-        if self.err_code is not None:
-            result['err_code'] = self.err_code
-        if self.err_msg is not None:
-            result['err_msg'] = self.err_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.total is not None:
@@ -4996,10 +4995,10 @@ class CarApplyQueryResponseBody(TeaModel):
             for k in m.get('apply_list'):
                 temp_model = CarApplyQueryResponseBodyApplyList()
                 self.apply_list.append(temp_model.from_map(k))
-        if m.get('err_code') is not None:
-            self.err_code = m.get('err_code')
-        if m.get('err_msg') is not None:
-            self.err_msg = m.get('err_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('total') is not None:
@@ -5489,11 +5488,11 @@ class CarBillSettlementQueryResponseBodyModule(TeaModel):
 
 
 class CarBillSettlementQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, message=None, module=None, result_code=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.message = message  # type: str
         self.module = module  # type: CarBillSettlementQueryResponseBodyModule
         self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -5509,12 +5508,12 @@ class CarBillSettlementQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.result_code is not None:
             result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -5525,13 +5524,13 @@ class CarBillSettlementQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = CarBillSettlementQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -6106,13 +6105,13 @@ class CarOrderListQueryResponseBodyPageInfo(TeaModel):
 
 
 class CarOrderListQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, page_info=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, page_info=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[CarOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: CarOrderListQueryResponseBodyPageInfo
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -6132,16 +6131,16 @@ class CarOrderListQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -6152,6 +6151,10 @@ class CarOrderListQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
@@ -6160,10 +6163,6 @@ class CarOrderListQueryResponseBody(TeaModel):
         if m.get('page_info') is not None:
             temp_model = CarOrderListQueryResponseBodyPageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -6330,11 +6329,11 @@ class CitySearchResponseBodyModule(TeaModel):
 
 
 class CitySearchResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: CitySearchResponseBodyModule
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -6348,14 +6347,14 @@ class CitySearchResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -6364,15 +6363,15 @@ class CitySearchResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = CitySearchResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -6558,11 +6557,11 @@ class CommonApplyQueryResponseBodyModule(TeaModel):
 
 
 class CommonApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: CommonApplyQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -6578,12 +6577,12 @@ class CommonApplyQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -6594,13 +6593,13 @@ class CommonApplyQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = CommonApplyQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -6727,11 +6726,11 @@ class CommonApplySyncRequest(TeaModel):
 
 
 class CommonApplySyncResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -6746,12 +6745,12 @@ class CommonApplySyncResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -6762,12 +6761,12 @@ class CommonApplySyncResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -7040,10 +7039,10 @@ class CostCenterDeleteRequest(TeaModel):
 
 
 class CostCenterDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -7058,10 +7057,10 @@ class CostCenterDeleteResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -7072,10 +7071,10 @@ class CostCenterDeleteResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -7196,10 +7195,10 @@ class CostCenterModifyRequest(TeaModel):
 
 
 class CostCenterModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -7214,10 +7213,10 @@ class CostCenterModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -7228,10 +7227,10 @@ class CostCenterModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -7464,13 +7463,13 @@ class CostCenterQueryResponseBodyModule(TeaModel):
 
 
 class CostCenterQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, more_page=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[CostCenterQueryResponseBodyModule]
         self.more_page = more_page  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -7488,16 +7487,16 @@ class CostCenterQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
         if self.more_page is not None:
             result['more_page'] = self.more_page
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -7508,6 +7507,10 @@ class CostCenterQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
@@ -7515,10 +7518,6 @@ class CostCenterQueryResponseBody(TeaModel):
                 self.module.append(temp_model.from_map(k))
         if m.get('more_page') is not None:
             self.more_page = m.get('more_page')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -7663,11 +7662,11 @@ class CostCenterSaveResponseBodyModule(TeaModel):
 
 
 class CostCenterSaveResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: CostCenterSaveResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -7683,12 +7682,12 @@ class CostCenterSaveResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -7699,13 +7698,13 @@ class CostCenterSaveResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = CostCenterSaveResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -8134,11 +8133,11 @@ class EntityAddResponseBodyModule(TeaModel):
 
 
 class EntityAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: EntityAddResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -8154,12 +8153,12 @@ class EntityAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -8170,13 +8169,13 @@ class EntityAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = EntityAddResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -8387,13 +8386,13 @@ class EntityDeleteResponseBodyModule(TeaModel):
 
 
 class EntityDeleteResponseBody(TeaModel):
-    def __init__(self, module=None, more_page=None, request_id=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: EntityDeleteResponseBodyModule
         self.more_page = more_page  # type: bool
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -8407,16 +8406,16 @@ class EntityDeleteResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.more_page is not None:
             result['more_page'] = self.more_page
         if self.request_id is not None:
             result['requestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -8425,6 +8424,10 @@ class EntityDeleteResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = EntityDeleteResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
@@ -8432,10 +8435,6 @@ class EntityDeleteResponseBody(TeaModel):
             self.more_page = m.get('more_page')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -8641,13 +8640,13 @@ class EntitySetResponseBodyModule(TeaModel):
 
 
 class EntitySetResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, more_page=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: EntitySetResponseBodyModule
         self.more_page = more_page  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -8663,14 +8662,14 @@ class EntitySetResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.more_page is not None:
             result['more_page'] = self.more_page
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -8681,15 +8680,15 @@ class EntitySetResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = EntitySetResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('more_page') is not None:
             self.more_page = m.get('more_page')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -8816,11 +8815,11 @@ class ExceedApplySyncRequest(TeaModel):
 
 
 class ExceedApplySyncResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -8835,12 +8834,12 @@ class ExceedApplySyncResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -8851,12 +8850,12 @@ class ExceedApplySyncResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -9417,11 +9416,11 @@ class FlightBillSettlementQueryResponseBodyModule(TeaModel):
 
 
 class FlightBillSettlementQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, message=None, module=None, result_code=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.message = message  # type: str
         self.module = module  # type: FlightBillSettlementQueryResponseBodyModule
         self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -9437,12 +9436,12 @@ class FlightBillSettlementQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.result_code is not None:
             result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -9453,13 +9452,13 @@ class FlightBillSettlementQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = FlightBillSettlementQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -9729,11 +9728,11 @@ class FlightExceedApplyQueryResponseBodyModule(TeaModel):
 
 
 class FlightExceedApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: FlightExceedApplyQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -9749,12 +9748,12 @@ class FlightExceedApplyQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -9765,13 +9764,13 @@ class FlightExceedApplyQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = FlightExceedApplyQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -10416,13 +10415,13 @@ class FlightOrderListQueryResponseBodyPageInfo(TeaModel):
 
 
 class FlightOrderListQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, page_info=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, page_info=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[FlightOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: FlightOrderListQueryResponseBodyPageInfo
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -10442,16 +10441,16 @@ class FlightOrderListQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -10462,6 +10461,10 @@ class FlightOrderListQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
@@ -10470,10 +10473,6 @@ class FlightOrderListQueryResponseBody(TeaModel):
         if m.get('page_info') is not None:
             temp_model = FlightOrderListQueryResponseBodyPageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -11346,11 +11345,11 @@ class FlightOrderQueryResponseBodyModule(TeaModel):
 
 
 class FlightOrderQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: FlightOrderQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -11366,12 +11365,12 @@ class FlightOrderQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -11382,13 +11381,13 @@ class FlightOrderQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = FlightOrderQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -11855,11 +11854,11 @@ class HotelBillSettlementQueryResponseBodyModule(TeaModel):
 
 
 class HotelBillSettlementQueryResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, message=None, module=None, request_id=None, result_code=None, success=None, trace_id=None):
+        self.message = message  # type: str
         self.module = module  # type: HotelBillSettlementQueryResponseBodyModule
         self.request_id = request_id  # type: str
         self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -11873,14 +11872,14 @@ class HotelBillSettlementQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.result_code is not None:
             result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -11889,6 +11888,8 @@ class HotelBillSettlementQueryResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = HotelBillSettlementQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
@@ -11896,8 +11897,6 @@ class HotelBillSettlementQueryResponseBody(TeaModel):
             self.request_id = m.get('requestId')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -12136,11 +12135,11 @@ class HotelExceedApplyQueryResponseBodyModule(TeaModel):
 
 
 class HotelExceedApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: HotelExceedApplyQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -12156,12 +12155,12 @@ class HotelExceedApplyQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -12172,13 +12171,13 @@ class HotelExceedApplyQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = HotelExceedApplyQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -12749,13 +12748,13 @@ class HotelOrderListQueryResponseBodyPageInfo(TeaModel):
 
 
 class HotelOrderListQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, page_info=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, page_info=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[HotelOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: HotelOrderListQueryResponseBodyPageInfo
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -12775,16 +12774,16 @@ class HotelOrderListQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -12795,6 +12794,10 @@ class HotelOrderListQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
@@ -12803,10 +12806,6 @@ class HotelOrderListQueryResponseBody(TeaModel):
         if m.get('page_info') is not None:
             temp_model = HotelOrderListQueryResponseBodyPageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -13372,13 +13371,13 @@ class IeFlightBillSettlementQueryResponseBodyModule(TeaModel):
 
 
 class IeFlightBillSettlementQueryResponseBody(TeaModel):
-    def __init__(self, module=None, more_page=None, request_id=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, message=None, module=None, more_page=None, request_id=None, result_code=None, success=None,
                  trace_id=None):
+        self.message = message  # type: str
         self.module = module  # type: IeFlightBillSettlementQueryResponseBodyModule
         self.more_page = more_page  # type: bool
         self.request_id = request_id  # type: str
         self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -13392,6 +13391,8 @@ class IeFlightBillSettlementQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.more_page is not None:
@@ -13400,8 +13401,6 @@ class IeFlightBillSettlementQueryResponseBody(TeaModel):
             result['requestId'] = self.request_id
         if self.result_code is not None:
             result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -13410,6 +13409,8 @@ class IeFlightBillSettlementQueryResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = IeFlightBillSettlementQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
@@ -13419,8 +13420,6 @@ class IeFlightBillSettlementQueryResponseBody(TeaModel):
             self.request_id = m.get('requestId')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -13557,10 +13556,10 @@ class InvoiceAddRequest(TeaModel):
 
 
 class InvoiceAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -13575,10 +13574,10 @@ class InvoiceAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -13589,10 +13588,10 @@ class InvoiceAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -13693,10 +13692,10 @@ class InvoiceDeleteRequest(TeaModel):
 
 
 class InvoiceDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -13711,10 +13710,10 @@ class InvoiceDeleteResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -13725,10 +13724,10 @@ class InvoiceDeleteResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -13865,10 +13864,10 @@ class InvoiceModifyRequest(TeaModel):
 
 
 class InvoiceModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -13883,10 +13882,10 @@ class InvoiceModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -13897,10 +13896,10 @@ class InvoiceModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -14116,11 +14115,11 @@ class InvoiceRuleSaveResponseBodyModule(TeaModel):
 
 
 class InvoiceRuleSaveResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: InvoiceRuleSaveResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -14136,12 +14135,12 @@ class InvoiceRuleSaveResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -14152,13 +14151,13 @@ class InvoiceRuleSaveResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = InvoiceRuleSaveResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -14298,11 +14297,11 @@ class InvoiceSearchResponseBodyModule(TeaModel):
 
 
 class InvoiceSearchResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[InvoiceSearchResponseBodyModule]
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -14320,14 +14319,14 @@ class InvoiceSearchResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -14338,15 +14337,15 @@ class InvoiceSearchResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
                 temp_model = InvoiceSearchResponseBodyModule()
                 self.module.append(temp_model.from_map(k))
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -14735,11 +14734,11 @@ class MonthBillGetResponseBodyModule(TeaModel):
 
 
 class MonthBillGetResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[MonthBillGetResponseBodyModule]
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -14757,14 +14756,14 @@ class MonthBillGetResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -14775,15 +14774,15 @@ class MonthBillGetResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
                 temp_model = MonthBillGetResponseBodyModule()
                 self.module.append(temp_model.from_map(k))
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -14905,13 +14904,13 @@ class ProjectAddRequest(TeaModel):
 
 
 class ProjectAddResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, more_page=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, more_page=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: long
         self.more_page = more_page  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -14926,14 +14925,14 @@ class ProjectAddResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
         if self.more_page is not None:
             result['more_page'] = self.more_page
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -14944,14 +14943,14 @@ class ProjectAddResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
         if m.get('more_page') is not None:
             self.more_page = m.get('more_page')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -15052,11 +15051,11 @@ class ProjectDeleteRequest(TeaModel):
 
 
 class ProjectDeleteResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -15071,12 +15070,12 @@ class ProjectDeleteResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -15087,12 +15086,12 @@ class ProjectDeleteResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -15214,11 +15213,11 @@ class ProjectModifyRequest(TeaModel):
 
 
 class ProjectModifyResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: bool
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -15233,12 +15232,12 @@ class ProjectModifyResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -15249,12 +15248,12 @@ class ProjectModifyResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             self.module = m.get('module')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -15700,11 +15699,11 @@ class TrainBillSettlementQueryResponseBodyModule(TeaModel):
 
 
 class TrainBillSettlementQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, message=None, module=None, result_code=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.message = message  # type: str
         self.module = module  # type: TrainBillSettlementQueryResponseBodyModule
         self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -15720,12 +15719,12 @@ class TrainBillSettlementQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.result_code is not None:
             result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -15736,13 +15735,13 @@ class TrainBillSettlementQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = TrainBillSettlementQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -16012,11 +16011,11 @@ class TrainExceedApplyQueryResponseBodyModule(TeaModel):
 
 
 class TrainExceedApplyQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: TrainExceedApplyQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -16032,12 +16031,12 @@ class TrainExceedApplyQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -16048,13 +16047,13 @@ class TrainExceedApplyQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = TrainExceedApplyQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -16661,13 +16660,13 @@ class TrainOrderListQueryResponseBodyPageInfo(TeaModel):
 
 
 class TrainOrderListQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, page_info=None, result_code=None, result_msg=None, success=None,
+    def __init__(self, request_id=None, code=None, message=None, module=None, page_info=None, success=None,
                  trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: list[TrainOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: TrainOrderListQueryResponseBodyPageInfo
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -16687,16 +16686,16 @@ class TrainOrderListQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         result['module'] = []
         if self.module is not None:
             for k in self.module:
                 result['module'].append(k.to_map() if k else None)
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -16707,6 +16706,10 @@ class TrainOrderListQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         self.module = []
         if m.get('module') is not None:
             for k in m.get('module'):
@@ -16715,10 +16718,6 @@ class TrainOrderListQueryResponseBody(TeaModel):
         if m.get('page_info') is not None:
             temp_model = TrainOrderListQueryResponseBodyPageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -17725,11 +17724,11 @@ class TrainStationSearchResponseBodyModule(TeaModel):
 
 
 class TrainStationSearchResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: TrainStationSearchResponseBodyModule
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -17743,14 +17742,14 @@ class TrainStationSearchResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -17759,15 +17758,15 @@ class TrainStationSearchResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = TrainStationSearchResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -17965,11 +17964,11 @@ class UserQueryResponseBodyModule(TeaModel):
 
 
 class UserQueryResponseBody(TeaModel):
-    def __init__(self, request_id=None, module=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, request_id=None, code=None, message=None, module=None, success=None, trace_id=None):
         self.request_id = request_id  # type: str
+        self.code = code  # type: int
+        self.message = message  # type: str
         self.module = module  # type: UserQueryResponseBodyModule
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -17985,12 +17984,12 @@ class UserQueryResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -18001,13 +18000,13 @@ class UserQueryResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = UserQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
