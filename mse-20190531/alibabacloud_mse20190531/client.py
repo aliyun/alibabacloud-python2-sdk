@@ -84,6 +84,12 @@ class Client(OpenApiClient):
             query['IsWhite'] = request.is_white
         if not UtilClient.is_unset(request.mse_session_id):
             query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.note):
+            query['Note'] = request.note
+        if not UtilClient.is_unset(request.resource_id_json_list):
+            query['ResourceIdJsonList'] = request.resource_id_json_list
         if not UtilClient.is_unset(request.resource_type):
             query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.status):
@@ -140,6 +146,8 @@ class Client(OpenApiClient):
             query['SlbSpec'] = request.slb_spec
         if not UtilClient.is_unset(request.spec):
             query['Spec'] = request.spec
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.v_switch_id):
             query['VSwitchId'] = request.v_switch_id
         if not UtilClient.is_unset(request.v_switch_id_2):
@@ -4584,6 +4592,12 @@ class Client(OpenApiClient):
             query['IsWhite'] = request.is_white
         if not UtilClient.is_unset(request.mse_session_id):
             query['MseSessionId'] = request.mse_session_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.note):
+            query['Note'] = request.note
+        if not UtilClient.is_unset(request.resource_id_json_list):
+            query['ResourceIdJsonList'] = request.resource_id_json_list
         if not UtilClient.is_unset(request.resource_type):
             query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.status):
