@@ -17013,7 +17013,8 @@ class ListPreferredEcsTypesResponse(TeaModel):
 
 
 class ListQueuesRequest(TeaModel):
-    def __init__(self, cluster_id=None):
+    def __init__(self, async=None, cluster_id=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -17025,12 +17026,16 @@ class ListQueuesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         return self
@@ -18574,6 +18579,217 @@ class ListUsersResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUsersAsyncRequest(TeaModel):
+    def __init__(self, async_id=None, cluster_id=None, page_number=None, page_size=None):
+        self.async_id = async_id  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.async_id is not None:
+            result['AsyncId'] = self.async_id
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AsyncId') is not None:
+            self.async_id = m.get('AsyncId')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListUsersAsyncResponseBodyUsersUserInfo(TeaModel):
+    def __init__(self, add_time=None, group=None, group_id=None, name=None, user_id=None):
+        self.add_time = add_time  # type: str
+        self.group = group  # type: str
+        self.group_id = group_id  # type: str
+        self.name = name  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersAsyncResponseBodyUsersUserInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.add_time is not None:
+            result['AddTime'] = self.add_time
+        if self.group is not None:
+            result['Group'] = self.group
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddTime') is not None:
+            self.add_time = m.get('AddTime')
+        if m.get('Group') is not None:
+            self.group = m.get('Group')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListUsersAsyncResponseBodyUsers(TeaModel):
+    def __init__(self, user_info=None):
+        self.user_info = user_info  # type: list[ListUsersAsyncResponseBodyUsersUserInfo]
+
+    def validate(self):
+        if self.user_info:
+            for k in self.user_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUsersAsyncResponseBodyUsers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['UserInfo'] = []
+        if self.user_info is not None:
+            for k in self.user_info:
+                result['UserInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.user_info = []
+        if m.get('UserInfo') is not None:
+            for k in m.get('UserInfo'):
+                temp_model = ListUsersAsyncResponseBodyUsersUserInfo()
+                self.user_info.append(temp_model.from_map(k))
+        return self
+
+
+class ListUsersAsyncResponseBody(TeaModel):
+    def __init__(self, async_id=None, async_status=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None, users=None):
+        self.async_id = async_id  # type: str
+        self.async_status = async_status  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+        self.users = users  # type: ListUsersAsyncResponseBodyUsers
+
+    def validate(self):
+        if self.users:
+            self.users.validate()
+
+    def to_map(self):
+        _map = super(ListUsersAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.async_id is not None:
+            result['AsyncId'] = self.async_id
+        if self.async_status is not None:
+            result['AsyncStatus'] = self.async_status
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.users is not None:
+            result['Users'] = self.users.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AsyncId') is not None:
+            self.async_id = m.get('AsyncId')
+        if m.get('AsyncStatus') is not None:
+            self.async_status = m.get('AsyncStatus')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('Users') is not None:
+            temp_model = ListUsersAsyncResponseBodyUsers()
+            self.users = temp_model.from_map(m['Users'])
+        return self
+
+
+class ListUsersAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUsersAsyncResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUsersAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUsersAsyncResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
