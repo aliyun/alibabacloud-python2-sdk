@@ -139,28 +139,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_add_directional_address_with_options(request, runtime)
 
-    def card_statistics_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        params = open_api_models.Params(
-            action='CardStatistics',
-            version='2021-05-20',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            linkcard_20210520_models.CardStatisticsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def card_statistics(self):
-        runtime = util_models.RuntimeOptions()
-        return self.card_statistics_with_options(runtime)
-
     def force_activation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -320,6 +298,8 @@ class Client(OpenApiClient):
             query['IsAutoRecharge'] = request.is_auto_recharge
         if not UtilClient.is_unset(request.max_flow):
             query['MaxFlow'] = request.max_flow
+        if not UtilClient.is_unset(request.max_rest_flow_percentage):
+            query['MaxRestFlowPercentage'] = request.max_rest_flow_percentage
         if not UtilClient.is_unset(request.min_flow):
             query['MinFlow'] = request.min_flow
         if not UtilClient.is_unset(request.msisdn):
