@@ -7622,11 +7622,13 @@ class GetTemplateParameterConstraintsShrinkRequest(TeaModel):
 
 class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
     def __init__(self, allowed_values=None, association_parameter_names=None, behavior=None, behavior_reason=None,
-                 parameter_key=None, type=None):
+                 illegal_value_by_parameter_constraints=None, illegal_value_by_rules=None, parameter_key=None, type=None):
         self.allowed_values = allowed_values  # type: list[str]
         self.association_parameter_names = association_parameter_names  # type: list[str]
         self.behavior = behavior  # type: str
         self.behavior_reason = behavior_reason  # type: str
+        self.illegal_value_by_parameter_constraints = illegal_value_by_parameter_constraints  # type: list[any]
+        self.illegal_value_by_rules = illegal_value_by_rules  # type: list[any]
         self.parameter_key = parameter_key  # type: str
         self.type = type  # type: str
 
@@ -7647,6 +7649,10 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
             result['Behavior'] = self.behavior
         if self.behavior_reason is not None:
             result['BehaviorReason'] = self.behavior_reason
+        if self.illegal_value_by_parameter_constraints is not None:
+            result['IllegalValueByParameterConstraints'] = self.illegal_value_by_parameter_constraints
+        if self.illegal_value_by_rules is not None:
+            result['IllegalValueByRules'] = self.illegal_value_by_rules
         if self.parameter_key is not None:
             result['ParameterKey'] = self.parameter_key
         if self.type is not None:
@@ -7663,6 +7669,10 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
             self.behavior = m.get('Behavior')
         if m.get('BehaviorReason') is not None:
             self.behavior_reason = m.get('BehaviorReason')
+        if m.get('IllegalValueByParameterConstraints') is not None:
+            self.illegal_value_by_parameter_constraints = m.get('IllegalValueByParameterConstraints')
+        if m.get('IllegalValueByRules') is not None:
+            self.illegal_value_by_rules = m.get('IllegalValueByRules')
         if m.get('ParameterKey') is not None:
             self.parameter_key = m.get('ParameterKey')
         if m.get('Type') is not None:
@@ -15269,13 +15279,49 @@ class ValidateTemplateResponseBodyResourceTypes(TeaModel):
         return self
 
 
+class ValidateTemplateResponseBodyResources(TeaModel):
+    def __init__(self, logical_resource_id_pattern=None, resource_path=None, resource_type=None):
+        self.logical_resource_id_pattern = logical_resource_id_pattern  # type: str
+        self.resource_path = resource_path  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ValidateTemplateResponseBodyResources, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logical_resource_id_pattern is not None:
+            result['LogicalResourceIdPattern'] = self.logical_resource_id_pattern
+        if self.resource_path is not None:
+            result['ResourcePath'] = self.resource_path
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogicalResourceIdPattern') is not None:
+            self.logical_resource_id_pattern = m.get('LogicalResourceIdPattern')
+        if m.get('ResourcePath') is not None:
+            self.resource_path = m.get('ResourcePath')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
 class ValidateTemplateResponseBody(TeaModel):
-    def __init__(self, description=None, outputs=None, parameters=None, request_id=None, resource_types=None):
+    def __init__(self, description=None, outputs=None, parameters=None, request_id=None, resource_types=None,
+                 resources=None):
         self.description = description  # type: str
         self.outputs = outputs  # type: list[ValidateTemplateResponseBodyOutputs]
         self.parameters = parameters  # type: list[dict[str, any]]
         self.request_id = request_id  # type: str
         self.resource_types = resource_types  # type: ValidateTemplateResponseBodyResourceTypes
+        self.resources = resources  # type: list[ValidateTemplateResponseBodyResources]
 
     def validate(self):
         if self.outputs:
@@ -15284,6 +15330,10 @@ class ValidateTemplateResponseBody(TeaModel):
                     k.validate()
         if self.resource_types:
             self.resource_types.validate()
+        if self.resources:
+            for k in self.resources:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ValidateTemplateResponseBody, self).to_map()
@@ -15303,6 +15353,10 @@ class ValidateTemplateResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.resource_types is not None:
             result['ResourceTypes'] = self.resource_types.to_map()
+        result['Resources'] = []
+        if self.resources is not None:
+            for k in self.resources:
+                result['Resources'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -15321,6 +15375,11 @@ class ValidateTemplateResponseBody(TeaModel):
         if m.get('ResourceTypes') is not None:
             temp_model = ValidateTemplateResponseBodyResourceTypes()
             self.resource_types = temp_model.from_map(m['ResourceTypes'])
+        self.resources = []
+        if m.get('Resources') is not None:
+            for k in m.get('Resources'):
+                temp_model = ValidateTemplateResponseBodyResources()
+                self.resources.append(temp_model.from_map(k))
         return self
 
 
