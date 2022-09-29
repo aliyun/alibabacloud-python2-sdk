@@ -1447,39 +1447,3 @@ class Client(OpenApiClient):
     def update_ip_protection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_ip_protection_with_options(request, runtime)
-
-    def update_mail_address_msg_call_back_url_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.mail_from):
-            query['MailFrom'] = request.mail_from
-        if not UtilClient.is_unset(request.notify_url):
-            query['NotifyUrl'] = request.notify_url
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateMailAddressMsgCallBackUrl',
-            version='2015-11-23',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dm_20151123_models.UpdateMailAddressMsgCallBackUrlResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_mail_address_msg_call_back_url(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_mail_address_msg_call_back_url_with_options(request, runtime)
