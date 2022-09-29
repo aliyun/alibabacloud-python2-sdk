@@ -351,7 +351,6 @@ class Client(OpenApiClient):
         return self.delete_campaign_with_options(id, headers, runtime)
 
     def delete_campaign_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -359,7 +358,7 @@ class Client(OpenApiClient):
             action='DeleteCampaign',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -380,7 +379,6 @@ class Client(OpenApiClient):
         return self.delete_group_with_options(id, headers, runtime)
 
     def delete_group_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -388,7 +386,7 @@ class Client(OpenApiClient):
             action='DeleteGroup',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -409,7 +407,6 @@ class Client(OpenApiClient):
         return self.delete_inference_job_with_options(id, headers, runtime)
 
     def delete_inference_job_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -417,7 +414,7 @@ class Client(OpenApiClient):
             action='DeleteInferenceJob',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -438,7 +435,6 @@ class Client(OpenApiClient):
         return self.delete_schedule_with_options(id, headers, runtime)
 
     def delete_schedule_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -446,7 +442,7 @@ class Client(OpenApiClient):
             action='DeleteSchedule',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -467,7 +463,6 @@ class Client(OpenApiClient):
         return self.delete_signature_with_options(id, headers, runtime)
 
     def delete_signature_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -475,7 +470,7 @@ class Client(OpenApiClient):
             action='DeleteSignature',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/signatures/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/signatures/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -496,7 +491,6 @@ class Client(OpenApiClient):
         return self.delete_template_with_options(id, headers, runtime)
 
     def delete_template_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -504,7 +498,7 @@ class Client(OpenApiClient):
             action='DeleteTemplate',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/templates/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/templates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -525,7 +519,6 @@ class Client(OpenApiClient):
         return self.delete_training_job_with_options(id, headers, runtime)
 
     def delete_training_job_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -533,7 +526,7 @@ class Client(OpenApiClient):
             action='DeleteTrainingJob',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -554,7 +547,6 @@ class Client(OpenApiClient):
         return self.get_algorithm_with_options(id, headers, runtime)
 
     def get_algorithm_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -562,7 +554,7 @@ class Client(OpenApiClient):
             action='GetAlgorithm',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/algorithms/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/algorithms/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -583,7 +575,6 @@ class Client(OpenApiClient):
         return self.get_campaign_with_options(id, headers, runtime)
 
     def get_campaign_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -591,7 +582,7 @@ class Client(OpenApiClient):
             action='GetCampaign',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -612,7 +603,6 @@ class Client(OpenApiClient):
         return self.get_group_with_options(id, headers, runtime)
 
     def get_group_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -620,7 +610,7 @@ class Client(OpenApiClient):
             action='GetGroup',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/groups/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -641,7 +631,6 @@ class Client(OpenApiClient):
         return self.get_inference_job_with_options(id, headers, runtime)
 
     def get_inference_job_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -649,7 +638,7 @@ class Client(OpenApiClient):
             action='GetInferenceJob',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/inference/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -698,7 +687,6 @@ class Client(OpenApiClient):
         return self.get_schedule_with_options(id, headers, runtime)
 
     def get_schedule_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -706,7 +694,7 @@ class Client(OpenApiClient):
             action='GetSchedule',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/schedules/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -727,7 +715,6 @@ class Client(OpenApiClient):
         return self.get_signature_with_options(id, headers, runtime)
 
     def get_signature_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -735,7 +722,7 @@ class Client(OpenApiClient):
             action='GetSignature',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/signatures/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/signatures/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -756,7 +743,6 @@ class Client(OpenApiClient):
         return self.get_template_with_options(id, headers, runtime)
 
     def get_template_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -764,7 +750,7 @@ class Client(OpenApiClient):
             action='GetTemplate',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/templates/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/templates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -785,7 +771,6 @@ class Client(OpenApiClient):
         return self.get_training_job_with_options(id, headers, runtime)
 
     def get_training_job_with_options(self, id, headers, runtime):
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -793,7 +778,7 @@ class Client(OpenApiClient):
             action='GetTrainingJob',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/training/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -957,9 +942,6 @@ class Client(OpenApiClient):
         )
 
     def list_inference_jobs(self, request):
-        """
-        获取预测任务列表。
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_inference_jobs_with_options(request, headers, runtime)
@@ -969,6 +951,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.campaign_id):
             query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.campaign_name):
+            query['CampaignName'] = request.campaign_name
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_number):
@@ -979,6 +963,8 @@ class Client(OpenApiClient):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.training_job_name):
+            query['TrainingJobName'] = request.training_job_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1237,9 +1223,6 @@ class Client(OpenApiClient):
         )
 
     def list_training_jobs(self, request):
-        """
-        获取训练任务列表。
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_training_jobs_with_options(request, headers, runtime)
@@ -1249,6 +1232,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.campaign_id):
             query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.campaign_name):
+            query['CampaignName'] = request.campaign_name
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_number):
@@ -1259,6 +1244,8 @@ class Client(OpenApiClient):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.training_schedule_id):
+            query['TrainingScheduleId'] = request.training_schedule_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1280,9 +1267,6 @@ class Client(OpenApiClient):
         )
 
     def send_message(self, request):
-        """
-        发送短信。
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.send_message_with_options(request, headers, runtime)
@@ -1400,7 +1384,6 @@ class Client(OpenApiClient):
 
     def update_campaign_with_options(self, id, request, headers, runtime):
         UtilClient.validate_model(request)
-        id = OpenApiUtilClient.get_encode_param(id)
         body = {}
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
@@ -1414,7 +1397,7 @@ class Client(OpenApiClient):
             action='UpdateCampaign',
             version='2022-01-12',
             protocol='HTTPS',
-            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(id),
+            pathname='/api/v2/campaigns/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
