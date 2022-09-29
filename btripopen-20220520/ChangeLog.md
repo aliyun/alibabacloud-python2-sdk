@@ -1,3 +1,6 @@
+2022-09-29 Version: 1.0.14
+- Update Code and Message.
+
 2022-09-28 Version: 1.0.13
 - Update Code and Message.
 
