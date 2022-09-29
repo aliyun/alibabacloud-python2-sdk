@@ -1325,6 +1325,108 @@ class DetachVpcFromNetLinkResponse(TeaModel):
         return self
 
 
+class FailCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FailCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class FailCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FailCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class FailCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FailCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FailCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FailCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetCardRequest(TeaModel):
     def __init__(self, iccid=None):
         self.iccid = iccid  # type: str
@@ -1725,6 +1827,235 @@ class GetCreateCustomerInformationResponse(TeaModel):
         return self
 
 
+class GetDiagnoseResultForSingleCardRequest(TeaModel):
+    def __init__(self, diagnose_task_id=None, region_no=None):
+        self.diagnose_task_id = diagnose_task_id  # type: str
+        self.region_no = region_no  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diagnose_task_id is not None:
+            result['DiagnoseTaskId'] = self.diagnose_task_id
+        if self.region_no is not None:
+            result['RegionNo'] = self.region_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiagnoseTaskId') is not None:
+            self.diagnose_task_id = m.get('DiagnoseTaskId')
+        if m.get('RegionNo') is not None:
+            self.region_no = m.get('RegionNo')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem(TeaModel):
+    def __init__(self, part=None, status=None):
+        self.part = part  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.part is not None:
+            result['Part'] = self.part
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Part') is not None:
+            self.part = m.get('Part')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
+    def __init__(self, error_desc=None, error_level=None, error_part=None, error_suggestion=None):
+        self.error_desc = error_desc  # type: str
+        self.error_level = error_level  # type: str
+        self.error_part = error_part  # type: str
+        self.error_suggestion = error_suggestion  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBodyErrorResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_desc is not None:
+            result['ErrorDesc'] = self.error_desc
+        if self.error_level is not None:
+            result['ErrorLevel'] = self.error_level
+        if self.error_part is not None:
+            result['ErrorPart'] = self.error_part
+        if self.error_suggestion is not None:
+            result['ErrorSuggestion'] = self.error_suggestion
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorDesc') is not None:
+            self.error_desc = m.get('ErrorDesc')
+        if m.get('ErrorLevel') is not None:
+            self.error_level = m.get('ErrorLevel')
+        if m.get('ErrorPart') is not None:
+            self.error_part = m.get('ErrorPart')
+        if m.get('ErrorSuggestion') is not None:
+            self.error_suggestion = m.get('ErrorSuggestion')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBody(TeaModel):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, destination_type=None, diagnose_item=None,
+                 end_time=None, error_result=None, icc_id=None, request_id=None, status=None,
+                 wireless_cloud_connector_id=None):
+        self.begin_time = begin_time  # type: long
+        self.card_ip = card_ip  # type: str
+        self.destination = destination  # type: str
+        self.destination_type = destination_type  # type: str
+        self.diagnose_item = diagnose_item  # type: list[GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem]
+        self.end_time = end_time  # type: long
+        self.error_result = error_result  # type: list[GetDiagnoseResultForSingleCardResponseBodyErrorResult]
+        self.icc_id = icc_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        if self.diagnose_item:
+            for k in self.diagnose_item:
+                if k:
+                    k.validate()
+        if self.error_result:
+            for k in self.error_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.card_ip is not None:
+            result['CardIp'] = self.card_ip
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        result['DiagnoseItem'] = []
+        if self.diagnose_item is not None:
+            for k in self.diagnose_item:
+                result['DiagnoseItem'].append(k.to_map() if k else None)
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        result['ErrorResult'] = []
+        if self.error_result is not None:
+            for k in self.error_result:
+                result['ErrorResult'].append(k.to_map() if k else None)
+        if self.icc_id is not None:
+            result['IccId'] = self.icc_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CardIp') is not None:
+            self.card_ip = m.get('CardIp')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        self.diagnose_item = []
+        if m.get('DiagnoseItem') is not None:
+            for k in m.get('DiagnoseItem'):
+                temp_model = GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem()
+                self.diagnose_item.append(temp_model.from_map(k))
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        self.error_result = []
+        if m.get('ErrorResult') is not None:
+            for k in m.get('ErrorResult'):
+                temp_model = GetDiagnoseResultForSingleCardResponseBodyErrorResult()
+                self.error_result.append(temp_model.from_map(k))
+        if m.get('IccId') is not None:
+            self.icc_id = m.get('IccId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDiagnoseResultForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDiagnoseResultForSingleCardResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetWirelessCloudConnectorRequest(TeaModel):
     def __init__(self, region_id=None, wireless_cloud_connector_id=None):
         self.region_id = region_id  # type: str
@@ -1755,11 +2086,12 @@ class GetWirelessCloudConnectorRequest(TeaModel):
 
 
 class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
-    def __init__(self, apn=None, create_time=None, description=None, isp=None, name=None, net_link_id=None,
-                 region_id=None, status=None, v_switchs=None, vpc_id=None):
+    def __init__(self, apn=None, create_time=None, description=None, grant_ali_uid=None, isp=None, name=None,
+                 net_link_id=None, region_id=None, status=None, v_switchs=None, vpc_id=None):
         self.apn = apn  # type: str
         self.create_time = create_time  # type: str
         self.description = description  # type: str
+        self.grant_ali_uid = grant_ali_uid  # type: str
         self.isp = isp  # type: str
         self.name = name  # type: str
         self.net_link_id = net_link_id  # type: str
@@ -1783,6 +2115,8 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
             result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.grant_ali_uid is not None:
+            result['GrantAliUid'] = self.grant_ali_uid
         if self.isp is not None:
             result['ISP'] = self.isp
         if self.name is not None:
@@ -1807,6 +2141,8 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('GrantAliUid') is not None:
+            self.grant_ali_uid = m.get('GrantAliUid')
         if m.get('ISP') is not None:
             self.isp = m.get('ISP')
         if m.get('Name') is not None:
@@ -1827,7 +2163,7 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
 class GetWirelessCloudConnectorResponseBody(TeaModel):
     def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
                  data_package_type=None, description=None, features=None, name=None, net_links=None, region_id=None, request_id=None,
-                 status=None, use_case=None, wireless_cloud_connector_id=None):
+                 service_type=None, status=None, use_case=None, wireless_cloud_connector_id=None):
         self.business_type = business_type  # type: str
         self.card_count = card_count  # type: str
         self.create_time = create_time  # type: str
@@ -1839,6 +2175,7 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
         self.net_links = net_links  # type: list[GetWirelessCloudConnectorResponseBodyNetLinks]
         self.region_id = region_id  # type: str
         self.request_id = request_id  # type: str
+        self.service_type = service_type  # type: str
         self.status = status  # type: str
         self.use_case = use_case  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
@@ -1879,6 +2216,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             result['RegionId'] = self.region_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
         if self.status is not None:
             result['Status'] = self.status
         if self.use_case is not None:
@@ -1914,6 +2253,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('UseCase') is not None:
@@ -1958,6 +2299,114 @@ class GetWirelessCloudConnectorResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetWirelessCloudConnectorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GrantNetLinkRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, grant_ali_uid=None, net_link_id=None,
+                 wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.grant_ali_uid = grant_ali_uid  # type: long
+        self.net_link_id = net_link_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GrantNetLinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.grant_ali_uid is not None:
+            result['GrantAliUid'] = self.grant_ali_uid
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('GrantAliUid') is not None:
+            self.grant_ali_uid = m.get('GrantAliUid')
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class GrantNetLinkResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GrantNetLinkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GrantNetLinkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GrantNetLinkResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GrantNetLinkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GrantNetLinkResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2959,6 +3408,233 @@ class ListDataPackagesResponse(TeaModel):
         return self
 
 
+class ListDiagnoseInfoForSingleCardRequest(TeaModel):
+    def __init__(self, max_results=None, next_token=None, region_no=None, source=None, source_type=None, status=None,
+                 wireless_cloud_connector_id=None):
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_no = region_no  # type: str
+        self.source = source  # type: str
+        self.source_type = source_type  # type: str
+        self.status = status  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_no is not None:
+            result['RegionNo'] = self.region_no
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionNo') is not None:
+            self.region_no = m.get('RegionNo')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, destination_type=None,
+                 diagnose_task_id=None, diagnose_time=None, end_time=None, icc_id=None, source=None, source_type=None, status=None,
+                 wireless_cloud_connector_id=None):
+        self.begin_time = begin_time  # type: long
+        self.card_ip = card_ip  # type: str
+        self.destination = destination  # type: str
+        self.destination_type = destination_type  # type: str
+        self.diagnose_task_id = diagnose_task_id  # type: str
+        self.diagnose_time = diagnose_time  # type: long
+        self.end_time = end_time  # type: long
+        self.icc_id = icc_id  # type: str
+        self.source = source  # type: str
+        self.source_type = source_type  # type: str
+        self.status = status  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.card_ip is not None:
+            result['CardIp'] = self.card_ip
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.diagnose_task_id is not None:
+            result['DiagnoseTaskId'] = self.diagnose_task_id
+        if self.diagnose_time is not None:
+            result['DiagnoseTime'] = self.diagnose_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.icc_id is not None:
+            result['IccId'] = self.icc_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CardIp') is not None:
+            self.card_ip = m.get('CardIp')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('DiagnoseTaskId') is not None:
+            self.diagnose_task_id = m.get('DiagnoseTaskId')
+        if m.get('DiagnoseTime') is not None:
+            self.diagnose_time = m.get('DiagnoseTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IccId') is not None:
+            self.icc_id = m.get('IccId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponseBody(TeaModel):
+    def __init__(self, diagnose_info=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.diagnose_info = diagnose_info  # type: list[ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo]
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.diagnose_info:
+            for k in self.diagnose_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DiagnoseInfo'] = []
+        if self.diagnose_info is not None:
+            for k in self.diagnose_info:
+                result['DiagnoseInfo'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.diagnose_info = []
+        if m.get('DiagnoseInfo') is not None:
+            for k in m.get('DiagnoseInfo'):
+                temp_model = ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo()
+                self.diagnose_info.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDiagnoseInfoForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDiagnoseInfoForSingleCardResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListIoTCloudConnectorBackhaulRouteRequest(TeaModel):
     def __init__(self, net_link_id=None, region_id=None, wireless_cloud_connector_id=None):
         self.net_link_id = net_link_id  # type: str
@@ -3506,229 +4182,6 @@ class ListRegionsResponse(TeaModel):
         return self
 
 
-class ListWirelessCloudConnectorsRequest(TeaModel):
-    def __init__(self, business_type=None, max_results=None, names=None, next_token=None, region_id=None,
-                 statuses=None, wireless_cloud_connector_ids=None):
-        self.business_type = business_type  # type: str
-        self.max_results = max_results  # type: long
-        self.names = names  # type: list[str]
-        self.next_token = next_token  # type: str
-        self.region_id = region_id  # type: str
-        self.statuses = statuses  # type: list[str]
-        self.wireless_cloud_connector_ids = wireless_cloud_connector_ids  # type: list[str]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListWirelessCloudConnectorsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.business_type is not None:
-            result['BusinessType'] = self.business_type
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
-        if self.names is not None:
-            result['Names'] = self.names
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.statuses is not None:
-            result['Statuses'] = self.statuses
-        if self.wireless_cloud_connector_ids is not None:
-            result['WirelessCloudConnectorIds'] = self.wireless_cloud_connector_ids
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BusinessType') is not None:
-            self.business_type = m.get('BusinessType')
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
-        if m.get('Names') is not None:
-            self.names = m.get('Names')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('Statuses') is not None:
-            self.statuses = m.get('Statuses')
-        if m.get('WirelessCloudConnectorIds') is not None:
-            self.wireless_cloud_connector_ids = m.get('WirelessCloudConnectorIds')
-        return self
-
-
-class ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors(TeaModel):
-    def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
-                 data_package_type=None, description=None, name=None, region_id=None, status=None, use_case=None,
-                 wireless_cloud_connector_id=None):
-        self.business_type = business_type  # type: str
-        self.card_count = card_count  # type: str
-        self.create_time = create_time  # type: str
-        self.data_package_id = data_package_id  # type: str
-        self.data_package_type = data_package_type  # type: str
-        self.description = description  # type: str
-        self.name = name  # type: str
-        self.region_id = region_id  # type: str
-        self.status = status  # type: str
-        self.use_case = use_case  # type: str
-        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.business_type is not None:
-            result['BusinessType'] = self.business_type
-        if self.card_count is not None:
-            result['CardCount'] = self.card_count
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.data_package_id is not None:
-            result['DataPackageId'] = self.data_package_id
-        if self.data_package_type is not None:
-            result['DataPackageType'] = self.data_package_type
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.use_case is not None:
-            result['UseCase'] = self.use_case
-        if self.wireless_cloud_connector_id is not None:
-            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BusinessType') is not None:
-            self.business_type = m.get('BusinessType')
-        if m.get('CardCount') is not None:
-            self.card_count = m.get('CardCount')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('DataPackageId') is not None:
-            self.data_package_id = m.get('DataPackageId')
-        if m.get('DataPackageType') is not None:
-            self.data_package_type = m.get('DataPackageType')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('UseCase') is not None:
-            self.use_case = m.get('UseCase')
-        if m.get('WirelessCloudConnectorId') is not None:
-            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
-        return self
-
-
-class ListWirelessCloudConnectorsResponseBody(TeaModel):
-    def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
-                 wireless_cloud_connectors=None):
-        self.max_results = max_results  # type: str
-        self.next_token = next_token  # type: str
-        self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: str
-        self.wireless_cloud_connectors = wireless_cloud_connectors  # type: list[ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors]
-
-    def validate(self):
-        if self.wireless_cloud_connectors:
-            for k in self.wireless_cloud_connectors:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListWirelessCloudConnectorsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        result['WirelessCloudConnectors'] = []
-        if self.wireless_cloud_connectors is not None:
-            for k in self.wireless_cloud_connectors:
-                result['WirelessCloudConnectors'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        self.wireless_cloud_connectors = []
-        if m.get('WirelessCloudConnectors') is not None:
-            for k in m.get('WirelessCloudConnectors'):
-                temp_model = ListWirelessCloudConnectorsResponseBodyWirelessCloudConnectors()
-                self.wireless_cloud_connectors.append(temp_model.from_map(k))
-        return self
-
-
-class ListWirelessCloudConnectorsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ListWirelessCloudConnectorsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListWirelessCloudConnectorsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ListWirelessCloudConnectorsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ListZonesRequest(TeaModel):
     def __init__(self, region_id=None):
         self.region_id = region_id  # type: str
@@ -4257,6 +4710,108 @@ class ResumeCardsResponse(TeaModel):
         return self
 
 
+class RevokeNetLinkRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, net_link_id=None, wireless_cloud_connector_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.net_link_id = net_link_id  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RevokeNetLinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.net_link_id is not None:
+            result['NetLinkId'] = self.net_link_id
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('NetLinkId') is not None:
+            self.net_link_id = m.get('NetLinkId')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class RevokeNetLinkResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RevokeNetLinkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RevokeNetLinkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RevokeNetLinkResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RevokeNetLinkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RevokeNetLinkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StopCardsRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, iccids=None, region_id=None):
         self.client_token = client_token  # type: str
@@ -4355,6 +4910,129 @@ class StopCardsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardRequest(TeaModel):
+    def __init__(self, begin_time=None, destination=None, end_time=None, region_no=None, resource_uid=None,
+                 source=None, wireless_cloud_connector_id=None):
+        self.begin_time = begin_time  # type: long
+        self.destination = destination  # type: str
+        self.end_time = end_time  # type: long
+        self.region_no = region_no  # type: str
+        self.resource_uid = resource_uid  # type: long
+        self.source = source  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.region_no is not None:
+            result['RegionNo'] = self.region_no
+        if self.resource_uid is not None:
+            result['ResourceUid'] = self.resource_uid
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RegionNo') is not None:
+            self.region_no = m.get('RegionNo')
+        if m.get('ResourceUid') is not None:
+            self.resource_uid = m.get('ResourceUid')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardResponseBody(TeaModel):
+    def __init__(self, diagnose_task_id=None, request_id=None):
+        self.diagnose_task_id = diagnose_task_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diagnose_task_id is not None:
+            result['DiagnoseTaskId'] = self.diagnose_task_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiagnoseTaskId') is not None:
+            self.diagnose_task_id = m.get('DiagnoseTaskId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SubmitDiagnoseTaskForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SubmitDiagnoseTaskForSingleCardResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

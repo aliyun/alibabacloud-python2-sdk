@@ -452,6 +452,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_vpc_from_net_link_with_options(request, runtime)
 
+    def fail_cards_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.iccids):
+            query['Iccids'] = request.iccids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='FailCards',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.FailCardsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def fail_cards(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.fail_cards_with_options(request, runtime)
+
     def get_card_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -530,6 +564,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_create_customer_information_with_options(request, runtime)
 
+    def get_diagnose_result_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.diagnose_task_id):
+            query['DiagnoseTaskId'] = request.diagnose_task_id
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDiagnoseResultForSingleCard',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.GetDiagnoseResultForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_diagnose_result_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_diagnose_result_for_single_card_with_options(request, runtime)
+
     def get_wireless_cloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -555,6 +619,42 @@ class Client(OpenApiClient):
     def get_wireless_cloud_connector(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_wireless_cloud_connector_with_options(request, runtime)
+
+    def grant_net_link_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.grant_ali_uid):
+            query['GrantAliUid'] = request.grant_ali_uid
+        if not UtilClient.is_unset(request.net_link_id):
+            query['NetLinkId'] = request.net_link_id
+        if not UtilClient.is_unset(request.wireless_cloud_connector_id):
+            query['WirelessCloudConnectorId'] = request.wireless_cloud_connector_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GrantNetLink',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.GrantNetLinkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def grant_net_link(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.grant_net_link_with_options(request, runtime)
 
     def list_authorization_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -660,6 +760,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_data_packages_with_options(request, runtime)
 
+    def list_diagnose_info_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.wireless_cloud_connector_id):
+            query['WirelessCloudConnectorId'] = request.wireless_cloud_connector_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDiagnoseInfoForSingleCard',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.ListDiagnoseInfoForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_diagnose_info_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_diagnose_info_for_single_card_with_options(request, runtime)
+
     def list_io_tcloud_connector_backhaul_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -737,32 +877,6 @@ class Client(OpenApiClient):
     def list_regions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_regions_with_options(request, runtime)
-
-    def list_wireless_cloud_connectors_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListWirelessCloudConnectors',
-            version='2022-03-14',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cc5g20220314_models.ListWirelessCloudConnectorsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_wireless_cloud_connectors(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_wireless_cloud_connectors_with_options(request, runtime)
 
     def list_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -922,6 +1036,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.resume_cards_with_options(request, runtime)
 
+    def revoke_net_link_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.net_link_id):
+            query['NetLinkId'] = request.net_link_id
+        if not UtilClient.is_unset(request.wireless_cloud_connector_id):
+            query['WirelessCloudConnectorId'] = request.wireless_cloud_connector_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevokeNetLink',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.RevokeNetLinkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def revoke_net_link(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.revoke_net_link_with_options(request, runtime)
+
     def stop_cards_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -955,6 +1103,46 @@ class Client(OpenApiClient):
     def stop_cards(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_cards_with_options(request, runtime)
+
+    def submit_diagnose_task_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.begin_time):
+            query['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        if not UtilClient.is_unset(request.resource_uid):
+            query['ResourceUid'] = request.resource_uid
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.wireless_cloud_connector_id):
+            query['WirelessCloudConnectorId'] = request.wireless_cloud_connector_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitDiagnoseTaskForSingleCard',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.SubmitDiagnoseTaskForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_diagnose_task_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_diagnose_task_for_single_card_with_options(request, runtime)
 
     def switch_wireless_cloud_connector_to_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
