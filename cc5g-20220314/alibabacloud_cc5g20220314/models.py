@@ -2931,7 +2931,7 @@ class ListBatchOperateCardsTasksResponse(TeaModel):
 
 
 class ListCardsRequest(TeaModel):
-    def __init__(self, apn=None, iccid=None, iccids=None, ip_address=None, lock=None, max_results=None,
+    def __init__(self, apn=None, iccid=None, iccids=None, ip_address=None, lock=None, max_results=None, msisdn=None,
                  net_link_id=None, next_token=None, online=None, statuses=None, wireless_cloud_connector_id=None):
         self.apn = apn  # type: str
         self.iccid = iccid  # type: str
@@ -2939,6 +2939,7 @@ class ListCardsRequest(TeaModel):
         self.ip_address = ip_address  # type: str
         self.lock = lock  # type: bool
         self.max_results = max_results  # type: long
+        self.msisdn = msisdn  # type: str
         self.net_link_id = net_link_id  # type: str
         self.next_token = next_token  # type: str
         self.online = online  # type: bool
@@ -2966,6 +2967,8 @@ class ListCardsRequest(TeaModel):
             result['Lock'] = self.lock
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
+        if self.msisdn is not None:
+            result['Msisdn'] = self.msisdn
         if self.net_link_id is not None:
             result['NetLinkId'] = self.net_link_id
         if self.next_token is not None:
@@ -2992,6 +2995,8 @@ class ListCardsRequest(TeaModel):
             self.lock = m.get('Lock')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
+        if m.get('Msisdn') is not None:
+            self.msisdn = m.get('Msisdn')
         if m.get('NetLinkId') is not None:
             self.net_link_id = m.get('NetLinkId')
         if m.get('NextToken') is not None:
