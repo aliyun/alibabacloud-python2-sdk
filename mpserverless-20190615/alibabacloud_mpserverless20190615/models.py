@@ -2460,8 +2460,9 @@ class DescribeFileUploadSignedUrlRequest(TeaModel):
 
 
 class DescribeFileUploadSignedUrlResponseBody(TeaModel):
-    def __init__(self, id=None, request_id=None, sign_url=None):
+    def __init__(self, id=None, oss_callback_url=None, request_id=None, sign_url=None):
         self.id = id  # type: str
+        self.oss_callback_url = oss_callback_url  # type: str
         self.request_id = request_id  # type: str
         self.sign_url = sign_url  # type: str
 
@@ -2476,6 +2477,8 @@ class DescribeFileUploadSignedUrlResponseBody(TeaModel):
         result = dict()
         if self.id is not None:
             result['Id'] = self.id
+        if self.oss_callback_url is not None:
+            result['OssCallbackUrl'] = self.oss_callback_url
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.sign_url is not None:
@@ -2486,6 +2489,8 @@ class DescribeFileUploadSignedUrlResponseBody(TeaModel):
         m = m or dict()
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('OssCallbackUrl') is not None:
+            self.oss_callback_url = m.get('OssCallbackUrl')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('SignUrl') is not None:
@@ -8264,9 +8269,11 @@ class QuerySpaceConsumptionResponseBodyWhUsage(TeaModel):
 
 
 class QuerySpaceConsumptionResponseBody(TeaModel):
-    def __init__(self, cs_usage=None, db_usage=None, fc_usage=None, gmt_create=None, request_id=None, space_id=None,
-                 spec_code=None, wh_usage=None):
+    def __init__(self, cs_usage=None, cycle_end_time=None, cycle_start_time=None, db_usage=None, fc_usage=None,
+                 gmt_create=None, request_id=None, space_id=None, spec_code=None, wh_usage=None):
         self.cs_usage = cs_usage  # type: QuerySpaceConsumptionResponseBodyCsUsage
+        self.cycle_end_time = cycle_end_time  # type: long
+        self.cycle_start_time = cycle_start_time  # type: long
         self.db_usage = db_usage  # type: QuerySpaceConsumptionResponseBodyDbUsage
         self.fc_usage = fc_usage  # type: QuerySpaceConsumptionResponseBodyFcUsage
         self.gmt_create = gmt_create  # type: str
@@ -8293,6 +8300,10 @@ class QuerySpaceConsumptionResponseBody(TeaModel):
         result = dict()
         if self.cs_usage is not None:
             result['CsUsage'] = self.cs_usage.to_map()
+        if self.cycle_end_time is not None:
+            result['CycleEndTime'] = self.cycle_end_time
+        if self.cycle_start_time is not None:
+            result['CycleStartTime'] = self.cycle_start_time
         if self.db_usage is not None:
             result['DbUsage'] = self.db_usage.to_map()
         if self.fc_usage is not None:
@@ -8314,6 +8325,10 @@ class QuerySpaceConsumptionResponseBody(TeaModel):
         if m.get('CsUsage') is not None:
             temp_model = QuerySpaceConsumptionResponseBodyCsUsage()
             self.cs_usage = temp_model.from_map(m['CsUsage'])
+        if m.get('CycleEndTime') is not None:
+            self.cycle_end_time = m.get('CycleEndTime')
+        if m.get('CycleStartTime') is not None:
+            self.cycle_start_time = m.get('CycleStartTime')
         if m.get('DbUsage') is not None:
             temp_model = QuerySpaceConsumptionResponseBodyDbUsage()
             self.db_usage = temp_model.from_map(m['DbUsage'])
