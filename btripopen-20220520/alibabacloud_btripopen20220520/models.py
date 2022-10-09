@@ -14422,13 +14422,14 @@ class IsvUserSaveHeaders(TeaModel):
 
 
 class IsvUserSaveRequestUserList(TeaModel):
-    def __init__(self, depart_id=None, email=None, job_no=None, leave_status=None, phone=None, position=None,
-                 position_level=None, real_name_en=None, third_depart_id=None, third_depart_id_list=None, user_id=None,
-                 user_name=None):
+    def __init__(self, depart_id=None, email=None, job_no=None, leave_status=None, manager_user_id=None, phone=None,
+                 position=None, position_level=None, real_name_en=None, third_depart_id=None, third_depart_id_list=None,
+                 user_id=None, user_name=None):
         self.depart_id = depart_id  # type: long
         self.email = email  # type: str
         self.job_no = job_no  # type: str
         self.leave_status = leave_status  # type: int
+        self.manager_user_id = manager_user_id  # type: str
         self.phone = phone  # type: str
         self.position = position  # type: str
         self.position_level = position_level  # type: str
@@ -14455,6 +14456,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             result['job_no'] = self.job_no
         if self.leave_status is not None:
             result['leave_status'] = self.leave_status
+        if self.manager_user_id is not None:
+            result['manager_user_id'] = self.manager_user_id
         if self.phone is not None:
             result['phone'] = self.phone
         if self.position is not None:
@@ -14483,6 +14486,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             self.job_no = m.get('job_no')
         if m.get('leave_status') is not None:
             self.leave_status = m.get('leave_status')
+        if m.get('manager_user_id') is not None:
+            self.manager_user_id = m.get('manager_user_id')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
         if m.get('position') is not None:
