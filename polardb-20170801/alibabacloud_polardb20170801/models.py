@@ -4,11 +4,12 @@ from Tea.model import TeaModel
 
 
 class CancelScheduleTasksRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, task_id=None):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, task_id=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.task_id = task_id  # type: str
@@ -28,6 +29,8 @@ class CancelScheduleTasksRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -44,6 +47,8 @@ class CancelScheduleTasksRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -285,7 +290,8 @@ class CheckDBNameRequest(TeaModel):
 
 
 class CheckDBNameResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, dbname=None, request_id=None):
+        self.dbname = dbname  # type: str
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -297,12 +303,16 @@ class CheckDBNameResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.dbname is not None:
+            result['DBName'] = self.dbname
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DBName') is not None:
+            self.dbname = m.get('DBName')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -840,14 +850,43 @@ class CreateBackupResponse(TeaModel):
         return self
 
 
+class CreateDBClusterRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBClusterRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateDBClusterRequest(TeaModel):
     def __init__(self, auto_renew=None, backup_retention_policy_on_cluster_deletion=None, client_token=None,
                  clone_data_point=None, cluster_network_type=None, creation_category=None, creation_option=None,
                  dbcluster_description=None, dbminor_version=None, dbnode_class=None, dbtype=None, dbversion=None, default_time_zone=None,
                  gdnid=None, lower_case_table_names=None, owner_account=None, owner_id=None, parameter_group_id=None,
                  pay_type=None, period=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_iplist=None, source_resource_id=None, tdestatus=None, used_time=None, vpcid=None,
-                 v_switch_id=None, zone_id=None):
+                 resource_owner_id=None, security_iplist=None, source_resource_id=None, tdestatus=None, tag=None, used_time=None,
+                 vpcid=None, v_switch_id=None, zone_id=None):
         self.auto_renew = auto_renew  # type: bool
         self.backup_retention_policy_on_cluster_deletion = backup_retention_policy_on_cluster_deletion  # type: str
         self.client_token = client_token  # type: str
@@ -875,13 +914,17 @@ class CreateDBClusterRequest(TeaModel):
         self.security_iplist = security_iplist  # type: str
         self.source_resource_id = source_resource_id  # type: str
         self.tdestatus = tdestatus  # type: bool
+        self.tag = tag  # type: list[CreateDBClusterRequestTag]
         self.used_time = used_time  # type: str
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateDBClusterRequest, self).to_map()
@@ -943,6 +986,10 @@ class CreateDBClusterRequest(TeaModel):
             result['SourceResourceId'] = self.source_resource_id
         if self.tdestatus is not None:
             result['TDEStatus'] = self.tdestatus
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.used_time is not None:
             result['UsedTime'] = self.used_time
         if self.vpcid is not None:
@@ -1009,6 +1056,11 @@ class CreateDBClusterRequest(TeaModel):
             self.source_resource_id = m.get('SourceResourceId')
         if m.get('TDEStatus') is not None:
             self.tdestatus = m.get('TDEStatus')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateDBClusterRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UsedTime') is not None:
             self.used_time = m.get('UsedTime')
         if m.get('VPCId') is not None:
@@ -1367,15 +1419,16 @@ class CreateDBEndpointAddressResponse(TeaModel):
 
 class CreateDBLinkRequest(TeaModel):
     def __init__(self, client_token=None, dbcluster_id=None, dblink_name=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, source_dbname=None,
-                 target_dbaccount=None, target_dbinstance_name=None, target_dbname=None, target_dbpasswd=None, target_ip=None,
-                 target_port=None, vpc_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 source_dbname=None, target_dbaccount=None, target_dbinstance_name=None, target_dbname=None,
+                 target_dbpasswd=None, target_ip=None, target_port=None, vpc_id=None):
         self.client_token = client_token  # type: str
         self.dbcluster_id = dbcluster_id  # type: str
         self.dblink_name = dblink_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.source_dbname = source_dbname  # type: str
@@ -1408,6 +1461,8 @@ class CreateDBLinkRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -1444,6 +1499,8 @@ class CreateDBLinkRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -1561,8 +1618,8 @@ class CreateDBNodesRequestDBNode(TeaModel):
 
 class CreateDBNodesRequest(TeaModel):
     def __init__(self, client_token=None, dbcluster_id=None, dbnode=None, endpoint_bind_list=None, imci_switch=None,
-                 owner_account=None, owner_id=None, planned_end_time=None, planned_start_time=None, resource_owner_account=None,
-                 resource_owner_id=None):
+                 owner_account=None, owner_id=None, planned_end_time=None, planned_start_time=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         self.client_token = client_token  # type: str
         self.dbcluster_id = dbcluster_id  # type: str
         self.dbnode = dbnode  # type: list[CreateDBNodesRequestDBNode]
@@ -1572,6 +1629,7 @@ class CreateDBNodesRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.planned_end_time = planned_end_time  # type: str
         self.planned_start_time = planned_start_time  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -1607,6 +1665,8 @@ class CreateDBNodesRequest(TeaModel):
             result['PlannedEndTime'] = self.planned_end_time
         if self.planned_start_time is not None:
             result['PlannedStartTime'] = self.planned_start_time
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -1636,6 +1696,8 @@ class CreateDBNodesRequest(TeaModel):
             self.planned_end_time = m.get('PlannedEndTime')
         if m.get('PlannedStartTime') is not None:
             self.planned_start_time = m.get('PlannedStartTime')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -1893,11 +1955,12 @@ class CreateDatabaseResponse(TeaModel):
 
 class CreateGlobalDatabaseNetworkRequest(TeaModel):
     def __init__(self, dbcluster_id=None, gdndescription=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.gdndescription = gdndescription  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -1919,6 +1982,8 @@ class CreateGlobalDatabaseNetworkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -1937,6 +2002,8 @@ class CreateGlobalDatabaseNetworkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -2016,7 +2083,8 @@ class CreateGlobalDatabaseNetworkResponse(TeaModel):
 
 class CreateParameterGroupRequest(TeaModel):
     def __init__(self, dbtype=None, dbversion=None, owner_account=None, owner_id=None, parameter_group_desc=None,
-                 parameter_group_name=None, parameters=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 parameter_group_name=None, parameters=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         self.dbtype = dbtype  # type: str
         self.dbversion = dbversion  # type: str
         self.owner_account = owner_account  # type: str
@@ -2025,6 +2093,7 @@ class CreateParameterGroupRequest(TeaModel):
         self.parameter_group_name = parameter_group_name  # type: str
         self.parameters = parameters  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -2053,6 +2122,8 @@ class CreateParameterGroupRequest(TeaModel):
             result['Parameters'] = self.parameters
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -2077,6 +2148,8 @@ class CreateParameterGroupRequest(TeaModel):
             self.parameters = m.get('Parameters')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -3215,11 +3288,12 @@ class DeleteDatabaseResponse(TeaModel):
 
 
 class DeleteGlobalDatabaseNetworkRequest(TeaModel):
-    def __init__(self, gdnid=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None):
+    def __init__(self, gdnid=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.gdnid = gdnid  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -3239,6 +3313,8 @@ class DeleteGlobalDatabaseNetworkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -3255,6 +3331,8 @@ class DeleteGlobalDatabaseNetworkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -3431,11 +3509,12 @@ class DeleteMaskingRulesResponse(TeaModel):
 
 class DeleteParameterGroupRequest(TeaModel):
     def __init__(self, owner_account=None, owner_id=None, parameter_group_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.parameter_group_id = parameter_group_id  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -3456,6 +3535,8 @@ class DeleteParameterGroupRequest(TeaModel):
             result['ParameterGroupId'] = self.parameter_group_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -3472,6 +3553,8 @@ class DeleteParameterGroupRequest(TeaModel):
             self.parameter_group_id = m.get('ParameterGroupId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -3760,11 +3843,12 @@ class DescribeAccountsResponseBodyAccountsDatabasePrivileges(TeaModel):
 
 
 class DescribeAccountsResponseBodyAccounts(TeaModel):
-    def __init__(self, account_description=None, account_lock_state=None, account_name=None,
+    def __init__(self, account_description=None, account_lock_state=None, account_name=None, account_password=None,
                  account_password_valid_time=None, account_status=None, account_type=None, database_privileges=None):
         self.account_description = account_description  # type: str
         self.account_lock_state = account_lock_state  # type: str
         self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
         self.account_password_valid_time = account_password_valid_time  # type: str
         self.account_status = account_status  # type: str
         self.account_type = account_type  # type: str
@@ -3788,6 +3872,8 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
             result['AccountLockState'] = self.account_lock_state
         if self.account_name is not None:
             result['AccountName'] = self.account_name
+        if self.account_password is not None:
+            result['AccountPassword'] = self.account_password
         if self.account_password_valid_time is not None:
             result['AccountPasswordValidTime'] = self.account_password_valid_time
         if self.account_status is not None:
@@ -3808,6 +3894,8 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
             self.account_lock_state = m.get('AccountLockState')
         if m.get('AccountName') is not None:
             self.account_name = m.get('AccountName')
+        if m.get('AccountPassword') is not None:
+            self.account_password = m.get('AccountPassword')
         if m.get('AccountPasswordValidTime') is not None:
             self.account_password_valid_time = m.get('AccountPasswordValidTime')
         if m.get('AccountStatus') is not None:
@@ -5207,6 +5295,207 @@ class DescribeCharacterSetNameResponse(TeaModel):
         return self
 
 
+class DescribeClassListRequest(TeaModel):
+    def __init__(self, commodity_code=None, order_type=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.commodity_code = commodity_code  # type: str
+        self.order_type = order_type  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClassListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribeClassListResponseBodyItems(TeaModel):
+    def __init__(self, class_code=None, class_group=None, class_type_level=None, cpu=None, max_connections=None,
+                 max_iops=None, memory_class=None, reference_price=None):
+        self.class_code = class_code  # type: str
+        self.class_group = class_group  # type: str
+        self.class_type_level = class_type_level  # type: str
+        self.cpu = cpu  # type: str
+        self.max_connections = max_connections  # type: str
+        self.max_iops = max_iops  # type: str
+        self.memory_class = memory_class  # type: str
+        self.reference_price = reference_price  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClassListResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.class_code is not None:
+            result['ClassCode'] = self.class_code
+        if self.class_group is not None:
+            result['ClassGroup'] = self.class_group
+        if self.class_type_level is not None:
+            result['ClassTypeLevel'] = self.class_type_level
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.max_connections is not None:
+            result['MaxConnections'] = self.max_connections
+        if self.max_iops is not None:
+            result['MaxIOPS'] = self.max_iops
+        if self.memory_class is not None:
+            result['MemoryClass'] = self.memory_class
+        if self.reference_price is not None:
+            result['ReferencePrice'] = self.reference_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClassCode') is not None:
+            self.class_code = m.get('ClassCode')
+        if m.get('ClassGroup') is not None:
+            self.class_group = m.get('ClassGroup')
+        if m.get('ClassTypeLevel') is not None:
+            self.class_type_level = m.get('ClassTypeLevel')
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MaxConnections') is not None:
+            self.max_connections = m.get('MaxConnections')
+        if m.get('MaxIOPS') is not None:
+            self.max_iops = m.get('MaxIOPS')
+        if m.get('MemoryClass') is not None:
+            self.memory_class = m.get('MemoryClass')
+        if m.get('ReferencePrice') is not None:
+            self.reference_price = m.get('ReferencePrice')
+        return self
+
+
+class DescribeClassListResponseBody(TeaModel):
+    def __init__(self, items=None, region_id=None, request_id=None):
+        self.items = items  # type: list[DescribeClassListResponseBodyItems]
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClassListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeClassListResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeClassListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClassListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClassListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClassListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDBClusterAccessWhitelistRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
@@ -5505,7 +5794,7 @@ class DescribeDBClusterAttributeRequest(TeaModel):
 class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
     def __init__(self, added_cpu_cores=None, creation_time=None, dbnode_class=None, dbnode_id=None,
                  dbnode_role=None, dbnode_status=None, failover_priority=None, hot_replica_mode=None, imci_switch=None,
-                 master_id=None, max_connections=None, max_iops=None, zone_id=None):
+                 master_id=None, max_connections=None, max_iops=None, scc_mode=None, zone_id=None):
         self.added_cpu_cores = added_cpu_cores  # type: str
         self.creation_time = creation_time  # type: str
         self.dbnode_class = dbnode_class  # type: str
@@ -5518,6 +5807,7 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
         self.master_id = master_id  # type: str
         self.max_connections = max_connections  # type: int
         self.max_iops = max_iops  # type: int
+        self.scc_mode = scc_mode  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -5553,6 +5843,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             result['MaxConnections'] = self.max_connections
         if self.max_iops is not None:
             result['MaxIOPS'] = self.max_iops
+        if self.scc_mode is not None:
+            result['SccMode'] = self.scc_mode
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -5583,6 +5875,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             self.max_connections = m.get('MaxConnections')
         if m.get('MaxIOPS') is not None:
             self.max_iops = m.get('MaxIOPS')
+        if m.get('SccMode') is not None:
+            self.scc_mode = m.get('SccMode')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
@@ -5624,9 +5918,9 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
                  deletion_lock=None, engine=None, expire_time=None, expired=None, inode_total=None, inode_used=None,
                  is_latest_version=None, is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None,
                  proxy_cpu_cores=None, proxy_standard_cpu_cores=None, proxy_status=None, proxy_type=None, region_id=None,
-                 request_id=None, resource_group_id=None, sqlsize=None, storage_max=None, storage_pay_type=None,
-                 storage_space=None, storage_type=None, storage_used=None, sub_category=None, tags=None, vpcid=None,
-                 v_switch_id=None, zone_ids=None):
+                 request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None, storage_max=None,
+                 storage_pay_type=None, storage_space=None, storage_type=None, storage_used=None, sub_category=None, tags=None,
+                 vpcid=None, v_switch_id=None, zone_ids=None):
         self.blktag_total = blktag_total  # type: long
         self.blktag_used = blktag_used  # type: long
         self.category = category  # type: str
@@ -5659,6 +5953,7 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.sqlsize = sqlsize  # type: long
+        self.serverless_type = serverless_type  # type: str
         self.storage_max = storage_max  # type: long
         self.storage_pay_type = storage_pay_type  # type: str
         self.storage_space = storage_space  # type: long
@@ -5752,6 +6047,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.sqlsize is not None:
             result['SQLSize'] = self.sqlsize
+        if self.serverless_type is not None:
+            result['ServerlessType'] = self.serverless_type
         if self.storage_max is not None:
             result['StorageMax'] = self.storage_max
         if self.storage_pay_type is not None:
@@ -5845,6 +6142,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SQLSize') is not None:
             self.sqlsize = m.get('SQLSize')
+        if m.get('ServerlessType') is not None:
+            self.serverless_type = m.get('ServerlessType')
         if m.get('StorageMax') is not None:
             self.storage_max = m.get('StorageMax')
         if m.get('StoragePayType') is not None:
@@ -6388,11 +6687,12 @@ class DescribeDBClusterEndpointsResponseBodyItemsAddressItems(TeaModel):
 
 
 class DescribeDBClusterEndpointsResponseBodyItems(TeaModel):
-    def __init__(self, address_items=None, auto_add_new_nodes=None, dbendpoint_description=None,
+    def __init__(self, address_items=None, auto_add_new_nodes=None, dbcluster_id=None, dbendpoint_description=None,
                  dbendpoint_id=None, endpoint_config=None, endpoint_type=None, node_with_roles=None, nodes=None,
                  read_write_mode=None):
         self.address_items = address_items  # type: list[DescribeDBClusterEndpointsResponseBodyItemsAddressItems]
         self.auto_add_new_nodes = auto_add_new_nodes  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
         self.dbendpoint_description = dbendpoint_description  # type: str
         self.dbendpoint_id = dbendpoint_id  # type: str
         self.endpoint_config = endpoint_config  # type: str
@@ -6419,6 +6719,8 @@ class DescribeDBClusterEndpointsResponseBodyItems(TeaModel):
                 result['AddressItems'].append(k.to_map() if k else None)
         if self.auto_add_new_nodes is not None:
             result['AutoAddNewNodes'] = self.auto_add_new_nodes
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         if self.dbendpoint_description is not None:
             result['DBEndpointDescription'] = self.dbendpoint_description
         if self.dbendpoint_id is not None:
@@ -6444,6 +6746,8 @@ class DescribeDBClusterEndpointsResponseBodyItems(TeaModel):
                 self.address_items.append(temp_model.from_map(k))
         if m.get('AutoAddNewNodes') is not None:
             self.auto_add_new_nodes = m.get('AutoAddNewNodes')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         if m.get('DBEndpointDescription') is not None:
             self.dbendpoint_description = m.get('DBEndpointDescription')
         if m.get('DBEndpointId') is not None:
@@ -6583,12 +6887,13 @@ class DescribeDBClusterMigrationRequest(TeaModel):
 
 
 class DescribeDBClusterMigrationResponseBodyDBClusterEndpointListAddressItems(TeaModel):
-    def __init__(self, connection_string=None, ipaddress=None, net_type=None, port=None, vpcid=None,
+    def __init__(self, connection_string=None, ipaddress=None, net_type=None, port=None, sslenabled=None, vpcid=None,
                  v_switch_id=None):
         self.connection_string = connection_string  # type: str
         self.ipaddress = ipaddress  # type: str
         self.net_type = net_type  # type: str
         self.port = port  # type: str
+        self.sslenabled = sslenabled  # type: str
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
@@ -6609,6 +6914,8 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointListAddressItems(Te
             result['NetType'] = self.net_type
         if self.port is not None:
             result['Port'] = self.port
+        if self.sslenabled is not None:
+            result['SSLEnabled'] = self.sslenabled
         if self.vpcid is not None:
             result['VPCId'] = self.vpcid
         if self.v_switch_id is not None:
@@ -6625,6 +6932,8 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointListAddressItems(Te
             self.net_type = m.get('NetType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('SSLEnabled') is not None:
+            self.sslenabled = m.get('SSLEnabled')
         if m.get('VPCId') is not None:
             self.vpcid = m.get('VPCId')
         if m.get('VSwitchId') is not None:
@@ -6675,12 +6984,13 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointList(TeaModel):
 
 
 class DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems(TeaModel):
-    def __init__(self, connection_string=None, ipaddress=None, net_type=None, port=None, vpcid=None,
+    def __init__(self, connection_string=None, ipaddress=None, net_type=None, port=None, sslenabled=None, vpcid=None,
                  v_switch_id=None):
         self.connection_string = connection_string  # type: str
         self.ipaddress = ipaddress  # type: str
         self.net_type = net_type  # type: str
         self.port = port  # type: str
+        self.sslenabled = sslenabled  # type: str
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
@@ -6701,6 +7011,8 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems(TeaModel
             result['NetType'] = self.net_type
         if self.port is not None:
             result['Port'] = self.port
+        if self.sslenabled is not None:
+            result['SSLEnabled'] = self.sslenabled
         if self.vpcid is not None:
             result['VPCId'] = self.vpcid
         if self.v_switch_id is not None:
@@ -6717,6 +7029,8 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems(TeaModel
             self.net_type = m.get('NetType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('SSLEnabled') is not None:
+            self.sslenabled = m.get('SSLEnabled')
         if m.get('VPCId') is not None:
             self.vpcid = m.get('VPCId')
         if m.get('VSwitchId') is not None:
@@ -7745,11 +8059,12 @@ class DescribeDBClusterTDERequest(TeaModel):
 
 class DescribeDBClusterTDEResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, encrypt_new_tables=None, encryption_key=None, request_id=None,
-                 tdestatus=None):
+                 tderegion=None, tdestatus=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.encrypt_new_tables = encrypt_new_tables  # type: str
         self.encryption_key = encryption_key  # type: str
         self.request_id = request_id  # type: str
+        self.tderegion = tderegion  # type: str
         self.tdestatus = tdestatus  # type: str
 
     def validate(self):
@@ -7769,6 +8084,8 @@ class DescribeDBClusterTDEResponseBody(TeaModel):
             result['EncryptionKey'] = self.encryption_key
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.tderegion is not None:
+            result['TDERegion'] = self.tderegion
         if self.tdestatus is not None:
             result['TDEStatus'] = self.tdestatus
         return result
@@ -7783,6 +8100,8 @@ class DescribeDBClusterTDEResponseBody(TeaModel):
             self.encryption_key = m.get('EncryptionKey')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TDERegion') is not None:
+            self.tderegion = m.get('TDERegion')
         if m.get('TDEStatus') is not None:
             self.tdestatus = m.get('TDEStatus')
         return self
@@ -8023,18 +8342,22 @@ class DescribeDBClustersRequestTag(TeaModel):
 
 class DescribeDBClustersRequest(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_ids=None, dbcluster_status=None, dbnode_ids=None,
-                 dbtype=None, owner_account=None, owner_id=None, page_number=None, page_size=None, pay_type=None,
-                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+                 dbtype=None, expired=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
+                 pay_type=None, recent_creation_interval=None, recent_expiration_interval=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
         self.dbcluster_description = dbcluster_description  # type: str
         self.dbcluster_ids = dbcluster_ids  # type: str
         self.dbcluster_status = dbcluster_status  # type: str
         self.dbnode_ids = dbnode_ids  # type: str
         self.dbtype = dbtype  # type: str
+        self.expired = expired  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.pay_type = pay_type  # type: str
+        self.recent_creation_interval = recent_creation_interval  # type: int
+        self.recent_expiration_interval = recent_expiration_interval  # type: int
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -8063,6 +8386,8 @@ class DescribeDBClustersRequest(TeaModel):
             result['DBNodeIds'] = self.dbnode_ids
         if self.dbtype is not None:
             result['DBType'] = self.dbtype
+        if self.expired is not None:
+            result['Expired'] = self.expired
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -8073,6 +8398,10 @@ class DescribeDBClustersRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
+        if self.recent_creation_interval is not None:
+            result['RecentCreationInterval'] = self.recent_creation_interval
+        if self.recent_expiration_interval is not None:
+            result['RecentExpirationInterval'] = self.recent_expiration_interval
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -8099,6 +8428,8 @@ class DescribeDBClustersRequest(TeaModel):
             self.dbnode_ids = m.get('DBNodeIds')
         if m.get('DBType') is not None:
             self.dbtype = m.get('DBType')
+        if m.get('Expired') is not None:
+            self.expired = m.get('Expired')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -8109,6 +8440,10 @@ class DescribeDBClustersRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
+        if m.get('RecentCreationInterval') is not None:
+            self.recent_creation_interval = m.get('RecentCreationInterval')
+        if m.get('RecentExpirationInterval') is not None:
+            self.recent_expiration_interval = m.get('RecentExpirationInterval')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -8266,8 +8601,8 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
     def __init__(self, category=None, create_time=None, dbcluster_description=None, dbcluster_id=None,
                  dbcluster_network_type=None, dbcluster_status=None, dbnode_class=None, dbnode_number=None, dbnodes=None, dbtype=None,
                  dbversion=None, deletion_lock=None, engine=None, expire_time=None, expired=None, lock_mode=None,
-                 pay_type=None, region_id=None, resource_group_id=None, storage_pay_type=None, storage_space=None,
-                 storage_used=None, tags=None, vpc_id=None, zone_id=None):
+                 pay_type=None, region_id=None, resource_group_id=None, serverless_type=None, storage_pay_type=None,
+                 storage_space=None, storage_used=None, tags=None, vpc_id=None, zone_id=None):
         self.category = category  # type: str
         self.create_time = create_time  # type: str
         self.dbcluster_description = dbcluster_description  # type: str
@@ -8287,6 +8622,7 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
         self.pay_type = pay_type  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.serverless_type = serverless_type  # type: str
         self.storage_pay_type = storage_pay_type  # type: str
         self.storage_space = storage_space  # type: long
         self.storage_used = storage_used  # type: long
@@ -8344,6 +8680,8 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.serverless_type is not None:
+            result['ServerlessType'] = self.serverless_type
         if self.storage_pay_type is not None:
             result['StoragePayType'] = self.storage_pay_type
         if self.storage_space is not None:
@@ -8399,6 +8737,8 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ServerlessType') is not None:
+            self.serverless_type = m.get('ServerlessType')
         if m.get('StoragePayType') is not None:
             self.storage_pay_type = m.get('StoragePayType')
         if m.get('StorageSpace') is not None:
@@ -8535,8 +8875,8 @@ class DescribeDBClustersResponse(TeaModel):
 
 class DescribeDBClustersWithBackupsRequest(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_ids=None, dbtype=None, dbversion=None, is_deleted=None,
-                 owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+                 owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         self.dbcluster_description = dbcluster_description  # type: str
         self.dbcluster_ids = dbcluster_ids  # type: str
         self.dbtype = dbtype  # type: str
@@ -8547,6 +8887,7 @@ class DescribeDBClustersWithBackupsRequest(TeaModel):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -8579,6 +8920,8 @@ class DescribeDBClustersWithBackupsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -8607,6 +8950,8 @@ class DescribeDBClustersWithBackupsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10604,11 +10949,12 @@ class DescribeDetachedBackupsResponse(TeaModel):
 
 
 class DescribeGlobalDatabaseNetworkRequest(TeaModel):
-    def __init__(self, gdnid=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None):
+    def __init__(self, gdnid=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.gdnid = gdnid  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -10628,6 +10974,8 @@ class DescribeGlobalDatabaseNetworkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -10644,6 +10992,8 @@ class DescribeGlobalDatabaseNetworkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10974,7 +11324,8 @@ class DescribeGlobalDatabaseNetworkResponse(TeaModel):
 
 class DescribeGlobalDatabaseNetworksRequest(TeaModel):
     def __init__(self, dbcluster_id=None, gdndescription=None, gdnid=None, owner_account=None, owner_id=None,
-                 page_number=None, page_size=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
+                 page_number=None, page_size=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.gdndescription = gdndescription  # type: str
         self.gdnid = gdnid  # type: str
@@ -10982,6 +11333,7 @@ class DescribeGlobalDatabaseNetworksRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -11009,6 +11361,8 @@ class DescribeGlobalDatabaseNetworksRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -11033,6 +11387,8 @@ class DescribeGlobalDatabaseNetworksRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -11707,11 +12063,12 @@ class DescribeMetaListResponse(TeaModel):
 
 class DescribeParameterGroupRequest(TeaModel):
     def __init__(self, owner_account=None, owner_id=None, parameter_group_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.parameter_group_id = parameter_group_id  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -11732,6 +12089,8 @@ class DescribeParameterGroupRequest(TeaModel):
             result['ParameterGroupId'] = self.parameter_group_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -11748,6 +12107,8 @@ class DescribeParameterGroupRequest(TeaModel):
             self.parameter_group_id = m.get('ParameterGroupId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -11941,12 +12302,13 @@ class DescribeParameterGroupResponse(TeaModel):
 
 class DescribeParameterGroupsRequest(TeaModel):
     def __init__(self, dbtype=None, dbversion=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.dbtype = dbtype  # type: str
         self.dbversion = dbversion  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -11969,6 +12331,8 @@ class DescribeParameterGroupsRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -11987,6 +12351,8 @@ class DescribeParameterGroupsRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -12137,12 +12503,13 @@ class DescribeParameterGroupsResponse(TeaModel):
 
 class DescribeParameterTemplatesRequest(TeaModel):
     def __init__(self, dbtype=None, dbversion=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.dbtype = dbtype  # type: str
         self.dbversion = dbversion  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -12165,6 +12532,8 @@ class DescribeParameterTemplatesRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12183,6 +12552,8 @@ class DescribeParameterTemplatesRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -12375,13 +12746,15 @@ class DescribeParameterTemplatesResponse(TeaModel):
 
 class DescribePendingMaintenanceActionRequest(TeaModel):
     def __init__(self, is_history=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
-                 region=None, resource_owner_account=None, resource_owner_id=None, security_token=None, task_type=None):
+                 region=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None, task_type=None):
         self.is_history = is_history  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -12408,6 +12781,8 @@ class DescribePendingMaintenanceActionRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region is not None:
             result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12432,6 +12807,8 @@ class DescribePendingMaintenanceActionRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -12626,12 +13003,13 @@ class DescribePendingMaintenanceActionResponse(TeaModel):
 
 
 class DescribePendingMaintenanceActionsRequest(TeaModel):
-    def __init__(self, is_history=None, owner_account=None, owner_id=None, region_id=None,
+    def __init__(self, is_history=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.is_history = is_history  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -12653,6 +13031,8 @@ class DescribePendingMaintenanceActionsRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12671,6 +13051,8 @@ class DescribePendingMaintenanceActionsRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -13139,7 +13521,8 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeScheduleTasksRequest(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_id=None, order_id=None, owner_account=None,
                  owner_id=None, page_number=None, page_size=None, planned_end_time=None, planned_start_time=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, status=None, task_action=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, status=None,
+                 task_action=None):
         self.dbcluster_description = dbcluster_description  # type: str
         self.dbcluster_id = dbcluster_id  # type: str
         self.order_id = order_id  # type: str
@@ -13150,6 +13533,7 @@ class DescribeScheduleTasksRequest(TeaModel):
         self.planned_end_time = planned_end_time  # type: str
         self.planned_start_time = planned_start_time  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.status = status  # type: str
@@ -13184,6 +13568,8 @@ class DescribeScheduleTasksRequest(TeaModel):
             result['PlannedStartTime'] = self.planned_start_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -13216,6 +13602,8 @@ class DescribeScheduleTasksRequest(TeaModel):
             self.planned_start_time = m.get('PlannedStartTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -14021,12 +14409,13 @@ class DescribeSlowLogsResponse(TeaModel):
 
 
 class DescribeStoragePlanRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, page_number=None, page_size=None,
+    def __init__(self, owner_account=None, owner_id=None, page_number=None, page_size=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -14047,6 +14436,8 @@ class DescribeStoragePlanRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -14063,6 +14454,8 @@ class DescribeStoragePlanRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -14682,6 +15075,175 @@ class EnableFirewallRulesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableFirewallRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EvaluateRegionResourceRequest(TeaModel):
+    def __init__(self, dbinstance_conn_type=None, dbnode_class=None, dbtype=None, dbversion=None,
+                 dispense_mode=None, need_max_scale_link=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, sub_domain=None, zone_id=None):
+        self.dbinstance_conn_type = dbinstance_conn_type  # type: str
+        self.dbnode_class = dbnode_class  # type: str
+        self.dbtype = dbtype  # type: str
+        self.dbversion = dbversion  # type: str
+        self.dispense_mode = dispense_mode  # type: str
+        self.need_max_scale_link = need_max_scale_link  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.sub_domain = sub_domain  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EvaluateRegionResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_conn_type is not None:
+            result['DBInstanceConnType'] = self.dbinstance_conn_type
+        if self.dbnode_class is not None:
+            result['DBNodeClass'] = self.dbnode_class
+        if self.dbtype is not None:
+            result['DBType'] = self.dbtype
+        if self.dbversion is not None:
+            result['DBVersion'] = self.dbversion
+        if self.dispense_mode is not None:
+            result['DispenseMode'] = self.dispense_mode
+        if self.need_max_scale_link is not None:
+            result['NeedMaxScaleLink'] = self.need_max_scale_link
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.sub_domain is not None:
+            result['SubDomain'] = self.sub_domain
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceConnType') is not None:
+            self.dbinstance_conn_type = m.get('DBInstanceConnType')
+        if m.get('DBNodeClass') is not None:
+            self.dbnode_class = m.get('DBNodeClass')
+        if m.get('DBType') is not None:
+            self.dbtype = m.get('DBType')
+        if m.get('DBVersion') is not None:
+            self.dbversion = m.get('DBVersion')
+        if m.get('DispenseMode') is not None:
+            self.dispense_mode = m.get('DispenseMode')
+        if m.get('NeedMaxScaleLink') is not None:
+            self.need_max_scale_link = m.get('NeedMaxScaleLink')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SubDomain') is not None:
+            self.sub_domain = m.get('SubDomain')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class EvaluateRegionResourceResponseBody(TeaModel):
+    def __init__(self, dbinstance_available=None, dbtype=None, dbversion=None, request_id=None):
+        self.dbinstance_available = dbinstance_available  # type: str
+        self.dbtype = dbtype  # type: str
+        self.dbversion = dbversion  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EvaluateRegionResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_available is not None:
+            result['DBInstanceAvailable'] = self.dbinstance_available
+        if self.dbtype is not None:
+            result['DBType'] = self.dbtype
+        if self.dbversion is not None:
+            result['DBVersion'] = self.dbversion
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceAvailable') is not None:
+            self.dbinstance_available = m.get('DBInstanceAvailable')
+        if m.get('DBType') is not None:
+            self.dbtype = m.get('DBType')
+        if m.get('DBVersion') is not None:
+            self.dbversion = m.get('DBVersion')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EvaluateRegionResourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EvaluateRegionResourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EvaluateRegionResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EvaluateRegionResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -18207,12 +18769,13 @@ class ModifyDBNodesParametersResponse(TeaModel):
 
 
 class ModifyGlobalDatabaseNetworkRequest(TeaModel):
-    def __init__(self, gdndescription=None, gdnid=None, owner_account=None, owner_id=None,
+    def __init__(self, gdndescription=None, gdnid=None, owner_account=None, owner_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.gdndescription = gdndescription  # type: str
         self.gdnid = gdnid  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -18234,6 +18797,8 @@ class ModifyGlobalDatabaseNetworkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -18252,6 +18817,8 @@ class ModifyGlobalDatabaseNetworkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -18566,12 +19133,13 @@ class ModifyMaskingRulesResponse(TeaModel):
 
 
 class ModifyPendingMaintenanceActionRequest(TeaModel):
-    def __init__(self, ids=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None, switch_time=None):
+    def __init__(self, ids=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None, switch_time=None):
         self.ids = ids  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -18594,6 +19162,8 @@ class ModifyPendingMaintenanceActionRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -18614,6 +19184,8 @@ class ModifyPendingMaintenanceActionRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -18695,12 +19267,13 @@ class ModifyPendingMaintenanceActionResponse(TeaModel):
 
 class OpenAITaskRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, password=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, username=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, username=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.password = password  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.username = username  # type: str
@@ -18724,6 +19297,8 @@ class OpenAITaskRequest(TeaModel):
             result['Password'] = self.password
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -18744,6 +19319,8 @@ class OpenAITaskRequest(TeaModel):
             self.password = m.get('Password')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -18867,11 +19444,8 @@ class RefreshDBClusterStorageUsageRequest(TeaModel):
 
 
 class RefreshDBClusterStorageUsageResponseBody(TeaModel):
-    def __init__(self, dbcluster_id=None, request_id=None, used_storage=None, used_storage_modified=None):
-        self.dbcluster_id = dbcluster_id  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.used_storage = used_storage  # type: str
-        self.used_storage_modified = used_storage_modified  # type: str
 
     def validate(self):
         pass
@@ -18882,26 +19456,14 @@ class RefreshDBClusterStorageUsageResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.dbcluster_id is not None:
-            result['DBClusterId'] = self.dbcluster_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.used_storage is not None:
-            result['UsedStorage'] = self.used_storage
-        if self.used_storage_modified is not None:
-            result['UsedStorageModified'] = self.used_storage_modified
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DBClusterId') is not None:
-            self.dbcluster_id = m.get('DBClusterId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('UsedStorage') is not None:
-            self.used_storage = m.get('UsedStorage')
-        if m.get('UsedStorageModified') is not None:
-            self.used_storage_modified = m.get('UsedStorageModified')
         return self
 
 
@@ -19536,12 +20098,13 @@ class RevokeAccountPrivilegeResponse(TeaModel):
 
 class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
     def __init__(self, dbcluster_id=None, gdnid=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.dbcluster_id = dbcluster_id  # type: str
         self.gdnid = gdnid  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -19565,6 +20128,8 @@ class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -19585,6 +20150,8 @@ class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
