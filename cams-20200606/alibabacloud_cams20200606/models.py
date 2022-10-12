@@ -4,9 +4,9 @@ from Tea.model import TeaModel
 
 
 class BeeBotAssociateRequest(TeaModel):
-    def __init__(self, chat_bot_instnace_id=None, isv_code=None, perspective=None, recommend_num=None,
+    def __init__(self, chat_bot_instance_id=None, isv_code=None, perspective=None, recommend_num=None,
                  session_id=None, utterance=None):
-        self.chat_bot_instnace_id = chat_bot_instnace_id  # type: str
+        self.chat_bot_instance_id = chat_bot_instance_id  # type: str
         self.isv_code = isv_code  # type: str
         self.perspective = perspective  # type: list[str]
         self.recommend_num = recommend_num  # type: int
@@ -22,8 +22,8 @@ class BeeBotAssociateRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.chat_bot_instnace_id is not None:
-            result['ChatBotInstnaceId'] = self.chat_bot_instnace_id
+        if self.chat_bot_instance_id is not None:
+            result['ChatBotInstanceId'] = self.chat_bot_instance_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
         if self.perspective is not None:
@@ -38,8 +38,8 @@ class BeeBotAssociateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChatBotInstnaceId') is not None:
-            self.chat_bot_instnace_id = m.get('ChatBotInstnaceId')
+        if m.get('ChatBotInstanceId') is not None:
+            self.chat_bot_instance_id = m.get('ChatBotInstanceId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
         if m.get('Perspective') is not None:
@@ -54,9 +54,9 @@ class BeeBotAssociateRequest(TeaModel):
 
 
 class BeeBotAssociateShrinkRequest(TeaModel):
-    def __init__(self, chat_bot_instnace_id=None, isv_code=None, perspective_shrink=None, recommend_num=None,
+    def __init__(self, chat_bot_instance_id=None, isv_code=None, perspective_shrink=None, recommend_num=None,
                  session_id=None, utterance=None):
-        self.chat_bot_instnace_id = chat_bot_instnace_id  # type: str
+        self.chat_bot_instance_id = chat_bot_instance_id  # type: str
         self.isv_code = isv_code  # type: str
         self.perspective_shrink = perspective_shrink  # type: str
         self.recommend_num = recommend_num  # type: int
@@ -72,8 +72,8 @@ class BeeBotAssociateShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.chat_bot_instnace_id is not None:
-            result['ChatBotInstnaceId'] = self.chat_bot_instnace_id
+        if self.chat_bot_instance_id is not None:
+            result['ChatBotInstanceId'] = self.chat_bot_instance_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
         if self.perspective_shrink is not None:
@@ -88,8 +88,8 @@ class BeeBotAssociateShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChatBotInstnaceId') is not None:
-            self.chat_bot_instnace_id = m.get('ChatBotInstnaceId')
+        if m.get('ChatBotInstanceId') is not None:
+            self.chat_bot_instance_id = m.get('ChatBotInstanceId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
         if m.get('Perspective') is not None:
@@ -255,9 +255,9 @@ class BeeBotAssociateResponse(TeaModel):
 
 
 class BeeBotChatRequest(TeaModel):
-    def __init__(self, chat_bot_instnace_id=None, intent_name=None, isv_code=None, knowledge_id=None,
+    def __init__(self, chat_bot_instance_id=None, intent_name=None, isv_code=None, knowledge_id=None,
                  perspective=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param=None):
-        self.chat_bot_instnace_id = chat_bot_instnace_id  # type: str
+        self.chat_bot_instance_id = chat_bot_instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.isv_code = isv_code  # type: str
         self.knowledge_id = knowledge_id  # type: str
@@ -277,8 +277,8 @@ class BeeBotChatRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.chat_bot_instnace_id is not None:
-            result['ChatBotInstnaceId'] = self.chat_bot_instnace_id
+        if self.chat_bot_instance_id is not None:
+            result['ChatBotInstanceId'] = self.chat_bot_instance_id
         if self.intent_name is not None:
             result['IntentName'] = self.intent_name
         if self.isv_code is not None:
@@ -301,8 +301,8 @@ class BeeBotChatRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChatBotInstnaceId') is not None:
-            self.chat_bot_instnace_id = m.get('ChatBotInstnaceId')
+        if m.get('ChatBotInstanceId') is not None:
+            self.chat_bot_instance_id = m.get('ChatBotInstanceId')
         if m.get('IntentName') is not None:
             self.intent_name = m.get('IntentName')
         if m.get('IsvCode') is not None:
@@ -325,9 +325,9 @@ class BeeBotChatRequest(TeaModel):
 
 
 class BeeBotChatShrinkRequest(TeaModel):
-    def __init__(self, chat_bot_instnace_id=None, intent_name=None, isv_code=None, knowledge_id=None,
+    def __init__(self, chat_bot_instance_id=None, intent_name=None, isv_code=None, knowledge_id=None,
                  perspective_shrink=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param_shrink=None):
-        self.chat_bot_instnace_id = chat_bot_instnace_id  # type: str
+        self.chat_bot_instance_id = chat_bot_instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.isv_code = isv_code  # type: str
         self.knowledge_id = knowledge_id  # type: str
@@ -347,8 +347,8 @@ class BeeBotChatShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.chat_bot_instnace_id is not None:
-            result['ChatBotInstnaceId'] = self.chat_bot_instnace_id
+        if self.chat_bot_instance_id is not None:
+            result['ChatBotInstanceId'] = self.chat_bot_instance_id
         if self.intent_name is not None:
             result['IntentName'] = self.intent_name
         if self.isv_code is not None:
@@ -371,8 +371,8 @@ class BeeBotChatShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChatBotInstnaceId') is not None:
-            self.chat_bot_instnace_id = m.get('ChatBotInstnaceId')
+        if m.get('ChatBotInstanceId') is not None:
+            self.chat_bot_instance_id = m.get('ChatBotInstanceId')
         if m.get('IntentName') is not None:
             self.intent_name = m.get('IntentName')
         if m.get('IsvCode') is not None:
