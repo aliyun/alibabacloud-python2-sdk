@@ -598,6 +598,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_backend_model_with_options(request, runtime)
 
+    def create_dataset_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_name):
+            query['DatasetName'] = request.dataset_name
+        if not UtilClient.is_unset(request.dataset_type):
+            query['DatasetType'] = request.dataset_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataset',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.CreateDatasetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dataset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dataset_with_options(request, runtime)
+
+    def create_dataset_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.expired_time):
+            query['ExpiredTime'] = request.expired_time
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.value):
+            query['Value'] = request.value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDatasetItem',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.CreateDatasetItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dataset_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dataset_item_with_options(request, runtime)
+
     def create_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1175,6 +1243,68 @@ class Client(OpenApiClient):
     def delete_backend_model(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_backend_model_with_options(request, runtime)
+
+    def delete_dataset_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataset',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DeleteDatasetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dataset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dataset_with_options(request, runtime)
+
+    def delete_dataset_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.dataset_item_id):
+            query['DatasetItemId'] = request.dataset_item_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDatasetItem',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DeleteDatasetItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dataset_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dataset_item_with_options(request, runtime)
 
     def delete_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2679,6 +2809,140 @@ class Client(OpenApiClient):
     def describe_backend_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_backend_list_with_options(request, runtime)
+
+    def describe_dataset_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDatasetInfo',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeDatasetInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dataset_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dataset_info_with_options(request, runtime)
+
+    def describe_dataset_item_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.dataset_item_id):
+            query['DatasetItemId'] = request.dataset_item_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.value):
+            query['Value'] = request.value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDatasetItemInfo',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeDatasetItemInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dataset_item_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dataset_item_info_with_options(request, runtime)
+
+    def describe_dataset_item_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.dataset_item_ids):
+            query['DatasetItemIds'] = request.dataset_item_ids
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDatasetItemList',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeDatasetItemListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dataset_item_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dataset_item_list_with_options(request, runtime)
+
+    def describe_dataset_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_ids):
+            query['DatasetIds'] = request.dataset_ids
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDatasetList',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeDatasetListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dataset_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dataset_list_with_options(request, runtime)
 
     def describe_deploy_api_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4247,6 +4511,74 @@ class Client(OpenApiClient):
     def modify_backend_model(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_backend_model_with_options(request, runtime)
+
+    def modify_dataset_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.dataset_name):
+            query['DatasetName'] = request.dataset_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDataset',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyDatasetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dataset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dataset_with_options(request, runtime)
+
+    def modify_dataset_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['DatasetId'] = request.dataset_id
+        if not UtilClient.is_unset(request.dataset_item_id):
+            query['DatasetItemId'] = request.dataset_item_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.expired_time):
+            query['ExpiredTime'] = request.expired_time
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDatasetItem',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyDatasetItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dataset_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dataset_item_with_options(request, runtime)
 
     def modify_instance_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
