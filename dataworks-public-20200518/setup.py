@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_dataworks-public20200518_py2.
 
-Created on 31/08/2022
+Created on 13/10/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -40,8 +40,7 @@ VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "alibabacloud_tea_util_py2>=0.0.6, <1.0.0",
     "alibabacloud_oss_sdk_py2>=0.0.1, <1.0.0",
-    "alibabacloud_tea_rpc_py2>=0.0.1, <1.0.0",
-    "alibabacloud_openplatform20191219_py2>=0.0.1, <1.0.0",
+    "alibabacloud_openplatform20191219_py2>=1.0.0, <2.0.0",
     "alibabacloud_oss_util_py2>=0.0.1, <1.0.0",
     "alibabacloud_tea_fileform_py2>=0.0.1, <1.0.0",
     "alibabacloud_tea_openapi_py2>=0.1.3, <1.0.0",
