@@ -862,40 +862,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_slr_and_sls_project_with_options(request, runtime)
 
-    def create_wasm_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        body = {}
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.name):
-            body['Name'] = request.name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreateWasm',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.CreateWasmResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_wasm(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_wasm_with_options(request, runtime)
-
     def dcdn_http_request_test_tool_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = dcdn_20180115_models.DcdnHttpRequestTestToolShrinkRequest()

@@ -1,3 +1,6 @@
+2022-10-13 Version: 1.0.20
+- Update DeleteRoutineConfEnvs.
+
 2022-09-28 Version: 1.0.19
 - Update AddDcdnDomain.
 
