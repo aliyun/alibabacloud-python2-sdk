@@ -1059,9 +1059,9 @@ class ApplyAddRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  external_traveler_list=None, external_traveler_standard=None, flight_budget=None, hotel_budget=None, hotel_share=None,
                  international_flight_cabins=None, itinerary_list=None, itinerary_rule=None, itinerary_set_list=None, limit_traveler=None,
-                 status=None, thirdpart_apply_id=None, thirdpart_business_id=None, together_book_rule=None,
-                 train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None, trip_day=None, trip_title=None,
-                 type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 status=None, thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None,
+                 together_book_rule=None, train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None,
+                 trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -1080,6 +1080,7 @@ class ApplyAddRequest(TeaModel):
         self.status = status  # type: int
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
+        self.thirdpart_depart_id = thirdpart_depart_id  # type: str
         self.together_book_rule = together_book_rule  # type: int
         self.train_budget = train_budget  # type: long
         self.traveler_list = traveler_list  # type: list[ApplyAddRequestTravelerList]
@@ -1167,6 +1168,8 @@ class ApplyAddRequest(TeaModel):
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
             result['thirdpart_business_id'] = self.thirdpart_business_id
+        if self.thirdpart_depart_id is not None:
+            result['thirdpart_depart_id'] = self.thirdpart_depart_id
         if self.together_book_rule is not None:
             result['together_book_rule'] = self.together_book_rule
         if self.train_budget is not None:
@@ -1246,6 +1249,8 @@ class ApplyAddRequest(TeaModel):
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
             self.thirdpart_business_id = m.get('thirdpart_business_id')
+        if m.get('thirdpart_depart_id') is not None:
+            self.thirdpart_depart_id = m.get('thirdpart_depart_id')
         if m.get('together_book_rule') is not None:
             self.together_book_rule = m.get('together_book_rule')
         if m.get('train_budget') is not None:
@@ -1284,9 +1289,9 @@ class ApplyAddShrinkRequest(TeaModel):
                  external_traveler_list_shrink=None, external_traveler_standard_shrink=None, flight_budget=None, hotel_budget=None,
                  hotel_share_shrink=None, international_flight_cabins=None, itinerary_list_shrink=None, itinerary_rule=None,
                  itinerary_set_list_shrink=None, limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None,
-                 together_book_rule=None, train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None,
-                 trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None,
-                 vehicle_budget=None):
+                 thirdpart_depart_id=None, together_book_rule=None, train_budget=None, traveler_list_shrink=None,
+                 traveler_standard_shrink=None, trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None,
+                 user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -1305,6 +1310,7 @@ class ApplyAddShrinkRequest(TeaModel):
         self.status = status  # type: int
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
+        self.thirdpart_depart_id = thirdpart_depart_id  # type: str
         self.together_book_rule = together_book_rule  # type: int
         self.train_budget = train_budget  # type: long
         self.traveler_list_shrink = traveler_list_shrink  # type: str
@@ -1363,6 +1369,8 @@ class ApplyAddShrinkRequest(TeaModel):
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
             result['thirdpart_business_id'] = self.thirdpart_business_id
+        if self.thirdpart_depart_id is not None:
+            result['thirdpart_depart_id'] = self.thirdpart_depart_id
         if self.together_book_rule is not None:
             result['together_book_rule'] = self.together_book_rule
         if self.train_budget is not None:
@@ -1427,6 +1435,8 @@ class ApplyAddShrinkRequest(TeaModel):
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
             self.thirdpart_business_id = m.get('thirdpart_business_id')
+        if m.get('thirdpart_depart_id') is not None:
+            self.thirdpart_depart_id = m.get('thirdpart_depart_id')
         if m.get('together_book_rule') is not None:
             self.together_book_rule = m.get('together_book_rule')
         if m.get('train_budget') is not None:
@@ -2896,9 +2906,9 @@ class ApplyModifyRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  external_traveler_list=None, external_traveler_standard=None, flight_budget=None, hotel_budget=None, hotel_share=None,
                  itinerary_list=None, itinerary_rule=None, itinerary_set_list=None, limit_traveler=None, status=None,
-                 thirdpart_apply_id=None, thirdpart_business_id=None, together_book_rule=None, train_budget=None, traveler_list=None,
-                 traveler_standard=None, trip_cause=None, trip_day=None, trip_title=None, union_no=None, user_id=None, user_name=None,
-                 vehicle_budget=None):
+                 thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None, together_book_rule=None,
+                 train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None, trip_day=None, trip_title=None,
+                 union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -2916,6 +2926,7 @@ class ApplyModifyRequest(TeaModel):
         self.status = status  # type: int
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
+        self.thirdpart_depart_id = thirdpart_depart_id  # type: str
         self.together_book_rule = together_book_rule  # type: int
         self.train_budget = train_budget  # type: long
         self.traveler_list = traveler_list  # type: list[ApplyModifyRequestTravelerList]
@@ -3000,6 +3011,8 @@ class ApplyModifyRequest(TeaModel):
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
             result['thirdpart_business_id'] = self.thirdpart_business_id
+        if self.thirdpart_depart_id is not None:
+            result['thirdpart_depart_id'] = self.thirdpart_depart_id
         if self.together_book_rule is not None:
             result['together_book_rule'] = self.together_book_rule
         if self.train_budget is not None:
@@ -3075,6 +3088,8 @@ class ApplyModifyRequest(TeaModel):
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
             self.thirdpart_business_id = m.get('thirdpart_business_id')
+        if m.get('thirdpart_depart_id') is not None:
+            self.thirdpart_depart_id = m.get('thirdpart_depart_id')
         if m.get('together_book_rule') is not None:
             self.together_book_rule = m.get('together_book_rule')
         if m.get('train_budget') is not None:
@@ -3110,9 +3125,10 @@ class ApplyModifyShrinkRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  external_traveler_list_shrink=None, external_traveler_standard_shrink=None, flight_budget=None, hotel_budget=None,
                  hotel_share_shrink=None, itinerary_list_shrink=None, itinerary_rule=None, itinerary_set_list_shrink=None,
-                 limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None, together_book_rule=None,
-                 train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None, trip_cause=None, trip_day=None,
-                 trip_title=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None,
+                 together_book_rule=None, train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None,
+                 trip_cause=None, trip_day=None, trip_title=None, union_no=None, user_id=None, user_name=None,
+                 vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
@@ -3130,6 +3146,7 @@ class ApplyModifyShrinkRequest(TeaModel):
         self.status = status  # type: int
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
+        self.thirdpart_depart_id = thirdpart_depart_id  # type: str
         self.together_book_rule = together_book_rule  # type: int
         self.train_budget = train_budget  # type: long
         self.traveler_list_shrink = traveler_list_shrink  # type: str
@@ -3185,6 +3202,8 @@ class ApplyModifyShrinkRequest(TeaModel):
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
             result['thirdpart_business_id'] = self.thirdpart_business_id
+        if self.thirdpart_depart_id is not None:
+            result['thirdpart_depart_id'] = self.thirdpart_depart_id
         if self.together_book_rule is not None:
             result['together_book_rule'] = self.together_book_rule
         if self.train_budget is not None:
@@ -3245,6 +3264,8 @@ class ApplyModifyShrinkRequest(TeaModel):
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
             self.thirdpart_business_id = m.get('thirdpart_business_id')
+        if m.get('thirdpart_depart_id') is not None:
+            self.thirdpart_depart_id = m.get('thirdpart_depart_id')
         if m.get('together_book_rule') is not None:
             self.together_book_rule = m.get('together_book_rule')
         if m.get('train_budget') is not None:
