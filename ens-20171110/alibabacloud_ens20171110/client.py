@@ -1916,6 +1916,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_vswitch_with_options(request, runtime)
 
+    def describe_aicimages_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.image_url):
+            query['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAICImages',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.DescribeAICImagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_aicimages(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_aicimages_with_options(request, runtime)
+
     def describe_armserver_instances_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ens_20171110_models.DescribeARMServerInstancesShrinkRequest()
@@ -2984,6 +3018,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_export_image_status_with_options(request, runtime)
 
+    def describe_file_systems_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeFileSystems',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.DescribeFileSystemsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_file_systems(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_file_systems_with_options(request, runtime)
+
     def describe_forward_table_entries_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3303,6 +3363,8 @@ class Client(OpenApiClient):
             query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.instance_resource_type):
             query['InstanceResourceType'] = request.instance_resource_type
+        if not UtilClient.is_unset(request.intranet_ip):
+            query['IntranetIp'] = request.intranet_ip
         if not UtilClient.is_unset(request.network_id):
             query['NetworkId'] = request.network_id
         if not UtilClient.is_unset(request.order_by_params):
@@ -3809,8 +3871,6 @@ class Client(OpenApiClient):
             query['InstanceSpec'] = request.instance_spec
         if not UtilClient.is_unset(request.system_disk_size):
             query['SystemDiskSize'] = request.system_disk_size
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4107,8 +4167,6 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
