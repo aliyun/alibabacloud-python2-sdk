@@ -656,6 +656,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.grant_net_link_with_options(request, runtime)
 
+    def list_apns_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAPNs',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.ListAPNsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_apns(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_apns_with_options(request, runtime)
+
     def list_authorization_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -877,6 +903,32 @@ class Client(OpenApiClient):
     def list_regions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_regions_with_options(request, runtime)
+
+    def list_wireless_cloud_connectors_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListWirelessCloudConnectors',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.ListWirelessCloudConnectorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_wireless_cloud_connectors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_wireless_cloud_connectors_with_options(request, runtime)
 
     def list_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
