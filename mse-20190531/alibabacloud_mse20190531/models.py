@@ -5433,11 +5433,12 @@ class CreateOrUpdateSwimmingLaneResponse(TeaModel):
 
 
 class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
-    def __init__(self, accept_language=None, app_ids=None, enable=None, entry_app=None, gmt_create=None,
-                 gmt_modified=None, id=None, license_key=None, message_queue_filter_side=None, message_queue_gray_enable=None,
-                 mse_session_id=None, name=None, region=None, source=None, status=None, user_id=None):
+    def __init__(self, accept_language=None, app_ids=None, db_gray_enable=None, enable=None, entry_app=None,
+                 gmt_create=None, gmt_modified=None, id=None, license_key=None, message_queue_filter_side=None,
+                 message_queue_gray_enable=None, mse_session_id=None, name=None, region=None, source=None, status=None, user_id=None):
         self.accept_language = accept_language  # type: str
         self.app_ids = app_ids  # type: str
+        self.db_gray_enable = db_gray_enable  # type: bool
         self.enable = enable  # type: bool
         self.entry_app = entry_app  # type: str
         self.gmt_create = gmt_create  # type: str
@@ -5466,6 +5467,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.app_ids is not None:
             result['AppIds'] = self.app_ids
+        if self.db_gray_enable is not None:
+            result['DbGrayEnable'] = self.db_gray_enable
         if self.enable is not None:
             result['Enable'] = self.enable
         if self.entry_app is not None:
@@ -5502,6 +5505,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('AppIds') is not None:
             self.app_ids = m.get('AppIds')
+        if m.get('DbGrayEnable') is not None:
+            self.db_gray_enable = m.get('DbGrayEnable')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
         if m.get('EntryApp') is not None:
