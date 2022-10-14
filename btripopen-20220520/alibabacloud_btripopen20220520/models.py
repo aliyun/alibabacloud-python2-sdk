@@ -61,17 +61,54 @@ class AccessTokenResponseBodyData(TeaModel):
         return self
 
 
+class AccessTokenResponseBodyModule(TeaModel):
+    def __init__(self, expire=None, start=None, token=None):
+        self.expire = expire  # type: long
+        self.start = start  # type: long
+        self.token = token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AccessTokenResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expire is not None:
+            result['expire'] = self.expire
+        if self.start is not None:
+            result['start'] = self.start
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        if m.get('start') is not None:
+            self.start = m.get('start')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
 class AccessTokenResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, trace_id=None):
+    def __init__(self, code=None, data=None, message=None, module=None, request_id=None, trace_id=None):
         self.code = code  # type: str
         self.data = data  # type: AccessTokenResponseBodyData
         self.message = message  # type: str
+        self.module = module  # type: AccessTokenResponseBodyModule
         self.request_id = request_id  # type: str
         self.trace_id = trace_id  # type: str
 
     def validate(self):
         if self.data:
             self.data.validate()
+        if self.module:
+            self.module.validate()
 
     def to_map(self):
         _map = super(AccessTokenResponseBody, self).to_map()
@@ -85,6 +122,8 @@ class AccessTokenResponseBody(TeaModel):
             result['data'] = self.data.to_map()
         if self.message is not None:
             result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.trace_id is not None:
@@ -100,6 +139,9 @@ class AccessTokenResponseBody(TeaModel):
             self.data = temp_model.from_map(m['data'])
         if m.get('message') is not None:
             self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = AccessTokenResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         if m.get('traceId') is not None:
@@ -6921,17 +6963,54 @@ class CorpTokenResponseBodyData(TeaModel):
         return self
 
 
+class CorpTokenResponseBodyModule(TeaModel):
+    def __init__(self, expire=None, start=None, token=None):
+        self.expire = expire  # type: long
+        self.start = start  # type: long
+        self.token = token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CorpTokenResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expire is not None:
+            result['expire'] = self.expire
+        if self.start is not None:
+            result['start'] = self.start
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        if m.get('start') is not None:
+            self.start = m.get('start')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
 class CorpTokenResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, trace_id=None):
+    def __init__(self, code=None, data=None, message=None, module=None, request_id=None, trace_id=None):
         self.code = code  # type: str
         self.data = data  # type: CorpTokenResponseBodyData
         self.message = message  # type: str
+        self.module = module  # type: CorpTokenResponseBodyModule
         self.request_id = request_id  # type: str
         self.trace_id = trace_id  # type: str
 
     def validate(self):
         if self.data:
             self.data.validate()
+        if self.module:
+            self.module.validate()
 
     def to_map(self):
         _map = super(CorpTokenResponseBody, self).to_map()
@@ -6945,6 +7024,8 @@ class CorpTokenResponseBody(TeaModel):
             result['data'] = self.data.to_map()
         if self.message is not None:
             result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.trace_id is not None:
@@ -6960,6 +7041,9 @@ class CorpTokenResponseBody(TeaModel):
             self.data = temp_model.from_map(m['data'])
         if m.get('message') is not None:
             self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = CorpTokenResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         if m.get('traceId') is not None:
