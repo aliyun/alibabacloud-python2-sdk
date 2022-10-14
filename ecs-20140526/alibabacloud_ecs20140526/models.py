@@ -38048,7 +38048,7 @@ class DescribeInstanceTypesResponseBodyInstanceTypesInstanceType(TeaModel):
     def __init__(self, baseline_credit=None, cpu_architecture=None, cpu_core_count=None, cpu_speed_frequency=None,
                  cpu_turbo_frequency=None, disk_quantity=None, eni_ipv_6address_quantity=None, eni_private_ip_address_quantity=None,
                  eni_quantity=None, eni_total_quantity=None, eni_trunk_supported=None, eri_quantity=None, gpuamount=None,
-                 gpuspec=None, initial_credit=None, instance_bandwidth_rx=None, instance_bandwidth_tx=None,
+                 gpumemory_size=None, gpuspec=None, initial_credit=None, instance_bandwidth_rx=None, instance_bandwidth_tx=None,
                  instance_category=None, instance_family_level=None, instance_pps_rx=None, instance_pps_tx=None,
                  instance_type_family=None, instance_type_id=None, local_storage_amount=None, local_storage_capacity=None,
                  local_storage_category=None, maximum_queue_number_per_eni=None, memory_size=None, network_encryption_support=None,
@@ -38067,6 +38067,7 @@ class DescribeInstanceTypesResponseBodyInstanceTypesInstanceType(TeaModel):
         self.eni_trunk_supported = eni_trunk_supported  # type: bool
         self.eri_quantity = eri_quantity  # type: int
         self.gpuamount = gpuamount  # type: int
+        self.gpumemory_size = gpumemory_size  # type: float
         self.gpuspec = gpuspec  # type: str
         self.initial_credit = initial_credit  # type: int
         self.instance_bandwidth_rx = instance_bandwidth_rx  # type: int
@@ -38125,6 +38126,8 @@ class DescribeInstanceTypesResponseBodyInstanceTypesInstanceType(TeaModel):
             result['EriQuantity'] = self.eri_quantity
         if self.gpuamount is not None:
             result['GPUAmount'] = self.gpuamount
+        if self.gpumemory_size is not None:
+            result['GPUMemorySize'] = self.gpumemory_size
         if self.gpuspec is not None:
             result['GPUSpec'] = self.gpuspec
         if self.initial_credit is not None:
@@ -38199,6 +38202,8 @@ class DescribeInstanceTypesResponseBodyInstanceTypesInstanceType(TeaModel):
             self.eri_quantity = m.get('EriQuantity')
         if m.get('GPUAmount') is not None:
             self.gpuamount = m.get('GPUAmount')
+        if m.get('GPUMemorySize') is not None:
+            self.gpumemory_size = m.get('GPUMemorySize')
         if m.get('GPUSpec') is not None:
             self.gpuspec = m.get('GPUSpec')
         if m.get('InitialCredit') is not None:
