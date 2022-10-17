@@ -2066,17 +2066,11 @@ class CreateDeployConfigResponse(TeaModel):
 class CreateEciConfigRequest(TeaModel):
     def __init__(self, app_env_id=None, eip_bandwidth=None, enable_eci_schedule_policy=None, mirror_cache=None,
                  normal_instance_limit=None, schedule_virtual_node=None):
-        # appEnvId
         self.app_env_id = app_env_id  # type: long
-        # eipBandwidth
         self.eip_bandwidth = eip_bandwidth  # type: int
-        # enableEciSchedulePolicy
         self.enable_eci_schedule_policy = enable_eci_schedule_policy  # type: bool
-        # mirrorCache
         self.mirror_cache = mirror_cache  # type: bool
-        # normalInstanceLimit
         self.normal_instance_limit = normal_instance_limit  # type: int
-        # scheduleVirtualNode
         self.schedule_virtual_node = schedule_virtual_node  # type: bool
 
     def validate(self):
@@ -2121,7 +2115,6 @@ class CreateEciConfigRequest(TeaModel):
 
 class CreateEciConfigResponseBodyResult(TeaModel):
     def __init__(self, success=None):
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -2146,13 +2139,9 @@ class CreateEciConfigResponseBodyResult(TeaModel):
 
 class CreateEciConfigResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None):
-        # code
         self.code = code  # type: int
-        # errMsg
         self.err_msg = err_msg  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # result
         self.result = result  # type: CreateEciConfigResponseBodyResult
 
     def validate(self):
@@ -2547,7 +2536,7 @@ class CreateNodeLabelResponse(TeaModel):
 
 class CreatePersistentVolumeRequest(TeaModel):
     def __init__(self, access_modes=None, capacity=None, cluster_instance_id=None, mount_dir=None,
-                 mount_target_domain=None, nfsversion=None, name=None, reclaim_policy=None, storage_class=None):
+                 mount_target_domain=None, nfsversion=None, name=None, nas_type=None, reclaim_policy=None, storage_class=None):
         self.access_modes = access_modes  # type: str
         self.capacity = capacity  # type: str
         self.cluster_instance_id = cluster_instance_id  # type: str
@@ -2555,6 +2544,7 @@ class CreatePersistentVolumeRequest(TeaModel):
         self.mount_target_domain = mount_target_domain  # type: str
         self.nfsversion = nfsversion  # type: str
         self.name = name  # type: str
+        self.nas_type = nas_type  # type: str
         self.reclaim_policy = reclaim_policy  # type: str
         self.storage_class = storage_class  # type: str
 
@@ -2581,6 +2571,8 @@ class CreatePersistentVolumeRequest(TeaModel):
             result['NFSVersion'] = self.nfsversion
         if self.name is not None:
             result['Name'] = self.name
+        if self.nas_type is not None:
+            result['NasType'] = self.nas_type
         if self.reclaim_policy is not None:
             result['ReclaimPolicy'] = self.reclaim_policy
         if self.storage_class is not None:
@@ -2603,6 +2595,8 @@ class CreatePersistentVolumeRequest(TeaModel):
             self.nfsversion = m.get('NFSVersion')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NasType') is not None:
+            self.nas_type = m.get('NasType')
         if m.get('ReclaimPolicy') is not None:
             self.reclaim_policy = m.get('ReclaimPolicy')
         if m.get('StorageClass') is not None:
@@ -5359,16 +5353,11 @@ class DescribeAppEnvDeployBaselineResponseBodyResult(TeaModel):
     def __init__(self, app_id=None, create_time=None, env_id=None, packet_comment=None, packet_id=None,
                  packet_url=None, schema_id=None):
         self.app_id = app_id  # type: long
-        # 创建时间
         self.create_time = create_time  # type: str
         self.env_id = env_id  # type: long
-        # 代码包描述
         self.packet_comment = packet_comment  # type: str
-        # 代码包id
         self.packet_id = packet_id  # type: long
-        # 指定代码包发布时，为代码包Url；纯镜像发布时，为镜像地址
         self.packet_url = packet_url  # type: str
-        # 部署配置schema_id
         self.schema_id = schema_id  # type: long
 
     def validate(self):
@@ -5417,7 +5406,6 @@ class DescribeAppEnvDeployBaselineResponseBodyResult(TeaModel):
 
 class DescribeAppEnvDeployBaselineResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None, success=None):
-        # CodeEnum
         self.code = code  # type: int
         self.err_msg = err_msg  # type: str
         self.request_id = request_id  # type: str
@@ -5701,9 +5689,7 @@ class DescribeAppGroupDeploySettingRequest(TeaModel):
 
 class DescribeAppGroupDeploySettingResponseBodyResult(TeaModel):
     def __init__(self, default_packet_comment=None, default_packet_id=None):
-        # 默认代码包描述
         self.default_packet_comment = default_packet_comment  # type: str
-        # 默认代码包id
         self.default_packet_id = default_packet_id  # type: long
 
     def validate(self):
@@ -5732,7 +5718,6 @@ class DescribeAppGroupDeploySettingResponseBodyResult(TeaModel):
 
 class DescribeAppGroupDeploySettingResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None, success=None):
-        # CodeEnum
         self.code = code  # type: int
         self.err_msg = err_msg  # type: str
         self.request_id = request_id  # type: str
@@ -7299,7 +7284,6 @@ class DescribeDeployOrderDetailResponse(TeaModel):
 
 class DescribeEciConfigRequest(TeaModel):
     def __init__(self, app_env_id=None):
-        # appEnvId
         self.app_env_id = app_env_id  # type: long
 
     def validate(self):
@@ -7325,17 +7309,11 @@ class DescribeEciConfigRequest(TeaModel):
 class DescribeEciConfigResponseBodyResult(TeaModel):
     def __init__(self, app_env_id=None, eip_bandwidth=None, enable_eci_schedule_policy=None, mirror_cache=None,
                  normal_instance_limit=None, schedule_virtual_node=None):
-        # appEnvId
         self.app_env_id = app_env_id  # type: long
-        # eipBandwidth
         self.eip_bandwidth = eip_bandwidth  # type: int
-        # enableEciSchedulePolicy
         self.enable_eci_schedule_policy = enable_eci_schedule_policy  # type: bool
-        # mirrorCache
         self.mirror_cache = mirror_cache  # type: bool
-        # normalInstanceLimit
         self.normal_instance_limit = normal_instance_limit  # type: int
-        # scheduleVirtualNode
         self.schedule_virtual_node = schedule_virtual_node  # type: bool
 
     def validate(self):
@@ -7380,13 +7358,9 @@ class DescribeEciConfigResponseBodyResult(TeaModel):
 
 class DescribeEciConfigResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None):
-        # code
         self.code = code  # type: int
-        # errMsg
         self.err_msg = err_msg  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # result
         self.result = result  # type: DescribeEciConfigResponseBodyResult
 
     def validate(self):
@@ -14730,7 +14704,6 @@ class ModifySlbAPResponse(TeaModel):
 class OfflineAppEnvironmentRequest(TeaModel):
     def __init__(self, app_id=None, delete_pvc=None, env_id=None):
         self.app_id = app_id  # type: long
-        # 是否删除PVC，未传递默认不删除
         self.delete_pvc = delete_pvc  # type: bool
         self.env_id = env_id  # type: long
 
@@ -14788,7 +14761,6 @@ class OfflineAppEnvironmentResponseBodyResult(TeaModel):
 
 class OfflineAppEnvironmentResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None, success=None):
-        # CodeEnum
         self.code = code  # type: int
         self.err_msg = err_msg  # type: str
         self.request_id = request_id  # type: str
@@ -15758,11 +15730,8 @@ class ResourceStatusNotifyResponse(TeaModel):
 
 class RestartAppInstanceRequest(TeaModel):
     def __init__(self, app_id=None, app_instance_id_list=None, env_id=None):
-        # appId
         self.app_id = app_id  # type: long
-        # appInstanceIdList
         self.app_instance_id_list = app_instance_id_list  # type: list[long]
-        # envId
         self.env_id = env_id  # type: long
 
     def validate(self):
@@ -15795,13 +15764,9 @@ class RestartAppInstanceRequest(TeaModel):
 
 class RestartAppInstanceResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None):
-        # code
         self.code = code  # type: int
-        # errMsg
         self.err_msg = err_msg  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # result
         self.result = result  # type: str
 
     def validate(self):
@@ -17325,17 +17290,11 @@ class UpdateDeployConfigResponse(TeaModel):
 class UpdateEciConfigRequest(TeaModel):
     def __init__(self, app_env_id=None, eip_bandwidth=None, enable_eci_schedule_policy=None, mirror_cache=None,
                  normal_instance_limit=None, schedule_virtual_node=None):
-        # appEnvId
         self.app_env_id = app_env_id  # type: long
-        # eipBandwidth
         self.eip_bandwidth = eip_bandwidth  # type: int
-        # enableEciSchedulePolicy
         self.enable_eci_schedule_policy = enable_eci_schedule_policy  # type: bool
-        # mirrorCache
         self.mirror_cache = mirror_cache  # type: bool
-        # normalInstanceLimit
         self.normal_instance_limit = normal_instance_limit  # type: int
-        # scheduleVirtualNode
         self.schedule_virtual_node = schedule_virtual_node  # type: bool
 
     def validate(self):
@@ -17380,7 +17339,6 @@ class UpdateEciConfigRequest(TeaModel):
 
 class UpdateEciConfigResponseBodyResult(TeaModel):
     def __init__(self, success=None):
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -17405,13 +17363,9 @@ class UpdateEciConfigResponseBodyResult(TeaModel):
 
 class UpdateEciConfigResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None):
-        # code
         self.code = code  # type: int
-        # errMsg
         self.err_msg = err_msg  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # result
         self.result = result  # type: UpdateEciConfigResponseBodyResult
 
     def validate(self):
@@ -17800,7 +17754,6 @@ class UpdateNormalDeployConfigResponseBody(TeaModel):
     def __init__(self, code=None, err_msg=None, request_id=None, result=None):
         self.code = code  # type: int
         self.err_msg = err_msg  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.result = result  # type: UpdateNormalDeployConfigResponseBodyResult
 
