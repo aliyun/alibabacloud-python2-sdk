@@ -10,6 +10,7 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_eais20190624 import models as eais_20190624_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -84,12 +85,30 @@ class Client(OpenApiClient):
 
     def attach_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_instance_id):
+            query['ClientInstanceId'] = request.client_instance_id
+        if not UtilClient.is_unset(request.elastic_accelerated_instance_id):
+            query['ElasticAcceleratedInstanceId'] = request.elastic_accelerated_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachEai',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.AttachEaiResponse(),
-            self.do_rpcrequest('AttachEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def attach_eai(self, request):
@@ -98,12 +117,36 @@ class Client(OpenApiClient):
 
     def create_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEai',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.CreateEaiResponse(),
-            self.do_rpcrequest('CreateEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_eai(self, request):
@@ -112,26 +155,122 @@ class Client(OpenApiClient):
 
     def create_eai_all_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_image_id):
+            query['ClientImageId'] = request.client_image_id
+        if not UtilClient.is_unset(request.client_instance_name):
+            query['ClientInstanceName'] = request.client_instance_name
+        if not UtilClient.is_unset(request.client_instance_type):
+            query['ClientInstanceType'] = request.client_instance_type
+        if not UtilClient.is_unset(request.client_internet_max_bandwidth_in):
+            query['ClientInternetMaxBandwidthIn'] = request.client_internet_max_bandwidth_in
+        if not UtilClient.is_unset(request.client_internet_max_bandwidth_out):
+            query['ClientInternetMaxBandwidthOut'] = request.client_internet_max_bandwidth_out
+        if not UtilClient.is_unset(request.client_password):
+            query['ClientPassword'] = request.client_password
+        if not UtilClient.is_unset(request.client_security_group_id):
+            query['ClientSecurityGroupId'] = request.client_security_group_id
+        if not UtilClient.is_unset(request.client_system_disk_category):
+            query['ClientSystemDiskCategory'] = request.client_system_disk_category
+        if not UtilClient.is_unset(request.client_system_disk_size):
+            query['ClientSystemDiskSize'] = request.client_system_disk_size
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_vswitch_id):
+            query['ClientVSwitchId'] = request.client_vswitch_id
+        if not UtilClient.is_unset(request.client_zone_id):
+            query['ClientZoneId'] = request.client_zone_id
+        if not UtilClient.is_unset(request.eai_instance_type):
+            query['EaiInstanceType'] = request.eai_instance_type
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEaiAll',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.CreateEaiAllResponse(),
-            self.do_rpcrequest('CreateEaiAll', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_eai_all(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_eai_all_with_options(request, runtime)
 
+    def create_eai_jupyter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.eais_type):
+            query['EaisType'] = request.eais_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEaiJupyter',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaiJupyterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_eai_jupyter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_eai_jupyter_with_options(request, runtime)
+
     def delete_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.elastic_accelerated_instance_id):
+            query['ElasticAcceleratedInstanceId'] = request.elastic_accelerated_instance_id
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEai',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.DeleteEaiResponse(),
-            self.do_rpcrequest('DeleteEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_eai(self, request):
@@ -140,12 +279,30 @@ class Client(OpenApiClient):
 
     def delete_eai_all_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_instance_id):
+            query['ClientInstanceId'] = request.client_instance_id
+        if not UtilClient.is_unset(request.elastic_accelerated_instance_id):
+            query['ElasticAcceleratedInstanceId'] = request.elastic_accelerated_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEaiAll',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.DeleteEaiAllResponse(),
-            self.do_rpcrequest('DeleteEaiAll', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_eai_all(self, request):
@@ -154,12 +311,38 @@ class Client(OpenApiClient):
 
     def describe_eais_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.elastic_accelerated_instance_ids):
+            query['ElasticAcceleratedInstanceIds'] = request.elastic_accelerated_instance_ids
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEais',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.DescribeEaisResponse(),
-            self.do_rpcrequest('DescribeEais', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_eais(self, request):
@@ -168,9 +351,20 @@ class Client(OpenApiClient):
 
     def describe_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeRegions',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             eais_20190624_models.DescribeRegionsResponse(),
-            self.do_rpcrequest('DescribeRegions', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_regions(self):
@@ -179,28 +373,30 @@ class Client(OpenApiClient):
 
     def detach_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.elastic_accelerated_instance_id):
+            query['ElasticAcceleratedInstanceId'] = request.elastic_accelerated_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachEai',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             eais_20190624_models.DetachEaiResponse(),
-            self.do_rpcrequest('DetachEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def detach_eai(self, request):
         runtime = util_models.RuntimeOptions()
         return self.detach_eai_with_options(request, runtime)
-
-    def get_private_ip_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            eais_20190624_models.GetPrivateIpResponse(),
-            self.do_rpcrequest('GetPrivateIp', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_private_ip(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_private_ip_with_options(request, runtime)
