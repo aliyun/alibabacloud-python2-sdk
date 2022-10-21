@@ -287,7 +287,7 @@ class AddressGetResponseBodyModule(TeaModel):
 
 class AddressGetResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: AddressGetResponseBodyModule
         self.request_id = request_id  # type: str
@@ -511,7 +511,7 @@ class AirportSearchResponseBodyModule(TeaModel):
 
 class AirportSearchResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: AirportSearchResponseBodyModule
         self.request_id = request_id  # type: str
@@ -1542,7 +1542,7 @@ class ApplyAddResponseBodyModule(TeaModel):
 
 class ApplyAddResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: ApplyAddResponseBodyModule
         self.request_id = request_id  # type: str
@@ -1710,7 +1710,7 @@ class ApplyApproveRequest(TeaModel):
 
 class ApplyApproveResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: str
         self.request_id = request_id  # type: str
@@ -2352,7 +2352,7 @@ class ApplyListQueryResponseBodyModuleList(TeaModel):
 
 class ApplyListQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module_list=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module_list = module_list  # type: list[ApplyListQueryResponseBodyModuleList]
         self.request_id = request_id  # type: str
@@ -3369,7 +3369,7 @@ class ApplyModifyResponseBodyModule(TeaModel):
 
 class ApplyModifyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: ApplyModifyResponseBodyModule
         self.request_id = request_id  # type: str
@@ -4218,7 +4218,7 @@ class ApplyQueryResponseBodyModule(TeaModel):
 
 class ApplyQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: ApplyQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -4433,7 +4433,7 @@ class CarApplyAddRequest(TeaModel):
 
 class CarApplyAddResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: long
         self.request_id = request_id  # type: str
@@ -4594,7 +4594,7 @@ class CarApplyModifyRequest(TeaModel):
 
 class CarApplyModifyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: bool
         self.request_id = request_id  # type: str
@@ -5012,7 +5012,7 @@ class CarApplyQueryResponseBody(TeaModel):
     def __init__(self, apply_list=None, code=None, message=None, request_id=None, success=None, total=None,
                  trace_id=None):
         self.apply_list = apply_list  # type: list[CarApplyQueryResponseBodyApplyList]
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -5552,7 +5552,7 @@ class CarBillSettlementQueryResponseBodyModule(TeaModel):
 
 class CarBillSettlementQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: CarBillSettlementQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -6170,7 +6170,7 @@ class CarOrderListQueryResponseBodyPageInfo(TeaModel):
 class CarOrderListQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, page_info=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[CarOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: CarOrderListQueryResponseBodyPageInfo
@@ -6393,7 +6393,7 @@ class CitySearchResponseBodyModule(TeaModel):
 
 class CitySearchResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: CitySearchResponseBodyModule
         self.request_id = request_id  # type: str
@@ -6621,7 +6621,7 @@ class CommonApplyQueryResponseBodyModule(TeaModel):
 
 class CommonApplyQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: CommonApplyQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -6790,7 +6790,7 @@ class CommonApplySyncRequest(TeaModel):
 
 class CommonApplySyncResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: bool
         self.request_id = request_id  # type: str
@@ -7145,7 +7145,7 @@ class CostCenterDeleteRequest(TeaModel):
 
 class CostCenterDeleteResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -7301,7 +7301,7 @@ class CostCenterModifyRequest(TeaModel):
 
 class CostCenterModifyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -7570,7 +7570,7 @@ class CostCenterQueryResponseBodyModule(TeaModel):
 class CostCenterQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[CostCenterQueryResponseBodyModule]
         self.more_page = more_page  # type: bool
@@ -7768,7 +7768,7 @@ class CostCenterSaveResponseBodyModule(TeaModel):
 
 class CostCenterSaveResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: CostCenterSaveResponseBodyModule
         self.request_id = request_id  # type: str
@@ -7998,7 +7998,7 @@ class DepartmentSaveShrinkRequest(TeaModel):
 
 class DepartmentSaveResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: str
         self.request_id = request_id  # type: str
@@ -8239,7 +8239,7 @@ class EntityAddResponseBodyModule(TeaModel):
 
 class EntityAddResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: EntityAddResponseBodyModule
         self.request_id = request_id  # type: str
@@ -8493,7 +8493,7 @@ class EntityDeleteResponseBodyModule(TeaModel):
 class EntityDeleteResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: EntityDeleteResponseBodyModule
         self.more_page = more_page  # type: bool
@@ -8747,7 +8747,7 @@ class EntitySetResponseBodyModule(TeaModel):
 class EntitySetResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: EntitySetResponseBodyModule
         self.more_page = more_page  # type: bool
@@ -8921,7 +8921,7 @@ class ExceedApplySyncRequest(TeaModel):
 
 class ExceedApplySyncResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: bool
         self.request_id = request_id  # type: str
@@ -9522,7 +9522,7 @@ class FlightBillSettlementQueryResponseBodyModule(TeaModel):
 
 class FlightBillSettlementQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: FlightBillSettlementQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -9834,7 +9834,7 @@ class FlightExceedApplyQueryResponseBodyModule(TeaModel):
 
 class FlightExceedApplyQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: FlightExceedApplyQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -10522,7 +10522,7 @@ class FlightOrderListQueryResponseBodyPageInfo(TeaModel):
 class FlightOrderListQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, page_info=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[FlightOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: FlightOrderListQueryResponseBodyPageInfo
@@ -11451,7 +11451,7 @@ class FlightOrderQueryResponseBodyModule(TeaModel):
 
 class FlightOrderQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: FlightOrderQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -11960,7 +11960,7 @@ class HotelBillSettlementQueryResponseBodyModule(TeaModel):
 
 class HotelBillSettlementQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: HotelBillSettlementQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -12241,7 +12241,7 @@ class HotelExceedApplyQueryResponseBodyModule(TeaModel):
 
 class HotelExceedApplyQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: HotelExceedApplyQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -12855,7 +12855,7 @@ class HotelOrderListQueryResponseBodyPageInfo(TeaModel):
 class HotelOrderListQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, page_info=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[HotelOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: HotelOrderListQueryResponseBodyPageInfo
@@ -13478,7 +13478,7 @@ class IeFlightBillSettlementQueryResponseBodyModule(TeaModel):
 class IeFlightBillSettlementQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: IeFlightBillSettlementQueryResponseBodyModule
         self.more_page = more_page  # type: bool
@@ -13662,7 +13662,7 @@ class InvoiceAddRequest(TeaModel):
 
 class InvoiceAddResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -13798,7 +13798,7 @@ class InvoiceDeleteRequest(TeaModel):
 
 class InvoiceDeleteResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -13970,7 +13970,7 @@ class InvoiceModifyRequest(TeaModel):
 
 class InvoiceModifyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -14221,7 +14221,7 @@ class InvoiceRuleSaveResponseBodyModule(TeaModel):
 
 class InvoiceRuleSaveResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: InvoiceRuleSaveResponseBodyModule
         self.request_id = request_id  # type: str
@@ -14403,7 +14403,7 @@ class InvoiceSearchResponseBodyModule(TeaModel):
 
 class InvoiceSearchResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[InvoiceSearchResponseBodyModule]
         self.request_id = request_id  # type: str
@@ -14670,7 +14670,7 @@ class IsvUserSaveShrinkRequest(TeaModel):
 
 class IsvUserSaveResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: str
         self.request_id = request_id  # type: str
@@ -14845,7 +14845,7 @@ class MonthBillGetResponseBodyModule(TeaModel):
 
 class MonthBillGetResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[MonthBillGetResponseBodyModule]
         self.request_id = request_id  # type: str
@@ -15016,7 +15016,7 @@ class ProjectAddRequest(TeaModel):
 class ProjectAddResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, more_page=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: long
         self.more_page = more_page  # type: bool
@@ -15162,7 +15162,7 @@ class ProjectDeleteRequest(TeaModel):
 
 class ProjectDeleteResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: bool
         self.request_id = request_id  # type: str
@@ -15324,7 +15324,7 @@ class ProjectModifyRequest(TeaModel):
 
 class ProjectModifyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: bool
         self.request_id = request_id  # type: str
@@ -15810,7 +15810,7 @@ class TrainBillSettlementQueryResponseBodyModule(TeaModel):
 
 class TrainBillSettlementQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: TrainBillSettlementQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -16122,7 +16122,7 @@ class TrainExceedApplyQueryResponseBodyModule(TeaModel):
 
 class TrainExceedApplyQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: TrainExceedApplyQueryResponseBodyModule
         self.request_id = request_id  # type: str
@@ -16772,7 +16772,7 @@ class TrainOrderListQueryResponseBodyPageInfo(TeaModel):
 class TrainOrderListQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, page_info=None, request_id=None, success=None,
                  trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: list[TrainOrderListQueryResponseBodyModule]
         self.page_info = page_info  # type: TrainOrderListQueryResponseBodyPageInfo
@@ -17630,11 +17630,11 @@ class TrainOrderQueryResponseBodyModule(TeaModel):
 
 
 class TrainOrderQueryResponseBody(TeaModel):
-    def __init__(self, module=None, request_id=None, result_code=None, result_msg=None, success=None, trace_id=None):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
         self.module = module  # type: TrainOrderQueryResponseBodyModule
         self.request_id = request_id  # type: str
-        self.result_code = result_code  # type: int
-        self.result_msg = result_msg  # type: str
         self.success = success  # type: bool
         self.trace_id = trace_id  # type: str
 
@@ -17648,14 +17648,14 @@ class TrainOrderQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         if self.module is not None:
             result['module'] = self.module.to_map()
         if self.request_id is not None:
             result['requestId'] = self.request_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
         if self.trace_id is not None:
@@ -17664,15 +17664,15 @@ class TrainOrderQueryResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         if m.get('module') is not None:
             temp_model = TrainOrderQueryResponseBodyModule()
             self.module = temp_model.from_map(m['module'])
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
         if m.get('traceId') is not None:
@@ -17835,7 +17835,7 @@ class TrainStationSearchResponseBodyModule(TeaModel):
 
 class TrainStationSearchResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: TrainStationSearchResponseBodyModule
         self.request_id = request_id  # type: str
@@ -18075,7 +18075,7 @@ class UserQueryResponseBodyModule(TeaModel):
 
 class UserQueryResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
-        self.code = code  # type: int
+        self.code = code  # type: str
         self.message = message  # type: str
         self.module = module  # type: UserQueryResponseBodyModule
         self.request_id = request_id  # type: str
