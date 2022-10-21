@@ -86,6 +86,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_rule_category_with_options(request, runtime)
 
+    def add_rule_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.is_copy):
+            body['IsCopy'] = request.is_copy
+        if not UtilClient.is_unset(request.json_str_for_rule):
+            body['JsonStrForRule'] = request.json_str_for_rule
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddRuleV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.AddRuleV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_rule_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_rule_v4with_options(request, runtime)
+
     def add_thesaurus_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -142,6 +172,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.assign_reviewer_with_options(request, runtime)
 
+    def assign_reviewer_by_session_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AssignReviewerBySessionGroup',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.AssignReviewerBySessionGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def assign_reviewer_by_session_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.assign_reviewer_by_session_group_with_options(request, runtime)
+
+    def batch_submit_review_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchSubmitReviewInfo',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.BatchSubmitReviewInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_submit_review_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_submit_review_info_with_options(request, runtime)
+
     def create_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -169,6 +255,90 @@ class Client(OpenApiClient):
     def create_asr_vocab(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_asr_vocab_with_options(request, runtime)
+
+    def create_check_type_to_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCheckTypeToScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.CreateCheckTypeToSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_check_type_to_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_check_type_to_scheme_with_options(request, runtime)
+
+    def create_quality_check_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateQualityCheckScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.CreateQualityCheckSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_quality_check_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_quality_check_scheme_with_options(request, runtime)
+
+    def create_scheme_task_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSchemeTaskConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.CreateSchemeTaskConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_scheme_task_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_scheme_task_config_with_options(request, runtime)
 
     def create_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -281,6 +451,34 @@ class Client(OpenApiClient):
     def create_warning_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_warning_config_with_options(request, runtime)
+
+    def create_warning_strategy_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateWarningStrategyConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.CreateWarningStrategyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_warning_strategy_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_warning_strategy_config_with_options(request, runtime)
 
     def del_rule_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -478,6 +676,124 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_precision_task_with_options(request, runtime)
 
+    def delete_quality_check_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteQualityCheckScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.DeleteQualityCheckSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_quality_check_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_quality_check_scheme_with_options(request, runtime)
+
+    def delete_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.force_delete):
+            body['ForceDelete'] = request.force_delete
+        if not UtilClient.is_unset(request.is_scheme_data):
+            body['IsSchemeData'] = request.is_scheme_data
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRule',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.DeleteRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_rule_with_options(request, runtime)
+
+    def delete_rule_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.force_delete):
+            body['ForceDelete'] = request.force_delete
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRuleV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.DeleteRuleV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_rule_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_rule_v4with_options(request, runtime)
+
+    def delete_scheme_task_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSchemeTaskConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.DeleteSchemeTaskConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_scheme_task_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_scheme_task_config_with_options(request, runtime)
+
     def delete_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -645,6 +961,34 @@ class Client(OpenApiClient):
     def delete_warning_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_warning_config_with_options(request, runtime)
+
+    def delete_warning_strategy_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteWarningStrategyConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.DeleteWarningStrategyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_warning_strategy_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_warning_strategy_config_with_options(request, runtime)
 
     def edit_thesaurus_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -842,6 +1186,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_precision_task_with_options(request, runtime)
 
+    def get_quality_check_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetQualityCheckScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetQualityCheckSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_quality_check_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_quality_check_scheme_with_options(request, runtime)
+
     def get_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -954,6 +1326,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_rule_with_options(request, runtime)
 
+    def get_rule_by_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetRuleById',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetRuleByIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_rule_by_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_rule_by_id_with_options(request, runtime)
+
     def get_rule_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1009,6 +1409,110 @@ class Client(OpenApiClient):
     def get_rule_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_rule_detail_with_options(request, runtime)
+
+    def get_rule_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetRuleV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetRuleV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_rule_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_rule_v4with_options(request, runtime)
+
+    def get_rules_count_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_name):
+            body['BusinessName'] = request.business_name
+        if not UtilClient.is_unset(request.business_range):
+            body['BusinessRange'] = request.business_range
+        if not UtilClient.is_unset(request.category_name):
+            body['CategoryName'] = request.category_name
+        if not UtilClient.is_unset(request.count_total):
+            body['CountTotal'] = request.count_total
+        if not UtilClient.is_unset(request.create_empid):
+            body['CreateEmpid'] = request.create_empid
+        if not UtilClient.is_unset(request.create_user_id):
+            body['CreateUserId'] = request.create_user_id
+        if not UtilClient.is_unset(request.current_page):
+            body['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.last_update_empid):
+            body['LastUpdateEmpid'] = request.last_update_empid
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.require_infos):
+            body['RequireInfos'] = request.require_infos
+        if not UtilClient.is_unset(request.rid):
+            body['Rid'] = request.rid
+        if not UtilClient.is_unset(request.rule_id_or_rule_name):
+            body['RuleIdOrRuleName'] = request.rule_id_or_rule_name
+        if not UtilClient.is_unset(request.rule_score_single_type):
+            body['RuleScoreSingleType'] = request.rule_score_single_type
+        if not UtilClient.is_unset(request.rule_type):
+            body['RuleType'] = request.rule_type
+        if not UtilClient.is_unset(request.scheme_id):
+            body['SchemeId'] = request.scheme_id
+        if not UtilClient.is_unset(request.source_type):
+            body['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.type_name):
+            body['TypeName'] = request.type_name
+        if not UtilClient.is_unset(request.update_end_time):
+            body['UpdateEndTime'] = request.update_end_time
+        if not UtilClient.is_unset(request.update_start_time):
+            body['UpdateStartTime'] = request.update_start_time
+        if not UtilClient.is_unset(request.update_user_id):
+            body['UpdateUserId'] = request.update_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetRulesCountList',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetRulesCountListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_rules_count_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_rules_count_list_with_options(request, runtime)
 
     def get_score_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1121,6 +1625,34 @@ class Client(OpenApiClient):
     def get_thesaurus_by_synonym_for_api(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_thesaurus_by_synonym_for_api_with_options(request, runtime)
+
+    def get_warning_strategy_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWarningStrategyConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetWarningStrategyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_warning_strategy_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_warning_strategy_config_with_options(request, runtime)
 
     def handle_complaint_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1262,6 +1794,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_asr_vocab_with_options(request, runtime)
 
+    def list_business_spaces_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListBusinessSpaces',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListBusinessSpacesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_business_spaces(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_business_spaces_with_options(request, runtime)
+
+    def list_data_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSet',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListDataSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_data_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_set_with_options(request, runtime)
+
     def list_hot_words_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1318,6 +1906,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_precision_task_with_options(request, runtime)
 
+    def list_quality_check_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListQualityCheckScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListQualityCheckSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_quality_check_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_quality_check_scheme_with_options(request, runtime)
+
     def list_roles_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1373,6 +1989,138 @@ class Client(OpenApiClient):
     def list_rules(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_rules_with_options(request, runtime)
+
+    def list_rules_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_name):
+            body['BusinessName'] = request.business_name
+        if not UtilClient.is_unset(request.business_range):
+            body['BusinessRange'] = request.business_range
+        if not UtilClient.is_unset(request.category_name):
+            body['CategoryName'] = request.category_name
+        if not UtilClient.is_unset(request.count_total):
+            body['CountTotal'] = request.count_total
+        if not UtilClient.is_unset(request.create_empid):
+            body['CreateEmpid'] = request.create_empid
+        if not UtilClient.is_unset(request.create_user_id):
+            body['CreateUserId'] = request.create_user_id
+        if not UtilClient.is_unset(request.current_page):
+            body['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.last_update_empid):
+            body['LastUpdateEmpid'] = request.last_update_empid
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.require_infos):
+            body['RequireInfos'] = request.require_infos
+        if not UtilClient.is_unset(request.rid):
+            body['Rid'] = request.rid
+        if not UtilClient.is_unset(request.rule_id_or_rule_name):
+            body['RuleIdOrRuleName'] = request.rule_id_or_rule_name
+        if not UtilClient.is_unset(request.rule_score_single_type):
+            body['RuleScoreSingleType'] = request.rule_score_single_type
+        if not UtilClient.is_unset(request.rule_type):
+            body['RuleType'] = request.rule_type
+        if not UtilClient.is_unset(request.scheme_id):
+            body['SchemeId'] = request.scheme_id
+        if not UtilClient.is_unset(request.source_type):
+            body['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.type_name):
+            body['TypeName'] = request.type_name
+        if not UtilClient.is_unset(request.update_end_time):
+            body['UpdateEndTime'] = request.update_end_time
+        if not UtilClient.is_unset(request.update_start_time):
+            body['UpdateStartTime'] = request.update_start_time
+        if not UtilClient.is_unset(request.update_user_id):
+            body['UpdateUserId'] = request.update_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListRulesV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListRulesV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_rules_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_rules_v4with_options(request, runtime)
+
+    def list_scheme_task_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSchemeTaskConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListSchemeTaskConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_scheme_task_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_scheme_task_config_with_options(request, runtime)
+
+    def list_session_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSessionGroup',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListSessionGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_session_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_session_group_with_options(request, runtime)
 
     def list_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1486,6 +2234,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_warning_config_with_options(request, runtime)
 
+    def list_warning_strategy_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListWarningStrategyConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.ListWarningStrategyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_warning_strategy_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_warning_strategy_config_with_options(request, runtime)
+
     def restart_asr_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1513,6 +2289,62 @@ class Client(OpenApiClient):
     def restart_asr_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.restart_asr_task_with_options(request, runtime)
+
+    def revert_assigned_session_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevertAssignedSession',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.RevertAssignedSessionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def revert_assigned_session(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.revert_assigned_session_with_options(request, runtime)
+
+    def revert_assigned_session_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevertAssignedSessionGroup',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.RevertAssignedSessionGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def revert_assigned_session_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.revert_assigned_session_group_with_options(request, runtime)
 
     def save_config_data_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1710,6 +2542,90 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_asr_vocab_with_options(request, runtime)
 
+    def update_check_type_to_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCheckTypeToScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateCheckTypeToSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_check_type_to_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_check_type_to_scheme_with_options(request, runtime)
+
+    def update_quality_check_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateQualityCheckData',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateQualityCheckDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_quality_check_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_quality_check_data_with_options(request, runtime)
+
+    def update_quality_check_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateQualityCheckScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateQualityCheckSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_quality_check_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_quality_check_scheme_with_options(request, runtime)
+
     def update_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1737,6 +2653,126 @@ class Client(OpenApiClient):
     def update_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_rule_with_options(request, runtime)
+
+    def update_rule_by_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.is_copy):
+            body['IsCopy'] = request.is_copy
+        if not UtilClient.is_unset(request.json_str_for_rule):
+            body['JsonStrForRule'] = request.json_str_for_rule
+        if not UtilClient.is_unset(request.return_related_schemes):
+            body['ReturnRelatedSchemes'] = request.return_related_schemes
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRuleById',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateRuleByIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_rule_by_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_rule_by_id_with_options(request, runtime)
+
+    def update_rule_to_scheme_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateRuleToScheme',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateRuleToSchemeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_rule_to_scheme(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_rule_to_scheme_with_options(request, runtime)
+
+    def update_rule_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.json_str_for_rule):
+            body['JsonStrForRule'] = request.json_str_for_rule
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRuleV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateRuleV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_rule_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_rule_v4with_options(request, runtime)
+
+    def update_scheme_task_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['jsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateSchemeTaskConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateSchemeTaskConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_scheme_task_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_scheme_task_config_with_options(request, runtime)
 
     def update_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1961,6 +2997,34 @@ class Client(OpenApiClient):
     def update_warning_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_warning_config_with_options(request, runtime)
+
+    def update_warning_strategy_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.json_str):
+            query['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateWarningStrategyConfig',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UpdateWarningStrategyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_warning_strategy_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_warning_strategy_config_with_options(request, runtime)
 
     def upload_audio_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
