@@ -209,13 +209,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_eai_all_with_options(request, runtime)
 
-    def create_eai_jupyter_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_eai_jupyter_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eais_20190624_models.CreateEaiJupyterShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.environment_var):
+            request.environment_var_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.environment_var, 'EnvironmentVar', 'json')
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.eais_type):
             query['EaisType'] = request.eais_type
+        if not UtilClient.is_unset(request.environment_var_shrink):
+            query['EnvironmentVar'] = request.environment_var_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.security_group_id):
