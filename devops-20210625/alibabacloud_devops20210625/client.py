@@ -38,7 +38,6 @@ class Client(OpenApiClient):
 
     def add_repository_member_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['AccessToken'] = request.access_token
@@ -58,7 +57,7 @@ class Client(OpenApiClient):
             action='AddRepositoryMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/members' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -77,7 +76,6 @@ class Client(OpenApiClient):
 
     def add_webhook_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['AccessToken'] = request.access_token
@@ -109,7 +107,7 @@ class Client(OpenApiClient):
             action='AddWebhook',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/webhooks/create' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/webhooks/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -128,7 +126,6 @@ class Client(OpenApiClient):
 
     def create_flow_tag_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.color):
             query['color'] = request.color
@@ -144,7 +141,7 @@ class Client(OpenApiClient):
             action='CreateFlowTag',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tags' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/flow/tags' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -163,7 +160,6 @@ class Client(OpenApiClient):
 
     def create_flow_tag_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['name'] = request.name
@@ -175,7 +171,7 @@ class Client(OpenApiClient):
             action='CreateFlowTagGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -194,7 +190,6 @@ class Client(OpenApiClient):
 
     def create_host_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.aliyun_region):
             body['aliyunRegion'] = request.aliyun_region
@@ -224,7 +219,7 @@ class Client(OpenApiClient):
             action='CreateHostGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -276,43 +271,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_pipeline(self, organization_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_pipeline_with_options(organization_id, request, headers, runtime)
-
-    def create_pipeline_with_options(self, organization_id, request, headers, runtime):
-        UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        body = {}
-        if not UtilClient.is_unset(request.basic_info):
-            body['basicInfo'] = request.basic_info
-        if not UtilClient.is_unset(request.pipeline_yaml):
-            body['pipelineYaml'] = request.pipeline_yaml
-        if not UtilClient.is_unset(request.settings):
-            body['settings'] = request.settings
-        if not UtilClient.is_unset(request.trigger_info):
-            body['triggerInfo'] = request.trigger_info
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreatePipeline',
-            version='2021-06-25',
-            protocol='HTTPS',
-            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            devops_20210625_models.CreatePipelineResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def create_pipeline_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -320,7 +278,6 @@ class Client(OpenApiClient):
 
     def create_pipeline_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['name'] = request.name
@@ -332,7 +289,7 @@ class Client(OpenApiClient):
             action='CreatePipelineGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -351,7 +308,6 @@ class Client(OpenApiClient):
 
     def create_project_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.custom_code):
             body['customCode'] = request.custom_code
@@ -369,7 +325,7 @@ class Client(OpenApiClient):
             action='CreateProject',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/createProject' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/projects/createProject' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -460,9 +416,6 @@ class Client(OpenApiClient):
 
     def create_resource_member_with_options(self, organization_id, resource_type, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.account_id):
             body['accountId'] = request.account_id
@@ -476,7 +429,7 @@ class Client(OpenApiClient):
             action='CreateResourceMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id)),
+            pathname='/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -495,7 +448,6 @@ class Client(OpenApiClient):
 
     def create_sprint_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.end_date):
             body['endDate'] = request.end_date
@@ -515,7 +467,7 @@ class Client(OpenApiClient):
             action='CreateSprint',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/sprints/create' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/sprints/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -533,7 +485,6 @@ class Client(OpenApiClient):
         return self.create_ssh_key_with_options(organization_id, headers, runtime)
 
     def create_ssh_key_with_options(self, organization_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -541,7 +492,7 @@ class Client(OpenApiClient):
             action='CreateSshKey',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -560,7 +511,6 @@ class Client(OpenApiClient):
 
     def create_variable_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -576,7 +526,7 @@ class Client(OpenApiClient):
             action='CreateVariableGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -595,7 +545,6 @@ class Client(OpenApiClient):
 
     def create_workitem_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.assigned_to):
             body['assignedTo'] = request.assigned_to
@@ -635,7 +584,7 @@ class Client(OpenApiClient):
             action='CreateWorkitem',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/create' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/workitems/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -697,8 +646,6 @@ class Client(OpenApiClient):
         return self.delete_flow_tag_with_options(organization_id, id, headers, runtime)
 
     def delete_flow_tag_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -706,7 +653,7 @@ class Client(OpenApiClient):
             action='DeleteFlowTag',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -724,8 +671,6 @@ class Client(OpenApiClient):
         return self.delete_flow_tag_group_with_options(organization_id, id, headers, runtime)
 
     def delete_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -733,7 +678,7 @@ class Client(OpenApiClient):
             action='DeleteFlowTagGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -751,8 +696,6 @@ class Client(OpenApiClient):
         return self.delete_host_group_with_options(organization_id, id, headers, runtime)
 
     def delete_host_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -760,7 +703,7 @@ class Client(OpenApiClient):
             action='DeleteHostGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -778,8 +721,6 @@ class Client(OpenApiClient):
         return self.delete_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def delete_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -787,7 +728,7 @@ class Client(OpenApiClient):
             action='DeletePipeline',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -805,8 +746,6 @@ class Client(OpenApiClient):
         return self.delete_pipeline_group_with_options(organization_id, group_id, headers, runtime)
 
     def delete_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -814,7 +753,7 @@ class Client(OpenApiClient):
             action='DeletePipelineGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -833,7 +772,6 @@ class Client(OpenApiClient):
 
     def delete_project_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.identifier):
             query['identifier'] = request.identifier
@@ -845,7 +783,7 @@ class Client(OpenApiClient):
             action='DeleteProject',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/delete' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/projects/delete' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -863,10 +801,6 @@ class Client(OpenApiClient):
         return self.delete_resource_member_with_options(organization_id, resource_type, resource_id, account_id, headers, runtime)
 
     def delete_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
-        account_id = OpenApiUtilClient.get_encode_param(account_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -874,7 +808,7 @@ class Client(OpenApiClient):
             action='DeleteResourceMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id), TeaConverter.to_unicode(account_id)),
+            pathname='/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(account_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -892,8 +826,6 @@ class Client(OpenApiClient):
         return self.delete_variable_group_with_options(organization_id, id, headers, runtime)
 
     def delete_variable_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -901,7 +833,7 @@ class Client(OpenApiClient):
             action='DeleteVariableGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -919,7 +851,6 @@ class Client(OpenApiClient):
         return self.frozen_workspace_with_options(workspace_id, headers, runtime)
 
     def frozen_workspace_with_options(self, workspace_id, headers, runtime):
-        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -927,7 +858,7 @@ class Client(OpenApiClient):
             action='FrozenWorkspace',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/api/workspaces/%s/frozen' % TeaConverter.to_unicode(workspace_id),
+            pathname='/api/workspaces/%s/frozen' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workspace_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -946,7 +877,6 @@ class Client(OpenApiClient):
 
     def get_codeup_organization_with_options(self, identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        identity = OpenApiUtilClient.get_encode_param(identity)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['AccessToken'] = request.access_token
@@ -958,7 +888,7 @@ class Client(OpenApiClient):
             action='GetCodeupOrganization',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/api/organization/%s' % TeaConverter.to_unicode(identity),
+            pathname='/api/organization/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -977,8 +907,6 @@ class Client(OpenApiClient):
 
     def get_custom_field_option_with_options(self, organization_id, field_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        field_id = OpenApiUtilClient.get_encode_param(field_id)
         query = {}
         if not UtilClient.is_unset(request.space_identifier):
             query['spaceIdentifier'] = request.space_identifier
@@ -994,7 +922,7 @@ class Client(OpenApiClient):
             action='GetCustomFieldOption',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/fields/%s/getCustomOption' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(field_id)),
+            pathname='/organization/%s/fields/%s/getCustomOption' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(field_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1013,7 +941,6 @@ class Client(OpenApiClient):
 
     def get_file_last_commit_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['accessToken'] = request.access_token
@@ -1023,6 +950,8 @@ class Client(OpenApiClient):
             query['organizationId'] = request.organization_id
         if not UtilClient.is_unset(request.sha):
             query['sha'] = request.sha
+        if not UtilClient.is_unset(request.show_signature):
+            query['showSignature'] = request.show_signature
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1031,7 +960,7 @@ class Client(OpenApiClient):
             action='GetFileLastCommit',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/files/lastCommit' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/files/lastCommit' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1049,8 +978,6 @@ class Client(OpenApiClient):
         return self.get_flow_tag_group_with_options(organization_id, id, headers, runtime)
 
     def get_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1058,7 +985,7 @@ class Client(OpenApiClient):
             action='GetFlowTagGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1076,8 +1003,6 @@ class Client(OpenApiClient):
         return self.get_host_group_with_options(organization_id, id, headers, runtime)
 
     def get_host_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1085,7 +1010,7 @@ class Client(OpenApiClient):
             action='GetHostGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1103,8 +1028,6 @@ class Client(OpenApiClient):
         return self.get_organization_member_with_options(organization_id, account_id, headers, runtime)
 
     def get_organization_member_with_options(self, organization_id, account_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        account_id = OpenApiUtilClient.get_encode_param(account_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1112,7 +1035,7 @@ class Client(OpenApiClient):
             action='GetOrganizationMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(account_id)),
+            pathname='/organization/%s/members/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(account_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1130,8 +1053,6 @@ class Client(OpenApiClient):
         return self.get_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def get_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1139,7 +1060,7 @@ class Client(OpenApiClient):
             action='GetPipeline',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1158,7 +1079,6 @@ class Client(OpenApiClient):
 
     def get_pipeline_artifact_url_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.file_name):
             query['fileName'] = request.file_name
@@ -1172,7 +1092,7 @@ class Client(OpenApiClient):
             action='GetPipelineArtifactUrl',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/getArtifactDownloadUrl' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipeline/getArtifactDownloadUrl' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1191,11 +1111,6 @@ class Client(OpenApiClient):
 
     def get_pipeline_emas_artifact_url_with_options(self, organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        emas_job_instance_id = OpenApiUtilClient.get_encode_param(emas_job_instance_id)
-        md_5 = OpenApiUtilClient.get_encode_param(md_5)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         query = {}
         if not UtilClient.is_unset(request.service_connection_id):
             query['serviceConnectionId'] = request.service_connection_id
@@ -1207,7 +1122,7 @@ class Client(OpenApiClient):
             action='GetPipelineEmasArtifactUrl',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/%s/pipelineRun/%s/emas/artifact/%s/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(emas_job_instance_id), TeaConverter.to_unicode(md_5)),
+            pathname='/organization/%s/pipeline/%s/pipelineRun/%s/emas/artifact/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(emas_job_instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(md_5))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1225,8 +1140,6 @@ class Client(OpenApiClient):
         return self.get_pipeline_group_with_options(organization_id, group_id, headers, runtime)
 
     def get_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1234,7 +1147,7 @@ class Client(OpenApiClient):
             action='GetPipelineGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1252,9 +1165,6 @@ class Client(OpenApiClient):
         return self.get_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def get_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1262,7 +1172,7 @@ class Client(OpenApiClient):
             action='GetPipelineRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1281,7 +1191,6 @@ class Client(OpenApiClient):
 
     def get_pipeline_scan_report_url_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.report_path):
             body['reportPath'] = request.report_path
@@ -1293,7 +1202,7 @@ class Client(OpenApiClient):
             action='GetPipelineScanReportUrl',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/getPipelineScanReportUrl' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipeline/getPipelineScanReportUrl' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1311,8 +1220,6 @@ class Client(OpenApiClient):
         return self.get_project_info_with_options(organization_id, project_id, headers, runtime)
 
     def get_project_info_with_options(self, organization_id, project_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        project_id = OpenApiUtilClient.get_encode_param(project_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1320,7 +1227,7 @@ class Client(OpenApiClient):
             action='GetProjectInfo',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/project/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            pathname='/organization/%s/project/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1408,8 +1315,6 @@ class Client(OpenApiClient):
         return self.get_sprint_info_with_options(organization_id, sprint_id, headers, runtime)
 
     def get_sprint_info_with_options(self, organization_id, sprint_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        sprint_id = OpenApiUtilClient.get_encode_param(sprint_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1417,7 +1322,7 @@ class Client(OpenApiClient):
             action='GetSprintInfo',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/sprints/%s/getSprintinfo' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(sprint_id)),
+            pathname='/organization/%s/sprints/%s/getSprintinfo' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(sprint_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1435,9 +1340,6 @@ class Client(OpenApiClient):
         return self.get_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def get_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1445,7 +1347,7 @@ class Client(OpenApiClient):
             action='GetVMDeployOrder',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1463,8 +1365,6 @@ class Client(OpenApiClient):
         return self.get_variable_group_with_options(organization_id, id, headers, runtime)
 
     def get_variable_group_with_options(self, organization_id, id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1472,7 +1372,7 @@ class Client(OpenApiClient):
             action='GetVariableGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1490,8 +1390,6 @@ class Client(OpenApiClient):
         return self.get_work_item_activity_with_options(organization_id, workitem_id, headers, runtime)
 
     def get_work_item_activity_with_options(self, organization_id, workitem_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1499,7 +1397,7 @@ class Client(OpenApiClient):
             action='GetWorkItemActivity',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/%s/getActivity' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            pathname='/organization/%s/workitems/%s/getActivity' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1517,8 +1415,6 @@ class Client(OpenApiClient):
         return self.get_work_item_info_with_options(organization_id, workitem_id, headers, runtime)
 
     def get_work_item_info_with_options(self, organization_id, workitem_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1526,7 +1422,7 @@ class Client(OpenApiClient):
             action='GetWorkItemInfo',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            pathname='/organization/%s/workitems/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1545,8 +1441,6 @@ class Client(OpenApiClient):
 
     def get_work_item_work_flow_info_with_options(self, organization_id, workitem_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
         query = {}
         if not UtilClient.is_unset(request.configuration_id):
             query['configurationId'] = request.configuration_id
@@ -1558,7 +1452,7 @@ class Client(OpenApiClient):
             action='GetWorkItemWorkFlowInfo',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/%s/getWorkflowInfo' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            pathname='/organization/%s/workitems/%s/getWorkflowInfo' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1576,7 +1470,6 @@ class Client(OpenApiClient):
         return self.get_workspace_with_options(workspace_id, headers, runtime)
 
     def get_workspace_with_options(self, workspace_id, headers, runtime):
-        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1584,7 +1477,7 @@ class Client(OpenApiClient):
             action='GetWorkspace',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/api/workspaces/%s' % TeaConverter.to_unicode(workspace_id),
+            pathname='/api/workspaces/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workspace_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1603,7 +1496,6 @@ class Client(OpenApiClient):
 
     def join_pipeline_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.group_id):
             query['groupId'] = request.group_id
@@ -1617,7 +1509,7 @@ class Client(OpenApiClient):
             action='JoinPipelineGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups/join' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipelineGroups/join' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1635,7 +1527,6 @@ class Client(OpenApiClient):
         return self.list_flow_tag_groups_with_options(organization_id, headers, runtime)
 
     def list_flow_tag_groups_with_options(self, organization_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1643,7 +1534,7 @@ class Client(OpenApiClient):
             action='ListFlowTagGroups',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1662,7 +1553,6 @@ class Client(OpenApiClient):
 
     def list_host_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.create_end_time):
             query['createEndTime'] = request.create_end_time
@@ -1690,7 +1580,7 @@ class Client(OpenApiClient):
             action='ListHostGroups',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1709,7 +1599,6 @@ class Client(OpenApiClient):
 
     def list_organization_members_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.extern_uid):
             query['externUid'] = request.extern_uid
@@ -1735,7 +1624,7 @@ class Client(OpenApiClient):
             action='ListOrganizationMembers',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/members' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1754,8 +1643,6 @@ class Client(OpenApiClient):
 
     def list_pipeline_group_pipelines_with_options(self, organization_id, group_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         query = {}
         if not UtilClient.is_unset(request.create_end_time):
             query['createEndTime'] = request.create_end_time
@@ -1781,7 +1668,7 @@ class Client(OpenApiClient):
             action='ListPipelineGroupPipelines',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups/%s/pipelines' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            pathname='/organization/%s/pipelineGroups/%s/pipelines' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1800,7 +1687,6 @@ class Client(OpenApiClient):
 
     def list_pipeline_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.max_results):
             query['maxResults'] = request.max_results
@@ -1814,7 +1700,7 @@ class Client(OpenApiClient):
             action='ListPipelineGroups',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipelineGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1833,8 +1719,6 @@ class Client(OpenApiClient):
 
     def list_pipeline_job_historys_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -1852,7 +1736,7 @@ class Client(OpenApiClient):
             action='ListPipelineJobHistorys',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/%s/job/historys' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipeline/%s/job/historys' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1871,8 +1755,6 @@ class Client(OpenApiClient):
 
     def list_pipeline_jobs_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -1884,7 +1766,7 @@ class Client(OpenApiClient):
             action='ListPipelineJobs',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/%s/jobs' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipeline/%s/jobs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1903,8 +1785,6 @@ class Client(OpenApiClient):
 
     def list_pipeline_runs_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
@@ -1926,7 +1806,7 @@ class Client(OpenApiClient):
             action='ListPipelineRuns',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1945,7 +1825,6 @@ class Client(OpenApiClient):
 
     def list_pipelines_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.create_end_time):
             query['createEndTime'] = request.create_end_time
@@ -1975,7 +1854,7 @@ class Client(OpenApiClient):
             action='ListPipelines',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1994,8 +1873,6 @@ class Client(OpenApiClient):
 
     def list_project_members_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        project_id = OpenApiUtilClient.get_encode_param(project_id)
         query = {}
         if not UtilClient.is_unset(request.target_type):
             query['targetType'] = request.target_type
@@ -2007,7 +1884,7 @@ class Client(OpenApiClient):
             action='ListProjectMembers',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/%s/listMembers' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            pathname='/organization/%s/projects/%s/listMembers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2026,7 +1903,6 @@ class Client(OpenApiClient):
 
     def list_project_templates_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -2038,7 +1914,7 @@ class Client(OpenApiClient):
             action='ListProjectTemplates',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/listTemplates' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/projects/listTemplates' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2057,8 +1933,6 @@ class Client(OpenApiClient):
 
     def list_project_workitem_types_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        project_id = OpenApiUtilClient.get_encode_param(project_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -2072,7 +1946,7 @@ class Client(OpenApiClient):
             action='ListProjectWorkitemTypes',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/%s/getWorkitemType' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            pathname='/organization/%s/projects/%s/getWorkitemType' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2091,7 +1965,6 @@ class Client(OpenApiClient):
 
     def list_projects_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -2113,7 +1986,7 @@ class Client(OpenApiClient):
             action='ListProjects',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/listProjects' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/listProjects' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2169,6 +2042,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_repository_commit_diff(self, repository_id, sha, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_repository_commit_diff_with_options(repository_id, sha, request, headers, runtime)
+
+    def list_repository_commit_diff_with_options(self, repository_id, sha, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.context_line):
+            query['contextLine'] = request.context_line
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRepositoryCommitDiff',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/commits/%s/diff' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(sha))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListRepositoryCommitDiffResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_repository_member_with_inherited(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2176,7 +2083,6 @@ class Client(OpenApiClient):
 
     def list_repository_member_with_inherited_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['accessToken'] = request.access_token
@@ -2190,7 +2096,7 @@ class Client(OpenApiClient):
             action='ListRepositoryMemberWithInherited',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/members/list' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/members/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2209,7 +2115,6 @@ class Client(OpenApiClient):
 
     def list_repository_webhook_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['accessToken'] = request.access_token
@@ -2227,7 +2132,7 @@ class Client(OpenApiClient):
             action='ListRepositoryWebhook',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/webhooks/list' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/webhooks/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2245,9 +2150,6 @@ class Client(OpenApiClient):
         return self.list_resource_members_with_options(organization_id, resource_type, resource_id, headers, runtime)
 
     def list_resource_members_with_options(self, organization_id, resource_type, resource_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2255,7 +2157,7 @@ class Client(OpenApiClient):
             action='ListResourceMembers',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id)),
+            pathname='/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2274,7 +2176,6 @@ class Client(OpenApiClient):
 
     def list_service_connections_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.serice_connection_type):
             query['sericeConnectionType'] = request.serice_connection_type
@@ -2286,7 +2187,7 @@ class Client(OpenApiClient):
             action='ListServiceConnections',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/serviceConnections' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/serviceConnections' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2305,7 +2206,6 @@ class Client(OpenApiClient):
 
     def list_sprints_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.max_results):
             query['maxResults'] = request.max_results
@@ -2323,7 +2223,7 @@ class Client(OpenApiClient):
             action='ListSprints',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/sprints/list' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/sprints/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2342,7 +2242,6 @@ class Client(OpenApiClient):
 
     def list_variable_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.max_results):
             query['maxResults'] = request.max_results
@@ -2360,7 +2259,7 @@ class Client(OpenApiClient):
             action='ListVariableGroups',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2379,7 +2278,6 @@ class Client(OpenApiClient):
 
     def list_work_item_all_fields_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.space_identifier):
             query['spaceIdentifier'] = request.space_identifier
@@ -2395,7 +2293,7 @@ class Client(OpenApiClient):
             action='ListWorkItemAllFields',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/fields/listAll' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/workitems/fields/listAll' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2414,7 +2312,6 @@ class Client(OpenApiClient):
 
     def list_work_item_work_flow_status_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.space_identifier):
             query['spaceIdentifier'] = request.space_identifier
@@ -2432,7 +2329,7 @@ class Client(OpenApiClient):
             action='ListWorkItemWorkFlowStatus',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/workflow/listWorkflowStatus' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/workitems/workflow/listWorkflowStatus' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2450,8 +2347,6 @@ class Client(OpenApiClient):
         return self.list_workitem_time_with_options(organization_id, workitem_id, headers, runtime)
 
     def list_workitem_time_with_options(self, organization_id, workitem_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2459,7 +2354,7 @@ class Client(OpenApiClient):
             action='ListWorkitemTime',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/%s/time/list' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            pathname='/organization/%s/workitems/%s/time/list' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2478,7 +2373,6 @@ class Client(OpenApiClient):
 
     def list_workitems_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -2508,7 +2402,7 @@ class Client(OpenApiClient):
             action='ListWorkitems',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/listWorkitems' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/listWorkitems' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2568,10 +2462,6 @@ class Client(OpenApiClient):
         return self.log_pipeline_job_run_with_options(organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime)
 
     def log_pipeline_job_run_with_options(self, organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2579,7 +2469,7 @@ class Client(OpenApiClient):
             action='LogPipelineJobRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipeline/%s/pipelineRun/%s/job/%s/logs' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipeline/%s/pipelineRun/%s/job/%s/logs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2597,10 +2487,6 @@ class Client(OpenApiClient):
         return self.log_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def log_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
-        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2608,7 +2494,7 @@ class Client(OpenApiClient):
             action='LogVMDeployMachine',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/log' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id), TeaConverter.to_unicode(machine_sn)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/log' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(machine_sn))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2626,10 +2512,6 @@ class Client(OpenApiClient):
         return self.pass_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def pass_pipeline_validate_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2637,7 +2519,7 @@ class Client(OpenApiClient):
             action='PassPipelineValidate',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/pass' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/pass' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2655,10 +2537,6 @@ class Client(OpenApiClient):
         return self.refuse_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def refuse_pipeline_validate_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2666,7 +2544,7 @@ class Client(OpenApiClient):
             action='RefusePipelineValidate',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/refuse' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/refuse' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2684,7 +2562,6 @@ class Client(OpenApiClient):
         return self.release_workspace_with_options(workspace_id, headers, runtime)
 
     def release_workspace_with_options(self, workspace_id, headers, runtime):
-        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2692,7 +2569,7 @@ class Client(OpenApiClient):
             action='ReleaseWorkspace',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/api/workspaces/%s/release' % TeaConverter.to_unicode(workspace_id),
+            pathname='/api/workspaces/%s/release' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workspace_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -2710,7 +2587,6 @@ class Client(OpenApiClient):
         return self.reset_ssh_key_with_options(organization_id, headers, runtime)
 
     def reset_ssh_key_with_options(self, organization_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2718,7 +2594,7 @@ class Client(OpenApiClient):
             action='ResetSshKey',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2736,9 +2612,6 @@ class Client(OpenApiClient):
         return self.resume_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def resume_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2746,7 +2619,7 @@ class Client(OpenApiClient):
             action='ResumeVMDeployOrder',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s/resume' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s/resume' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2764,10 +2637,6 @@ class Client(OpenApiClient):
         return self.retry_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def retry_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2775,7 +2644,7 @@ class Client(OpenApiClient):
             action='RetryPipelineJobRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2793,10 +2662,6 @@ class Client(OpenApiClient):
         return self.retry_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def retry_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
-        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2804,7 +2669,7 @@ class Client(OpenApiClient):
             action='RetryVMDeployMachine',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/retry' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id), TeaConverter.to_unicode(machine_sn)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/retry' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(machine_sn))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2822,10 +2687,6 @@ class Client(OpenApiClient):
         return self.skip_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def skip_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2833,7 +2694,7 @@ class Client(OpenApiClient):
             action='SkipPipelineJobRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/skip' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/skip' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2851,10 +2712,6 @@ class Client(OpenApiClient):
         return self.skip_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def skip_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
-        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2862,7 +2719,7 @@ class Client(OpenApiClient):
             action='SkipVMDeployMachine',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/skip' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id), TeaConverter.to_unicode(machine_sn)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s/machine/%s/skip' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(machine_sn))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2881,8 +2738,6 @@ class Client(OpenApiClient):
 
     def start_pipeline_run_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         body = {}
         if not UtilClient.is_unset(request.params):
             body['params'] = request.params
@@ -2894,7 +2749,7 @@ class Client(OpenApiClient):
             action='StartPipelineRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organizations/%s/pipelines/%s/run' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organizations/%s/pipelines/%s/run' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2912,10 +2767,6 @@ class Client(OpenApiClient):
         return self.stop_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def stop_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2923,7 +2774,7 @@ class Client(OpenApiClient):
             action='StopPipelineJobRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/stop' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2941,9 +2792,6 @@ class Client(OpenApiClient):
         return self.stop_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def stop_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2951,7 +2799,7 @@ class Client(OpenApiClient):
             action='StopPipelineRun',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/stop' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id)),
+            pathname='/organization/%s/pipelines/%s/pipelineRuns/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_run_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2969,9 +2817,6 @@ class Client(OpenApiClient):
         return self.stop_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def stop_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
-        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2979,7 +2824,7 @@ class Client(OpenApiClient):
             action='StopVMDeployOrder',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/deploy/%s/stop' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(deploy_order_id)),
+            pathname='/organization/%s/pipelines/%s/deploy/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(deploy_order_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2998,7 +2843,6 @@ class Client(OpenApiClient):
 
     def trigger_repository_mirror_sync_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['accessToken'] = request.access_token
@@ -3016,7 +2860,7 @@ class Client(OpenApiClient):
             action='TriggerRepositoryMirrorSync',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/mirror' % TeaConverter.to_unicode(repository_id),
+            pathname='/repository/%s/mirror' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3035,8 +2879,6 @@ class Client(OpenApiClient):
 
     def update_flow_tag_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         query = {}
         if not UtilClient.is_unset(request.color):
             query['color'] = request.color
@@ -3052,7 +2894,7 @@ class Client(OpenApiClient):
             action='UpdateFlowTag',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3071,8 +2913,6 @@ class Client(OpenApiClient):
 
     def update_flow_tag_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['name'] = request.name
@@ -3084,7 +2924,7 @@ class Client(OpenApiClient):
             action='UpdateFlowTagGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3103,8 +2943,6 @@ class Client(OpenApiClient):
 
     def update_host_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         body = {}
         if not UtilClient.is_unset(request.aliyun_region):
             body['aliyunRegion'] = request.aliyun_region
@@ -3134,7 +2972,7 @@ class Client(OpenApiClient):
             action='UpdateHostGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3146,43 +2984,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_pipeline(self, organization_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_pipeline_with_options(organization_id, request, headers, runtime)
-
-    def update_pipeline_with_options(self, organization_id, request, headers, runtime):
-        UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        body = {}
-        if not UtilClient.is_unset(request.basic_info):
-            body['basicInfo'] = request.basic_info
-        if not UtilClient.is_unset(request.pipeline_yaml):
-            body['pipelineYaml'] = request.pipeline_yaml
-        if not UtilClient.is_unset(request.settings):
-            body['settings'] = request.settings
-        if not UtilClient.is_unset(request.trigger_info):
-            body['triggerInfo'] = request.trigger_info
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='UpdatePipeline',
-            version='2021-06-25',
-            protocol='HTTPS',
-            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            devops_20210625_models.UpdatePipelineResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def update_pipeline_base_info(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3190,8 +2991,6 @@ class Client(OpenApiClient):
 
     def update_pipeline_base_info_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         query = {}
         if not UtilClient.is_unset(request.env_id):
             query['envId'] = request.env_id
@@ -3207,7 +3006,7 @@ class Client(OpenApiClient):
             action='UpdatePipelineBaseInfo',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelines/%s/baseInfo' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            pathname='/organization/%s/pipelines/%s/baseInfo' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3226,8 +3025,6 @@ class Client(OpenApiClient):
 
     def update_pipeline_group_with_options(self, organization_id, group_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         query = {}
         if not UtilClient.is_unset(request.name):
             query['name'] = request.name
@@ -3239,7 +3036,7 @@ class Client(OpenApiClient):
             action='UpdatePipelineGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(group_id)),
+            pathname='/organization/%s/pipelineGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3258,8 +3055,6 @@ class Client(OpenApiClient):
 
     def update_project_member_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        project_id = OpenApiUtilClient.get_encode_param(project_id)
         body = {}
         if not UtilClient.is_unset(request.role_identifier):
             body['roleIdentifier'] = request.role_identifier
@@ -3279,7 +3074,7 @@ class Client(OpenApiClient):
             action='UpdateProjectMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/projects/%s/updateMember' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            pathname='/organization/%s/projects/%s/updateMember' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3291,6 +3086,100 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_protected_branches(self, repository_id, id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_protected_branches_with_options(repository_id, id, request, headers, runtime)
+
+    def update_protected_branches_with_options(self, repository_id, id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.allow_merge_roles):
+            body['allowMergeRoles'] = request.allow_merge_roles
+        if not UtilClient.is_unset(request.allow_merge_user_ids):
+            body['allowMergeUserIds'] = request.allow_merge_user_ids
+        if not UtilClient.is_unset(request.allow_push_roles):
+            body['allowPushRoles'] = request.allow_push_roles
+        if not UtilClient.is_unset(request.allow_push_user_ids):
+            body['allowPushUserIds'] = request.allow_push_user_ids
+        if not UtilClient.is_unset(request.branch):
+            body['branch'] = request.branch
+        if not UtilClient.is_unset(request.id):
+            body['id'] = request.id
+        if not UtilClient.is_unset(request.merge_request_setting):
+            body['mergeRequestSetting'] = request.merge_request_setting
+        if not UtilClient.is_unset(request.test_setting_dto):
+            body['testSettingDTO'] = request.test_setting_dto
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateProtectedBranches',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/%s/protect_branches/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateProtectedBranchesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_repository_member(self, repository_id, user_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_repository_member_with_options(repository_id, user_id, request, headers, runtime)
+
+    def update_repository_member_with_options(self, repository_id, user_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.access_level):
+            body['accessLevel'] = request.access_level
+        if not UtilClient.is_unset(request.expire_at):
+            body['expireAt'] = request.expire_at
+        if not UtilClient.is_unset(request.member_type):
+            body['memberType'] = request.member_type
+        if not UtilClient.is_unset(request.related_id):
+            body['relatedId'] = request.related_id
+        if not UtilClient.is_unset(request.related_infos):
+            body['relatedInfos'] = request.related_infos
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRepositoryMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateRepositoryMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_resource_member(self, organization_id, resource_type, resource_id, account_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3298,10 +3187,6 @@ class Client(OpenApiClient):
 
     def update_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
-        account_id = OpenApiUtilClient.get_encode_param(account_id)
         body = {}
         if not UtilClient.is_unset(request.role_name):
             body['roleName'] = request.role_name
@@ -3313,7 +3198,7 @@ class Client(OpenApiClient):
             action='UpdateResourceMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id), TeaConverter.to_unicode(account_id)),
+            pathname='/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_type)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(account_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3332,8 +3217,6 @@ class Client(OpenApiClient):
 
     def update_variable_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
-        id = OpenApiUtilClient.get_encode_param(id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -3349,7 +3232,7 @@ class Client(OpenApiClient):
             action='UpdateVariableGroup',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            pathname='/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3368,7 +3251,6 @@ class Client(OpenApiClient):
 
     def update_work_item_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.field_type):
             body['fieldType'] = request.field_type
@@ -3386,7 +3268,7 @@ class Client(OpenApiClient):
             action='UpdateWorkItem',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/organization/%s/workitems/update' % TeaConverter.to_unicode(organization_id),
+            pathname='/organization/%s/workitems/update' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
