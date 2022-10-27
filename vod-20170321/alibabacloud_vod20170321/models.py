@@ -1809,12 +1809,13 @@ class CreateUploadAttachedMediaResponse(TeaModel):
 
 class CreateUploadImageRequest(TeaModel):
     def __init__(self, app_id=None, cate_id=None, description=None, image_ext=None, image_type=None,
-                 storage_location=None, tags=None, title=None, user_data=None):
+                 original_file_name=None, storage_location=None, tags=None, title=None, user_data=None):
         self.app_id = app_id  # type: str
         self.cate_id = cate_id  # type: long
         self.description = description  # type: str
         self.image_ext = image_ext  # type: str
         self.image_type = image_type  # type: str
+        self.original_file_name = original_file_name  # type: str
         self.storage_location = storage_location  # type: str
         self.tags = tags  # type: str
         self.title = title  # type: str
@@ -1839,6 +1840,8 @@ class CreateUploadImageRequest(TeaModel):
             result['ImageExt'] = self.image_ext
         if self.image_type is not None:
             result['ImageType'] = self.image_type
+        if self.original_file_name is not None:
+            result['OriginalFileName'] = self.original_file_name
         if self.storage_location is not None:
             result['StorageLocation'] = self.storage_location
         if self.tags is not None:
@@ -1861,6 +1864,8 @@ class CreateUploadImageRequest(TeaModel):
             self.image_ext = m.get('ImageExt')
         if m.get('ImageType') is not None:
             self.image_type = m.get('ImageType')
+        if m.get('OriginalFileName') is not None:
+            self.original_file_name = m.get('OriginalFileName')
         if m.get('StorageLocation') is not None:
             self.storage_location = m.get('StorageLocation')
         if m.get('Tags') is not None:
