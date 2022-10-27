@@ -15391,9 +15391,10 @@ class ListJobsResponse(TeaModel):
 
 
 class ListJobsWithFiltersRequest(TeaModel):
-    def __init__(self, cluster_id=None, create_time_end=None, create_time_start=None, execute_order=None,
-                 job_name=None, job_status=None, nodes=None, page_number=None, page_size=None, pend_order=None, queues=None,
-                 region_id=None, submit_order=None, users=None):
+    def __init__(self, async=None, cluster_id=None, create_time_end=None, create_time_start=None,
+                 execute_order=None, job_name=None, job_status=None, nodes=None, page_number=None, page_size=None, pend_order=None,
+                 queues=None, region_id=None, submit_order=None, users=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.create_time_end = create_time_end  # type: str
         self.create_time_start = create_time_start  # type: str
@@ -15418,6 +15419,8 @@ class ListJobsWithFiltersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.create_time_end is not None:
@@ -15450,6 +15453,8 @@ class ListJobsWithFiltersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('CreateTimeEnd') is not None:
@@ -16165,7 +16170,8 @@ class ListNodesResponse(TeaModel):
 
 
 class ListNodesByQueueRequest(TeaModel):
-    def __init__(self, cluster_id=None, page_number=None, page_size=None, queue_name=None):
+    def __init__(self, async=None, cluster_id=None, page_number=None, page_size=None, queue_name=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -16180,6 +16186,8 @@ class ListNodesByQueueRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.page_number is not None:
@@ -16192,6 +16200,8 @@ class ListNodesByQueueRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('PageNumber') is not None:
