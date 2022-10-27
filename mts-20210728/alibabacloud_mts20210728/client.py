@@ -304,6 +304,8 @@ class Client(OpenApiClient):
             body['Message'] = request.message
         if not UtilClient.is_unset(request.output):
             body['Output'] = request.output
+        if not UtilClient.is_unset(request.params):
+            body['Params'] = request.params
         if not UtilClient.is_unset(request.start_time):
             body['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.total_time):
@@ -342,8 +344,6 @@ class Client(OpenApiClient):
     def submit_image_copyright_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.input):
-            body['Input'] = request.input
         if not UtilClient.is_unset(request.level):
             body['Level'] = request.level
         if not UtilClient.is_unset(request.message):
@@ -352,8 +352,6 @@ class Client(OpenApiClient):
             body['Output'] = request.output
         if not UtilClient.is_unset(request.params):
             body['Params'] = request.params
-        if not UtilClient.is_unset(request.url):
-            body['Url'] = request.url
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)

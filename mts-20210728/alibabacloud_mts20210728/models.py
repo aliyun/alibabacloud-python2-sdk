@@ -1026,13 +1026,14 @@ class SubmitCopyrightExtractResponse(TeaModel):
 
 class SubmitCopyrightJobRequest(TeaModel):
     def __init__(self, call_back=None, description=None, input=None, level=None, message=None, output=None,
-                 start_time=None, total_time=None, url=None, user_data=None, visible_message=None):
+                 params=None, start_time=None, total_time=None, url=None, user_data=None, visible_message=None):
         self.call_back = call_back  # type: str
         self.description = description  # type: str
         self.input = input  # type: str
         self.level = level  # type: long
         self.message = message  # type: str
         self.output = output  # type: str
+        self.params = params  # type: str
         self.start_time = start_time  # type: long
         self.total_time = total_time  # type: long
         self.url = url  # type: str
@@ -1060,6 +1061,8 @@ class SubmitCopyrightJobRequest(TeaModel):
             result['Message'] = self.message
         if self.output is not None:
             result['Output'] = self.output
+        if self.params is not None:
+            result['Params'] = self.params
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.total_time is not None:
@@ -1086,6 +1089,8 @@ class SubmitCopyrightJobRequest(TeaModel):
             self.message = m.get('Message')
         if m.get('Output') is not None:
             self.output = m.get('Output')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('TotalTime') is not None:
@@ -1204,13 +1209,11 @@ class SubmitCopyrightJobResponse(TeaModel):
 
 
 class SubmitImageCopyrightRequest(TeaModel):
-    def __init__(self, input=None, level=None, message=None, output=None, params=None, url=None):
-        self.input = input  # type: str
+    def __init__(self, level=None, message=None, output=None, params=None):
         self.level = level  # type: long
         self.message = message  # type: str
         self.output = output  # type: str
         self.params = params  # type: str
-        self.url = url  # type: str
 
     def validate(self):
         pass
@@ -1221,8 +1224,6 @@ class SubmitImageCopyrightRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.input is not None:
-            result['Input'] = self.input
         if self.level is not None:
             result['Level'] = self.level
         if self.message is not None:
@@ -1231,14 +1232,10 @@ class SubmitImageCopyrightRequest(TeaModel):
             result['Output'] = self.output
         if self.params is not None:
             result['Params'] = self.params
-        if self.url is not None:
-            result['Url'] = self.url
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Input') is not None:
-            self.input = m.get('Input')
         if m.get('Level') is not None:
             self.level = m.get('Level')
         if m.get('Message') is not None:
@@ -1247,8 +1244,6 @@ class SubmitImageCopyrightRequest(TeaModel):
             self.output = m.get('Output')
         if m.get('Params') is not None:
             self.params = m.get('Params')
-        if m.get('Url') is not None:
-            self.url = m.get('Url')
         return self
 
 
