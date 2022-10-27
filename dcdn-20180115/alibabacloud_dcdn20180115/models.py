@@ -1298,200 +1298,6 @@ class BatchSetDcdnWafDomainConfigsResponse(TeaModel):
         return self
 
 
-class BatchStartDcdnDomainRequest(TeaModel):
-    def __init__(self, domain_names=None, owner_id=None, security_token=None):
-        self.domain_names = domain_names  # type: str
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(BatchStartDcdnDomainRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.domain_names is not None:
-            result['DomainNames'] = self.domain_names
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DomainNames') is not None:
-            self.domain_names = m.get('DomainNames')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        return self
-
-
-class BatchStartDcdnDomainResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(BatchStartDcdnDomainResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class BatchStartDcdnDomainResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: BatchStartDcdnDomainResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(BatchStartDcdnDomainResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = BatchStartDcdnDomainResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class BatchStopDcdnDomainRequest(TeaModel):
-    def __init__(self, domain_names=None, owner_id=None, security_token=None):
-        self.domain_names = domain_names  # type: str
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(BatchStopDcdnDomainRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.domain_names is not None:
-            result['DomainNames'] = self.domain_names
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DomainNames') is not None:
-            self.domain_names = m.get('DomainNames')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        return self
-
-
-class BatchStopDcdnDomainResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(BatchStopDcdnDomainResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class BatchStopDcdnDomainResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: BatchStopDcdnDomainResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(BatchStopDcdnDomainResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = BatchStopDcdnDomainResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CheckDcdnProjectExistRequest(TeaModel):
     def __init__(self, owner_id=None, project_name=None):
         self.owner_id = owner_id  # type: long
@@ -6709,10 +6515,11 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
 
 
 class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
-    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
+    def __init__(self, config_id=None, function_args=None, function_name=None, parent_id=None, status=None):
         self.config_id = config_id  # type: str
         self.function_args = function_args  # type: DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
         self.function_name = function_name  # type: str
+        self.parent_id = parent_id  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -6731,6 +6538,8 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             result['FunctionArgs'] = self.function_args.to_map()
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
+        if self.parent_id is not None:
+            result['ParentId'] = self.parent_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -6744,6 +6553,8 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             self.function_args = temp_model.from_map(m['FunctionArgs'])
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
+        if m.get('ParentId') is not None:
+            self.parent_id = m.get('ParentId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self

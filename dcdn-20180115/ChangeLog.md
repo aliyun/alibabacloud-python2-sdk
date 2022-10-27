@@ -1,3 +1,6 @@
+2022-10-27 Version: 1.0.21
+- Update BatchAddDcdnDomain,add error code.
+
 2022-10-13 Version: 1.0.20
 - Update DeleteRoutineConfEnvs.
 
