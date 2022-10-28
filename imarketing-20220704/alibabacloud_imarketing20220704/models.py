@@ -272,7 +272,7 @@ class DeleteCreativeInfoRequest(TeaModel):
     def __init__(self, account_no=None, biz_id=None, id=None, main_id=None, update_user=None):
         self.account_no = account_no  # type: str
         self.biz_id = biz_id  # type: str
-        self.id = id  # type: int
+        self.id = id  # type: long
         self.main_id = main_id  # type: long
         self.update_user = update_user  # type: str
 
@@ -1224,120 +1224,6 @@ class GetLeadsListPageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetLeadsListPageResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetMainPartListByUserIdResponseBodyData(TeaModel):
-    def __init__(self, token=None):
-        self.token = token  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMainPartListByUserIdResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.token is not None:
-            result['Token'] = self.token
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Token') is not None:
-            self.token = m.get('Token')
-        return self
-
-
-class GetMainPartListByUserIdResponseBody(TeaModel):
-    def __init__(self, data=None, error_code=None, error_message=None, http_code=None, request_id=None, success=None):
-        self.data = data  # type: GetMainPartListByUserIdResponseBodyData
-        self.error_code = error_code  # type: int
-        self.error_message = error_message  # type: str
-        self.http_code = http_code  # type: int
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetMainPartListByUserIdResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_code is not None:
-            result['ErrorCode'] = self.error_code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.http_code is not None:
-            result['HttpCode'] = self.http_code
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            temp_model = GetMainPartListByUserIdResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorCode') is not None:
-            self.error_code = m.get('ErrorCode')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('HttpCode') is not None:
-            self.http_code = m.get('HttpCode')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class GetMainPartListByUserIdResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetMainPartListByUserIdResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetMainPartListByUserIdResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetMainPartListByUserIdResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3069,7 +2955,8 @@ class QueryAuditResultResponseBodyRecords(TeaModel):
 
 
 class QueryAuditResultResponseBody(TeaModel):
-    def __init__(self, records=None, request_id=None, status=None, total=None):
+    def __init__(self, message=None, records=None, request_id=None, status=None, total=None):
+        self.message = message  # type: str
         self.records = records  # type: list[QueryAuditResultResponseBodyRecords]
         self.request_id = request_id  # type: str
         self.status = status  # type: int
@@ -3087,6 +2974,8 @@ class QueryAuditResultResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
         result['Records'] = []
         if self.records is not None:
             for k in self.records:
@@ -3101,6 +2990,8 @@ class QueryAuditResultResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         self.records = []
         if m.get('Records') is not None:
             for k in m.get('Records'):
@@ -3285,7 +3176,7 @@ class SyncInfoRequest(TeaModel):
         self.chain_value = chain_value  # type: str
         self.component_id_list = component_id_list  # type: str
         self.create_user = create_user  # type: str
-        self.id = id  # type: int
+        self.id = id  # type: long
         self.main_id = main_id  # type: long
         self.name = name  # type: str
         self.next_chain_value = next_chain_value  # type: str

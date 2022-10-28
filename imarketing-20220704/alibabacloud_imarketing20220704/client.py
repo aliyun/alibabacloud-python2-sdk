@@ -266,28 +266,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_leads_list_page_with_options(request, runtime)
 
-    def get_main_part_list_by_user_id_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        params = open_api_models.Params(
-            action='GetMainPartListByUserId',
-            version='2022-07-04',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            imarketing_20220704_models.GetMainPartListByUserIdResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_main_part_list_by_user_id(self):
-        runtime = util_models.RuntimeOptions()
-        return self.get_main_part_list_by_user_id_with_options(runtime)
-
     def get_main_part_page_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
