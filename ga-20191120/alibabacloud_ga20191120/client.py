@@ -333,6 +333,8 @@ class Client(OpenApiClient):
             query['AutoRenewDuration'] = request.auto_renew_duration
         if not UtilClient.is_unset(request.auto_use_coupon):
             query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.bandwidth_billing_type):
+            query['BandwidthBillingType'] = request.bandwidth_billing_type
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.duration):
@@ -525,6 +527,8 @@ class Client(OpenApiClient):
             query['AutoRenewDuration'] = request.auto_renew_duration
         if not UtilClient.is_unset(request.auto_use_coupon):
             query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.bandwidth_billing_type):
+            query['BandwidthBillingType'] = request.bandwidth_billing_type
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.duration):
@@ -569,6 +573,8 @@ class Client(OpenApiClient):
             query['EndpointAddress'] = request.endpoint_address
         if not UtilClient.is_unset(request.endpoint_group_region):
             query['EndpointGroupRegion'] = request.endpoint_group_region
+        if not UtilClient.is_unset(request.endpoint_sub_address):
+            query['EndpointSubAddress'] = request.endpoint_sub_address
         if not UtilClient.is_unset(request.endpoint_type):
             query['EndpointType'] = request.endpoint_type
         if not UtilClient.is_unset(request.name):
@@ -605,6 +611,8 @@ class Client(OpenApiClient):
             query['AccelerateRegionId'] = request.accelerate_region_id
         if not UtilClient.is_unset(request.accelerator_id):
             query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.isp_type):
@@ -633,6 +641,148 @@ class Client(OpenApiClient):
     def create_basic_ip_set(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_basic_ip_set_with_options(request, runtime)
+
+    def create_custom_routing_endpoint_group_destinations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.destination_configurations):
+            query['DestinationConfigurations'] = request.destination_configurations
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomRoutingEndpointGroupDestinations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateCustomRoutingEndpointGroupDestinationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_custom_routing_endpoint_group_destinations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_custom_routing_endpoint_group_destinations_with_options(request, runtime)
+
+    def create_custom_routing_endpoint_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_configurations):
+            query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomRoutingEndpointGroups',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateCustomRoutingEndpointGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_custom_routing_endpoint_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_custom_routing_endpoint_groups_with_options(request, runtime)
+
+    def create_custom_routing_endpoint_traffic_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.policy_configurations):
+            query['PolicyConfigurations'] = request.policy_configurations
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomRoutingEndpointTrafficPolicies',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateCustomRoutingEndpointTrafficPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_custom_routing_endpoint_traffic_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_custom_routing_endpoint_traffic_policies_with_options(request, runtime)
+
+    def create_custom_routing_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_configurations):
+            query['EndpointConfigurations'] = request.endpoint_configurations
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomRoutingEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateCustomRoutingEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_custom_routing_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_custom_routing_endpoints_with_options(request, runtime)
 
     def create_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -815,8 +965,12 @@ class Client(OpenApiClient):
             query['ClientAffinity'] = request.client_affinity
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.custom_routing_endpoint_group_configurations):
+            query['CustomRoutingEndpointGroupConfigurations'] = request.custom_routing_endpoint_group_configurations
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_group_configurations):
+            query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.port_ranges):
@@ -829,6 +983,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.security_policy_id):
             query['SecurityPolicyId'] = request.security_policy_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         if not UtilClient.is_unset(request.xforwarded_for_config):
             query['XForwardedForConfig'] = request.xforwarded_for_config
         req = open_api_models.OpenApiRequest(
@@ -1109,6 +1265,146 @@ class Client(OpenApiClient):
     def delete_basic_ip_set(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_basic_ip_set_with_options(request, runtime)
+
+    def delete_custom_routing_endpoint_group_destinations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.destination_ids):
+            query['DestinationIds'] = request.destination_ids
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomRoutingEndpointGroupDestinations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DeleteCustomRoutingEndpointGroupDestinationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_routing_endpoint_group_destinations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_routing_endpoint_group_destinations_with_options(request, runtime)
+
+    def delete_custom_routing_endpoint_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_ids):
+            query['EndpointGroupIds'] = request.endpoint_group_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomRoutingEndpointGroups',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DeleteCustomRoutingEndpointGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_routing_endpoint_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_routing_endpoint_groups_with_options(request, runtime)
+
+    def delete_custom_routing_endpoint_traffic_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.policy_ids):
+            query['PolicyIds'] = request.policy_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomRoutingEndpointTrafficPolicies',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DeleteCustomRoutingEndpointTrafficPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_routing_endpoint_traffic_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_routing_endpoint_traffic_policies_with_options(request, runtime)
+
+    def delete_custom_routing_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_ids):
+            query['EndpointIds'] = request.endpoint_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomRoutingEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DeleteCustomRoutingEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_routing_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_routing_endpoints_with_options(request, runtime)
 
     def delete_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1495,6 +1791,126 @@ class Client(OpenApiClient):
     def describe_bandwidth_package_auto_renew_attribute(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_bandwidth_package_auto_renew_attribute_with_options(request, runtime)
+
+    def describe_custom_routing_end_point_traffic_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCustomRoutingEndPointTrafficPolicy',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeCustomRoutingEndPointTrafficPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_custom_routing_end_point_traffic_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_custom_routing_end_point_traffic_policy_with_options(request, runtime)
+
+    def describe_custom_routing_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCustomRoutingEndpoint',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeCustomRoutingEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_custom_routing_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_custom_routing_endpoint_with_options(request, runtime)
+
+    def describe_custom_routing_endpoint_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCustomRoutingEndpointGroup',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeCustomRoutingEndpointGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_custom_routing_endpoint_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_custom_routing_endpoint_group_with_options(request, runtime)
+
+    def describe_custom_routing_endpoint_group_destinations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.destination_id):
+            query['DestinationId'] = request.destination_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCustomRoutingEndpointGroupDestinations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeCustomRoutingEndpointGroupDestinationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_custom_routing_endpoint_group_destinations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_custom_routing_endpoint_group_destinations_with_options(request, runtime)
 
     def describe_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2412,6 +2828,242 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_busi_regions_with_options(request, runtime)
 
+    def list_custom_routing_endpoint_group_destinations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.from_port):
+            query['FromPort'] = request.from_port
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.protocols):
+            query['Protocols'] = request.protocols
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.to_port):
+            query['ToPort'] = request.to_port
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingEndpointGroupDestinations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingEndpointGroupDestinationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_endpoint_group_destinations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_endpoint_group_destinations_with_options(request, runtime)
+
+    def list_custom_routing_endpoint_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingEndpointGroups',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingEndpointGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_endpoint_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_endpoint_groups_with_options(request, runtime)
+
+    def list_custom_routing_endpoint_traffic_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingEndpointTrafficPolicies',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingEndpointTrafficPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_endpoint_traffic_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_endpoint_traffic_policies_with_options(request, runtime)
+
+    def list_custom_routing_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_endpoints_with_options(request, runtime)
+
+    def list_custom_routing_port_mappings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingPortMappings',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingPortMappingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_port_mappings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_port_mappings_with_options(request, runtime)
+
+    def list_custom_routing_port_mappings_by_destination_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.destination_address):
+            query['DestinationAddress'] = request.destination_address
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomRoutingPortMappingsByDestination',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListCustomRoutingPortMappingsByDestinationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_routing_port_mappings_by_destination(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_routing_port_mappings_by_destination_with_options(request, runtime)
+
     def list_endpoint_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3059,6 +3711,8 @@ class Client(OpenApiClient):
             query['EndpointAddress'] = request.endpoint_address
         if not UtilClient.is_unset(request.endpoint_group_id):
             query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_sub_address):
+            query['EndpointSubAddress'] = request.endpoint_sub_address
         if not UtilClient.is_unset(request.endpoint_type):
             query['EndpointType'] = request.endpoint_type
         if not UtilClient.is_unset(request.name):
@@ -3087,6 +3741,180 @@ class Client(OpenApiClient):
     def update_basic_endpoint_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_basic_endpoint_group_with_options(request, runtime)
+
+    def update_basic_ip_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateBasicIpSet',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateBasicIpSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_basic_ip_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_basic_ip_set_with_options(request, runtime)
+
+    def update_custom_routing_endpoint_group_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomRoutingEndpointGroupAttribute',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateCustomRoutingEndpointGroupAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_routing_endpoint_group_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_routing_endpoint_group_attribute_with_options(request, runtime)
+
+    def update_custom_routing_endpoint_group_destinations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.destination_configurations):
+            query['DestinationConfigurations'] = request.destination_configurations
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomRoutingEndpointGroupDestinations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateCustomRoutingEndpointGroupDestinationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_routing_endpoint_group_destinations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_routing_endpoint_group_destinations_with_options(request, runtime)
+
+    def update_custom_routing_endpoint_traffic_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.policy_configurations):
+            query['PolicyConfigurations'] = request.policy_configurations
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomRoutingEndpointTrafficPolicies',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateCustomRoutingEndpointTrafficPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_routing_endpoint_traffic_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_routing_endpoint_traffic_policies_with_options(request, runtime)
+
+    def update_custom_routing_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_configurations):
+            query['EndpointConfigurations'] = request.endpoint_configurations
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomRoutingEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateCustomRoutingEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_routing_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_routing_endpoints_with_options(request, runtime)
 
     def update_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
