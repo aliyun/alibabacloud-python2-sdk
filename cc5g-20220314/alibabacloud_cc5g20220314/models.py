@@ -126,6 +126,237 @@ class AddDNSAuthorizationRuleResponse(TeaModel):
         return self
 
 
+class AddGroupDnsAuthorizationRuleRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, destination_ip=None, dry_run=None, name=None,
+                 source_dnsip=None, wireless_cloud_connector_group_id=None):
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.source_dnsip = source_dnsip  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddGroupDnsAuthorizationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.source_dnsip is not None:
+            result['SourceDNSIp'] = self.source_dnsip
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SourceDNSIp') is not None:
+            self.source_dnsip = m.get('SourceDNSIp')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class AddGroupDnsAuthorizationRuleResponseBody(TeaModel):
+    def __init__(self, authorization_rule_id=None, request_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddGroupDnsAuthorizationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddGroupDnsAuthorizationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddGroupDnsAuthorizationRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddGroupDnsAuthorizationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddGroupDnsAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddWirelessCloudConnectorToGroupRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, region_id=None, wireless_cloud_connector_group_id=None,
+                 wireless_cloud_connector_ids=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.region_id = region_id  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+        self.wireless_cloud_connector_ids = wireless_cloud_connector_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddWirelessCloudConnectorToGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        if self.wireless_cloud_connector_ids is not None:
+            result['WirelessCloudConnectorIds'] = self.wireless_cloud_connector_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        if m.get('WirelessCloudConnectorIds') is not None:
+            self.wireless_cloud_connector_ids = m.get('WirelessCloudConnectorIds')
+        return self
+
+
+class AddWirelessCloudConnectorToGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddWirelessCloudConnectorToGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddWirelessCloudConnectorToGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddWirelessCloudConnectorToGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddWirelessCloudConnectorToGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddWirelessCloudConnectorToGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AttachVpcToNetLinkRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, net_link_id=None, region_id=None, v_switches=None,
                  vpc_id=None, wireless_cloud_connector_id=None):
@@ -537,6 +768,150 @@ class CreateBatchOperateCardsTaskResponse(TeaModel):
         return self
 
 
+class CreateGroupAuthorizationRuleRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, destination=None, destination_port=None,
+                 destination_type=None, dry_run=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 wireless_cloud_connector_group_id=None):
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
+        self.destination_type = destination_type  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
+        self.source_cidr = source_cidr  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupAuthorizationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.source_cidr is not None:
+            result['SourceCidr'] = self.source_cidr
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('SourceCidr') is not None:
+            self.source_cidr = m.get('SourceCidr')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class CreateGroupAuthorizationRuleResponseBody(TeaModel):
+    def __init__(self, authorization_rule_id=None, request_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupAuthorizationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGroupAuthorizationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGroupAuthorizationRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGroupAuthorizationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGroupAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateIoTCloudConnectorBackhaulRouteRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, net_link_id=None, wireless_cloud_connector_id=None):
         self.client_token = client_token  # type: str
@@ -819,6 +1194,118 @@ class CreateWirelessCloudConnectorResponse(TeaModel):
         return self
 
 
+class CreateWirelessCloudConnectorGroupRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, dry_run=None, name=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateWirelessCloudConnectorGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateWirelessCloudConnectorGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None, wireless_cloud_connector_group_id=None):
+        self.request_id = request_id  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateWirelessCloudConnectorGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class CreateWirelessCloudConnectorGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateWirelessCloudConnectorGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateWirelessCloudConnectorGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateWirelessCloudConnectorGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_id=None, client_token=None, dry_run=None,
                  wireless_cloud_connector_id=None):
@@ -1024,6 +1511,109 @@ class DeleteBatchOperateCardsTaskResponse(TeaModel):
         return self
 
 
+class DeleteGroupAuthorizationRuleRequest(TeaModel):
+    def __init__(self, authorization_rule_id=None, client_token=None, dry_run=None,
+                 wireless_cloud_connector_group_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupAuthorizationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class DeleteGroupAuthorizationRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupAuthorizationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGroupAuthorizationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGroupAuthorizationRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGroupAuthorizationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGroupAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteIoTCloudConnectorBackhaulRouteRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, net_link_id=None, wireless_cloud_connector_id=None):
         self.client_token = client_token  # type: str
@@ -1219,6 +1809,103 @@ class DeleteWirelessCloudConnectorResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteWirelessCloudConnectorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteWirelessCloudConnectorGroupRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, wireless_cloud_connector_group_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteWirelessCloudConnectorGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class DeleteWirelessCloudConnectorGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteWirelessCloudConnectorGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteWirelessCloudConnectorGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteWirelessCloudConnectorGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteWirelessCloudConnectorGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteWirelessCloudConnectorGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2163,7 +2850,8 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
 class GetWirelessCloudConnectorResponseBody(TeaModel):
     def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
                  data_package_type=None, description=None, features=None, name=None, net_links=None, region_id=None, request_id=None,
-                 service_type=None, status=None, use_case=None, wireless_cloud_connector_id=None):
+                 service_type=None, status=None, use_case=None, wireless_cloud_connector_group_id=None,
+                 wireless_cloud_connector_id=None):
         self.business_type = business_type  # type: str
         self.card_count = card_count  # type: str
         self.create_time = create_time  # type: str
@@ -2178,6 +2866,7 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
         self.service_type = service_type  # type: str
         self.status = status  # type: str
         self.use_case = use_case  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
         self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
 
     def validate(self):
@@ -2222,6 +2911,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             result['Status'] = self.status
         if self.use_case is not None:
             result['UseCase'] = self.use_case
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
         if self.wireless_cloud_connector_id is not None:
             result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
         return result
@@ -2259,6 +2950,8 @@ class GetWirelessCloudConnectorResponseBody(TeaModel):
             self.status = m.get('Status')
         if m.get('UseCase') is not None:
             self.use_case = m.get('UseCase')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
         if m.get('WirelessCloudConnectorId') is not None:
             self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
         return self
@@ -3819,6 +4512,270 @@ class ListDiagnoseInfoForSingleCardResponse(TeaModel):
         return self
 
 
+class ListGroupAuthorizationRulesRequest(TeaModel):
+    def __init__(self, authorization_rule_ids=None, destination=None, destination_port=None, destination_type=None,
+                 dns=None, max_results=None, names=None, next_token=None, policy=None, protocol=None, statuses=None,
+                 type=None, wireless_cloud_connector_group_id=None):
+        self.authorization_rule_ids = authorization_rule_ids  # type: list[str]
+        self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
+        self.destination_type = destination_type  # type: str
+        self.dns = dns  # type: bool
+        self.max_results = max_results  # type: long
+        self.names = names  # type: list[str]
+        self.next_token = next_token  # type: str
+        self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
+        self.statuses = statuses  # type: list[str]
+        self.type = type  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupAuthorizationRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_ids is not None:
+            result['AuthorizationRuleIds'] = self.authorization_rule_ids
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.dns is not None:
+            result['Dns'] = self.dns
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.names is not None:
+            result['Names'] = self.names
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.statuses is not None:
+            result['Statuses'] = self.statuses
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleIds') is not None:
+            self.authorization_rule_ids = m.get('AuthorizationRuleIds')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('Dns') is not None:
+            self.dns = m.get('Dns')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('Names') is not None:
+            self.names = m.get('Names')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('Statuses') is not None:
+            self.statuses = m.get('Statuses')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules(TeaModel):
+    def __init__(self, authorization_rule_id=None, create_time=None, description=None, destination=None,
+                 destination_port=None, destination_type=None, dns=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 status=None, type=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.create_time = create_time  # type: str
+        self.description = description  # type: str
+        self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
+        self.destination_type = destination_type  # type: str
+        self.dns = dns  # type: bool
+        self.name = name  # type: str
+        self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
+        self.source_cidr = source_cidr  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.dns is not None:
+            result['Dns'] = self.dns
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.source_cidr is not None:
+            result['SourceCidr'] = self.source_cidr
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('Dns') is not None:
+            self.dns = m.get('Dns')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('SourceCidr') is not None:
+            self.source_cidr = m.get('SourceCidr')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListGroupAuthorizationRulesResponseBody(TeaModel):
+    def __init__(self, group_authorization_rules=None, max_results=None, next_token=None, request_id=None,
+                 total_count=None):
+        self.group_authorization_rules = group_authorization_rules  # type: list[ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules]
+        self.max_results = max_results  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: str
+
+    def validate(self):
+        if self.group_authorization_rules:
+            for k in self.group_authorization_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGroupAuthorizationRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GroupAuthorizationRules'] = []
+        if self.group_authorization_rules is not None:
+            for k in self.group_authorization_rules:
+                result['GroupAuthorizationRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.group_authorization_rules = []
+        if m.get('GroupAuthorizationRules') is not None:
+            for k in m.get('GroupAuthorizationRules'):
+                temp_model = ListGroupAuthorizationRulesResponseBodyGroupAuthorizationRules()
+                self.group_authorization_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListGroupAuthorizationRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGroupAuthorizationRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGroupAuthorizationRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGroupAuthorizationRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListIoTCloudConnectorBackhaulRouteRequest(TeaModel):
     def __init__(self, net_link_id=None, region_id=None, wireless_cloud_connector_id=None):
         self.net_link_id = net_link_id  # type: str
@@ -4362,6 +5319,292 @@ class ListRegionsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListRegionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListWirelessCloudConnectorGroupsRequest(TeaModel):
+    def __init__(self, max_results=None, next_token=None, region_id=None, wireless_cloud_connector_group_ids=None,
+                 wireless_cloud_connector_group_names=None, wireless_cloud_connector_group_status=None):
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.wireless_cloud_connector_group_ids = wireless_cloud_connector_group_ids  # type: list[str]
+        self.wireless_cloud_connector_group_names = wireless_cloud_connector_group_names  # type: list[str]
+        self.wireless_cloud_connector_group_status = wireless_cloud_connector_group_status  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWirelessCloudConnectorGroupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.wireless_cloud_connector_group_ids is not None:
+            result['WirelessCloudConnectorGroupIds'] = self.wireless_cloud_connector_group_ids
+        if self.wireless_cloud_connector_group_names is not None:
+            result['WirelessCloudConnectorGroupNames'] = self.wireless_cloud_connector_group_names
+        if self.wireless_cloud_connector_group_status is not None:
+            result['WirelessCloudConnectorGroupStatus'] = self.wireless_cloud_connector_group_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('WirelessCloudConnectorGroupIds') is not None:
+            self.wireless_cloud_connector_group_ids = m.get('WirelessCloudConnectorGroupIds')
+        if m.get('WirelessCloudConnectorGroupNames') is not None:
+            self.wireless_cloud_connector_group_names = m.get('WirelessCloudConnectorGroupNames')
+        if m.get('WirelessCloudConnectorGroupStatus') is not None:
+            self.wireless_cloud_connector_group_status = m.get('WirelessCloudConnectorGroupStatus')
+        return self
+
+
+class ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroupsWirelessCloudConnectors(TeaModel):
+    def __init__(self, business_type=None, card_count=None, create_time=None, data_package_id=None,
+                 data_package_type=None, description=None, name=None, region_id=None, service_type=None, status=None, use_case=None,
+                 wireless_cloud_connector_id=None):
+        self.business_type = business_type  # type: str
+        self.card_count = card_count  # type: str
+        self.create_time = create_time  # type: str
+        self.data_package_id = data_package_id  # type: str
+        self.data_package_type = data_package_type  # type: str
+        self.description = description  # type: str
+        self.name = name  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.status = status  # type: str
+        self.use_case = use_case  # type: str
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroupsWirelessCloudConnectors, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.card_count is not None:
+            result['CardCount'] = self.card_count
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_package_id is not None:
+            result['DataPackageId'] = self.data_package_id
+        if self.data_package_type is not None:
+            result['DataPackageType'] = self.data_package_type
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.use_case is not None:
+            result['UseCase'] = self.use_case
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('CardCount') is not None:
+            self.card_count = m.get('CardCount')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataPackageId') is not None:
+            self.data_package_id = m.get('DataPackageId')
+        if m.get('DataPackageType') is not None:
+            self.data_package_type = m.get('DataPackageType')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UseCase') is not None:
+            self.use_case = m.get('UseCase')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroups(TeaModel):
+    def __init__(self, create_time=None, description=None, name=None, region_id=None, status=None,
+                 wireless_cloud_connector_group_id=None, wireless_cloud_connectors=None):
+        self.create_time = create_time  # type: str
+        self.description = description  # type: str
+        self.name = name  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+        self.wireless_cloud_connectors = wireless_cloud_connectors  # type: list[ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroupsWirelessCloudConnectors]
+
+    def validate(self):
+        if self.wireless_cloud_connectors:
+            for k in self.wireless_cloud_connectors:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        result['WirelessCloudConnectors'] = []
+        if self.wireless_cloud_connectors is not None:
+            for k in self.wireless_cloud_connectors:
+                result['WirelessCloudConnectors'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        self.wireless_cloud_connectors = []
+        if m.get('WirelessCloudConnectors') is not None:
+            for k in m.get('WirelessCloudConnectors'):
+                temp_model = ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroupsWirelessCloudConnectors()
+                self.wireless_cloud_connectors.append(temp_model.from_map(k))
+        return self
+
+
+class ListWirelessCloudConnectorGroupsResponseBody(TeaModel):
+    def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
+                 wireless_cloud_connector_groups=None):
+        self.max_results = max_results  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: str
+        self.wireless_cloud_connector_groups = wireless_cloud_connector_groups  # type: list[ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroups]
+
+    def validate(self):
+        if self.wireless_cloud_connector_groups:
+            for k in self.wireless_cloud_connector_groups:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWirelessCloudConnectorGroupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['WirelessCloudConnectorGroups'] = []
+        if self.wireless_cloud_connector_groups is not None:
+            for k in self.wireless_cloud_connector_groups:
+                result['WirelessCloudConnectorGroups'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.wireless_cloud_connector_groups = []
+        if m.get('WirelessCloudConnectorGroups') is not None:
+            for k in m.get('WirelessCloudConnectorGroups'):
+                temp_model = ListWirelessCloudConnectorGroupsResponseBodyWirelessCloudConnectorGroups()
+                self.wireless_cloud_connector_groups.append(temp_model.from_map(k))
+        return self
+
+
+class ListWirelessCloudConnectorGroupsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListWirelessCloudConnectorGroupsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListWirelessCloudConnectorGroupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListWirelessCloudConnectorGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5031,6 +6274,114 @@ class OpenCc5gServiceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = OpenCc5gServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RemoveWirelessCloudConnectorFromGroupRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, region_id=None, wireless_cloud_connector_group_id=None,
+                 wireless_cloud_connector_ids=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.region_id = region_id  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+        self.wireless_cloud_connector_ids = wireless_cloud_connector_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveWirelessCloudConnectorFromGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        if self.wireless_cloud_connector_ids is not None:
+            result['WirelessCloudConnectorIds'] = self.wireless_cloud_connector_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        if m.get('WirelessCloudConnectorIds') is not None:
+            self.wireless_cloud_connector_ids = m.get('WirelessCloudConnectorIds')
+        return self
+
+
+class RemoveWirelessCloudConnectorFromGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveWirelessCloudConnectorFromGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RemoveWirelessCloudConnectorFromGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RemoveWirelessCloudConnectorFromGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RemoveWirelessCloudConnectorFromGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RemoveWirelessCloudConnectorFromGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6182,6 +7533,268 @@ class UpdateDNSAuthorizationRuleResponse(TeaModel):
         return self
 
 
+class UpdateGroupAuthorizationRuleRequest(TeaModel):
+    def __init__(self, authorization_rule_id=None, client_token=None, description=None, destination=None,
+                 destination_port=None, dry_run=None, name=None, policy=None, protocol=None, source_cidr=None,
+                 wireless_cloud_connector_group_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.destination = destination  # type: str
+        self.destination_port = destination_port  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.policy = policy  # type: str
+        self.protocol = protocol  # type: str
+        self.source_cidr = source_cidr  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupAuthorizationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.source_cidr is not None:
+            result['SourceCidr'] = self.source_cidr
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('SourceCidr') is not None:
+            self.source_cidr = m.get('SourceCidr')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class UpdateGroupAuthorizationRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupAuthorizationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGroupAuthorizationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGroupAuthorizationRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupAuthorizationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGroupAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateGroupDnsAuthorizationRuleRequest(TeaModel):
+    def __init__(self, authorization_rule_id=None, client_token=None, description=None, destination_ip=None,
+                 dry_run=None, name=None, source_dnsip=None, wireless_cloud_connector_group_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.source_dnsip = source_dnsip  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupDnsAuthorizationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.source_dnsip is not None:
+            result['SourceDNSIp'] = self.source_dnsip
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SourceDNSIp') is not None:
+            self.source_dnsip = m.get('SourceDNSIp')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class UpdateGroupDnsAuthorizationRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupDnsAuthorizationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGroupDnsAuthorizationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGroupDnsAuthorizationRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupDnsAuthorizationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGroupDnsAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateWirelessCloudConnectorRequest(TeaModel):
     def __init__(self, client_token=None, description=None, dry_run=None, name=None,
                  wireless_cloud_connector_id=None):
@@ -6286,6 +7899,114 @@ class UpdateWirelessCloudConnectorResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateWirelessCloudConnectorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateWirelessCloudConnectorGroupRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, dry_run=None, name=None,
+                 wireless_cloud_connector_group_id=None):
+        self.client_token = client_token  # type: str
+        self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.name = name  # type: str
+        self.wireless_cloud_connector_group_id = wireless_cloud_connector_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateWirelessCloudConnectorGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.wireless_cloud_connector_group_id is not None:
+            result['WirelessCloudConnectorGroupId'] = self.wireless_cloud_connector_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('WirelessCloudConnectorGroupId') is not None:
+            self.wireless_cloud_connector_group_id = m.get('WirelessCloudConnectorGroupId')
+        return self
+
+
+class UpdateWirelessCloudConnectorGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateWirelessCloudConnectorGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateWirelessCloudConnectorGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateWirelessCloudConnectorGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateWirelessCloudConnectorGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateWirelessCloudConnectorGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
