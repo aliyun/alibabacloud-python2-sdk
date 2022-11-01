@@ -671,8 +671,9 @@ class EventSourceParameters(TeaModel):
 
 
 class HTTPTriggerConfig(TeaModel):
-    def __init__(self, auth_type=None, methods=None):
+    def __init__(self, auth_type=None, disable_urlinternet=None, methods=None):
         self.auth_type = auth_type  # type: str
+        self.disable_urlinternet = disable_urlinternet  # type: bool
         self.methods = methods  # type: list[str]
 
     def validate(self):
@@ -686,6 +687,8 @@ class HTTPTriggerConfig(TeaModel):
         result = dict()
         if self.auth_type is not None:
             result['authType'] = self.auth_type
+        if self.disable_urlinternet is not None:
+            result['disableURLInternet'] = self.disable_urlinternet
         if self.methods is not None:
             result['methods'] = self.methods
         return result
@@ -694,6 +697,8 @@ class HTTPTriggerConfig(TeaModel):
         m = m or dict()
         if m.get('authType') is not None:
             self.auth_type = m.get('authType')
+        if m.get('disableURLInternet') is not None:
+            self.disable_urlinternet = m.get('disableURLInternet')
         if m.get('methods') is not None:
             self.methods = m.get('methods')
         return self
@@ -2216,6 +2221,97 @@ class TracingConfig(TeaModel):
         return self
 
 
+class Trigger(TeaModel):
+    def __init__(self, created_time=None, domain_name=None, invocation_role=None, last_modified_time=None,
+                 qualifier=None, source_arn=None, status=None, target_arn=None, trigger_config=None, trigger_id=None,
+                 trigger_name=None, trigger_type=None, url_internet=None, url_intranet=None):
+        self.created_time = created_time  # type: str
+        self.domain_name = domain_name  # type: str
+        self.invocation_role = invocation_role  # type: str
+        self.last_modified_time = last_modified_time  # type: str
+        self.qualifier = qualifier  # type: str
+        self.source_arn = source_arn  # type: str
+        self.status = status  # type: str
+        self.target_arn = target_arn  # type: str
+        self.trigger_config = trigger_config  # type: str
+        self.trigger_id = trigger_id  # type: str
+        self.trigger_name = trigger_name  # type: str
+        self.trigger_type = trigger_type  # type: str
+        self.url_internet = url_internet  # type: str
+        self.url_intranet = url_intranet  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Trigger, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_time is not None:
+            result['createdTime'] = self.created_time
+        if self.domain_name is not None:
+            result['domainName'] = self.domain_name
+        if self.invocation_role is not None:
+            result['invocationRole'] = self.invocation_role
+        if self.last_modified_time is not None:
+            result['lastModifiedTime'] = self.last_modified_time
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        if self.source_arn is not None:
+            result['sourceArn'] = self.source_arn
+        if self.status is not None:
+            result['status'] = self.status
+        if self.target_arn is not None:
+            result['targetArn'] = self.target_arn
+        if self.trigger_config is not None:
+            result['triggerConfig'] = self.trigger_config
+        if self.trigger_id is not None:
+            result['triggerId'] = self.trigger_id
+        if self.trigger_name is not None:
+            result['triggerName'] = self.trigger_name
+        if self.trigger_type is not None:
+            result['triggerType'] = self.trigger_type
+        if self.url_internet is not None:
+            result['urlInternet'] = self.url_internet
+        if self.url_intranet is not None:
+            result['urlIntranet'] = self.url_intranet
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdTime') is not None:
+            self.created_time = m.get('createdTime')
+        if m.get('domainName') is not None:
+            self.domain_name = m.get('domainName')
+        if m.get('invocationRole') is not None:
+            self.invocation_role = m.get('invocationRole')
+        if m.get('lastModifiedTime') is not None:
+            self.last_modified_time = m.get('lastModifiedTime')
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        if m.get('sourceArn') is not None:
+            self.source_arn = m.get('sourceArn')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('targetArn') is not None:
+            self.target_arn = m.get('targetArn')
+        if m.get('triggerConfig') is not None:
+            self.trigger_config = m.get('triggerConfig')
+        if m.get('triggerId') is not None:
+            self.trigger_id = m.get('triggerId')
+        if m.get('triggerName') is not None:
+            self.trigger_name = m.get('triggerName')
+        if m.get('triggerType') is not None:
+            self.trigger_type = m.get('triggerType')
+        if m.get('urlInternet') is not None:
+            self.url_internet = m.get('urlInternet')
+        if m.get('urlIntranet') is not None:
+            self.url_intranet = m.get('urlIntranet')
+        return self
+
+
 class VPCConfig(TeaModel):
     def __init__(self, role=None, security_group_id=None, v_switch_ids=None, vpc_id=None):
         self.role = role  # type: str
@@ -2887,18 +2983,20 @@ class CreateFunctionHeaders(TeaModel):
 
 
 class CreateFunctionRequest(TeaModel):
-    def __init__(self, ca_port=None, code=None, custom_container_config=None, custom_dns=None,
-                 custom_health_check_config=None, custom_runtime_config=None, description=None, environment_variables=None,
+    def __init__(self, ca_port=None, code=None, cpu=None, custom_container_config=None, custom_dns=None,
+                 custom_health_check_config=None, custom_runtime_config=None, description=None, disk_size=None, environment_variables=None,
                  function_name=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
                  runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
+        self.cpu = cpu  # type: float
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_name = function_name  # type: str
         self.handler = handler  # type: str
@@ -2937,6 +3035,8 @@ class CreateFunctionRequest(TeaModel):
             result['caPort'] = self.ca_port
         if self.code is not None:
             result['code'] = self.code.to_map()
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
@@ -2947,6 +3047,8 @@ class CreateFunctionRequest(TeaModel):
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.function_name is not None:
@@ -2982,6 +3084,8 @@ class CreateFunctionRequest(TeaModel):
         if m.get('code') is not None:
             temp_model = Code()
             self.code = temp_model.from_map(m['code'])
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
@@ -2996,6 +3100,8 @@ class CreateFunctionRequest(TeaModel):
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionName') is not None:
@@ -3027,21 +3133,23 @@ class CreateFunctionRequest(TeaModel):
 
 
 class CreateFunctionResponseBody(TeaModel):
-    def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
+    def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
-                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
-                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
+                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
+        self.cpu = cpu  # type: float
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_id = function_id  # type: str
         self.function_name = function_name  # type: str
@@ -3082,6 +3190,8 @@ class CreateFunctionResponseBody(TeaModel):
             result['codeChecksum'] = self.code_checksum
         if self.code_size is not None:
             result['codeSize'] = self.code_size
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.created_time is not None:
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
@@ -3094,6 +3204,8 @@ class CreateFunctionResponseBody(TeaModel):
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.function_id is not None:
@@ -3134,6 +3246,8 @@ class CreateFunctionResponseBody(TeaModel):
             self.code_checksum = m.get('codeChecksum')
         if m.get('codeSize') is not None:
             self.code_size = m.get('codeSize')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('createdTime') is not None:
             self.created_time = m.get('createdTime')
         if m.get('customContainerConfig') is not None:
@@ -3150,6 +3264,8 @@ class CreateFunctionResponseBody(TeaModel):
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionId') is not None:
@@ -5291,21 +5407,23 @@ class GetFunctionRequest(TeaModel):
 
 
 class GetFunctionResponseBody(TeaModel):
-    def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
+    def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
-                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
-                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
+                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
+                 layers_arn_v2=None, memory_size=None, runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
+        self.cpu = cpu  # type: float
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfigInfo
         self.custom_dns = custom_dns  # type: CustomDNS
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_id = function_id  # type: str
         self.function_name = function_name  # type: str
@@ -5318,6 +5436,7 @@ class GetFunctionResponseBody(TeaModel):
         self.instance_type = instance_type  # type: str
         self.last_modified_time = last_modified_time  # type: str
         self.layers = layers  # type: list[str]
+        self.layers_arn_v2 = layers_arn_v2  # type: list[str]
         self.memory_size = memory_size  # type: int
         self.runtime = runtime  # type: str
         self.timeout = timeout  # type: int
@@ -5346,6 +5465,8 @@ class GetFunctionResponseBody(TeaModel):
             result['codeChecksum'] = self.code_checksum
         if self.code_size is not None:
             result['codeSize'] = self.code_size
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.created_time is not None:
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
@@ -5358,6 +5479,8 @@ class GetFunctionResponseBody(TeaModel):
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.function_id is not None:
@@ -5382,6 +5505,8 @@ class GetFunctionResponseBody(TeaModel):
             result['lastModifiedTime'] = self.last_modified_time
         if self.layers is not None:
             result['layers'] = self.layers
+        if self.layers_arn_v2 is not None:
+            result['layersArnV2'] = self.layers_arn_v2
         if self.memory_size is not None:
             result['memorySize'] = self.memory_size
         if self.runtime is not None:
@@ -5398,6 +5523,8 @@ class GetFunctionResponseBody(TeaModel):
             self.code_checksum = m.get('codeChecksum')
         if m.get('codeSize') is not None:
             self.code_size = m.get('codeSize')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('createdTime') is not None:
             self.created_time = m.get('createdTime')
         if m.get('customContainerConfig') is not None:
@@ -5414,6 +5541,8 @@ class GetFunctionResponseBody(TeaModel):
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionId') is not None:
@@ -5439,6 +5568,8 @@ class GetFunctionResponseBody(TeaModel):
             self.last_modified_time = m.get('lastModifiedTime')
         if m.get('layers') is not None:
             self.layers = m.get('layers')
+        if m.get('layersArnV2') is not None:
+            self.layers_arn_v2 = m.get('layersArnV2')
         if m.get('memorySize') is not None:
             self.memory_size = m.get('memorySize')
         if m.get('runtime') is not None:
@@ -7817,18 +7948,20 @@ class ListFunctionsRequest(TeaModel):
 
 
 class ListFunctionsResponseBodyFunctions(TeaModel):
-    def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, custom_health_check_config=None, description=None, environment_variables=None,
-                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
-                 last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+    def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
+                 custom_container_config=None, custom_health_check_config=None, description=None, disk_size=None,
+                 environment_variables=None, function_id=None, function_name=None, handler=None, initialization_timeout=None,
+                 initializer=None, instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
+                 instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
+        self.cpu = cpu  # type: float
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_id = function_id  # type: str
         self.function_name = function_name  # type: str
@@ -7865,6 +7998,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             result['codeChecksum'] = self.code_checksum
         if self.code_size is not None:
             result['codeSize'] = self.code_size
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.created_time is not None:
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
@@ -7873,6 +8008,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             result['customHealthCheckConfig'] = self.custom_health_check_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.function_id is not None:
@@ -7913,6 +8050,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             self.code_checksum = m.get('codeChecksum')
         if m.get('codeSize') is not None:
             self.code_size = m.get('codeSize')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('createdTime') is not None:
             self.created_time = m.get('createdTime')
         if m.get('customContainerConfig') is not None:
@@ -7923,6 +8062,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             self.custom_health_check_config = temp_model.from_map(m['customHealthCheckConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionId') is not None:
@@ -12008,18 +12149,21 @@ class UpdateFunctionHeaders(TeaModel):
 
 
 class UpdateFunctionRequest(TeaModel):
-    def __init__(self, instance_concurrency=None, ca_port=None, code=None, custom_container_config=None,
+    def __init__(self, instance_concurrency=None, ca_port=None, code=None, cpu=None, custom_container_config=None,
                  custom_dns=None, custom_health_check_config=None, custom_runtime_config=None, description=None,
-                 environment_variables=None, handler=None, initialization_timeout=None, initializer=None, instance_lifecycle_config=None,
-                 instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 disk_size=None, environment_variables=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
+                 runtime=None, timeout=None):
         self.instance_concurrency = instance_concurrency  # type: int
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
+        self.cpu = cpu  # type: float
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.handler = handler  # type: str
         self.initialization_timeout = initialization_timeout  # type: int
@@ -12058,6 +12202,8 @@ class UpdateFunctionRequest(TeaModel):
             result['caPort'] = self.ca_port
         if self.code is not None:
             result['code'] = self.code.to_map()
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
         if self.custom_dns is not None:
@@ -12068,6 +12214,8 @@ class UpdateFunctionRequest(TeaModel):
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.handler is not None:
@@ -12101,6 +12249,8 @@ class UpdateFunctionRequest(TeaModel):
         if m.get('code') is not None:
             temp_model = Code()
             self.code = temp_model.from_map(m['code'])
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
@@ -12115,6 +12265,8 @@ class UpdateFunctionRequest(TeaModel):
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('handler') is not None:
@@ -12142,20 +12294,23 @@ class UpdateFunctionRequest(TeaModel):
 
 
 class UpdateFunctionResponseBody(TeaModel):
-    def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
+    def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
-                 description=None, environment_variables=None, function_id=None, function_name=None, handler=None,
-                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
-                 instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
+                 handler=None, initialization_timeout=None, initializer=None, instance_lifecycle_config=None,
+                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
+                 timeout=None):
         self.ca_port = ca_port  # type: int
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
+        self.cpu = cpu  # type: float
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         self.custom_dns = custom_dns  # type: CustomDNS
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         self.description = description  # type: str
+        self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
         self.function_id = function_id  # type: str
         self.function_name = function_name  # type: str
@@ -12195,6 +12350,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['codeChecksum'] = self.code_checksum
         if self.code_size is not None:
             result['codeSize'] = self.code_size
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
         if self.created_time is not None:
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
@@ -12207,6 +12364,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
+        if self.disk_size is not None:
+            result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
         if self.function_id is not None:
@@ -12245,6 +12404,8 @@ class UpdateFunctionResponseBody(TeaModel):
             self.code_checksum = m.get('codeChecksum')
         if m.get('codeSize') is not None:
             self.code_size = m.get('codeSize')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
         if m.get('createdTime') is not None:
             self.created_time = m.get('createdTime')
         if m.get('customContainerConfig') is not None:
@@ -12261,6 +12422,8 @@ class UpdateFunctionResponseBody(TeaModel):
             self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('diskSize') is not None:
+            self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionId') is not None:

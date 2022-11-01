@@ -118,7 +118,6 @@ class Client(OpenApiClient):
 
     def create_alias_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.additional_version_weight):
             body['additionalVersionWeight'] = request.additional_version_weight
@@ -149,7 +148,7 @@ class Client(OpenApiClient):
             action='CreateAlias',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -215,12 +214,13 @@ class Client(OpenApiClient):
 
     def create_function_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.ca_port):
             body['caPort'] = request.ca_port
         if not UtilClient.is_unset(request.code):
             body['code'] = request.code
+        if not UtilClient.is_unset(request.cpu):
+            body['cpu'] = request.cpu
         if not UtilClient.is_unset(request.custom_container_config):
             body['customContainerConfig'] = request.custom_container_config
         if not UtilClient.is_unset(request.custom_dns):
@@ -231,6 +231,8 @@ class Client(OpenApiClient):
             body['customRuntimeConfig'] = request.custom_runtime_config
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.disk_size):
+            body['diskSize'] = request.disk_size
         if not UtilClient.is_unset(request.environment_variables):
             body['environmentVariables'] = request.environment_variables
         if not UtilClient.is_unset(request.function_name):
@@ -276,7 +278,7 @@ class Client(OpenApiClient):
             action='CreateFunction',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -295,7 +297,6 @@ class Client(OpenApiClient):
 
     def create_layer_version_with_options(self, layer_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         body = {}
         if not UtilClient.is_unset(request.code):
             body['Code'] = request.code
@@ -320,7 +321,7 @@ class Client(OpenApiClient):
             action='CreateLayerVersion',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name),
+            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(layer_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -394,8 +395,6 @@ class Client(OpenApiClient):
 
     def create_trigger_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -428,7 +427,7 @@ class Client(OpenApiClient):
             action='CreateTrigger',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -447,7 +446,6 @@ class Client(OpenApiClient):
 
     def create_vpc_binding_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.vpc_id):
             body['vpcId'] = request.vpc_id
@@ -468,7 +466,7 @@ class Client(OpenApiClient):
             action='CreateVpcBinding',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -486,8 +484,6 @@ class Client(OpenApiClient):
         return self.delete_alias_with_options(service_name, alias_name, headers, runtime)
 
     def delete_alias_with_options(self, service_name, alias_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        alias_name = OpenApiUtilClient.get_encode_param(alias_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -506,7 +502,7 @@ class Client(OpenApiClient):
             action='DeleteAlias',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(alias_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -524,7 +520,6 @@ class Client(OpenApiClient):
         return self.delete_custom_domain_with_options(domain_name, headers, runtime)
 
     def delete_custom_domain_with_options(self, domain_name, headers, runtime):
-        domain_name = OpenApiUtilClient.get_encode_param(domain_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -541,7 +536,7 @@ class Client(OpenApiClient):
             action='DeleteCustomDomain',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(domain_name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -559,8 +554,6 @@ class Client(OpenApiClient):
         return self.delete_function_with_options(service_name, function_name, headers, runtime)
 
     def delete_function_with_options(self, service_name, function_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -579,7 +572,7 @@ class Client(OpenApiClient):
             action='DeleteFunction',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -598,8 +591,6 @@ class Client(OpenApiClient):
 
     def delete_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -620,7 +611,7 @@ class Client(OpenApiClient):
             action='DeleteFunctionAsyncInvokeConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -639,8 +630,6 @@ class Client(OpenApiClient):
 
     def delete_function_on_demand_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -663,7 +652,7 @@ class Client(OpenApiClient):
             action='DeleteFunctionOnDemandConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -681,8 +670,6 @@ class Client(OpenApiClient):
         return self.delete_layer_version_with_options(layer_name, version, headers, runtime)
 
     def delete_layer_version_with_options(self, layer_name, version, headers, runtime):
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
-        version = OpenApiUtilClient.get_encode_param(version)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -699,7 +686,7 @@ class Client(OpenApiClient):
             action='DeleteLayerVersion',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(layer_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -717,7 +704,6 @@ class Client(OpenApiClient):
         return self.delete_service_with_options(service_name, headers, runtime)
 
     def delete_service_with_options(self, service_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -736,7 +722,7 @@ class Client(OpenApiClient):
             action='DeleteService',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -754,8 +740,6 @@ class Client(OpenApiClient):
         return self.delete_service_version_with_options(service_name, version_id, headers, runtime)
 
     def delete_service_version_with_options(self, service_name, version_id, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        version_id = OpenApiUtilClient.get_encode_param(version_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -772,7 +756,7 @@ class Client(OpenApiClient):
             action='DeleteServiceVersion',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/versions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(version_id)),
+            pathname='/2021-04-06/services/%s/versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -790,9 +774,6 @@ class Client(OpenApiClient):
         return self.delete_trigger_with_options(service_name, function_name, trigger_name, headers, runtime)
 
     def delete_trigger_with_options(self, service_name, function_name, trigger_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        trigger_name = OpenApiUtilClient.get_encode_param(trigger_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -811,7 +792,7 @@ class Client(OpenApiClient):
             action='DeleteTrigger',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(trigger_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -829,8 +810,6 @@ class Client(OpenApiClient):
         return self.delete_vpc_binding_with_options(service_name, vpc_id, headers, runtime)
 
     def delete_vpc_binding_with_options(self, service_name, vpc_id, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        vpc_id = OpenApiUtilClient.get_encode_param(vpc_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -847,7 +826,7 @@ class Client(OpenApiClient):
             action='DeleteVpcBinding',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/bindings/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(vpc_id)),
+            pathname='/2021-04-06/services/%s/bindings/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(vpc_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -866,9 +845,6 @@ class Client(OpenApiClient):
 
     def deregister_event_source_with_options(self, service_name, function_name, source_arn, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        source_arn = OpenApiUtilClient.get_encode_param(source_arn)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -889,7 +865,7 @@ class Client(OpenApiClient):
             action='DeregisterEventSource',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/event-sources/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(source_arn)),
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(source_arn))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -941,8 +917,6 @@ class Client(OpenApiClient):
         return self.get_alias_with_options(service_name, alias_name, headers, runtime)
 
     def get_alias_with_options(self, service_name, alias_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        alias_name = OpenApiUtilClient.get_encode_param(alias_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -959,7 +933,7 @@ class Client(OpenApiClient):
             action='GetAlias',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(alias_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -977,7 +951,6 @@ class Client(OpenApiClient):
         return self.get_custom_domain_with_options(domain_name, headers, runtime)
 
     def get_custom_domain_with_options(self, domain_name, headers, runtime):
-        domain_name = OpenApiUtilClient.get_encode_param(domain_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -994,7 +967,7 @@ class Client(OpenApiClient):
             action='GetCustomDomain',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(domain_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1013,8 +986,6 @@ class Client(OpenApiClient):
 
     def get_function_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1035,7 +1006,7 @@ class Client(OpenApiClient):
             action='GetFunction',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1054,8 +1025,6 @@ class Client(OpenApiClient):
 
     def get_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1076,7 +1045,7 @@ class Client(OpenApiClient):
             action='GetFunctionAsyncInvokeConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1095,8 +1064,6 @@ class Client(OpenApiClient):
 
     def get_function_code_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1117,7 +1084,7 @@ class Client(OpenApiClient):
             action='GetFunctionCode',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/code' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/code' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1136,8 +1103,6 @@ class Client(OpenApiClient):
 
     def get_function_on_demand_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1158,7 +1123,7 @@ class Client(OpenApiClient):
             action='GetFunctionOnDemandConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1176,8 +1141,6 @@ class Client(OpenApiClient):
         return self.get_layer_version_with_options(layer_name, version, headers, runtime)
 
     def get_layer_version_with_options(self, layer_name, version, headers, runtime):
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
-        version = OpenApiUtilClient.get_encode_param(version)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -1194,7 +1157,7 @@ class Client(OpenApiClient):
             action='GetLayerVersion',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(layer_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1213,8 +1176,6 @@ class Client(OpenApiClient):
 
     def get_provision_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1235,7 +1196,7 @@ class Client(OpenApiClient):
             action='GetProvisionConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1293,7 +1254,6 @@ class Client(OpenApiClient):
 
     def get_service_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1314,7 +1274,7 @@ class Client(OpenApiClient):
             action='GetService',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1333,9 +1293,6 @@ class Client(OpenApiClient):
 
     def get_stateful_async_invocation_with_options(self, service_name, function_name, invocation_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        invocation_id = OpenApiUtilClient.get_encode_param(invocation_id)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1362,7 +1319,7 @@ class Client(OpenApiClient):
             action='GetStatefulAsyncInvocation',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)),
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(invocation_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1380,9 +1337,6 @@ class Client(OpenApiClient):
         return self.get_trigger_with_options(service_name, function_name, trigger_name, headers, runtime)
 
     def get_trigger_with_options(self, service_name, function_name, trigger_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        trigger_name = OpenApiUtilClient.get_encode_param(trigger_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -1399,7 +1353,7 @@ class Client(OpenApiClient):
             action='GetTrigger',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(trigger_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1418,8 +1372,6 @@ class Client(OpenApiClient):
 
     def invoke_function_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1450,7 +1402,7 @@ class Client(OpenApiClient):
             action='InvokeFunction',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/invocations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1469,7 +1421,6 @@ class Client(OpenApiClient):
 
     def list_aliases_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.limit):
             query['limit'] = request.limit
@@ -1496,7 +1447,7 @@ class Client(OpenApiClient):
             action='ListAliases',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1560,8 +1511,6 @@ class Client(OpenApiClient):
 
     def list_event_sources_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -1582,7 +1531,7 @@ class Client(OpenApiClient):
             action='ListEventSources',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1601,8 +1550,6 @@ class Client(OpenApiClient):
 
     def list_function_async_invoke_configs_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.limit):
             query['limit'] = request.limit
@@ -1631,7 +1578,7 @@ class Client(OpenApiClient):
             action='ListFunctionAsyncInvokeConfigs',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-configs' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-configs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1650,7 +1597,6 @@ class Client(OpenApiClient):
 
     def list_functions_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.limit):
             query['limit'] = request.limit
@@ -1679,7 +1625,7 @@ class Client(OpenApiClient):
             action='ListFunctions',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1698,8 +1644,6 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.instance_ids):
             query['instanceIds'] = request.instance_ids
@@ -1720,7 +1664,7 @@ class Client(OpenApiClient):
             action='ListInstances',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1739,7 +1683,6 @@ class Client(OpenApiClient):
 
     def list_layer_versions_with_options(self, layer_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         query = {}
         if not UtilClient.is_unset(request.limit):
             query['limit'] = request.limit
@@ -1762,7 +1705,7 @@ class Client(OpenApiClient):
             action='ListLayerVersions',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name),
+            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(layer_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1961,7 +1904,6 @@ class Client(OpenApiClient):
 
     def list_service_versions_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.direction):
             query['direction'] = request.direction
@@ -1988,7 +1930,7 @@ class Client(OpenApiClient):
             action='ListServiceVersions',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2093,8 +2035,6 @@ class Client(OpenApiClient):
 
     def list_stateful_async_invocations_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.include_payload):
             query['includePayload'] = request.include_payload
@@ -2137,7 +2077,7 @@ class Client(OpenApiClient):
             action='ListStatefulAsyncInvocations',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2197,8 +2137,6 @@ class Client(OpenApiClient):
 
     def list_triggers_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.limit):
             query['limit'] = request.limit
@@ -2225,7 +2163,7 @@ class Client(OpenApiClient):
             action='ListTriggers',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2243,7 +2181,6 @@ class Client(OpenApiClient):
         return self.list_vpc_bindings_with_options(service_name, headers, runtime)
 
     def list_vpc_bindings_with_options(self, service_name, headers, runtime):
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -2260,7 +2197,7 @@ class Client(OpenApiClient):
             action='ListVpcBindings',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2279,7 +2216,6 @@ class Client(OpenApiClient):
 
     def publish_service_version_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -2302,7 +2238,7 @@ class Client(OpenApiClient):
             action='PublishServiceVersion',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2321,8 +2257,6 @@ class Client(OpenApiClient):
 
     def put_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -2353,7 +2287,7 @@ class Client(OpenApiClient):
             action='PutFunctionAsyncInvokeConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2372,8 +2306,6 @@ class Client(OpenApiClient):
 
     def put_function_on_demand_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -2400,7 +2332,7 @@ class Client(OpenApiClient):
             action='PutFunctionOnDemandConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2419,7 +2351,6 @@ class Client(OpenApiClient):
 
     def put_layer_aclwith_options(self, layer_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         query = {}
         if not UtilClient.is_unset(request.public):
             query['public'] = request.public
@@ -2440,7 +2371,7 @@ class Client(OpenApiClient):
             action='PutLayerACL',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/acl' % TeaConverter.to_unicode(layer_name),
+            pathname='/2021-04-06/layers/%s/acl' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(layer_name)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2459,8 +2390,6 @@ class Client(OpenApiClient):
 
     def put_provision_config_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -2491,7 +2420,7 @@ class Client(OpenApiClient):
             action='PutProvisionConfig',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2510,8 +2439,6 @@ class Client(OpenApiClient):
 
     def register_event_source_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -2536,7 +2463,7 @@ class Client(OpenApiClient):
             action='RegisterEventSource',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2554,7 +2481,6 @@ class Client(OpenApiClient):
         return self.release_gpuinstance_with_options(instance_id, headers, runtime)
 
     def release_gpuinstance_with_options(self, instance_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -2571,7 +2497,7 @@ class Client(OpenApiClient):
             action='ReleaseGPUInstance',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/gpuInstances/%s' % TeaConverter.to_unicode(instance_id),
+            pathname='/2021-04-06/gpuInstances/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -2590,9 +2516,6 @@ class Client(OpenApiClient):
 
     def stop_stateful_async_invocation_with_options(self, service_name, function_name, invocation_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        invocation_id = OpenApiUtilClient.get_encode_param(invocation_id)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
@@ -2613,7 +2536,7 @@ class Client(OpenApiClient):
             action='StopStatefulAsyncInvocation',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)),
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(invocation_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2716,8 +2639,6 @@ class Client(OpenApiClient):
 
     def update_alias_with_options(self, service_name, alias_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        alias_name = OpenApiUtilClient.get_encode_param(alias_name)
         body = {}
         if not UtilClient.is_unset(request.additional_version_weight):
             body['additionalVersionWeight'] = request.additional_version_weight
@@ -2748,7 +2669,7 @@ class Client(OpenApiClient):
             action='UpdateAlias',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(alias_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2767,7 +2688,6 @@ class Client(OpenApiClient):
 
     def update_custom_domain_with_options(self, domain_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        domain_name = OpenApiUtilClient.get_encode_param(domain_name)
         body = {}
         if not UtilClient.is_unset(request.cert_config):
             body['certConfig'] = request.cert_config
@@ -2794,7 +2714,7 @@ class Client(OpenApiClient):
             action='UpdateCustomDomain',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(domain_name)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2813,8 +2733,6 @@ class Client(OpenApiClient):
 
     def update_function_with_options(self, service_name, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         body = {}
         if not UtilClient.is_unset(request.instance_concurrency):
             body['InstanceConcurrency'] = request.instance_concurrency
@@ -2822,6 +2740,8 @@ class Client(OpenApiClient):
             body['caPort'] = request.ca_port
         if not UtilClient.is_unset(request.code):
             body['code'] = request.code
+        if not UtilClient.is_unset(request.cpu):
+            body['cpu'] = request.cpu
         if not UtilClient.is_unset(request.custom_container_config):
             body['customContainerConfig'] = request.custom_container_config
         if not UtilClient.is_unset(request.custom_dns):
@@ -2832,6 +2752,8 @@ class Client(OpenApiClient):
             body['customRuntimeConfig'] = request.custom_runtime_config
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.disk_size):
+            body['diskSize'] = request.disk_size
         if not UtilClient.is_unset(request.environment_variables):
             body['environmentVariables'] = request.environment_variables
         if not UtilClient.is_unset(request.handler):
@@ -2875,7 +2797,7 @@ class Client(OpenApiClient):
             action='UpdateFunction',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2894,7 +2816,6 @@ class Client(OpenApiClient):
 
     def update_service_with_options(self, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -2931,7 +2852,7 @@ class Client(OpenApiClient):
             action='UpdateService',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2950,9 +2871,6 @@ class Client(OpenApiClient):
 
     def update_trigger_with_options(self, service_name, function_name, trigger_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        trigger_name = OpenApiUtilClient.get_encode_param(trigger_name)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -2981,7 +2899,7 @@ class Client(OpenApiClient):
             action='UpdateTrigger',
             version='2021-04-06',
             protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(trigger_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
