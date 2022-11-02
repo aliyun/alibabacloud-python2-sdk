@@ -118,8 +118,6 @@ class Client(OpenApiClient):
 
     def create_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.auto_renewal):
             body['AutoRenewal'] = request.auto_renewal
@@ -139,7 +137,7 @@ class Client(OpenApiClient):
             action='CreateResourceInstances',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -158,8 +156,6 @@ class Client(OpenApiClient):
 
     def create_resource_log_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.log_store):
             body['LogStore'] = request.log_store
@@ -173,7 +169,7 @@ class Client(OpenApiClient):
             action='CreateResourceLog',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -219,15 +215,13 @@ class Client(OpenApiClient):
 
     def create_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.max):
             body['max'] = request.max
         if not UtilClient.is_unset(request.min):
             body['min'] = request.min
-        if not UtilClient.is_unset(request.strategies):
-            body['strategies'] = request.strategies
+        if not UtilClient.is_unset(request.scale_strategies):
+            body['scaleStrategies'] = request.scale_strategies
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -236,7 +230,7 @@ class Client(OpenApiClient):
             action='CreateServiceAutoScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -255,8 +249,6 @@ class Client(OpenApiClient):
 
     def create_service_cron_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.exclude_dates):
             body['ExcludeDates'] = request.exclude_dates
@@ -270,7 +262,7 @@ class Client(OpenApiClient):
             action='CreateServiceCronScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -289,8 +281,6 @@ class Client(OpenApiClient):
 
     def create_service_mirror_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.ratio):
             body['Ratio'] = request.ratio
@@ -304,7 +294,7 @@ class Client(OpenApiClient):
             action='CreateServiceMirror',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -322,8 +312,6 @@ class Client(OpenApiClient):
         return self.delete_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def delete_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -331,7 +319,7 @@ class Client(OpenApiClient):
             action='DeleteBenchmarkTask',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -349,8 +337,6 @@ class Client(OpenApiClient):
         return self.delete_resource_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_resource_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -358,7 +344,7 @@ class Client(OpenApiClient):
             action='DeleteResource',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -376,8 +362,6 @@ class Client(OpenApiClient):
         return self.delete_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_resource_dlink_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -385,7 +369,7 @@ class Client(OpenApiClient):
             action='DeleteResourceDLink',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -404,8 +388,6 @@ class Client(OpenApiClient):
 
     def delete_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
         if not UtilClient.is_unset(request.all_failed):
             query['AllFailed'] = request.all_failed
@@ -419,7 +401,7 @@ class Client(OpenApiClient):
             action='DeleteResourceInstances',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -437,8 +419,6 @@ class Client(OpenApiClient):
         return self.delete_resource_log_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_resource_log_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -446,7 +426,7 @@ class Client(OpenApiClient):
             action='DeleteResourceLog',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -464,8 +444,6 @@ class Client(OpenApiClient):
         return self.delete_service_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -473,7 +451,7 @@ class Client(OpenApiClient):
             action='DeleteService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -491,8 +469,6 @@ class Client(OpenApiClient):
         return self.delete_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_auto_scaler_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -500,7 +476,7 @@ class Client(OpenApiClient):
             action='DeleteServiceAutoScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -518,8 +494,6 @@ class Client(OpenApiClient):
         return self.delete_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_cron_scaler_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -527,7 +501,7 @@ class Client(OpenApiClient):
             action='DeleteServiceCronScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -546,8 +520,6 @@ class Client(OpenApiClient):
 
     def delete_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.instance_list):
             query['InstanceList'] = request.instance_list
@@ -559,7 +531,7 @@ class Client(OpenApiClient):
             action='DeleteServiceInstances',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/instances' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -577,8 +549,6 @@ class Client(OpenApiClient):
         return self.delete_service_mirror_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_mirror_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -586,7 +556,7 @@ class Client(OpenApiClient):
             action='DeleteServiceMirror',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -604,8 +574,6 @@ class Client(OpenApiClient):
         return self.describe_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def describe_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -613,7 +581,7 @@ class Client(OpenApiClient):
             action='DescribeBenchmarkTask',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -625,22 +593,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_benchmark_task_report(self, cluster_id, task_name):
+    def describe_benchmark_task_report(self, cluster_id, task_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_benchmark_task_report_with_options(cluster_id, task_name, headers, runtime)
+        return self.describe_benchmark_task_report_with_options(cluster_id, task_name, request, headers, runtime)
 
-    def describe_benchmark_task_report_with_options(self, cluster_id, task_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
+    def describe_benchmark_task_report_with_options(self, cluster_id, task_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.report_type):
+            query['ReportType'] = request.report_type
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeBenchmarkTaskReport',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s/report' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s/report' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -652,14 +623,37 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_group(self, cluster_id, group_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_group_with_options(cluster_id, group_name, headers, runtime)
+
+    def describe_group_with_options(self, cluster_id, group_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeGroup',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/groups/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def describe_resource(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_resource_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_resource_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -667,7 +661,7 @@ class Client(OpenApiClient):
             action='DescribeResource',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -685,8 +679,6 @@ class Client(OpenApiClient):
         return self.describe_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_resource_dlink_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -694,7 +686,7 @@ class Client(OpenApiClient):
             action='DescribeResourceDLink',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -712,8 +704,6 @@ class Client(OpenApiClient):
         return self.describe_resource_log_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_resource_log_with_options(self, cluster_id, resource_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -721,7 +711,7 @@ class Client(OpenApiClient):
             action='DescribeResourceLog',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/log' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -739,8 +729,6 @@ class Client(OpenApiClient):
         return self.describe_service_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -748,7 +736,7 @@ class Client(OpenApiClient):
             action='DescribeService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -766,8 +754,6 @@ class Client(OpenApiClient):
         return self.describe_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_auto_scaler_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -775,7 +761,7 @@ class Client(OpenApiClient):
             action='DescribeServiceAutoScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -793,8 +779,6 @@ class Client(OpenApiClient):
         return self.describe_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_cron_scaler_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -802,7 +786,7 @@ class Client(OpenApiClient):
             action='DescribeServiceCronScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -814,6 +798,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_service_event(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_service_event_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def describe_service_event_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeServiceEvent',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/events' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeServiceEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def describe_service_log(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -821,8 +841,6 @@ class Client(OpenApiClient):
 
     def describe_service_log_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
@@ -844,7 +862,7 @@ class Client(OpenApiClient):
             action='DescribeServiceLog',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/logs' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/logs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -862,8 +880,6 @@ class Client(OpenApiClient):
         return self.describe_service_mirror_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_mirror_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -871,7 +887,7 @@ class Client(OpenApiClient):
             action='DescribeServiceMirror',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -883,14 +899,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_benchmark_task(self):
+    def list_benchmark_task(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_benchmark_task_with_options(headers, runtime)
+        return self.list_benchmark_task_with_options(request, headers, runtime)
 
-    def list_benchmark_task_with_options(self, headers, runtime):
+    def list_benchmark_task_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.fileter):
+            query['Fileter'] = request.fileter
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListBenchmarkTask',
@@ -908,6 +935,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_groups_with_options(request, headers, runtime)
+
+    def list_groups_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroups',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/groups',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_resource_instance_worker(self, cluster_id, resource_id, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -915,9 +976,6 @@ class Client(OpenApiClient):
 
     def list_resource_instance_worker_with_options(self, cluster_id, resource_id, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -931,7 +989,7 @@ class Client(OpenApiClient):
             action='ListResourceInstanceWorker',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/instance/%s/workers' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id), TeaConverter.to_unicode(instance_name)),
+            pathname='/api/v2/resources/%s/%s/instance/%s/workers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -950,8 +1008,6 @@ class Client(OpenApiClient):
 
     def list_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
@@ -967,7 +1023,7 @@ class Client(OpenApiClient):
             action='ListResourceInstances',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -986,8 +1042,6 @@ class Client(OpenApiClient):
 
     def list_resource_services_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -1001,7 +1055,7 @@ class Client(OpenApiClient):
             action='ListResourceServices',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/services' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/services' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1052,8 +1106,6 @@ class Client(OpenApiClient):
 
     def list_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
@@ -1067,7 +1119,7 @@ class Client(OpenApiClient):
             action='ListServiceInstances',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/instances' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1076,6 +1128,38 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.ListServiceInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_versions(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_versions_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def list_service_versions_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListServiceVersions',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/versions' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListServiceVersionsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1089,6 +1173,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.filter):
             query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.order):
             query['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
@@ -1124,8 +1210,6 @@ class Client(OpenApiClient):
 
     def release_service_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.traffic_state):
             body['TrafficState'] = request.traffic_state
@@ -1139,7 +1223,7 @@ class Client(OpenApiClient):
             action='ReleaseService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/release' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/release' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1157,8 +1241,6 @@ class Client(OpenApiClient):
         return self.start_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def start_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1166,7 +1248,7 @@ class Client(OpenApiClient):
             action='StartBenchmarkTask',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s/start' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s/start' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1184,8 +1266,6 @@ class Client(OpenApiClient):
         return self.start_service_with_options(cluster_id, service_name, headers, runtime)
 
     def start_service_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1193,7 +1273,7 @@ class Client(OpenApiClient):
             action='StartService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/start' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/start' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1211,8 +1291,6 @@ class Client(OpenApiClient):
         return self.stop_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def stop_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1220,7 +1298,7 @@ class Client(OpenApiClient):
             action='StopBenchmarkTask',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s/stop' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1238,8 +1316,6 @@ class Client(OpenApiClient):
         return self.stop_service_with_options(cluster_id, service_name, headers, runtime)
 
     def stop_service_with_options(self, cluster_id, service_name, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1247,7 +1323,7 @@ class Client(OpenApiClient):
             action='StopService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/stop' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1266,8 +1342,6 @@ class Client(OpenApiClient):
 
     def update_benchmark_task_with_options(self, cluster_id, task_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        task_name = OpenApiUtilClient.get_encode_param(task_name)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=request.body
@@ -1276,7 +1350,7 @@ class Client(OpenApiClient):
             action='UpdateBenchmarkTask',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(task_name)),
+            pathname='/api/v2/benchmark-tasks/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1295,8 +1369,6 @@ class Client(OpenApiClient):
 
     def update_resource_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.resource_name):
             body['ResourceName'] = request.resource_name
@@ -1308,7 +1380,7 @@ class Client(OpenApiClient):
             action='UpdateResource',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1327,8 +1399,6 @@ class Client(OpenApiClient):
 
     def update_resource_dlink_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.destination_cidrs):
             body['DestinationCIDRs'] = request.destination_cidrs
@@ -1346,7 +1416,7 @@ class Client(OpenApiClient):
             action='UpdateResourceDLink',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(resource_id)),
+            pathname='/api/v2/resources/%s/%s/dlink' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1365,8 +1435,6 @@ class Client(OpenApiClient):
 
     def update_service_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=request.body
@@ -1375,7 +1443,7 @@ class Client(OpenApiClient):
             action='UpdateService',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1394,15 +1462,13 @@ class Client(OpenApiClient):
 
     def update_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.max):
             body['max'] = request.max
         if not UtilClient.is_unset(request.min):
             body['min'] = request.min
-        if not UtilClient.is_unset(request.strategies):
-            body['strategies'] = request.strategies
+        if not UtilClient.is_unset(request.scale_strategies):
+            body['scaleStrategies'] = request.scale_strategies
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -1411,7 +1477,7 @@ class Client(OpenApiClient):
             action='UpdateServiceAutoScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/autoscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1430,8 +1496,6 @@ class Client(OpenApiClient):
 
     def update_service_cron_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.exclude_dates):
             body['ExcludeDates'] = request.exclude_dates
@@ -1445,7 +1509,7 @@ class Client(OpenApiClient):
             action='UpdateServiceCronScaler',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/cronscaler' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1464,8 +1528,6 @@ class Client(OpenApiClient):
 
     def update_service_mirror_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.ratio):
             body['Ratio'] = request.ratio
@@ -1479,7 +1541,7 @@ class Client(OpenApiClient):
             action='UpdateServiceMirror',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/mirror' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -1498,8 +1560,6 @@ class Client(OpenApiClient):
 
     def update_service_version_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
         body = {}
         if not UtilClient.is_unset(request.version):
             body['Version'] = request.version
@@ -1511,7 +1571,7 @@ class Client(OpenApiClient):
             action='UpdateServiceVersion',
             version='2021-07-01',
             protocol='HTTPS',
-            pathname='/api/v2/services/%s/%s/version' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(service_name)),
+            pathname='/api/v2/services/%s/%s/version' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',

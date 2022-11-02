@@ -3,6 +3,66 @@
 from Tea.model import TeaModel
 
 
+class Group(TeaModel):
+    def __init__(self, access_token=None, cluster_id=None, create_time=None, internet_endpoint=None,
+                 intranet_endpoint=None, name=None, queue_service=None, update_time=None):
+        self.access_token = access_token  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.create_time = create_time  # type: str
+        self.internet_endpoint = internet_endpoint  # type: str
+        self.intranet_endpoint = intranet_endpoint  # type: str
+        self.name = name  # type: str
+        self.queue_service = queue_service  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Group, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.internet_endpoint is not None:
+            result['InternetEndpoint'] = self.internet_endpoint
+        if self.intranet_endpoint is not None:
+            result['IntranetEndpoint'] = self.intranet_endpoint
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.queue_service is not None:
+            result['QueueService'] = self.queue_service
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('InternetEndpoint') is not None:
+            self.internet_endpoint = m.get('InternetEndpoint')
+        if m.get('IntranetEndpoint') is not None:
+            self.intranet_endpoint = m.get('IntranetEndpoint')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('QueueService') is not None:
+            self.queue_service = m.get('QueueService')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
 class Instance(TeaModel):
     def __init__(self, host_ip=None, host_name=None, inner_ip=None, instance_name=None, instance_port=None,
                  last_state=None, namespace=None, ready_processes=None, reason=None, restart_count=None, start_at=None,
@@ -176,16 +236,18 @@ class Resource(TeaModel):
 
 
 class ResourceInstance(TeaModel):
-    def __init__(self, auto_renewal=None, charge_type=None, create_time=None, expired_time=None,
-                 instance_cpu_count=None, instance_gpu_count=None, instance_id=None, instance_ip=None, instance_memory=None,
-                 instance_name=None, instance_status=None, instance_type=None, instance_used_cpu=None, instance_used_gpu=None,
-                 instance_used_memory=None):
+    def __init__(self, arch=None, auto_renewal=None, charge_type=None, create_time=None, expired_time=None,
+                 instance_cpu_count=None, instance_gpu_count=None, instance_gpu_memory=None, instance_id=None, instance_ip=None,
+                 instance_memory=None, instance_name=None, instance_status=None, instance_type=None, instance_used_cpu=None,
+                 instance_used_gpu=None, instance_used_memory=None, region=None, zone=None):
+        self.arch = arch  # type: str
         self.auto_renewal = auto_renewal  # type: bool
         self.charge_type = charge_type  # type: str
         self.create_time = create_time  # type: str
         self.expired_time = expired_time  # type: str
         self.instance_cpu_count = instance_cpu_count  # type: int
         self.instance_gpu_count = instance_gpu_count  # type: int
+        self.instance_gpu_memory = instance_gpu_memory  # type: str
         self.instance_id = instance_id  # type: str
         self.instance_ip = instance_ip  # type: str
         self.instance_memory = instance_memory  # type: str
@@ -195,6 +257,8 @@ class ResourceInstance(TeaModel):
         self.instance_used_cpu = instance_used_cpu  # type: float
         self.instance_used_gpu = instance_used_gpu  # type: int
         self.instance_used_memory = instance_used_memory  # type: str
+        self.region = region  # type: str
+        self.zone = zone  # type: str
 
     def validate(self):
         pass
@@ -205,6 +269,8 @@ class ResourceInstance(TeaModel):
             return _map
 
         result = dict()
+        if self.arch is not None:
+            result['Arch'] = self.arch
         if self.auto_renewal is not None:
             result['AutoRenewal'] = self.auto_renewal
         if self.charge_type is not None:
@@ -217,6 +283,8 @@ class ResourceInstance(TeaModel):
             result['InstanceCpuCount'] = self.instance_cpu_count
         if self.instance_gpu_count is not None:
             result['InstanceGpuCount'] = self.instance_gpu_count
+        if self.instance_gpu_memory is not None:
+            result['InstanceGpuMemory'] = self.instance_gpu_memory
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.instance_ip is not None:
@@ -235,10 +303,16 @@ class ResourceInstance(TeaModel):
             result['InstanceUsedGpu'] = self.instance_used_gpu
         if self.instance_used_memory is not None:
             result['InstanceUsedMemory'] = self.instance_used_memory
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.zone is not None:
+            result['Zone'] = self.zone
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Arch') is not None:
+            self.arch = m.get('Arch')
         if m.get('AutoRenewal') is not None:
             self.auto_renewal = m.get('AutoRenewal')
         if m.get('ChargeType') is not None:
@@ -251,6 +325,8 @@ class ResourceInstance(TeaModel):
             self.instance_cpu_count = m.get('InstanceCpuCount')
         if m.get('InstanceGpuCount') is not None:
             self.instance_gpu_count = m.get('InstanceGpuCount')
+        if m.get('InstanceGpuMemory') is not None:
+            self.instance_gpu_memory = m.get('InstanceGpuMemory')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceIp') is not None:
@@ -269,6 +345,10 @@ class ResourceInstance(TeaModel):
             self.instance_used_gpu = m.get('InstanceUsedGpu')
         if m.get('InstanceUsedMemory') is not None:
             self.instance_used_memory = m.get('InstanceUsedMemory')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
         return self
 
 
@@ -356,9 +436,9 @@ class Service(TeaModel):
     def __init__(self, access_token=None, caller_uid=None, cpu=None, create_time=None, current_version=None,
                  extra_data=None, gpu=None, image=None, internet_endpoint=None, intranet_endpoint=None, latest_version=None,
                  memory=None, message=None, namespace=None, parent_uid=None, pending_instance=None, reason=None,
-                 region=None, request_id=None, resource=None, resource_alias=None, running_instance=None,
-                 service_config=None, service_group=None, service_id=None, service_name=None, source=None, status=None,
-                 total_instance=None, update_time=None, weight=None):
+                 region=None, request_id=None, resource=None, resource_alias=None, role=None, role_attrs=None,
+                 running_instance=None, service_config=None, service_group=None, service_id=None, service_name=None,
+                 service_uid=None, source=None, status=None, total_instance=None, update_time=None, weight=None):
         self.access_token = access_token  # type: str
         self.caller_uid = caller_uid  # type: str
         self.cpu = cpu  # type: int
@@ -380,11 +460,14 @@ class Service(TeaModel):
         self.request_id = request_id  # type: str
         self.resource = resource  # type: str
         self.resource_alias = resource_alias  # type: str
+        self.role = role  # type: str
+        self.role_attrs = role_attrs  # type: str
         self.running_instance = running_instance  # type: int
         self.service_config = service_config  # type: str
         self.service_group = service_group  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
+        self.service_uid = service_uid  # type: str
         self.source = source  # type: str
         self.status = status  # type: str
         self.total_instance = total_instance  # type: int
@@ -442,6 +525,10 @@ class Service(TeaModel):
             result['Resource'] = self.resource
         if self.resource_alias is not None:
             result['ResourceAlias'] = self.resource_alias
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.role_attrs is not None:
+            result['RoleAttrs'] = self.role_attrs
         if self.running_instance is not None:
             result['RunningInstance'] = self.running_instance
         if self.service_config is not None:
@@ -452,6 +539,8 @@ class Service(TeaModel):
             result['ServiceId'] = self.service_id
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
+        if self.service_uid is not None:
+            result['ServiceUid'] = self.service_uid
         if self.source is not None:
             result['Source'] = self.source
         if self.status is not None:
@@ -508,6 +597,10 @@ class Service(TeaModel):
             self.resource = m.get('Resource')
         if m.get('ResourceAlias') is not None:
             self.resource_alias = m.get('ResourceAlias')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('RoleAttrs') is not None:
+            self.role_attrs = m.get('RoleAttrs')
         if m.get('RunningInstance') is not None:
             self.running_instance = m.get('RunningInstance')
         if m.get('ServiceConfig') is not None:
@@ -518,6 +611,8 @@ class Service(TeaModel):
             self.service_id = m.get('ServiceId')
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
+        if m.get('ServiceUid') is not None:
+            self.service_uid = m.get('ServiceUid')
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('Status') is not None:
@@ -556,11 +651,11 @@ class CreateBenchmarkTaskRequest(TeaModel):
 
 
 class CreateBenchmarkTaskResponseBody(TeaModel):
-    def __init__(self, message=None, name=None, region=None, request_id=None):
+    def __init__(self, message=None, region=None, request_id=None, task_name=None):
         self.message = message  # type: str
-        self.name = name  # type: str
         self.region = region  # type: str
         self.request_id = request_id  # type: str
+        self.task_name = task_name  # type: str
 
     def validate(self):
         pass
@@ -573,24 +668,24 @@ class CreateBenchmarkTaskResponseBody(TeaModel):
         result = dict()
         if self.message is not None:
             result['Message'] = self.message
-        if self.name is not None:
-            result['Name'] = self.name
         if self.region is not None:
             result['Region'] = self.region
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Message') is not None:
             self.message = m.get('Message')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
         return self
 
 
@@ -1083,44 +1178,51 @@ class CreateServiceResponse(TeaModel):
         return self
 
 
-class CreateServiceAutoScalerRequestStrategies(TeaModel):
-    def __init__(self, cpu=None, qps=None):
-        self.cpu = cpu  # type: float
-        self.qps = qps  # type: float
+class CreateServiceAutoScalerRequestScaleStrategies(TeaModel):
+    def __init__(self, metric_name=None, service=None, threshold=None):
+        self.metric_name = metric_name  # type: str
+        self.service = service  # type: str
+        self.threshold = threshold  # type: float
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(CreateServiceAutoScalerRequestStrategies, self).to_map()
+        _map = super(CreateServiceAutoScalerRequestScaleStrategies, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.cpu is not None:
-            result['cpu'] = self.cpu
-        if self.qps is not None:
-            result['qps'] = self.qps
+        if self.metric_name is not None:
+            result['metricName'] = self.metric_name
+        if self.service is not None:
+            result['service'] = self.service
+        if self.threshold is not None:
+            result['threshold'] = self.threshold
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('cpu') is not None:
-            self.cpu = m.get('cpu')
-        if m.get('qps') is not None:
-            self.qps = m.get('qps')
+        if m.get('metricName') is not None:
+            self.metric_name = m.get('metricName')
+        if m.get('service') is not None:
+            self.service = m.get('service')
+        if m.get('threshold') is not None:
+            self.threshold = m.get('threshold')
         return self
 
 
 class CreateServiceAutoScalerRequest(TeaModel):
-    def __init__(self, max=None, min=None, strategies=None):
+    def __init__(self, max=None, min=None, scale_strategies=None):
         self.max = max  # type: int
         self.min = min  # type: int
-        self.strategies = strategies  # type: CreateServiceAutoScalerRequestStrategies
+        self.scale_strategies = scale_strategies  # type: list[CreateServiceAutoScalerRequestScaleStrategies]
 
     def validate(self):
-        if self.strategies:
-            self.strategies.validate()
+        if self.scale_strategies:
+            for k in self.scale_strategies:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateServiceAutoScalerRequest, self).to_map()
@@ -1132,8 +1234,10 @@ class CreateServiceAutoScalerRequest(TeaModel):
             result['max'] = self.max
         if self.min is not None:
             result['min'] = self.min
-        if self.strategies is not None:
-            result['strategies'] = self.strategies.to_map()
+        result['scaleStrategies'] = []
+        if self.scale_strategies is not None:
+            for k in self.scale_strategies:
+                result['scaleStrategies'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -1142,9 +1246,11 @@ class CreateServiceAutoScalerRequest(TeaModel):
             self.max = m.get('max')
         if m.get('min') is not None:
             self.min = m.get('min')
-        if m.get('strategies') is not None:
-            temp_model = CreateServiceAutoScalerRequestStrategies()
-            self.strategies = temp_model.from_map(m['strategies'])
+        self.scale_strategies = []
+        if m.get('scaleStrategies') is not None:
+            for k in m.get('scaleStrategies'):
+                temp_model = CreateServiceAutoScalerRequestScaleStrategies()
+                self.scale_strategies.append(temp_model.from_map(k))
         return self
 
 
@@ -2186,11 +2292,13 @@ class DeleteServiceMirrorResponse(TeaModel):
 
 
 class DescribeBenchmarkTaskResponseBody(TeaModel):
-    def __init__(self, available_agent=None, caller_uid=None, desired_agent=None, message=None, parent_uid=None,
-                 reason=None, request_id=None, service_name=None, status=None, task_id=None, task_name=None, token=None):
+    def __init__(self, available_agent=None, caller_uid=None, desired_agent=None, endpoint=None, message=None,
+                 parent_uid=None, reason=None, request_id=None, service_name=None, status=None, task_id=None, task_name=None,
+                 token=None):
         self.available_agent = available_agent  # type: long
         self.caller_uid = caller_uid  # type: str
         self.desired_agent = desired_agent  # type: long
+        self.endpoint = endpoint  # type: str
         self.message = message  # type: str
         self.parent_uid = parent_uid  # type: str
         self.reason = reason  # type: str
@@ -2216,6 +2324,8 @@ class DescribeBenchmarkTaskResponseBody(TeaModel):
             result['CallerUid'] = self.caller_uid
         if self.desired_agent is not None:
             result['DesiredAgent'] = self.desired_agent
+        if self.endpoint is not None:
+            result['Endpoint'] = self.endpoint
         if self.message is not None:
             result['Message'] = self.message
         if self.parent_uid is not None:
@@ -2244,6 +2354,8 @@ class DescribeBenchmarkTaskResponseBody(TeaModel):
             self.caller_uid = m.get('CallerUid')
         if m.get('DesiredAgent') is not None:
             self.desired_agent = m.get('DesiredAgent')
+        if m.get('Endpoint') is not None:
+            self.endpoint = m.get('Endpoint')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('ParentUid') is not None:
@@ -2304,8 +2416,33 @@ class DescribeBenchmarkTaskResponse(TeaModel):
         return self
 
 
+class DescribeBenchmarkTaskReportRequest(TeaModel):
+    def __init__(self, report_type=None):
+        self.report_type = report_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeBenchmarkTaskReportRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.report_type is not None:
+            result['ReportType'] = self.report_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ReportType') is not None:
+            self.report_type = m.get('ReportType')
+        return self
+
+
 class DescribeBenchmarkTaskReportResponseBody(TeaModel):
-    def __init__(self, report_url=None, request_id=None):
+    def __init__(self, data=None, report_url=None, request_id=None):
+        self.data = data  # type: any
         self.report_url = report_url  # type: str
         self.request_id = request_id  # type: str
 
@@ -2318,6 +2455,8 @@ class DescribeBenchmarkTaskReportResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
         if self.report_url is not None:
             result['ReportUrl'] = self.report_url
         if self.request_id is not None:
@@ -2326,6 +2465,8 @@ class DescribeBenchmarkTaskReportResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
         if m.get('ReportUrl') is not None:
             self.report_url = m.get('ReportUrl')
         if m.get('RequestId') is not None:
@@ -2368,6 +2509,45 @@ class DescribeBenchmarkTaskReportResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBenchmarkTaskReportResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: Group
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = Group()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2718,19 +2898,94 @@ class DescribeServiceResponse(TeaModel):
         return self
 
 
-class DescribeServiceAutoScalerResponseBody(TeaModel):
-    def __init__(self, behavior=None, current_values=None, max_replica=None, min_replica=None, request_id=None,
-                 service_name=None, strategies=None):
-        self.behavior = behavior  # type: dict[str, any]
-        self.current_values = current_values  # type: dict[str, any]
-        self.max_replica = max_replica  # type: int
-        self.min_replica = min_replica  # type: int
-        self.request_id = request_id  # type: str
-        self.service_name = service_name  # type: str
-        self.strategies = strategies  # type: dict[str, any]
+class DescribeServiceAutoScalerResponseBodyCurrentMetrics(TeaModel):
+    def __init__(self, metric_name=None, service=None, value=None):
+        self.metric_name = metric_name  # type: str
+        self.service = service  # type: str
+        self.value = value  # type: float
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeServiceAutoScalerResponseBodyCurrentMetrics, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_name is not None:
+            result['metricName'] = self.metric_name
+        if self.service is not None:
+            result['service'] = self.service
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('metricName') is not None:
+            self.metric_name = m.get('metricName')
+        if m.get('service') is not None:
+            self.service = m.get('service')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class DescribeServiceAutoScalerResponseBodyScaleStrategies(TeaModel):
+    def __init__(self, metric_name=None, service=None, threshold=None):
+        self.metric_name = metric_name  # type: str
+        self.service = service  # type: str
+        self.threshold = threshold  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServiceAutoScalerResponseBodyScaleStrategies, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_name is not None:
+            result['metricName'] = self.metric_name
+        if self.service is not None:
+            result['service'] = self.service
+        if self.threshold is not None:
+            result['threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('metricName') is not None:
+            self.metric_name = m.get('metricName')
+        if m.get('service') is not None:
+            self.service = m.get('service')
+        if m.get('threshold') is not None:
+            self.threshold = m.get('threshold')
+        return self
+
+
+class DescribeServiceAutoScalerResponseBody(TeaModel):
+    def __init__(self, behavior=None, current_metrics=None, max_replica=None, min_replica=None, request_id=None,
+                 scale_strategies=None, service_name=None):
+        self.behavior = behavior  # type: dict[str, any]
+        self.current_metrics = current_metrics  # type: list[DescribeServiceAutoScalerResponseBodyCurrentMetrics]
+        self.max_replica = max_replica  # type: int
+        self.min_replica = min_replica  # type: int
+        self.request_id = request_id  # type: str
+        self.scale_strategies = scale_strategies  # type: list[DescribeServiceAutoScalerResponseBodyScaleStrategies]
+        self.service_name = service_name  # type: str
+
+    def validate(self):
+        if self.current_metrics:
+            for k in self.current_metrics:
+                if k:
+                    k.validate()
+        if self.scale_strategies:
+            for k in self.scale_strategies:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeServiceAutoScalerResponseBody, self).to_map()
@@ -2740,36 +2995,46 @@ class DescribeServiceAutoScalerResponseBody(TeaModel):
         result = dict()
         if self.behavior is not None:
             result['Behavior'] = self.behavior
-        if self.current_values is not None:
-            result['CurrentValues'] = self.current_values
+        result['CurrentMetrics'] = []
+        if self.current_metrics is not None:
+            for k in self.current_metrics:
+                result['CurrentMetrics'].append(k.to_map() if k else None)
         if self.max_replica is not None:
             result['MaxReplica'] = self.max_replica
         if self.min_replica is not None:
             result['MinReplica'] = self.min_replica
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        result['ScaleStrategies'] = []
+        if self.scale_strategies is not None:
+            for k in self.scale_strategies:
+                result['ScaleStrategies'].append(k.to_map() if k else None)
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
-        if self.strategies is not None:
-            result['Strategies'] = self.strategies
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Behavior') is not None:
             self.behavior = m.get('Behavior')
-        if m.get('CurrentValues') is not None:
-            self.current_values = m.get('CurrentValues')
+        self.current_metrics = []
+        if m.get('CurrentMetrics') is not None:
+            for k in m.get('CurrentMetrics'):
+                temp_model = DescribeServiceAutoScalerResponseBodyCurrentMetrics()
+                self.current_metrics.append(temp_model.from_map(k))
         if m.get('MaxReplica') is not None:
             self.max_replica = m.get('MaxReplica')
         if m.get('MinReplica') is not None:
             self.min_replica = m.get('MinReplica')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        self.scale_strategies = []
+        if m.get('ScaleStrategies') is not None:
+            for k in m.get('ScaleStrategies'):
+                temp_model = DescribeServiceAutoScalerResponseBodyScaleStrategies()
+                self.scale_strategies.append(temp_model.from_map(k))
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
-        if m.get('Strategies') is not None:
-            self.strategies = m.get('Strategies')
         return self
 
 
@@ -2949,6 +3214,175 @@ class DescribeServiceCronScalerResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeServiceCronScalerResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeServiceEventRequest(TeaModel):
+    def __init__(self, end_time=None, page_num=None, page_size=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.page_num = page_num  # type: str
+        self.page_size = page_size  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServiceEventRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeServiceEventResponseBodyEvents(TeaModel):
+    def __init__(self, message=None, reason=None, time=None, type=None):
+        self.message = message  # type: str
+        self.reason = reason  # type: str
+        self.time = time  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServiceEventResponseBodyEvents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeServiceEventResponseBody(TeaModel):
+    def __init__(self, events=None, page_num=None, request_id=None, total_count=None, total_page_num=None):
+        self.events = events  # type: list[DescribeServiceEventResponseBodyEvents]
+        self.page_num = page_num  # type: long
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+        self.total_page_num = total_page_num  # type: long
+
+    def validate(self):
+        if self.events:
+            for k in self.events:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeServiceEventResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Events'] = []
+        if self.events is not None:
+            for k in self.events:
+                result['Events'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.total_page_num is not None:
+            result['TotalPageNum'] = self.total_page_num
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.events = []
+        if m.get('Events') is not None:
+            for k in m.get('Events'):
+                temp_model = DescribeServiceEventResponseBodyEvents()
+                self.events.append(temp_model.from_map(k))
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('TotalPageNum') is not None:
+            self.total_page_num = m.get('TotalPageNum')
+        return self
+
+
+class DescribeServiceEventResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeServiceEventResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeServiceEventResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeServiceEventResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3163,6 +3597,45 @@ class DescribeServiceMirrorResponse(TeaModel):
         return self
 
 
+class ListBenchmarkTaskRequest(TeaModel):
+    def __init__(self, fileter=None, page_number=None, page_size=None, service_name=None):
+        self.fileter = fileter  # type: str
+        self.page_number = page_number  # type: str
+        self.page_size = page_size  # type: str
+        self.service_name = service_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBenchmarkTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fileter is not None:
+            result['Fileter'] = self.fileter
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Fileter') is not None:
+            self.fileter = m.get('Fileter')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        return self
+
+
 class ListBenchmarkTaskResponseBodyTasks(TeaModel):
     def __init__(self, available_agent=None, create_time=None, message=None, region=None, service_name=None,
                  status=None, task_id=None, task_name=None, update_time=None):
@@ -3229,9 +3702,12 @@ class ListBenchmarkTaskResponseBodyTasks(TeaModel):
 
 
 class ListBenchmarkTaskResponseBody(TeaModel):
-    def __init__(self, request_id=None, tasks=None):
+    def __init__(self, page_number=None, page_size=None, request_id=None, tasks=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
         self.tasks = tasks  # type: list[ListBenchmarkTaskResponseBodyTasks]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.tasks:
@@ -3245,16 +3721,26 @@ class ListBenchmarkTaskResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Tasks'] = []
         if self.tasks is not None:
             for k in self.tasks:
                 result['Tasks'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.tasks = []
@@ -3262,6 +3748,8 @@ class ListBenchmarkTaskResponseBody(TeaModel):
             for k in m.get('Tasks'):
                 temp_model = ListBenchmarkTaskResponseBodyTasks()
                 self.tasks.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -3300,6 +3788,131 @@ class ListBenchmarkTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListBenchmarkTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListGroupsRequest(TeaModel):
+    def __init__(self, filter=None, page_number=None, page_size=None):
+        self.filter = filter  # type: str
+        self.page_number = page_number  # type: str
+        self.page_size = page_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter is not None:
+            result['Filter'] = self.filter
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Filter') is not None:
+            self.filter = m.get('Filter')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListGroupsResponseBody(TeaModel):
+    def __init__(self, groups=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.groups = groups  # type: list[Group]
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.groups:
+            for k in self.groups:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGroupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Groups'] = []
+        if self.groups is not None:
+            for k in self.groups:
+                result['Groups'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.groups = []
+        if m.get('Groups') is not None:
+            for k in m.get('Groups'):
+                temp_model = Group()
+                self.groups.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListGroupsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGroupsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGroupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3909,9 +4522,174 @@ class ListServiceInstancesResponse(TeaModel):
         return self
 
 
+class ListServiceVersionsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListServiceVersionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListServiceVersionsResponseBodyVersions(TeaModel):
+    def __init__(self, build_time=None, image_available=None, image_id=None, message=None, service_runnable=None):
+        self.build_time = build_time  # type: str
+        self.image_available = image_available  # type: str
+        self.image_id = image_id  # type: int
+        self.message = message  # type: str
+        self.service_runnable = service_runnable  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListServiceVersionsResponseBodyVersions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.build_time is not None:
+            result['BuildTime'] = self.build_time
+        if self.image_available is not None:
+            result['ImageAvailable'] = self.image_available
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.service_runnable is not None:
+            result['ServiceRunnable'] = self.service_runnable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuildTime') is not None:
+            self.build_time = m.get('BuildTime')
+        if m.get('ImageAvailable') is not None:
+            self.image_available = m.get('ImageAvailable')
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('ServiceRunnable') is not None:
+            self.service_runnable = m.get('ServiceRunnable')
+        return self
+
+
+class ListServiceVersionsResponseBody(TeaModel):
+    def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, versions=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+        self.versions = versions  # type: list[ListServiceVersionsResponseBodyVersions]
+
+    def validate(self):
+        if self.versions:
+            for k in self.versions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListServiceVersionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['Versions'] = []
+        if self.versions is not None:
+            for k in self.versions:
+                result['Versions'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.versions = []
+        if m.get('Versions') is not None:
+            for k in m.get('Versions'):
+                temp_model = ListServiceVersionsResponseBodyVersions()
+                self.versions.append(temp_model.from_map(k))
+        return self
+
+
+class ListServiceVersionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListServiceVersionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListServiceVersionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListServiceVersionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListServicesRequest(TeaModel):
-    def __init__(self, filter=None, order=None, page_number=None, page_size=None, sort=None):
+    def __init__(self, filter=None, group_name=None, order=None, page_number=None, page_size=None, sort=None):
         self.filter = filter  # type: str
+        self.group_name = group_name  # type: str
         self.order = order  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -3928,6 +4706,8 @@ class ListServicesRequest(TeaModel):
         result = dict()
         if self.filter is not None:
             result['Filter'] = self.filter
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
         if self.order is not None:
             result['Order'] = self.order
         if self.page_number is not None:
@@ -3942,6 +4722,8 @@ class ListServicesRequest(TeaModel):
         m = m or dict()
         if m.get('Filter') is not None:
             self.filter = m.get('Filter')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
         if m.get('Order') is not None:
             self.order = m.get('Order')
         if m.get('PageNumber') is not None:
@@ -4801,44 +5583,51 @@ class UpdateServiceResponse(TeaModel):
         return self
 
 
-class UpdateServiceAutoScalerRequestStrategies(TeaModel):
-    def __init__(self, cpu=None, qps=None):
-        self.cpu = cpu  # type: float
-        self.qps = qps  # type: float
+class UpdateServiceAutoScalerRequestScaleStrategies(TeaModel):
+    def __init__(self, metric_name=None, service=None, threshold=None):
+        self.metric_name = metric_name  # type: str
+        self.service = service  # type: str
+        self.threshold = threshold  # type: float
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(UpdateServiceAutoScalerRequestStrategies, self).to_map()
+        _map = super(UpdateServiceAutoScalerRequestScaleStrategies, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.cpu is not None:
-            result['cpu'] = self.cpu
-        if self.qps is not None:
-            result['qps'] = self.qps
+        if self.metric_name is not None:
+            result['metricName'] = self.metric_name
+        if self.service is not None:
+            result['service'] = self.service
+        if self.threshold is not None:
+            result['threshold'] = self.threshold
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('cpu') is not None:
-            self.cpu = m.get('cpu')
-        if m.get('qps') is not None:
-            self.qps = m.get('qps')
+        if m.get('metricName') is not None:
+            self.metric_name = m.get('metricName')
+        if m.get('service') is not None:
+            self.service = m.get('service')
+        if m.get('threshold') is not None:
+            self.threshold = m.get('threshold')
         return self
 
 
 class UpdateServiceAutoScalerRequest(TeaModel):
-    def __init__(self, max=None, min=None, strategies=None):
+    def __init__(self, max=None, min=None, scale_strategies=None):
         self.max = max  # type: int
         self.min = min  # type: int
-        self.strategies = strategies  # type: UpdateServiceAutoScalerRequestStrategies
+        self.scale_strategies = scale_strategies  # type: list[UpdateServiceAutoScalerRequestScaleStrategies]
 
     def validate(self):
-        if self.strategies:
-            self.strategies.validate()
+        if self.scale_strategies:
+            for k in self.scale_strategies:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(UpdateServiceAutoScalerRequest, self).to_map()
@@ -4850,8 +5639,10 @@ class UpdateServiceAutoScalerRequest(TeaModel):
             result['max'] = self.max
         if self.min is not None:
             result['min'] = self.min
-        if self.strategies is not None:
-            result['strategies'] = self.strategies.to_map()
+        result['scaleStrategies'] = []
+        if self.scale_strategies is not None:
+            for k in self.scale_strategies:
+                result['scaleStrategies'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -4860,9 +5651,11 @@ class UpdateServiceAutoScalerRequest(TeaModel):
             self.max = m.get('max')
         if m.get('min') is not None:
             self.min = m.get('min')
-        if m.get('strategies') is not None:
-            temp_model = UpdateServiceAutoScalerRequestStrategies()
-            self.strategies = temp_model.from_map(m['strategies'])
+        self.scale_strategies = []
+        if m.get('scaleStrategies') is not None:
+            for k in m.get('scaleStrategies'):
+                temp_model = UpdateServiceAutoScalerRequestScaleStrategies()
+                self.scale_strategies.append(temp_model.from_map(k))
         return self
 
 

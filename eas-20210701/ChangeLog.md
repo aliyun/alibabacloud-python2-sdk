@@ -1,3 +1,6 @@
+2022-11-02 Version: 2.0.1
+- Add new api for benchmark test.
+
 2022-08-11 Version: 1.1.6
 - Add some missing field.
 
