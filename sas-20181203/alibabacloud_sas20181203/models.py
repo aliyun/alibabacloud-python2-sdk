@@ -3,6 +3,30 @@
 from Tea.model import TeaModel
 
 
+class QueryIncidentTracingSubNodesCountRequest(TeaModel):
+    def __init__(self, vertex_id_and_type_list=None):
+        self.vertex_id_and_type_list = vertex_id_and_type_list  # type: list[list[str]]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryIncidentTracingSubNodesCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vertex_id_and_type_list is not None:
+            result['VertexIdAndTypeList'] = self.vertex_id_and_type_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('VertexIdAndTypeList') is not None:
+            self.vertex_id_and_type_list = m.get('VertexIdAndTypeList')
+        return self
+
+
 class AddInstallCodeRequest(TeaModel):
     def __init__(self, expired_date=None, group_id=None, only_image=None, os=None, vendor_name=None):
         self.expired_date = expired_date  # type: long
@@ -541,10 +565,8 @@ class CheckSecurityEventIdResponse(TeaModel):
 
 
 class CheckUserHasEcsRequest(TeaModel):
-    def __init__(self, current_page=None, lang=None, page_size=None):
-        self.current_page = current_page  # type: int
+    def __init__(self, lang=None):
         self.lang = lang  # type: str
-        self.page_size = page_size  # type: int
 
     def validate(self):
         pass
@@ -555,22 +577,14 @@ class CheckUserHasEcsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
         if self.lang is not None:
             result['Lang'] = self.lang
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         return self
 
 
@@ -15593,12 +15607,13 @@ class DescribeLogstoreStorageRequest(TeaModel):
 
 
 class DescribeLogstoreStorageResponseBody(TeaModel):
-    def __init__(self, logstore=None, preserve=None, request_id=None, ttl=None, used=None):
+    def __init__(self, logstore=None, preserve=None, request_id=None, ttl=None, used=None, user_project=None):
         self.logstore = logstore  # type: str
         self.preserve = preserve  # type: long
         self.request_id = request_id  # type: str
         self.ttl = ttl  # type: int
         self.used = used  # type: long
+        self.user_project = user_project  # type: str
 
     def validate(self):
         pass
@@ -15619,6 +15634,8 @@ class DescribeLogstoreStorageResponseBody(TeaModel):
             result['Ttl'] = self.ttl
         if self.used is not None:
             result['Used'] = self.used
+        if self.user_project is not None:
+            result['UserProject'] = self.user_project
         return result
 
     def from_map(self, m=None):
@@ -15633,6 +15650,8 @@ class DescribeLogstoreStorageResponseBody(TeaModel):
             self.ttl = m.get('Ttl')
         if m.get('Used') is not None:
             self.used = m.get('Used')
+        if m.get('UserProject') is not None:
+            self.user_project = m.get('UserProject')
         return self
 
 
@@ -24450,13 +24469,14 @@ class DescribeSuspEventQuaraFilesResponse(TeaModel):
 
 
 class DescribeSuspEventsRequest(TeaModel):
-    def __init__(self, alarm_unique_info=None, cluster_id=None, container_field_name=None,
+    def __init__(self, alarm_unique_info=None, assets_type_list=None, cluster_id=None, container_field_name=None,
                  container_field_value=None, current_page=None, dealed=None, event_names=None, from_=None, group_id=None, id=None,
                  lang=None, levels=None, name=None, operate_error_code_list=None, operate_time_end=None,
                  operate_time_start=None, page_size=None, parent_event_types=None, remark=None, source=None, source_ip=None,
                  status=None, tactic_id=None, target_type=None, time_end=None, time_start=None, unique_info=None,
                  uuids=None):
         self.alarm_unique_info = alarm_unique_info  # type: str
+        self.assets_type_list = assets_type_list  # type: list[str]
         self.cluster_id = cluster_id  # type: str
         self.container_field_name = container_field_name  # type: str
         self.container_field_value = container_field_value  # type: str
@@ -24496,6 +24516,8 @@ class DescribeSuspEventsRequest(TeaModel):
         result = dict()
         if self.alarm_unique_info is not None:
             result['AlarmUniqueInfo'] = self.alarm_unique_info
+        if self.assets_type_list is not None:
+            result['AssetsTypeList'] = self.assets_type_list
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.container_field_name is not None:
@@ -24556,6 +24578,8 @@ class DescribeSuspEventsRequest(TeaModel):
         m = m or dict()
         if m.get('AlarmUniqueInfo') is not None:
             self.alarm_unique_info = m.get('AlarmUniqueInfo')
+        if m.get('AssetsTypeList') is not None:
+            self.assets_type_list = m.get('AssetsTypeList')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('ContainerFieldName') is not None:
@@ -24725,7 +24749,7 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
                  k_8s_node_name=None, k_8s_pod_name=None, last_time=None, last_time_stamp=None, level=None,
                  malicious_rule_status=None, mark_mis_rules=None, name=None, occurrence_time=None, occurrence_time_stamp=None,
                  operate_error_code=None, operate_msg=None, operate_time=None, sale_version=None, security_event_ids=None, stages=None,
-                 tactic_items=None, unique_info=None, uuid=None):
+                 tactic_items=None, unique_info=None, uuid=None, cluster_id=None):
         self.advanced = advanced  # type: bool
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_name_display = alarm_event_name_display  # type: str
@@ -24776,6 +24800,7 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
         self.tactic_items = tactic_items  # type: list[DescribeSuspEventsResponseBodySuspEventsTacticItems]
         self.unique_info = unique_info  # type: str
         self.uuid = uuid  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         if self.details:
@@ -24903,6 +24928,8 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
             result['UniqueInfo'] = self.unique_info
         if self.uuid is not None:
             result['Uuid'] = self.uuid
+        if self.cluster_id is not None:
+            result['clusterId'] = self.cluster_id
         return result
 
     def from_map(self, m=None):
@@ -25016,6 +25043,8 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
             self.unique_info = m.get('UniqueInfo')
         if m.get('Uuid') is not None:
             self.uuid = m.get('Uuid')
+        if m.get('clusterId') is not None:
+            self.cluster_id = m.get('clusterId')
         return self
 
 
@@ -26005,8 +26034,8 @@ class DescribeVersionConfigResponseBody(TeaModel):
                  asset_level=None, highest_version=None, honeypot_capacity=None, image_scan_capacity=None, instance_id=None,
                  is_new_container_version=None, is_over_balance=None, is_trial_version=None, last_trail_end_time=None, mvauth_count=None,
                  mvunused_auth_count=None, open_time=None, release_time=None, request_id=None, sas_log=None, sas_screen=None,
-                 sls_capacity=None, user_defined_alarms=None, version=None, vm_cores=None, web_lock=None,
-                 web_lock_auth_count=None):
+                 sls_capacity=None, threat_analysis_capacity=None, user_defined_alarms=None, version=None, vm_cores=None,
+                 web_lock=None, web_lock_auth_count=None):
         self.allow_partial_buy = allow_partial_buy  # type: int
         self.app_white_list = app_white_list  # type: int
         self.app_white_list_auth_count = app_white_list_auth_count  # type: long
@@ -26027,6 +26056,7 @@ class DescribeVersionConfigResponseBody(TeaModel):
         self.sas_log = sas_log  # type: int
         self.sas_screen = sas_screen  # type: int
         self.sls_capacity = sls_capacity  # type: long
+        self.threat_analysis_capacity = threat_analysis_capacity  # type: long
         self.user_defined_alarms = user_defined_alarms  # type: int
         self.version = version  # type: int
         self.vm_cores = vm_cores  # type: int
@@ -26082,6 +26112,8 @@ class DescribeVersionConfigResponseBody(TeaModel):
             result['SasScreen'] = self.sas_screen
         if self.sls_capacity is not None:
             result['SlsCapacity'] = self.sls_capacity
+        if self.threat_analysis_capacity is not None:
+            result['ThreatAnalysisCapacity'] = self.threat_analysis_capacity
         if self.user_defined_alarms is not None:
             result['UserDefinedAlarms'] = self.user_defined_alarms
         if self.version is not None:
@@ -26136,6 +26168,8 @@ class DescribeVersionConfigResponseBody(TeaModel):
             self.sas_screen = m.get('SasScreen')
         if m.get('SlsCapacity') is not None:
             self.sls_capacity = m.get('SlsCapacity')
+        if m.get('ThreatAnalysisCapacity') is not None:
+            self.threat_analysis_capacity = m.get('ThreatAnalysisCapacity')
         if m.get('UserDefinedAlarms') is not None:
             self.user_defined_alarms = m.get('UserDefinedAlarms')
         if m.get('Version') is not None:
