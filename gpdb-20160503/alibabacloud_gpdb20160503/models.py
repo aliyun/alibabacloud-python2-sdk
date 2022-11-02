@@ -475,10 +475,10 @@ class CreateDBInstanceRequestTag(TeaModel):
 class CreateDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, create_sample_data=None, dbinstance_category=None, dbinstance_class=None,
                  dbinstance_description=None, dbinstance_group_count=None, dbinstance_mode=None, engine=None, engine_version=None,
-                 instance_network_type=None, instance_spec=None, master_node_num=None, owner_id=None, pay_type=None, period=None,
-                 private_ip_address=None, region_id=None, resource_group_id=None, security_iplist=None, seg_node_num=None,
-                 seg_storage_type=None, storage_size=None, storage_type=None, tag=None, used_time=None, vpcid=None, v_switch_id=None,
-                 zone_id=None):
+                 idle_time=None, instance_network_type=None, instance_spec=None, master_node_num=None, owner_id=None,
+                 pay_type=None, period=None, private_ip_address=None, region_id=None, resource_group_id=None,
+                 security_iplist=None, seg_node_num=None, seg_storage_type=None, serverless_mode=None, serverless_resource=None,
+                 storage_size=None, storage_type=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
         self.client_token = client_token  # type: str
         self.create_sample_data = create_sample_data  # type: bool
         self.dbinstance_category = dbinstance_category  # type: str
@@ -488,6 +488,7 @@ class CreateDBInstanceRequest(TeaModel):
         self.dbinstance_mode = dbinstance_mode  # type: str
         self.engine = engine  # type: str
         self.engine_version = engine_version  # type: str
+        self.idle_time = idle_time  # type: int
         self.instance_network_type = instance_network_type  # type: str
         self.instance_spec = instance_spec  # type: str
         self.master_node_num = master_node_num  # type: str
@@ -500,6 +501,8 @@ class CreateDBInstanceRequest(TeaModel):
         self.security_iplist = security_iplist  # type: str
         self.seg_node_num = seg_node_num  # type: str
         self.seg_storage_type = seg_storage_type  # type: str
+        self.serverless_mode = serverless_mode  # type: str
+        self.serverless_resource = serverless_resource  # type: int
         self.storage_size = storage_size  # type: long
         self.storage_type = storage_type  # type: str
         self.tag = tag  # type: list[CreateDBInstanceRequestTag]
@@ -538,6 +541,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['Engine'] = self.engine
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
+        if self.idle_time is not None:
+            result['IdleTime'] = self.idle_time
         if self.instance_network_type is not None:
             result['InstanceNetworkType'] = self.instance_network_type
         if self.instance_spec is not None:
@@ -562,6 +567,10 @@ class CreateDBInstanceRequest(TeaModel):
             result['SegNodeNum'] = self.seg_node_num
         if self.seg_storage_type is not None:
             result['SegStorageType'] = self.seg_storage_type
+        if self.serverless_mode is not None:
+            result['ServerlessMode'] = self.serverless_mode
+        if self.serverless_resource is not None:
+            result['ServerlessResource'] = self.serverless_resource
         if self.storage_size is not None:
             result['StorageSize'] = self.storage_size
         if self.storage_type is not None:
@@ -600,6 +609,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('IdleTime') is not None:
+            self.idle_time = m.get('IdleTime')
         if m.get('InstanceNetworkType') is not None:
             self.instance_network_type = m.get('InstanceNetworkType')
         if m.get('InstanceSpec') is not None:
@@ -624,6 +635,10 @@ class CreateDBInstanceRequest(TeaModel):
             self.seg_node_num = m.get('SegNodeNum')
         if m.get('SegStorageType') is not None:
             self.seg_storage_type = m.get('SegStorageType')
+        if m.get('ServerlessMode') is not None:
+            self.serverless_mode = m.get('ServerlessMode')
+        if m.get('ServerlessResource') is not None:
+            self.serverless_resource = m.get('ServerlessResource')
         if m.get('StorageSize') is not None:
             self.storage_size = m.get('StorageSize')
         if m.get('StorageType') is not None:
@@ -2752,12 +2767,13 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
                  dbinstance_disk_mbps=None, dbinstance_group_count=None, dbinstance_id=None, dbinstance_memory=None,
                  dbinstance_mode=None, dbinstance_net_type=None, dbinstance_status=None, dbinstance_storage=None,
                  encryption_key=None, encryption_type=None, engine=None, engine_version=None, expire_time=None, host_type=None,
-                 instance_network_type=None, lock_mode=None, lock_reason=None, maintain_end_time=None, maintain_start_time=None,
-                 master_node_num=None, max_connections=None, memory_per_node=None, memory_size=None, memory_unit=None,
-                 minor_version=None, pay_type=None, port=None, read_delay_time=None, region_id=None, resource_group_id=None,
-                 running_time=None, security_iplist=None, seg_node_num=None, segment_counts=None, start_time=None,
-                 storage_per_node=None, storage_size=None, storage_type=None, storage_unit=None, support_restore=None, tags=None,
-                 v_switch_id=None, vpc_id=None, zone_id=None):
+                 idle_time=None, instance_network_type=None, lock_mode=None, lock_reason=None, maintain_end_time=None,
+                 maintain_start_time=None, master_node_num=None, max_connections=None, memory_per_node=None, memory_size=None,
+                 memory_unit=None, minor_version=None, pay_type=None, port=None, read_delay_time=None, region_id=None,
+                 resource_group_id=None, running_time=None, security_iplist=None, seg_node_num=None, segment_counts=None,
+                 serverless_mode=None, serverless_resource=None, start_time=None, storage_per_node=None, storage_size=None,
+                 storage_type=None, storage_unit=None, support_restore=None, tags=None, v_switch_id=None, vpc_id=None,
+                 zone_id=None):
         self.availability_value = availability_value  # type: str
         self.connection_mode = connection_mode  # type: str
         self.connection_string = connection_string  # type: str
@@ -2784,6 +2800,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.engine_version = engine_version  # type: str
         self.expire_time = expire_time  # type: str
         self.host_type = host_type  # type: str
+        self.idle_time = idle_time  # type: int
         self.instance_network_type = instance_network_type  # type: str
         self.lock_mode = lock_mode  # type: str
         self.lock_reason = lock_reason  # type: str
@@ -2804,6 +2821,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.security_iplist = security_iplist  # type: str
         self.seg_node_num = seg_node_num  # type: int
         self.segment_counts = segment_counts  # type: int
+        self.serverless_mode = serverless_mode  # type: str
+        self.serverless_resource = serverless_resource  # type: int
         self.start_time = start_time  # type: str
         self.storage_per_node = storage_per_node  # type: int
         self.storage_size = storage_size  # type: long
@@ -2877,6 +2896,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['ExpireTime'] = self.expire_time
         if self.host_type is not None:
             result['HostType'] = self.host_type
+        if self.idle_time is not None:
+            result['IdleTime'] = self.idle_time
         if self.instance_network_type is not None:
             result['InstanceNetworkType'] = self.instance_network_type
         if self.lock_mode is not None:
@@ -2917,6 +2938,10 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['SegNodeNum'] = self.seg_node_num
         if self.segment_counts is not None:
             result['SegmentCounts'] = self.segment_counts
+        if self.serverless_mode is not None:
+            result['ServerlessMode'] = self.serverless_mode
+        if self.serverless_resource is not None:
+            result['ServerlessResource'] = self.serverless_resource
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.storage_per_node is not None:
@@ -2993,6 +3018,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.expire_time = m.get('ExpireTime')
         if m.get('HostType') is not None:
             self.host_type = m.get('HostType')
+        if m.get('IdleTime') is not None:
+            self.idle_time = m.get('IdleTime')
         if m.get('InstanceNetworkType') is not None:
             self.instance_network_type = m.get('InstanceNetworkType')
         if m.get('LockMode') is not None:
@@ -3033,6 +3060,10 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.seg_node_num = m.get('SegNodeNum')
         if m.get('SegmentCounts') is not None:
             self.segment_counts = m.get('SegmentCounts')
+        if m.get('ServerlessMode') is not None:
+            self.serverless_mode = m.get('ServerlessMode')
+        if m.get('ServerlessResource') is not None:
+            self.serverless_resource = m.get('ServerlessResource')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('StoragePerNode') is not None:
@@ -5985,8 +6016,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
                  dbinstance_description=None, dbinstance_id=None, dbinstance_mode=None, dbinstance_net_type=None, dbinstance_status=None,
                  engine=None, engine_version=None, expire_time=None, instance_deploy_type=None,
                  instance_network_type=None, lock_mode=None, lock_reason=None, master_node_num=None, pay_type=None, region_id=None,
-                 resource_group_id=None, seg_node_num=None, storage_size=None, storage_type=None, tags=None, v_switch_id=None,
-                 vpc_id=None, zone_id=None):
+                 resource_group_id=None, seg_node_num=None, serverless_mode=None, storage_size=None, storage_type=None, tags=None,
+                 v_switch_id=None, vpc_id=None, zone_id=None):
         self.connection_mode = connection_mode  # type: str
         self.create_time = create_time  # type: str
         self.dbinstance_category = dbinstance_category  # type: str
@@ -6007,6 +6038,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.seg_node_num = seg_node_num  # type: str
+        self.serverless_mode = serverless_mode  # type: str
         self.storage_size = storage_size  # type: str
         self.storage_type = storage_type  # type: str
         self.tags = tags  # type: DescribeDBInstancesResponseBodyItemsDBInstanceTags
@@ -6064,6 +6096,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.seg_node_num is not None:
             result['SegNodeNum'] = self.seg_node_num
+        if self.serverless_mode is not None:
+            result['ServerlessMode'] = self.serverless_mode
         if self.storage_size is not None:
             result['StorageSize'] = self.storage_size
         if self.storage_type is not None:
@@ -6120,6 +6154,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SegNodeNum') is not None:
             self.seg_node_num = m.get('SegNodeNum')
+        if m.get('ServerlessMode') is not None:
+            self.serverless_mode = m.get('ServerlessMode')
         if m.get('StorageSize') is not None:
             self.storage_size = m.get('StorageSize')
         if m.get('StorageType') is not None:
@@ -12631,6 +12667,407 @@ class DescribeUserEncryptionKeyListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeUserEncryptionKeyListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWaitingSQLInfoRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, pid=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.pid = pid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.pid is not None:
+            result['PID'] = self.pid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('PID') is not None:
+            self.pid = m.get('PID')
+        return self
+
+
+class DescribeWaitingSQLInfoResponseBodyItems(TeaModel):
+    def __init__(self, application=None, blocked_by_application=None, blocked_by_pid=None, blocked_by_sqlstmt=None,
+                 blocked_by_user=None, grant_locks=None, not_grant_locks=None, pid=None, sqlstmt=None, user=None):
+        self.application = application  # type: str
+        self.blocked_by_application = blocked_by_application  # type: str
+        self.blocked_by_pid = blocked_by_pid  # type: str
+        self.blocked_by_sqlstmt = blocked_by_sqlstmt  # type: str
+        self.blocked_by_user = blocked_by_user  # type: str
+        self.grant_locks = grant_locks  # type: str
+        self.not_grant_locks = not_grant_locks  # type: str
+        self.pid = pid  # type: str
+        self.sqlstmt = sqlstmt  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLInfoResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application is not None:
+            result['Application'] = self.application
+        if self.blocked_by_application is not None:
+            result['BlockedByApplication'] = self.blocked_by_application
+        if self.blocked_by_pid is not None:
+            result['BlockedByPID'] = self.blocked_by_pid
+        if self.blocked_by_sqlstmt is not None:
+            result['BlockedBySQLStmt'] = self.blocked_by_sqlstmt
+        if self.blocked_by_user is not None:
+            result['BlockedByUser'] = self.blocked_by_user
+        if self.grant_locks is not None:
+            result['GrantLocks'] = self.grant_locks
+        if self.not_grant_locks is not None:
+            result['NotGrantLocks'] = self.not_grant_locks
+        if self.pid is not None:
+            result['PID'] = self.pid
+        if self.sqlstmt is not None:
+            result['SQLStmt'] = self.sqlstmt
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Application') is not None:
+            self.application = m.get('Application')
+        if m.get('BlockedByApplication') is not None:
+            self.blocked_by_application = m.get('BlockedByApplication')
+        if m.get('BlockedByPID') is not None:
+            self.blocked_by_pid = m.get('BlockedByPID')
+        if m.get('BlockedBySQLStmt') is not None:
+            self.blocked_by_sqlstmt = m.get('BlockedBySQLStmt')
+        if m.get('BlockedByUser') is not None:
+            self.blocked_by_user = m.get('BlockedByUser')
+        if m.get('GrantLocks') is not None:
+            self.grant_locks = m.get('GrantLocks')
+        if m.get('NotGrantLocks') is not None:
+            self.not_grant_locks = m.get('NotGrantLocks')
+        if m.get('PID') is not None:
+            self.pid = m.get('PID')
+        if m.get('SQLStmt') is not None:
+            self.sqlstmt = m.get('SQLStmt')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class DescribeWaitingSQLInfoResponseBody(TeaModel):
+    def __init__(self, database=None, items=None, request_id=None):
+        self.database = database  # type: str
+        self.items = items  # type: list[DescribeWaitingSQLInfoResponseBodyItems]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.database is not None:
+            result['Database'] = self.database
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeWaitingSQLInfoResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeWaitingSQLInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWaitingSQLInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWaitingSQLInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWaitingSQLRecordsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, end_time=None, keyword=None, order=None, page_number=None,
+                 page_size=None, query_condition=None, start_time=None, user=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.end_time = end_time  # type: str
+        self.keyword = keyword  # type: str
+        self.order = order  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.query_condition = query_condition  # type: str
+        self.start_time = start_time  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_condition is not None:
+            result['QueryCondition'] = self.query_condition
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryCondition') is not None:
+            self.query_condition = m.get('QueryCondition')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class DescribeWaitingSQLRecordsResponseBodyItems(TeaModel):
+    def __init__(self, database=None, pid=None, sqlstmt=None, session_id=None, start_time=None, status=None,
+                 user=None, waiting_time=None):
+        self.database = database  # type: str
+        self.pid = pid  # type: str
+        self.sqlstmt = sqlstmt  # type: str
+        self.session_id = session_id  # type: str
+        self.start_time = start_time  # type: long
+        self.status = status  # type: str
+        self.user = user  # type: str
+        self.waiting_time = waiting_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLRecordsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.pid is not None:
+            result['PID'] = self.pid
+        if self.sqlstmt is not None:
+            result['SQLStmt'] = self.sqlstmt
+        if self.session_id is not None:
+            result['SessionID'] = self.session_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.user is not None:
+            result['User'] = self.user
+        if self.waiting_time is not None:
+            result['WaitingTime'] = self.waiting_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('PID') is not None:
+            self.pid = m.get('PID')
+        if m.get('SQLStmt') is not None:
+            self.sqlstmt = m.get('SQLStmt')
+        if m.get('SessionID') is not None:
+            self.session_id = m.get('SessionID')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        if m.get('WaitingTime') is not None:
+            self.waiting_time = m.get('WaitingTime')
+        return self
+
+
+class DescribeWaitingSQLRecordsResponseBody(TeaModel):
+    def __init__(self, items=None, page_number=None, request_id=None, total_count=None):
+        self.items = items  # type: list[DescribeWaitingSQLRecordsResponseBodyItems]
+        self.page_number = page_number  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeWaitingSQLRecordsResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeWaitingSQLRecordsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWaitingSQLRecordsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWaitingSQLRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWaitingSQLRecordsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

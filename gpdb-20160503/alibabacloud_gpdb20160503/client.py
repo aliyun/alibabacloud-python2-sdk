@@ -206,6 +206,8 @@ class Client(OpenApiClient):
             query['Engine'] = request.engine
         if not UtilClient.is_unset(request.engine_version):
             query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.idle_time):
+            query['IdleTime'] = request.idle_time
         if not UtilClient.is_unset(request.instance_network_type):
             query['InstanceNetworkType'] = request.instance_network_type
         if not UtilClient.is_unset(request.instance_spec):
@@ -230,6 +232,10 @@ class Client(OpenApiClient):
             query['SegNodeNum'] = request.seg_node_num
         if not UtilClient.is_unset(request.seg_storage_type):
             query['SegStorageType'] = request.seg_storage_type
+        if not UtilClient.is_unset(request.serverless_mode):
+            query['ServerlessMode'] = request.serverless_mode
+        if not UtilClient.is_unset(request.serverless_resource):
+            query['ServerlessResource'] = request.serverless_resource
         if not UtilClient.is_unset(request.storage_size):
             query['StorageSize'] = request.storage_size
         if not UtilClient.is_unset(request.storage_type):
@@ -2348,6 +2354,84 @@ class Client(OpenApiClient):
     def describe_user_encryption_key_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_encryption_key_list_with_options(request, runtime)
+
+    def describe_waiting_sqlinfo_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.pid):
+            query['PID'] = request.pid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeWaitingSQLInfo',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeWaitingSQLInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_waiting_sqlinfo(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_waiting_sqlinfo_with_options(request, runtime)
+
+    def describe_waiting_sqlrecords_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_condition):
+            query['QueryCondition'] = request.query_condition
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeWaitingSQLRecords',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeWaitingSQLRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_waiting_sqlrecords(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_waiting_sqlrecords_with_options(request, runtime)
 
     def download_diagnosis_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
