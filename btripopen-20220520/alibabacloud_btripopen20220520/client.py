@@ -877,6 +877,8 @@ class Client(OpenApiClient):
     def corp_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.app_secret):
+            query['app_secret'] = request.app_secret
         if not UtilClient.is_unset(request.corp_id):
             query['corp_id'] = request.corp_id
         if not UtilClient.is_unset(request.type):
