@@ -4940,6 +4940,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.open_api_gateway_service_with_options(runtime)
 
+    def query_request_logs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.request_log_id):
+            query['RequestLogId'] = request.request_log_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryRequestLogs',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.QueryRequestLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_request_logs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_request_logs_with_options(request, runtime)
+
     def reactivate_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
