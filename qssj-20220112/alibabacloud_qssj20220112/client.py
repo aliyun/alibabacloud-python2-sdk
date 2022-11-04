@@ -283,6 +283,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.page_index):
+            body['PageIndex'] = request.page_index
         if not UtilClient.is_unset(request.sort_order):
             body['SortOrder'] = request.sort_order
         if not UtilClient.is_unset(request.time_display):
