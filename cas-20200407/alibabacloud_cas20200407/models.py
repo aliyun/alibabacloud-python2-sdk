@@ -542,7 +542,8 @@ class CreateCertificateWithCsrRequestResponse(TeaModel):
 class CreateWHCertificateWithExtensionRequest(TeaModel):
     def __init__(self, after_time=None, algorithm_key_size=None, alias_name=None, append_crl=None,
                  basic_constraints_critical=None, before_time=None, cert_type=None, common_name=None, country_code=None, csr_pem_string=None,
-                 locality=None, organization=None, organization_unit=None, parent_identifier=None, sans=None, state=None):
+                 immediately=None, locality=None, organization=None, organization_unit=None, parent_identifier=None, sans=None,
+                 state=None):
         self.after_time = after_time  # type: long
         self.algorithm_key_size = algorithm_key_size  # type: str
         self.alias_name = alias_name  # type: str
@@ -553,6 +554,7 @@ class CreateWHCertificateWithExtensionRequest(TeaModel):
         self.common_name = common_name  # type: str
         self.country_code = country_code  # type: str
         self.csr_pem_string = csr_pem_string  # type: str
+        self.immediately = immediately  # type: long
         self.locality = locality  # type: str
         self.organization = organization  # type: str
         self.organization_unit = organization_unit  # type: str
@@ -589,6 +591,8 @@ class CreateWHCertificateWithExtensionRequest(TeaModel):
             result['CountryCode'] = self.country_code
         if self.csr_pem_string is not None:
             result['CsrPemString'] = self.csr_pem_string
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
         if self.locality is not None:
             result['Locality'] = self.locality
         if self.organization is not None:
@@ -625,6 +629,8 @@ class CreateWHCertificateWithExtensionRequest(TeaModel):
             self.country_code = m.get('CountryCode')
         if m.get('CsrPemString') is not None:
             self.csr_pem_string = m.get('CsrPemString')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
         if m.get('Locality') is not None:
             self.locality = m.get('Locality')
         if m.get('Organization') is not None:
@@ -719,17 +725,26 @@ class CreateWHCertificateWithExtensionResponse(TeaModel):
 
 
 class CreateWHClientCertificateRequest(TeaModel):
-    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, csr=None, days=None,
-                 parent_identifier=None, san_type=None, san_value=None):
+    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
+                 days=None, immediately=None, locality=None, months=None, organization=None, organization_unit=None,
+                 parent_identifier=None, san_type=None, san_value=None, state=None, years=None):
         self.after_time = after_time  # type: long
         self.algorithm = algorithm  # type: str
         self.before_time = before_time  # type: long
         self.common_name = common_name  # type: str
+        self.country = country  # type: str
         self.csr = csr  # type: str
         self.days = days  # type: long
+        self.immediately = immediately  # type: long
+        self.locality = locality  # type: str
+        self.months = months  # type: long
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
         self.parent_identifier = parent_identifier  # type: str
         self.san_type = san_type  # type: long
         self.san_value = san_value  # type: str
+        self.state = state  # type: str
+        self.years = years  # type: long
 
     def validate(self):
         pass
@@ -748,16 +763,32 @@ class CreateWHClientCertificateRequest(TeaModel):
             result['BeforeTime'] = self.before_time
         if self.common_name is not None:
             result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
         if self.csr is not None:
             result['Csr'] = self.csr
         if self.days is not None:
             result['Days'] = self.days
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.months is not None:
+            result['Months'] = self.months
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
         if self.san_type is not None:
             result['SanType'] = self.san_type
         if self.san_value is not None:
             result['SanValue'] = self.san_value
+        if self.state is not None:
+            result['State'] = self.state
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
@@ -770,16 +801,32 @@ class CreateWHClientCertificateRequest(TeaModel):
             self.before_time = m.get('BeforeTime')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
         if m.get('Csr') is not None:
             self.csr = m.get('Csr')
         if m.get('Days') is not None:
             self.days = m.get('Days')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Months') is not None:
+            self.months = m.get('Months')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
         if m.get('SanType') is not None:
             self.san_type = m.get('SanType')
         if m.get('SanValue') is not None:
             self.san_value = m.get('SanValue')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
