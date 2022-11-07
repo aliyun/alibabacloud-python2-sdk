@@ -119,6 +119,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_branch(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_branch_with_options(repository_id, request, headers, runtime)
+
+    def create_branch_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.branch_name):
+            body['branchName'] = request.branch_name
+        if not UtilClient.is_unset(request.ref):
+            body['ref'] = request.ref
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateBranch',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/branches' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateBranchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_file(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -640,6 +678,122 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_workitem_comment(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workitem_comment_with_options(organization_id, request, headers, runtime)
+
+    def create_workitem_comment_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['content'] = request.content
+        if not UtilClient.is_unset(request.format_type):
+            body['formatType'] = request.format_type
+        if not UtilClient.is_unset(request.parent_id):
+            body['parentId'] = request.parent_id
+        if not UtilClient.is_unset(request.workitem_identifier):
+            body['workitemIdentifier'] = request.workitem_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkitemComment',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/comment' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateWorkitemCommentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_workitem_estimate(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workitem_estimate_with_options(organization_id, request, headers, runtime)
+
+    def create_workitem_estimate_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.record_user_identifier):
+            body['recordUserIdentifier'] = request.record_user_identifier
+        if not UtilClient.is_unset(request.spent_time):
+            body['spentTime'] = request.spent_time
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
+        if not UtilClient.is_unset(request.workitem_identifier):
+            body['workitemIdentifier'] = request.workitem_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkitemEstimate',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/estimate' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateWorkitemEstimateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_workitem_record(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workitem_record_with_options(organization_id, request, headers, runtime)
+
+    def create_workitem_record_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.actual_time):
+            body['actualTime'] = request.actual_time
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.gmt_end):
+            body['gmtEnd'] = request.gmt_end
+        if not UtilClient.is_unset(request.gmt_start):
+            body['gmtStart'] = request.gmt_start
+        if not UtilClient.is_unset(request.record_user_identifier):
+            body['recordUserIdentifier'] = request.record_user_identifier
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
+        if not UtilClient.is_unset(request.workitem_identifier):
+            body['workitemIdentifier'] = request.workitem_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkitemRecord',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/record' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateWorkitemRecordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_workspace(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -681,6 +835,40 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.CreateWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_branch(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_branch_with_options(repository_id, request, headers, runtime)
+
+    def delete_branch_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.branch_name):
+            query['branchName'] = request.branch_name
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteBranch',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/branches/delete' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteBranchResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -877,6 +1065,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_protected_branch(self, repository_id, protected_branch_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_protected_branch_with_options(repository_id, protected_branch_id, request, headers, runtime)
+
+    def delete_protected_branch_with_options(self, repository_id, protected_branch_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteProtectedBranch',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/protect_branches/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(protected_branch_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteProtectedBranchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_repository(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -963,6 +1183,68 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_workitem_all_comment(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_workitem_all_comment_with_options(organization_id, request, headers, runtime)
+
+    def delete_workitem_all_comment_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.identifier):
+            query['identifier'] = request.identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkitemAllComment',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/deleteAllComment' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteWorkitemAllCommentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_workitem_comment(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_workitem_comment_with_options(organization_id, request, headers, runtime)
+
+    def delete_workitem_comment_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.comment_id):
+            body['commentId'] = request.comment_id
+        if not UtilClient.is_unset(request.identifier):
+            body['identifier'] = request.identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkitemComment',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/deleteComent' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteWorkitemCommentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def frozen_workspace(self, workspace_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -985,6 +1267,40 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.FrozenWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_branch_info(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_branch_info_with_options(repository_id, request, headers, runtime)
+
+    def get_branch_info_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.branch_name):
+            query['branchName'] = request.branch_name
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBranchInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/branches/detail' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetBranchInfoResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1622,6 +1938,86 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_workitem_comment_list(self, organization_id, workitem_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_workitem_comment_list_with_options(organization_id, workitem_id, headers, runtime)
+
+    def get_workitem_comment_list_with_options(self, organization_id, workitem_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetWorkitemCommentList',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s/commentList' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkitemCommentListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_workitem_relations(self, organization_id, workitem_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_workitem_relations_with_options(organization_id, workitem_id, request, headers, runtime)
+
+    def get_workitem_relations_with_options(self, organization_id, workitem_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.relation_type):
+            query['relationType'] = request.relation_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkitemRelations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s/getRelations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkitemRelationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_workitem_time_type_list(self, organization_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_workitem_time_type_list_with_options(organization_id, headers, runtime)
+
+    def get_workitem_time_type_list_with_options(self, organization_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetWorkitemTimeTypeList',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/type/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkitemTimeTypeListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_workspace(self, workspace_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2156,6 +2552,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_protected_branches(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_protected_branches_with_options(repository_id, request, headers, runtime)
+
+    def list_protected_branches_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListProtectedBranches',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/protect_branches' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListProtectedBranchesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_repositories(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2197,6 +2625,46 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.ListRepositoriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_repository_branches(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_repository_branches_with_options(repository_id, request, headers, runtime)
+
+    def list_repository_branches_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRepositoryBranches',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/branches' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListRepositoryBranchesResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -3587,5 +4055,41 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.UpdateWorkItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_workitem_comment(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_workitem_comment_with_options(organization_id, request, headers, runtime)
+
+    def update_workitem_comment_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.comment_id):
+            body['commentId'] = request.comment_id
+        if not UtilClient.is_unset(request.content):
+            body['content'] = request.content
+        if not UtilClient.is_unset(request.format_type):
+            body['formatType'] = request.format_type
+        if not UtilClient.is_unset(request.workitem_identifier):
+            body['workitemIdentifier'] = request.workitem_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkitemComment',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/commentUpdate' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateWorkitemCommentResponse(),
             self.call_api(params, req, runtime)
         )
