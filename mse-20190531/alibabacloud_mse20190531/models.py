@@ -755,7 +755,8 @@ class AddGatewayRequestTag(TeaModel):
 class AddGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, enable_hardware_acceleration=None, enable_sls=None,
                  enable_xtrace=None, enterprise_security_group=None, internet_slb_spec=None, name=None, region=None, replica=None,
-                 slb_spec=None, spec=None, tag=None, v_switch_id=None, v_switch_id_2=None, vpc=None, xtrace_ratio=None):
+                 resource_group_id=None, slb_spec=None, spec=None, tag=None, v_switch_id=None, v_switch_id_2=None, vpc=None,
+                 xtrace_ratio=None):
         self.accept_language = accept_language  # type: str
         self.enable_hardware_acceleration = enable_hardware_acceleration  # type: bool
         self.enable_sls = enable_sls  # type: bool
@@ -765,6 +766,7 @@ class AddGatewayRequest(TeaModel):
         self.name = name  # type: str
         self.region = region  # type: str
         self.replica = replica  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.slb_spec = slb_spec  # type: str
         self.spec = spec  # type: str
         self.tag = tag  # type: list[AddGatewayRequestTag]
@@ -803,6 +805,8 @@ class AddGatewayRequest(TeaModel):
             result['Region'] = self.region
         if self.replica is not None:
             result['Replica'] = self.replica
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.slb_spec is not None:
             result['SlbSpec'] = self.slb_spec
         if self.spec is not None:
@@ -841,6 +845,8 @@ class AddGatewayRequest(TeaModel):
             self.region = m.get('Region')
         if m.get('Replica') is not None:
             self.replica = m.get('Replica')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SlbSpec') is not None:
             self.slb_spec = m.get('SlbSpec')
         if m.get('Spec') is not None:
@@ -9017,8 +9023,8 @@ class GetGatewayResponseBodyDataXtraceDetails(TeaModel):
 class GetGatewayResponseBodyData(TeaModel):
     def __init__(self, charge_type=None, end_date=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None,
                  id=None, instance_id=None, log_config_details=None, mse_tag=None, name=None, primary_user=None,
-                 region=None, replica=None, security_group=None, spec=None, status=None, status_desc=None, vpc=None,
-                 vswitch=None, vswitch_2=None, xtrace_details=None):
+                 region=None, replica=None, resource_group_id=None, security_group=None, spec=None, status=None,
+                 status_desc=None, vpc=None, vswitch=None, vswitch_2=None, xtrace_details=None):
         self.charge_type = charge_type  # type: str
         self.end_date = end_date  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
@@ -9032,6 +9038,7 @@ class GetGatewayResponseBodyData(TeaModel):
         self.primary_user = primary_user  # type: str
         self.region = region  # type: str
         self.replica = replica  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.security_group = security_group  # type: str
         self.spec = spec  # type: str
         self.status = status  # type: int
@@ -9079,6 +9086,8 @@ class GetGatewayResponseBodyData(TeaModel):
             result['Region'] = self.region
         if self.replica is not None:
             result['Replica'] = self.replica
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.security_group is not None:
             result['SecurityGroup'] = self.security_group
         if self.spec is not None:
@@ -9126,6 +9135,8 @@ class GetGatewayResponseBodyData(TeaModel):
             self.region = m.get('Region')
         if m.get('Replica') is not None:
             self.replica = m.get('Replica')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SecurityGroup') is not None:
             self.security_group = m.get('SecurityGroup')
         if m.get('Spec') is not None:
@@ -17020,12 +17031,13 @@ class ListEurekaServicesResponse(TeaModel):
 
 class ListGatewayRequestFilterParams(TeaModel):
     def __init__(self, gateway_type=None, gateway_unique_id=None, instance_id=None, mse_tag=None, name=None,
-                 vpc=None):
+                 resource_group_id=None, vpc=None):
         self.gateway_type = gateway_type  # type: str
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.instance_id = instance_id  # type: str
         self.mse_tag = mse_tag  # type: str
         self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.vpc = vpc  # type: str
 
     def validate(self):
@@ -17047,6 +17059,8 @@ class ListGatewayRequestFilterParams(TeaModel):
             result['MseTag'] = self.mse_tag
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.vpc is not None:
             result['Vpc'] = self.vpc
         return result
@@ -17063,6 +17077,8 @@ class ListGatewayRequestFilterParams(TeaModel):
             self.mse_tag = m.get('MseTag')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Vpc') is not None:
             self.vpc = m.get('Vpc')
         return self
@@ -17328,9 +17344,9 @@ class ListGatewayResponseBodyDataResult(TeaModel):
     def __init__(self, ahas_on=None, app_version=None, arms_on=None, charge_type=None, current_version=None,
                  end_date=None, gateway_type=None, gateway_unique_id=None, gateway_version=None, gmt_create=None,
                  gmt_modified=None, id=None, init_config=None, instance_id=None, internet_slb=None, latest_version=None,
-                 mse_tag=None, must_upgrade=None, name=None, primary_user=None, region=None, replica=None, roll_back=None,
-                 slb=None, spec=None, status=None, status_desc=None, support_wasm=None, tag=None, upgrade=None,
-                 vswitch_2=None):
+                 mse_tag=None, must_upgrade=None, name=None, primary_user=None, region=None, replica=None,
+                 resource_group_id=None, roll_back=None, slb=None, spec=None, status=None, status_desc=None, support_wasm=None,
+                 tag=None, upgrade=None, vswitch_2=None):
         self.ahas_on = ahas_on  # type: bool
         self.app_version = app_version  # type: str
         self.arms_on = arms_on  # type: bool
@@ -17353,6 +17369,7 @@ class ListGatewayResponseBodyDataResult(TeaModel):
         self.primary_user = primary_user  # type: str
         self.region = region  # type: str
         self.replica = replica  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.roll_back = roll_back  # type: bool
         self.slb = slb  # type: list[ListGatewayResponseBodyDataResultSlb]
         self.spec = spec  # type: str
@@ -17427,6 +17444,8 @@ class ListGatewayResponseBodyDataResult(TeaModel):
             result['Region'] = self.region
         if self.replica is not None:
             result['Replica'] = self.replica
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.roll_back is not None:
             result['RollBack'] = self.roll_back
         result['Slb'] = []
@@ -17499,6 +17518,8 @@ class ListGatewayResponseBodyDataResult(TeaModel):
             self.region = m.get('Region')
         if m.get('Replica') is not None:
             self.replica = m.get('Replica')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('RollBack') is not None:
             self.roll_back = m.get('RollBack')
         self.slb = []
