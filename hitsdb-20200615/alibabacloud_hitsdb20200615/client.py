@@ -82,8 +82,16 @@ class Client(OpenApiClient):
     def create_lindorm_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.arbiter_vswitch_id):
+            query['ArbiterVSwitchId'] = request.arbiter_vswitch_id
+        if not UtilClient.is_unset(request.arbiter_zone_id):
+            query['ArbiterZoneId'] = request.arbiter_zone_id
+        if not UtilClient.is_unset(request.arch_version):
+            query['ArchVersion'] = request.arch_version
         if not UtilClient.is_unset(request.cold_storage):
             query['ColdStorage'] = request.cold_storage
+        if not UtilClient.is_unset(request.core_single_storage):
+            query['CoreSingleStorage'] = request.core_single_storage
         if not UtilClient.is_unset(request.core_spec):
             query['CoreSpec'] = request.core_spec
         if not UtilClient.is_unset(request.disk_category):
@@ -102,6 +110,16 @@ class Client(OpenApiClient):
             query['LindormNum'] = request.lindorm_num
         if not UtilClient.is_unset(request.lindorm_spec):
             query['LindormSpec'] = request.lindorm_spec
+        if not UtilClient.is_unset(request.log_disk_category):
+            query['LogDiskCategory'] = request.log_disk_category
+        if not UtilClient.is_unset(request.log_num):
+            query['LogNum'] = request.log_num
+        if not UtilClient.is_unset(request.log_single_storage):
+            query['LogSingleStorage'] = request.log_single_storage
+        if not UtilClient.is_unset(request.log_spec):
+            query['LogSpec'] = request.log_spec
+        if not UtilClient.is_unset(request.multi_zone_combination):
+            query['MultiZoneCombination'] = request.multi_zone_combination
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -110,8 +128,14 @@ class Client(OpenApiClient):
             query['PayType'] = request.pay_type
         if not UtilClient.is_unset(request.pricing_cycle):
             query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.primary_vswitch_id):
+            query['PrimaryVSwitchId'] = request.primary_vswitch_id
+        if not UtilClient.is_unset(request.primary_zone_id):
+            query['PrimaryZoneId'] = request.primary_zone_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -122,6 +146,10 @@ class Client(OpenApiClient):
             query['SolrNum'] = request.solr_num
         if not UtilClient.is_unset(request.solr_spec):
             query['SolrSpec'] = request.solr_spec
+        if not UtilClient.is_unset(request.standby_vswitch_id):
+            query['StandbyVSwitchId'] = request.standby_vswitch_id
+        if not UtilClient.is_unset(request.standby_zone_id):
+            query['StandbyZoneId'] = request.standby_zone_id
         if not UtilClient.is_unset(request.tsdb_num):
             query['TsdbNum'] = request.tsdb_num
         if not UtilClient.is_unset(request.tsdb_spec):
@@ -242,8 +270,6 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -328,6 +354,8 @@ class Client(OpenApiClient):
             query['QueryStr'] = request.query_str
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -409,6 +437,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
+    def modify_instance_pay_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstancePayType',
+            version='2020-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hitsdb_20200615_models.ModifyInstancePayTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_instance_pay_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_instance_pay_type_with_options(request, runtime)
+
     def release_lindorm_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -447,6 +519,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_lindorm_instance_with_options(request, runtime)
 
+    def renew_lindorm_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewLindormInstance',
+            version='2020-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hitsdb_20200615_models.RenewLindormInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def renew_lindorm_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.renew_lindorm_instance_with_options(request, runtime)
+
     def tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -454,6 +570,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -582,10 +700,8 @@ class Client(OpenApiClient):
             query['ClusterStorage'] = request.cluster_storage
         if not UtilClient.is_unset(request.cold_storage):
             query['ColdStorage'] = request.cold_storage
-        if not UtilClient.is_unset(request.core_num):
-            query['CoreNum'] = request.core_num
-        if not UtilClient.is_unset(request.core_spec):
-            query['CoreSpec'] = request.core_spec
+        if not UtilClient.is_unset(request.core_single_storage):
+            query['CoreSingleStorage'] = request.core_single_storage
         if not UtilClient.is_unset(request.filestore_num):
             query['FilestoreNum'] = request.filestore_num
         if not UtilClient.is_unset(request.filestore_spec):
@@ -596,6 +712,12 @@ class Client(OpenApiClient):
             query['LindormNum'] = request.lindorm_num
         if not UtilClient.is_unset(request.lindorm_spec):
             query['LindormSpec'] = request.lindorm_spec
+        if not UtilClient.is_unset(request.log_num):
+            query['LogNum'] = request.log_num
+        if not UtilClient.is_unset(request.log_single_storage):
+            query['LogSingleStorage'] = request.log_single_storage
+        if not UtilClient.is_unset(request.log_spec):
+            query['LogSpec'] = request.log_spec
         if not UtilClient.is_unset(request.lts_core_num):
             query['LtsCoreNum'] = request.lts_core_num
         if not UtilClient.is_unset(request.lts_core_spec):
