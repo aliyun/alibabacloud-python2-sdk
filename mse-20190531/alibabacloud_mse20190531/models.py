@@ -9101,6 +9101,403 @@ class GetApplicationListResponse(TeaModel):
         return self
 
 
+class GetApplicationListWithMetircsRequest(TeaModel):
+    def __init__(self, accept_language=None, app_id=None, app_name=None, page_number=None, page_size=None,
+                 region=None, source=None):
+        self.accept_language = accept_language  # type: str
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.region = region  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class GetApplicationListWithMetircsResponseBodyDataResultCurMetrics(TeaModel):
+    def __init__(self, block_qps=None, exp_qps=None, pass_qps=None, qps=None, rt=None, thread=None, timestamp=None):
+        self.block_qps = block_qps  # type: float
+        self.exp_qps = exp_qps  # type: float
+        self.pass_qps = pass_qps  # type: float
+        self.qps = qps  # type: float
+        self.rt = rt  # type: float
+        self.thread = thread  # type: float
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponseBodyDataResultCurMetrics, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.block_qps is not None:
+            result['BlockQps'] = self.block_qps
+        if self.exp_qps is not None:
+            result['ExpQps'] = self.exp_qps
+        if self.pass_qps is not None:
+            result['PassQps'] = self.pass_qps
+        if self.qps is not None:
+            result['Qps'] = self.qps
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.thread is not None:
+            result['Thread'] = self.thread
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BlockQps') is not None:
+            self.block_qps = m.get('BlockQps')
+        if m.get('ExpQps') is not None:
+            self.exp_qps = m.get('ExpQps')
+        if m.get('PassQps') is not None:
+            self.pass_qps = m.get('PassQps')
+        if m.get('Qps') is not None:
+            self.qps = m.get('Qps')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('Thread') is not None:
+            self.thread = m.get('Thread')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetApplicationListWithMetircsResponseBodyDataResultCurMetricsFm(TeaModel):
+    def __init__(self, block_qps=None, exp_qps=None, pass_qps=None, qps=None, rt=None, thread=None, timestamp=None):
+        self.block_qps = block_qps  # type: float
+        self.exp_qps = exp_qps  # type: float
+        self.pass_qps = pass_qps  # type: float
+        self.qps = qps  # type: float
+        self.rt = rt  # type: float
+        self.thread = thread  # type: float
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponseBodyDataResultCurMetricsFm, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.block_qps is not None:
+            result['BlockQps'] = self.block_qps
+        if self.exp_qps is not None:
+            result['ExpQps'] = self.exp_qps
+        if self.pass_qps is not None:
+            result['PassQps'] = self.pass_qps
+        if self.qps is not None:
+            result['Qps'] = self.qps
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.thread is not None:
+            result['Thread'] = self.thread
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BlockQps') is not None:
+            self.block_qps = m.get('BlockQps')
+        if m.get('ExpQps') is not None:
+            self.exp_qps = m.get('ExpQps')
+        if m.get('PassQps') is not None:
+            self.pass_qps = m.get('PassQps')
+        if m.get('Qps') is not None:
+            self.qps = m.get('Qps')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('Thread') is not None:
+            self.thread = m.get('Thread')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetApplicationListWithMetircsResponseBodyDataResult(TeaModel):
+    def __init__(self, app_id=None, app_name=None, cur_metrics=None, cur_metrics_fm=None, extra_info=None,
+                 instances_number=None, language=None, license_key=None, region_id=None, source=None, status=None, tags=None,
+                 user_id=None):
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        self.cur_metrics = cur_metrics  # type: list[GetApplicationListWithMetircsResponseBodyDataResultCurMetrics]
+        self.cur_metrics_fm = cur_metrics_fm  # type: GetApplicationListWithMetircsResponseBodyDataResultCurMetricsFm
+        self.extra_info = extra_info  # type: str
+        self.instances_number = instances_number  # type: int
+        self.language = language  # type: str
+        self.license_key = license_key  # type: str
+        self.region_id = region_id  # type: str
+        self.source = source  # type: str
+        self.status = status  # type: long
+        self.tags = tags  # type: list[str]
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        if self.cur_metrics:
+            for k in self.cur_metrics:
+                if k:
+                    k.validate()
+        if self.cur_metrics_fm:
+            self.cur_metrics_fm.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        result['CurMetrics'] = []
+        if self.cur_metrics is not None:
+            for k in self.cur_metrics:
+                result['CurMetrics'].append(k.to_map() if k else None)
+        if self.cur_metrics_fm is not None:
+            result['CurMetricsFm'] = self.cur_metrics_fm.to_map()
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
+        if self.instances_number is not None:
+            result['InstancesNumber'] = self.instances_number
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.license_key is not None:
+            result['LicenseKey'] = self.license_key
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        self.cur_metrics = []
+        if m.get('CurMetrics') is not None:
+            for k in m.get('CurMetrics'):
+                temp_model = GetApplicationListWithMetircsResponseBodyDataResultCurMetrics()
+                self.cur_metrics.append(temp_model.from_map(k))
+        if m.get('CurMetricsFm') is not None:
+            temp_model = GetApplicationListWithMetircsResponseBodyDataResultCurMetricsFm()
+            self.cur_metrics_fm = temp_model.from_map(m['CurMetricsFm'])
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
+        if m.get('InstancesNumber') is not None:
+            self.instances_number = m.get('InstancesNumber')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('LicenseKey') is not None:
+            self.license_key = m.get('LicenseKey')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetApplicationListWithMetircsResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: list[GetApplicationListWithMetircsResponseBodyDataResult]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = GetApplicationListWithMetircsResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class GetApplicationListWithMetircsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetApplicationListWithMetircsResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetApplicationListWithMetircsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetApplicationListWithMetircsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetApplicationListWithMetircsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationListWithMetircsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetApplicationListWithMetircsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, is_white=None, resource_type=None, type=None):
         self.accept_language = accept_language  # type: str
