@@ -8372,6 +8372,155 @@ class DescribeCommonOverallConfigResponse(TeaModel):
         return self
 
 
+class DescribeCommonTargetResultListRequest(TeaModel):
+    def __init__(self, source_ip=None, type=None):
+        self.source_ip = source_ip  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCommonTargetResultListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCommonTargetResultListResponseBodyTargetConfig(TeaModel):
+    def __init__(self, flag=None, target_default=None, target_list=None, target_type=None, total_count=None,
+                 type=None):
+        self.flag = flag  # type: str
+        self.target_default = target_default  # type: str
+        self.target_list = target_list  # type: list[str]
+        self.target_type = target_type  # type: str
+        self.total_count = total_count  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCommonTargetResultListResponseBodyTargetConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flag is not None:
+            result['Flag'] = self.flag
+        if self.target_default is not None:
+            result['TargetDefault'] = self.target_default
+        if self.target_list is not None:
+            result['TargetList'] = self.target_list
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Flag') is not None:
+            self.flag = m.get('Flag')
+        if m.get('TargetDefault') is not None:
+            self.target_default = m.get('TargetDefault')
+        if m.get('TargetList') is not None:
+            self.target_list = m.get('TargetList')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCommonTargetResultListResponseBody(TeaModel):
+    def __init__(self, request_id=None, target_config=None):
+        self.request_id = request_id  # type: str
+        self.target_config = target_config  # type: DescribeCommonTargetResultListResponseBodyTargetConfig
+
+    def validate(self):
+        if self.target_config:
+            self.target_config.validate()
+
+    def to_map(self):
+        _map = super(DescribeCommonTargetResultListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.target_config is not None:
+            result['TargetConfig'] = self.target_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TargetConfig') is not None:
+            temp_model = DescribeCommonTargetResultListResponseBodyTargetConfig()
+            self.target_config = temp_model.from_map(m['TargetConfig'])
+        return self
+
+
+class DescribeCommonTargetResultListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCommonTargetResultListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCommonTargetResultListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCommonTargetResultListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeConcernNecessityRequest(TeaModel):
     def __init__(self, lang=None):
         self.lang = lang  # type: str
@@ -16016,6 +16165,227 @@ class DescribeNoticeConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeNoticeConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeOfflineMachinesRequest(TeaModel):
+    def __init__(self, current_page=None, os=None, page_size=None, region_id_str=None, region_no=None, remark=None,
+                 source_ip=None, vendor=None):
+        self.current_page = current_page  # type: int
+        self.os = os  # type: str
+        self.page_size = page_size  # type: int
+        self.region_id_str = region_id_str  # type: str
+        self.region_no = region_no  # type: str
+        self.remark = remark  # type: str
+        self.source_ip = source_ip  # type: str
+        self.vendor = vendor  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeOfflineMachinesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.os is not None:
+            result['Os'] = self.os
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id_str is not None:
+            result['RegionIdStr'] = self.region_id_str
+        if self.region_no is not None:
+            result['RegionNo'] = self.region_no
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.vendor is not None:
+            result['Vendor'] = self.vendor
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Os') is not None:
+            self.os = m.get('Os')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionIdStr') is not None:
+            self.region_id_str = m.get('RegionIdStr')
+        if m.get('RegionNo') is not None:
+            self.region_no = m.get('RegionNo')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('Vendor') is not None:
+            self.vendor = m.get('Vendor')
+        return self
+
+
+class DescribeOfflineMachinesResponseBodyMachineList(TeaModel):
+    def __init__(self, instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None,
+                 machine_region=None, os=None, region_id=None, uuid=None, vendor=None, vendor_name=None):
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
+        self.machine_region = machine_region  # type: str
+        self.os = os  # type: str
+        self.region_id = region_id  # type: str
+        self.uuid = uuid  # type: str
+        self.vendor = vendor  # type: int
+        self.vendor_name = vendor_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeOfflineMachinesResponseBodyMachineList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.internet_ip is not None:
+            result['InternetIp'] = self.internet_ip
+        if self.intranet_ip is not None:
+            result['IntranetIp'] = self.intranet_ip
+        if self.machine_region is not None:
+            result['MachineRegion'] = self.machine_region
+        if self.os is not None:
+            result['Os'] = self.os
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        if self.vendor is not None:
+            result['Vendor'] = self.vendor
+        if self.vendor_name is not None:
+            result['VendorName'] = self.vendor_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('InternetIp') is not None:
+            self.internet_ip = m.get('InternetIp')
+        if m.get('IntranetIp') is not None:
+            self.intranet_ip = m.get('IntranetIp')
+        if m.get('MachineRegion') is not None:
+            self.machine_region = m.get('MachineRegion')
+        if m.get('Os') is not None:
+            self.os = m.get('Os')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        if m.get('Vendor') is not None:
+            self.vendor = m.get('Vendor')
+        if m.get('VendorName') is not None:
+            self.vendor_name = m.get('VendorName')
+        return self
+
+
+class DescribeOfflineMachinesResponseBody(TeaModel):
+    def __init__(self, current_page=None, machine_list=None, page_size=None, request_id=None, total_count=None):
+        self.current_page = current_page  # type: int
+        self.machine_list = machine_list  # type: list[DescribeOfflineMachinesResponseBodyMachineList]
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.machine_list:
+            for k in self.machine_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeOfflineMachinesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['MachineList'] = []
+        if self.machine_list is not None:
+            for k in self.machine_list:
+                result['MachineList'].append(k.to_map() if k else None)
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.machine_list = []
+        if m.get('MachineList') is not None:
+            for k in m.get('MachineList'):
+                temp_model = DescribeOfflineMachinesResponseBodyMachineList()
+                self.machine_list.append(temp_model.from_map(k))
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeOfflineMachinesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeOfflineMachinesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeOfflineMachinesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeOfflineMachinesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -32267,12 +32637,9 @@ class ListHoneypotAlarmEventsResponseBodyHoneypotAlarmEvents(TeaModel):
 
 
 class ListHoneypotAlarmEventsResponseBodyPageInfo(TeaModel):
-    def __init__(self, count=None, current_page=None, last_row_key=None, next_token=None, page_size=None,
-                 total_count=None):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
         self.count = count  # type: int
         self.current_page = current_page  # type: int
-        self.last_row_key = last_row_key  # type: str
-        self.next_token = next_token  # type: str
         self.page_size = page_size  # type: int
         self.total_count = total_count  # type: int
 
@@ -32289,10 +32656,6 @@ class ListHoneypotAlarmEventsResponseBodyPageInfo(TeaModel):
             result['Count'] = self.count
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
-        if self.last_row_key is not None:
-            result['LastRowKey'] = self.last_row_key
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.total_count is not None:
@@ -32305,10 +32668,6 @@ class ListHoneypotAlarmEventsResponseBodyPageInfo(TeaModel):
             self.count = m.get('Count')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
-        if m.get('LastRowKey') is not None:
-            self.last_row_key = m.get('LastRowKey')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('TotalCount') is not None:

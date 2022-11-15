@@ -1,3 +1,6 @@
+2022-11-15 Version: 1.1.34
+- Change DescribeLogstoreStorage Response.
+
 2022-11-02 Version: 1.1.33
 - Change DescribeLogstoreStorage Response.
 
