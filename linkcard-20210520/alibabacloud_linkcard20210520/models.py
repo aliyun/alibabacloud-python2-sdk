@@ -2747,11 +2747,14 @@ class ListOrderResponseBodyDataListDeliveryInfo(TeaModel):
 
 
 class ListOrderResponseBodyDataList(TeaModel):
-    def __init__(self, ali_fee=None, billing_cycle=None, buy_num=None, card_pay_count=None, credential_no=None,
-                 credential_package=None, data_level=None, delivery_info=None, express_no_list=None, flow_type=None, function_fee=None,
-                 order_detail_url=None, order_id=None, order_info=None, order_status=None, order_type=None, pay_duration=None,
-                 pay_time=None, pool_capacity=None, pool_capacity_unit=None, pool_no=None, vendor=None):
+    def __init__(self, ali_fee=None, apn_name=None, apn_region=None, billing_cycle=None, buy_num=None,
+                 card_pay_count=None, credential_no=None, credential_package=None, data_level=None, delivery_info=None,
+                 express_no_list=None, flow_type=None, function_fee=None, order_detail_url=None, order_id=None, order_info=None,
+                 order_status=None, order_type=None, pay_duration=None, pay_time=None, pool_capacity=None,
+                 pool_capacity_unit=None, pool_no=None, resource_quantity=None, vendor=None):
         self.ali_fee = ali_fee  # type: str
+        self.apn_name = apn_name  # type: str
+        self.apn_region = apn_region  # type: str
         self.billing_cycle = billing_cycle  # type: str
         self.buy_num = buy_num  # type: int
         self.card_pay_count = card_pay_count  # type: int
@@ -2772,6 +2775,7 @@ class ListOrderResponseBodyDataList(TeaModel):
         self.pool_capacity = pool_capacity  # type: str
         self.pool_capacity_unit = pool_capacity_unit  # type: str
         self.pool_no = pool_no  # type: str
+        self.resource_quantity = resource_quantity  # type: long
         self.vendor = vendor  # type: str
 
     def validate(self):
@@ -2786,6 +2790,10 @@ class ListOrderResponseBodyDataList(TeaModel):
         result = dict()
         if self.ali_fee is not None:
             result['AliFee'] = self.ali_fee
+        if self.apn_name is not None:
+            result['ApnName'] = self.apn_name
+        if self.apn_region is not None:
+            result['ApnRegion'] = self.apn_region
         if self.billing_cycle is not None:
             result['BillingCycle'] = self.billing_cycle
         if self.buy_num is not None:
@@ -2826,6 +2834,8 @@ class ListOrderResponseBodyDataList(TeaModel):
             result['PoolCapacityUnit'] = self.pool_capacity_unit
         if self.pool_no is not None:
             result['PoolNo'] = self.pool_no
+        if self.resource_quantity is not None:
+            result['ResourceQuantity'] = self.resource_quantity
         if self.vendor is not None:
             result['Vendor'] = self.vendor
         return result
@@ -2834,6 +2844,10 @@ class ListOrderResponseBodyDataList(TeaModel):
         m = m or dict()
         if m.get('AliFee') is not None:
             self.ali_fee = m.get('AliFee')
+        if m.get('ApnName') is not None:
+            self.apn_name = m.get('ApnName')
+        if m.get('ApnRegion') is not None:
+            self.apn_region = m.get('ApnRegion')
         if m.get('BillingCycle') is not None:
             self.billing_cycle = m.get('BillingCycle')
         if m.get('BuyNum') is not None:
@@ -2875,6 +2889,8 @@ class ListOrderResponseBodyDataList(TeaModel):
             self.pool_capacity_unit = m.get('PoolCapacityUnit')
         if m.get('PoolNo') is not None:
             self.pool_no = m.get('PoolNo')
+        if m.get('ResourceQuantity') is not None:
+            self.resource_quantity = m.get('ResourceQuantity')
         if m.get('Vendor') is not None:
             self.vendor = m.get('Vendor')
         return self
@@ -3026,7 +3042,7 @@ class ListOrderResponse(TeaModel):
 class RebindResumeSingleCardRequest(TeaModel):
     def __init__(self, iccid=None, opt_msisdns=None):
         self.iccid = iccid  # type: str
-        self.opt_msisdns = opt_msisdns  # type: dict[str, any]
+        self.opt_msisdns = opt_msisdns  # type: list[str]
 
     def validate(self):
         pass
@@ -3348,7 +3364,7 @@ class RenewResponse(TeaModel):
 class ResumeSingleCardRequest(TeaModel):
     def __init__(self, iccid=None, opt_msisdns=None):
         self.iccid = iccid  # type: str
-        self.opt_msisdns = opt_msisdns  # type: dict[str, any]
+        self.opt_msisdns = opt_msisdns  # type: list[str]
 
     def validate(self):
         pass
@@ -3618,7 +3634,7 @@ class SetCardStopRuleResponse(TeaModel):
 class StopSingleCardRequest(TeaModel):
     def __init__(self, iccid=None, opt_msisdns=None):
         self.iccid = iccid  # type: str
-        self.opt_msisdns = opt_msisdns  # type: dict[str, any]
+        self.opt_msisdns = opt_msisdns  # type: list[str]
 
     def validate(self):
         pass
