@@ -297,6 +297,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_meta_table_with_options(request, runtime)
 
+    def create_baseline_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alert_margin_threshold):
+            body['AlertMarginThreshold'] = request.alert_margin_threshold
+        if not UtilClient.is_unset(request.baseline_name):
+            body['BaselineName'] = request.baseline_name
+        if not UtilClient.is_unset(request.baseline_type):
+            body['BaselineType'] = request.baseline_type
+        if not UtilClient.is_unset(request.overtime_settings):
+            body['OvertimeSettings'] = request.overtime_settings
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_ids):
+            body['TaskIds'] = request.task_ids
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.CreateBaselineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_baseline(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_baseline_with_options(request, runtime)
+
     def create_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1325,6 +1367,8 @@ class Client(OpenApiClient):
             body['RemindUnit'] = request.remind_unit
         if not UtilClient.is_unset(request.robot_urls):
             body['RobotUrls'] = request.robot_urls
+        if not UtilClient.is_unset(request.webhooks):
+            body['Webhooks'] = request.webhooks
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -1533,6 +1577,36 @@ class Client(OpenApiClient):
     def create_udf_file(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_udf_file_with_options(request, runtime)
+
+    def delete_baseline_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DeleteBaselineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_baseline(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_baseline_with_options(request, runtime)
 
     def delete_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2354,6 +2428,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.generate_disync_task_config_for_updating_with_options(request, runtime)
 
+    def get_baseline_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetBaselineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_baseline(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_baseline_with_options(request, runtime)
+
     def get_baseline_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -2567,32 +2671,6 @@ class Client(OpenApiClient):
     def get_disync_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_disync_task_with_options(request, runtime)
-
-    def get_disync_task_metric_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetDISyncTaskMetricInfo',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDISyncTaskMetricInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_disync_task_metric_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_disync_task_metric_info_with_options(request, runtime)
 
     def get_dag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4590,6 +4668,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_baseline_statuses_with_options(request, runtime)
 
+    def list_baselines_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_types):
+            body['BaselineTypes'] = request.baseline_types
+        if not UtilClient.is_unset(request.enable):
+            body['Enable'] = request.enable
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.search_text):
+            body['SearchText'] = request.search_text
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListBaselines',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListBaselinesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_baselines(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_baselines_with_options(request, runtime)
+
     def list_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4689,72 +4811,6 @@ class Client(OpenApiClient):
     def list_connections(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_connections_with_options(request, runtime)
-
-    def list_current_tasks_for_resource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_env):
-            body['ProjectEnv'] = request.project_env
-        if not UtilClient.is_unset(request.resource_group_identifier):
-            body['ResourceGroupIdentifier'] = request.resource_group_identifier
-        if not UtilClient.is_unset(request.status):
-            body['Status'] = request.status
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ListCurrentTasksForResourceGroup',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListCurrentTasksForResourceGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_current_tasks_for_resource_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_current_tasks_for_resource_group_with_options(request, runtime)
-
-    def list_current_usage_for_resource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.project_env):
-            body['ProjectEnv'] = request.project_env
-        if not UtilClient.is_unset(request.resource_group_identifier):
-            body['ResourceGroupIdentifier'] = request.resource_group_identifier
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ListCurrentUsageForResourceGroup',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListCurrentUsageForResourceGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_current_usage_for_resource_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_current_usage_for_resource_group_with_options(request, runtime)
 
     def list_diproject_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5180,9 +5236,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_deployments_with_options(request, runtime)
 
+    def list_enabled_extensions_for_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.event_code):
+            body['EventCode'] = request.event_code
+        if not UtilClient.is_unset(request.file_type):
+            body['FileType'] = request.file_type
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListEnabledExtensionsForProject',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListEnabledExtensionsForProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_enabled_extensions_for_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_enabled_extensions_for_project_with_options(request, runtime)
+
     def list_extensions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5191,7 +5283,7 @@ class Client(OpenApiClient):
             version='2020-05-18',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -5361,44 +5453,6 @@ class Client(OpenApiClient):
     def list_folders(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_folders_with_options(request, runtime)
-
-    def list_history_tasks_for_resource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.end_time):
-            body['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_env):
-            body['ProjectEnv'] = request.project_env
-        if not UtilClient.is_unset(request.resource_group_identifier):
-            body['ResourceGroupIdentifier'] = request.resource_group_identifier
-        if not UtilClient.is_unset(request.start_time):
-            body['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ListHistoryTasksForResourceGroup',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListHistoryTasksForResourceGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_history_tasks_for_resource_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_history_tasks_for_resource_group_with_options(request, runtime)
 
     def list_inner_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5980,13 +6034,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_project_roles_with_options(request, runtime)
 
-    def list_projects_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def list_projects_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.ListProjectsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6198,8 +6260,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_reminds_with_options(request, runtime)
 
-    def list_resource_groups_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def list_resource_groups_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.ListResourceGroupsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
         query = {}
         if not UtilClient.is_unset(request.biz_ext_key):
             query['BizExtKey'] = request.biz_ext_key
@@ -6207,6 +6273,10 @@ class Client(OpenApiClient):
             query['Keyword'] = request.keyword
         if not UtilClient.is_unset(request.resource_group_type):
             query['ResourceGroupType'] = request.resource_group_type
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6423,40 +6493,6 @@ class Client(OpenApiClient):
     def list_topics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_topics_with_options(request, runtime)
-
-    def list_usage_for_resource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.end_time):
-            body['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.project_env):
-            body['ProjectEnv'] = request.project_env
-        if not UtilClient.is_unset(request.resource_group_identifier):
-            body['ResourceGroupIdentifier'] = request.resource_group_identifier
-        if not UtilClient.is_unset(request.start_time):
-            body['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ListUsageForResourceGroup',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListUsageForResourceGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_usage_for_resource_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_usage_for_resource_group_with_options(request, runtime)
 
     def offline_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7432,6 +7468,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.top_ten_error_times_instance_with_options(request, runtime)
 
+    def update_baseline_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.UpdateBaselineShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.alert_settings):
+            request.alert_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.alert_settings, 'AlertSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.overtime_settings):
+            request.overtime_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.overtime_settings, 'OvertimeSettings', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.alert_enabled):
+            body['AlertEnabled'] = request.alert_enabled
+        if not UtilClient.is_unset(request.alert_margin_threshold):
+            body['AlertMarginThreshold'] = request.alert_margin_threshold
+        if not UtilClient.is_unset(request.alert_settings_shrink):
+            body['AlertSettings'] = request.alert_settings_shrink
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.baseline_name):
+            body['BaselineName'] = request.baseline_name
+        if not UtilClient.is_unset(request.baseline_type):
+            body['BaselineType'] = request.baseline_type
+        if not UtilClient.is_unset(request.enabled):
+            body['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.overtime_settings_shrink):
+            body['OvertimeSettings'] = request.overtime_settings_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.remove_task_ids):
+            body['RemoveTaskIds'] = request.remove_task_ids
+        if not UtilClient.is_unset(request.task_ids):
+            body['TaskIds'] = request.task_ids
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.UpdateBaselineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_baseline(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_baseline_with_options(request, runtime)
+
     def update_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -8131,6 +8225,8 @@ class Client(OpenApiClient):
             body['RobotUrls'] = request.robot_urls
         if not UtilClient.is_unset(request.use_flag):
             body['UseFlag'] = request.use_flag
+        if not UtilClient.is_unset(request.webhooks):
+            body['Webhooks'] = request.webhooks
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
