@@ -2717,6 +2717,35 @@ class CreateHybridClusterRequestNodes(TeaModel):
         return self
 
 
+class CreateHybridClusterRequestOpenldapPar(TeaModel):
+    def __init__(self, base_dn=None, ldap_server_ip=None):
+        self.base_dn = base_dn  # type: str
+        self.ldap_server_ip = ldap_server_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHybridClusterRequestOpenldapPar, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.base_dn is not None:
+            result['BaseDn'] = self.base_dn
+        if self.ldap_server_ip is not None:
+            result['LdapServerIp'] = self.ldap_server_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BaseDn') is not None:
+            self.base_dn = m.get('BaseDn')
+        if m.get('LdapServerIp') is not None:
+            self.ldap_server_ip = m.get('LdapServerIp')
+        return self
+
+
 class CreateHybridClusterRequestPostInstallScript(TeaModel):
     def __init__(self, args=None, url=None):
         self.args = args  # type: str
@@ -2746,15 +2775,54 @@ class CreateHybridClusterRequestPostInstallScript(TeaModel):
         return self
 
 
+class CreateHybridClusterRequestWinAdPar(TeaModel):
+    def __init__(self, ad_dc=None, ad_ip=None, ad_user=None, ad_user_passwd=None):
+        self.ad_dc = ad_dc  # type: str
+        self.ad_ip = ad_ip  # type: str
+        self.ad_user = ad_user  # type: str
+        self.ad_user_passwd = ad_user_passwd  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHybridClusterRequestWinAdPar, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ad_dc is not None:
+            result['AdDc'] = self.ad_dc
+        if self.ad_ip is not None:
+            result['AdIp'] = self.ad_ip
+        if self.ad_user is not None:
+            result['AdUser'] = self.ad_user
+        if self.ad_user_passwd is not None:
+            result['AdUserPasswd'] = self.ad_user_passwd
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdDc') is not None:
+            self.ad_dc = m.get('AdDc')
+        if m.get('AdIp') is not None:
+            self.ad_ip = m.get('AdIp')
+        if m.get('AdUser') is not None:
+            self.ad_user = m.get('AdUser')
+        if m.get('AdUserPasswd') is not None:
+            self.ad_user_passwd = m.get('AdUserPasswd')
+        return self
+
+
 class CreateHybridClusterRequest(TeaModel):
     def __init__(self, ecs_order=None, application=None, client_token=None, client_version=None,
                  compute_spot_price_limit=None, compute_spot_strategy=None, description=None, domain=None, ehpc_version=None, image_id=None,
                  image_owner_alias=None, job_queue=None, key_pair_name=None, location=None, multi_os=None, name=None, nodes=None,
                  on_premise_volume_local_path=None, on_premise_volume_mount_point=None, on_premise_volume_protocol=None,
-                 on_premise_volume_remote_path=None, os_tag=None, password=None, post_install_script=None, remote_directory=None,
-                 resource_group_id=None, scheduler_pre_install=None, security_group_id=None, security_group_name=None,
-                 v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None,
-                 zone_id=None):
+                 on_premise_volume_remote_path=None, openldap_par=None, os_tag=None, password=None, plugin=None, post_install_script=None,
+                 remote_directory=None, resource_group_id=None, scheduler_pre_install=None, security_group_id=None,
+                 security_group_name=None, v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None,
+                 volume_type=None, vpc_id=None, win_ad_par=None, zone_id=None):
         self.ecs_order = ecs_order  # type: CreateHybridClusterRequestEcsOrder
         self.application = application  # type: list[CreateHybridClusterRequestApplication]
         self.client_token = client_token  # type: str
@@ -2776,8 +2844,10 @@ class CreateHybridClusterRequest(TeaModel):
         self.on_premise_volume_mount_point = on_premise_volume_mount_point  # type: str
         self.on_premise_volume_protocol = on_premise_volume_protocol  # type: str
         self.on_premise_volume_remote_path = on_premise_volume_remote_path  # type: str
+        self.openldap_par = openldap_par  # type: CreateHybridClusterRequestOpenldapPar
         self.os_tag = os_tag  # type: str
         self.password = password  # type: str
+        self.plugin = plugin  # type: str
         self.post_install_script = post_install_script  # type: list[CreateHybridClusterRequestPostInstallScript]
         self.remote_directory = remote_directory  # type: str
         self.resource_group_id = resource_group_id  # type: str
@@ -2790,6 +2860,7 @@ class CreateHybridClusterRequest(TeaModel):
         self.volume_protocol = volume_protocol  # type: str
         self.volume_type = volume_type  # type: str
         self.vpc_id = vpc_id  # type: str
+        self.win_ad_par = win_ad_par  # type: CreateHybridClusterRequestWinAdPar
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -2803,10 +2874,14 @@ class CreateHybridClusterRequest(TeaModel):
             for k in self.nodes:
                 if k:
                     k.validate()
+        if self.openldap_par:
+            self.openldap_par.validate()
         if self.post_install_script:
             for k in self.post_install_script:
                 if k:
                     k.validate()
+        if self.win_ad_par:
+            self.win_ad_par.validate()
 
     def to_map(self):
         _map = super(CreateHybridClusterRequest, self).to_map()
@@ -2860,10 +2935,14 @@ class CreateHybridClusterRequest(TeaModel):
             result['OnPremiseVolumeProtocol'] = self.on_premise_volume_protocol
         if self.on_premise_volume_remote_path is not None:
             result['OnPremiseVolumeRemotePath'] = self.on_premise_volume_remote_path
+        if self.openldap_par is not None:
+            result['OpenldapPar'] = self.openldap_par.to_map()
         if self.os_tag is not None:
             result['OsTag'] = self.os_tag
         if self.password is not None:
             result['Password'] = self.password
+        if self.plugin is not None:
+            result['Plugin'] = self.plugin
         result['PostInstallScript'] = []
         if self.post_install_script is not None:
             for k in self.post_install_script:
@@ -2890,6 +2969,8 @@ class CreateHybridClusterRequest(TeaModel):
             result['VolumeType'] = self.volume_type
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
+        if self.win_ad_par is not None:
+            result['WinAdPar'] = self.win_ad_par.to_map()
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -2945,10 +3026,15 @@ class CreateHybridClusterRequest(TeaModel):
             self.on_premise_volume_protocol = m.get('OnPremiseVolumeProtocol')
         if m.get('OnPremiseVolumeRemotePath') is not None:
             self.on_premise_volume_remote_path = m.get('OnPremiseVolumeRemotePath')
+        if m.get('OpenldapPar') is not None:
+            temp_model = CreateHybridClusterRequestOpenldapPar()
+            self.openldap_par = temp_model.from_map(m['OpenldapPar'])
         if m.get('OsTag') is not None:
             self.os_tag = m.get('OsTag')
         if m.get('Password') is not None:
             self.password = m.get('Password')
+        if m.get('Plugin') is not None:
+            self.plugin = m.get('Plugin')
         self.post_install_script = []
         if m.get('PostInstallScript') is not None:
             for k in m.get('PostInstallScript'):
@@ -2976,6 +3062,9 @@ class CreateHybridClusterRequest(TeaModel):
             self.volume_type = m.get('VolumeType')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
+        if m.get('WinAdPar') is not None:
+            temp_model = CreateHybridClusterRequestWinAdPar()
+            self.win_ad_par = temp_model.from_map(m['WinAdPar'])
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
