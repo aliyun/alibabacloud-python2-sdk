@@ -1274,40 +1274,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_wasm_with_options(request, runtime)
 
-    def delete_wasm_code_revision_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        body = {}
-        if not UtilClient.is_unset(request.name):
-            body['Name'] = request.name
-        if not UtilClient.is_unset(request.select_code_revision):
-            body['SelectCodeRevision'] = request.select_code_revision
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DeleteWasmCodeRevision',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DeleteWasmCodeRevisionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_wasm_code_revision(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_wasm_code_revision_with_options(request, runtime)
-
     def describe_dcdn_acl_fields_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5083,8 +5049,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.security_token):
-            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5168,66 +5132,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_logservice_status_with_options(request, runtime)
 
-    def describe_wasm_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        body = {}
-        if not UtilClient.is_unset(request.name):
-            body['Name'] = request.name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DescribeWasm',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeWasmResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_wasm(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_wasm_with_options(request, runtime)
-
-    def describe_wasm_user_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeWasmUserInfo',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeWasmUserInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_wasm_user_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_wasm_user_info_with_options(request, runtime)
-
     def edit_routine_conf_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = dcdn_20180115_models.EditRoutineConfShrinkRequest()
@@ -5267,40 +5171,6 @@ class Client(OpenApiClient):
     def edit_routine_conf(self, request):
         runtime = util_models.RuntimeOptions()
         return self.edit_routine_conf_with_options(request, runtime)
-
-    def edit_wasm_conf_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        body = {}
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.name):
-            body['Name'] = request.name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='EditWasmConf',
-            version='2018-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.EditWasmConfResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def edit_wasm_conf(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.edit_wasm_conf_with_options(request, runtime)
 
     def list_dcdn_real_time_delivery_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
