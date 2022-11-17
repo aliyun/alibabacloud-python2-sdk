@@ -255,66 +255,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_certificate_with_csr_request_with_options(request, runtime)
 
-    def create_whcertificate_with_extension_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.after_time):
-            query['AfterTime'] = request.after_time
-        if not UtilClient.is_unset(request.algorithm_key_size):
-            query['AlgorithmKeySize'] = request.algorithm_key_size
-        if not UtilClient.is_unset(request.alias_name):
-            query['AliasName'] = request.alias_name
-        if not UtilClient.is_unset(request.append_crl):
-            query['AppendCrl'] = request.append_crl
-        if not UtilClient.is_unset(request.basic_constraints_critical):
-            query['BasicConstraintsCritical'] = request.basic_constraints_critical
-        if not UtilClient.is_unset(request.before_time):
-            query['BeforeTime'] = request.before_time
-        if not UtilClient.is_unset(request.cert_type):
-            query['CertType'] = request.cert_type
-        if not UtilClient.is_unset(request.common_name):
-            query['CommonName'] = request.common_name
-        if not UtilClient.is_unset(request.country_code):
-            query['CountryCode'] = request.country_code
-        if not UtilClient.is_unset(request.csr_pem_string):
-            query['CsrPemString'] = request.csr_pem_string
-        if not UtilClient.is_unset(request.immediately):
-            query['Immediately'] = request.immediately
-        if not UtilClient.is_unset(request.locality):
-            query['Locality'] = request.locality
-        if not UtilClient.is_unset(request.organization):
-            query['Organization'] = request.organization
-        if not UtilClient.is_unset(request.organization_unit):
-            query['OrganizationUnit'] = request.organization_unit
-        if not UtilClient.is_unset(request.parent_identifier):
-            query['ParentIdentifier'] = request.parent_identifier
-        if not UtilClient.is_unset(request.sans):
-            query['Sans'] = request.sans
-        if not UtilClient.is_unset(request.state):
-            query['State'] = request.state
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateWHCertificateWithExtension',
-            version='2020-04-07',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cas_20200407_models.CreateWHCertificateWithExtensionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_whcertificate_with_extension(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_whcertificate_with_extension_with_options(request, runtime)
-
     def create_whclient_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -555,6 +495,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.encrypt_with_options(request, runtime)
 
+    def get_cert_warehouse_quota_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetCertWarehouseQuota',
+            version='2020-04-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cas_20200407_models.GetCertWarehouseQuotaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_cert_warehouse_quota(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_cert_warehouse_quota_with_options(runtime)
+
     def list_cert_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -564,6 +526,8 @@ class Client(OpenApiClient):
             query['KeyWord'] = request.key_word
         if not UtilClient.is_unset(request.show_size):
             query['ShowSize'] = request.show_size
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.warehouse_id):
