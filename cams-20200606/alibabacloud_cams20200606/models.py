@@ -4,9 +4,10 @@ from Tea.model import TeaModel
 
 
 class BeeBotAssociateRequest(TeaModel):
-    def __init__(self, chat_bot_instance_id=None, isv_code=None, perspective=None, recommend_num=None,
-                 session_id=None, utterance=None):
+    def __init__(self, chat_bot_instance_id=None, cust_space_id=None, isv_code=None, perspective=None,
+                 recommend_num=None, session_id=None, utterance=None):
         self.chat_bot_instance_id = chat_bot_instance_id  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.isv_code = isv_code  # type: str
         self.perspective = perspective  # type: list[str]
         self.recommend_num = recommend_num  # type: int
@@ -24,6 +25,8 @@ class BeeBotAssociateRequest(TeaModel):
         result = dict()
         if self.chat_bot_instance_id is not None:
             result['ChatBotInstanceId'] = self.chat_bot_instance_id
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
         if self.perspective is not None:
@@ -40,6 +43,8 @@ class BeeBotAssociateRequest(TeaModel):
         m = m or dict()
         if m.get('ChatBotInstanceId') is not None:
             self.chat_bot_instance_id = m.get('ChatBotInstanceId')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
         if m.get('Perspective') is not None:
@@ -54,9 +59,10 @@ class BeeBotAssociateRequest(TeaModel):
 
 
 class BeeBotAssociateShrinkRequest(TeaModel):
-    def __init__(self, chat_bot_instance_id=None, isv_code=None, perspective_shrink=None, recommend_num=None,
-                 session_id=None, utterance=None):
+    def __init__(self, chat_bot_instance_id=None, cust_space_id=None, isv_code=None, perspective_shrink=None,
+                 recommend_num=None, session_id=None, utterance=None):
         self.chat_bot_instance_id = chat_bot_instance_id  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.isv_code = isv_code  # type: str
         self.perspective_shrink = perspective_shrink  # type: str
         self.recommend_num = recommend_num  # type: int
@@ -74,6 +80,8 @@ class BeeBotAssociateShrinkRequest(TeaModel):
         result = dict()
         if self.chat_bot_instance_id is not None:
             result['ChatBotInstanceId'] = self.chat_bot_instance_id
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
         if self.perspective_shrink is not None:
@@ -90,6 +98,8 @@ class BeeBotAssociateShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('ChatBotInstanceId') is not None:
             self.chat_bot_instance_id = m.get('ChatBotInstanceId')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
         if m.get('Perspective') is not None:
@@ -255,9 +265,11 @@ class BeeBotAssociateResponse(TeaModel):
 
 
 class BeeBotChatRequest(TeaModel):
-    def __init__(self, chat_bot_instance_id=None, intent_name=None, isv_code=None, knowledge_id=None,
-                 perspective=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param=None):
+    def __init__(self, chat_bot_instance_id=None, cust_space_id=None, intent_name=None, isv_code=None,
+                 knowledge_id=None, perspective=None, sender_id=None, sender_nick=None, session_id=None, utterance=None,
+                 vendor_param=None):
         self.chat_bot_instance_id = chat_bot_instance_id  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.intent_name = intent_name  # type: str
         self.isv_code = isv_code  # type: str
         self.knowledge_id = knowledge_id  # type: str
@@ -279,6 +291,8 @@ class BeeBotChatRequest(TeaModel):
         result = dict()
         if self.chat_bot_instance_id is not None:
             result['ChatBotInstanceId'] = self.chat_bot_instance_id
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.intent_name is not None:
             result['IntentName'] = self.intent_name
         if self.isv_code is not None:
@@ -303,6 +317,8 @@ class BeeBotChatRequest(TeaModel):
         m = m or dict()
         if m.get('ChatBotInstanceId') is not None:
             self.chat_bot_instance_id = m.get('ChatBotInstanceId')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('IntentName') is not None:
             self.intent_name = m.get('IntentName')
         if m.get('IsvCode') is not None:
@@ -325,9 +341,11 @@ class BeeBotChatRequest(TeaModel):
 
 
 class BeeBotChatShrinkRequest(TeaModel):
-    def __init__(self, chat_bot_instance_id=None, intent_name=None, isv_code=None, knowledge_id=None,
-                 perspective_shrink=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param_shrink=None):
+    def __init__(self, chat_bot_instance_id=None, cust_space_id=None, intent_name=None, isv_code=None,
+                 knowledge_id=None, perspective_shrink=None, sender_id=None, sender_nick=None, session_id=None, utterance=None,
+                 vendor_param_shrink=None):
         self.chat_bot_instance_id = chat_bot_instance_id  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.intent_name = intent_name  # type: str
         self.isv_code = isv_code  # type: str
         self.knowledge_id = knowledge_id  # type: str
@@ -349,6 +367,8 @@ class BeeBotChatShrinkRequest(TeaModel):
         result = dict()
         if self.chat_bot_instance_id is not None:
             result['ChatBotInstanceId'] = self.chat_bot_instance_id
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.intent_name is not None:
             result['IntentName'] = self.intent_name
         if self.isv_code is not None:
@@ -373,6 +393,8 @@ class BeeBotChatShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('ChatBotInstanceId') is not None:
             self.chat_bot_instance_id = m.get('ChatBotInstanceId')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('IntentName') is not None:
             self.intent_name = m.get('IntentName')
         if m.get('IsvCode') is not None:
@@ -950,10 +972,11 @@ class CreateChatappTemplateRequestComponents(TeaModel):
 
 
 class CreateChatappTemplateRequest(TeaModel):
-    def __init__(self, category=None, components=None, cust_waba_id=None, example=None, isv_code=None, language=None,
-                 name=None, template_type=None):
+    def __init__(self, category=None, components=None, cust_space_id=None, cust_waba_id=None, example=None,
+                 isv_code=None, language=None, name=None, template_type=None):
         self.category = category  # type: str
         self.components = components  # type: list[CreateChatappTemplateRequestComponents]
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.example = example  # type: dict[str, str]
         self.isv_code = isv_code  # type: str
@@ -979,6 +1002,8 @@ class CreateChatappTemplateRequest(TeaModel):
         if self.components is not None:
             for k in self.components:
                 result['Components'].append(k.to_map() if k else None)
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.example is not None:
@@ -1002,6 +1027,8 @@ class CreateChatappTemplateRequest(TeaModel):
             for k in m.get('Components'):
                 temp_model = CreateChatappTemplateRequestComponents()
                 self.components.append(temp_model.from_map(k))
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('Example') is not None:
@@ -1018,10 +1045,11 @@ class CreateChatappTemplateRequest(TeaModel):
 
 
 class CreateChatappTemplateShrinkRequest(TeaModel):
-    def __init__(self, category=None, components_shrink=None, cust_waba_id=None, example_shrink=None, isv_code=None,
-                 language=None, name=None, template_type=None):
+    def __init__(self, category=None, components_shrink=None, cust_space_id=None, cust_waba_id=None,
+                 example_shrink=None, isv_code=None, language=None, name=None, template_type=None):
         self.category = category  # type: str
         self.components_shrink = components_shrink  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.example_shrink = example_shrink  # type: str
         self.isv_code = isv_code  # type: str
@@ -1042,6 +1070,8 @@ class CreateChatappTemplateShrinkRequest(TeaModel):
             result['Category'] = self.category
         if self.components_shrink is not None:
             result['Components'] = self.components_shrink
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.example_shrink is not None:
@@ -1062,6 +1092,8 @@ class CreateChatappTemplateShrinkRequest(TeaModel):
             self.category = m.get('Category')
         if m.get('Components') is not None:
             self.components_shrink = m.get('Components')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('Example') is not None:
@@ -1187,7 +1219,8 @@ class CreateChatappTemplateResponse(TeaModel):
 
 
 class DeleteChatappTemplateRequest(TeaModel):
-    def __init__(self, cust_waba_id=None, isv_code=None, template_code=None):
+    def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, template_code=None):
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.isv_code = isv_code  # type: str
         self.template_code = template_code  # type: str
@@ -1201,6 +1234,8 @@ class DeleteChatappTemplateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.isv_code is not None:
@@ -1211,6 +1246,8 @@ class DeleteChatappTemplateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('IsvCode') is not None:
@@ -1294,7 +1331,8 @@ class DeleteChatappTemplateResponse(TeaModel):
 
 
 class GetChatappTemplateDetailRequest(TeaModel):
-    def __init__(self, cust_waba_id=None, isv_code=None, language=None, template_code=None):
+    def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, language=None, template_code=None):
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
@@ -1309,6 +1347,8 @@ class GetChatappTemplateDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.isv_code is not None:
@@ -1321,6 +1361,8 @@ class GetChatappTemplateDetailRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('IsvCode') is not None:
@@ -1611,8 +1653,10 @@ class ListChatappTemplateRequestPage(TeaModel):
 
 
 class ListChatappTemplateRequest(TeaModel):
-    def __init__(self, audit_status=None, cust_waba_id=None, isv_code=None, language=None, name=None, page=None):
+    def __init__(self, audit_status=None, cust_space_id=None, cust_waba_id=None, isv_code=None, language=None,
+                 name=None, page=None):
         self.audit_status = audit_status  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
@@ -1631,6 +1675,8 @@ class ListChatappTemplateRequest(TeaModel):
         result = dict()
         if self.audit_status is not None:
             result['AuditStatus'] = self.audit_status
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.isv_code is not None:
@@ -1647,6 +1693,8 @@ class ListChatappTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('AuditStatus') is not None:
             self.audit_status = m.get('AuditStatus')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('IsvCode') is not None:
@@ -1662,9 +1710,10 @@ class ListChatappTemplateRequest(TeaModel):
 
 
 class ListChatappTemplateShrinkRequest(TeaModel):
-    def __init__(self, audit_status=None, cust_waba_id=None, isv_code=None, language=None, name=None,
-                 page_shrink=None):
+    def __init__(self, audit_status=None, cust_space_id=None, cust_waba_id=None, isv_code=None, language=None,
+                 name=None, page_shrink=None):
         self.audit_status = audit_status  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
@@ -1682,6 +1731,8 @@ class ListChatappTemplateShrinkRequest(TeaModel):
         result = dict()
         if self.audit_status is not None:
             result['AuditStatus'] = self.audit_status
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.isv_code is not None:
@@ -1698,6 +1749,8 @@ class ListChatappTemplateShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('AuditStatus') is not None:
             self.audit_status = m.get('AuditStatus')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('IsvCode') is not None:
@@ -1948,9 +2001,10 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
 
 
 class ModifyChatappTemplateRequest(TeaModel):
-    def __init__(self, components=None, cust_waba_id=None, example=None, isv_code=None, language=None,
-                 template_code=None):
+    def __init__(self, components=None, cust_space_id=None, cust_waba_id=None, example=None, isv_code=None,
+                 language=None, template_code=None):
         self.components = components  # type: list[ModifyChatappTemplateRequestComponents]
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.example = example  # type: dict[str, str]
         self.isv_code = isv_code  # type: str
@@ -1973,6 +2027,8 @@ class ModifyChatappTemplateRequest(TeaModel):
         if self.components is not None:
             for k in self.components:
                 result['Components'].append(k.to_map() if k else None)
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.example is not None:
@@ -1992,6 +2048,8 @@ class ModifyChatappTemplateRequest(TeaModel):
             for k in m.get('Components'):
                 temp_model = ModifyChatappTemplateRequestComponents()
                 self.components.append(temp_model.from_map(k))
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('Example') is not None:
@@ -2006,9 +2064,10 @@ class ModifyChatappTemplateRequest(TeaModel):
 
 
 class ModifyChatappTemplateShrinkRequest(TeaModel):
-    def __init__(self, components_shrink=None, cust_waba_id=None, example_shrink=None, isv_code=None, language=None,
-                 template_code=None):
+    def __init__(self, components_shrink=None, cust_space_id=None, cust_waba_id=None, example_shrink=None,
+                 isv_code=None, language=None, template_code=None):
         self.components_shrink = components_shrink  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.example_shrink = example_shrink  # type: str
         self.isv_code = isv_code  # type: str
@@ -2026,6 +2085,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
         result = dict()
         if self.components_shrink is not None:
             result['Components'] = self.components_shrink
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.example_shrink is not None:
@@ -2042,6 +2103,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('Components') is not None:
             self.components_shrink = m.get('Components')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('Example') is not None:
@@ -2164,6 +2227,335 @@ class ModifyChatappTemplateResponse(TeaModel):
         return self
 
 
+class QueryChatappBindWabaRequest(TeaModel):
+    def __init__(self, cust_space_id=None, isv_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.isv_code = isv_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryChatappBindWabaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.isv_code is not None:
+            result['IsvCode'] = self.isv_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('IsvCode') is not None:
+            self.isv_code = m.get('IsvCode')
+        return self
+
+
+class QueryChatappBindWabaResponseBodyData(TeaModel):
+    def __init__(self, account_review_status=None, currency=None, id=None, message_template_namespace=None,
+                 name=None):
+        self.account_review_status = account_review_status  # type: str
+        self.currency = currency  # type: str
+        self.id = id  # type: str
+        self.message_template_namespace = message_template_namespace  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryChatappBindWabaResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_review_status is not None:
+            result['AccountReviewStatus'] = self.account_review_status
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message_template_namespace is not None:
+            result['MessageTemplateNamespace'] = self.message_template_namespace
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountReviewStatus') is not None:
+            self.account_review_status = m.get('AccountReviewStatus')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MessageTemplateNamespace') is not None:
+            self.message_template_namespace = m.get('MessageTemplateNamespace')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class QueryChatappBindWabaResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryChatappBindWabaResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryChatappBindWabaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryChatappBindWabaResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryChatappBindWabaResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryChatappBindWabaResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryChatappBindWabaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryChatappBindWabaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryChatappPhoneNumbersRequest(TeaModel):
+    def __init__(self, cust_space_id=None, isv_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.isv_code = isv_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryChatappPhoneNumbersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.isv_code is not None:
+            result['IsvCode'] = self.isv_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('IsvCode') is not None:
+            self.isv_code = m.get('IsvCode')
+        return self
+
+
+class QueryChatappPhoneNumbersResponseBodyPhoneNumbers(TeaModel):
+    def __init__(self, phone_number=None, quality_rating=None, status=None, status_callback_url=None,
+                 status_queue=None, up_callback_url=None, up_queue=None, verified_name=None):
+        self.phone_number = phone_number  # type: str
+        self.quality_rating = quality_rating  # type: str
+        self.status = status  # type: str
+        self.status_callback_url = status_callback_url  # type: str
+        self.status_queue = status_queue  # type: str
+        self.up_callback_url = up_callback_url  # type: str
+        self.up_queue = up_queue  # type: str
+        self.verified_name = verified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryChatappPhoneNumbersResponseBodyPhoneNumbers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.quality_rating is not None:
+            result['QualityRating'] = self.quality_rating
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_callback_url is not None:
+            result['StatusCallbackUrl'] = self.status_callback_url
+        if self.status_queue is not None:
+            result['StatusQueue'] = self.status_queue
+        if self.up_callback_url is not None:
+            result['UpCallbackUrl'] = self.up_callback_url
+        if self.up_queue is not None:
+            result['UpQueue'] = self.up_queue
+        if self.verified_name is not None:
+            result['VerifiedName'] = self.verified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('QualityRating') is not None:
+            self.quality_rating = m.get('QualityRating')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusCallbackUrl') is not None:
+            self.status_callback_url = m.get('StatusCallbackUrl')
+        if m.get('StatusQueue') is not None:
+            self.status_queue = m.get('StatusQueue')
+        if m.get('UpCallbackUrl') is not None:
+            self.up_callback_url = m.get('UpCallbackUrl')
+        if m.get('UpQueue') is not None:
+            self.up_queue = m.get('UpQueue')
+        if m.get('VerifiedName') is not None:
+            self.verified_name = m.get('VerifiedName')
+        return self
+
+
+class QueryChatappPhoneNumbersResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, phone_numbers=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.phone_numbers = phone_numbers  # type: list[QueryChatappPhoneNumbersResponseBodyPhoneNumbers]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.phone_numbers:
+            for k in self.phone_numbers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryChatappPhoneNumbersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        result['PhoneNumbers'] = []
+        if self.phone_numbers is not None:
+            for k in self.phone_numbers:
+                result['PhoneNumbers'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        self.phone_numbers = []
+        if m.get('PhoneNumbers') is not None:
+            for k in m.get('PhoneNumbers'):
+                temp_model = QueryChatappPhoneNumbersResponseBodyPhoneNumbers()
+                self.phone_numbers.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryChatappPhoneNumbersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryChatappPhoneNumbersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryChatappPhoneNumbersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryChatappPhoneNumbersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SendChatappMassMessageRequestSenderList(TeaModel):
     def __init__(self, payload=None, template_params=None, to=None):
         self.payload = payload  # type: list[str]
@@ -2199,9 +2591,10 @@ class SendChatappMassMessageRequestSenderList(TeaModel):
 
 
 class SendChatappMassMessageRequest(TeaModel):
-    def __init__(self, channel_type=None, cust_waba_id=None, fall_back_content=None, fall_back_id=None, from_=None,
-                 isv_code=None, language=None, sender_list=None, task_id=None, template_code=None):
+    def __init__(self, channel_type=None, cust_space_id=None, cust_waba_id=None, fall_back_content=None,
+                 fall_back_id=None, from_=None, isv_code=None, language=None, sender_list=None, task_id=None, template_code=None):
         self.channel_type = channel_type  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.fall_back_content = fall_back_content  # type: str
         self.fall_back_id = fall_back_id  # type: str
@@ -2226,6 +2619,8 @@ class SendChatappMassMessageRequest(TeaModel):
         result = dict()
         if self.channel_type is not None:
             result['ChannelType'] = self.channel_type
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.fall_back_content is not None:
@@ -2252,6 +2647,8 @@ class SendChatappMassMessageRequest(TeaModel):
         m = m or dict()
         if m.get('ChannelType') is not None:
             self.channel_type = m.get('ChannelType')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('FallBackContent') is not None:
@@ -2277,9 +2674,11 @@ class SendChatappMassMessageRequest(TeaModel):
 
 
 class SendChatappMassMessageShrinkRequest(TeaModel):
-    def __init__(self, channel_type=None, cust_waba_id=None, fall_back_content=None, fall_back_id=None, from_=None,
-                 isv_code=None, language=None, sender_list_shrink=None, task_id=None, template_code=None):
+    def __init__(self, channel_type=None, cust_space_id=None, cust_waba_id=None, fall_back_content=None,
+                 fall_back_id=None, from_=None, isv_code=None, language=None, sender_list_shrink=None, task_id=None,
+                 template_code=None):
         self.channel_type = channel_type  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.fall_back_content = fall_back_content  # type: str
         self.fall_back_id = fall_back_id  # type: str
@@ -2301,6 +2700,8 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
         result = dict()
         if self.channel_type is not None:
             result['ChannelType'] = self.channel_type
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.fall_back_content is not None:
@@ -2325,6 +2726,8 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('ChannelType') is not None:
             self.channel_type = m.get('ChannelType')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('FallBackContent') is not None:
@@ -2425,11 +2828,12 @@ class SendChatappMassMessageResponse(TeaModel):
 
 
 class SendChatappMessageRequest(TeaModel):
-    def __init__(self, channel_type=None, content=None, cust_waba_id=None, fall_back_content=None,
-                 fall_back_id=None, from_=None, isv_code=None, language=None, message_type=None, payload=None, template_code=None,
-                 template_params=None, to=None, type=None):
+    def __init__(self, channel_type=None, content=None, cust_space_id=None, cust_waba_id=None,
+                 fall_back_content=None, fall_back_id=None, from_=None, isv_code=None, language=None, message_type=None, payload=None,
+                 template_code=None, template_params=None, to=None, type=None):
         self.channel_type = channel_type  # type: str
         self.content = content  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.fall_back_content = fall_back_content  # type: str
         self.fall_back_id = fall_back_id  # type: str
@@ -2456,6 +2860,8 @@ class SendChatappMessageRequest(TeaModel):
             result['ChannelType'] = self.channel_type
         if self.content is not None:
             result['Content'] = self.content
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.fall_back_content is not None:
@@ -2488,6 +2894,8 @@ class SendChatappMessageRequest(TeaModel):
             self.channel_type = m.get('ChannelType')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('FallBackContent') is not None:
@@ -2516,11 +2924,12 @@ class SendChatappMessageRequest(TeaModel):
 
 
 class SendChatappMessageShrinkRequest(TeaModel):
-    def __init__(self, channel_type=None, content=None, cust_waba_id=None, fall_back_content=None,
-                 fall_back_id=None, from_=None, isv_code=None, language=None, message_type=None, payload_shrink=None,
-                 template_code=None, template_params_shrink=None, to=None, type=None):
+    def __init__(self, channel_type=None, content=None, cust_space_id=None, cust_waba_id=None,
+                 fall_back_content=None, fall_back_id=None, from_=None, isv_code=None, language=None, message_type=None,
+                 payload_shrink=None, template_code=None, template_params_shrink=None, to=None, type=None):
         self.channel_type = channel_type  # type: str
         self.content = content  # type: str
+        self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
         self.fall_back_content = fall_back_content  # type: str
         self.fall_back_id = fall_back_id  # type: str
@@ -2547,6 +2956,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             result['ChannelType'] = self.channel_type
         if self.content is not None:
             result['Content'] = self.content
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
         if self.cust_waba_id is not None:
             result['CustWabaId'] = self.cust_waba_id
         if self.fall_back_content is not None:
@@ -2579,6 +2990,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             self.channel_type = m.get('ChannelType')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
         if m.get('CustWabaId') is not None:
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('FallBackContent') is not None:

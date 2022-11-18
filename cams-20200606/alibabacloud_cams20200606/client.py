@@ -39,6 +39,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.chat_bot_instance_id):
             body['ChatBotInstanceId'] = request.chat_bot_instance_id
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.isv_code):
             body['IsvCode'] = request.isv_code
         if not UtilClient.is_unset(request.perspective_shrink):
@@ -83,6 +85,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.chat_bot_instance_id):
             body['ChatBotInstanceId'] = request.chat_bot_instance_id
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.intent_name):
             body['IntentName'] = request.intent_name
         if not UtilClient.is_unset(request.isv_code):
@@ -132,6 +136,9 @@ class Client(OpenApiClient):
             request.components_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.components, 'Components', 'json')
         if not UtilClient.is_unset(tmp_req.example):
             request.example_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.example, 'Example', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
         body = {}
         if not UtilClient.is_unset(request.category):
             body['Category'] = request.category
@@ -150,6 +157,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.template_type):
             body['TemplateType'] = request.template_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -175,6 +183,8 @@ class Client(OpenApiClient):
     def delete_chatapp_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             query['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.isv_code):
@@ -207,6 +217,8 @@ class Client(OpenApiClient):
     def get_chatapp_template_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             query['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.isv_code):
@@ -247,6 +259,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.audit_status):
             query['AuditStatus'] = request.audit_status
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             query['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.isv_code):
@@ -291,6 +305,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.components_shrink):
             body['Components'] = request.components_shrink
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             body['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.example_shrink):
@@ -324,6 +340,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_chatapp_template_with_options(request, runtime)
 
+    def query_chatapp_bind_waba_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.isv_code):
+            query['IsvCode'] = request.isv_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryChatappBindWaba',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.QueryChatappBindWabaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_chatapp_bind_waba(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_chatapp_bind_waba_with_options(request, runtime)
+
+    def query_chatapp_phone_numbers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.isv_code):
+            query['IsvCode'] = request.isv_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryChatappPhoneNumbers',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.QueryChatappPhoneNumbersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_chatapp_phone_numbers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_chatapp_phone_numbers_with_options(request, runtime)
+
     def send_chatapp_mass_message_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = cams_20200606_models.SendChatappMassMessageShrinkRequest()
@@ -333,6 +409,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.channel_type):
             body['ChannelType'] = request.channel_type
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             body['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.fall_back_content):
@@ -390,6 +468,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.channel_type):
             body['ChannelType'] = request.channel_type
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.cust_waba_id):
             body['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.fall_back_content):
