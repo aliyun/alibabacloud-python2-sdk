@@ -182,6 +182,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -228,6 +230,8 @@ class Client(OpenApiClient):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.spec_type):
             query['SpecType'] = request.spec_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.topic_quota):
             query['TopicQuota'] = request.topic_quota
         req = open_api_models.OpenApiRequest(
@@ -276,6 +280,8 @@ class Client(OpenApiClient):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.spec_type):
             query['SpecType'] = request.spec_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.topic_quota):
             query['TopicQuota'] = request.topic_quota
         req = open_api_models.OpenApiRequest(
@@ -362,6 +368,8 @@ class Client(OpenApiClient):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.replication_factor):
             query['ReplicationFactor'] = request.replication_factor
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.topic):
             query['Topic'] = request.topic
         req = open_api_models.OpenApiRequest(
@@ -593,36 +601,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_acls_with_options(request, runtime)
 
-    def describe_node_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeNodeStatus',
-            version='2019-09-16',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            alikafka_20190916_models.DescribeNodeStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_node_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_node_status_with_options(request, runtime)
-
     def describe_sasl_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -810,6 +788,36 @@ class Client(OpenApiClient):
     def get_instance_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_list_with_options(request, runtime)
+
+    def get_quota_tip_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetQuotaTip',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.GetQuotaTipResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_quota_tip(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_quota_tip_with_options(request, runtime)
 
     def get_topic_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1190,6 +1198,8 @@ class Client(OpenApiClient):
             query['AllowedListIp'] = request.allowed_list_ip
         if not UtilClient.is_unset(request.allowed_list_type):
             query['AllowedListType'] = request.allowed_list_type
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.port_range):
