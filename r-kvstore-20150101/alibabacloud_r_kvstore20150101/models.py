@@ -6276,14 +6276,17 @@ class DescribeEngineVersionRequest(TeaModel):
 
 class DescribeEngineVersionResponseBody(TeaModel):
     def __init__(self, dbversion_release=None, enable_upgrade_major_version=None,
-                 enable_upgrade_minor_version=None, engine=None, is_latest_version=None, is_redis_compatible_version=None, major_version=None,
-                 minor_version=None, proxy_minor_version=None, proxy_version_release=None, request_id=None):
+                 enable_upgrade_minor_version=None, engine=None, is_latest_version=None, is_new_sslmode=None, is_redis_compatible_version=None,
+                 is_sslenable=None, major_version=None, minor_version=None, proxy_minor_version=None,
+                 proxy_version_release=None, request_id=None):
         self.dbversion_release = dbversion_release  # type: str
         self.enable_upgrade_major_version = enable_upgrade_major_version  # type: bool
         self.enable_upgrade_minor_version = enable_upgrade_minor_version  # type: bool
         self.engine = engine  # type: str
         self.is_latest_version = is_latest_version  # type: bool
-        self.is_redis_compatible_version = is_redis_compatible_version  # type: bool
+        self.is_new_sslmode = is_new_sslmode  # type: str
+        self.is_redis_compatible_version = is_redis_compatible_version  # type: str
+        self.is_sslenable = is_sslenable  # type: str
         self.major_version = major_version  # type: str
         self.minor_version = minor_version  # type: str
         self.proxy_minor_version = proxy_minor_version  # type: str
@@ -6309,8 +6312,12 @@ class DescribeEngineVersionResponseBody(TeaModel):
             result['Engine'] = self.engine
         if self.is_latest_version is not None:
             result['IsLatestVersion'] = self.is_latest_version
+        if self.is_new_sslmode is not None:
+            result['IsNewSSLMode'] = self.is_new_sslmode
         if self.is_redis_compatible_version is not None:
             result['IsRedisCompatibleVersion'] = self.is_redis_compatible_version
+        if self.is_sslenable is not None:
+            result['IsSSLEnable'] = self.is_sslenable
         if self.major_version is not None:
             result['MajorVersion'] = self.major_version
         if self.minor_version is not None:
@@ -6335,8 +6342,12 @@ class DescribeEngineVersionResponseBody(TeaModel):
             self.engine = m.get('Engine')
         if m.get('IsLatestVersion') is not None:
             self.is_latest_version = m.get('IsLatestVersion')
+        if m.get('IsNewSSLMode') is not None:
+            self.is_new_sslmode = m.get('IsNewSSLMode')
         if m.get('IsRedisCompatibleVersion') is not None:
             self.is_redis_compatible_version = m.get('IsRedisCompatibleVersion')
+        if m.get('IsSSLEnable') is not None:
+            self.is_sslenable = m.get('IsSSLEnable')
         if m.get('MajorVersion') is not None:
             self.major_version = m.get('MajorVersion')
         if m.get('MinorVersion') is not None:
