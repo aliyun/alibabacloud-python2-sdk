@@ -1379,15 +1379,13 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_video_preview_play_meta(self, domain_id, request):
+    def get_video_preview_play_meta(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_video_preview_play_meta_with_options(domain_id, request, headers, runtime)
+        return self.get_video_preview_play_meta_with_options(request, headers, runtime)
 
-    def get_video_preview_play_meta_with_options(self, domain_id, request, headers, runtime):
+    def get_video_preview_play_meta_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
-        host_map = {}
-        host_map['domain_id'] = domain_id
         body = {}
         if not UtilClient.is_unset(request.category):
             body['category'] = request.category
@@ -1398,7 +1396,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.share_id):
             body['share_id'] = request.share_id
         req = open_api_models.OpenApiRequest(
-            host_map=host_map,
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
