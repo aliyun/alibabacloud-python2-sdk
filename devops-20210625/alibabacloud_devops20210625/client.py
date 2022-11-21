@@ -40,7 +40,7 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_token):
-            query['AccessToken'] = request.access_token
+            query['accessToken'] = request.access_token
         if not UtilClient.is_unset(request.organization_id):
             query['organizationId'] = request.organization_id
         body = {}
@@ -78,9 +78,9 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_token):
-            query['AccessToken'] = request.access_token
+            query['accessToken'] = request.access_token
         if not UtilClient.is_unset(request.organization_id):
-            query['OrganizationId'] = request.organization_id
+            query['organizationId'] = request.organization_id
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -353,6 +353,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_pipeline_with_options(organization_id, request, headers, runtime)
+
+    def create_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.basic_info):
+            body['basicInfo'] = request.basic_info
+        if not UtilClient.is_unset(request.pipeline_yaml):
+            body['pipelineYaml'] = request.pipeline_yaml
+        if not UtilClient.is_unset(request.settings):
+            body['settings'] = request.settings
+        if not UtilClient.is_unset(request.trigger_info):
+            body['triggerInfo'] = request.trigger_info
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_pipeline_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -416,6 +452,56 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.CreateProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_protectd_branch(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_protectd_branch_with_options(repository_id, request, headers, runtime)
+
+    def create_protectd_branch_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.allow_merge_roles):
+            body['allowMergeRoles'] = request.allow_merge_roles
+        if not UtilClient.is_unset(request.allow_merge_user_ids):
+            body['allowMergeUserIds'] = request.allow_merge_user_ids
+        if not UtilClient.is_unset(request.allow_push_roles):
+            body['allowPushRoles'] = request.allow_push_roles
+        if not UtilClient.is_unset(request.allow_push_user_ids):
+            body['allowPushUserIds'] = request.allow_push_user_ids
+        if not UtilClient.is_unset(request.branch):
+            body['branch'] = request.branch
+        if not UtilClient.is_unset(request.id):
+            body['id'] = request.id
+        if not UtilClient.is_unset(request.merge_request_setting):
+            body['mergeRequestSetting'] = request.merge_request_setting
+        if not UtilClient.is_unset(request.test_setting_dto):
+            body['testSettingDTO'] = request.test_setting_dto
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProtectdBranch',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/protect_branches' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateProtectdBranchResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1133,6 +1219,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_repository_webhook(self, repository_id, hook_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_repository_webhook_with_options(repository_id, hook_id, request, headers, runtime)
+
+    def delete_repository_webhook_with_options(self, repository_id, hook_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteRepositoryWebhook',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/hooks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(hook_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteRepositoryWebhookResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_resource_member(self, organization_id, resource_type, resource_id, account_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1313,7 +1431,7 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_token):
-            query['AccessToken'] = request.access_token
+            query['accessToken'] = request.access_token
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1418,8 +1536,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.access_token):
             query['accessToken'] = request.access_token
-        if not UtilClient.is_unset(request.filepath):
-            query['filepath'] = request.filepath
+        if not UtilClient.is_unset(request.file_path):
+            query['filePath'] = request.file_path
         if not UtilClient.is_unset(request.organization_id):
             query['organizationId'] = request.organization_id
         if not UtilClient.is_unset(request.sha):
@@ -1713,22 +1831,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_project_member(self, request):
+    def get_project_member(self, repository_id, aliyun_pk, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_member_with_options(request, headers, runtime)
+        return self.get_project_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
 
-    def get_project_member_with_options(self, request, headers, runtime):
+    def get_project_member_with_options(self, repository_id, aliyun_pk, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_token):
-            query['AccessToken'] = request.access_token
+            query['accessToken'] = request.access_token
         if not UtilClient.is_unset(request.organization_id):
-            query['OrganizationId'] = request.organization_id
-        if not UtilClient.is_unset(request.repository_id):
-            query['repositoryId'] = request.repository_id
-        if not UtilClient.is_unset(request.user_aliyun_pk):
-            query['userAliyunPk'] = request.user_aliyun_pk
+            query['organizationId'] = request.organization_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1737,7 +1851,7 @@ class Client(OpenApiClient):
             action='GetProjectMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/member/get',
+            pathname='/repository/%s/members/get/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(aliyun_pk))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1780,6 +1894,40 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.GetRepositoryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_repository_commit(self, repository_id, sha, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_repository_commit_with_options(repository_id, sha, request, headers, runtime)
+
+    def get_repository_commit_with_options(self, repository_id, sha, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.show_signature):
+            query['showSignature'] = request.show_signature
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRepositoryCommit',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/commits/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(sha))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetRepositoryCommitResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2699,6 +2847,56 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.ListRepositoryCommitDiffResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_repository_commits(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_repository_commits_with_options(repository_id, request, headers, runtime)
+
+    def list_repository_commits_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.end):
+            query['end'] = request.end
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['path'] = request.path
+        if not UtilClient.is_unset(request.ref_name):
+            query['refName'] = request.ref_name
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        if not UtilClient.is_unset(request.show_comments_count):
+            query['showCommentsCount'] = request.show_comments_count
+        if not UtilClient.is_unset(request.show_signature):
+            query['showSignature'] = request.show_signature
+        if not UtilClient.is_unset(request.start):
+            query['start'] = request.start
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRepositoryCommits',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/commits' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListRepositoryCommitsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -3694,6 +3892,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pipeline_with_options(organization_id, request, headers, runtime)
+
+    def update_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.basic_info):
+            body['basicInfo'] = request.basic_info
+        if not UtilClient.is_unset(request.pipeline_yaml):
+            body['pipelineYaml'] = request.pipeline_yaml
+        if not UtilClient.is_unset(request.settings):
+            body['settings'] = request.settings
+        if not UtilClient.is_unset(request.trigger_info):
+            body['triggerInfo'] = request.trigger_info
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_pipeline_base_info(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3914,12 +4148,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_repository_member(self, repository_id, user_id, request):
+    def update_repository_member(self, repository_id, aliyun_pk, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_repository_member_with_options(repository_id, user_id, request, headers, runtime)
+        return self.update_repository_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
 
-    def update_repository_member_with_options(self, repository_id, user_id, request, headers, runtime):
+    def update_repository_member_with_options(self, repository_id, aliyun_pk, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_token):
@@ -3946,7 +4180,7 @@ class Client(OpenApiClient):
             action='UpdateRepositoryMember',
             version='2021-06-25',
             protocol='HTTPS',
-            pathname='/repository/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            pathname='/repository/%s/members/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(aliyun_pk))),
             method='PUT',
             auth_type='AK',
             style='ROA',
