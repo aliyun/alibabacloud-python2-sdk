@@ -9652,6 +9652,128 @@ class GetIfEcsTypeSupportHtConfigResponse(TeaModel):
         return self
 
 
+class GetJobLogRequest(TeaModel):
+    def __init__(self, cluster_id=None, exec_host=None, job_id=None, offset=None, size=None):
+        self.cluster_id = cluster_id  # type: str
+        self.exec_host = exec_host  # type: str
+        self.job_id = job_id  # type: str
+        self.offset = offset  # type: long
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJobLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.exec_host is not None:
+            result['ExecHost'] = self.exec_host
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.offset is not None:
+            result['Offset'] = self.offset
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ExecHost') is not None:
+            self.exec_host = m.get('ExecHost')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Offset') is not None:
+            self.offset = m.get('Offset')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
+class GetJobLogResponseBody(TeaModel):
+    def __init__(self, error_log=None, job_id=None, output_log=None, request_id=None):
+        self.error_log = error_log  # type: str
+        self.job_id = job_id  # type: str
+        self.output_log = output_log  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJobLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_log is not None:
+            result['ErrorLog'] = self.error_log
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.output_log is not None:
+            result['OutputLog'] = self.output_log
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorLog') is not None:
+            self.error_log = m.get('ErrorLog')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('OutputLog') is not None:
+            self.output_log = m.get('OutputLog')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetJobLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetJobLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetJobLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetJobLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetPostScriptsRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
         self.cluster_id = cluster_id  # type: str

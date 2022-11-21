@@ -1362,6 +1362,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_if_ecs_type_support_ht_config_with_options(request, runtime)
 
+    def get_job_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetJobLog',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.GetJobLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_job_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_job_log_with_options(request, runtime)
+
     def get_post_scripts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
