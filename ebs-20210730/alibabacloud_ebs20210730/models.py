@@ -1349,10 +1349,13 @@ class DescribeDedicatedBlockStorageClustersResponse(TeaModel):
 
 
 class DescribeDiskReplicaGroupsRequest(TeaModel):
-    def __init__(self, group_ids=None, max_results=None, next_token=None, region_id=None, site=None):
+    def __init__(self, group_ids=None, max_results=None, next_token=None, page_number=None, page_size=None,
+                 region_id=None, site=None):
         self.group_ids = group_ids  # type: str
         self.max_results = max_results  # type: long
         self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
         self.site = site  # type: str
 
@@ -1371,6 +1374,10 @@ class DescribeDiskReplicaGroupsRequest(TeaModel):
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
             result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.site is not None:
@@ -1385,6 +1392,10 @@ class DescribeDiskReplicaGroupsRequest(TeaModel):
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Site') is not None:
@@ -1505,10 +1516,14 @@ class DescribeDiskReplicaGroupsResponseBodyReplicaGroups(TeaModel):
 
 
 class DescribeDiskReplicaGroupsResponseBody(TeaModel):
-    def __init__(self, next_token=None, replica_groups=None, request_id=None):
+    def __init__(self, next_token=None, page_number=None, page_size=None, replica_groups=None, request_id=None,
+                 total_count=None):
         self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.replica_groups = replica_groups  # type: list[DescribeDiskReplicaGroupsResponseBodyReplicaGroups]
         self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.replica_groups:
@@ -1524,18 +1539,28 @@ class DescribeDiskReplicaGroupsResponseBody(TeaModel):
         result = dict()
         if self.next_token is not None:
             result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         result['ReplicaGroups'] = []
         if self.replica_groups is not None:
             for k in self.replica_groups:
                 result['ReplicaGroups'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         self.replica_groups = []
         if m.get('ReplicaGroups') is not None:
             for k in m.get('ReplicaGroups'):
@@ -1543,6 +1568,8 @@ class DescribeDiskReplicaGroupsResponseBody(TeaModel):
                 self.replica_groups.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
