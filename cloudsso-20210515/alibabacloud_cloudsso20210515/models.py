@@ -8484,9 +8484,10 @@ class UpdateInlinePolicyForAccessConfigurationResponse(TeaModel):
 
 
 class UpdateMFAAuthenticationSettingsRequest(TeaModel):
-    def __init__(self, directory_id=None, mfaauthentication_settings=None):
+    def __init__(self, directory_id=None, mfaauthentication_settings=None, operation_for_risk_login=None):
         self.directory_id = directory_id  # type: str
         self.mfaauthentication_settings = mfaauthentication_settings  # type: str
+        self.operation_for_risk_login = operation_for_risk_login  # type: str
 
     def validate(self):
         pass
@@ -8501,6 +8502,8 @@ class UpdateMFAAuthenticationSettingsRequest(TeaModel):
             result['DirectoryId'] = self.directory_id
         if self.mfaauthentication_settings is not None:
             result['MFAAuthenticationSettings'] = self.mfaauthentication_settings
+        if self.operation_for_risk_login is not None:
+            result['OperationForRiskLogin'] = self.operation_for_risk_login
         return result
 
     def from_map(self, m=None):
@@ -8509,6 +8512,8 @@ class UpdateMFAAuthenticationSettingsRequest(TeaModel):
             self.directory_id = m.get('DirectoryId')
         if m.get('MFAAuthenticationSettings') is not None:
             self.mfaauthentication_settings = m.get('MFAAuthenticationSettings')
+        if m.get('OperationForRiskLogin') is not None:
+            self.operation_for_risk_login = m.get('OperationForRiskLogin')
         return self
 
 
