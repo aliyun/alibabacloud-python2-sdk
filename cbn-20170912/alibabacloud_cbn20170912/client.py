@@ -379,6 +379,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -437,8 +439,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.service_type):
-            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -973,6 +975,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_description):
             query['TransitRouterAttachmentDescription'] = request.transit_router_attachment_description
         if not UtilClient.is_unset(request.transit_router_attachment_name):
@@ -1169,6 +1173,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_description):
             query['TransitRouterAttachmentDescription'] = request.transit_router_attachment_description
         if not UtilClient.is_unset(request.transit_router_attachment_name):
@@ -1223,6 +1229,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_description):
             query['TransitRouterAttachmentDescription'] = request.transit_router_attachment_description
         if not UtilClient.is_unset(request.transit_router_attachment_name):
@@ -1281,6 +1289,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_description):
             query['TransitRouterAttachmentDescription'] = request.transit_router_attachment_description
         if not UtilClient.is_unset(request.transit_router_attachment_name):
@@ -2718,44 +2728,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cen_vbr_health_check_with_options(request, runtime)
 
-    def describe_cen_vpc_flow_statistic_switch_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.cen_id):
-            query['CenId'] = request.cen_id
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeCenVpcFlowStatisticSwitch',
-            version='2017-09-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cbn_20170912_models.DescribeCenVpcFlowStatisticSwitchResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_cen_vpc_flow_statistic_switch(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_cen_vpc_flow_statistic_switch_with_options(request, runtime)
-
     def describe_cens_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3248,46 +3220,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.disable_cen_vbr_health_check_with_options(request, runtime)
 
-    def disable_cen_vpc_flow_statistic_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.cen_id):
-            query['CenId'] = request.cen_id
-        if not UtilClient.is_unset(request.client_token):
-            query['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DisableCenVpcFlowStatistic',
-            version='2017-09-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cbn_20170912_models.DisableCenVpcFlowStatisticResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def disable_cen_vpc_flow_statistic(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.disable_cen_vpc_flow_statistic_with_options(request, runtime)
-
     def disable_transit_router_route_table_propagation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3467,48 +3399,6 @@ class Client(OpenApiClient):
     def enable_cen_vbr_health_check(self, request):
         runtime = util_models.RuntimeOptions()
         return self.enable_cen_vbr_health_check_with_options(request, runtime)
-
-    def enable_cen_vpc_flow_statistic_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.cen_id):
-            query['CenId'] = request.cen_id
-        if not UtilClient.is_unset(request.client_token):
-            query['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.days):
-            query['Days'] = request.days
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='EnableCenVpcFlowStatistic',
-            version='2017-09-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cbn_20170912_models.EnableCenVpcFlowStatisticResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def enable_cen_vpc_flow_statistic(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.enable_cen_vpc_flow_statistic_with_options(request, runtime)
 
     def enable_transit_router_route_table_propagation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3743,6 +3633,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -4007,8 +3899,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.connect_peer_ids):
-            query['ConnectPeerIds'] = request.connect_peer_ids
         if not UtilClient.is_unset(request.group_ip_address):
             query['GroupIpAddress'] = request.group_ip_address
         if not UtilClient.is_unset(request.max_results):
@@ -4077,6 +3967,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_id):
             query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         if not UtilClient.is_unset(request.transit_router_id):
@@ -4355,6 +4247,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_id):
             query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         if not UtilClient.is_unset(request.transit_router_id):
@@ -4401,6 +4295,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_id):
             query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         if not UtilClient.is_unset(request.transit_router_id):
@@ -4447,6 +4343,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.transit_router_attachment_id):
             query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         if not UtilClient.is_unset(request.transit_router_id):
@@ -4615,8 +4513,6 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.service_type):
-            query['ServiceType'] = request.service_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5345,6 +5241,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -5503,6 +5401,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
