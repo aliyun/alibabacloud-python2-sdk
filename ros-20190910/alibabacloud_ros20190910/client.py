@@ -445,6 +445,8 @@ class Client(OpenApiClient):
             query['SourceResources'] = request.source_resources_shrink
         if not UtilClient.is_unset(request.source_tag_shrink):
             query['SourceTag'] = request.source_tag_shrink
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.template_scratch_type):
             query['TemplateScratchType'] = request.template_scratch_type
         req = open_api_models.OpenApiRequest(
@@ -1703,6 +1705,8 @@ class Client(OpenApiClient):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2039,6 +2043,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.template_scratch_id):
             query['TemplateScratchId'] = request.template_scratch_id
         if not UtilClient.is_unset(request.template_scratch_type):
@@ -2172,25 +2178,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.move_resource_group_with_options(request, runtime)
 
-    def preview_stack_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = ros20190910_models.PreviewStackShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.resource_config_rules):
-            request.resource_config_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_config_rules, 'ResourceConfigRules', 'json')
+    def preview_stack_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.disable_rollback):
             query['DisableRollback'] = request.disable_rollback
+        if not UtilClient.is_unset(request.enable_pre_config):
+            query['EnablePreConfig'] = request.enable_pre_config
         if not UtilClient.is_unset(request.parallelism):
             query['Parallelism'] = request.parallelism
         if not UtilClient.is_unset(request.parameters):
             query['Parameters'] = request.parameters
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_config_rules_shrink):
-            query['ResourceConfigRules'] = request.resource_config_rules_shrink
         if not UtilClient.is_unset(request.stack_id):
             query['StackId'] = request.stack_id
         if not UtilClient.is_unset(request.stack_name):
