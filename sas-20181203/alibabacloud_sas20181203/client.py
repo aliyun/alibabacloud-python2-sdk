@@ -579,8 +579,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_or_update_asset_group_with_options(request, runtime)
 
-    def create_service_linked_role_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def create_service_linked_role_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service_linked_role):
+            query['ServiceLinkedRole'] = request.service_linked_role
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='CreateServiceLinkedRole',
             version='2018-12-03',
@@ -597,9 +603,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_linked_role(self):
+    def create_service_linked_role(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_service_linked_role_with_options(runtime)
+        return self.create_service_linked_role_with_options(request, runtime)
 
     def create_similar_security_events_query_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1108,6 +1114,10 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.sort_column):
+            query['SortColumn'] = request.sort_column
+        if not UtilClient.is_unset(request.sort_type):
+            query['SortType'] = request.sort_type
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.tactic_id):
@@ -2761,6 +2771,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_image_grouped_vul_list_with_options(request, runtime)
 
+    def describe_image_list_by_sensitive_file_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sas_20181203_models.DescribeImageListBySensitiveFileShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.scan_range):
+            request.scan_range_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.scan_range, 'ScanRange', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image_digest):
+            query['ImageDigest'] = request.image_digest
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.repo_instance_id):
+            query['RepoInstanceId'] = request.repo_instance_id
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.repo_namespace):
+            query['RepoNamespace'] = request.repo_namespace
+        if not UtilClient.is_unset(request.risk_level):
+            query['RiskLevel'] = request.risk_level
+        if not UtilClient.is_unset(request.scan_range_shrink):
+            query['ScanRange'] = request.scan_range_shrink
+        if not UtilClient.is_unset(request.sensitive_file_key):
+            query['SensitiveFileKey'] = request.sensitive_file_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageListBySensitiveFile',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageListBySensitiveFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_list_by_sensitive_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_list_by_sensitive_file_with_options(request, runtime)
+
     def describe_image_list_with_baseline_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2842,6 +2902,94 @@ class Client(OpenApiClient):
     def describe_image_scan_auth_count(self):
         runtime = util_models.RuntimeOptions()
         return self.describe_image_scan_auth_count_with_options(runtime)
+
+    def describe_image_sensitive_file_by_key_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sas_20181203_models.DescribeImageSensitiveFileByKeyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.scan_range):
+            request.scan_range_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.scan_range, 'ScanRange', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image_uuid):
+            query['ImageUuid'] = request.image_uuid
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.scan_range_shrink):
+            query['ScanRange'] = request.scan_range_shrink
+        if not UtilClient.is_unset(request.sensitive_file_key):
+            query['SensitiveFileKey'] = request.sensitive_file_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageSensitiveFileByKey',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageSensitiveFileByKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_sensitive_file_by_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_sensitive_file_by_key_with_options(request, runtime)
+
+    def describe_image_sensitive_file_list_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sas_20181203_models.DescribeImageSensitiveFileListShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.scan_range):
+            request.scan_range_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.scan_range, 'ScanRange', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.criteria_type):
+            query['CriteriaType'] = request.criteria_type
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image_uuid):
+            query['ImageUuid'] = request.image_uuid
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.risk_level):
+            query['RiskLevel'] = request.risk_level
+        if not UtilClient.is_unset(request.scan_range_shrink):
+            query['ScanRange'] = request.scan_range_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageSensitiveFileList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageSensitiveFileListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_sensitive_file_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_sensitive_file_list_with_options(request, runtime)
 
     def describe_image_statistics_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -3098,6 +3246,38 @@ class Client(OpenApiClient):
     def describe_instance_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_statistics_with_options(request, runtime)
+
+    def describe_log_meta_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['From'] = request.from_
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLogMeta',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeLogMetaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_log_meta(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_log_meta_with_options(request, runtime)
 
     def describe_login_base_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3584,6 +3764,34 @@ class Client(OpenApiClient):
     def describe_property_sca_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_property_sca_detail_with_options(request, runtime)
+
+    def describe_property_schedule_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePropertyScheduleConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribePropertyScheduleConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_property_schedule_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_property_schedule_config_with_options(request, runtime)
 
     def describe_property_software_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4249,8 +4457,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_security_stat_info_with_options(request, runtime)
 
-    def describe_service_linked_role_status_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def describe_service_linked_role_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service_linked_role):
+            query['ServiceLinkedRole'] = request.service_linked_role
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='DescribeServiceLinkedRoleStatus',
             version='2018-12-03',
@@ -4267,9 +4481,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_linked_role_status(self):
+    def describe_service_linked_role_status(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_service_linked_role_status_with_options(runtime)
+        return self.describe_service_linked_role_status_with_options(request, runtime)
 
     def describe_similar_event_scenarios_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4644,6 +4858,10 @@ class Client(OpenApiClient):
             query['ParentEventTypes'] = request.parent_event_types
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.sort_column):
+            query['SortColumn'] = request.sort_column
+        if not UtilClient.is_unset(request.sort_type):
+            query['SortType'] = request.sort_type
         if not UtilClient.is_unset(request.source):
             query['Source'] = request.source
         if not UtilClient.is_unset(request.source_ip):
@@ -5020,6 +5238,36 @@ class Client(OpenApiClient):
     def describe_vpc_list(self):
         runtime = util_models.RuntimeOptions()
         return self.describe_vpc_list_with_options(runtime)
+
+    def describe_vul_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVulConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeVulConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vul_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vul_config_with_options(request, runtime)
 
     def describe_vul_details_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6780,6 +7028,8 @@ class Client(OpenApiClient):
             query['CycleDays'] = request.cycle_days
         if not UtilClient.is_unset(request.cycle_start_time):
             query['CycleStartTime'] = request.cycle_start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
         if not UtilClient.is_unset(request.name):
@@ -6790,6 +7040,10 @@ class Client(OpenApiClient):
             query['RiskSubTypeName'] = request.risk_sub_type_name
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -7159,11 +7413,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_web_lock_update_config_with_options(request, runtime)
 
+    def open_sensitive_file_scan_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.switch_on):
+            query['SwitchOn'] = request.switch_on
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='OpenSensitiveFileScan',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.OpenSensitiveFileScanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def open_sensitive_file_scan(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.open_sensitive_file_scan_with_options(request, runtime)
+
     def operate_agent_client_install_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_ids):
             query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.uuids):
             query['Uuids'] = request.uuids
         req = open_api_models.OpenApiRequest(
