@@ -916,8 +916,8 @@ class DescribeEaisResponseBodyInstancesInstanceTags(TeaModel):
 class DescribeEaisResponseBodyInstancesInstance(TeaModel):
     def __init__(self, category=None, client_instance_id=None, client_instance_name=None,
                  client_instance_type=None, creation_time=None, description=None, elastic_accelerated_instance_id=None,
-                 instance_name=None, instance_type=None, jupyter_url=None, region_id=None, security_group_id=None, status=None,
-                 tags=None, v_switch_id=None, zone_id=None):
+                 instance_name=None, instance_type=None, jupyter_url=None, region_id=None, security_group_id=None,
+                 start_time=None, status=None, tags=None, v_switch_id=None, zone_id=None):
         self.category = category  # type: str
         self.client_instance_id = client_instance_id  # type: str
         self.client_instance_name = client_instance_name  # type: str
@@ -930,6 +930,7 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
         self.jupyter_url = jupyter_url  # type: str
         self.region_id = region_id  # type: str
         self.security_group_id = security_group_id  # type: str
+        self.start_time = start_time  # type: str
         self.status = status  # type: str
         self.tags = tags  # type: DescribeEaisResponseBodyInstancesInstanceTags
         self.v_switch_id = v_switch_id  # type: str
@@ -969,6 +970,8 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
             result['RegionId'] = self.region_id
         if self.security_group_id is not None:
             result['SecurityGroupId'] = self.security_group_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.status is not None:
             result['Status'] = self.status
         if self.tags is not None:
@@ -1005,6 +1008,8 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('SecurityGroupId') is not None:
             self.security_group_id = m.get('SecurityGroupId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Tags') is not None:
