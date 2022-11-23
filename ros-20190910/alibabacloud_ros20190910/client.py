@@ -1396,6 +1396,8 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.parameters_key_filter):
             request.parameters_key_filter_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.parameters_key_filter, 'ParametersKeyFilter', 'json')
+        if not UtilClient.is_unset(tmp_req.parameters_order):
+            request.parameters_order_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.parameters_order, 'ParametersOrder', 'json')
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
@@ -1403,6 +1405,8 @@ class Client(OpenApiClient):
             query['Parameters'] = request.parameters
         if not UtilClient.is_unset(request.parameters_key_filter_shrink):
             query['ParametersKeyFilter'] = request.parameters_key_filter_shrink
+        if not UtilClient.is_unset(request.parameters_order_shrink):
+            query['ParametersOrder'] = request.parameters_order_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.template_body):
