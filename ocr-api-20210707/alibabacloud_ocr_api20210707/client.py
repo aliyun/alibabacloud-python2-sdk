@@ -1189,6 +1189,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.output_figure):
             query['OutputFigure'] = request.output_figure
+        if not UtilClient.is_unset(request.output_quality_info):
+            query['OutputQualityInfo'] = request.output_quality_info
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
         req = open_api_models.OpenApiRequest(
@@ -2289,3 +2291,71 @@ class Client(OpenApiClient):
     def recognize_waybill(self, request):
         runtime = util_models.RuntimeOptions()
         return self.recognize_waybill_with_options(request, runtime)
+
+    def verify_business_license_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.company_name):
+            query['CompanyName'] = request.company_name
+        if not UtilClient.is_unset(request.credit_code):
+            query['CreditCode'] = request.credit_code
+        if not UtilClient.is_unset(request.legal_person):
+            query['LegalPerson'] = request.legal_person
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='VerifyBusinessLicense',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.VerifyBusinessLicenseResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def verify_business_license(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.verify_business_license_with_options(request, runtime)
+
+    def verify_vatinvoice_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.invoice_code):
+            query['InvoiceCode'] = request.invoice_code
+        if not UtilClient.is_unset(request.invoice_date):
+            query['InvoiceDate'] = request.invoice_date
+        if not UtilClient.is_unset(request.invoice_no):
+            query['InvoiceNo'] = request.invoice_no
+        if not UtilClient.is_unset(request.invoice_sum):
+            query['InvoiceSum'] = request.invoice_sum
+        if not UtilClient.is_unset(request.verify_code):
+            query['VerifyCode'] = request.verify_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='VerifyVATInvoice',
+            version='2021-07-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocr_api_20210707_models.VerifyVATInvoiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def verify_vatinvoice(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.verify_vatinvoice_with_options(request, runtime)

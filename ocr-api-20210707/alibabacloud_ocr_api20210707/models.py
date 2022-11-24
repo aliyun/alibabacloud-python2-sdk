@@ -4044,8 +4044,9 @@ class RecognizeHouseholdResponse(TeaModel):
 
 
 class RecognizeIdcardRequest(TeaModel):
-    def __init__(self, output_figure=None, url=None, body=None):
+    def __init__(self, output_figure=None, output_quality_info=None, url=None, body=None):
         self.output_figure = output_figure  # type: bool
+        self.output_quality_info = output_quality_info  # type: bool
         self.url = url  # type: str
         self.body = body  # type: READABLE
 
@@ -4060,6 +4061,8 @@ class RecognizeIdcardRequest(TeaModel):
         result = dict()
         if self.output_figure is not None:
             result['OutputFigure'] = self.output_figure
+        if self.output_quality_info is not None:
+            result['OutputQualityInfo'] = self.output_quality_info
         if self.url is not None:
             result['Url'] = self.url
         if self.body is not None:
@@ -4070,6 +4073,8 @@ class RecognizeIdcardRequest(TeaModel):
         m = m or dict()
         if m.get('OutputFigure') is not None:
             self.output_figure = m.get('OutputFigure')
+        if m.get('OutputQualityInfo') is not None:
+            self.output_quality_info = m.get('OutputQualityInfo')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         if m.get('body') is not None:
@@ -7970,6 +7975,220 @@ class RecognizeWaybillResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RecognizeWaybillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class VerifyBusinessLicenseRequest(TeaModel):
+    def __init__(self, company_name=None, credit_code=None, legal_person=None):
+        self.company_name = company_name  # type: str
+        self.credit_code = credit_code  # type: str
+        self.legal_person = legal_person  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyBusinessLicenseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.company_name is not None:
+            result['CompanyName'] = self.company_name
+        if self.credit_code is not None:
+            result['CreditCode'] = self.credit_code
+        if self.legal_person is not None:
+            result['LegalPerson'] = self.legal_person
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CompanyName') is not None:
+            self.company_name = m.get('CompanyName')
+        if m.get('CreditCode') is not None:
+            self.credit_code = m.get('CreditCode')
+        if m.get('LegalPerson') is not None:
+            self.legal_person = m.get('LegalPerson')
+        return self
+
+
+class VerifyBusinessLicenseResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyBusinessLicenseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class VerifyBusinessLicenseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: VerifyBusinessLicenseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(VerifyBusinessLicenseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = VerifyBusinessLicenseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class VerifyVATInvoiceRequest(TeaModel):
+    def __init__(self, invoice_code=None, invoice_date=None, invoice_no=None, invoice_sum=None, verify_code=None):
+        self.invoice_code = invoice_code  # type: str
+        self.invoice_date = invoice_date  # type: str
+        self.invoice_no = invoice_no  # type: str
+        self.invoice_sum = invoice_sum  # type: str
+        self.verify_code = verify_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyVATInvoiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoice_code is not None:
+            result['InvoiceCode'] = self.invoice_code
+        if self.invoice_date is not None:
+            result['InvoiceDate'] = self.invoice_date
+        if self.invoice_no is not None:
+            result['InvoiceNo'] = self.invoice_no
+        if self.invoice_sum is not None:
+            result['InvoiceSum'] = self.invoice_sum
+        if self.verify_code is not None:
+            result['VerifyCode'] = self.verify_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvoiceCode') is not None:
+            self.invoice_code = m.get('InvoiceCode')
+        if m.get('InvoiceDate') is not None:
+            self.invoice_date = m.get('InvoiceDate')
+        if m.get('InvoiceNo') is not None:
+            self.invoice_no = m.get('InvoiceNo')
+        if m.get('InvoiceSum') is not None:
+            self.invoice_sum = m.get('InvoiceSum')
+        if m.get('VerifyCode') is not None:
+            self.verify_code = m.get('VerifyCode')
+        return self
+
+
+class VerifyVATInvoiceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyVATInvoiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class VerifyVATInvoiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: VerifyVATInvoiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(VerifyVATInvoiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = VerifyVATInvoiceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
