@@ -1020,6 +1020,93 @@ class DeletePCACertResponse(TeaModel):
         return self
 
 
+class DeleteUserCertificateRequest(TeaModel):
+    def __init__(self, cert_id=None):
+        self.cert_id = cert_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        return self
+
+
+class DeleteUserCertificateResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteUserCertificateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteUserCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteUserCertificateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeCertificateStateRequest(TeaModel):
     def __init__(self, order_id=None):
         self.order_id = order_id  # type: long
@@ -1446,6 +1533,175 @@ class GetCertWarehouseQuotaResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetCertWarehouseQuotaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetUserCertificateDetailRequest(TeaModel):
+    def __init__(self, cert_id=None):
+        self.cert_id = cert_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserCertificateDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        return self
+
+
+class GetUserCertificateDetailResponseBody(TeaModel):
+    def __init__(self, buy_in_aliyun=None, cert=None, city=None, common=None, country=None, end_date=None,
+                 expired=None, fingerprint=None, id=None, issuer=None, key=None, name=None, org_name=None, province=None,
+                 request_id=None, sans=None, start_date=None):
+        self.buy_in_aliyun = buy_in_aliyun  # type: bool
+        self.cert = cert  # type: str
+        self.city = city  # type: str
+        self.common = common  # type: str
+        self.country = country  # type: str
+        self.end_date = end_date  # type: str
+        self.expired = expired  # type: bool
+        self.fingerprint = fingerprint  # type: str
+        self.id = id  # type: long
+        self.issuer = issuer  # type: str
+        self.key = key  # type: str
+        self.name = name  # type: str
+        self.org_name = org_name  # type: str
+        self.province = province  # type: str
+        self.request_id = request_id  # type: str
+        self.sans = sans  # type: str
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserCertificateDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buy_in_aliyun is not None:
+            result['BuyInAliyun'] = self.buy_in_aliyun
+        if self.cert is not None:
+            result['Cert'] = self.cert
+        if self.city is not None:
+            result['City'] = self.city
+        if self.common is not None:
+            result['Common'] = self.common
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.expired is not None:
+            result['Expired'] = self.expired
+        if self.fingerprint is not None:
+            result['Fingerprint'] = self.fingerprint
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.issuer is not None:
+            result['Issuer'] = self.issuer
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.org_name is not None:
+            result['OrgName'] = self.org_name
+        if self.province is not None:
+            result['Province'] = self.province
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.sans is not None:
+            result['Sans'] = self.sans
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuyInAliyun') is not None:
+            self.buy_in_aliyun = m.get('BuyInAliyun')
+        if m.get('Cert') is not None:
+            self.cert = m.get('Cert')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('Common') is not None:
+            self.common = m.get('Common')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('Expired') is not None:
+            self.expired = m.get('Expired')
+        if m.get('Fingerprint') is not None:
+            self.fingerprint = m.get('Fingerprint')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Issuer') is not None:
+            self.issuer = m.get('Issuer')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OrgName') is not None:
+            self.org_name = m.get('OrgName')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Sans') is not None:
+            self.sans = m.get('Sans')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class GetUserCertificateDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetUserCertificateDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetUserCertificateDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetUserCertificateDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2591,6 +2847,129 @@ class UploadPCACertResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UploadPCACertResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UploadUserCertificateRequest(TeaModel):
+    def __init__(self, cert=None, encrypt_cert=None, encrypt_private_key=None, key=None, name=None, sign_cert=None,
+                 sign_private_key=None):
+        self.cert = cert  # type: str
+        self.encrypt_cert = encrypt_cert  # type: str
+        self.encrypt_private_key = encrypt_private_key  # type: str
+        self.key = key  # type: str
+        self.name = name  # type: str
+        self.sign_cert = sign_cert  # type: str
+        self.sign_private_key = sign_private_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadUserCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert is not None:
+            result['Cert'] = self.cert
+        if self.encrypt_cert is not None:
+            result['EncryptCert'] = self.encrypt_cert
+        if self.encrypt_private_key is not None:
+            result['EncryptPrivateKey'] = self.encrypt_private_key
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sign_cert is not None:
+            result['SignCert'] = self.sign_cert
+        if self.sign_private_key is not None:
+            result['SignPrivateKey'] = self.sign_private_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cert') is not None:
+            self.cert = m.get('Cert')
+        if m.get('EncryptCert') is not None:
+            self.encrypt_cert = m.get('EncryptCert')
+        if m.get('EncryptPrivateKey') is not None:
+            self.encrypt_private_key = m.get('EncryptPrivateKey')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SignCert') is not None:
+            self.sign_cert = m.get('SignCert')
+        if m.get('SignPrivateKey') is not None:
+            self.sign_private_key = m.get('SignPrivateKey')
+        return self
+
+
+class UploadUserCertificateResponseBody(TeaModel):
+    def __init__(self, cert_id=None, request_id=None):
+        self.cert_id = cert_id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadUserCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UploadUserCertificateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UploadUserCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UploadUserCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UploadUserCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
