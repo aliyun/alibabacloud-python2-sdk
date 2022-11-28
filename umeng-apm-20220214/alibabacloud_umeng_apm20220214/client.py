@@ -137,3 +137,37 @@ class Client(OpenApiClient):
             umeng_apm_20220214_models.GetTodayStatTrendResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_alert_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_alert_plan_with_options(request, headers, runtime)
+
+    def update_alert_plan_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['dataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.plan_id):
+            query['planId'] = request.plan_id
+        if not UtilClient.is_unset(request.versions):
+            query['versions'] = request.versions
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAlertPlan',
+            version='2022-02-14',
+            protocol='HTTPS',
+            pathname='/updateAlertPlan',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            umeng_apm_20220214_models.UpdateAlertPlanResponse(),
+            self.call_api(params, req, runtime)
+        )

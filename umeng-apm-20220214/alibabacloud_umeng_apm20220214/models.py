@@ -516,3 +516,110 @@ class GetTodayStatTrendResponse(TeaModel):
         return self
 
 
+class UpdateAlertPlanRequest(TeaModel):
+    def __init__(self, data_source_id=None, plan_id=None, versions=None):
+        self.data_source_id = data_source_id  # type: str
+        self.plan_id = plan_id  # type: long
+        self.versions = versions  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAlertPlanRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['dataSourceId'] = self.data_source_id
+        if self.plan_id is not None:
+            result['planId'] = self.plan_id
+        if self.versions is not None:
+            result['versions'] = self.versions
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataSourceId') is not None:
+            self.data_source_id = m.get('dataSourceId')
+        if m.get('planId') is not None:
+            self.plan_id = m.get('planId')
+        if m.get('versions') is not None:
+            self.versions = m.get('versions')
+        return self
+
+
+class UpdateAlertPlanResponseBody(TeaModel):
+    def __init__(self, code=None, msg=None, success=None):
+        self.code = code  # type: long
+        self.msg = msg  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAlertPlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateAlertPlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAlertPlanResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAlertPlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateAlertPlanResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
