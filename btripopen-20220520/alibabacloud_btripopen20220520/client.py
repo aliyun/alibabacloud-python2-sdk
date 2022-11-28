@@ -750,6 +750,43 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def car_order_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.CarOrderQueryHeaders()
+        return self.car_order_query_with_options(request, headers, runtime)
+
+    def car_order_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.sub_order_id):
+            query['sub_order_id'] = request.sub_order_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CarOrderQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/car/v1/order',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.CarOrderQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def city_search(self, request):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.CitySearchHeaders()
@@ -1577,6 +1614,41 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             btrip_open_20220520_models.HotelOrderListQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def hotel_order_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.HotelOrderQueryHeaders()
+        return self.hotel_order_query_with_options(request, headers, runtime)
+
+    def hotel_order_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='HotelOrderQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/hotel/v1/order',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.HotelOrderQueryResponse(),
             self.call_api(params, req, runtime)
         )
 
