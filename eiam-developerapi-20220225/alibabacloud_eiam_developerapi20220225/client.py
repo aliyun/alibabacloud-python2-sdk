@@ -39,8 +39,6 @@ class Client(OpenApiClient):
 
     def create_organizational_unit_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -63,7 +61,7 @@ class Client(OpenApiClient):
             action='CreateOrganizationalUnit',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/organizationalUnits' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -82,9 +80,9 @@ class Client(OpenApiClient):
 
     def create_user_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
+        if not UtilClient.is_unset(request.custom_fields):
+            body['customFields'] = request.custom_fields
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         if not UtilClient.is_unset(request.display_name):
@@ -95,6 +93,8 @@ class Client(OpenApiClient):
             body['emailVerified'] = request.email_verified
         if not UtilClient.is_unset(request.password):
             body['password'] = request.password
+        if not UtilClient.is_unset(request.password_initialization_config):
+            body['passwordInitializationConfig'] = request.password_initialization_config
         if not UtilClient.is_unset(request.phone_number):
             body['phoneNumber'] = request.phone_number
         if not UtilClient.is_unset(request.phone_number_verified):
@@ -120,7 +120,7 @@ class Client(OpenApiClient):
             action='CreateUser',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -138,9 +138,6 @@ class Client(OpenApiClient):
         return self.delete_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def delete_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        organizational_unit_id = OpenApiUtilClient.get_encode_param(organizational_unit_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -153,7 +150,7 @@ class Client(OpenApiClient):
             action='DeleteOrganizationalUnit',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(organizational_unit_id)),
+            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organizational_unit_id))),
             method='DELETE',
             auth_type='Anonymous',
             style='ROA',
@@ -171,9 +168,6 @@ class Client(OpenApiClient):
         return self.delete_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def delete_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -186,7 +180,7 @@ class Client(OpenApiClient):
             action='DeleteUser',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(user_id)),
+            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='DELETE',
             auth_type='Anonymous',
             style='ROA',
@@ -198,6 +192,66 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def disable_user(self, instance_id, application_id, user_id):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.DisableUserHeaders()
+        return self.disable_user_with_options(instance_id, application_id, user_id, headers, runtime)
+
+    def disable_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='DisableUser',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/disable' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.DisableUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_user(self, instance_id, application_id, user_id):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.EnableUserHeaders()
+        return self.enable_user_with_options(instance_id, application_id, user_id, headers, runtime)
+
+    def enable_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='EnableUser',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/enable' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.EnableUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def generate_device_code(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -205,8 +259,6 @@ class Client(OpenApiClient):
 
     def generate_device_code_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         query = {}
         if not UtilClient.is_unset(request.scope):
             query['scope'] = request.scope
@@ -218,7 +270,7 @@ class Client(OpenApiClient):
             action='GenerateDeviceCode',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/oauth2/device/code' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/oauth2/device/code' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -237,8 +289,6 @@ class Client(OpenApiClient):
 
     def generate_token_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         query = {}
         if not UtilClient.is_unset(request.client_id):
             query['client_id'] = request.client_id
@@ -272,7 +322,7 @@ class Client(OpenApiClient):
             action='GenerateToken',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/oauth2/token' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/oauth2/token' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -290,8 +340,6 @@ class Client(OpenApiClient):
         return self.get_application_provisioning_scope_with_options(instance_id, application_id, headers, runtime)
 
     def get_application_provisioning_scope_with_options(self, instance_id, application_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -304,7 +352,7 @@ class Client(OpenApiClient):
             action='GetApplicationProvisioningScope',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/provisioningScope' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/provisioningScope' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -322,9 +370,6 @@ class Client(OpenApiClient):
         return self.get_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def get_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        organizational_unit_id = OpenApiUtilClient.get_encode_param(organizational_unit_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -337,7 +382,7 @@ class Client(OpenApiClient):
             action='GetOrganizationalUnit',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(organizational_unit_id)),
+            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organizational_unit_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -356,8 +401,6 @@ class Client(OpenApiClient):
 
     def get_organizational_unit_id_by_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.organizational_unit_external_id):
             body['organizationalUnitExternalId'] = request.organizational_unit_external_id
@@ -378,7 +421,7 @@ class Client(OpenApiClient):
             action='GetOrganizationalUnitIdByExternalId',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/_/actions/getOrganizationalUnitIdByExternalId' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/organizationalUnits/_/actions/getOrganizationalUnitIdByExternalId' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -396,9 +439,6 @@ class Client(OpenApiClient):
         return self.get_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def get_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -411,7 +451,7 @@ class Client(OpenApiClient):
             action='GetUser',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(user_id)),
+            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -430,8 +470,6 @@ class Client(OpenApiClient):
 
     def get_user_id_by_email_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.email):
             body['email'] = request.email
@@ -448,7 +486,7 @@ class Client(OpenApiClient):
             action='GetUserIdByEmail',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/_/actions/getUserIdByEmail' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users/_/actions/getUserIdByEmail' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -467,8 +505,6 @@ class Client(OpenApiClient):
 
     def get_user_id_by_phone_number_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.phone_number):
             body['phoneNumber'] = request.phone_number
@@ -485,7 +521,7 @@ class Client(OpenApiClient):
             action='GetUserIdByPhoneNumber',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/_/actions/getUserIdByPhoneNumber' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users/_/actions/getUserIdByPhoneNumber' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -504,8 +540,6 @@ class Client(OpenApiClient):
 
     def get_user_id_by_user_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.user_external_id):
             body['userExternalId'] = request.user_external_id
@@ -526,7 +560,7 @@ class Client(OpenApiClient):
             action='GetUserIdByUserExternalId',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/_/actions/getUserIdByExternalId' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users/_/actions/getUserIdByExternalId' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -545,8 +579,6 @@ class Client(OpenApiClient):
 
     def get_user_id_by_username_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         body = {}
         if not UtilClient.is_unset(request.username):
             body['username'] = request.username
@@ -563,7 +595,7 @@ class Client(OpenApiClient):
             action='GetUserIdByUsername',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/_/actions/getUserIdByUsername' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users/_/actions/getUserIdByUsername' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
@@ -581,8 +613,6 @@ class Client(OpenApiClient):
         return self.get_user_info_with_options(instance_id, application_id, headers, runtime)
 
     def get_user_info_with_options(self, instance_id, application_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -595,7 +625,7 @@ class Client(OpenApiClient):
             action='GetUserInfo',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/oauth2/userinfo' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/oauth2/userinfo' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -613,9 +643,6 @@ class Client(OpenApiClient):
         return self.list_organizational_unit_parent_ids_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def list_organizational_unit_parent_ids_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        organizational_unit_id = OpenApiUtilClient.get_encode_param(organizational_unit_id)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -628,7 +655,7 @@ class Client(OpenApiClient):
             action='ListOrganizationalUnitParentIds',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/%s/parentIds' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(organizational_unit_id)),
+            pathname='/v2/%s/%s/organizationalUnits/%s/parentIds' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organizational_unit_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -647,8 +674,6 @@ class Client(OpenApiClient):
 
     def list_organizational_units_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -669,7 +694,7 @@ class Client(OpenApiClient):
             action='ListOrganizationalUnits',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/organizationalUnits' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -688,8 +713,6 @@ class Client(OpenApiClient):
 
     def list_users_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         query = {}
         if not UtilClient.is_unset(request.organizational_unit_id):
             query['organizationalUnitId'] = request.organizational_unit_id
@@ -710,7 +733,7 @@ class Client(OpenApiClient):
             action='ListUsers',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/users' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='GET',
             auth_type='Anonymous',
             style='ROA',
@@ -729,9 +752,6 @@ class Client(OpenApiClient):
 
     def patch_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        organizational_unit_id = OpenApiUtilClient.get_encode_param(organizational_unit_id)
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
@@ -750,7 +770,7 @@ class Client(OpenApiClient):
             action='PatchOrganizationalUnit',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(organizational_unit_id)),
+            pathname='/v2/%s/%s/organizationalUnits/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organizational_unit_id))),
             method='PATCH',
             auth_type='Anonymous',
             style='ROA',
@@ -769,10 +789,9 @@ class Client(OpenApiClient):
 
     def patch_user_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
         body = {}
+        if not UtilClient.is_unset(request.custom_fields):
+            body['customFields'] = request.custom_fields
         if not UtilClient.is_unset(request.display_name):
             body['displayName'] = request.display_name
         if not UtilClient.is_unset(request.email):
@@ -800,7 +819,7 @@ class Client(OpenApiClient):
             action='PatchUser',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id), TeaConverter.to_unicode(user_id)),
+            pathname='/v2/%s/%s/users/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
             method='PATCH',
             auth_type='Anonymous',
             style='ROA',
@@ -819,8 +838,6 @@ class Client(OpenApiClient):
 
     def revoke_token_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        application_id = OpenApiUtilClient.get_encode_param(application_id)
         query = {}
         if not UtilClient.is_unset(request.client_id):
             query['client_id'] = request.client_id
@@ -838,7 +855,7 @@ class Client(OpenApiClient):
             action='RevokeToken',
             version='2022-02-25',
             protocol='HTTPS',
-            pathname='/v2/%s/%s/oauth2/revoke' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(application_id)),
+            pathname='/v2/%s/%s/oauth2/revoke' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id))),
             method='POST',
             auth_type='Anonymous',
             style='ROA',
