@@ -3,190 +3,27 @@
 from Tea.model import TeaModel
 
 
-class CreateCertificateWithExtensionRequest(TeaModel):
-    def __init__(self, after_time=None, algorithm_key_size=None, alias_name=None, append_crl=None,
-                 basic_constraints_critical=None, before_time=None, cert_type=None, common_name=None, country_code=None, csr_pem_string=None,
-                 locality=None, organization=None, organization_unit=None, parent_identifier=None, sans=None, state=None):
-        self.after_time = after_time  # type: long
-        self.algorithm_key_size = algorithm_key_size  # type: int
-        self.alias_name = alias_name  # type: str
-        self.append_crl = append_crl  # type: bool
-        self.basic_constraints_critical = basic_constraints_critical  # type: bool
-        self.before_time = before_time  # type: long
-        self.cert_type = cert_type  # type: str
-        self.common_name = common_name  # type: str
-        self.country_code = country_code  # type: str
-        self.csr_pem_string = csr_pem_string  # type: str
-        self.locality = locality  # type: str
-        self.organization = organization  # type: str
-        self.organization_unit = organization_unit  # type: str
-        self.parent_identifier = parent_identifier  # type: str
-        self.sans = sans  # type: str
-        self.state = state  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateCertificateWithExtensionRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.after_time is not None:
-            result['AfterTime'] = self.after_time
-        if self.algorithm_key_size is not None:
-            result['AlgorithmKeySize'] = self.algorithm_key_size
-        if self.alias_name is not None:
-            result['AliasName'] = self.alias_name
-        if self.append_crl is not None:
-            result['AppendCrl'] = self.append_crl
-        if self.basic_constraints_critical is not None:
-            result['BasicConstraintsCritical'] = self.basic_constraints_critical
-        if self.before_time is not None:
-            result['BeforeTime'] = self.before_time
-        if self.cert_type is not None:
-            result['CertType'] = self.cert_type
-        if self.common_name is not None:
-            result['CommonName'] = self.common_name
-        if self.country_code is not None:
-            result['CountryCode'] = self.country_code
-        if self.csr_pem_string is not None:
-            result['CsrPemString'] = self.csr_pem_string
-        if self.locality is not None:
-            result['Locality'] = self.locality
-        if self.organization is not None:
-            result['Organization'] = self.organization
-        if self.organization_unit is not None:
-            result['OrganizationUnit'] = self.organization_unit
-        if self.parent_identifier is not None:
-            result['ParentIdentifier'] = self.parent_identifier
-        if self.sans is not None:
-            result['Sans'] = self.sans
-        if self.state is not None:
-            result['State'] = self.state
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AfterTime') is not None:
-            self.after_time = m.get('AfterTime')
-        if m.get('AlgorithmKeySize') is not None:
-            self.algorithm_key_size = m.get('AlgorithmKeySize')
-        if m.get('AliasName') is not None:
-            self.alias_name = m.get('AliasName')
-        if m.get('AppendCrl') is not None:
-            self.append_crl = m.get('AppendCrl')
-        if m.get('BasicConstraintsCritical') is not None:
-            self.basic_constraints_critical = m.get('BasicConstraintsCritical')
-        if m.get('BeforeTime') is not None:
-            self.before_time = m.get('BeforeTime')
-        if m.get('CertType') is not None:
-            self.cert_type = m.get('CertType')
-        if m.get('CommonName') is not None:
-            self.common_name = m.get('CommonName')
-        if m.get('CountryCode') is not None:
-            self.country_code = m.get('CountryCode')
-        if m.get('CsrPemString') is not None:
-            self.csr_pem_string = m.get('CsrPemString')
-        if m.get('Locality') is not None:
-            self.locality = m.get('Locality')
-        if m.get('Organization') is not None:
-            self.organization = m.get('Organization')
-        if m.get('OrganizationUnit') is not None:
-            self.organization_unit = m.get('OrganizationUnit')
-        if m.get('ParentIdentifier') is not None:
-            self.parent_identifier = m.get('ParentIdentifier')
-        if m.get('Sans') is not None:
-            self.sans = m.get('Sans')
-        if m.get('State') is not None:
-            self.state = m.get('State')
-        return self
-
-
-class CreateCertificateWithExtensionResponseBody(TeaModel):
-    def __init__(self, certificate=None, certificate_chain=None, identifier=None, request_id=None):
-        self.certificate = certificate  # type: str
-        self.certificate_chain = certificate_chain  # type: str
-        self.identifier = identifier  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateCertificateWithExtensionResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.certificate is not None:
-            result['Certificate'] = self.certificate
-        if self.certificate_chain is not None:
-            result['CertificateChain'] = self.certificate_chain
-        if self.identifier is not None:
-            result['Identifier'] = self.identifier
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Certificate') is not None:
-            self.certificate = m.get('Certificate')
-        if m.get('CertificateChain') is not None:
-            self.certificate_chain = m.get('CertificateChain')
-        if m.get('Identifier') is not None:
-            self.identifier = m.get('Identifier')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class CreateCertificateWithExtensionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateCertificateWithExtensionResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateCertificateWithExtensionResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateCertificateWithExtensionResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateClientCertificateRequest(TeaModel):
-    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, days=None,
-                 parent_identifier=None, san_type=None, san_value=None):
+    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
+                 days=None, immediately=None, locality=None, months=None, organization=None, organization_unit=None,
+                 parent_identifier=None, san_type=None, san_value=None, state=None, years=None):
         self.after_time = after_time  # type: long
         self.algorithm = algorithm  # type: str
         self.before_time = before_time  # type: long
         self.common_name = common_name  # type: str
+        self.country = country  # type: str
+        self.csr = csr  # type: str
         self.days = days  # type: int
+        self.immediately = immediately  # type: int
+        self.locality = locality  # type: str
+        self.months = months  # type: int
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
         self.parent_identifier = parent_identifier  # type: str
         self.san_type = san_type  # type: int
         self.san_value = san_value  # type: str
+        self.state = state  # type: str
+        self.years = years  # type: int
 
     def validate(self):
         pass
@@ -205,14 +42,32 @@ class CreateClientCertificateRequest(TeaModel):
             result['BeforeTime'] = self.before_time
         if self.common_name is not None:
             result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.csr is not None:
+            result['Csr'] = self.csr
         if self.days is not None:
             result['Days'] = self.days
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.months is not None:
+            result['Months'] = self.months
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
         if self.san_type is not None:
             result['SanType'] = self.san_type
         if self.san_value is not None:
             result['SanValue'] = self.san_value
+        if self.state is not None:
+            result['State'] = self.state
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
@@ -225,14 +80,32 @@ class CreateClientCertificateRequest(TeaModel):
             self.before_time = m.get('BeforeTime')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Csr') is not None:
+            self.csr = m.get('Csr')
         if m.get('Days') is not None:
             self.days = m.get('Days')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Months') is not None:
+            self.months = m.get('Months')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
         if m.get('SanType') is not None:
             self.san_type = m.get('SanType')
         if m.get('SanValue') is not None:
             self.san_value = m.get('SanValue')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
@@ -287,12 +160,14 @@ class CreateClientCertificateResponseBody(TeaModel):
 
 
 class CreateClientCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateClientCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -305,6 +180,8 @@ class CreateClientCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -313,6 +190,8 @@ class CreateClientCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateClientCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -320,15 +199,27 @@ class CreateClientCertificateResponse(TeaModel):
 
 
 class CreateClientCertificateWithCsrRequest(TeaModel):
-    def __init__(self, after_time=None, before_time=None, csr=None, days=None, parent_identifier=None, san_type=None,
-                 san_value=None):
+    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
+                 csr_1=None, days=None, immediately=None, locality=None, months=None, organization=None,
+                 organization_unit=None, parent_identifier=None, san_type=None, san_value=None, state=None, years=None):
         self.after_time = after_time  # type: long
+        self.algorithm = algorithm  # type: str
         self.before_time = before_time  # type: long
+        self.common_name = common_name  # type: str
+        self.country = country  # type: str
         self.csr = csr  # type: str
+        self.csr_1 = csr_1  # type: str
         self.days = days  # type: int
+        self.immediately = immediately  # type: int
+        self.locality = locality  # type: str
+        self.months = months  # type: int
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
         self.parent_identifier = parent_identifier  # type: str
         self.san_type = san_type  # type: int
         self.san_value = san_value  # type: str
+        self.state = state  # type: str
+        self.years = years  # type: int
 
     def validate(self):
         pass
@@ -341,36 +232,80 @@ class CreateClientCertificateWithCsrRequest(TeaModel):
         result = dict()
         if self.after_time is not None:
             result['AfterTime'] = self.after_time
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
         if self.before_time is not None:
             result['BeforeTime'] = self.before_time
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
         if self.csr is not None:
             result['Csr'] = self.csr
+        if self.csr_1 is not None:
+            result['Csr1'] = self.csr_1
         if self.days is not None:
             result['Days'] = self.days
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.months is not None:
+            result['Months'] = self.months
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
         if self.san_type is not None:
             result['SanType'] = self.san_type
         if self.san_value is not None:
             result['SanValue'] = self.san_value
+        if self.state is not None:
+            result['State'] = self.state
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AfterTime') is not None:
             self.after_time = m.get('AfterTime')
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
         if m.get('BeforeTime') is not None:
             self.before_time = m.get('BeforeTime')
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
         if m.get('Csr') is not None:
             self.csr = m.get('Csr')
+        if m.get('Csr1') is not None:
+            self.csr_1 = m.get('Csr1')
         if m.get('Days') is not None:
             self.days = m.get('Days')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Months') is not None:
+            self.months = m.get('Months')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
         if m.get('SanType') is not None:
             self.san_type = m.get('SanType')
         if m.get('SanValue') is not None:
             self.san_value = m.get('SanValue')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
@@ -425,12 +360,14 @@ class CreateClientCertificateWithCsrResponseBody(TeaModel):
 
 
 class CreateClientCertificateWithCsrResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateClientCertificateWithCsrResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -443,6 +380,8 @@ class CreateClientCertificateWithCsrResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -451,6 +390,8 @@ class CreateClientCertificateWithCsrResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateClientCertificateWithCsrResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -506,12 +447,14 @@ class CreateRevokeClientCertificateResponseBody(TeaModel):
 
 
 class CreateRevokeClientCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateRevokeClientCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -524,6 +467,8 @@ class CreateRevokeClientCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -532,6 +477,8 @@ class CreateRevokeClientCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateRevokeClientCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -638,12 +585,14 @@ class CreateRootCACertificateResponseBody(TeaModel):
 
 
 class CreateRootCACertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateRootCACertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -656,6 +605,8 @@ class CreateRootCACertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -664,6 +615,8 @@ class CreateRootCACertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateRootCACertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -671,15 +624,25 @@ class CreateRootCACertificateResponse(TeaModel):
 
 
 class CreateServerCertificateRequest(TeaModel):
-    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, days=None, domain=None,
-                 parent_identifier=None):
+    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
+                 days=None, domain=None, immediately=None, locality=None, months=None, organization=None,
+                 organization_unit=None, parent_identifier=None, state=None, years=None):
         self.after_time = after_time  # type: long
         self.algorithm = algorithm  # type: str
         self.before_time = before_time  # type: long
         self.common_name = common_name  # type: str
+        self.country = country  # type: str
+        self.csr = csr  # type: str
         self.days = days  # type: int
         self.domain = domain  # type: str
+        self.immediately = immediately  # type: int
+        self.locality = locality  # type: str
+        self.months = months  # type: int
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
         self.parent_identifier = parent_identifier  # type: str
+        self.state = state  # type: str
+        self.years = years  # type: int
 
     def validate(self):
         pass
@@ -698,12 +661,30 @@ class CreateServerCertificateRequest(TeaModel):
             result['BeforeTime'] = self.before_time
         if self.common_name is not None:
             result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.csr is not None:
+            result['Csr'] = self.csr
         if self.days is not None:
             result['Days'] = self.days
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.months is not None:
+            result['Months'] = self.months
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
+        if self.state is not None:
+            result['State'] = self.state
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
@@ -716,12 +697,30 @@ class CreateServerCertificateRequest(TeaModel):
             self.before_time = m.get('BeforeTime')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Csr') is not None:
+            self.csr = m.get('Csr')
         if m.get('Days') is not None:
             self.days = m.get('Days')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Months') is not None:
+            self.months = m.get('Months')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
@@ -776,12 +775,14 @@ class CreateServerCertificateResponseBody(TeaModel):
 
 
 class CreateServerCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateServerCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -794,6 +795,8 @@ class CreateServerCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -802,6 +805,8 @@ class CreateServerCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateServerCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -809,13 +814,26 @@ class CreateServerCertificateResponse(TeaModel):
 
 
 class CreateServerCertificateWithCsrRequest(TeaModel):
-    def __init__(self, after_time=None, before_time=None, csr=None, days=None, domain=None, parent_identifier=None):
+    def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
+                 csr_1=None, days=None, domain=None, immediately=None, locality=None, months=None, organization=None,
+                 organization_unit=None, parent_identifier=None, state=None, years=None):
         self.after_time = after_time  # type: long
+        self.algorithm = algorithm  # type: str
         self.before_time = before_time  # type: long
+        self.common_name = common_name  # type: str
+        self.country = country  # type: str
         self.csr = csr  # type: str
+        self.csr_1 = csr_1  # type: str
         self.days = days  # type: int
         self.domain = domain  # type: str
+        self.immediately = immediately  # type: int
+        self.locality = locality  # type: str
+        self.months = months  # type: int
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
         self.parent_identifier = parent_identifier  # type: str
+        self.state = state  # type: str
+        self.years = years  # type: int
 
     def validate(self):
         pass
@@ -828,32 +846,76 @@ class CreateServerCertificateWithCsrRequest(TeaModel):
         result = dict()
         if self.after_time is not None:
             result['AfterTime'] = self.after_time
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
         if self.before_time is not None:
             result['BeforeTime'] = self.before_time
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
         if self.csr is not None:
             result['Csr'] = self.csr
+        if self.csr_1 is not None:
+            result['Csr1'] = self.csr_1
         if self.days is not None:
             result['Days'] = self.days
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.months is not None:
+            result['Months'] = self.months
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
+        if self.state is not None:
+            result['State'] = self.state
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AfterTime') is not None:
             self.after_time = m.get('AfterTime')
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
         if m.get('BeforeTime') is not None:
             self.before_time = m.get('BeforeTime')
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
         if m.get('Csr') is not None:
             self.csr = m.get('Csr')
+        if m.get('Csr1') is not None:
+            self.csr_1 = m.get('Csr1')
         if m.get('Days') is not None:
             self.days = m.get('Days')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Months') is not None:
+            self.months = m.get('Months')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
@@ -908,12 +970,14 @@ class CreateServerCertificateWithCsrResponseBody(TeaModel):
 
 
 class CreateServerCertificateWithCsrResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateServerCertificateWithCsrResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -926,6 +990,8 @@ class CreateServerCertificateWithCsrResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -934,6 +1000,8 @@ class CreateServerCertificateWithCsrResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateServerCertificateWithCsrResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1045,12 +1113,14 @@ class CreateSubCACertificateResponseBody(TeaModel):
 
 
 class CreateSubCACertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateSubCACertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1063,6 +1133,8 @@ class CreateSubCACertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1071,6 +1143,8 @@ class CreateSubCACertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateSubCACertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1126,12 +1200,14 @@ class DeleteClientCertificateResponseBody(TeaModel):
 
 
 class DeleteClientCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteClientCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1144,6 +1220,8 @@ class DeleteClientCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1152,6 +1230,8 @@ class DeleteClientCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteClientCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1184,15 +1264,17 @@ class DescribeCACertificateRequest(TeaModel):
 
 class DescribeCACertificateResponseBodyCertificate(TeaModel):
     def __init__(self, after_date=None, algorithm=None, before_date=None, certificate_type=None, common_name=None,
-                 country_code=None, identifier=None, key_size=None, locality=None, md_5=None, organization=None,
-                 organization_unit=None, parent_identifier=None, sans=None, serial_number=None, sha_2=None, sign_algorithm=None,
-                 state=None, status=None, subject_dn=None, x_509certificate=None, years=None):
+                 country_code=None, crl_status=None, crl_url=None, identifier=None, key_size=None, locality=None, md_5=None,
+                 organization=None, organization_unit=None, parent_identifier=None, sans=None, serial_number=None, sha_2=None,
+                 sign_algorithm=None, state=None, status=None, subject_dn=None, x_509certificate=None):
         self.after_date = after_date  # type: long
         self.algorithm = algorithm  # type: str
         self.before_date = before_date  # type: long
         self.certificate_type = certificate_type  # type: str
         self.common_name = common_name  # type: str
         self.country_code = country_code  # type: str
+        self.crl_status = crl_status  # type: str
+        self.crl_url = crl_url  # type: str
         self.identifier = identifier  # type: str
         self.key_size = key_size  # type: int
         self.locality = locality  # type: str
@@ -1208,7 +1290,6 @@ class DescribeCACertificateResponseBodyCertificate(TeaModel):
         self.status = status  # type: str
         self.subject_dn = subject_dn  # type: str
         self.x_509certificate = x_509certificate  # type: str
-        self.years = years  # type: int
 
     def validate(self):
         pass
@@ -1231,6 +1312,10 @@ class DescribeCACertificateResponseBodyCertificate(TeaModel):
             result['CommonName'] = self.common_name
         if self.country_code is not None:
             result['CountryCode'] = self.country_code
+        if self.crl_status is not None:
+            result['CrlStatus'] = self.crl_status
+        if self.crl_url is not None:
+            result['CrlUrl'] = self.crl_url
         if self.identifier is not None:
             result['Identifier'] = self.identifier
         if self.key_size is not None:
@@ -1261,8 +1346,6 @@ class DescribeCACertificateResponseBodyCertificate(TeaModel):
             result['SubjectDN'] = self.subject_dn
         if self.x_509certificate is not None:
             result['X509Certificate'] = self.x_509certificate
-        if self.years is not None:
-            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
@@ -1279,6 +1362,10 @@ class DescribeCACertificateResponseBodyCertificate(TeaModel):
             self.common_name = m.get('CommonName')
         if m.get('CountryCode') is not None:
             self.country_code = m.get('CountryCode')
+        if m.get('CrlStatus') is not None:
+            self.crl_status = m.get('CrlStatus')
+        if m.get('CrlUrl') is not None:
+            self.crl_url = m.get('CrlUrl')
         if m.get('Identifier') is not None:
             self.identifier = m.get('Identifier')
         if m.get('KeySize') is not None:
@@ -1309,15 +1396,14 @@ class DescribeCACertificateResponseBodyCertificate(TeaModel):
             self.subject_dn = m.get('SubjectDN')
         if m.get('X509Certificate') is not None:
             self.x_509certificate = m.get('X509Certificate')
-        if m.get('Years') is not None:
-            self.years = m.get('Years')
         return self
 
 
 class DescribeCACertificateResponseBody(TeaModel):
-    def __init__(self, certificate=None, request_id=None):
+    def __init__(self, certificate=None, request_id=None, years=None):
         self.certificate = certificate  # type: DescribeCACertificateResponseBodyCertificate
         self.request_id = request_id  # type: str
+        self.years = years  # type: int
 
     def validate(self):
         if self.certificate:
@@ -1333,6 +1419,8 @@ class DescribeCACertificateResponseBody(TeaModel):
             result['Certificate'] = self.certificate.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.years is not None:
+            result['Years'] = self.years
         return result
 
     def from_map(self, m=None):
@@ -1342,16 +1430,20 @@ class DescribeCACertificateResponseBody(TeaModel):
             self.certificate = temp_model.from_map(m['Certificate'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Years') is not None:
+            self.years = m.get('Years')
         return self
 
 
 class DescribeCACertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCACertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1364,6 +1456,8 @@ class DescribeCACertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1372,6 +1466,8 @@ class DescribeCACertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCACertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1408,12 +1504,14 @@ class DescribeCACertificateCountResponseBody(TeaModel):
 
 
 class DescribeCACertificateCountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCACertificateCountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1426,6 +1524,8 @@ class DescribeCACertificateCountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1434,6 +1534,8 @@ class DescribeCACertificateCountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCACertificateCountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1660,12 +1762,14 @@ class DescribeCACertificateListResponseBody(TeaModel):
 
 
 class DescribeCACertificateListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCACertificateListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1678,6 +1782,8 @@ class DescribeCACertificateListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1686,6 +1792,8 @@ class DescribeCACertificateListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCACertificateListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1751,12 +1859,14 @@ class DescribeCertificatePrivateKeyResponseBody(TeaModel):
 
 
 class DescribeCertificatePrivateKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCertificatePrivateKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1769,6 +1879,8 @@ class DescribeCertificatePrivateKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1777,6 +1889,8 @@ class DescribeCertificatePrivateKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCertificatePrivateKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1971,12 +2085,14 @@ class DescribeClientCertificateResponseBody(TeaModel):
 
 
 class DescribeClientCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeClientCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1989,6 +2105,8 @@ class DescribeClientCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1997,224 +2115,10 @@ class DescribeClientCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeClientCertificateResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeClientCertificateForSerialNumberRequest(TeaModel):
-    def __init__(self, serial_number=None):
-        self.serial_number = serial_number  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateForSerialNumberRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.serial_number is not None:
-            result['SerialNumber'] = self.serial_number
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SerialNumber') is not None:
-            self.serial_number = m.get('SerialNumber')
-        return self
-
-
-class DescribeClientCertificateForSerialNumberResponseBodyCertificateList(TeaModel):
-    def __init__(self, after_date=None, algorithm=None, before_date=None, common_name=None, country_code=None,
-                 identifier=None, key_size=None, locality=None, md_5=None, organization=None, organization_unit=None, sans=None,
-                 serial_number=None, sha_2=None, sign_algorithm=None, state=None, status=None, subject_dn=None,
-                 x_509certificate=None, years=None):
-        self.after_date = after_date  # type: str
-        self.algorithm = algorithm  # type: str
-        self.before_date = before_date  # type: str
-        self.common_name = common_name  # type: str
-        self.country_code = country_code  # type: str
-        self.identifier = identifier  # type: str
-        self.key_size = key_size  # type: int
-        self.locality = locality  # type: str
-        self.md_5 = md_5  # type: str
-        self.organization = organization  # type: str
-        self.organization_unit = organization_unit  # type: str
-        self.sans = sans  # type: str
-        self.serial_number = serial_number  # type: str
-        self.sha_2 = sha_2  # type: str
-        self.sign_algorithm = sign_algorithm  # type: str
-        self.state = state  # type: str
-        self.status = status  # type: str
-        self.subject_dn = subject_dn  # type: str
-        self.x_509certificate = x_509certificate  # type: str
-        self.years = years  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateForSerialNumberResponseBodyCertificateList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.after_date is not None:
-            result['AfterDate'] = self.after_date
-        if self.algorithm is not None:
-            result['Algorithm'] = self.algorithm
-        if self.before_date is not None:
-            result['BeforeDate'] = self.before_date
-        if self.common_name is not None:
-            result['CommonName'] = self.common_name
-        if self.country_code is not None:
-            result['CountryCode'] = self.country_code
-        if self.identifier is not None:
-            result['Identifier'] = self.identifier
-        if self.key_size is not None:
-            result['KeySize'] = self.key_size
-        if self.locality is not None:
-            result['Locality'] = self.locality
-        if self.md_5 is not None:
-            result['Md5'] = self.md_5
-        if self.organization is not None:
-            result['Organization'] = self.organization
-        if self.organization_unit is not None:
-            result['OrganizationUnit'] = self.organization_unit
-        if self.sans is not None:
-            result['Sans'] = self.sans
-        if self.serial_number is not None:
-            result['SerialNumber'] = self.serial_number
-        if self.sha_2 is not None:
-            result['Sha2'] = self.sha_2
-        if self.sign_algorithm is not None:
-            result['SignAlgorithm'] = self.sign_algorithm
-        if self.state is not None:
-            result['State'] = self.state
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.subject_dn is not None:
-            result['SubjectDN'] = self.subject_dn
-        if self.x_509certificate is not None:
-            result['X509Certificate'] = self.x_509certificate
-        if self.years is not None:
-            result['Years'] = self.years
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AfterDate') is not None:
-            self.after_date = m.get('AfterDate')
-        if m.get('Algorithm') is not None:
-            self.algorithm = m.get('Algorithm')
-        if m.get('BeforeDate') is not None:
-            self.before_date = m.get('BeforeDate')
-        if m.get('CommonName') is not None:
-            self.common_name = m.get('CommonName')
-        if m.get('CountryCode') is not None:
-            self.country_code = m.get('CountryCode')
-        if m.get('Identifier') is not None:
-            self.identifier = m.get('Identifier')
-        if m.get('KeySize') is not None:
-            self.key_size = m.get('KeySize')
-        if m.get('Locality') is not None:
-            self.locality = m.get('Locality')
-        if m.get('Md5') is not None:
-            self.md_5 = m.get('Md5')
-        if m.get('Organization') is not None:
-            self.organization = m.get('Organization')
-        if m.get('OrganizationUnit') is not None:
-            self.organization_unit = m.get('OrganizationUnit')
-        if m.get('Sans') is not None:
-            self.sans = m.get('Sans')
-        if m.get('SerialNumber') is not None:
-            self.serial_number = m.get('SerialNumber')
-        if m.get('Sha2') is not None:
-            self.sha_2 = m.get('Sha2')
-        if m.get('SignAlgorithm') is not None:
-            self.sign_algorithm = m.get('SignAlgorithm')
-        if m.get('State') is not None:
-            self.state = m.get('State')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('SubjectDN') is not None:
-            self.subject_dn = m.get('SubjectDN')
-        if m.get('X509Certificate') is not None:
-            self.x_509certificate = m.get('X509Certificate')
-        if m.get('Years') is not None:
-            self.years = m.get('Years')
-        return self
-
-
-class DescribeClientCertificateForSerialNumberResponseBody(TeaModel):
-    def __init__(self, certificate_list=None, request_id=None):
-        self.certificate_list = certificate_list  # type: list[DescribeClientCertificateForSerialNumberResponseBodyCertificateList]
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.certificate_list:
-            for k in self.certificate_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateForSerialNumberResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['CertificateList'] = []
-        if self.certificate_list is not None:
-            for k in self.certificate_list:
-                result['CertificateList'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.certificate_list = []
-        if m.get('CertificateList') is not None:
-            for k in m.get('CertificateList'):
-                temp_model = DescribeClientCertificateForSerialNumberResponseBodyCertificateList()
-                self.certificate_list.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DescribeClientCertificateForSerialNumberResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeClientCertificateForSerialNumberResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateForSerialNumberResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeClientCertificateForSerialNumberResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2315,12 +2219,14 @@ class DescribeClientCertificateStatusResponseBody(TeaModel):
 
 
 class DescribeClientCertificateStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeClientCertificateStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2333,6 +2239,8 @@ class DescribeClientCertificateStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2341,136 +2249,10 @@ class DescribeClientCertificateStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeClientCertificateStatusResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeClientCertificateStatusForSerialNumberRequest(TeaModel):
-    def __init__(self, serial_number=None):
-        self.serial_number = serial_number  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateStatusForSerialNumberRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.serial_number is not None:
-            result['SerialNumber'] = self.serial_number
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SerialNumber') is not None:
-            self.serial_number = m.get('SerialNumber')
-        return self
-
-
-class DescribeClientCertificateStatusForSerialNumberResponseBodyCertificateStatus(TeaModel):
-    def __init__(self, revoke_time=None, serial_number=None, status=None):
-        self.revoke_time = revoke_time  # type: long
-        self.serial_number = serial_number  # type: str
-        self.status = status  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateStatusForSerialNumberResponseBodyCertificateStatus, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.revoke_time is not None:
-            result['RevokeTime'] = self.revoke_time
-        if self.serial_number is not None:
-            result['SerialNumber'] = self.serial_number
-        if self.status is not None:
-            result['Status'] = self.status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RevokeTime') is not None:
-            self.revoke_time = m.get('RevokeTime')
-        if m.get('SerialNumber') is not None:
-            self.serial_number = m.get('SerialNumber')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        return self
-
-
-class DescribeClientCertificateStatusForSerialNumberResponseBody(TeaModel):
-    def __init__(self, certificate_status=None, request_id=None):
-        self.certificate_status = certificate_status  # type: list[DescribeClientCertificateStatusForSerialNumberResponseBodyCertificateStatus]
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.certificate_status:
-            for k in self.certificate_status:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateStatusForSerialNumberResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['CertificateStatus'] = []
-        if self.certificate_status is not None:
-            for k in self.certificate_status:
-                result['CertificateStatus'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.certificate_status = []
-        if m.get('CertificateStatus') is not None:
-            for k in m.get('CertificateStatus'):
-                temp_model = DescribeClientCertificateStatusForSerialNumberResponseBodyCertificateStatus()
-                self.certificate_status.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DescribeClientCertificateStatusForSerialNumberResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeClientCertificateStatusForSerialNumberResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeClientCertificateStatusForSerialNumberResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeClientCertificateStatusForSerialNumberResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2602,12 +2384,14 @@ class GetCAInstanceStatusResponseBody(TeaModel):
 
 
 class GetCAInstanceStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetCAInstanceStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2620,6 +2404,8 @@ class GetCAInstanceStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2628,141 +2414,10 @@ class GetCAInstanceStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetCAInstanceStatusResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListCACertificateLogRequest(TeaModel):
-    def __init__(self, identifier=None):
-        self.identifier = identifier  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListCACertificateLogRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.identifier is not None:
-            result['Identifier'] = self.identifier
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Identifier') is not None:
-            self.identifier = m.get('Identifier')
-        return self
-
-
-class ListCACertificateLogResponseBodyLogList(TeaModel):
-    def __init__(self, content=None, create_time=None, identifier=None, op_type=None):
-        self.content = content  # type: str
-        self.create_time = create_time  # type: long
-        self.identifier = identifier  # type: str
-        self.op_type = op_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListCACertificateLogResponseBodyLogList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.content is not None:
-            result['Content'] = self.content
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.identifier is not None:
-            result['Identifier'] = self.identifier
-        if self.op_type is not None:
-            result['OpType'] = self.op_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('Identifier') is not None:
-            self.identifier = m.get('Identifier')
-        if m.get('OpType') is not None:
-            self.op_type = m.get('OpType')
-        return self
-
-
-class ListCACertificateLogResponseBody(TeaModel):
-    def __init__(self, log_list=None, request_id=None):
-        self.log_list = log_list  # type: list[ListCACertificateLogResponseBodyLogList]
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.log_list:
-            for k in self.log_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListCACertificateLogResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['LogList'] = []
-        if self.log_list is not None:
-            for k in self.log_list:
-                result['LogList'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.log_list = []
-        if m.get('LogList') is not None:
-            for k in m.get('LogList'):
-                temp_model = ListCACertificateLogResponseBodyLogList()
-                self.log_list.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ListCACertificateLogResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ListCACertificateLogResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListCACertificateLogResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ListCACertificateLogResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2936,7 +2591,7 @@ class ListClientCertificateResponseBody(TeaModel):
         self.page_count = page_count  # type: int
         self.request_id = request_id  # type: str
         self.show_size = show_size  # type: int
-        self.total_count = total_count  # type: int
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.certificate_list:
@@ -2987,12 +2642,14 @@ class ListClientCertificateResponseBody(TeaModel):
 
 
 class ListClientCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListClientCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3005,6 +2662,8 @@ class ListClientCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3013,6 +2672,8 @@ class ListClientCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListClientCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3049,12 +2710,14 @@ class ListRevokeCertificateRequest(TeaModel):
 
 
 class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
-    def __init__(self, after_date=None, algorithm=None, before_date=None, common_name=None, country_code=None,
-                 identifier=None, key_size=None, locality=None, md_5=None, organization=None, organization_unit=None,
-                 revoke_date=None, sans=None, serial_number=None, sha_2=None, sign_algorithm=None, state=None, subject_dn=None):
+    def __init__(self, after_date=None, algorithm=None, before_date=None, certificate_type=None, common_name=None,
+                 country_code=None, identifier=None, key_size=None, locality=None, md_5=None, organization=None,
+                 organization_unit=None, parent_identifier=None, revoke_date=None, sans=None, serial_number=None, sha_2=None,
+                 sign_algorithm=None, state=None, status=None, subject_dn=None):
         self.after_date = after_date  # type: str
         self.algorithm = algorithm  # type: str
         self.before_date = before_date  # type: str
+        self.certificate_type = certificate_type  # type: str
         self.common_name = common_name  # type: str
         self.country_code = country_code  # type: str
         self.identifier = identifier  # type: str
@@ -3063,12 +2726,14 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
         self.md_5 = md_5  # type: str
         self.organization = organization  # type: str
         self.organization_unit = organization_unit  # type: str
+        self.parent_identifier = parent_identifier  # type: str
         self.revoke_date = revoke_date  # type: str
         self.sans = sans  # type: str
         self.serial_number = serial_number  # type: str
         self.sha_2 = sha_2  # type: str
         self.sign_algorithm = sign_algorithm  # type: str
         self.state = state  # type: str
+        self.status = status  # type: str
         self.subject_dn = subject_dn  # type: str
 
     def validate(self):
@@ -3086,6 +2751,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             result['Algorithm'] = self.algorithm
         if self.before_date is not None:
             result['BeforeDate'] = self.before_date
+        if self.certificate_type is not None:
+            result['CertificateType'] = self.certificate_type
         if self.common_name is not None:
             result['CommonName'] = self.common_name
         if self.country_code is not None:
@@ -3102,6 +2769,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             result['Organization'] = self.organization
         if self.organization_unit is not None:
             result['OrganizationUnit'] = self.organization_unit
+        if self.parent_identifier is not None:
+            result['ParentIdentifier'] = self.parent_identifier
         if self.revoke_date is not None:
             result['RevokeDate'] = self.revoke_date
         if self.sans is not None:
@@ -3114,6 +2783,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             result['SignAlgorithm'] = self.sign_algorithm
         if self.state is not None:
             result['State'] = self.state
+        if self.status is not None:
+            result['Status'] = self.status
         if self.subject_dn is not None:
             result['SubjectDN'] = self.subject_dn
         return result
@@ -3126,6 +2797,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             self.algorithm = m.get('Algorithm')
         if m.get('BeforeDate') is not None:
             self.before_date = m.get('BeforeDate')
+        if m.get('CertificateType') is not None:
+            self.certificate_type = m.get('CertificateType')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
         if m.get('CountryCode') is not None:
@@ -3142,6 +2815,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             self.organization = m.get('Organization')
         if m.get('OrganizationUnit') is not None:
             self.organization_unit = m.get('OrganizationUnit')
+        if m.get('ParentIdentifier') is not None:
+            self.parent_identifier = m.get('ParentIdentifier')
         if m.get('RevokeDate') is not None:
             self.revoke_date = m.get('RevokeDate')
         if m.get('Sans') is not None:
@@ -3154,6 +2829,8 @@ class ListRevokeCertificateResponseBodyCertificateList(TeaModel):
             self.sign_algorithm = m.get('SignAlgorithm')
         if m.get('State') is not None:
             self.state = m.get('State')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('SubjectDN') is not None:
             self.subject_dn = m.get('SubjectDN')
         return self
@@ -3167,7 +2844,7 @@ class ListRevokeCertificateResponseBody(TeaModel):
         self.page_count = page_count  # type: int
         self.request_id = request_id  # type: str
         self.show_size = show_size  # type: int
-        self.total_count = total_count  # type: int
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.certificate_list:
@@ -3218,12 +2895,14 @@ class ListRevokeCertificateResponseBody(TeaModel):
 
 
 class ListRevokeCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListRevokeCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3236,6 +2915,8 @@ class ListRevokeCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3244,6 +2925,8 @@ class ListRevokeCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListRevokeCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3304,12 +2987,14 @@ class UpdateCACertificateStatusResponseBody(TeaModel):
 
 
 class UpdateCACertificateStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateCACertificateStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3322,6 +3007,8 @@ class UpdateCACertificateStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3330,6 +3017,8 @@ class UpdateCACertificateStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateCACertificateStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
