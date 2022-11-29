@@ -299,6 +299,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.acl_name):
             query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.address_ipversion):
+            query['AddressIPVersion'] = request.address_ipversion
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
@@ -1751,6 +1753,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.acl_name):
             query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.address_ipversion):
+            query['AddressIPVersion'] = request.address_ipversion
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -3334,6 +3338,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_models_with_options(request, runtime)
 
+    def describe_plugin_apis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.method):
+            query['Method'] = request.method
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePluginApis',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribePluginApisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_plugin_apis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_plugin_apis_with_options(request, runtime)
+
     def describe_plugin_schemas_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3951,6 +4001,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.acl_id):
             query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.address_ipversion):
+            query['AddressIPVersion'] = request.address_ipversion
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.security_token):
@@ -4029,6 +4081,8 @@ class Client(OpenApiClient):
             query['AclId'] = request.acl_id
         if not UtilClient.is_unset(request.acl_type):
             query['AclType'] = request.acl_type
+        if not UtilClient.is_unset(request.address_ipversion):
+            query['AddressIPVersion'] = request.address_ipversion
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.security_token):

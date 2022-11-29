@@ -819,8 +819,9 @@ class BatchDeployApisResponse(TeaModel):
 
 
 class CreateAccessControlListRequest(TeaModel):
-    def __init__(self, acl_name=None, security_token=None):
+    def __init__(self, acl_name=None, address_ipversion=None, security_token=None):
         self.acl_name = acl_name  # type: str
+        self.address_ipversion = address_ipversion  # type: str
         self.security_token = security_token  # type: str
 
     def validate(self):
@@ -834,6 +835,8 @@ class CreateAccessControlListRequest(TeaModel):
         result = dict()
         if self.acl_name is not None:
             result['AclName'] = self.acl_name
+        if self.address_ipversion is not None:
+            result['AddressIPVersion'] = self.address_ipversion
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
         return result
@@ -842,6 +845,8 @@ class CreateAccessControlListRequest(TeaModel):
         m = m or dict()
         if m.get('AclName') is not None:
             self.acl_name = m.get('AclName')
+        if m.get('AddressIPVersion') is not None:
+            self.address_ipversion = m.get('AddressIPVersion')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
         return self
@@ -5827,8 +5832,9 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
 
 
 class DescribeAccessControlListsRequest(TeaModel):
-    def __init__(self, acl_name=None, page_number=None, page_size=None, security_token=None):
+    def __init__(self, acl_name=None, address_ipversion=None, page_number=None, page_size=None, security_token=None):
         self.acl_name = acl_name  # type: str
+        self.address_ipversion = address_ipversion  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
@@ -5844,6 +5850,8 @@ class DescribeAccessControlListsRequest(TeaModel):
         result = dict()
         if self.acl_name is not None:
             result['AclName'] = self.acl_name
+        if self.address_ipversion is not None:
+            result['AddressIPVersion'] = self.address_ipversion
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -5856,6 +5864,8 @@ class DescribeAccessControlListsRequest(TeaModel):
         m = m or dict()
         if m.get('AclName') is not None:
             self.acl_name = m.get('AclName')
+        if m.get('AddressIPVersion') is not None:
+            self.address_ipversion = m.get('AddressIPVersion')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -5866,9 +5876,10 @@ class DescribeAccessControlListsRequest(TeaModel):
 
 
 class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
-    def __init__(self, acl_id=None, acl_name=None):
+    def __init__(self, acl_id=None, acl_name=None, address_ipversion=None):
         self.acl_id = acl_id  # type: str
         self.acl_name = acl_name  # type: str
+        self.address_ipversion = address_ipversion  # type: str
 
     def validate(self):
         pass
@@ -5883,6 +5894,8 @@ class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
             result['AclId'] = self.acl_id
         if self.acl_name is not None:
             result['AclName'] = self.acl_name
+        if self.address_ipversion is not None:
+            result['AddressIPVersion'] = self.address_ipversion
         return result
 
     def from_map(self, m=None):
@@ -5891,6 +5904,8 @@ class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
             self.acl_id = m.get('AclId')
         if m.get('AclName') is not None:
             self.acl_name = m.get('AclName')
+        if m.get('AddressIPVersion') is not None:
+            self.address_ipversion = m.get('AddressIPVersion')
         return self
 
 
@@ -18700,12 +18715,12 @@ class DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttribu
 
 class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, acl_status=None, acl_type=None, classic_egress_address=None,
-                 created_time=None, egress_ipv_6enable=None, expired_time=None, https_policies=None, instance_charge_type=None,
-                 instance_id=None, instance_name=None, instance_rps_limit=None, instance_spec=None,
-                 instance_spec_attributes=None, instance_type=None, internet_egress_address=None, intranet_segments=None, region_id=None,
-                 status=None, support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None,
-                 vpc_egress_address=None, vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None,
-                 zone_local_name=None):
+                 created_time=None, egress_ipv_6enable=None, expired_time=None, https_policies=None, ipv6acl_id=None,
+                 ipv6acl_name=None, ipv6acl_status=None, ipv6acl_type=None, instance_charge_type=None, instance_id=None,
+                 instance_name=None, instance_rps_limit=None, instance_spec=None, instance_spec_attributes=None,
+                 instance_type=None, internet_egress_address=None, intranet_segments=None, region_id=None, status=None,
+                 support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None, vpc_egress_address=None,
+                 vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None, zone_local_name=None):
         self.acl_id = acl_id  # type: str
         self.acl_name = acl_name  # type: str
         self.acl_status = acl_status  # type: str
@@ -18715,6 +18730,10 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
         self.egress_ipv_6enable = egress_ipv_6enable  # type: bool
         self.expired_time = expired_time  # type: str
         self.https_policies = https_policies  # type: str
+        self.ipv6acl_id = ipv6acl_id  # type: str
+        self.ipv6acl_name = ipv6acl_name  # type: str
+        self.ipv6acl_status = ipv6acl_status  # type: str
+        self.ipv6acl_type = ipv6acl_type  # type: str
         self.instance_charge_type = instance_charge_type  # type: str
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
@@ -18765,6 +18784,14 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             result['ExpiredTime'] = self.expired_time
         if self.https_policies is not None:
             result['HttpsPolicies'] = self.https_policies
+        if self.ipv6acl_id is not None:
+            result['IPV6AclId'] = self.ipv6acl_id
+        if self.ipv6acl_name is not None:
+            result['IPV6AclName'] = self.ipv6acl_name
+        if self.ipv6acl_status is not None:
+            result['IPV6AclStatus'] = self.ipv6acl_status
+        if self.ipv6acl_type is not None:
+            result['IPV6AclType'] = self.ipv6acl_type
         if self.instance_charge_type is not None:
             result['InstanceChargeType'] = self.instance_charge_type
         if self.instance_id is not None:
@@ -18829,6 +18856,14 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             self.expired_time = m.get('ExpiredTime')
         if m.get('HttpsPolicies') is not None:
             self.https_policies = m.get('HttpsPolicies')
+        if m.get('IPV6AclId') is not None:
+            self.ipv6acl_id = m.get('IPV6AclId')
+        if m.get('IPV6AclName') is not None:
+            self.ipv6acl_name = m.get('IPV6AclName')
+        if m.get('IPV6AclStatus') is not None:
+            self.ipv6acl_status = m.get('IPV6AclStatus')
+        if m.get('IPV6AclType') is not None:
+            self.ipv6acl_type = m.get('IPV6AclType')
         if m.get('InstanceChargeType') is not None:
             self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InstanceId') is not None:
@@ -19905,6 +19940,258 @@ class DescribeModelsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeModelsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribePluginApisRequest(TeaModel):
+    def __init__(self, api_id=None, api_name=None, description=None, group_id=None, method=None, page_number=None,
+                 page_size=None, path=None, plugin_id=None, security_token=None):
+        self.api_id = api_id  # type: str
+        self.api_name = api_name  # type: str
+        self.description = description  # type: str
+        self.group_id = group_id  # type: str
+        self.method = method  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.path = path  # type: str
+        self.plugin_id = plugin_id  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePluginApisRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribePluginApisResponseBodyApiSummarysApiPluginSummary(TeaModel):
+    def __init__(self, api_id=None, api_name=None, description=None, group_id=None, group_name=None, method=None,
+                 path=None, region_id=None, stage_name=None):
+        self.api_id = api_id  # type: str
+        self.api_name = api_name  # type: str
+        self.description = description  # type: str
+        self.group_id = group_id  # type: str
+        self.group_name = group_name  # type: str
+        self.method = method  # type: str
+        self.path = path  # type: str
+        self.region_id = region_id  # type: str
+        self.stage_name = stage_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePluginApisResponseBodyApiSummarysApiPluginSummary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
+        return self
+
+
+class DescribePluginApisResponseBodyApiSummarys(TeaModel):
+    def __init__(self, api_plugin_summary=None):
+        self.api_plugin_summary = api_plugin_summary  # type: list[DescribePluginApisResponseBodyApiSummarysApiPluginSummary]
+
+    def validate(self):
+        if self.api_plugin_summary:
+            for k in self.api_plugin_summary:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePluginApisResponseBodyApiSummarys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApiPluginSummary'] = []
+        if self.api_plugin_summary is not None:
+            for k in self.api_plugin_summary:
+                result['ApiPluginSummary'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.api_plugin_summary = []
+        if m.get('ApiPluginSummary') is not None:
+            for k in m.get('ApiPluginSummary'):
+                temp_model = DescribePluginApisResponseBodyApiSummarysApiPluginSummary()
+                self.api_plugin_summary.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePluginApisResponseBody(TeaModel):
+    def __init__(self, api_summarys=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.api_summarys = api_summarys  # type: DescribePluginApisResponseBodyApiSummarys
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.api_summarys:
+            self.api_summarys.validate()
+
+    def to_map(self):
+        _map = super(DescribePluginApisResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_summarys is not None:
+            result['ApiSummarys'] = self.api_summarys.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiSummarys') is not None:
+            temp_model = DescribePluginApisResponseBodyApiSummarys()
+            self.api_summarys = temp_model.from_map(m['ApiSummarys'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribePluginApisResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePluginApisResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePluginApisResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePluginApisResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -23646,8 +23933,9 @@ class DetachPluginResponse(TeaModel):
 
 
 class DisableInstanceAccessControlRequest(TeaModel):
-    def __init__(self, acl_id=None, instance_id=None, security_token=None):
+    def __init__(self, acl_id=None, address_ipversion=None, instance_id=None, security_token=None):
         self.acl_id = acl_id  # type: str
+        self.address_ipversion = address_ipversion  # type: str
         self.instance_id = instance_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -23662,6 +23950,8 @@ class DisableInstanceAccessControlRequest(TeaModel):
         result = dict()
         if self.acl_id is not None:
             result['AclId'] = self.acl_id
+        if self.address_ipversion is not None:
+            result['AddressIPVersion'] = self.address_ipversion
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.security_token is not None:
@@ -23672,6 +23962,8 @@ class DisableInstanceAccessControlRequest(TeaModel):
         m = m or dict()
         if m.get('AclId') is not None:
             self.acl_id = m.get('AclId')
+        if m.get('AddressIPVersion') is not None:
+            self.address_ipversion = m.get('AddressIPVersion')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('SecurityToken') is not None:
@@ -24222,9 +24514,10 @@ class DryRunSwaggerResponse(TeaModel):
 
 
 class EnableInstanceAccessControlRequest(TeaModel):
-    def __init__(self, acl_id=None, acl_type=None, instance_id=None, security_token=None):
+    def __init__(self, acl_id=None, acl_type=None, address_ipversion=None, instance_id=None, security_token=None):
         self.acl_id = acl_id  # type: str
         self.acl_type = acl_type  # type: str
+        self.address_ipversion = address_ipversion  # type: str
         self.instance_id = instance_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -24241,6 +24534,8 @@ class EnableInstanceAccessControlRequest(TeaModel):
             result['AclId'] = self.acl_id
         if self.acl_type is not None:
             result['AclType'] = self.acl_type
+        if self.address_ipversion is not None:
+            result['AddressIPVersion'] = self.address_ipversion
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.security_token is not None:
@@ -24253,6 +24548,8 @@ class EnableInstanceAccessControlRequest(TeaModel):
             self.acl_id = m.get('AclId')
         if m.get('AclType') is not None:
             self.acl_type = m.get('AclType')
+        if m.get('AddressIPVersion') is not None:
+            self.address_ipversion = m.get('AddressIPVersion')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('SecurityToken') is not None:
