@@ -249,6 +249,59 @@ class HttpConfig(TeaModel):
         return self
 
 
+class InstanceActiveOpsGroup(TeaModel):
+    def __init__(self, instance_ids=None):
+        self.instance_ids = instance_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstanceActiveOpsGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class InstanceActiveOpsTask(TeaModel):
+    def __init__(self, instance_active_ops_task_id=None, instance_active_ops_task_status=None):
+        self.instance_active_ops_task_id = instance_active_ops_task_id  # type: str
+        self.instance_active_ops_task_status = instance_active_ops_task_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstanceActiveOpsTask, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_active_ops_task_id is not None:
+            result['InstanceActiveOpsTaskId'] = self.instance_active_ops_task_id
+        if self.instance_active_ops_task_status is not None:
+            result['InstanceActiveOpsTaskStatus'] = self.instance_active_ops_task_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceActiveOpsTaskId') is not None:
+            self.instance_active_ops_task_id = m.get('InstanceActiveOpsTaskId')
+        if m.get('InstanceActiveOpsTaskStatus') is not None:
+            self.instance_active_ops_task_status = m.get('InstanceActiveOpsTaskStatus')
+        return self
+
+
 class SecurityGroupRule(TeaModel):
     def __init__(self, description=None, dest_cidr_ip=None, direction=None, ip_protocol=None, policy=None,
                  port_range=None, source_cidr_ip=None, source_port_range=None, priority=None):
@@ -3334,6 +3387,124 @@ class CreateInstanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateInstanceActiveOpsTaskRequest(TeaModel):
+    def __init__(self, instance_ids=None):
+        self.instance_ids = instance_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceActiveOpsTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class CreateInstanceActiveOpsTaskShrinkRequest(TeaModel):
+    def __init__(self, instance_ids_shrink=None):
+        self.instance_ids_shrink = instance_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceActiveOpsTaskShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids_shrink is not None:
+            result['InstanceIds'] = self.instance_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids_shrink = m.get('InstanceIds')
+        return self
+
+
+class CreateInstanceActiveOpsTaskResponseBody(TeaModel):
+    def __init__(self, instance_active_ops_task=None, request_id=None):
+        self.instance_active_ops_task = instance_active_ops_task  # type: InstanceActiveOpsTask
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.instance_active_ops_task:
+            self.instance_active_ops_task.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceActiveOpsTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_active_ops_task is not None:
+            result['InstanceActiveOpsTask'] = self.instance_active_ops_task.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceActiveOpsTask') is not None:
+            temp_model = InstanceActiveOpsTask()
+            self.instance_active_ops_task = temp_model.from_map(m['InstanceActiveOpsTask'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateInstanceActiveOpsTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateInstanceActiveOpsTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceActiveOpsTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateInstanceActiveOpsTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7116,9 +7287,12 @@ class DescribeARMServerInstancesResponseBodyServers(TeaModel):
 
 
 class DescribeARMServerInstancesResponseBody(TeaModel):
-    def __init__(self, request_id=None, servers=None):
+    def __init__(self, page_number=None, page_size=None, request_id=None, servers=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
         self.servers = servers  # type: list[DescribeARMServerInstancesResponseBodyServers]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.servers:
@@ -7132,16 +7306,26 @@ class DescribeARMServerInstancesResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Servers'] = []
         if self.servers is not None:
             for k in self.servers:
                 result['Servers'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.servers = []
@@ -7149,6 +7333,8 @@ class DescribeARMServerInstancesResponseBody(TeaModel):
             for k in m.get('Servers'):
                 temp_model = DescribeARMServerInstancesResponseBodyServers()
                 self.servers.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
