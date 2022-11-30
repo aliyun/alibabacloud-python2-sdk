@@ -1562,14 +1562,17 @@ class GetUserCertificateDetailRequest(TeaModel):
 
 
 class GetUserCertificateDetailResponseBody(TeaModel):
-    def __init__(self, buy_in_aliyun=None, cert=None, city=None, common=None, country=None, end_date=None,
-                 expired=None, fingerprint=None, id=None, issuer=None, key=None, name=None, org_name=None, province=None,
-                 request_id=None, sans=None, start_date=None):
+    def __init__(self, buy_in_aliyun=None, cert=None, city=None, common=None, country=None, encrypt_cert=None,
+                 encrypt_private_key=None, end_date=None, expired=None, fingerprint=None, id=None, issuer=None, key=None, name=None,
+                 order_id=None, org_name=None, province=None, request_id=None, resource_group_id=None, sans=None,
+                 sign_cert=None, sign_private_key=None, start_date=None):
         self.buy_in_aliyun = buy_in_aliyun  # type: bool
         self.cert = cert  # type: str
         self.city = city  # type: str
         self.common = common  # type: str
         self.country = country  # type: str
+        self.encrypt_cert = encrypt_cert  # type: str
+        self.encrypt_private_key = encrypt_private_key  # type: str
         self.end_date = end_date  # type: str
         self.expired = expired  # type: bool
         self.fingerprint = fingerprint  # type: str
@@ -1577,10 +1580,14 @@ class GetUserCertificateDetailResponseBody(TeaModel):
         self.issuer = issuer  # type: str
         self.key = key  # type: str
         self.name = name  # type: str
+        self.order_id = order_id  # type: long
         self.org_name = org_name  # type: str
         self.province = province  # type: str
         self.request_id = request_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sans = sans  # type: str
+        self.sign_cert = sign_cert  # type: str
+        self.sign_private_key = sign_private_key  # type: str
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -1602,6 +1609,10 @@ class GetUserCertificateDetailResponseBody(TeaModel):
             result['Common'] = self.common
         if self.country is not None:
             result['Country'] = self.country
+        if self.encrypt_cert is not None:
+            result['EncryptCert'] = self.encrypt_cert
+        if self.encrypt_private_key is not None:
+            result['EncryptPrivateKey'] = self.encrypt_private_key
         if self.end_date is not None:
             result['EndDate'] = self.end_date
         if self.expired is not None:
@@ -1616,14 +1627,22 @@ class GetUserCertificateDetailResponseBody(TeaModel):
             result['Key'] = self.key
         if self.name is not None:
             result['Name'] = self.name
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
         if self.org_name is not None:
             result['OrgName'] = self.org_name
         if self.province is not None:
             result['Province'] = self.province
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sans is not None:
             result['Sans'] = self.sans
+        if self.sign_cert is not None:
+            result['SignCert'] = self.sign_cert
+        if self.sign_private_key is not None:
+            result['SignPrivateKey'] = self.sign_private_key
         if self.start_date is not None:
             result['StartDate'] = self.start_date
         return result
@@ -1640,6 +1659,10 @@ class GetUserCertificateDetailResponseBody(TeaModel):
             self.common = m.get('Common')
         if m.get('Country') is not None:
             self.country = m.get('Country')
+        if m.get('EncryptCert') is not None:
+            self.encrypt_cert = m.get('EncryptCert')
+        if m.get('EncryptPrivateKey') is not None:
+            self.encrypt_private_key = m.get('EncryptPrivateKey')
         if m.get('EndDate') is not None:
             self.end_date = m.get('EndDate')
         if m.get('Expired') is not None:
@@ -1654,14 +1677,22 @@ class GetUserCertificateDetailResponseBody(TeaModel):
             self.key = m.get('Key')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
         if m.get('OrgName') is not None:
             self.org_name = m.get('OrgName')
         if m.get('Province') is not None:
             self.province = m.get('Province')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sans') is not None:
             self.sans = m.get('Sans')
+        if m.get('SignCert') is not None:
+            self.sign_cert = m.get('SignCert')
+        if m.get('SignPrivateKey') is not None:
+            self.sign_private_key = m.get('SignPrivateKey')
         if m.get('StartDate') is not None:
             self.start_date = m.get('StartDate')
         return self
@@ -2119,10 +2150,12 @@ class ListCertWarehouseResponse(TeaModel):
 
 
 class ListUserCertificateOrderRequest(TeaModel):
-    def __init__(self, current_page=None, keyword=None, order_type=None, show_size=None, status=None):
+    def __init__(self, current_page=None, keyword=None, order_type=None, resource_group_id=None, show_size=None,
+                 status=None):
         self.current_page = current_page  # type: long
         self.keyword = keyword  # type: str
         self.order_type = order_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.show_size = show_size  # type: long
         self.status = status  # type: str
 
@@ -2141,6 +2174,8 @@ class ListUserCertificateOrderRequest(TeaModel):
             result['Keyword'] = self.keyword
         if self.order_type is not None:
             result['OrderType'] = self.order_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.show_size is not None:
             result['ShowSize'] = self.show_size
         if self.status is not None:
@@ -2155,6 +2190,8 @@ class ListUserCertificateOrderRequest(TeaModel):
             self.keyword = m.get('Keyword')
         if m.get('OrderType') is not None:
             self.order_type = m.get('OrderType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShowSize') is not None:
             self.show_size = m.get('ShowSize')
         if m.get('Status') is not None:
@@ -2167,8 +2204,8 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
                  cert_start_time=None, cert_type=None, certificate_id=None, city=None, common_name=None, country=None, domain=None,
                  domain_count=None, domain_type=None, end_date=None, expired=None, fingerprint=None, instance_id=None,
                  issuer=None, name=None, order_id=None, org_name=None, partner_order_id=None, product_code=None,
-                 product_name=None, province=None, root_brand=None, sans=None, serial_no=None, sha_2=None, source_type=None,
-                 start_date=None, status=None, trustee_status=None, upload=None, wild_domain_count=None):
+                 product_name=None, province=None, resource_group_id=None, root_brand=None, sans=None, serial_no=None, sha_2=None,
+                 source_type=None, start_date=None, status=None, trustee_status=None, upload=None, wild_domain_count=None):
         self.algorithm = algorithm  # type: str
         self.aliyun_order_id = aliyun_order_id  # type: long
         self.buy_date = buy_date  # type: long
@@ -2194,6 +2231,7 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
         self.product_code = product_code  # type: str
         self.product_name = product_name  # type: str
         self.province = province  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.root_brand = root_brand  # type: str
         self.sans = sans  # type: str
         self.serial_no = serial_no  # type: str
@@ -2264,6 +2302,8 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
             result['ProductName'] = self.product_name
         if self.province is not None:
             result['Province'] = self.province
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.root_brand is not None:
             result['RootBrand'] = self.root_brand
         if self.sans is not None:
@@ -2338,6 +2378,8 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
             self.product_name = m.get('ProductName')
         if m.get('Province') is not None:
             self.province = m.get('Province')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('RootBrand') is not None:
             self.root_brand = m.get('RootBrand')
         if m.get('Sans') is not None:
@@ -2852,13 +2894,14 @@ class UploadPCACertResponse(TeaModel):
 
 
 class UploadUserCertificateRequest(TeaModel):
-    def __init__(self, cert=None, encrypt_cert=None, encrypt_private_key=None, key=None, name=None, sign_cert=None,
-                 sign_private_key=None):
+    def __init__(self, cert=None, encrypt_cert=None, encrypt_private_key=None, key=None, name=None,
+                 resource_group_id=None, sign_cert=None, sign_private_key=None):
         self.cert = cert  # type: str
         self.encrypt_cert = encrypt_cert  # type: str
         self.encrypt_private_key = encrypt_private_key  # type: str
         self.key = key  # type: str
         self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sign_cert = sign_cert  # type: str
         self.sign_private_key = sign_private_key  # type: str
 
@@ -2881,6 +2924,8 @@ class UploadUserCertificateRequest(TeaModel):
             result['Key'] = self.key
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sign_cert is not None:
             result['SignCert'] = self.sign_cert
         if self.sign_private_key is not None:
@@ -2899,6 +2944,8 @@ class UploadUserCertificateRequest(TeaModel):
             self.key = m.get('Key')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SignCert') is not None:
             self.sign_cert = m.get('SignCert')
         if m.get('SignPrivateKey') is not None:
