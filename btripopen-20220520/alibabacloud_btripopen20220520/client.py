@@ -142,6 +142,36 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def all_base_city_info_query(self):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.AllBaseCityInfoQueryHeaders()
+        return self.all_base_city_info_query_with_options(headers, runtime)
+
+    def all_base_city_info_query_with_options(self, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_access_token):
+            real_headers['x-acs-btrip-access-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_access_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='AllBaseCityInfoQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/city/v1/code',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.AllBaseCityInfoQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def apply_add(self, request):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.ApplyAddHeaders()
