@@ -223,13 +223,50 @@ class ContinueCreateStackRequest(TeaModel):
         return self
 
 
+class ContinueCreateStackResponseBodyDryRunResult(TeaModel):
+    def __init__(self, parameters_allowed_to_be_modified=None,
+                 parameters_conditionally_allowed_to_be_modified=None, parameters_not_allowed_to_be_modified=None):
+        self.parameters_allowed_to_be_modified = parameters_allowed_to_be_modified  # type: list[str]
+        self.parameters_conditionally_allowed_to_be_modified = parameters_conditionally_allowed_to_be_modified  # type: list[str]
+        self.parameters_not_allowed_to_be_modified = parameters_not_allowed_to_be_modified  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ContinueCreateStackResponseBodyDryRunResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.parameters_allowed_to_be_modified is not None:
+            result['ParametersAllowedToBeModified'] = self.parameters_allowed_to_be_modified
+        if self.parameters_conditionally_allowed_to_be_modified is not None:
+            result['ParametersConditionallyAllowedToBeModified'] = self.parameters_conditionally_allowed_to_be_modified
+        if self.parameters_not_allowed_to_be_modified is not None:
+            result['ParametersNotAllowedToBeModified'] = self.parameters_not_allowed_to_be_modified
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ParametersAllowedToBeModified') is not None:
+            self.parameters_allowed_to_be_modified = m.get('ParametersAllowedToBeModified')
+        if m.get('ParametersConditionallyAllowedToBeModified') is not None:
+            self.parameters_conditionally_allowed_to_be_modified = m.get('ParametersConditionallyAllowedToBeModified')
+        if m.get('ParametersNotAllowedToBeModified') is not None:
+            self.parameters_not_allowed_to_be_modified = m.get('ParametersNotAllowedToBeModified')
+        return self
+
+
 class ContinueCreateStackResponseBody(TeaModel):
-    def __init__(self, request_id=None, stack_id=None):
+    def __init__(self, dry_run_result=None, request_id=None, stack_id=None):
+        self.dry_run_result = dry_run_result  # type: ContinueCreateStackResponseBodyDryRunResult
         self.request_id = request_id  # type: str
         self.stack_id = stack_id  # type: str
 
     def validate(self):
-        pass
+        if self.dry_run_result:
+            self.dry_run_result.validate()
 
     def to_map(self):
         _map = super(ContinueCreateStackResponseBody, self).to_map()
@@ -237,6 +274,8 @@ class ContinueCreateStackResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.dry_run_result is not None:
+            result['DryRunResult'] = self.dry_run_result.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.stack_id is not None:
@@ -245,6 +284,9 @@ class ContinueCreateStackResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DryRunResult') is not None:
+            temp_model = ContinueCreateStackResponseBodyDryRunResult()
+            self.dry_run_result = temp_model.from_map(m['DryRunResult'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('StackId') is not None:
