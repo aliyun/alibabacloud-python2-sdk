@@ -907,8 +907,8 @@ class Client(OpenApiClient):
     def list_benchmark_task_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.fileter):
-            query['Fileter'] = request.fileter
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1011,6 +1011,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1079,6 +1083,10 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_name):
+            query['ResourceName'] = request.resource_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1428,6 +1436,36 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_resource_instance(self, cluster_id, resource_id, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_resource_instance_with_options(cluster_id, resource_id, instance_id, request, headers, runtime)
+
+    def update_resource_instance_with_options(self, cluster_id, resource_id, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.action):
+            body['Action'] = request.action
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateResourceInstance',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/resources/%s/%s/instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateResourceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_service(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1550,6 +1588,36 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             eas_20210701_models.UpdateServiceMirrorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_service_safety_lock(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_service_safety_lock_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def update_service_safety_lock_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.lock):
+            body['Lock'] = request.lock
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateServiceSafetyLock',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/lock' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateServiceSafetyLockResponse(),
             self.call_api(params, req, runtime)
         )
 

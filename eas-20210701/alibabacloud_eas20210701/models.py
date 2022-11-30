@@ -437,8 +437,9 @@ class Service(TeaModel):
                  extra_data=None, gpu=None, image=None, internet_endpoint=None, intranet_endpoint=None, latest_version=None,
                  memory=None, message=None, namespace=None, parent_uid=None, pending_instance=None, reason=None,
                  region=None, request_id=None, resource=None, resource_alias=None, role=None, role_attrs=None,
-                 running_instance=None, service_config=None, service_group=None, service_id=None, service_name=None,
-                 service_uid=None, source=None, status=None, total_instance=None, update_time=None, weight=None):
+                 running_instance=None, safety_lock=None, service_config=None, service_group=None, service_id=None,
+                 service_name=None, service_uid=None, source=None, status=None, total_instance=None, update_time=None,
+                 weight=None):
         self.access_token = access_token  # type: str
         self.caller_uid = caller_uid  # type: str
         self.cpu = cpu  # type: int
@@ -463,6 +464,7 @@ class Service(TeaModel):
         self.role = role  # type: str
         self.role_attrs = role_attrs  # type: str
         self.running_instance = running_instance  # type: int
+        self.safety_lock = safety_lock  # type: str
         self.service_config = service_config  # type: str
         self.service_group = service_group  # type: str
         self.service_id = service_id  # type: str
@@ -531,6 +533,8 @@ class Service(TeaModel):
             result['RoleAttrs'] = self.role_attrs
         if self.running_instance is not None:
             result['RunningInstance'] = self.running_instance
+        if self.safety_lock is not None:
+            result['SafetyLock'] = self.safety_lock
         if self.service_config is not None:
             result['ServiceConfig'] = self.service_config
         if self.service_group is not None:
@@ -603,6 +607,8 @@ class Service(TeaModel):
             self.role_attrs = m.get('RoleAttrs')
         if m.get('RunningInstance') is not None:
             self.running_instance = m.get('RunningInstance')
+        if m.get('SafetyLock') is not None:
+            self.safety_lock = m.get('SafetyLock')
         if m.get('ServiceConfig') is not None:
             self.service_config = m.get('ServiceConfig')
         if m.get('ServiceGroup') is not None:
@@ -3598,8 +3604,8 @@ class DescribeServiceMirrorResponse(TeaModel):
 
 
 class ListBenchmarkTaskRequest(TeaModel):
-    def __init__(self, fileter=None, page_number=None, page_size=None, service_name=None):
-        self.fileter = fileter  # type: str
+    def __init__(self, filter=None, page_number=None, page_size=None, service_name=None):
+        self.filter = filter  # type: str
         self.page_number = page_number  # type: str
         self.page_size = page_size  # type: str
         self.service_name = service_name  # type: str
@@ -3613,8 +3619,8 @@ class ListBenchmarkTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.fileter is not None:
-            result['Fileter'] = self.fileter
+        if self.filter is not None:
+            result['Filter'] = self.filter
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -3625,8 +3631,8 @@ class ListBenchmarkTaskRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Fileter') is not None:
-            self.fileter = m.get('Fileter')
+        if m.get('Filter') is not None:
+            self.filter = m.get('Filter')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -4038,8 +4044,10 @@ class ListResourceInstanceWorkerResponse(TeaModel):
 
 
 class ListResourceInstancesRequest(TeaModel):
-    def __init__(self, charge_type=None, page_number=None, page_size=None):
+    def __init__(self, charge_type=None, instance_id=None, instance_name=None, page_number=None, page_size=None):
         self.charge_type = charge_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -4054,6 +4062,10 @@ class ListResourceInstancesRequest(TeaModel):
         result = dict()
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -4064,6 +4076,10 @@ class ListResourceInstancesRequest(TeaModel):
         m = m or dict()
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -4283,9 +4299,11 @@ class ListResourceServicesResponse(TeaModel):
 
 
 class ListResourcesRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None):
+    def __init__(self, page_number=None, page_size=None, resource_id=None, resource_name=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.resource_id = resource_id  # type: str
+        self.resource_name = resource_name  # type: str
 
     def validate(self):
         pass
@@ -4300,6 +4318,10 @@ class ListResourcesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
         return result
 
     def from_map(self, m=None):
@@ -4308,6 +4330,10 @@ class ListResourcesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
         return self
 
 
@@ -5491,6 +5517,103 @@ class UpdateResourceDLinkResponse(TeaModel):
         return self
 
 
+class UpdateResourceInstanceRequest(TeaModel):
+    def __init__(self, action=None):
+        self.action = action  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateResourceInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action is not None:
+            result['Action'] = self.action
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Action') is not None:
+            self.action = m.get('Action')
+        return self
+
+
+class UpdateResourceInstanceResponseBody(TeaModel):
+    def __init__(self, instance_id=None, request_id=None, resource_id=None):
+        self.instance_id = instance_id  # type: str
+        self.request_id = request_id  # type: str
+        self.resource_id = resource_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateResourceInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        return self
+
+
+class UpdateResourceInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateResourceInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateResourceInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateResourceInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateServiceRequest(TeaModel):
     def __init__(self, body=None):
         self.body = body  # type: str
@@ -5959,6 +6082,98 @@ class UpdateServiceMirrorResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateServiceMirrorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateServiceSafetyLockRequest(TeaModel):
+    def __init__(self, lock=None):
+        self.lock = lock  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateServiceSafetyLockRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lock is not None:
+            result['Lock'] = self.lock
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lock') is not None:
+            self.lock = m.get('Lock')
+        return self
+
+
+class UpdateServiceSafetyLockResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateServiceSafetyLockResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateServiceSafetyLockResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateServiceSafetyLockResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateServiceSafetyLockResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateServiceSafetyLockResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
