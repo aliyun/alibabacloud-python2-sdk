@@ -1,3 +1,6 @@
+2022-12-01 Version: 1.1.1
+- Supported more language for resourcemanager.
+
 2022-01-14 Version: 1.1.0
 - Supported more query conditions when searching resource group.
 
