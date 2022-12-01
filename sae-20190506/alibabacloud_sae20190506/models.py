@@ -20529,18 +20529,20 @@ class UpdateIngressResponse(TeaModel):
 
 
 class UpdateJobRequest(TeaModel):
-    def __init__(self, acr_assume_role_arn=None, app_id=None, associate_eip=None,
+    def __init__(self, acr_assume_role_arn=None, acr_instance_id=None, app_id=None, associate_eip=None,
                  auto_enable_application_scaling_rule=None, backoff_limit=None, batch_wait_time=None, change_order_desc=None, command=None,
                  command_args=None, concurrency_policy=None, config_map_mount_desc=None, custom_host_alias=None,
                  edas_container_version=None, enable_ahas=None, enable_grey_tag_route=None, envs=None, image_pull_secrets=None,
                  image_url=None, jar_start_args=None, jar_start_options=None, jdk=None, liveness=None,
                  min_ready_instances=None, mount_desc=None, mount_host=None, nas_id=None, oss_ak_id=None, oss_ak_secret=None,
-                 oss_mount_descs=None, package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
-                 php_config_location=None, post_start=None, pre_stop=None, programming_language=None, python=None, python_modules=None,
-                 readiness=None, ref_app_id=None, replicas=None, slice=None, slice_envs=None, sls_configs=None,
-                 termination_grace_period_seconds=None, timeout=None, timezone=None, tomcat_config=None, trigger_config=None, update_strategy=None,
+                 oss_mount_descs=None, package_url=None, package_version=None, php=None, php_arms_config_location=None,
+                 php_config=None, php_config_location=None, php_extensions=None, php_peclextensions=None, post_start=None,
+                 pre_stop=None, programming_language=None, python=None, python_modules=None, readiness=None, ref_app_id=None,
+                 replicas=None, slice=None, slice_envs=None, sls_configs=None, termination_grace_period_seconds=None,
+                 timeout=None, timezone=None, tomcat_config=None, trigger_config=None, update_strategy=None,
                  war_start_options=None, web_container=None):
         self.acr_assume_role_arn = acr_assume_role_arn  # type: str
+        self.acr_instance_id = acr_instance_id  # type: str
         self.app_id = app_id  # type: str
         self.associate_eip = associate_eip  # type: bool
         self.auto_enable_application_scaling_rule = auto_enable_application_scaling_rule  # type: bool
@@ -20571,9 +20573,12 @@ class UpdateJobRequest(TeaModel):
         self.oss_mount_descs = oss_mount_descs  # type: str
         self.package_url = package_url  # type: str
         self.package_version = package_version  # type: str
+        self.php = php  # type: str
         self.php_arms_config_location = php_arms_config_location  # type: str
         self.php_config = php_config  # type: str
         self.php_config_location = php_config_location  # type: str
+        self.php_extensions = php_extensions  # type: str
+        self.php_peclextensions = php_peclextensions  # type: str
         self.post_start = post_start  # type: str
         self.pre_stop = pre_stop  # type: str
         self.programming_language = programming_language  # type: str
@@ -20605,6 +20610,8 @@ class UpdateJobRequest(TeaModel):
         result = dict()
         if self.acr_assume_role_arn is not None:
             result['AcrAssumeRoleArn'] = self.acr_assume_role_arn
+        if self.acr_instance_id is not None:
+            result['AcrInstanceId'] = self.acr_instance_id
         if self.app_id is not None:
             result['AppId'] = self.app_id
         if self.associate_eip is not None:
@@ -20665,12 +20672,18 @@ class UpdateJobRequest(TeaModel):
             result['PackageUrl'] = self.package_url
         if self.package_version is not None:
             result['PackageVersion'] = self.package_version
+        if self.php is not None:
+            result['Php'] = self.php
         if self.php_arms_config_location is not None:
             result['PhpArmsConfigLocation'] = self.php_arms_config_location
         if self.php_config is not None:
             result['PhpConfig'] = self.php_config
         if self.php_config_location is not None:
             result['PhpConfigLocation'] = self.php_config_location
+        if self.php_extensions is not None:
+            result['PhpExtensions'] = self.php_extensions
+        if self.php_peclextensions is not None:
+            result['PhpPECLExtensions'] = self.php_peclextensions
         if self.post_start is not None:
             result['PostStart'] = self.post_start
         if self.pre_stop is not None:
@@ -20715,6 +20728,8 @@ class UpdateJobRequest(TeaModel):
         m = m or dict()
         if m.get('AcrAssumeRoleArn') is not None:
             self.acr_assume_role_arn = m.get('AcrAssumeRoleArn')
+        if m.get('AcrInstanceId') is not None:
+            self.acr_instance_id = m.get('AcrInstanceId')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
         if m.get('AssociateEip') is not None:
@@ -20775,12 +20790,18 @@ class UpdateJobRequest(TeaModel):
             self.package_url = m.get('PackageUrl')
         if m.get('PackageVersion') is not None:
             self.package_version = m.get('PackageVersion')
+        if m.get('Php') is not None:
+            self.php = m.get('Php')
         if m.get('PhpArmsConfigLocation') is not None:
             self.php_arms_config_location = m.get('PhpArmsConfigLocation')
         if m.get('PhpConfig') is not None:
             self.php_config = m.get('PhpConfig')
         if m.get('PhpConfigLocation') is not None:
             self.php_config_location = m.get('PhpConfigLocation')
+        if m.get('PhpExtensions') is not None:
+            self.php_extensions = m.get('PhpExtensions')
+        if m.get('PhpPECLExtensions') is not None:
+            self.php_peclextensions = m.get('PhpPECLExtensions')
         if m.get('PostStart') is not None:
             self.post_start = m.get('PostStart')
         if m.get('PreStop') is not None:
