@@ -254,6 +254,8 @@ class Client(OpenApiClient):
             query['EdasContainerVersion'] = request.edas_container_version
         if not UtilClient.is_unset(request.envs):
             query['Envs'] = request.envs
+        if not UtilClient.is_unset(request.image_pull_secrets):
+            query['ImagePullSecrets'] = request.image_pull_secrets
         if not UtilClient.is_unset(request.image_url):
             query['ImageUrl'] = request.image_url
         if not UtilClient.is_unset(request.jar_start_args):
@@ -268,12 +270,16 @@ class Client(OpenApiClient):
             query['Liveness'] = request.liveness
         if not UtilClient.is_unset(request.memory):
             query['Memory'] = request.memory
+        if not UtilClient.is_unset(request.micro_registration):
+            query['MicroRegistration'] = request.micro_registration
         if not UtilClient.is_unset(request.mount_desc):
             query['MountDesc'] = request.mount_desc
         if not UtilClient.is_unset(request.mount_host):
             query['MountHost'] = request.mount_host
         if not UtilClient.is_unset(request.namespace_id):
             query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.nas_configs):
+            query['NasConfigs'] = request.nas_configs
         if not UtilClient.is_unset(request.nas_id):
             query['NasId'] = request.nas_id
         if not UtilClient.is_unset(request.package_type):
@@ -292,6 +298,12 @@ class Client(OpenApiClient):
             query['PreStop'] = request.pre_stop
         if not UtilClient.is_unset(request.programming_language):
             query['ProgrammingLanguage'] = request.programming_language
+        if not UtilClient.is_unset(request.pvtz_discovery_svc):
+            query['PvtzDiscoverySvc'] = request.pvtz_discovery_svc
+        if not UtilClient.is_unset(request.python):
+            query['Python'] = request.python
+        if not UtilClient.is_unset(request.python_modules):
+            query['PythonModules'] = request.python_modules
         if not UtilClient.is_unset(request.readiness):
             query['Readiness'] = request.readiness
         if not UtilClient.is_unset(request.replicas):
@@ -440,6 +452,8 @@ class Client(OpenApiClient):
     def create_grey_tag_route_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.alb_rules):
+            query['AlbRules'] = request.alb_rules
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
         if not UtilClient.is_unset(request.description):
@@ -480,6 +494,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cert_id):
             query['CertId'] = request.cert_id
+        if not UtilClient.is_unset(request.cert_ids):
+            query['CertIds'] = request.cert_ids
         if not UtilClient.is_unset(request.default_rule):
             query['DefaultRule'] = request.default_rule
         if not UtilClient.is_unset(request.description):
@@ -518,6 +534,150 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_job_with_options(request, headers, runtime)
+
+    def create_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acr_assume_role_arn):
+            query['AcrAssumeRoleArn'] = request.acr_assume_role_arn
+        if not UtilClient.is_unset(request.app_description):
+            query['AppDescription'] = request.app_description
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.auto_config):
+            query['AutoConfig'] = request.auto_config
+        if not UtilClient.is_unset(request.backoff_limit):
+            query['BackoffLimit'] = request.backoff_limit
+        if not UtilClient.is_unset(request.command):
+            query['Command'] = request.command
+        if not UtilClient.is_unset(request.command_args):
+            query['CommandArgs'] = request.command_args
+        if not UtilClient.is_unset(request.concurrency_policy):
+            query['ConcurrencyPolicy'] = request.concurrency_policy
+        if not UtilClient.is_unset(request.cpu):
+            query['Cpu'] = request.cpu
+        if not UtilClient.is_unset(request.custom_host_alias):
+            query['CustomHostAlias'] = request.custom_host_alias
+        if not UtilClient.is_unset(request.deploy):
+            query['Deploy'] = request.deploy
+        if not UtilClient.is_unset(request.edas_container_version):
+            query['EdasContainerVersion'] = request.edas_container_version
+        if not UtilClient.is_unset(request.envs):
+            query['Envs'] = request.envs
+        if not UtilClient.is_unset(request.image_pull_secrets):
+            query['ImagePullSecrets'] = request.image_pull_secrets
+        if not UtilClient.is_unset(request.image_url):
+            query['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.jar_start_args):
+            query['JarStartArgs'] = request.jar_start_args
+        if not UtilClient.is_unset(request.jar_start_options):
+            query['JarStartOptions'] = request.jar_start_options
+        if not UtilClient.is_unset(request.jdk):
+            query['Jdk'] = request.jdk
+        if not UtilClient.is_unset(request.liveness):
+            query['Liveness'] = request.liveness
+        if not UtilClient.is_unset(request.memory):
+            query['Memory'] = request.memory
+        if not UtilClient.is_unset(request.mount_desc):
+            query['MountDesc'] = request.mount_desc
+        if not UtilClient.is_unset(request.mount_host):
+            query['MountHost'] = request.mount_host
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.nas_id):
+            query['NasId'] = request.nas_id
+        if not UtilClient.is_unset(request.package_type):
+            query['PackageType'] = request.package_type
+        if not UtilClient.is_unset(request.package_url):
+            query['PackageUrl'] = request.package_url
+        if not UtilClient.is_unset(request.package_version):
+            query['PackageVersion'] = request.package_version
+        if not UtilClient.is_unset(request.php_arms_config_location):
+            query['PhpArmsConfigLocation'] = request.php_arms_config_location
+        if not UtilClient.is_unset(request.php_config_location):
+            query['PhpConfigLocation'] = request.php_config_location
+        if not UtilClient.is_unset(request.post_start):
+            query['PostStart'] = request.post_start
+        if not UtilClient.is_unset(request.pre_stop):
+            query['PreStop'] = request.pre_stop
+        if not UtilClient.is_unset(request.programming_language):
+            query['ProgrammingLanguage'] = request.programming_language
+        if not UtilClient.is_unset(request.python):
+            query['Python'] = request.python
+        if not UtilClient.is_unset(request.python_modules):
+            query['PythonModules'] = request.python_modules
+        if not UtilClient.is_unset(request.readiness):
+            query['Readiness'] = request.readiness
+        if not UtilClient.is_unset(request.ref_app_id):
+            query['RefAppId'] = request.ref_app_id
+        if not UtilClient.is_unset(request.replicas):
+            query['Replicas'] = request.replicas
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.slice):
+            query['Slice'] = request.slice
+        if not UtilClient.is_unset(request.slice_envs):
+            query['SliceEnvs'] = request.slice_envs
+        if not UtilClient.is_unset(request.sls_configs):
+            query['SlsConfigs'] = request.sls_configs
+        if not UtilClient.is_unset(request.termination_grace_period_seconds):
+            query['TerminationGracePeriodSeconds'] = request.termination_grace_period_seconds
+        if not UtilClient.is_unset(request.timeout):
+            query['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.timezone):
+            query['Timezone'] = request.timezone
+        if not UtilClient.is_unset(request.tomcat_config):
+            query['TomcatConfig'] = request.tomcat_config
+        if not UtilClient.is_unset(request.trigger_config):
+            query['TriggerConfig'] = request.trigger_config
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.war_start_options):
+            query['WarStartOptions'] = request.war_start_options
+        if not UtilClient.is_unset(request.web_container):
+            query['WebContainer'] = request.web_container
+        if not UtilClient.is_unset(request.workload):
+            query['Workload'] = request.workload
+        body = {}
+        if not UtilClient.is_unset(request.associate_eip):
+            body['AssociateEip'] = request.associate_eip
+        if not UtilClient.is_unset(request.config_map_mount_desc):
+            body['ConfigMapMountDesc'] = request.config_map_mount_desc
+        if not UtilClient.is_unset(request.oss_ak_id):
+            body['OssAkId'] = request.oss_ak_id
+        if not UtilClient.is_unset(request.oss_ak_secret):
+            body['OssAkSecret'] = request.oss_ak_secret
+        if not UtilClient.is_unset(request.oss_mount_descs):
+            body['OssMountDescs'] = request.oss_mount_descs
+        if not UtilClient.is_unset(request.php_config):
+            body['PhpConfig'] = request.php_config
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/createJob',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.CreateJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -549,6 +709,44 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.CreateNamespaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_secret_with_options(request, headers, runtime)
+
+    def create_secret_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
+        if not UtilClient.is_unset(request.secret_type):
+            query['SecretType'] = request.secret_type
+        body = {}
+        if not UtilClient.is_unset(request.secret_data):
+            body['SecretData'] = request.secret_data
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSecret',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/secret/secret',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.CreateSecretResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -674,6 +872,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_history_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_history_job_with_options(request, headers, runtime)
+
+    def delete_history_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteHistoryJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/deleteHistoryJob',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DeleteHistoryJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_ingress(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -704,6 +934,36 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_job_with_options(request, headers, runtime)
+
+    def delete_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/deleteJob',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DeleteJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -731,6 +991,38 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.DeleteNamespaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_secret_with_options(request, headers, runtime)
+
+    def delete_secret_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.secret_id):
+            query['SecretId'] = request.secret_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSecret',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/secret/secret',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DeleteSecretResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -766,6 +1058,8 @@ class Client(OpenApiClient):
             query['EnableGreyTagRoute'] = request.enable_grey_tag_route
         if not UtilClient.is_unset(request.envs):
             query['Envs'] = request.envs
+        if not UtilClient.is_unset(request.image_pull_secrets):
+            query['ImagePullSecrets'] = request.image_pull_secrets
         if not UtilClient.is_unset(request.image_url):
             query['ImageUrl'] = request.image_url
         if not UtilClient.is_unset(request.jar_start_args):
@@ -778,6 +1072,8 @@ class Client(OpenApiClient):
             query['KafkaConfigs'] = request.kafka_configs
         if not UtilClient.is_unset(request.liveness):
             query['Liveness'] = request.liveness
+        if not UtilClient.is_unset(request.micro_registration):
+            query['MicroRegistration'] = request.micro_registration
         if not UtilClient.is_unset(request.min_ready_instance_ratio):
             query['MinReadyInstanceRatio'] = request.min_ready_instance_ratio
         if not UtilClient.is_unset(request.min_ready_instances):
@@ -786,6 +1082,8 @@ class Client(OpenApiClient):
             query['MountDesc'] = request.mount_desc
         if not UtilClient.is_unset(request.mount_host):
             query['MountHost'] = request.mount_host
+        if not UtilClient.is_unset(request.nas_configs):
+            query['NasConfigs'] = request.nas_configs
         if not UtilClient.is_unset(request.nas_id):
             query['NasId'] = request.nas_id
         if not UtilClient.is_unset(request.package_url):
@@ -800,6 +1098,12 @@ class Client(OpenApiClient):
             query['PostStart'] = request.post_start
         if not UtilClient.is_unset(request.pre_stop):
             query['PreStop'] = request.pre_stop
+        if not UtilClient.is_unset(request.pvtz_discovery_svc):
+            query['PvtzDiscoverySvc'] = request.pvtz_discovery_svc
+        if not UtilClient.is_unset(request.python):
+            query['Python'] = request.python
+        if not UtilClient.is_unset(request.python_modules):
+            query['PythonModules'] = request.python_modules
         if not UtilClient.is_unset(request.readiness):
             query['Readiness'] = request.readiness
         if not UtilClient.is_unset(request.sls_configs):
@@ -1414,6 +1718,76 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_job_with_options(request, headers, runtime)
+
+    def describe_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/describeJob',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DescribeJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_job_history(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_job_history_with_options(request, headers, runtime)
+
+    def describe_job_history_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJobHistory',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/describeJobHistory',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DescribeJobHistoryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def describe_job_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1625,6 +1999,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def describe_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_secret_with_options(request, headers, runtime)
+
+    def describe_secret_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.secret_id):
+            query['SecretId'] = request.secret_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSecret',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/secret/secret',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.DescribeSecretResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def disable_application_scaling_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1711,6 +2117,8 @@ class Client(OpenApiClient):
             query['JarStartArgs'] = request.jar_start_args
         if not UtilClient.is_unset(request.jar_start_options):
             query['JarStartOptions'] = request.jar_start_options
+        if not UtilClient.is_unset(request.time):
+            query['Time'] = request.time
         if not UtilClient.is_unset(request.war_start_options):
             query['WarStartOptions'] = request.war_start_options
         req = open_api_models.OpenApiRequest(
@@ -1730,6 +2138,40 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.ExecJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_job_history(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_job_history_with_options(request, headers, runtime)
+
+    def get_job_history_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetJobHistory',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/getJobHistory',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.GetJobHistoryResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2021,6 +2463,54 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_jobs(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_jobs_with_options(request, headers, runtime)
+
+    def list_jobs_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.field_type):
+            query['FieldType'] = request.field_type
+        if not UtilClient.is_unset(request.field_value):
+            query['FieldValue'] = request.field_value
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.reverse):
+            query['Reverse'] = request.reverse
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.workload):
+            query['Workload'] = request.workload
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListJobs',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/listJobs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.ListJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_log_configs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2152,6 +2642,36 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.ListPublishedServicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_secrets(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_secrets_with_options(request, headers, runtime)
+
+    def list_secrets_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSecrets',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/secret/secrets',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.ListSecretsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2520,6 +3040,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def suspend_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.suspend_job_with_options(request, headers, runtime)
+
+    def suspend_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.suspend):
+            query['Suspend'] = request.suspend
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SuspendJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/suspendJob',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.SuspendJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2808,6 +3360,8 @@ class Client(OpenApiClient):
     def update_grey_tag_route_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.alb_rules):
+            query['AlbRules'] = request.alb_rules
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.dubbo_rules):
@@ -2846,6 +3400,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cert_id):
             query['CertId'] = request.cert_id
+        if not UtilClient.is_unset(request.cert_ids):
+            query['CertIds'] = request.cert_ids
         if not UtilClient.is_unset(request.default_rule):
             query['DefaultRule'] = request.default_rule
         if not UtilClient.is_unset(request.description):
@@ -2879,6 +3435,142 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.UpdateIngressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_job_with_options(request, headers, runtime)
+
+    def update_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acr_assume_role_arn):
+            query['AcrAssumeRoleArn'] = request.acr_assume_role_arn
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.auto_enable_application_scaling_rule):
+            query['AutoEnableApplicationScalingRule'] = request.auto_enable_application_scaling_rule
+        if not UtilClient.is_unset(request.backoff_limit):
+            query['BackoffLimit'] = request.backoff_limit
+        if not UtilClient.is_unset(request.batch_wait_time):
+            query['BatchWaitTime'] = request.batch_wait_time
+        if not UtilClient.is_unset(request.change_order_desc):
+            query['ChangeOrderDesc'] = request.change_order_desc
+        if not UtilClient.is_unset(request.command):
+            query['Command'] = request.command
+        if not UtilClient.is_unset(request.command_args):
+            query['CommandArgs'] = request.command_args
+        if not UtilClient.is_unset(request.concurrency_policy):
+            query['ConcurrencyPolicy'] = request.concurrency_policy
+        if not UtilClient.is_unset(request.custom_host_alias):
+            query['CustomHostAlias'] = request.custom_host_alias
+        if not UtilClient.is_unset(request.edas_container_version):
+            query['EdasContainerVersion'] = request.edas_container_version
+        if not UtilClient.is_unset(request.enable_ahas):
+            query['EnableAhas'] = request.enable_ahas
+        if not UtilClient.is_unset(request.enable_grey_tag_route):
+            query['EnableGreyTagRoute'] = request.enable_grey_tag_route
+        if not UtilClient.is_unset(request.envs):
+            query['Envs'] = request.envs
+        if not UtilClient.is_unset(request.image_pull_secrets):
+            query['ImagePullSecrets'] = request.image_pull_secrets
+        if not UtilClient.is_unset(request.image_url):
+            query['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.jar_start_args):
+            query['JarStartArgs'] = request.jar_start_args
+        if not UtilClient.is_unset(request.jar_start_options):
+            query['JarStartOptions'] = request.jar_start_options
+        if not UtilClient.is_unset(request.jdk):
+            query['Jdk'] = request.jdk
+        if not UtilClient.is_unset(request.liveness):
+            query['Liveness'] = request.liveness
+        if not UtilClient.is_unset(request.min_ready_instances):
+            query['MinReadyInstances'] = request.min_ready_instances
+        if not UtilClient.is_unset(request.mount_desc):
+            query['MountDesc'] = request.mount_desc
+        if not UtilClient.is_unset(request.mount_host):
+            query['MountHost'] = request.mount_host
+        if not UtilClient.is_unset(request.nas_id):
+            query['NasId'] = request.nas_id
+        if not UtilClient.is_unset(request.package_url):
+            query['PackageUrl'] = request.package_url
+        if not UtilClient.is_unset(request.package_version):
+            query['PackageVersion'] = request.package_version
+        if not UtilClient.is_unset(request.php_arms_config_location):
+            query['PhpArmsConfigLocation'] = request.php_arms_config_location
+        if not UtilClient.is_unset(request.php_config_location):
+            query['PhpConfigLocation'] = request.php_config_location
+        if not UtilClient.is_unset(request.post_start):
+            query['PostStart'] = request.post_start
+        if not UtilClient.is_unset(request.pre_stop):
+            query['PreStop'] = request.pre_stop
+        if not UtilClient.is_unset(request.programming_language):
+            query['ProgrammingLanguage'] = request.programming_language
+        if not UtilClient.is_unset(request.python):
+            query['Python'] = request.python
+        if not UtilClient.is_unset(request.python_modules):
+            query['PythonModules'] = request.python_modules
+        if not UtilClient.is_unset(request.readiness):
+            query['Readiness'] = request.readiness
+        if not UtilClient.is_unset(request.ref_app_id):
+            query['RefAppId'] = request.ref_app_id
+        if not UtilClient.is_unset(request.replicas):
+            query['Replicas'] = request.replicas
+        if not UtilClient.is_unset(request.slice):
+            query['Slice'] = request.slice
+        if not UtilClient.is_unset(request.slice_envs):
+            query['SliceEnvs'] = request.slice_envs
+        if not UtilClient.is_unset(request.sls_configs):
+            query['SlsConfigs'] = request.sls_configs
+        if not UtilClient.is_unset(request.termination_grace_period_seconds):
+            query['TerminationGracePeriodSeconds'] = request.termination_grace_period_seconds
+        if not UtilClient.is_unset(request.timeout):
+            query['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.timezone):
+            query['Timezone'] = request.timezone
+        if not UtilClient.is_unset(request.tomcat_config):
+            query['TomcatConfig'] = request.tomcat_config
+        if not UtilClient.is_unset(request.trigger_config):
+            query['TriggerConfig'] = request.trigger_config
+        if not UtilClient.is_unset(request.update_strategy):
+            query['UpdateStrategy'] = request.update_strategy
+        if not UtilClient.is_unset(request.war_start_options):
+            query['WarStartOptions'] = request.war_start_options
+        if not UtilClient.is_unset(request.web_container):
+            query['WebContainer'] = request.web_container
+        body = {}
+        if not UtilClient.is_unset(request.associate_eip):
+            body['AssociateEip'] = request.associate_eip
+        if not UtilClient.is_unset(request.config_map_mount_desc):
+            body['ConfigMapMountDesc'] = request.config_map_mount_desc
+        if not UtilClient.is_unset(request.oss_ak_id):
+            body['OssAkId'] = request.oss_ak_id
+        if not UtilClient.is_unset(request.oss_ak_secret):
+            body['OssAkSecret'] = request.oss_ak_secret
+        if not UtilClient.is_unset(request.oss_mount_descs):
+            body['OssMountDescs'] = request.oss_mount_descs
+        if not UtilClient.is_unset(request.php_config):
+            body['PhpConfig'] = request.php_config
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateJob',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/job/updateJob',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.UpdateJobResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2945,5 +3637,41 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             sae_20190506_models.UpdateNamespaceVpcResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_secret_with_options(request, headers, runtime)
+
+    def update_secret_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.secret_id):
+            query['SecretId'] = request.secret_id
+        body = {}
+        if not UtilClient.is_unset(request.secret_data):
+            body['SecretData'] = request.secret_data
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSecret',
+            version='2019-05-06',
+            protocol='HTTPS',
+            pathname='/pop/v1/sam/secret/secret',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sae_20190506_models.UpdateSecretResponse(),
             self.call_api(params, req, runtime)
         )
