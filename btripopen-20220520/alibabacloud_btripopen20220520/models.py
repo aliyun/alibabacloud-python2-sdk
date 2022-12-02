@@ -9894,10 +9894,10 @@ class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesMostExpensive(Te
 class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutes(TeaModel):
     def __init__(self, arr_date=None, btrip_type=None, cheapest=None, dep_date=None, dest_city=None, err_msg=None,
                  itinerary_id=None, itinerary_index=None, most_expensive=None, org_city=None, success=None):
-        self.arr_date = arr_date  # type: str
+        self.arr_date = arr_date  # type: long
         self.btrip_type = btrip_type  # type: int
         self.cheapest = cheapest  # type: EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesCheapest
-        self.dep_date = dep_date  # type: str
+        self.dep_date = dep_date  # type: long
         self.dest_city = dest_city  # type: str
         self.err_msg = err_msg  # type: str
         self.itinerary_id = itinerary_id  # type: str
@@ -17258,6 +17258,273 @@ class ProjectModifyResponse(TeaModel):
         return self
 
 
+class SyncSingleUserHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncSingleUserHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class SyncSingleUserRequest(TeaModel):
+    def __init__(self, email=None, job_no=None, leave_status=None, manager_user_id=None, phone=None, position=None,
+                 position_level=None, real_name_en=None, third_depart_id_list=None, user_id=None, user_name=None):
+        self.email = email  # type: str
+        self.job_no = job_no  # type: str
+        self.leave_status = leave_status  # type: int
+        self.manager_user_id = manager_user_id  # type: str
+        self.phone = phone  # type: str
+        self.position = position  # type: str
+        self.position_level = position_level  # type: str
+        self.real_name_en = real_name_en  # type: str
+        self.third_depart_id_list = third_depart_id_list  # type: list[str]
+        self.user_id = user_id  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncSingleUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.email is not None:
+            result['email'] = self.email
+        if self.job_no is not None:
+            result['job_no'] = self.job_no
+        if self.leave_status is not None:
+            result['leave_status'] = self.leave_status
+        if self.manager_user_id is not None:
+            result['manager_user_id'] = self.manager_user_id
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.position is not None:
+            result['position'] = self.position
+        if self.position_level is not None:
+            result['position_level'] = self.position_level
+        if self.real_name_en is not None:
+            result['real_name_en'] = self.real_name_en
+        if self.third_depart_id_list is not None:
+            result['third_depart_id_list'] = self.third_depart_id_list
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('job_no') is not None:
+            self.job_no = m.get('job_no')
+        if m.get('leave_status') is not None:
+            self.leave_status = m.get('leave_status')
+        if m.get('manager_user_id') is not None:
+            self.manager_user_id = m.get('manager_user_id')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('position') is not None:
+            self.position = m.get('position')
+        if m.get('position_level') is not None:
+            self.position_level = m.get('position_level')
+        if m.get('real_name_en') is not None:
+            self.real_name_en = m.get('real_name_en')
+        if m.get('third_depart_id_list') is not None:
+            self.third_depart_id_list = m.get('third_depart_id_list')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        return self
+
+
+class SyncSingleUserShrinkRequest(TeaModel):
+    def __init__(self, email=None, job_no=None, leave_status=None, manager_user_id=None, phone=None, position=None,
+                 position_level=None, real_name_en=None, third_depart_id_list_shrink=None, user_id=None, user_name=None):
+        self.email = email  # type: str
+        self.job_no = job_no  # type: str
+        self.leave_status = leave_status  # type: int
+        self.manager_user_id = manager_user_id  # type: str
+        self.phone = phone  # type: str
+        self.position = position  # type: str
+        self.position_level = position_level  # type: str
+        self.real_name_en = real_name_en  # type: str
+        self.third_depart_id_list_shrink = third_depart_id_list_shrink  # type: str
+        self.user_id = user_id  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncSingleUserShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.email is not None:
+            result['email'] = self.email
+        if self.job_no is not None:
+            result['job_no'] = self.job_no
+        if self.leave_status is not None:
+            result['leave_status'] = self.leave_status
+        if self.manager_user_id is not None:
+            result['manager_user_id'] = self.manager_user_id
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.position is not None:
+            result['position'] = self.position
+        if self.position_level is not None:
+            result['position_level'] = self.position_level
+        if self.real_name_en is not None:
+            result['real_name_en'] = self.real_name_en
+        if self.third_depart_id_list_shrink is not None:
+            result['third_depart_id_list'] = self.third_depart_id_list_shrink
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('job_no') is not None:
+            self.job_no = m.get('job_no')
+        if m.get('leave_status') is not None:
+            self.leave_status = m.get('leave_status')
+        if m.get('manager_user_id') is not None:
+            self.manager_user_id = m.get('manager_user_id')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('position') is not None:
+            self.position = m.get('position')
+        if m.get('position_level') is not None:
+            self.position_level = m.get('position_level')
+        if m.get('real_name_en') is not None:
+            self.real_name_en = m.get('real_name_en')
+        if m.get('third_depart_id_list') is not None:
+            self.third_depart_id_list_shrink = m.get('third_depart_id_list')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        return self
+
+
+class SyncSingleUserResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncSingleUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class SyncSingleUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SyncSingleUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SyncSingleUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SyncSingleUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class TrainBillSettlementQueryHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -18928,9 +19195,9 @@ class TrainOrderQueryResponseBodyModuleInvoiceInfo(TeaModel):
 
 class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
     def __init__(self, apply_id=None, btrip_title=None, contact_name=None, corp_id=None, corp_name=None,
-                 depart_id=None, depart_name=None, gmt_create=None, gmt_modify=None, itinerary_id=None, order_id=None,
-                 order_status=None, thirdpart_apply_id=None, thirdpart_corp_id=None, thirdpart_itinerary_id=None,
-                 trip_type=None, user_id=None):
+                 depart_id=None, depart_name=None, exceed_apply_id=None, exceed_third_part_apply_id=None, gmt_create=None,
+                 gmt_modify=None, itinerary_id=None, order_id=None, order_status=None, thirdpart_apply_id=None,
+                 thirdpart_corp_id=None, thirdpart_itinerary_id=None, trip_type=None, user_id=None):
         self.apply_id = apply_id  # type: str
         self.btrip_title = btrip_title  # type: str
         self.contact_name = contact_name  # type: str
@@ -18938,6 +19205,8 @@ class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        self.exceed_apply_id = exceed_apply_id  # type: str
+        self.exceed_third_part_apply_id = exceed_third_part_apply_id  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modify = gmt_modify  # type: str
         self.itinerary_id = itinerary_id  # type: str
@@ -18972,6 +19241,10 @@ class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
             result['depart_id'] = self.depart_id
         if self.depart_name is not None:
             result['depart_name'] = self.depart_name
+        if self.exceed_apply_id is not None:
+            result['exceed_apply_id'] = self.exceed_apply_id
+        if self.exceed_third_part_apply_id is not None:
+            result['exceed_third_part_apply_id'] = self.exceed_third_part_apply_id
         if self.gmt_create is not None:
             result['gmt_create'] = self.gmt_create
         if self.gmt_modify is not None:
@@ -19010,6 +19283,10 @@ class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
             self.depart_id = m.get('depart_id')
         if m.get('depart_name') is not None:
             self.depart_name = m.get('depart_name')
+        if m.get('exceed_apply_id') is not None:
+            self.exceed_apply_id = m.get('exceed_apply_id')
+        if m.get('exceed_third_part_apply_id') is not None:
+            self.exceed_third_part_apply_id = m.get('exceed_third_part_apply_id')
         if m.get('gmt_create') is not None:
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modify') is not None:
