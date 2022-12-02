@@ -191,6 +191,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.approve_permission_apply_order_with_options(request, runtime)
 
+    def change_resource_manager_resource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeResourceManagerResourceGroup',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ChangeResourceManagerResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_resource_manager_resource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_resource_manager_resource_group_with_options(request, runtime)
+
     def check_file_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4683,8 +4715,6 @@ class Client(OpenApiClient):
             body['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.priority):
             body['Priority'] = request.priority
-        if not UtilClient.is_unset(request.project_env):
-            body['ProjectEnv'] = request.project_env
         if not UtilClient.is_unset(request.project_id):
             body['ProjectId'] = request.project_id
         if not UtilClient.is_unset(request.search_text):
@@ -6277,6 +6307,8 @@ class Client(OpenApiClient):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
         if not UtilClient.is_unset(request.tags_shrink):
             query['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.type_names):
+            query['TypeNames'] = request.type_names
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
