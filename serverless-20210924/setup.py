@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_serverless20210924_py2.
 
-Created on 29/11/2022
+Created on 02/12/2022
 
 @author: Alibaba Cloud SDK
 """

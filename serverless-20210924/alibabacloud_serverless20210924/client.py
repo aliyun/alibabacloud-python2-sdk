@@ -910,6 +910,68 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def put_pipeline_status(self, name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_pipeline_status_with_options(name, request, headers, runtime)
+
+    def put_pipeline_status_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+        )
+        params = open_api_models.Params(
+            action='PutPipelineStatus',
+            version='2021-09-24',
+            protocol='HTTPS',
+            pathname='/apis/serverlessdeployment/v1/pipelines/%s/status' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            serverless_20210924_models.PutPipelineStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def put_pipeline_template(self, name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_pipeline_template_with_options(name, request, headers, runtime)
+
+    def put_pipeline_template_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+        )
+        params = open_api_models.Params(
+            action='PutPipelineTemplate',
+            version='2021-09-24',
+            protocol='HTTPS',
+            pathname='/apis/serverlessdeployment/v1/pipelinetemplates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            serverless_20210924_models.PutPipelineTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def put_service(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -934,6 +996,68 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             serverless_20210924_models.PutServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def put_task_status(self, name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_task_status_with_options(name, request, headers, runtime)
+
+    def put_task_status_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+        )
+        params = open_api_models.Params(
+            action='PutTaskStatus',
+            version='2021-09-24',
+            protocol='HTTPS',
+            pathname='/apis/serverlessdeployment/v1/tasks/%s/status' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            serverless_20210924_models.PutTaskStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def put_task_template(self, name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_task_template_with_options(name, request, headers, runtime)
+
+    def put_task_template_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+        )
+        params = open_api_models.Params(
+            action='PutTaskTemplate',
+            version='2021-09-24',
+            protocol='HTTPS',
+            pathname='/apis/serverlessdeployment/v1/tasktemplates/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            serverless_20210924_models.PutTaskTemplateResponse(),
             self.call_api(params, req, runtime)
         )
 
