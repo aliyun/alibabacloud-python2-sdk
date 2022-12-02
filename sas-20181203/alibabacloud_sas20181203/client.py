@@ -703,6 +703,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_vul_auto_repair_config_with_options(request, runtime)
 
+    def delete_anti_brute_force_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ids):
+            query['Ids'] = request.ids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAntiBruteForceRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteAntiBruteForceRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_anti_brute_force_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_anti_brute_force_rule_with_options(request, runtime)
+
     def delete_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -918,6 +946,36 @@ class Client(OpenApiClient):
     def delete_vpc_honey_pot(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_honey_pot_with_options(request, runtime)
+
+    def delete_vul_whitelist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.whitelist):
+            query['Whitelist'] = request.whitelist
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteVulWhitelist',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteVulWhitelistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_vul_whitelist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_vul_whitelist_with_options(request, runtime)
 
     def describe_access_key_leak_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1516,6 +1574,34 @@ class Client(OpenApiClient):
     def describe_backup_policies(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_policies_with_options(request, runtime)
+
+    def describe_backup_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupPolicy',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeBackupPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_backup_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_backup_policy_with_options(request, runtime)
 
     def describe_backup_restore_count_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -2456,6 +2542,8 @@ class Client(OpenApiClient):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.levels):
             query['Levels'] = request.levels
+        if not UtilClient.is_unset(request.malicious_md_5):
+            query['MaliciousMd5'] = request.malicious_md_5
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.repo_id):
@@ -3392,6 +3480,48 @@ class Client(OpenApiClient):
     def describe_notice_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_notice_config_with_options(request, runtime)
+
+    def describe_nsas_susp_event_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.container_field_name):
+            query['ContainerFieldName'] = request.container_field_name
+        if not UtilClient.is_unset(request.container_field_value):
+            query['ContainerFieldValue'] = request.container_field_value
+        if not UtilClient.is_unset(request.from_):
+            query['From'] = request.from_
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeNsasSuspEventType',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeNsasSuspEventTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_nsas_susp_event_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_nsas_susp_event_type_with_options(request, runtime)
 
     def describe_offline_machines_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5940,6 +6070,34 @@ class Client(OpenApiClient):
     def get_vul_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_vul_statistics_with_options(request, runtime)
+
+    def get_vul_whitelist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.vul_whitelist_id):
+            query['VulWhitelistId'] = request.vul_whitelist_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetVulWhitelist',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetVulWhitelistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_vul_whitelist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_vul_whitelist_with_options(request, runtime)
 
     def handle_security_events_with_options(self, request, runtime):
         UtilClient.validate_model(request)
