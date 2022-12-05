@@ -1,3 +1,6 @@
+2022-12-05 Version: 1.0.6
+- Support GDN feature.
+
 2022-10-10 Version: 1.0.5
 - Support serverless feature.
 

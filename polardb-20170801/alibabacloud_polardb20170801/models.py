@@ -880,13 +880,15 @@ class CreateDBClusterRequestTag(TeaModel):
 
 
 class CreateDBClusterRequest(TeaModel):
-    def __init__(self, auto_renew=None, backup_retention_policy_on_cluster_deletion=None, client_token=None,
-                 clone_data_point=None, cluster_network_type=None, creation_category=None, creation_option=None,
-                 dbcluster_description=None, dbminor_version=None, dbnode_class=None, dbtype=None, dbversion=None, default_time_zone=None,
-                 gdnid=None, lower_case_table_names=None, owner_account=None, owner_id=None, parameter_group_id=None,
-                 pay_type=None, period=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_iplist=None, source_resource_id=None, tdestatus=None, tag=None, used_time=None,
-                 vpcid=None, v_switch_id=None, zone_id=None):
+    def __init__(self, allow_shut_down=None, auto_renew=None, backup_retention_policy_on_cluster_deletion=None,
+                 client_token=None, clone_data_point=None, cluster_network_type=None, creation_category=None,
+                 creation_option=None, dbcluster_description=None, dbminor_version=None, dbnode_class=None, dbtype=None,
+                 dbversion=None, default_time_zone=None, gdnid=None, lower_case_table_names=None, owner_account=None,
+                 owner_id=None, parameter_group_id=None, pay_type=None, period=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, scale_max=None, scale_min=None, scale_ro_num_max=None,
+                 scale_ro_num_min=None, security_iplist=None, serverless_type=None, source_resource_id=None, storage_type=None,
+                 tdestatus=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+        self.allow_shut_down = allow_shut_down  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.backup_retention_policy_on_cluster_deletion = backup_retention_policy_on_cluster_deletion  # type: str
         self.client_token = client_token  # type: str
@@ -911,8 +913,14 @@ class CreateDBClusterRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.scale_max = scale_max  # type: str
+        self.scale_min = scale_min  # type: str
+        self.scale_ro_num_max = scale_ro_num_max  # type: str
+        self.scale_ro_num_min = scale_ro_num_min  # type: str
         self.security_iplist = security_iplist  # type: str
+        self.serverless_type = serverless_type  # type: str
         self.source_resource_id = source_resource_id  # type: str
+        self.storage_type = storage_type  # type: str
         self.tdestatus = tdestatus  # type: bool
         self.tag = tag  # type: list[CreateDBClusterRequestTag]
         self.used_time = used_time  # type: str
@@ -932,6 +940,8 @@ class CreateDBClusterRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.allow_shut_down is not None:
+            result['AllowShutDown'] = self.allow_shut_down
         if self.auto_renew is not None:
             result['AutoRenew'] = self.auto_renew
         if self.backup_retention_policy_on_cluster_deletion is not None:
@@ -980,10 +990,22 @@ class CreateDBClusterRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.scale_max is not None:
+            result['ScaleMax'] = self.scale_max
+        if self.scale_min is not None:
+            result['ScaleMin'] = self.scale_min
+        if self.scale_ro_num_max is not None:
+            result['ScaleRoNumMax'] = self.scale_ro_num_max
+        if self.scale_ro_num_min is not None:
+            result['ScaleRoNumMin'] = self.scale_ro_num_min
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
+        if self.serverless_type is not None:
+            result['ServerlessType'] = self.serverless_type
         if self.source_resource_id is not None:
             result['SourceResourceId'] = self.source_resource_id
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         if self.tdestatus is not None:
             result['TDEStatus'] = self.tdestatus
         result['Tag'] = []
@@ -1002,6 +1024,8 @@ class CreateDBClusterRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AllowShutDown') is not None:
+            self.allow_shut_down = m.get('AllowShutDown')
         if m.get('AutoRenew') is not None:
             self.auto_renew = m.get('AutoRenew')
         if m.get('BackupRetentionPolicyOnClusterDeletion') is not None:
@@ -1050,10 +1074,22 @@ class CreateDBClusterRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ScaleMax') is not None:
+            self.scale_max = m.get('ScaleMax')
+        if m.get('ScaleMin') is not None:
+            self.scale_min = m.get('ScaleMin')
+        if m.get('ScaleRoNumMax') is not None:
+            self.scale_ro_num_max = m.get('ScaleRoNumMax')
+        if m.get('ScaleRoNumMin') is not None:
+            self.scale_ro_num_min = m.get('ScaleRoNumMin')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
+        if m.get('ServerlessType') is not None:
+            self.serverless_type = m.get('ServerlessType')
         if m.get('SourceResourceId') is not None:
             self.source_resource_id = m.get('SourceResourceId')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         if m.get('TDEStatus') is not None:
             self.tdestatus = m.get('TDEStatus')
         self.tag = []
@@ -2077,6 +2113,186 @@ class CreateGlobalDatabaseNetworkResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateGlobalDatabaseNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateGlobalSecurityIPGroupRequest(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGlobalSecurityIPGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class CreateGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, region_id=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateGlobalSecurityIPGroupResponseBody(TeaModel):
+    def __init__(self, global_security_ipgroup=None, request_id=None):
+        self.global_security_ipgroup = global_security_ipgroup  # type: list[CreateGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup:
+            for k in self.global_security_ipgroup:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateGlobalSecurityIPGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GlobalSecurityIPGroup'] = []
+        if self.global_security_ipgroup is not None:
+            for k in self.global_security_ipgroup:
+                result['GlobalSecurityIPGroup'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.global_security_ipgroup = []
+        if m.get('GlobalSecurityIPGroup') is not None:
+            for k in m.get('GlobalSecurityIPGroup'):
+                temp_model = CreateGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup()
+                self.global_security_ipgroup.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGlobalSecurityIPGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGlobalSecurityIPGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGlobalSecurityIPGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGlobalSecurityIPGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3401,6 +3617,193 @@ class DeleteGlobalDatabaseNetworkResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteGlobalDatabaseNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteGlobalSecurityIPGroupRequest(TeaModel):
+    def __init__(self, global_ig_name=None, global_security_group_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGlobalSecurityIPGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DeleteGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup(TeaModel):
+    def __init__(self, dbinstances=None, gip_list=None, global_ig_name=None, global_security_group_id=None,
+                 region_id=None):
+        self.dbinstances = dbinstances  # type: list[str]
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstances is not None:
+            result['DBInstances'] = self.dbinstances
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstances') is not None:
+            self.dbinstances = m.get('DBInstances')
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteGlobalSecurityIPGroupResponseBody(TeaModel):
+    def __init__(self, global_security_ipgroup=None, request_id=None):
+        self.global_security_ipgroup = global_security_ipgroup  # type: list[DeleteGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup:
+            for k in self.global_security_ipgroup:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteGlobalSecurityIPGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GlobalSecurityIPGroup'] = []
+        if self.global_security_ipgroup is not None:
+            for k in self.global_security_ipgroup:
+                result['GlobalSecurityIPGroup'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.global_security_ipgroup = []
+        if m.get('GlobalSecurityIPGroup') is not None:
+            for k in m.get('GlobalSecurityIPGroup'):
+                temp_model = DeleteGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup()
+                self.global_security_ipgroup.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGlobalSecurityIPGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGlobalSecurityIPGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGlobalSecurityIPGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGlobalSecurityIPGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5794,7 +6197,7 @@ class DescribeDBClusterAttributeRequest(TeaModel):
 class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
     def __init__(self, added_cpu_cores=None, creation_time=None, dbnode_class=None, dbnode_id=None,
                  dbnode_role=None, dbnode_status=None, failover_priority=None, hot_replica_mode=None, imci_switch=None,
-                 master_id=None, max_connections=None, max_iops=None, scc_mode=None, zone_id=None):
+                 master_id=None, max_connections=None, max_iops=None, scc_mode=None, server_weight=None, zone_id=None):
         self.added_cpu_cores = added_cpu_cores  # type: str
         self.creation_time = creation_time  # type: str
         self.dbnode_class = dbnode_class  # type: str
@@ -5808,6 +6211,7 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
         self.max_connections = max_connections  # type: int
         self.max_iops = max_iops  # type: int
         self.scc_mode = scc_mode  # type: str
+        self.server_weight = server_weight  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -5845,6 +6249,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             result['MaxIOPS'] = self.max_iops
         if self.scc_mode is not None:
             result['SccMode'] = self.scc_mode
+        if self.server_weight is not None:
+            result['ServerWeight'] = self.server_weight
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -5877,6 +6283,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             self.max_iops = m.get('MaxIOPS')
         if m.get('SccMode') is not None:
             self.scc_mode = m.get('SccMode')
+        if m.get('ServerWeight') is not None:
+            self.server_weight = m.get('ServerWeight')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
@@ -7083,7 +7491,8 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointList(TeaModel):
 class DescribeDBClusterMigrationResponseBody(TeaModel):
     def __init__(self, comment=None, dbcluster_endpoint_list=None, dbcluster_id=None,
                  dbcluster_read_write_mode=None, delayed_seconds=None, dts_instance_id=None, expired_time=None, migration_status=None,
-                 rds_endpoint_list=None, rds_read_write_mode=None, request_id=None, source_rdsdbinstance_id=None, topologies=None):
+                 rds_endpoint_list=None, rds_read_write_mode=None, request_id=None, source_rdsdbinstance_id=None, src_db_type=None,
+                 topologies=None):
         self.comment = comment  # type: str
         self.dbcluster_endpoint_list = dbcluster_endpoint_list  # type: list[DescribeDBClusterMigrationResponseBodyDBClusterEndpointList]
         self.dbcluster_id = dbcluster_id  # type: str
@@ -7096,6 +7505,7 @@ class DescribeDBClusterMigrationResponseBody(TeaModel):
         self.rds_read_write_mode = rds_read_write_mode  # type: str
         self.request_id = request_id  # type: str
         self.source_rdsdbinstance_id = source_rdsdbinstance_id  # type: str
+        self.src_db_type = src_db_type  # type: str
         self.topologies = topologies  # type: str
 
     def validate(self):
@@ -7142,6 +7552,8 @@ class DescribeDBClusterMigrationResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.source_rdsdbinstance_id is not None:
             result['SourceRDSDBInstanceId'] = self.source_rdsdbinstance_id
+        if self.src_db_type is not None:
+            result['SrcDbType'] = self.src_db_type
         if self.topologies is not None:
             result['Topologies'] = self.topologies
         return result
@@ -7178,6 +7590,8 @@ class DescribeDBClusterMigrationResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('SourceRDSDBInstanceId') is not None:
             self.source_rdsdbinstance_id = m.get('SourceRDSDBInstanceId')
+        if m.get('SrcDbType') is not None:
+            self.src_db_type = m.get('SrcDbType')
         if m.get('Topologies') is not None:
             self.topologies = m.get('Topologies')
         return self
@@ -8012,6 +8426,150 @@ class DescribeDBClusterSSLResponse(TeaModel):
         return self
 
 
+class DescribeDBClusterServerlessConfRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBClusterServerlessConfRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribeDBClusterServerlessConfResponseBody(TeaModel):
+    def __init__(self, allow_shut_down=None, dbcluster_id=None, request_id=None, scale_max=None, scale_min=None,
+                 scale_ro_num_max=None, scale_ro_num_min=None, seconds_until_auto_pause=None):
+        self.allow_shut_down = allow_shut_down  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.request_id = request_id  # type: str
+        self.scale_max = scale_max  # type: str
+        self.scale_min = scale_min  # type: str
+        self.scale_ro_num_max = scale_ro_num_max  # type: str
+        self.scale_ro_num_min = scale_ro_num_min  # type: str
+        self.seconds_until_auto_pause = seconds_until_auto_pause  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBClusterServerlessConfResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_shut_down is not None:
+            result['AllowShutDown'] = self.allow_shut_down
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.scale_max is not None:
+            result['ScaleMax'] = self.scale_max
+        if self.scale_min is not None:
+            result['ScaleMin'] = self.scale_min
+        if self.scale_ro_num_max is not None:
+            result['ScaleRoNumMax'] = self.scale_ro_num_max
+        if self.scale_ro_num_min is not None:
+            result['ScaleRoNumMin'] = self.scale_ro_num_min
+        if self.seconds_until_auto_pause is not None:
+            result['SecondsUntilAutoPause'] = self.seconds_until_auto_pause
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowShutDown') is not None:
+            self.allow_shut_down = m.get('AllowShutDown')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ScaleMax') is not None:
+            self.scale_max = m.get('ScaleMax')
+        if m.get('ScaleMin') is not None:
+            self.scale_min = m.get('ScaleMin')
+        if m.get('ScaleRoNumMax') is not None:
+            self.scale_ro_num_max = m.get('ScaleRoNumMax')
+        if m.get('ScaleRoNumMin') is not None:
+            self.scale_ro_num_min = m.get('ScaleRoNumMin')
+        if m.get('SecondsUntilAutoPause') is not None:
+            self.seconds_until_auto_pause = m.get('SecondsUntilAutoPause')
+        return self
+
+
+class DescribeDBClusterServerlessConfResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDBClusterServerlessConfResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBClusterServerlessConfResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDBClusterServerlessConfResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDBClusterTDERequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
@@ -8341,15 +8899,18 @@ class DescribeDBClustersRequestTag(TeaModel):
 
 
 class DescribeDBClustersRequest(TeaModel):
-    def __init__(self, dbcluster_description=None, dbcluster_ids=None, dbcluster_status=None, dbnode_ids=None,
-                 dbtype=None, expired=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
-                 pay_type=None, recent_creation_interval=None, recent_expiration_interval=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+    def __init__(self, connection_string=None, dbcluster_description=None, dbcluster_ids=None,
+                 dbcluster_status=None, dbnode_ids=None, dbtype=None, dbversion=None, expired=None, owner_account=None, owner_id=None,
+                 page_number=None, page_size=None, pay_type=None, recent_creation_interval=None,
+                 recent_expiration_interval=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tag=None):
+        self.connection_string = connection_string  # type: str
         self.dbcluster_description = dbcluster_description  # type: str
         self.dbcluster_ids = dbcluster_ids  # type: str
         self.dbcluster_status = dbcluster_status  # type: str
         self.dbnode_ids = dbnode_ids  # type: str
         self.dbtype = dbtype  # type: str
+        self.dbversion = dbversion  # type: str
         self.expired = expired  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -8376,6 +8937,8 @@ class DescribeDBClustersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.connection_string is not None:
+            result['ConnectionString'] = self.connection_string
         if self.dbcluster_description is not None:
             result['DBClusterDescription'] = self.dbcluster_description
         if self.dbcluster_ids is not None:
@@ -8386,6 +8949,8 @@ class DescribeDBClustersRequest(TeaModel):
             result['DBNodeIds'] = self.dbnode_ids
         if self.dbtype is not None:
             result['DBType'] = self.dbtype
+        if self.dbversion is not None:
+            result['DBVersion'] = self.dbversion
         if self.expired is not None:
             result['Expired'] = self.expired
         if self.owner_account is not None:
@@ -8418,6 +8983,8 @@ class DescribeDBClustersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConnectionString') is not None:
+            self.connection_string = m.get('ConnectionString')
         if m.get('DBClusterDescription') is not None:
             self.dbcluster_description = m.get('DBClusterDescription')
         if m.get('DBClusterIds') is not None:
@@ -8428,6 +8995,8 @@ class DescribeDBClustersRequest(TeaModel):
             self.dbnode_ids = m.get('DBNodeIds')
         if m.get('DBType') is not None:
             self.dbtype = m.get('DBType')
+        if m.get('DBVersion') is not None:
+            self.dbversion = m.get('DBVersion')
         if m.get('Expired') is not None:
             self.expired = m.get('Expired')
         if m.get('OwnerAccount') is not None:
@@ -11583,6 +12152,367 @@ class DescribeGlobalDatabaseNetworksResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeGlobalDatabaseNetworksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeGlobalSecurityIPGroupRequest(TeaModel):
+    def __init__(self, global_security_group_id=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup(TeaModel):
+    def __init__(self, dbinstances=None, gip_list=None, global_ig_name=None, global_security_group_id=None,
+                 region_id=None):
+        self.dbinstances = dbinstances  # type: list[str]
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstances is not None:
+            result['DBInstances'] = self.dbinstances
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstances') is not None:
+            self.dbinstances = m.get('DBInstances')
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupResponseBody(TeaModel):
+    def __init__(self, global_security_ipgroup=None, request_id=None):
+        self.global_security_ipgroup = global_security_ipgroup  # type: list[DescribeGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup:
+            for k in self.global_security_ipgroup:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GlobalSecurityIPGroup'] = []
+        if self.global_security_ipgroup is not None:
+            for k in self.global_security_ipgroup:
+                result['GlobalSecurityIPGroup'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.global_security_ipgroup = []
+        if m.get('GlobalSecurityIPGroup') is not None:
+            for k in m.get('GlobalSecurityIPGroup'):
+                temp_model = DescribeGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup()
+                self.global_security_ipgroup.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeGlobalSecurityIPGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeGlobalSecurityIPGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeGlobalSecurityIPGroupRelationRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupRelationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, region_id=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupRelationResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, global_security_ipgroup_rel=None, request_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.global_security_ipgroup_rel = global_security_ipgroup_rel  # type: list[DescribeGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup_rel:
+            for k in self.global_security_ipgroup_rel:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupRelationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        result['GlobalSecurityIPGroupRel'] = []
+        if self.global_security_ipgroup_rel is not None:
+            for k in self.global_security_ipgroup_rel:
+                result['GlobalSecurityIPGroupRel'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        self.global_security_ipgroup_rel = []
+        if m.get('GlobalSecurityIPGroupRel') is not None:
+            for k in m.get('GlobalSecurityIPGroupRel'):
+                temp_model = DescribeGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel()
+                self.global_security_ipgroup_rel.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeGlobalSecurityIPGroupRelationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeGlobalSecurityIPGroupRelationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeGlobalSecurityIPGroupRelationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeGlobalSecurityIPGroupRelationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -17909,6 +18839,150 @@ class ModifyDBClusterSSLResponse(TeaModel):
         return self
 
 
+class ModifyDBClusterServerlessConfRequest(TeaModel):
+    def __init__(self, allow_shut_down=None, dbcluster_id=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, scale_max=None, scale_min=None, scale_ro_num_max=None,
+                 scale_ro_num_min=None, seconds_until_auto_pause=None):
+        self.allow_shut_down = allow_shut_down  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.scale_max = scale_max  # type: str
+        self.scale_min = scale_min  # type: str
+        self.scale_ro_num_max = scale_ro_num_max  # type: str
+        self.scale_ro_num_min = scale_ro_num_min  # type: str
+        self.seconds_until_auto_pause = seconds_until_auto_pause  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBClusterServerlessConfRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_shut_down is not None:
+            result['AllowShutDown'] = self.allow_shut_down
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.scale_max is not None:
+            result['ScaleMax'] = self.scale_max
+        if self.scale_min is not None:
+            result['ScaleMin'] = self.scale_min
+        if self.scale_ro_num_max is not None:
+            result['ScaleRoNumMax'] = self.scale_ro_num_max
+        if self.scale_ro_num_min is not None:
+            result['ScaleRoNumMin'] = self.scale_ro_num_min
+        if self.seconds_until_auto_pause is not None:
+            result['SecondsUntilAutoPause'] = self.seconds_until_auto_pause
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowShutDown') is not None:
+            self.allow_shut_down = m.get('AllowShutDown')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ScaleMax') is not None:
+            self.scale_max = m.get('ScaleMax')
+        if m.get('ScaleMin') is not None:
+            self.scale_min = m.get('ScaleMin')
+        if m.get('ScaleRoNumMax') is not None:
+            self.scale_ro_num_max = m.get('ScaleRoNumMax')
+        if m.get('ScaleRoNumMin') is not None:
+            self.scale_ro_num_min = m.get('ScaleRoNumMin')
+        if m.get('SecondsUntilAutoPause') is not None:
+            self.seconds_until_auto_pause = m.get('SecondsUntilAutoPause')
+        return self
+
+
+class ModifyDBClusterServerlessConfResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, request_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBClusterServerlessConfResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDBClusterServerlessConfResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDBClusterServerlessConfResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDBClusterServerlessConfResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDBClusterServerlessConfResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyDBClusterTDERequest(TeaModel):
     def __init__(self, dbcluster_id=None, encrypt_new_tables=None, encryption_key=None, owner_account=None,
                  owner_id=None, resource_owner_account=None, resource_owner_id=None, role_arn=None, tdestatus=None):
@@ -18887,6 +19961,565 @@ class ModifyGlobalDatabaseNetworkResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyGlobalDatabaseNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyGlobalSecurityIPGroupRequest(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup(TeaModel):
+    def __init__(self, dbinstances=None, gip_list=None, global_ig_name=None, global_security_group_id=None,
+                 region_id=None):
+        self.dbinstances = dbinstances  # type: list[str]
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstances is not None:
+            result['DBInstances'] = self.dbinstances
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstances') is not None:
+            self.dbinstances = m.get('DBInstances')
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupResponseBody(TeaModel):
+    def __init__(self, global_security_ipgroup=None, request_id=None):
+        self.global_security_ipgroup = global_security_ipgroup  # type: list[ModifyGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup:
+            for k in self.global_security_ipgroup:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GlobalSecurityIPGroup'] = []
+        if self.global_security_ipgroup is not None:
+            for k in self.global_security_ipgroup:
+                result['GlobalSecurityIPGroup'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.global_security_ipgroup = []
+        if m.get('GlobalSecurityIPGroup') is not None:
+            for k in m.get('GlobalSecurityIPGroup'):
+                temp_model = ModifyGlobalSecurityIPGroupResponseBodyGlobalSecurityIPGroup()
+                self.global_security_ipgroup.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyGlobalSecurityIPGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyGlobalSecurityIPGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyGlobalSecurityIPGroupNameRequest(TeaModel):
+    def __init__(self, global_ig_name=None, global_security_group_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupNameRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupNameResponseBodyGlobalSecurityIPGroup(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, region_id=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupNameResponseBodyGlobalSecurityIPGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupNameResponseBody(TeaModel):
+    def __init__(self, global_security_ipgroup=None, request_id=None):
+        self.global_security_ipgroup = global_security_ipgroup  # type: list[ModifyGlobalSecurityIPGroupNameResponseBodyGlobalSecurityIPGroup]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup:
+            for k in self.global_security_ipgroup:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupNameResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['GlobalSecurityIPGroup'] = []
+        if self.global_security_ipgroup is not None:
+            for k in self.global_security_ipgroup:
+                result['GlobalSecurityIPGroup'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.global_security_ipgroup = []
+        if m.get('GlobalSecurityIPGroup') is not None:
+            for k in m.get('GlobalSecurityIPGroup'):
+                temp_model = ModifyGlobalSecurityIPGroupNameResponseBodyGlobalSecurityIPGroup()
+                self.global_security_ipgroup.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupNameResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyGlobalSecurityIPGroupNameResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupNameResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyGlobalSecurityIPGroupNameResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyGlobalSecurityIPGroupRelationRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, global_security_group_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupRelationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel(TeaModel):
+    def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, region_id=None):
+        self.gip_list = gip_list  # type: str
+        self.global_ig_name = global_ig_name  # type: str
+        self.global_security_group_id = global_security_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gip_list is not None:
+            result['GIpList'] = self.gip_list
+        if self.global_ig_name is not None:
+            result['GlobalIgName'] = self.global_ig_name
+        if self.global_security_group_id is not None:
+            result['GlobalSecurityGroupId'] = self.global_security_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GIpList') is not None:
+            self.gip_list = m.get('GIpList')
+        if m.get('GlobalIgName') is not None:
+            self.global_ig_name = m.get('GlobalIgName')
+        if m.get('GlobalSecurityGroupId') is not None:
+            self.global_security_group_id = m.get('GlobalSecurityGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupRelationResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, global_security_ipgroup_rel=None, request_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.global_security_ipgroup_rel = global_security_ipgroup_rel  # type: list[ModifyGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.global_security_ipgroup_rel:
+            for k in self.global_security_ipgroup_rel:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupRelationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        result['GlobalSecurityIPGroupRel'] = []
+        if self.global_security_ipgroup_rel is not None:
+            for k in self.global_security_ipgroup_rel:
+                result['GlobalSecurityIPGroupRel'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        self.global_security_ipgroup_rel = []
+        if m.get('GlobalSecurityIPGroupRel') is not None:
+            for k in m.get('GlobalSecurityIPGroupRel'):
+                temp_model = ModifyGlobalSecurityIPGroupRelationResponseBodyGlobalSecurityIPGroupRel()
+                self.global_security_ipgroup_rel.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyGlobalSecurityIPGroupRelationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyGlobalSecurityIPGroupRelationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyGlobalSecurityIPGroupRelationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyGlobalSecurityIPGroupRelationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -20097,9 +21730,10 @@ class RevokeAccountPrivilegeResponse(TeaModel):
 
 
 class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, gdnid=None, owner_account=None, owner_id=None, region_id=None,
+    def __init__(self, dbcluster_id=None, forced=None, gdnid=None, owner_account=None, owner_id=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.dbcluster_id = dbcluster_id  # type: str
+        self.forced = forced  # type: bool
         self.gdnid = gdnid  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -20120,6 +21754,8 @@ class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
         result = dict()
         if self.dbcluster_id is not None:
             result['DBClusterId'] = self.dbcluster_id
+        if self.forced is not None:
+            result['Forced'] = self.forced
         if self.gdnid is not None:
             result['GDNId'] = self.gdnid
         if self.owner_account is not None:
@@ -20142,6 +21778,8 @@ class SwitchOverGlobalDatabaseNetworkRequest(TeaModel):
         m = m or dict()
         if m.get('DBClusterId') is not None:
             self.dbcluster_id = m.get('DBClusterId')
+        if m.get('Forced') is not None:
+            self.forced = m.get('Forced')
         if m.get('GDNId') is not None:
             self.gdnid = m.get('GDNId')
         if m.get('OwnerAccount') is not None:
