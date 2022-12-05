@@ -28375,7 +28375,7 @@ class QueryRequestLogsResponseBodyRequestLogsRequestLog(TeaModel):
                  plugin=None):
         self.api_id = api_id  # type: str
         self.api_name = api_name  # type: str
-        self.client_ip = client_ip  # type: int
+        self.client_ip = client_ip  # type: str
         self.client_nonce = client_nonce  # type: str
         self.consumer_app_id = consumer_app_id  # type: str
         self.consumer_app_key = consumer_app_key  # type: str
