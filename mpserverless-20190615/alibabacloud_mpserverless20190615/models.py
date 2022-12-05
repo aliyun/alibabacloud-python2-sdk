@@ -8779,10 +8779,8 @@ class QuerySpaceUsageResponseBodySpaceUsageDataList(TeaModel):
 
 
 class QuerySpaceUsageResponseBody(TeaModel):
-    def __init__(self, end_time=None, gmt_create=None, request_id=None, space_id=None, space_usage_data_list=None,
-                 start_time=None):
+    def __init__(self, end_time=None, request_id=None, space_id=None, space_usage_data_list=None, start_time=None):
         self.end_time = end_time  # type: str
-        self.gmt_create = gmt_create  # type: str
         self.request_id = request_id  # type: str
         self.space_id = space_id  # type: str
         self.space_usage_data_list = space_usage_data_list  # type: list[QuerySpaceUsageResponseBodySpaceUsageDataList]
@@ -8802,8 +8800,6 @@ class QuerySpaceUsageResponseBody(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.space_id is not None:
@@ -8820,8 +8816,6 @@ class QuerySpaceUsageResponseBody(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('SpaceId') is not None:
