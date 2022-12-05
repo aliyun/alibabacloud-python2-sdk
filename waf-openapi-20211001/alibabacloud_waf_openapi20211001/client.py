@@ -373,6 +373,8 @@ class Client(OpenApiClient):
     def delete_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.access_type):
+            query['AccessType'] = request.access_type
         if not UtilClient.is_unset(request.domain):
             query['Domain'] = request.domain
         if not UtilClient.is_unset(request.instance_id):
