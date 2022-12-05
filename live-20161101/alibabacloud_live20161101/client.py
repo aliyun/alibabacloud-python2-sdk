@@ -929,6 +929,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_live_snapshot_detect_porn_config_with_options(request, runtime)
 
+    def add_live_snapshot_notify_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.notify_auth_key):
+            query['NotifyAuthKey'] = request.notify_auth_key
+        if not UtilClient.is_unset(request.notify_req_auth):
+            query['NotifyReqAuth'] = request.notify_req_auth
+        if not UtilClient.is_unset(request.notify_url):
+            query['NotifyUrl'] = request.notify_url
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddLiveSnapshotNotifyConfig',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.AddLiveSnapshotNotifyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_live_snapshot_notify_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_live_snapshot_notify_config_with_options(request, runtime)
+
     def add_live_stream_transcode_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1505,36 +1541,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.close_live_shift_with_options(request, runtime)
 
-    def close_message_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.app_id):
-            body['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.group_id):
-            body['GroupId'] = request.group_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CloseMessageGroup',
-            version='2016-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            live_20161101_models.CloseMessageGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def close_message_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.close_message_group_with_options(request, runtime)
-
     def copy_caster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1822,6 +1828,44 @@ class Client(OpenApiClient):
     def create_live_transcode_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_live_transcode_template_with_options(request, runtime)
+
+    def create_message_app_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_20161101_models.CreateMessageAppShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.app_config):
+            request.app_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.app_config, 'AppConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.app_config_shrink):
+            body['AppConfig'] = request.app_config_shrink
+        if not UtilClient.is_unset(request.app_name):
+            body['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.extension_shrink):
+            body['Extension'] = request.extension_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateMessageApp',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.CreateMessageAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_message_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_message_app_with_options(request, runtime)
 
     def create_message_group_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2692,6 +2736,36 @@ class Client(OpenApiClient):
     def delete_live_snapshot_detect_porn_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_live_snapshot_detect_porn_config_with_options(request, runtime)
+
+    def delete_live_snapshot_notify_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteLiveSnapshotNotifyConfig',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.DeleteLiveSnapshotNotifyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_live_snapshot_notify_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_live_snapshot_notify_config_with_options(request, runtime)
 
     def delete_live_specific_staging_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3628,6 +3702,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.area):
             query['Area'] = request.area
+        if not UtilClient.is_unset(request.data_protocol):
+            query['DataProtocol'] = request.data_protocol
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
@@ -5323,6 +5399,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_live_snapshot_detect_porn_config_with_options(request, runtime)
 
+    def describe_live_snapshot_notify_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLiveSnapshotNotifyConfig',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.DescribeLiveSnapshotNotifyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_live_snapshot_notify_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_live_snapshot_notify_config_with_options(request, runtime)
+
+    def describe_live_stream_auth_checking_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLiveStreamAuthChecking',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.DescribeLiveStreamAuthCheckingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_live_stream_auth_checking(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_live_stream_auth_checking_with_options(request, runtime)
+
     def describe_live_stream_bit_rate_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5968,6 +6106,50 @@ class Client(OpenApiClient):
     def describe_live_streams_control_history(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_live_streams_control_history_with_options(request, runtime)
+
+    def describe_live_streams_notify_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.stream_name):
+            query['StreamName'] = request.stream_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLiveStreamsNotifyRecords',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.DescribeLiveStreamsNotifyRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_live_streams_notify_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_live_streams_notify_records_with_options(request, runtime)
 
     def describe_live_streams_notify_url_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7299,6 +7481,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_editing_job_info_with_options(request, runtime)
 
+    def get_message_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetMessageApp',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.GetMessageAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_message_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_message_app_with_options(request, runtime)
+
     def get_message_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -7362,34 +7572,6 @@ class Client(OpenApiClient):
     def get_message_token(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_message_token_with_options(request, runtime)
-
-    def get_message_user_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.cloud_uid):
-            body['CloudUid'] = request.cloud_uid
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='GetMessageUserInfo',
-            version='2016-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            live_20161101_models.GetMessageUserInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_message_user_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_message_user_info_with_options(request, runtime)
 
     def get_multi_rate_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7692,6 +7874,8 @@ class Client(OpenApiClient):
     def list_message_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
         if not UtilClient.is_unset(request.group_id):
             body['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.page_num):
@@ -7725,9 +7909,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_message_with_options(request, runtime)
 
+    def list_message_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.page_num):
+            body['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_type):
+            body['SortType'] = request.sort_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListMessageApp',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.ListMessageAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_message_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_message_app_with_options(request, runtime)
+
     def list_message_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
         if not UtilClient.is_unset(request.page_num):
             body['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -7772,8 +7990,6 @@ class Client(OpenApiClient):
             body['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.sort_type):
             body['SortType'] = request.sort_type
-        if not UtilClient.is_unset(request.type):
-            body['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -7796,6 +8012,42 @@ class Client(OpenApiClient):
     def list_message_group_user(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_message_group_user_with_options(request, runtime)
+
+    def list_message_group_user_by_id_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_20161101_models.ListMessageGroupUserByIdShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.user_id_list):
+            request.user_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_id_list, 'UserIdList', 'simple')
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.user_id_list_shrink):
+            body['UserIdList'] = request.user_id_list_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListMessageGroupUserById',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.ListMessageGroupUserByIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_message_group_user_by_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_message_group_user_by_id_with_options(request, runtime)
 
     def list_playlist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -8319,6 +8571,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.publish_live_staging_config_to_production_with_options(request, runtime)
 
+    def query_message_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            body['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.page_num):
+            body['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_type):
+            body['SortType'] = request.sort_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryMessageApp',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.QueryMessageAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_message_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_message_app_with_options(request, runtime)
+
     def query_snapshot_callback_auth_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8463,6 +8751,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_show_from_show_list_with_options(request, runtime)
 
+    def restart_caster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.caster_id):
+            query['CasterId'] = request.caster_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestartCaster',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.RestartCasterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def restart_caster(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.restart_caster_with_options(request, runtime)
+
     def resume_live_stream_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8532,6 +8850,120 @@ class Client(OpenApiClient):
     def rollback_live_staging_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.rollback_live_staging_config_with_options(request, runtime)
+
+    def send_like_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.broad_cast_type):
+            body['BroadCastType'] = request.broad_cast_type
+        if not UtilClient.is_unset(request.count):
+            body['Count'] = request.count
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.operator_user_id):
+            body['OperatorUserId'] = request.operator_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SendLike',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.SendLikeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def send_like(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_like_with_options(request, runtime)
+
+    def send_message_to_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.operator_user_id):
+            body['OperatorUserId'] = request.operator_user_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SendMessageToGroup',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.SendMessageToGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def send_message_to_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_message_to_group_with_options(request, runtime)
+
+    def send_message_to_group_users_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_20161101_models.SendMessageToGroupUsersShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.receiver_id_list):
+            request.receiver_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.receiver_id_list, 'ReceiverIdList', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.operator_user_id):
+            body['OperatorUserId'] = request.operator_user_id
+        if not UtilClient.is_unset(request.receiver_id_list_shrink):
+            body['ReceiverIdList'] = request.receiver_id_list_shrink
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SendMessageToGroupUsers',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.SendMessageToGroupUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def send_message_to_group_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_message_to_group_users_with_options(request, runtime)
 
     def send_room_notification_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -9835,6 +10267,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_live_snapshot_detect_porn_config_with_options(request, runtime)
 
+    def update_live_snapshot_notify_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.notify_auth_key):
+            query['NotifyAuthKey'] = request.notify_auth_key
+        if not UtilClient.is_unset(request.notify_req_auth):
+            query['NotifyReqAuth'] = request.notify_req_auth
+        if not UtilClient.is_unset(request.notify_url):
+            query['NotifyUrl'] = request.notify_url
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateLiveSnapshotNotifyConfig',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.UpdateLiveSnapshotNotifyConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_live_snapshot_notify_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_live_snapshot_notify_config_with_options(request, runtime)
+
     def update_live_stream_monitor_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -9994,6 +10462,82 @@ class Client(OpenApiClient):
     def update_live_top_level_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_live_top_level_domain_with_options(request, runtime)
+
+    def update_message_app_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_20161101_models.UpdateMessageAppShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.app_config):
+            request.app_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.app_config, 'AppConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.app_config_shrink):
+            body['AppConfig'] = request.app_config_shrink
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            body['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.extension_shrink):
+            body['Extension'] = request.extension_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateMessageApp',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.UpdateMessageAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_message_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_message_app_with_options(request, runtime)
+
+    def update_message_group_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_20161101_models.UpdateMessageGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.extension_shrink):
+            body['Extension'] = request.extension_shrink
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateMessageGroup',
+            version='2016-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            live_20161101_models.UpdateMessageGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_message_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_message_group_with_options(request, runtime)
 
     def update_mix_stream_with_options(self, request, runtime):
         UtilClient.validate_model(request)
