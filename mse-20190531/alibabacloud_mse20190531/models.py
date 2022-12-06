@@ -25147,11 +25147,13 @@ class QueryClusterSpecificationResponse(TeaModel):
 
 
 class QueryConfigRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, config_type=None, instance_id=None, request_pars=None):
+    def __init__(self, accept_language=None, cluster_id=None, config_type=None, instance_id=None,
+                 need_running_conf=None, request_pars=None):
         self.accept_language = accept_language  # type: str
         self.cluster_id = cluster_id  # type: str
         self.config_type = config_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.need_running_conf = need_running_conf  # type: bool
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -25171,6 +25173,8 @@ class QueryConfigRequest(TeaModel):
             result['ConfigType'] = self.config_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.need_running_conf is not None:
+            result['NeedRunningConf'] = self.need_running_conf
         if self.request_pars is not None:
             result['RequestPars'] = self.request_pars
         return result
@@ -25185,23 +25189,51 @@ class QueryConfigRequest(TeaModel):
             self.config_type = m.get('ConfigType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('NeedRunningConf') is not None:
+            self.need_running_conf = m.get('NeedRunningConf')
         if m.get('RequestPars') is not None:
             self.request_pars = m.get('RequestPars')
         return self
 
 
+class QueryConfigResponseBodyDataNacosRunningEnv(TeaModel):
+    def __init__(self, empty_protect=None):
+        self.empty_protect = empty_protect  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryConfigResponseBodyDataNacosRunningEnv, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.empty_protect is not None:
+            result['emptyProtect'] = self.empty_protect
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('emptyProtect') is not None:
+            self.empty_protect = m.get('emptyProtect')
+        return self
+
+
 class QueryConfigResponseBodyData(TeaModel):
     def __init__(self, autopurge_purge_interval=None, autopurge_snap_retain_count=None, cluster_name=None,
-                 config_auth_enabled=None, config_auth_supported=None, config_secret_enabled=None, config_secret_supported=None,
-                 init_limit=None, jute_maxbuffer=None, jvm_flags_custom=None, mcpenabled=None, mcpsupported=None,
-                 max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None, naming_auth_enabled=None,
-                 naming_auth_supported=None, naming_create_service_supported=None, open_super_acl=None, pass_word=None,
-                 restart_flag=None, snapshot_count=None, sync_limit=None, tick_time=None, user_name=None):
+                 config_auth_enabled=None, config_auth_supported=None, config_content_limit=None, config_secret_enabled=None,
+                 config_secret_supported=None, init_limit=None, jute_maxbuffer=None, jvm_flags_custom=None, mcpenabled=None,
+                 mcpsupported=None, max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None,
+                 nacos_running_env=None, naming_auth_enabled=None, naming_auth_supported=None, naming_create_service_supported=None,
+                 open_super_acl=None, pass_word=None, restart_flag=None, snapshot_count=None, sync_limit=None, tick_time=None,
+                 user_name=None):
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
         self.cluster_name = cluster_name  # type: str
         self.config_auth_enabled = config_auth_enabled  # type: bool
         self.config_auth_supported = config_auth_supported  # type: bool
+        self.config_content_limit = config_content_limit  # type: long
         self.config_secret_enabled = config_secret_enabled  # type: bool
         self.config_secret_supported = config_secret_supported  # type: bool
         self.init_limit = init_limit  # type: str
@@ -25212,6 +25244,7 @@ class QueryConfigResponseBodyData(TeaModel):
         self.max_client_cnxns = max_client_cnxns  # type: str
         self.max_session_timeout = max_session_timeout  # type: str
         self.min_session_timeout = min_session_timeout  # type: str
+        self.nacos_running_env = nacos_running_env  # type: QueryConfigResponseBodyDataNacosRunningEnv
         self.naming_auth_enabled = naming_auth_enabled  # type: bool
         self.naming_auth_supported = naming_auth_supported  # type: bool
         self.naming_create_service_supported = naming_create_service_supported  # type: bool
@@ -25224,7 +25257,8 @@ class QueryConfigResponseBodyData(TeaModel):
         self.user_name = user_name  # type: str
 
     def validate(self):
-        pass
+        if self.nacos_running_env:
+            self.nacos_running_env.validate()
 
     def to_map(self):
         _map = super(QueryConfigResponseBodyData, self).to_map()
@@ -25242,6 +25276,8 @@ class QueryConfigResponseBodyData(TeaModel):
             result['ConfigAuthEnabled'] = self.config_auth_enabled
         if self.config_auth_supported is not None:
             result['ConfigAuthSupported'] = self.config_auth_supported
+        if self.config_content_limit is not None:
+            result['ConfigContentLimit'] = self.config_content_limit
         if self.config_secret_enabled is not None:
             result['ConfigSecretEnabled'] = self.config_secret_enabled
         if self.config_secret_supported is not None:
@@ -25262,6 +25298,8 @@ class QueryConfigResponseBodyData(TeaModel):
             result['MaxSessionTimeout'] = self.max_session_timeout
         if self.min_session_timeout is not None:
             result['MinSessionTimeout'] = self.min_session_timeout
+        if self.nacos_running_env is not None:
+            result['NacosRunningEnv'] = self.nacos_running_env.to_map()
         if self.naming_auth_enabled is not None:
             result['NamingAuthEnabled'] = self.naming_auth_enabled
         if self.naming_auth_supported is not None:
@@ -25296,6 +25334,8 @@ class QueryConfigResponseBodyData(TeaModel):
             self.config_auth_enabled = m.get('ConfigAuthEnabled')
         if m.get('ConfigAuthSupported') is not None:
             self.config_auth_supported = m.get('ConfigAuthSupported')
+        if m.get('ConfigContentLimit') is not None:
+            self.config_content_limit = m.get('ConfigContentLimit')
         if m.get('ConfigSecretEnabled') is not None:
             self.config_secret_enabled = m.get('ConfigSecretEnabled')
         if m.get('ConfigSecretSupported') is not None:
@@ -25316,6 +25356,9 @@ class QueryConfigResponseBodyData(TeaModel):
             self.max_session_timeout = m.get('MaxSessionTimeout')
         if m.get('MinSessionTimeout') is not None:
             self.min_session_timeout = m.get('MinSessionTimeout')
+        if m.get('NacosRunningEnv') is not None:
+            temp_model = QueryConfigResponseBodyDataNacosRunningEnv()
+            self.nacos_running_env = temp_model.from_map(m['NacosRunningEnv'])
         if m.get('NamingAuthEnabled') is not None:
             self.naming_auth_enabled = m.get('NamingAuthEnabled')
         if m.get('NamingAuthSupported') is not None:
