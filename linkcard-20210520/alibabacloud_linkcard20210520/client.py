@@ -31,6 +31,88 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_card_to_directional_group_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = linkcard_20210520_models.AddCardToDirectionalGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.iccid_list):
+            request.iccid_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.iccid_list, 'IccidList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.add_type):
+            query['AddType'] = request.add_type
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.iccid_list_shrink):
+            query['IccidList'] = request.iccid_list_shrink
+        if not UtilClient.is_unset(request.msg_notify):
+            query['MsgNotify'] = request.msg_notify
+        if not UtilClient.is_unset(request.serial_no):
+            query['SerialNo'] = request.serial_no
+        body = {}
+        if not UtilClient.is_unset(request.api_product):
+            body['ApiProduct'] = request.api_product
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddCardToDirectionalGroup',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.AddCardToDirectionalGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_card_to_directional_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_card_to_directional_group_with_options(request, runtime)
+
+    def add_directional_address_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.address_type):
+            query['AddressType'] = request.address_type
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.msg_notify):
+            query['MsgNotify'] = request.msg_notify
+        if not UtilClient.is_unset(request.serial_no):
+            query['SerialNo'] = request.serial_no
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddDirectionalAddress',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.AddDirectionalAddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_directional_address(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_directional_address_with_options(request, runtime)
+
     def add_directional_card_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = linkcard_20210520_models.AddDirectionalCardShrinkRequest()
@@ -138,6 +220,68 @@ class Client(OpenApiClient):
     def batch_add_directional_address(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_add_directional_address_with_options(request, runtime)
+
+    def delete_directional_address_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.msg_notify):
+            query['MsgNotify'] = request.msg_notify
+        if not UtilClient.is_unset(request.serial_no):
+            query['SerialNo'] = request.serial_no
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDirectionalAddress',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.DeleteDirectionalAddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_directional_address(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_directional_address_with_options(request, runtime)
+
+    def delete_directional_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDirectionalGroup',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.DeleteDirectionalGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_directional_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_directional_group_with_options(request, runtime)
 
     def force_activation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
