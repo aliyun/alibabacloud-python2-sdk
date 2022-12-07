@@ -9892,18 +9892,16 @@ class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesMostExpensive(Te
 
 
 class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutes(TeaModel):
-    def __init__(self, arr_date=None, btrip_type=None, cheapest=None, dep_date=None, dest_city=None, err_msg=None,
-                 itinerary_id=None, itinerary_index=None, most_expensive=None, org_city=None, success=None):
+    def __init__(self, arr_city=None, arr_date=None, cheapest=None, dep_city=None, dep_date=None, err_msg=None,
+                 itinerary_id=None, most_expensive=None, success=None):
+        self.arr_city = arr_city  # type: str
         self.arr_date = arr_date  # type: long
-        self.btrip_type = btrip_type  # type: int
         self.cheapest = cheapest  # type: EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesCheapest
+        self.dep_city = dep_city  # type: str
         self.dep_date = dep_date  # type: long
-        self.dest_city = dest_city  # type: str
         self.err_msg = err_msg  # type: str
         self.itinerary_id = itinerary_id  # type: str
-        self.itinerary_index = itinerary_index  # type: int
         self.most_expensive = most_expensive  # type: EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesMostExpensive
-        self.org_city = org_city  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9918,54 +9916,46 @@ class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutes(TeaModel):
             return _map
 
         result = dict()
+        if self.arr_city is not None:
+            result['arr_city'] = self.arr_city
         if self.arr_date is not None:
             result['arr_date'] = self.arr_date
-        if self.btrip_type is not None:
-            result['btrip_type'] = self.btrip_type
         if self.cheapest is not None:
             result['cheapest'] = self.cheapest.to_map()
+        if self.dep_city is not None:
+            result['dep_city'] = self.dep_city
         if self.dep_date is not None:
             result['dep_date'] = self.dep_date
-        if self.dest_city is not None:
-            result['dest_city'] = self.dest_city
         if self.err_msg is not None:
             result['err_msg'] = self.err_msg
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
-        if self.itinerary_index is not None:
-            result['itinerary_index'] = self.itinerary_index
         if self.most_expensive is not None:
             result['most_expensive'] = self.most_expensive.to_map()
-        if self.org_city is not None:
-            result['org_city'] = self.org_city
         if self.success is not None:
             result['success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('arr_city') is not None:
+            self.arr_city = m.get('arr_city')
         if m.get('arr_date') is not None:
             self.arr_date = m.get('arr_date')
-        if m.get('btrip_type') is not None:
-            self.btrip_type = m.get('btrip_type')
         if m.get('cheapest') is not None:
             temp_model = EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesCheapest()
             self.cheapest = temp_model.from_map(m['cheapest'])
+        if m.get('dep_city') is not None:
+            self.dep_city = m.get('dep_city')
         if m.get('dep_date') is not None:
             self.dep_date = m.get('dep_date')
-        if m.get('dest_city') is not None:
-            self.dest_city = m.get('dest_city')
         if m.get('err_msg') is not None:
             self.err_msg = m.get('err_msg')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
-        if m.get('itinerary_index') is not None:
-            self.itinerary_index = m.get('itinerary_index')
         if m.get('most_expensive') is not None:
             temp_model = EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesMostExpensive()
             self.most_expensive = temp_model.from_map(m['most_expensive'])
-        if m.get('org_city') is not None:
-            self.org_city = m.get('org_city')
         if m.get('success') is not None:
             self.success = m.get('success')
         return self
