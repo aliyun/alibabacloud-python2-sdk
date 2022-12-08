@@ -1511,16 +1511,21 @@ class GetStyleTopRequest(TeaModel):
 
 
 class GetStyleTopResponseBodyData(TeaModel):
-    def __init__(self, buyer_tags=None, cate_name=None, color=None, images=None, material=None, product_link=None,
-                 sales_volume=None, search_volume=None, style=None, title=None):
+    def __init__(self, attribute_content=None, brand_name=None, buyer_tags=None, cate_name=None, color=None,
+                 images=None, material=None, price=None, product_link=None, sales_volume=None, search_volume=None,
+                 shop_name=None, style=None, title=None):
+        self.attribute_content = attribute_content  # type: str
+        self.brand_name = brand_name  # type: str
         self.buyer_tags = buyer_tags  # type: str
         self.cate_name = cate_name  # type: str
         self.color = color  # type: str
         self.images = images  # type: list[str]
         self.material = material  # type: str
+        self.price = price  # type: float
         self.product_link = product_link  # type: str
         self.sales_volume = sales_volume  # type: float
         self.search_volume = search_volume  # type: float
+        self.shop_name = shop_name  # type: str
         self.style = style  # type: str
         self.title = title  # type: str
 
@@ -1533,6 +1538,10 @@ class GetStyleTopResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.attribute_content is not None:
+            result['AttributeContent'] = self.attribute_content
+        if self.brand_name is not None:
+            result['BrandName'] = self.brand_name
         if self.buyer_tags is not None:
             result['BuyerTags'] = self.buyer_tags
         if self.cate_name is not None:
@@ -1543,12 +1552,16 @@ class GetStyleTopResponseBodyData(TeaModel):
             result['Images'] = self.images
         if self.material is not None:
             result['Material'] = self.material
+        if self.price is not None:
+            result['Price'] = self.price
         if self.product_link is not None:
             result['ProductLink'] = self.product_link
         if self.sales_volume is not None:
             result['SalesVolume'] = self.sales_volume
         if self.search_volume is not None:
             result['SearchVolume'] = self.search_volume
+        if self.shop_name is not None:
+            result['ShopName'] = self.shop_name
         if self.style is not None:
             result['Style'] = self.style
         if self.title is not None:
@@ -1557,6 +1570,10 @@ class GetStyleTopResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttributeContent') is not None:
+            self.attribute_content = m.get('AttributeContent')
+        if m.get('BrandName') is not None:
+            self.brand_name = m.get('BrandName')
         if m.get('BuyerTags') is not None:
             self.buyer_tags = m.get('BuyerTags')
         if m.get('CateName') is not None:
@@ -1567,12 +1584,16 @@ class GetStyleTopResponseBodyData(TeaModel):
             self.images = m.get('Images')
         if m.get('Material') is not None:
             self.material = m.get('Material')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
         if m.get('ProductLink') is not None:
             self.product_link = m.get('ProductLink')
         if m.get('SalesVolume') is not None:
             self.sales_volume = m.get('SalesVolume')
         if m.get('SearchVolume') is not None:
             self.search_volume = m.get('SearchVolume')
+        if m.get('ShopName') is not None:
+            self.shop_name = m.get('ShopName')
         if m.get('Style') is not None:
             self.style = m.get('Style')
         if m.get('Title') is not None:
