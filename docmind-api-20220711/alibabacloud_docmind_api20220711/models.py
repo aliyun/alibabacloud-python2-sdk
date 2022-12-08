@@ -31,7 +31,7 @@ class GetDocStructureResultResponseBody(TeaModel):
     def __init__(self, code=None, completed=None, data=None, message=None, request_id=None, status=None):
         self.code = code  # type: str
         self.completed = completed  # type: bool
-        self.data = data  # type: any
+        self.data = data  # type: dict[str, any]
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
@@ -414,7 +414,7 @@ class GetDocumentExtractResultResponseBody(TeaModel):
     def __init__(self, code=None, completed=None, data=None, message=None, request_id=None, status=None):
         self.code = code  # type: str
         self.completed = completed  # type: bool
-        self.data = data  # type: any
+        self.data = data  # type: dict[str, any]
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
@@ -526,7 +526,7 @@ class GetTableUnderstandingResultResponseBody(TeaModel):
     def __init__(self, code=None, completed=None, data=None, message=None, request_id=None, status=None):
         self.code = code  # type: str
         self.completed = completed  # type: bool
-        self.data = data  # type: any
+        self.data = data  # type: dict[str, any]
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
