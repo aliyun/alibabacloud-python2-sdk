@@ -1956,8 +1956,9 @@ class DescribeAvailableResourcesResponseBodyResourcesSupportedEnginesSupportedIn
 
 
 class DescribeAvailableResourcesResponseBodyResourcesSupportedEnginesSupportedInstanceClasses(TeaModel):
-    def __init__(self, description=None, display_class=None, instance_class=None, node_count=None,
+    def __init__(self, category=None, description=None, display_class=None, instance_class=None, node_count=None,
                  storage_size=None, storage_type=None):
+        self.category = category  # type: str
         self.description = description  # type: str
         self.display_class = display_class  # type: str
         self.instance_class = instance_class  # type: str
@@ -1977,6 +1978,8 @@ class DescribeAvailableResourcesResponseBodyResourcesSupportedEnginesSupportedIn
             return _map
 
         result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
         if self.description is not None:
             result['Description'] = self.description
         if self.display_class is not None:
@@ -1993,6 +1996,8 @@ class DescribeAvailableResourcesResponseBodyResourcesSupportedEnginesSupportedIn
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('DisplayClass') is not None:
