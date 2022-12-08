@@ -2,8 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -30,6 +30,31 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def cancel_task(self, name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_task_with_options(name, headers, runtime)
+
+    def cancel_task_with_options(self, name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CancelTask',
+            version='2021-09-24',
+            protocol='HTTPS',
+            pathname='/apis/serverlessdeployment/v1/tasks/%s/cancel' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            serverless_20210924_models.CancelTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
 
     def create_application(self, request):
         runtime = util_models.RuntimeOptions()
