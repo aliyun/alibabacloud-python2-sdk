@@ -881,6 +881,8 @@ class Client(OpenApiClient):
     def generate_template_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.operation_types):
+            query['OperationTypes'] = request.operation_types
         if not UtilClient.is_unset(request.template_body):
             query['TemplateBody'] = request.template_body
         if not UtilClient.is_unset(request.template_id):
