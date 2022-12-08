@@ -2153,6 +2153,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.dry_run):
             query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -2193,6 +2195,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.dry_run):
             query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -2233,6 +2237,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.dry_run):
             query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -2949,6 +2955,8 @@ class Client(OpenApiClient):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.transit_router_attachment_id):
+            query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4115,8 +4123,14 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.group_ip_address):
             query['GroupIpAddress'] = request.group_ip_address
+        if not UtilClient.is_unset(request.is_group_member):
+            query['IsGroupMember'] = request.is_group_member
+        if not UtilClient.is_unset(request.is_group_source):
+            query['IsGroupSource'] = request.is_group_source
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.network_interface_ids):
+            query['NetworkInterfaceIds'] = request.network_interface_ids
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.owner_account):
@@ -4517,6 +4531,8 @@ class Client(OpenApiClient):
             query['TransitRouterAttachmentId'] = request.transit_router_attachment_id
         if not UtilClient.is_unset(request.transit_router_id):
             query['TransitRouterId'] = request.transit_router_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

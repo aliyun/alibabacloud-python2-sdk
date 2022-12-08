@@ -7104,10 +7104,11 @@ class DeleteTransitRouterRouteTableResponse(TeaModel):
 
 
 class DeleteTransitRouterVbrAttachmentRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+    def __init__(self, client_token=None, dry_run=None, force=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None):
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
+        self.force = force  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -7127,6 +7128,8 @@ class DeleteTransitRouterVbrAttachmentRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.force is not None:
+            result['Force'] = self.force
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -7145,6 +7148,8 @@ class DeleteTransitRouterVbrAttachmentRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -7222,10 +7227,11 @@ class DeleteTransitRouterVbrAttachmentResponse(TeaModel):
 
 
 class DeleteTransitRouterVpcAttachmentRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+    def __init__(self, client_token=None, dry_run=None, force=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None):
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
+        self.force = force  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -7245,6 +7251,8 @@ class DeleteTransitRouterVpcAttachmentRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.force is not None:
+            result['Force'] = self.force
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -7263,6 +7271,8 @@ class DeleteTransitRouterVpcAttachmentRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -7340,10 +7350,11 @@ class DeleteTransitRouterVpcAttachmentResponse(TeaModel):
 
 
 class DeleteTransitRouterVpnAttachmentRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+    def __init__(self, client_token=None, dry_run=None, force=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None):
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
+        self.force = force  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -7363,6 +7374,8 @@ class DeleteTransitRouterVpnAttachmentRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.force is not None:
+            result['Force'] = self.force
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -7381,6 +7394,8 @@ class DeleteTransitRouterVpnAttachmentRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -11869,7 +11884,8 @@ class DescribeFlowlogsRequestTag(TeaModel):
 class DescribeFlowlogsRequest(TeaModel):
     def __init__(self, cen_id=None, client_token=None, description=None, flow_log_id=None, flow_log_name=None,
                  log_store_name=None, owner_account=None, owner_id=None, page_number=None, page_size=None, project_name=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, status=None, tag=None):
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, status=None, tag=None,
+                 transit_router_attachment_id=None):
         self.cen_id = cen_id  # type: str
         self.client_token = client_token  # type: str
         self.description = description  # type: str
@@ -11886,6 +11902,7 @@ class DescribeFlowlogsRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         self.status = status  # type: str
         self.tag = tag  # type: list[DescribeFlowlogsRequestTag]
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
 
     def validate(self):
         if self.tag:
@@ -11933,6 +11950,8 @@ class DescribeFlowlogsRequest(TeaModel):
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
         return result
 
     def from_map(self, m=None):
@@ -11972,6 +11991,8 @@ class DescribeFlowlogsRequest(TeaModel):
             for k in m.get('Tag'):
                 temp_model = DescribeFlowlogsRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
         return self
 
 
@@ -14864,12 +14885,15 @@ class ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPoliciesTrafficQ
 
 class ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPolicies(TeaModel):
     def __init__(self, traffic_qos_policy_description=None, traffic_qos_policy_id=None,
-                 traffic_qos_policy_name=None, traffic_qos_policy_status=None, traffic_qos_queues=None):
+                 traffic_qos_policy_name=None, traffic_qos_policy_status=None, traffic_qos_queues=None, transit_router_attachment_id=None,
+                 transit_router_id=None):
         self.traffic_qos_policy_description = traffic_qos_policy_description  # type: str
         self.traffic_qos_policy_id = traffic_qos_policy_id  # type: str
         self.traffic_qos_policy_name = traffic_qos_policy_name  # type: str
         self.traffic_qos_policy_status = traffic_qos_policy_status  # type: str
         self.traffic_qos_queues = traffic_qos_queues  # type: list[ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPoliciesTrafficQosQueues]
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
         if self.traffic_qos_queues:
@@ -14895,6 +14919,10 @@ class ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPolicies(TeaMode
         if self.traffic_qos_queues is not None:
             for k in self.traffic_qos_queues:
                 result['TrafficQosQueues'].append(k.to_map() if k else None)
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
         return result
 
     def from_map(self, m=None):
@@ -14912,6 +14940,10 @@ class ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPolicies(TeaMode
             for k in m.get('TrafficQosQueues'):
                 temp_model = ListCenInterRegionTrafficQosPoliciesResponseBodyTrafficQosPoliciesTrafficQosQueues()
                 self.traffic_qos_queues.append(temp_model.from_map(k))
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
         return self
 
 
@@ -15781,7 +15813,7 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPoliciesTrafficMatchRu
 class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
     def __init__(self, marking_dscp=None, priority=None, traffic_marking_policy_description=None,
                  traffic_marking_policy_id=None, traffic_marking_policy_name=None, traffic_marking_policy_status=None,
-                 traffic_match_rules=None):
+                 traffic_match_rules=None, transit_router_id=None):
         self.marking_dscp = marking_dscp  # type: int
         self.priority = priority  # type: int
         self.traffic_marking_policy_description = traffic_marking_policy_description  # type: str
@@ -15789,6 +15821,7 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
         self.traffic_marking_policy_name = traffic_marking_policy_name  # type: str
         self.traffic_marking_policy_status = traffic_marking_policy_status  # type: str
         self.traffic_match_rules = traffic_match_rules  # type: list[ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPoliciesTrafficMatchRules]
+        self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
         if self.traffic_match_rules:
@@ -15818,6 +15851,8 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
         if self.traffic_match_rules is not None:
             for k in self.traffic_match_rules:
                 result['TrafficMatchRules'].append(k.to_map() if k else None)
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
         return result
 
     def from_map(self, m=None):
@@ -15839,6 +15874,8 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
             for k in m.get('TrafficMatchRules'):
                 temp_model = ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPoliciesTrafficMatchRules()
                 self.traffic_match_rules.append(temp_model.from_map(k))
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
         return self
 
 
@@ -17021,10 +17058,11 @@ class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains
 
 
 class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains(TeaModel):
-    def __init__(self, status=None, tags=None, transit_router_multicast_domain_description=None,
-                 transit_router_multicast_domain_id=None, transit_router_multicast_domain_name=None):
+    def __init__(self, status=None, tags=None, transit_router_id=None,
+                 transit_router_multicast_domain_description=None, transit_router_multicast_domain_id=None, transit_router_multicast_domain_name=None):
         self.status = status  # type: str
         self.tags = tags  # type: list[ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomainsTags]
+        self.transit_router_id = transit_router_id  # type: str
         self.transit_router_multicast_domain_description = transit_router_multicast_domain_description  # type: str
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
         self.transit_router_multicast_domain_name = transit_router_multicast_domain_name  # type: str
@@ -17047,6 +17085,8 @@ class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains
         if self.tags is not None:
             for k in self.tags:
                 result['Tags'].append(k.to_map() if k else None)
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
         if self.transit_router_multicast_domain_description is not None:
             result['TransitRouterMulticastDomainDescription'] = self.transit_router_multicast_domain_description
         if self.transit_router_multicast_domain_id is not None:
@@ -17064,6 +17104,8 @@ class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains
             for k in m.get('Tags'):
                 temp_model = ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomainsTags()
                 self.tags.append(temp_model.from_map(k))
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
         if m.get('TransitRouterMulticastDomainDescription') is not None:
             self.transit_router_multicast_domain_description = m.get('TransitRouterMulticastDomainDescription')
         if m.get('TransitRouterMulticastDomainId') is not None:
@@ -17166,13 +17208,16 @@ class ListTransitRouterMulticastDomainsResponse(TeaModel):
 
 
 class ListTransitRouterMulticastGroupsRequest(TeaModel):
-    def __init__(self, client_token=None, group_ip_address=None, max_results=None, next_token=None,
-                 owner_account=None, owner_id=None, peer_transit_router_multicast_domains=None, resource_id=None,
-                 resource_owner_account=None, resource_owner_id=None, resource_type=None, transit_router_attachment_id=None,
-                 transit_router_multicast_domain_id=None, v_switch_ids=None):
+    def __init__(self, client_token=None, group_ip_address=None, is_group_member=None, is_group_source=None,
+                 max_results=None, network_interface_ids=None, next_token=None, owner_account=None, owner_id=None,
+                 peer_transit_router_multicast_domains=None, resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None,
+                 transit_router_attachment_id=None, transit_router_multicast_domain_id=None, v_switch_ids=None):
         self.client_token = client_token  # type: str
         self.group_ip_address = group_ip_address  # type: str
+        self.is_group_member = is_group_member  # type: bool
+        self.is_group_source = is_group_source  # type: bool
         self.max_results = max_results  # type: long
+        self.network_interface_ids = network_interface_ids  # type: list[str]
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -17198,8 +17243,14 @@ class ListTransitRouterMulticastGroupsRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.group_ip_address is not None:
             result['GroupIpAddress'] = self.group_ip_address
+        if self.is_group_member is not None:
+            result['IsGroupMember'] = self.is_group_member
+        if self.is_group_source is not None:
+            result['IsGroupSource'] = self.is_group_source
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
+        if self.network_interface_ids is not None:
+            result['NetworkInterfaceIds'] = self.network_interface_ids
         if self.next_token is not None:
             result['NextToken'] = self.next_token
         if self.owner_account is not None:
@@ -17230,8 +17281,14 @@ class ListTransitRouterMulticastGroupsRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('GroupIpAddress') is not None:
             self.group_ip_address = m.get('GroupIpAddress')
+        if m.get('IsGroupMember') is not None:
+            self.is_group_member = m.get('IsGroupMember')
+        if m.get('IsGroupSource') is not None:
+            self.is_group_source = m.get('IsGroupSource')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
+        if m.get('NetworkInterfaceIds') is not None:
+            self.network_interface_ids = m.get('NetworkInterfaceIds')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
         if m.get('OwnerAccount') is not None:
@@ -17260,7 +17317,8 @@ class ListTransitRouterMulticastGroupsRequest(TeaModel):
 class ListTransitRouterMulticastGroupsResponseBodyTransitRouterMulticastGroups(TeaModel):
     def __init__(self, group_ip_address=None, group_member=None, group_source=None, member_type=None,
                  network_interface_id=None, peer_transit_router_multicast_domain_id=None, resource_id=None, resource_owner_id=None,
-                 resource_type=None, source_type=None, status=None, transit_router_attachment_id=None, v_switch_id=None):
+                 resource_type=None, source_type=None, status=None, transit_router_attachment_id=None,
+                 transit_router_multicast_domain_id=None, v_switch_id=None):
         self.group_ip_address = group_ip_address  # type: str
         self.group_member = group_member  # type: bool
         self.group_source = group_source  # type: bool
@@ -17273,6 +17331,7 @@ class ListTransitRouterMulticastGroupsResponseBodyTransitRouterMulticastGroups(T
         self.source_type = source_type  # type: str
         self.status = status  # type: str
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -17308,6 +17367,8 @@ class ListTransitRouterMulticastGroupsResponseBodyTransitRouterMulticastGroups(T
             result['Status'] = self.status
         if self.transit_router_attachment_id is not None:
             result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        if self.transit_router_multicast_domain_id is not None:
+            result['TransitRouterMulticastDomainId'] = self.transit_router_multicast_domain_id
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         return result
@@ -17338,6 +17399,8 @@ class ListTransitRouterMulticastGroupsResponseBodyTransitRouterMulticastGroups(T
             self.status = m.get('Status')
         if m.get('TransitRouterAttachmentId') is not None:
             self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        if m.get('TransitRouterMulticastDomainId') is not None:
+            self.transit_router_multicast_domain_id = m.get('TransitRouterMulticastDomainId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         return self
@@ -19323,7 +19386,7 @@ class ListTransitRouterVpcAttachmentsRequestTag(TeaModel):
 class ListTransitRouterVpcAttachmentsRequest(TeaModel):
     def __init__(self, cen_id=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
-                 transit_router_attachment_id=None, transit_router_id=None):
+                 transit_router_attachment_id=None, transit_router_id=None, vpc_id=None):
         self.cen_id = cen_id  # type: str
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
@@ -19335,6 +19398,7 @@ class ListTransitRouterVpcAttachmentsRequest(TeaModel):
         self.tag = tag  # type: list[ListTransitRouterVpcAttachmentsRequestTag]
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
         self.transit_router_id = transit_router_id  # type: str
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         if self.tag:
@@ -19372,6 +19436,8 @@ class ListTransitRouterVpcAttachmentsRequest(TeaModel):
             result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
         if self.transit_router_id is not None:
             result['TransitRouterId'] = self.transit_router_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
@@ -19401,6 +19467,8 @@ class ListTransitRouterVpcAttachmentsRequest(TeaModel):
             self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
         if m.get('TransitRouterId') is not None:
             self.transit_router_id = m.get('TransitRouterId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 
