@@ -708,6 +708,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_basic_accelerator_with_options(request, runtime)
 
+    def create_basic_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_address):
+            query['EndpointAddress'] = request.endpoint_address
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_sub_address):
+            query['EndpointSubAddress'] = request.endpoint_sub_address
+        if not UtilClient.is_unset(request.endpoint_sub_address_type):
+            query['EndpointSubAddressType'] = request.endpoint_sub_address_type
+        if not UtilClient.is_unset(request.endpoint_type):
+            query['EndpointType'] = request.endpoint_type
+        if not UtilClient.is_unset(request.endpoint_zone_id):
+            query['EndpointZoneId'] = request.endpoint_zone_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateBasicEndpoint',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateBasicEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_basic_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_basic_endpoint_with_options(request, runtime)
+
     def create_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -751,6 +797,42 @@ class Client(OpenApiClient):
     def create_basic_endpoint_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_basic_endpoint_group_with_options(request, runtime)
+
+    def create_basic_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoints):
+            query['Endpoints'] = request.endpoints
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateBasicEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateBasicEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_basic_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_basic_endpoints_with_options(request, runtime)
 
     def create_basic_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2576,6 +2658,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_basic_accelerate_ip_with_options(request, runtime)
 
+    def get_basic_accelerate_ip_endpoint_relation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerate_ip_id):
+            query['AccelerateIpId'] = request.accelerate_ip_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBasicAccelerateIpEndpointRelation',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.GetBasicAccelerateIpEndpointRelationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_basic_accelerate_ip_endpoint_relation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_basic_accelerate_ip_endpoint_relation_with_options(request, runtime)
+
+    def get_basic_accelerate_ip_idle_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBasicAccelerateIpIdleCount',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.GetBasicAccelerateIpIdleCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_basic_accelerate_ip_idle_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_basic_accelerate_ip_idle_count_with_options(request, runtime)
+
     def get_basic_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2605,6 +2755,38 @@ class Client(OpenApiClient):
     def get_basic_accelerator(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_basic_accelerator_with_options(request, runtime)
+
+    def get_basic_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBasicEndpoint',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.GetBasicEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_basic_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_basic_endpoint_with_options(request, runtime)
 
     def get_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3058,6 +3240,86 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_bandwidthackages_with_options(request, runtime)
 
+    def list_basic_accelerate_ip_endpoint_relations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerate_ip_id):
+            query['AccelerateIpId'] = request.accelerate_ip_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListBasicAccelerateIpEndpointRelations',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListBasicAccelerateIpEndpointRelationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_basic_accelerate_ip_endpoint_relations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_basic_accelerate_ip_endpoint_relations_with_options(request, runtime)
+
+    def list_basic_accelerate_ips_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerate_ip_address):
+            query['AccelerateIpAddress'] = request.accelerate_ip_address
+        if not UtilClient.is_unset(request.accelerate_ip_id):
+            query['AccelerateIpId'] = request.accelerate_ip_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListBasicAccelerateIps',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListBasicAccelerateIpsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_basic_accelerate_ips(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_basic_accelerate_ips_with_options(request, runtime)
+
     def list_basic_accelerators_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3097,6 +3359,48 @@ class Client(OpenApiClient):
     def list_basic_accelerators(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_basic_accelerators_with_options(request, runtime)
+
+    def list_basic_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.endpoint_type):
+            query['EndpointType'] = request.endpoint_type
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListBasicEndpoints',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListBasicEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_basic_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_basic_endpoints_with_options(request, runtime)
 
     def list_busi_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4041,6 +4345,42 @@ class Client(OpenApiClient):
     def update_basic_accelerator(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_basic_accelerator_with_options(request, runtime)
+
+    def update_basic_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_id):
+            query['EndpointId'] = request.endpoint_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateBasicEndpoint',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateBasicEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_basic_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_basic_endpoint_with_options(request, runtime)
 
     def update_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
