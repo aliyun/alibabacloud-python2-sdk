@@ -341,6 +341,850 @@ class Policy(TeaModel):
         return self
 
 
+class CancelByMsgIdRequest(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelByMsgIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class CancelByMsgIdResponseBodyData(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelByMsgIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class CancelByMsgIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: CancelByMsgIdResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CancelByMsgIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CancelByMsgIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CancelByMsgIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelByMsgIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelByMsgIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelByMsgIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryMsgStatRequest(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryMsgStatRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class QueryMsgStatResponseBodyData(TeaModel):
+    def __init__(self, accept=None, arrive=None, close_push=None, dismiss=None, msg_id=None, open=None, sent=None,
+                 status=None):
+        self.accept = accept  # type: long
+        self.arrive = arrive  # type: long
+        self.close_push = close_push  # type: long
+        self.dismiss = dismiss  # type: long
+        self.msg_id = msg_id  # type: str
+        self.open = open  # type: long
+        self.sent = sent  # type: long
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryMsgStatResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept is not None:
+            result['Accept'] = self.accept
+        if self.arrive is not None:
+            result['Arrive'] = self.arrive
+        if self.close_push is not None:
+            result['ClosePush'] = self.close_push
+        if self.dismiss is not None:
+            result['Dismiss'] = self.dismiss
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        if self.open is not None:
+            result['Open'] = self.open
+        if self.sent is not None:
+            result['Sent'] = self.sent
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Accept') is not None:
+            self.accept = m.get('Accept')
+        if m.get('Arrive') is not None:
+            self.arrive = m.get('Arrive')
+        if m.get('ClosePush') is not None:
+            self.close_push = m.get('ClosePush')
+        if m.get('Dismiss') is not None:
+            self.dismiss = m.get('Dismiss')
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        if m.get('Open') is not None:
+            self.open = m.get('Open')
+        if m.get('Sent') is not None:
+            self.sent = m.get('Sent')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class QueryMsgStatResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryMsgStatResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryMsgStatResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryMsgStatResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryMsgStatResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryMsgStatResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryMsgStatResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryMsgStatResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendByAliasRequest(TeaModel):
+    def __init__(self, alias=None, alias_type=None, android_payload=None, channel_properties=None, description=None,
+                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.alias = alias  # type: str
+        self.alias_type = alias_type  # type: str
+        self.android_payload = android_payload  # type: AndroidPayload
+        self.channel_properties = channel_properties  # type: ChannelProperties
+        self.description = description  # type: str
+        self.ios_payload = ios_payload  # type: IosPayload
+        self.policy = policy  # type: Policy
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        if self.android_payload:
+            self.android_payload.validate()
+        if self.channel_properties:
+            self.channel_properties.validate()
+        if self.ios_payload:
+            self.ios_payload.validate()
+        if self.policy:
+            self.policy.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.alias_type is not None:
+            result['AliasType'] = self.alias_type
+        if self.android_payload is not None:
+            result['AndroidPayload'] = self.android_payload.to_map()
+        if self.channel_properties is not None:
+            result['ChannelProperties'] = self.channel_properties.to_map()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.ios_payload is not None:
+            result['IosPayload'] = self.ios_payload.to_map()
+        if self.policy is not None:
+            result['Policy'] = self.policy.to_map()
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('AliasType') is not None:
+            self.alias_type = m.get('AliasType')
+        if m.get('AndroidPayload') is not None:
+            temp_model = AndroidPayload()
+            self.android_payload = temp_model.from_map(m['AndroidPayload'])
+        if m.get('ChannelProperties') is not None:
+            temp_model = ChannelProperties()
+            self.channel_properties = temp_model.from_map(m['ChannelProperties'])
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IosPayload') is not None:
+            temp_model = IosPayload()
+            self.ios_payload = temp_model.from_map(m['IosPayload'])
+        if m.get('Policy') is not None:
+            temp_model = Policy()
+            self.policy = temp_model.from_map(m['Policy'])
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByAliasShrinkRequest(TeaModel):
+    def __init__(self, alias=None, alias_type=None, android_payload_shrink=None, channel_properties_shrink=None,
+                 description=None, ios_payload_shrink=None, policy_shrink=None, production_mode=None, receipt_type=None,
+                 receipt_url=None):
+        self.alias = alias  # type: str
+        self.alias_type = alias_type  # type: str
+        self.android_payload_shrink = android_payload_shrink  # type: str
+        self.channel_properties_shrink = channel_properties_shrink  # type: str
+        self.description = description  # type: str
+        self.ios_payload_shrink = ios_payload_shrink  # type: str
+        self.policy_shrink = policy_shrink  # type: str
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByAliasShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.alias_type is not None:
+            result['AliasType'] = self.alias_type
+        if self.android_payload_shrink is not None:
+            result['AndroidPayload'] = self.android_payload_shrink
+        if self.channel_properties_shrink is not None:
+            result['ChannelProperties'] = self.channel_properties_shrink
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.ios_payload_shrink is not None:
+            result['IosPayload'] = self.ios_payload_shrink
+        if self.policy_shrink is not None:
+            result['Policy'] = self.policy_shrink
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('AliasType') is not None:
+            self.alias_type = m.get('AliasType')
+        if m.get('AndroidPayload') is not None:
+            self.android_payload_shrink = m.get('AndroidPayload')
+        if m.get('ChannelProperties') is not None:
+            self.channel_properties_shrink = m.get('ChannelProperties')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IosPayload') is not None:
+            self.ios_payload_shrink = m.get('IosPayload')
+        if m.get('Policy') is not None:
+            self.policy_shrink = m.get('Policy')
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByAliasResponseBodyData(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByAliasResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class SendByAliasResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendByAliasResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendByAliasResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendByAliasResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendByAliasResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendByAliasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendByAliasFileIdRequest(TeaModel):
+    def __init__(self, alias_type=None, android_payload=None, channel_properties=None, description=None,
+                 file_id=None, ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.alias_type = alias_type  # type: str
+        self.android_payload = android_payload  # type: AndroidPayload
+        self.channel_properties = channel_properties  # type: ChannelProperties
+        self.description = description  # type: str
+        self.file_id = file_id  # type: str
+        self.ios_payload = ios_payload  # type: IosPayload
+        self.policy = policy  # type: Policy
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        if self.android_payload:
+            self.android_payload.validate()
+        if self.channel_properties:
+            self.channel_properties.validate()
+        if self.ios_payload:
+            self.ios_payload.validate()
+        if self.policy:
+            self.policy.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasFileIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_type is not None:
+            result['AliasType'] = self.alias_type
+        if self.android_payload is not None:
+            result['AndroidPayload'] = self.android_payload.to_map()
+        if self.channel_properties is not None:
+            result['ChannelProperties'] = self.channel_properties.to_map()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
+        if self.ios_payload is not None:
+            result['IosPayload'] = self.ios_payload.to_map()
+        if self.policy is not None:
+            result['Policy'] = self.policy.to_map()
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasType') is not None:
+            self.alias_type = m.get('AliasType')
+        if m.get('AndroidPayload') is not None:
+            temp_model = AndroidPayload()
+            self.android_payload = temp_model.from_map(m['AndroidPayload'])
+        if m.get('ChannelProperties') is not None:
+            temp_model = ChannelProperties()
+            self.channel_properties = temp_model.from_map(m['ChannelProperties'])
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
+        if m.get('IosPayload') is not None:
+            temp_model = IosPayload()
+            self.ios_payload = temp_model.from_map(m['IosPayload'])
+        if m.get('Policy') is not None:
+            temp_model = Policy()
+            self.policy = temp_model.from_map(m['Policy'])
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByAliasFileIdShrinkRequest(TeaModel):
+    def __init__(self, alias_type=None, android_payload_shrink=None, channel_properties_shrink=None,
+                 description=None, file_id=None, ios_payload_shrink=None, policy_shrink=None, production_mode=None,
+                 receipt_type=None, receipt_url=None):
+        self.alias_type = alias_type  # type: str
+        self.android_payload_shrink = android_payload_shrink  # type: str
+        self.channel_properties_shrink = channel_properties_shrink  # type: str
+        self.description = description  # type: str
+        self.file_id = file_id  # type: str
+        self.ios_payload_shrink = ios_payload_shrink  # type: str
+        self.policy_shrink = policy_shrink  # type: str
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByAliasFileIdShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_type is not None:
+            result['AliasType'] = self.alias_type
+        if self.android_payload_shrink is not None:
+            result['AndroidPayload'] = self.android_payload_shrink
+        if self.channel_properties_shrink is not None:
+            result['ChannelProperties'] = self.channel_properties_shrink
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
+        if self.ios_payload_shrink is not None:
+            result['IosPayload'] = self.ios_payload_shrink
+        if self.policy_shrink is not None:
+            result['Policy'] = self.policy_shrink
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasType') is not None:
+            self.alias_type = m.get('AliasType')
+        if m.get('AndroidPayload') is not None:
+            self.android_payload_shrink = m.get('AndroidPayload')
+        if m.get('ChannelProperties') is not None:
+            self.channel_properties_shrink = m.get('ChannelProperties')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
+        if m.get('IosPayload') is not None:
+            self.ios_payload_shrink = m.get('IosPayload')
+        if m.get('Policy') is not None:
+            self.policy_shrink = m.get('Policy')
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByAliasFileIdResponseBodyData(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByAliasFileIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class SendByAliasFileIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendByAliasFileIdResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasFileIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendByAliasFileIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendByAliasFileIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendByAliasFileIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendByAliasFileIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendByAliasFileIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SendByAppRequest(TeaModel):
     def __init__(self, android_payload=None, channel_properties=None, description=None, ios_payload=None,
                  policy=None, production_mode=None, receipt_type=None, receipt_url=None):
@@ -838,6 +1682,654 @@ class SendByDeviceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SendByDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendByDeviceFileIdRequest(TeaModel):
+    def __init__(self, android_payload=None, channel_properties=None, description=None, file_id=None,
+                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.android_payload = android_payload  # type: AndroidPayload
+        self.channel_properties = channel_properties  # type: ChannelProperties
+        self.description = description  # type: str
+        self.file_id = file_id  # type: str
+        self.ios_payload = ios_payload  # type: IosPayload
+        self.policy = policy  # type: Policy
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        if self.android_payload:
+            self.android_payload.validate()
+        if self.channel_properties:
+            self.channel_properties.validate()
+        if self.ios_payload:
+            self.ios_payload.validate()
+        if self.policy:
+            self.policy.validate()
+
+    def to_map(self):
+        _map = super(SendByDeviceFileIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.android_payload is not None:
+            result['AndroidPayload'] = self.android_payload.to_map()
+        if self.channel_properties is not None:
+            result['ChannelProperties'] = self.channel_properties.to_map()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
+        if self.ios_payload is not None:
+            result['IosPayload'] = self.ios_payload.to_map()
+        if self.policy is not None:
+            result['Policy'] = self.policy.to_map()
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AndroidPayload') is not None:
+            temp_model = AndroidPayload()
+            self.android_payload = temp_model.from_map(m['AndroidPayload'])
+        if m.get('ChannelProperties') is not None:
+            temp_model = ChannelProperties()
+            self.channel_properties = temp_model.from_map(m['ChannelProperties'])
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
+        if m.get('IosPayload') is not None:
+            temp_model = IosPayload()
+            self.ios_payload = temp_model.from_map(m['IosPayload'])
+        if m.get('Policy') is not None:
+            temp_model = Policy()
+            self.policy = temp_model.from_map(m['Policy'])
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByDeviceFileIdShrinkRequest(TeaModel):
+    def __init__(self, android_payload_shrink=None, channel_properties_shrink=None, description=None, file_id=None,
+                 ios_payload_shrink=None, policy_shrink=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.android_payload_shrink = android_payload_shrink  # type: str
+        self.channel_properties_shrink = channel_properties_shrink  # type: str
+        self.description = description  # type: str
+        self.file_id = file_id  # type: str
+        self.ios_payload_shrink = ios_payload_shrink  # type: str
+        self.policy_shrink = policy_shrink  # type: str
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByDeviceFileIdShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.android_payload_shrink is not None:
+            result['AndroidPayload'] = self.android_payload_shrink
+        if self.channel_properties_shrink is not None:
+            result['ChannelProperties'] = self.channel_properties_shrink
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
+        if self.ios_payload_shrink is not None:
+            result['IosPayload'] = self.ios_payload_shrink
+        if self.policy_shrink is not None:
+            result['Policy'] = self.policy_shrink
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AndroidPayload') is not None:
+            self.android_payload_shrink = m.get('AndroidPayload')
+        if m.get('ChannelProperties') is not None:
+            self.channel_properties_shrink = m.get('ChannelProperties')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
+        if m.get('IosPayload') is not None:
+            self.ios_payload_shrink = m.get('IosPayload')
+        if m.get('Policy') is not None:
+            self.policy_shrink = m.get('Policy')
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByDeviceFileIdResponseBodyData(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByDeviceFileIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class SendByDeviceFileIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendByDeviceFileIdResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendByDeviceFileIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendByDeviceFileIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendByDeviceFileIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendByDeviceFileIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendByDeviceFileIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendByDeviceFileIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendByFilterRequest(TeaModel):
+    def __init__(self, android_payload=None, channel_properties=None, description=None, filter=None,
+                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.android_payload = android_payload  # type: AndroidPayload
+        self.channel_properties = channel_properties  # type: ChannelProperties
+        self.description = description  # type: str
+        self.filter = filter  # type: str
+        self.ios_payload = ios_payload  # type: IosPayload
+        self.policy = policy  # type: Policy
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        if self.android_payload:
+            self.android_payload.validate()
+        if self.channel_properties:
+            self.channel_properties.validate()
+        if self.ios_payload:
+            self.ios_payload.validate()
+        if self.policy:
+            self.policy.validate()
+
+    def to_map(self):
+        _map = super(SendByFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.android_payload is not None:
+            result['AndroidPayload'] = self.android_payload.to_map()
+        if self.channel_properties is not None:
+            result['ChannelProperties'] = self.channel_properties.to_map()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.filter is not None:
+            result['Filter'] = self.filter
+        if self.ios_payload is not None:
+            result['IosPayload'] = self.ios_payload.to_map()
+        if self.policy is not None:
+            result['Policy'] = self.policy.to_map()
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AndroidPayload') is not None:
+            temp_model = AndroidPayload()
+            self.android_payload = temp_model.from_map(m['AndroidPayload'])
+        if m.get('ChannelProperties') is not None:
+            temp_model = ChannelProperties()
+            self.channel_properties = temp_model.from_map(m['ChannelProperties'])
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Filter') is not None:
+            self.filter = m.get('Filter')
+        if m.get('IosPayload') is not None:
+            temp_model = IosPayload()
+            self.ios_payload = temp_model.from_map(m['IosPayload'])
+        if m.get('Policy') is not None:
+            temp_model = Policy()
+            self.policy = temp_model.from_map(m['Policy'])
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByFilterShrinkRequest(TeaModel):
+    def __init__(self, android_payload_shrink=None, channel_properties_shrink=None, description=None, filter=None,
+                 ios_payload_shrink=None, policy_shrink=None, production_mode=None, receipt_type=None, receipt_url=None):
+        self.android_payload_shrink = android_payload_shrink  # type: str
+        self.channel_properties_shrink = channel_properties_shrink  # type: str
+        self.description = description  # type: str
+        self.filter = filter  # type: str
+        self.ios_payload_shrink = ios_payload_shrink  # type: str
+        self.policy_shrink = policy_shrink  # type: str
+        self.production_mode = production_mode  # type: bool
+        self.receipt_type = receipt_type  # type: int
+        self.receipt_url = receipt_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByFilterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.android_payload_shrink is not None:
+            result['AndroidPayload'] = self.android_payload_shrink
+        if self.channel_properties_shrink is not None:
+            result['ChannelProperties'] = self.channel_properties_shrink
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.filter is not None:
+            result['Filter'] = self.filter
+        if self.ios_payload_shrink is not None:
+            result['IosPayload'] = self.ios_payload_shrink
+        if self.policy_shrink is not None:
+            result['Policy'] = self.policy_shrink
+        if self.production_mode is not None:
+            result['ProductionMode'] = self.production_mode
+        if self.receipt_type is not None:
+            result['ReceiptType'] = self.receipt_type
+        if self.receipt_url is not None:
+            result['ReceiptUrl'] = self.receipt_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AndroidPayload') is not None:
+            self.android_payload_shrink = m.get('AndroidPayload')
+        if m.get('ChannelProperties') is not None:
+            self.channel_properties_shrink = m.get('ChannelProperties')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Filter') is not None:
+            self.filter = m.get('Filter')
+        if m.get('IosPayload') is not None:
+            self.ios_payload_shrink = m.get('IosPayload')
+        if m.get('Policy') is not None:
+            self.policy_shrink = m.get('Policy')
+        if m.get('ProductionMode') is not None:
+            self.production_mode = m.get('ProductionMode')
+        if m.get('ReceiptType') is not None:
+            self.receipt_type = m.get('ReceiptType')
+        if m.get('ReceiptUrl') is not None:
+            self.receipt_url = m.get('ReceiptUrl')
+        return self
+
+
+class SendByFilterResponseBodyData(TeaModel):
+    def __init__(self, msg_id=None):
+        self.msg_id = msg_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendByFilterResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_id is not None:
+            result['MsgId'] = self.msg_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MsgId') is not None:
+            self.msg_id = m.get('MsgId')
+        return self
+
+
+class SendByFilterResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendByFilterResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendByFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendByFilterResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendByFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendByFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendByFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendByFilterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UploadDeviceRequest(TeaModel):
+    def __init__(self, device_tokens=None):
+        self.device_tokens = device_tokens  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadDeviceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_tokens is not None:
+            result['DeviceTokens'] = self.device_tokens
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceTokens') is not None:
+            self.device_tokens = m.get('DeviceTokens')
+        return self
+
+
+class UploadDeviceResponseBodyData(TeaModel):
+    def __init__(self, file_id=None):
+        self.file_id = file_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadDeviceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
+        return self
+
+
+class UploadDeviceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: UploadDeviceResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UploadDeviceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UploadDeviceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UploadDeviceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UploadDeviceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UploadDeviceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UploadDeviceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
