@@ -1,3 +1,6 @@
+2022-12-09 Version: 1.0.25
+- Add DescribeDdosAllEventList.
+
 2022-11-29 Version: 1.0.24
 - Update DescribeDcdnDeletedDomains.
 
