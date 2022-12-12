@@ -46,6 +46,17 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_bu_dbinstance_relation_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: AddBuDBInstanceRelationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddBuDBInstanceRelationResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.business_unit):
@@ -74,6 +85,15 @@ class Client(OpenApiClient):
         )
 
     def add_bu_dbinstance_relation(self, request):
+        """
+        @deprecated
+        
+
+        @param request: AddBuDBInstanceRelationRequest
+
+        @return: AddBuDBInstanceRelationResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_bu_dbinstance_relation_with_options(request, runtime)
 
@@ -524,6 +544,17 @@ class Client(OpenApiClient):
         return self.delete_dbinstance_plan_with_options(request, runtime)
 
     def delete_database_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DeleteDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDatabaseResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -552,6 +583,15 @@ class Client(OpenApiClient):
         )
 
     def delete_database(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DeleteDatabaseRequest
+
+        @return: DeleteDatabaseResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_database_with_options(request, runtime)
 
@@ -2282,6 +2322,36 @@ class Client(OpenApiClient):
     def describe_specification(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_specification_with_options(request, runtime)
+
+    def describe_support_features_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSupportFeatures',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeSupportFeaturesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_support_features(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_support_features_with_options(request, runtime)
 
     def describe_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)

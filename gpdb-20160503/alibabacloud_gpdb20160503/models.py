@@ -2835,7 +2835,9 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.storage_unit = storage_unit  # type: str
         self.support_restore = support_restore  # type: bool
         self.tags = tags  # type: DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttributeTags
+        # vSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
 
@@ -4501,6 +4503,7 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
         self.ipaddress = ipaddress  # type: str
         self.iptype = iptype  # type: str
         self.port = port  # type: str
+        # VPC ID。
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.vpc_instance_id = vpc_instance_id  # type: str
@@ -4786,7 +4789,9 @@ class DescribeDBInstanceOnECSAttributeResponseBodyItemsDBInstanceAttribute(TeaMo
         self.storage_type = storage_type  # type: str
         self.support_restore = support_restore  # type: bool
         self.tags = tags  # type: DescribeDBInstanceOnECSAttributeResponseBodyItemsDBInstanceAttributeTags
+        # vSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
 
@@ -6047,7 +6052,9 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         self.storage_size = storage_size  # type: str
         self.storage_type = storage_type  # type: str
         self.tags = tags  # type: DescribeDBInstancesResponseBodyItemsDBInstanceTags
+        # vSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
 
@@ -8947,6 +8954,7 @@ class DescribeRdsVSwitchsResponseBodyVSwitchesVSwitch(TeaModel):
         self.iz_no = iz_no  # type: str
         self.region_no = region_no  # type: str
         self.status = status  # type: str
+        # vSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
         self.v_switch_name = v_switch_name  # type: str
 
@@ -9181,6 +9189,7 @@ class DescribeRdsVpcsResponseBodyVpcsVpcVSwitchs(TeaModel):
         self.is_default = is_default  # type: bool
         self.iz_no = iz_no  # type: str
         self.status = status  # type: str
+        # vSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
         self.v_switch_name = v_switch_name  # type: str
 
@@ -9244,6 +9253,7 @@ class DescribeRdsVpcsResponseBodyVpcsVpc(TeaModel):
         self.region_no = region_no  # type: str
         self.status = status  # type: str
         self.v_switchs = v_switchs  # type: list[DescribeRdsVpcsResponseBodyVpcsVpcVSwitchs]
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
         self.vpc_name = vpc_name  # type: str
 
@@ -11113,6 +11123,7 @@ class DescribeSQLLogsOnSliceResponseBodySliceLogItems(TeaModel):
         self.operation_execute_time = operation_execute_time  # type: str
         self.peak_memory = peak_memory  # type: float
         self.return_row_counts = return_row_counts  # type: long
+        # Segment ID。
         self.segment_id = segment_id  # type: str
         self.segment_name = segment_name  # type: str
 
@@ -11644,6 +11655,7 @@ class DescribeSlowLogRecordsRequest(TeaModel):
         self.end_time = end_time  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        # SQL ID。
         self.sqlid = sqlid  # type: long
         self.start_time = start_time  # type: str
 
@@ -12378,6 +12390,108 @@ class DescribeSpecificationResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeSpecificationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeSupportFeaturesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSupportFeaturesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeSupportFeaturesResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, request_id=None, support_feature_list=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.request_id = request_id  # type: str
+        self.support_feature_list = support_feature_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSupportFeaturesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.support_feature_list is not None:
+            result['SupportFeatureList'] = self.support_feature_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SupportFeatureList') is not None:
+            self.support_feature_list = m.get('SupportFeatureList')
+        return self
+
+
+class DescribeSupportFeaturesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSupportFeaturesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSupportFeaturesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSupportFeaturesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14068,6 +14182,7 @@ class ModifyDBInstanceNetworkTypeRequest(TeaModel):
         self.dbinstance_id = dbinstance_id  # type: str
         self.instance_network_type = instance_network_type  # type: str
         self.private_ip_address = private_ip_address  # type: str
+        # VPC ID。
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
 
