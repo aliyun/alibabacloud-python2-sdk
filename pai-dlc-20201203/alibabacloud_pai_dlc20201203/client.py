@@ -83,11 +83,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_job(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_job_with_options(request, headers, runtime)
-
     def create_job_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -117,6 +112,8 @@ class Client(OpenApiClient):
             body['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.settings):
             body['Settings'] = request.settings
+        if not UtilClient.is_unset(request.success_policy):
+            body['SuccessPolicy'] = request.success_policy
         if not UtilClient.is_unset(request.thirdparty_lib_dir):
             body['ThirdpartyLibDir'] = request.thirdparty_lib_dir
         if not UtilClient.is_unset(request.thirdparty_libs):
@@ -147,10 +144,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_tensorboard(self, request):
+    def create_job(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_tensorboard_with_options(request, headers, runtime)
+        return self.create_job_with_options(request, headers, runtime)
 
     def create_tensorboard_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -201,13 +198,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_job(self, job_id):
+    def create_tensorboard(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_job_with_options(job_id, headers, runtime)
+        return self.create_tensorboard_with_options(request, headers, runtime)
 
     def delete_job_with_options(self, job_id, headers, runtime):
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -215,7 +211,7 @@ class Client(OpenApiClient):
             action='DeleteJob',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -227,14 +223,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_tensorboard(self, tensorboard_id, request):
+    def delete_job(self, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+        return self.delete_job_with_options(job_id, headers, runtime)
 
     def delete_tensorboard_with_options(self, tensorboard_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tensorboard_id = OpenApiUtilClient.get_encode_param(tensorboard_id)
         query = {}
         if not UtilClient.is_unset(request.workspace_id):
             query['WorkspaceId'] = request.workspace_id
@@ -246,7 +241,7 @@ class Client(OpenApiClient):
             action='DeleteTensorboard',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(tensorboard_id),
+            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -258,13 +253,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job(self, job_id):
+    def delete_tensorboard(self, tensorboard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_job_with_options(job_id, headers, runtime)
+        return self.delete_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
     def get_job_with_options(self, job_id, headers, runtime):
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -272,7 +266,7 @@ class Client(OpenApiClient):
             action='GetJob',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -284,14 +278,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job_events(self, job_id, request):
+    def get_job(self, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_job_events_with_options(job_id, request, headers, runtime)
+        return self.get_job_with_options(job_id, headers, runtime)
 
     def get_job_events_with_options(self, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
@@ -307,7 +300,7 @@ class Client(OpenApiClient):
             action='GetJobEvents',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s/events' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s/events' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -319,14 +312,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job_metrics(self, job_id, request):
+    def get_job_events(self, job_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_job_metrics_with_options(job_id, request, headers, runtime)
+        return self.get_job_events_with_options(job_id, request, headers, runtime)
 
     def get_job_metrics_with_options(self, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
@@ -346,7 +338,7 @@ class Client(OpenApiClient):
             action='GetJobMetrics',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s/metrics' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s/metrics' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -358,15 +350,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pod_events(self, job_id, pod_id, request):
+    def get_job_metrics(self, job_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pod_events_with_options(job_id, pod_id, request, headers, runtime)
+        return self.get_job_metrics_with_options(job_id, request, headers, runtime)
 
     def get_pod_events_with_options(self, job_id, pod_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
-        pod_id = OpenApiUtilClient.get_encode_param(pod_id)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
@@ -384,7 +374,7 @@ class Client(OpenApiClient):
             action='GetPodEvents',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s/pods/%s/events' % (TeaConverter.to_unicode(job_id), TeaConverter.to_unicode(pod_id)),
+            pathname='/api/v1/jobs/%s/pods/%s/events' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pod_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -396,15 +386,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pod_logs(self, job_id, pod_id, request):
+    def get_pod_events(self, job_id, pod_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pod_logs_with_options(job_id, pod_id, request, headers, runtime)
+        return self.get_pod_events_with_options(job_id, pod_id, request, headers, runtime)
 
     def get_pod_logs_with_options(self, job_id, pod_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
-        pod_id = OpenApiUtilClient.get_encode_param(pod_id)
         query = {}
         if not UtilClient.is_unset(request.download_to_file):
             query['DownloadToFile'] = request.download_to_file
@@ -424,7 +412,7 @@ class Client(OpenApiClient):
             action='GetPodLogs',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s/pods/%s/logs' % (TeaConverter.to_unicode(job_id), TeaConverter.to_unicode(pod_id)),
+            pathname='/api/v1/jobs/%s/pods/%s/logs' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pod_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -436,14 +424,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_tensorboard(self, tensorboard_id, request):
+    def get_pod_logs(self, job_id, pod_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+        return self.get_pod_logs_with_options(job_id, pod_id, request, headers, runtime)
 
     def get_tensorboard_with_options(self, tensorboard_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tensorboard_id = OpenApiUtilClient.get_encode_param(tensorboard_id)
         query = {}
         if not UtilClient.is_unset(request.jod_id):
             query['JodId'] = request.jod_id
@@ -457,7 +444,7 @@ class Client(OpenApiClient):
             action='GetTensorboard',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(tensorboard_id),
+            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -469,10 +456,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ecs_specs(self, request):
+    def get_tensorboard(self, tensorboard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ecs_specs_with_options(request, headers, runtime)
+        return self.get_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
     def list_ecs_specs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -507,10 +494,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_jobs(self, request):
+    def list_ecs_specs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_jobs_with_options(request, headers, runtime)
+        return self.list_ecs_specs_with_options(request, headers, runtime)
 
     def list_jobs_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -529,6 +516,8 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.from_all_workspaces):
             query['FromAllWorkspaces'] = request.from_all_workspaces
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
         if not UtilClient.is_unset(request.job_type):
             query['JobType'] = request.job_type
         if not UtilClient.is_unset(request.order):
@@ -573,10 +562,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tensorboards(self, request):
+    def list_jobs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tensorboards_with_options(request, headers, runtime)
+        return self.list_jobs_with_options(request, headers, runtime)
 
     def list_tensorboards_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -629,14 +618,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_tensorboard(self, tensorboard_id, request):
+    def list_tensorboards(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+        return self.list_tensorboards_with_options(request, headers, runtime)
 
     def start_tensorboard_with_options(self, tensorboard_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tensorboard_id = OpenApiUtilClient.get_encode_param(tensorboard_id)
         query = {}
         if not UtilClient.is_unset(request.workspace_id):
             query['WorkspaceId'] = request.workspace_id
@@ -648,7 +636,7 @@ class Client(OpenApiClient):
             action='StartTensorboard',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/tensorboards/%s/start' % TeaConverter.to_unicode(tensorboard_id),
+            pathname='/api/v1/tensorboards/%s/start' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -660,13 +648,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_job(self, job_id):
+    def start_tensorboard(self, tensorboard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_job_with_options(job_id, headers, runtime)
+        return self.start_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
     def stop_job_with_options(self, job_id, headers, runtime):
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -674,7 +661,7 @@ class Client(OpenApiClient):
             action='StopJob',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s/stop' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s/stop' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -686,14 +673,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_tensorboard(self, tensorboard_id, request):
+    def stop_job(self, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+        return self.stop_job_with_options(job_id, headers, runtime)
 
     def stop_tensorboard_with_options(self, tensorboard_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tensorboard_id = OpenApiUtilClient.get_encode_param(tensorboard_id)
         query = {}
         if not UtilClient.is_unset(request.workspace_id):
             query['WorkspaceId'] = request.workspace_id
@@ -705,7 +691,7 @@ class Client(OpenApiClient):
             action='StopTensorboard',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/tensorboards/%s/stop' % TeaConverter.to_unicode(tensorboard_id),
+            pathname='/api/v1/tensorboards/%s/stop' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -717,14 +703,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_job(self, job_id, request):
+    def stop_tensorboard(self, tensorboard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_job_with_options(job_id, request, headers, runtime)
+        return self.stop_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
     def update_job_with_options(self, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        job_id = OpenApiUtilClient.get_encode_param(job_id)
         body = {}
         if not UtilClient.is_unset(request.priority):
             body['Priority'] = request.priority
@@ -736,7 +721,7 @@ class Client(OpenApiClient):
             action='UpdateJob',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(job_id),
+            pathname='/api/v1/jobs/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(job_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -748,14 +733,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_tensorboard(self, tensorboard_id, request):
+    def update_job(self, job_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+        return self.update_job_with_options(job_id, request, headers, runtime)
 
     def update_tensorboard_with_options(self, tensorboard_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        tensorboard_id = OpenApiUtilClient.get_encode_param(tensorboard_id)
         query = {}
         if not UtilClient.is_unset(request.max_running_time_minutes):
             query['MaxRunningTimeMinutes'] = request.max_running_time_minutes
@@ -769,7 +753,7 @@ class Client(OpenApiClient):
             action='UpdateTensorboard',
             version='2020-12-03',
             protocol='HTTPS',
-            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(tensorboard_id),
+            pathname='/api/v1/tensorboards/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -780,3 +764,8 @@ class Client(OpenApiClient):
             pai_dlc_20201203_models.UpdateTensorboardResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_tensorboard(self, tensorboard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_tensorboard_with_options(tensorboard_id, request, headers, runtime)
