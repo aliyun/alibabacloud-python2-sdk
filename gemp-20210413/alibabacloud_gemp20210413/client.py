@@ -30,11 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_problem_service_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.add_problem_service_group_with_options(request, headers, runtime)
-
     def add_problem_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -62,10 +57,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_problem(self, request):
+    def add_problem_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_problem_with_options(request, headers, runtime)
+        return self.add_problem_service_group_with_options(request, headers, runtime)
+
+    def billing_statistics_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='BillingStatistics',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/charging/details',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.BillingStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def billing_statistics(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.billing_statistics_with_options(headers, runtime)
 
     def cancel_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -100,10 +120,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def check_webhook(self, request):
+    def cancel_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.check_webhook_with_options(request, headers, runtime)
+        return self.cancel_problem_with_options(request, headers, runtime)
 
     def check_webhook_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -134,10 +154,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def confirm_integration_config(self, request):
+    def check_webhook(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.confirm_integration_config_with_options(request, headers, runtime)
+        return self.check_webhook_with_options(request, headers, runtime)
 
     def confirm_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -166,10 +186,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_escalation_plan(self, request):
+    def confirm_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_escalation_plan_with_options(request, headers, runtime)
+        return self.confirm_integration_config_with_options(request, headers, runtime)
 
     def create_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -204,10 +224,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_incident(self, request):
+    def create_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_incident_with_options(request, headers, runtime)
+        return self.create_escalation_plan_with_options(request, headers, runtime)
 
     def create_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -250,10 +270,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_incident_subtotal(self, request):
+    def create_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_incident_subtotal_with_options(request, headers, runtime)
+        return self.create_incident_with_options(request, headers, runtime)
 
     def create_incident_subtotal_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -284,10 +304,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_integration_config(self, request):
+    def create_incident_subtotal(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_integration_config_with_options(request, headers, runtime)
+        return self.create_incident_subtotal_with_options(request, headers, runtime)
 
     def create_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -316,10 +336,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem(self, request):
+    def create_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_with_options(request, headers, runtime)
+        return self.create_integration_config_with_options(request, headers, runtime)
 
     def create_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -374,10 +394,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem_effection_service(self, request):
+    def create_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_effection_service_with_options(request, headers, runtime)
+        return self.create_problem_with_options(request, headers, runtime)
 
     def create_problem_effection_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -416,10 +436,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem_measure(self, request):
+    def create_problem_effection_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_measure_with_options(request, headers, runtime)
+        return self.create_problem_effection_service_with_options(request, headers, runtime)
 
     def create_problem_measure_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -464,10 +484,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem_subtotal(self, request):
+    def create_problem_measure(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_subtotal_with_options(request, headers, runtime)
+        return self.create_problem_measure_with_options(request, headers, runtime)
 
     def create_problem_subtotal_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -498,10 +518,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem_timeline(self, request):
+    def create_problem_subtotal(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_timeline_with_options(request, headers, runtime)
+        return self.create_problem_subtotal_with_options(request, headers, runtime)
 
     def create_problem_timeline_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -536,10 +556,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_problem_timelines(self, request):
+    def create_problem_timeline(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_problem_timelines_with_options(request, headers, runtime)
+        return self.create_problem_timeline_with_options(request, headers, runtime)
 
     def create_problem_timelines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -570,10 +590,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_rich_text(self, request):
+    def create_problem_timelines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_rich_text_with_options(request, headers, runtime)
+        return self.create_problem_timelines_with_options(request, headers, runtime)
 
     def create_rich_text_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -604,10 +624,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_route_rule(self, request):
+    def create_rich_text(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_route_rule_with_options(request, headers, runtime)
+        return self.create_rich_text_with_options(request, headers, runtime)
 
     def create_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -620,6 +640,8 @@ class Client(OpenApiClient):
             body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.coverage_problem_levels):
+            body['coverageProblemLevels'] = request.coverage_problem_levels
         if not UtilClient.is_unset(request.effection):
             body['effection'] = request.effection
         if not UtilClient.is_unset(request.enable_status):
@@ -630,6 +652,10 @@ class Client(OpenApiClient):
             body['matchCount'] = request.match_count
         if not UtilClient.is_unset(request.notify_channels):
             body['notifyChannels'] = request.notify_channels
+        if not UtilClient.is_unset(request.problem_effection_services):
+            body['problemEffectionServices'] = request.problem_effection_services
+        if not UtilClient.is_unset(request.problem_level_group):
+            body['problemLevelGroup'] = request.problem_level_group
         if not UtilClient.is_unset(request.related_service_id):
             body['relatedServiceId'] = request.related_service_id
         if not UtilClient.is_unset(request.route_child_rules):
@@ -662,10 +688,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service(self, request):
+    def create_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_with_options(request, headers, runtime)
+        return self.create_route_rule_with_options(request, headers, runtime)
 
     def create_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -696,10 +722,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_group(self, request):
+    def create_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_group_with_options(request, headers, runtime)
+        return self.create_service_with_options(request, headers, runtime)
 
     def create_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -740,10 +766,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_group_scheduling(self, request):
+    def create_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_group_scheduling_with_options(request, headers, runtime)
+        return self.create_service_group_with_options(request, headers, runtime)
 
     def create_service_group_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -778,10 +804,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_subscription(self, request):
+    def create_service_group_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_subscription_with_options(request, headers, runtime)
+        return self.create_service_group_scheduling_with_options(request, headers, runtime)
 
     def create_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -828,10 +854,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_tenant_application(self, request):
+    def create_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_tenant_application_with_options(request, headers, runtime)
+        return self.create_subscription_with_options(request, headers, runtime)
 
     def create_tenant_application_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -860,10 +886,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_user(self, request):
+    def create_tenant_application(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_user_with_options(request, headers, runtime)
+        return self.create_tenant_application_with_options(request, headers, runtime)
 
     def create_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -898,10 +924,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_escalation_plan(self, request):
+    def create_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_escalation_plan_with_options(request, headers, runtime)
+        return self.create_user_with_options(request, headers, runtime)
 
     def delete_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -930,10 +956,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_incident(self, request):
+    def delete_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_incident_with_options(request, headers, runtime)
+        return self.delete_escalation_plan_with_options(request, headers, runtime)
 
     def delete_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -962,10 +988,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_integration_config(self, request):
+    def delete_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_integration_config_with_options(request, headers, runtime)
+        return self.delete_incident_with_options(request, headers, runtime)
 
     def delete_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -994,10 +1020,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_problem(self, request):
+    def delete_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_problem_with_options(request, headers, runtime)
+        return self.delete_integration_config_with_options(request, headers, runtime)
 
     def delete_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1026,10 +1052,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_problem_effection_service(self, request):
+    def delete_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_problem_effection_service_with_options(request, headers, runtime)
+        return self.delete_problem_with_options(request, headers, runtime)
 
     def delete_problem_effection_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1060,10 +1086,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_problem_measure(self, request):
+    def delete_problem_effection_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_problem_measure_with_options(request, headers, runtime)
+        return self.delete_problem_effection_service_with_options(request, headers, runtime)
 
     def delete_problem_measure_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1094,10 +1120,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_problem_timeline(self, request):
+    def delete_problem_measure(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_problem_timeline_with_options(request, headers, runtime)
+        return self.delete_problem_measure_with_options(request, headers, runtime)
 
     def delete_problem_timeline_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1128,10 +1154,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_route_rule(self, request):
+    def delete_problem_timeline(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_route_rule_with_options(request, headers, runtime)
+        return self.delete_problem_timeline_with_options(request, headers, runtime)
 
     def delete_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1160,10 +1186,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service(self, request):
+    def delete_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_with_options(request, headers, runtime)
+        return self.delete_route_rule_with_options(request, headers, runtime)
 
     def delete_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1192,10 +1218,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_group(self, request):
+    def delete_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_group_with_options(request, headers, runtime)
+        return self.delete_service_with_options(request, headers, runtime)
 
     def delete_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1224,10 +1250,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_group_user(self, request):
+    def delete_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_group_user_with_options(request, headers, runtime)
+        return self.delete_service_group_with_options(request, headers, runtime)
+
+    def delete_service_group_scheduling_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteServiceGroupScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.DeleteServiceGroupSchedulingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_service_group_scheduling(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_service_group_scheduling_with_options(headers, runtime)
 
     def delete_service_group_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1262,10 +1313,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_subscription(self, request):
+    def delete_service_group_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_subscription_with_options(request, headers, runtime)
+        return self.delete_service_group_user_with_options(request, headers, runtime)
 
     def delete_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1292,10 +1343,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_user(self, request):
+    def delete_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_user_with_options(request, headers, runtime)
+        return self.delete_subscription_with_options(request, headers, runtime)
 
     def delete_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1324,10 +1375,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def deliver_incident(self, request):
+    def delete_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.deliver_incident_with_options(request, headers, runtime)
+        return self.delete_user_with_options(request, headers, runtime)
 
     def deliver_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1358,10 +1409,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_escalation_plan(self, request):
+    def deliver_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_escalation_plan_with_options(request, headers, runtime)
+        return self.deliver_incident_with_options(request, headers, runtime)
 
     def disable_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1390,10 +1441,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_integration_config(self, request):
+    def disable_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_integration_config_with_options(request, headers, runtime)
+        return self.disable_escalation_plan_with_options(request, headers, runtime)
 
     def disable_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1422,10 +1473,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_route_rule(self, request):
+    def disable_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_route_rule_with_options(request, headers, runtime)
+        return self.disable_integration_config_with_options(request, headers, runtime)
 
     def disable_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1454,10 +1505,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_service_group_webhook(self, request):
+    def disable_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_service_group_webhook_with_options(request, headers, runtime)
+        return self.disable_route_rule_with_options(request, headers, runtime)
 
     def disable_service_group_webhook_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1486,10 +1537,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_subscription(self, request):
+    def disable_service_group_webhook(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_subscription_with_options(request, headers, runtime)
+        return self.disable_service_group_webhook_with_options(request, headers, runtime)
 
     def disable_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1516,10 +1567,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_escalation_plan(self, request):
+    def disable_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_escalation_plan_with_options(request, headers, runtime)
+        return self.disable_subscription_with_options(request, headers, runtime)
 
     def enable_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1548,10 +1599,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_integration_config(self, request):
+    def enable_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_integration_config_with_options(request, headers, runtime)
+        return self.enable_escalation_plan_with_options(request, headers, runtime)
 
     def enable_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1580,10 +1631,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_route_rule(self, request):
+    def enable_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_route_rule_with_options(request, headers, runtime)
+        return self.enable_integration_config_with_options(request, headers, runtime)
 
     def enable_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1612,10 +1663,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_service_group_webhook(self, request):
+    def enable_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_service_group_webhook_with_options(request, headers, runtime)
+        return self.enable_route_rule_with_options(request, headers, runtime)
 
     def enable_service_group_webhook_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1644,10 +1695,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_subscription(self, request):
+    def enable_service_group_webhook(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_subscription_with_options(request, headers, runtime)
+        return self.enable_service_group_webhook_with_options(request, headers, runtime)
 
     def enable_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1674,10 +1725,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def finish_incident(self, request):
+    def enable_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.finish_incident_with_options(request, headers, runtime)
+        return self.enable_subscription_with_options(request, headers, runtime)
 
     def finish_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1714,10 +1765,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def finish_problem(self, request):
+    def finish_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.finish_problem_with_options(request, headers, runtime)
+        return self.finish_incident_with_options(request, headers, runtime)
 
     def finish_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1746,10 +1797,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_picture_link(self, request):
+    def finish_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_picture_link_with_options(request, headers, runtime)
+        return self.finish_problem_with_options(request, headers, runtime)
 
     def generate_picture_link_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1778,10 +1829,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_picture_upload_sign(self, request):
+    def generate_picture_link(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_picture_upload_sign_with_options(request, headers, runtime)
+        return self.generate_picture_link_with_options(request, headers, runtime)
 
     def generate_picture_upload_sign_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1812,10 +1863,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_problem_picture_link(self, request):
+    def generate_picture_upload_sign(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_problem_picture_link_with_options(request, headers, runtime)
+        return self.generate_picture_upload_sign_with_options(request, headers, runtime)
 
     def generate_problem_picture_link_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1844,10 +1895,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_problem_picture_upload_sign(self, request):
+    def generate_problem_picture_link(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_problem_picture_upload_sign_with_options(request, headers, runtime)
+        return self.generate_problem_picture_link_with_options(request, headers, runtime)
 
     def generate_problem_picture_upload_sign_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1880,10 +1931,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_escalation_plan(self, request):
+    def generate_problem_picture_upload_sign(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_escalation_plan_with_options(request, headers, runtime)
+        return self.generate_problem_picture_upload_sign_with_options(request, headers, runtime)
 
     def get_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1912,10 +1963,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_event(self, request):
+    def get_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_event_with_options(request, headers, runtime)
+        return self.get_escalation_plan_with_options(request, headers, runtime)
 
     def get_event_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1942,10 +1993,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_home_page_guidance(self, request):
+    def get_event(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_home_page_guidance_with_options(request, headers, runtime)
+        return self.get_event_with_options(request, headers, runtime)
 
     def get_home_page_guidance_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1972,10 +2023,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_incident(self, request):
+    def get_home_page_guidance(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_incident_with_options(request, headers, runtime)
+        return self.get_home_page_guidance_with_options(request, headers, runtime)
 
     def get_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2004,10 +2055,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_incident_statistics(self, request):
+    def get_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_incident_statistics_with_options(request, headers, runtime)
+        return self.get_incident_with_options(request, headers, runtime)
 
     def get_incident_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2034,10 +2085,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_incident_subtotal_count(self, request):
+    def get_incident_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_incident_subtotal_count_with_options(request, headers, runtime)
+        return self.get_incident_statistics_with_options(request, headers, runtime)
 
     def get_incident_subtotal_count_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2066,10 +2117,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_integration_config(self, request):
+    def get_incident_subtotal_count(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_integration_config_with_options(request, headers, runtime)
+        return self.get_incident_subtotal_count_with_options(request, headers, runtime)
 
     def get_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2098,10 +2149,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_problem(self, request):
+    def get_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_problem_with_options(request, headers, runtime)
+        return self.get_integration_config_with_options(request, headers, runtime)
 
     def get_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2130,10 +2181,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_problem_effection_service(self, request):
+    def get_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_problem_effection_service_with_options(request, headers, runtime)
+        return self.get_problem_with_options(request, headers, runtime)
 
     def get_problem_effection_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2164,10 +2215,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_problem_improvement(self, request):
+    def get_problem_effection_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_problem_improvement_with_options(request, headers, runtime)
+        return self.get_problem_effection_service_with_options(request, headers, runtime)
 
     def get_problem_improvement_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2196,10 +2247,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_problem_preview(self, request):
+    def get_problem_improvement(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_problem_preview_with_options(request, headers, runtime)
+        return self.get_problem_improvement_with_options(request, headers, runtime)
 
     def get_problem_preview_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2240,10 +2291,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_resource_statistics(self, request):
+    def get_problem_preview(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_resource_statistics_with_options(request, headers, runtime)
+        return self.get_problem_preview_with_options(request, headers, runtime)
 
     def get_resource_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2270,10 +2321,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_rich_text(self, request):
+    def get_resource_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_rich_text_with_options(request, headers, runtime)
+        return self.get_resource_statistics_with_options(request, headers, runtime)
 
     def get_rich_text_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2304,10 +2355,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_route_rule(self, request):
+    def get_rich_text(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_route_rule_with_options(request, headers, runtime)
+        return self.get_rich_text_with_options(request, headers, runtime)
 
     def get_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2336,10 +2387,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service(self, request):
+    def get_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_with_options(request, headers, runtime)
+        return self.get_route_rule_with_options(request, headers, runtime)
 
     def get_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2368,10 +2419,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_group(self, request):
+    def get_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_group_with_options(request, headers, runtime)
+        return self.get_service_with_options(request, headers, runtime)
 
     def get_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2400,10 +2451,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_group_person_scheduling(self, request):
+    def get_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_group_person_scheduling_with_options(request, headers, runtime)
+        return self.get_service_group_with_options(request, headers, runtime)
 
     def get_service_group_person_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2438,10 +2489,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_group_scheduling(self, request):
+    def get_service_group_person_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_group_scheduling_with_options(request, headers, runtime)
+        return self.get_service_group_person_scheduling_with_options(request, headers, runtime)
 
     def get_service_group_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2470,10 +2521,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_group_scheduling_preview(self, request):
+    def get_service_group_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_group_scheduling_preview_with_options(request, headers, runtime)
+        return self.get_service_group_scheduling_with_options(request, headers, runtime)
 
     def get_service_group_scheduling_preview_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2512,10 +2563,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_group_special_person_scheduling(self, request):
+    def get_service_group_scheduling_preview(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_group_special_person_scheduling_with_options(request, headers, runtime)
+        return self.get_service_group_scheduling_preview_with_options(request, headers, runtime)
 
     def get_service_group_special_person_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2546,10 +2597,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_similar_incident_statistics(self, request):
+    def get_service_group_special_person_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_similar_incident_statistics_with_options(request, headers, runtime)
+        return self.get_service_group_special_person_scheduling_with_options(request, headers, runtime)
 
     def get_similar_incident_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2586,14 +2637,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_subscription(self, request):
+    def get_similar_incident_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_subscription_with_options(request, headers, runtime)
+        return self.get_similar_incident_statistics_with_options(request, headers, runtime)
 
     def get_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.not_filter_scope_object_deleted):
+            body['notFilterScopeObjectDeleted'] = request.not_filter_scope_object_deleted
         if not UtilClient.is_unset(request.subscription_id):
             body['subscriptionId'] = request.subscription_id
         req = open_api_models.OpenApiRequest(
@@ -2616,10 +2669,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_tenant_application(self, request):
+    def get_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_tenant_application_with_options(request, headers, runtime)
+        return self.get_subscription_with_options(request, headers, runtime)
 
     def get_tenant_application_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2646,10 +2699,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user(self, request):
+    def get_tenant_application(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_user_with_options(request, headers, runtime)
+        return self.get_tenant_application_with_options(request, headers, runtime)
+
+    def get_tenant_status_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.tenant_ram_id):
+            body['tenantRamId'] = request.tenant_ram_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetTenantStatus',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/tenant/getTenantStatus',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.GetTenantStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_tenant_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_tenant_status_with_options(request, headers, runtime)
 
     def get_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2678,10 +2761,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_guide_status(self, request):
+    def get_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_user_guide_status_with_options(request, headers, runtime)
+        return self.get_user_with_options(request, headers, runtime)
 
     def get_user_guide_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2708,10 +2791,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_alerts(self, request):
+    def get_user_guide_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_alerts_with_options(request, headers, runtime)
+        return self.get_user_guide_status_with_options(request, headers, runtime)
 
     def list_alerts_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2724,6 +2807,8 @@ class Client(OpenApiClient):
             body['alertSourceName'] = request.alert_source_name
         if not UtilClient.is_unset(request.end_time):
             body['endTime'] = request.end_time
+        if not UtilClient.is_unset(request.monitor_source_id):
+            body['monitorSourceId'] = request.monitor_source_id
         if not UtilClient.is_unset(request.page_number):
             body['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2754,10 +2839,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_chart_data_for_service_group(self, request):
+    def list_alerts(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_chart_data_for_service_group_with_options(request, headers, runtime)
+        return self.list_alerts_with_options(request, headers, runtime)
+
+    def list_by_monitor_source_id_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.monitor_source_id):
+            body['monitorSourceId'] = request.monitor_source_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListByMonitorSourceId',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/listByMonitorSourceId',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListByMonitorSourceIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_by_monitor_source_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_by_monitor_source_id_with_options(request, headers, runtime)
 
     def list_chart_data_for_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2788,10 +2903,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_chart_data_for_user(self, request):
+    def list_chart_data_for_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_chart_data_for_user_with_options(request, headers, runtime)
+        return self.list_chart_data_for_service_group_with_options(request, headers, runtime)
 
     def list_chart_data_for_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2822,10 +2937,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_configs(self, request):
+    def list_chart_data_for_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_configs_with_options(request, headers, runtime)
+        return self.list_chart_data_for_user_with_options(request, headers, runtime)
 
     def list_configs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2852,10 +2967,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_report_for_service_group(self, request):
+    def list_configs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_report_for_service_group_with_options(request, headers, runtime)
+        return self.list_configs_with_options(request, headers, runtime)
 
     def list_data_report_for_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2886,10 +3001,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_report_for_user(self, request):
+    def list_data_report_for_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_report_for_user_with_options(request, headers, runtime)
+        return self.list_data_report_for_service_group_with_options(request, headers, runtime)
 
     def list_data_report_for_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2922,10 +3037,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_dictionaries(self, request):
+    def list_data_report_for_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_dictionaries_with_options(request, headers, runtime)
+        return self.list_data_report_for_user_with_options(request, headers, runtime)
 
     def list_dictionaries_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2952,10 +3067,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_escalation_plan_services(self, request):
+    def list_dictionaries(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_escalation_plan_services_with_options(request, headers, runtime)
+        return self.list_dictionaries_with_options(request, headers, runtime)
 
     def list_escalation_plan_services_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2982,10 +3097,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_escalation_plans(self, request):
+    def list_escalation_plan_services(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_escalation_plans_with_options(request, headers, runtime)
+        return self.list_escalation_plan_services_with_options(request, headers, runtime)
 
     def list_escalation_plans_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3020,10 +3135,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_incident_detail_escalation_plans(self, request):
+    def list_escalation_plans(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_incident_detail_escalation_plans_with_options(request, headers, runtime)
+        return self.list_escalation_plans_with_options(request, headers, runtime)
+
+    def list_escalation_plans_by_notice_object_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.notice_object_id):
+            body['noticeObjectId'] = request.notice_object_id
+        if not UtilClient.is_unset(request.notice_object_type):
+            body['noticeObjectType'] = request.notice_object_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListEscalationPlansByNoticeObject',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/listByNoticeObject',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListEscalationPlansByNoticeObjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_escalation_plans_by_notice_object(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_escalation_plans_by_notice_object_with_options(request, headers, runtime)
 
     def list_incident_detail_escalation_plans_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3052,16 +3199,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_incident_detail_timelines(self, request):
+    def list_incident_detail_escalation_plans(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_incident_detail_timelines_with_options(request, headers, runtime)
+        return self.list_incident_detail_escalation_plans_with_options(request, headers, runtime)
 
     def list_incident_detail_timelines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.id_sort):
+            body['idSort'] = request.id_sort
         if not UtilClient.is_unset(request.incident_id):
             body['incidentId'] = request.incident_id
         if not UtilClient.is_unset(request.page_number):
@@ -3088,10 +3237,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_incident_subtotals(self, request):
+    def list_incident_detail_timelines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_incident_subtotals_with_options(request, headers, runtime)
+        return self.list_incident_detail_timelines_with_options(request, headers, runtime)
 
     def list_incident_subtotals_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3120,10 +3269,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_incident_timelines(self, request):
+    def list_incident_subtotals(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_incident_timelines_with_options(request, headers, runtime)
+        return self.list_incident_subtotals_with_options(request, headers, runtime)
 
     def list_incident_timelines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3154,10 +3303,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_incidents(self, request):
+    def list_incident_timelines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_incidents_with_options(request, headers, runtime)
+        return self.list_incident_timelines_with_options(request, headers, runtime)
 
     def list_incidents_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3204,10 +3353,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_integration_config_timelines(self, request):
+    def list_incidents(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_integration_config_timelines_with_options(request, headers, runtime)
+        return self.list_incidents_with_options(request, headers, runtime)
 
     def list_integration_config_timelines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3240,10 +3389,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_integration_configs(self, request):
+    def list_integration_config_timelines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_integration_configs_with_options(request, headers, runtime)
+        return self.list_integration_config_timelines_with_options(request, headers, runtime)
 
     def list_integration_configs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3272,10 +3421,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_monitor_sources(self, request):
+    def list_integration_configs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_monitor_sources_with_options(request, headers, runtime)
+        return self.list_integration_configs_with_options(request, headers, runtime)
 
     def list_monitor_sources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3302,10 +3451,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_problem_detail_operations(self, request):
+    def list_monitor_sources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_problem_detail_operations_with_options(request, headers, runtime)
+        return self.list_monitor_sources_with_options(request, headers, runtime)
 
     def list_problem_detail_operations_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3340,10 +3489,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_problem_operations(self, request):
+    def list_problem_detail_operations(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_problem_operations_with_options(request, headers, runtime)
+        return self.list_problem_detail_operations_with_options(request, headers, runtime)
 
     def list_problem_operations_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3374,10 +3523,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_problem_subtotals(self, request):
+    def list_problem_operations(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_problem_subtotals_with_options(request, headers, runtime)
+        return self.list_problem_operations_with_options(request, headers, runtime)
 
     def list_problem_subtotals_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3406,10 +3555,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_problem_time_lines(self, request):
+    def list_problem_subtotals(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_problem_time_lines_with_options(request, headers, runtime)
+        return self.list_problem_subtotals_with_options(request, headers, runtime)
 
     def list_problem_time_lines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3438,10 +3587,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_problems(self, request):
+    def list_problem_time_lines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_problems_with_options(request, headers, runtime)
+        return self.list_problem_time_lines_with_options(request, headers, runtime)
 
     def list_problems_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3494,16 +3643,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_route_rules(self, request):
+    def list_problems(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_route_rules_with_options(request, headers, runtime)
+        return self.list_problems_with_options(request, headers, runtime)
 
     def list_route_rules_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.not_filter_route_rule_deleted):
+            body['notFilterRouteRuleDeleted'] = request.not_filter_route_rule_deleted
         if not UtilClient.is_unset(request.page_number):
             body['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -3534,10 +3685,67 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_service_group_monitor_source_templates(self, request):
+    def list_route_rules(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_service_group_monitor_source_templates_with_options(request, headers, runtime)
+        return self.list_route_rules_with_options(request, headers, runtime)
+
+    def list_route_rules_by_assign_who_id_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.assign_who_id):
+            body['assignWhoId'] = request.assign_who_id
+        if not UtilClient.is_unset(request.assign_who_type):
+            body['assignWhoType'] = request.assign_who_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListRouteRulesByAssignWhoId',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/listByAssignWhoId',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListRouteRulesByAssignWhoIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_route_rules_by_assign_who_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_route_rules_by_assign_who_id_with_options(request, headers, runtime)
+
+    def list_route_rules_by_service_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListRouteRulesByService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/listByService',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListRouteRulesByServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_route_rules_by_service(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_route_rules_by_service_with_options(headers, runtime)
 
     def list_service_group_monitor_source_templates_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3568,10 +3776,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_service_groups(self, request):
+    def list_service_group_monitor_source_templates(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_service_groups_with_options(request, headers, runtime)
+        return self.list_service_group_monitor_source_templates_with_options(request, headers, runtime)
 
     def list_service_groups_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3612,10 +3820,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_services(self, request):
+    def list_service_groups(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_services_with_options(request, headers, runtime)
+        return self.list_service_groups_with_options(request, headers, runtime)
+
+    def list_service_groups_by_user_id_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListServiceGroupsByUserId',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/listByUserId',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListServiceGroupsByUserIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_groups_by_user_id(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_groups_by_user_id_with_options(headers, runtime)
 
     def list_services_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3648,10 +3881,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_source_events(self, request):
+    def list_services(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_source_events_with_options(request, headers, runtime)
+        return self.list_services_with_options(request, headers, runtime)
 
     def list_source_events_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3694,10 +3927,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_source_events_for_monitor_source(self, request):
+    def list_source_events(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_source_events_for_monitor_source_with_options(request, headers, runtime)
+        return self.list_source_events_with_options(request, headers, runtime)
 
     def list_source_events_for_monitor_source_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3724,10 +3957,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_subscription_service_groups(self, request):
+    def list_source_events_for_monitor_source(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_subscription_service_groups_with_options(request, headers, runtime)
+        return self.list_source_events_for_monitor_source_with_options(request, headers, runtime)
 
     def list_subscription_service_groups_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3756,16 +3989,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_subscriptions(self, request):
+    def list_subscription_service_groups(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_subscriptions_with_options(request, headers, runtime)
+        return self.list_subscription_service_groups_with_options(request, headers, runtime)
 
     def list_subscriptions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.not_filter_scope_object_deleted):
+            body['notFilterScopeObjectDeleted'] = request.not_filter_scope_object_deleted
         if not UtilClient.is_unset(request.notify_object):
             body['notifyObject'] = request.notify_object
         if not UtilClient.is_unset(request.notify_object_type):
@@ -3800,10 +4035,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_trend_for_source_event(self, request):
+    def list_subscriptions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_trend_for_source_event_with_options(request, headers, runtime)
+        return self.list_subscriptions_with_options(request, headers, runtime)
 
     def list_trend_for_source_event_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3840,10 +4075,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_user_serivce_groups(self, request):
+    def list_trend_for_source_event(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_user_serivce_groups_with_options(request, headers, runtime)
+        return self.list_trend_for_source_event_with_options(request, headers, runtime)
 
     def list_user_serivce_groups_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3872,10 +4107,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_users(self, request):
+    def list_user_serivce_groups(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_users_with_options(request, headers, runtime)
+        return self.list_user_serivce_groups_with_options(request, headers, runtime)
 
     def list_users_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3916,10 +4151,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def recover_problem(self, request):
+    def list_users(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.recover_problem_with_options(request, headers, runtime)
+        return self.list_users_with_options(request, headers, runtime)
 
     def recover_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3950,10 +4185,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def refresh_integration_config_key(self, request):
+    def recover_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.refresh_integration_config_key_with_options(request, headers, runtime)
+        return self.recover_problem_with_options(request, headers, runtime)
 
     def refresh_integration_config_key_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3982,10 +4217,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_problem_service_group(self, request):
+    def refresh_integration_config_key(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_problem_service_group_with_options(request, headers, runtime)
+        return self.refresh_integration_config_key_with_options(request, headers, runtime)
+
+    def remove_integration_config_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.integration_config_id):
+            body['integrationConfigId'] = request.integration_config_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RemoveIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/remove',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.RemoveIntegrationConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_integration_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_integration_config_with_options(request, headers, runtime)
 
     def remove_problem_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4014,10 +4281,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def replay_problem(self, request):
+    def remove_problem_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.replay_problem_with_options(request, headers, runtime)
+        return self.remove_problem_service_group_with_options(request, headers, runtime)
 
     def replay_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4048,10 +4315,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def respond_incident(self, request):
+    def replay_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.respond_incident_with_options(request, headers, runtime)
+        return self.replay_problem_with_options(request, headers, runtime)
 
     def respond_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4080,10 +4347,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def revoke_problem_recovery(self, request):
+    def respond_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.revoke_problem_recovery_with_options(request, headers, runtime)
+        return self.respond_incident_with_options(request, headers, runtime)
 
     def revoke_problem_recovery_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4114,10 +4381,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_escalation_plan(self, request):
+    def revoke_problem_recovery(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_escalation_plan_with_options(request, headers, runtime)
+        return self.revoke_problem_recovery_with_options(request, headers, runtime)
+
+    def unbind_user_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='UnbindUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/unbind',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.UnbindUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unbind_user(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_user_with_options(headers, runtime)
 
     def update_escalation_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4154,10 +4446,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_incident(self, request):
+    def update_escalation_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_incident_with_options(request, headers, runtime)
+        return self.update_escalation_plan_with_options(request, headers, runtime)
 
     def update_incident_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4192,10 +4484,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_integration_config(self, request):
+    def update_incident(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_integration_config_with_options(request, headers, runtime)
+        return self.update_incident_with_options(request, headers, runtime)
 
     def update_integration_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4226,10 +4518,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem(self, request):
+    def update_integration_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_with_options(request, headers, runtime)
+        return self.update_integration_config_with_options(request, headers, runtime)
 
     def update_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4274,10 +4566,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem_effection_service(self, request):
+    def update_problem(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_effection_service_with_options(request, headers, runtime)
+        return self.update_problem_with_options(request, headers, runtime)
 
     def update_problem_effection_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4318,16 +4610,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem_improvement(self, request):
+    def update_problem_effection_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_improvement_with_options(request, headers, runtime)
+        return self.update_problem_effection_service_with_options(request, headers, runtime)
 
     def update_problem_improvement_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.custom_problem_reason):
+            body['customProblemReason'] = request.custom_problem_reason
         if not UtilClient.is_unset(request.discover_source):
             body['discoverSource'] = request.discover_source
         if not UtilClient.is_unset(request.duty_department_id):
@@ -4376,10 +4670,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem_measure(self, request):
+    def update_problem_improvement(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_measure_with_options(request, headers, runtime)
+        return self.update_problem_improvement_with_options(request, headers, runtime)
 
     def update_problem_measure_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4426,10 +4720,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem_notice(self, request):
+    def update_problem_measure(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_notice_with_options(request, headers, runtime)
+        return self.update_problem_measure_with_options(request, headers, runtime)
 
     def update_problem_notice_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4460,10 +4754,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_problem_timeline(self, request):
+    def update_problem_notice(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_problem_timeline_with_options(request, headers, runtime)
+        return self.update_problem_notice_with_options(request, headers, runtime)
 
     def update_problem_timeline_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4500,10 +4794,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_rich_text(self, request):
+    def update_problem_timeline(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_rich_text_with_options(request, headers, runtime)
+        return self.update_problem_timeline_with_options(request, headers, runtime)
 
     def update_rich_text_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4536,10 +4830,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_route_rule(self, request):
+    def update_rich_text(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_route_rule_with_options(request, headers, runtime)
+        return self.update_rich_text_with_options(request, headers, runtime)
 
     def update_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4552,6 +4846,8 @@ class Client(OpenApiClient):
             body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.coverage_problem_levels):
+            body['coverageProblemLevels'] = request.coverage_problem_levels
         if not UtilClient.is_unset(request.effection):
             body['effection'] = request.effection
         if not UtilClient.is_unset(request.incident_level):
@@ -4560,6 +4856,10 @@ class Client(OpenApiClient):
             body['matchCount'] = request.match_count
         if not UtilClient.is_unset(request.notify_channels):
             body['notifyChannels'] = request.notify_channels
+        if not UtilClient.is_unset(request.problem_effection_services):
+            body['problemEffectionServices'] = request.problem_effection_services
+        if not UtilClient.is_unset(request.problem_level_group):
+            body['problemLevelGroup'] = request.problem_level_group
         if not UtilClient.is_unset(request.related_service_id):
             body['relatedServiceId'] = request.related_service_id
         if not UtilClient.is_unset(request.route_child_rules):
@@ -4594,10 +4894,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service(self, request):
+    def update_route_rule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_with_options(request, headers, runtime)
+        return self.update_route_rule_with_options(request, headers, runtime)
 
     def update_service_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4630,10 +4930,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_group(self, request):
+    def update_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_group_with_options(request, headers, runtime)
+        return self.update_service_with_options(request, headers, runtime)
 
     def update_service_group_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4676,10 +4976,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_group_scheduling(self, request):
+    def update_service_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_group_scheduling_with_options(request, headers, runtime)
+        return self.update_service_group_with_options(request, headers, runtime)
 
     def update_service_group_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4714,10 +5014,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_group_special_day_scheduling(self, request):
+    def update_service_group_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_group_special_day_scheduling_with_options(request, headers, runtime)
+        return self.update_service_group_scheduling_with_options(request, headers, runtime)
 
     def update_service_group_special_day_scheduling_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4750,10 +5050,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_subscription(self, request):
+    def update_service_group_special_day_scheduling(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_subscription_with_options(request, headers, runtime)
+        return self.update_service_group_special_day_scheduling_with_options(request, headers, runtime)
 
     def update_subscription_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4800,10 +5100,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_user(self, request):
+    def update_subscription(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_user_with_options(request, headers, runtime)
+        return self.update_subscription_with_options(request, headers, runtime)
 
     def update_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4840,10 +5140,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_user_guide_status(self, request):
+    def update_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_user_guide_status_with_options(request, headers, runtime)
+        return self.update_user_with_options(request, headers, runtime)
 
     def update_user_guide_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4872,10 +5172,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def verify_route_rule(self, request):
+    def update_user_guide_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.verify_route_rule_with_options(request, headers, runtime)
+        return self.update_user_guide_status_with_options(request, headers, runtime)
 
     def verify_route_rule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4903,3 +5203,8 @@ class Client(OpenApiClient):
             gemp20210413_models.VerifyRouteRuleResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def verify_route_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_route_rule_with_options(request, headers, runtime)
