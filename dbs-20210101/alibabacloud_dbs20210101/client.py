@@ -55,7 +55,83 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def create_download_with_options(self, request, runtime):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: CreateDownloadRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDownloadResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bak_set_id):
+            query['BakSetId'] = request.bak_set_id
+        if not UtilClient.is_unset(request.bak_set_size):
+            query['BakSetSize'] = request.bak_set_size
+        if not UtilClient.is_unset(request.bak_set_type):
+            query['BakSetType'] = request.bak_set_type
+        if not UtilClient.is_unset(request.download_point_in_time):
+            query['DownloadPointInTime'] = request.download_point_in_time
+        if not UtilClient.is_unset(request.format_type):
+            query['FormatType'] = request.format_type
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.target_bucket):
+            query['TargetBucket'] = request.target_bucket
+        if not UtilClient.is_unset(request.target_oss_region):
+            query['TargetOssRegion'] = request.target_oss_region
+        if not UtilClient.is_unset(request.target_path):
+            query['TargetPath'] = request.target_path
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDownload',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.CreateDownloadResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_download(self, request):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: CreateDownloadRequest
+
+        @return: CreateDownloadResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_download_with_options(request, runtime)
+
     def create_sandbox_instance_with_options(self, request, runtime):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: CreateSandboxInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSandboxInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_plan_id):
@@ -98,10 +174,28 @@ class Client(OpenApiClient):
         )
 
     def create_sandbox_instance(self, request):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: CreateSandboxInstanceRequest
+
+        @return: CreateSandboxInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_sandbox_instance_with_options(request, runtime)
 
     def delete_sandbox_instance_with_options(self, request, runtime):
+        """
+        The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DeleteSandboxInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSandboxInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_plan_id):
@@ -128,10 +222,294 @@ class Client(OpenApiClient):
         )
 
     def delete_sandbox_instance(self, request):
+        """
+        The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DeleteSandboxInstanceRequest
+
+        @return: DeleteSandboxInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_sandbox_instance_with_options(request, runtime)
 
+    def describe_dbtables_recovery_backup_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBTablesRecoveryBackupSet',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDBTablesRecoveryBackupSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbtables_recovery_backup_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbtables_recovery_backup_set_with_options(request, runtime)
+
+    def describe_dbtables_recovery_state_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBTablesRecoveryState',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDBTablesRecoveryStateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbtables_recovery_state(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbtables_recovery_state_with_options(request, runtime)
+
+    def describe_dbtables_recovery_time_range_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBTablesRecoveryTimeRange',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDBTablesRecoveryTimeRangeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbtables_recovery_time_range(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbtables_recovery_time_range_with_options(request, runtime)
+
+    def describe_download_backup_set_storage_info_with_options(self, request, runtime):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadBackupSetStorageInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDownloadBackupSetStorageInfoResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDownloadBackupSetStorageInfo',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDownloadBackupSetStorageInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_download_backup_set_storage_info(self, request):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadBackupSetStorageInfoRequest
+
+        @return: DescribeDownloadBackupSetStorageInfoResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_backup_set_storage_info_with_options(request, runtime)
+
+    def describe_download_support_with_options(self, request, runtime):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadSupportRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDownloadSupportResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDownloadSupport',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDownloadSupportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_download_support(self, request):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadSupportRequest
+
+        @return: DescribeDownloadSupportResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_support_with_options(request, runtime)
+
+    def describe_download_task_with_options(self, request, runtime):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDownloadTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.datasource_id):
+            query['DatasourceId'] = request.datasource_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.order_column):
+            query['OrderColumn'] = request.order_column
+        if not UtilClient.is_unset(request.order_direct):
+            query['OrderDirect'] = request.order_direct
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDownloadTask',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.DescribeDownloadTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_download_task(self, request):
+        """
+        You can create an advanced download task by point in time or backup file. You can set the Download Destination parameter to URL or directly upload the downloaded data to your Object Storage Service (OSS) bucket to facilitate data analysis and offline archiving. For more information, see [Advanced download](~~98819~~).
+        
+
+        @param request: DescribeDownloadTaskRequest
+
+        @return: DescribeDownloadTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_task_with_options(request, runtime)
+
     def describe_sandbox_backup_sets_with_options(self, request, runtime):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxBackupSetsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSandboxBackupSetsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_plan_id):
@@ -162,10 +540,28 @@ class Client(OpenApiClient):
         )
 
     def describe_sandbox_backup_sets(self, request):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxBackupSetsRequest
+
+        @return: DescribeSandboxBackupSetsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sandbox_backup_sets_with_options(request, runtime)
 
     def describe_sandbox_instances_with_options(self, request, runtime):
+        """
+        The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSandboxInstancesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_plan_id):
@@ -196,10 +592,28 @@ class Client(OpenApiClient):
         )
 
     def describe_sandbox_instances(self, request):
+        """
+        The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxInstancesRequest
+
+        @return: DescribeSandboxInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sandbox_instances_with_options(request, runtime)
 
     def describe_sandbox_recovery_time_with_options(self, request, runtime):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxRecoveryTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSandboxRecoveryTimeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_plan_id):
@@ -224,5 +638,81 @@ class Client(OpenApiClient):
         )
 
     def describe_sandbox_recovery_time(self, request):
+        """
+        Before you call this operation, you must enable the sandbox feature for the database instance. For more information, see [Create a sandbox instance for emergency disaster recovery of an ApsaraDB RDS for MySQL database](~~203154~~) or [Create a sandbox instance for emergency disaster recovery of a self-managed MySQL database](~~185577~~). The API operation is available only in Database Backup (DBS) API of the 2021-01-01 version.
+        
+
+        @param request: DescribeSandboxRecoveryTimeRequest
+
+        @return: DescribeSandboxRecoveryTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sandbox_recovery_time_with_options(request, runtime)
+
+    def modify_dbtables_recovery_state_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.retention):
+            query['Retention'] = request.retention
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBTablesRecoveryState',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.ModifyDBTablesRecoveryStateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbtables_recovery_state(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbtables_recovery_state_with_options(request, runtime)
+
+    def support_dbtable_recovery_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_code):
+            query['RegionCode'] = request.region_code
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SupportDBTableRecovery',
+            version='2021-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbs_20210101_models.SupportDBTableRecoveryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def support_dbtable_recovery(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.support_dbtable_recovery_with_options(request, runtime)
