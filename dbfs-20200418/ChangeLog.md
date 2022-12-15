@@ -1,3 +1,8 @@
+2022-12-15 Version: 3.1.4
+- Supported delete snapshots.
+- Supported auto snapshot.
+- Fix docx.
+
 2022-08-22 Version: 3.1.3
 - Automatically generate sdk tasks.
 
