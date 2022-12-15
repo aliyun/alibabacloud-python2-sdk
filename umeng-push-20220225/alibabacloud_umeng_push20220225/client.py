@@ -30,11 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def cancel_by_msg_id(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.cancel_by_msg_id_with_options(request, headers, runtime)
-
     def cancel_by_msg_id_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -60,10 +55,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_msg_stat(self, request):
+    def cancel_by_msg_id(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_msg_stat_with_options(request, headers, runtime)
+        return self.cancel_by_msg_id_with_options(request, headers, runtime)
 
     def query_msg_stat_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -90,23 +85,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_alias(self, request):
+    def query_msg_stat(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_alias_with_options(request, headers, runtime)
+        return self.query_msg_stat_with_options(request, headers, runtime)
 
     def send_by_alias_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByAliasShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.alias):
             body['Alias'] = request.alias
@@ -148,23 +143,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_alias_file_id(self, request):
+    def send_by_alias(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_alias_file_id_with_options(request, headers, runtime)
+        return self.send_by_alias_with_options(request, headers, runtime)
 
     def send_by_alias_file_id_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByAliasFileIdShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.alias_type):
             body['AliasType'] = request.alias_type
@@ -206,23 +201,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_app(self, request):
+    def send_by_alias_file_id(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_app_with_options(request, headers, runtime)
+        return self.send_by_alias_file_id_with_options(request, headers, runtime)
 
     def send_by_app_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByAppShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.android_payload_shrink):
             body['AndroidPayload'] = request.android_payload_shrink
@@ -260,23 +255,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_device(self, request):
+    def send_by_app(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_device_with_options(request, headers, runtime)
+        return self.send_by_app_with_options(request, headers, runtime)
 
     def send_by_device_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByDeviceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.android_payload_shrink):
             body['AndroidPayload'] = request.android_payload_shrink
@@ -316,23 +311,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_device_file_id(self, request):
+    def send_by_device(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_device_file_id_with_options(request, headers, runtime)
+        return self.send_by_device_with_options(request, headers, runtime)
 
     def send_by_device_file_id_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByDeviceFileIdShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.android_payload_shrink):
             body['AndroidPayload'] = request.android_payload_shrink
@@ -372,23 +367,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_by_filter(self, request):
+    def send_by_device_file_id(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_by_filter_with_options(request, headers, runtime)
+        return self.send_by_device_file_id_with_options(request, headers, runtime)
 
     def send_by_filter_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = umeng_push_20220225_models.SendByFilterShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.android_payload):
-            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.android_payload), 'AndroidPayload', 'json')
+            request.android_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.android_payload, 'AndroidPayload', 'json')
         if not UtilClient.is_unset(tmp_req.channel_properties):
-            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.channel_properties), 'ChannelProperties', 'json')
+            request.channel_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel_properties, 'ChannelProperties', 'json')
         if not UtilClient.is_unset(tmp_req.ios_payload):
-            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.ios_payload), 'IosPayload', 'json')
+            request.ios_payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ios_payload, 'IosPayload', 'json')
         if not UtilClient.is_unset(tmp_req.policy):
-            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.policy), 'Policy', 'json')
+            request.policy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.policy, 'Policy', 'json')
         body = {}
         if not UtilClient.is_unset(request.android_payload_shrink):
             body['AndroidPayload'] = request.android_payload_shrink
@@ -428,10 +423,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def upload_device(self, request):
+    def send_by_filter(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upload_device_with_options(request, headers, runtime)
+        return self.send_by_filter_with_options(request, headers, runtime)
 
     def upload_device_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -457,3 +452,8 @@ class Client(OpenApiClient):
             umeng_push_20220225_models.UploadDeviceResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def upload_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_device_with_options(request, headers, runtime)
