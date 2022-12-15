@@ -30,11 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def access_token(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.access_token_with_options(request, headers, runtime)
-
     def access_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -62,10 +57,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def address_get(self, request):
+    def access_token(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.AddressGetHeaders()
-        return self.address_get_with_options(request, headers, runtime)
+        headers = {}
+        return self.access_token_with_options(request, headers, runtime)
 
     def address_get_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -105,10 +100,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def airport_search(self, request):
+    def address_get(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.AirportSearchHeaders()
-        return self.airport_search_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.AddressGetHeaders()
+        return self.address_get_with_options(request, headers, runtime)
 
     def airport_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -142,10 +137,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def all_base_city_info_query(self):
+    def airport_search(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.AllBaseCityInfoQueryHeaders()
-        return self.all_base_city_info_query_with_options(headers, runtime)
+        headers = btrip_open_20220520_models.AirportSearchHeaders()
+        return self.airport_search_with_options(request, headers, runtime)
 
     def all_base_city_info_query_with_options(self, headers, runtime):
         real_headers = {}
@@ -172,10 +167,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def apply_add(self, request):
+    def all_base_city_info_query(self):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ApplyAddHeaders()
-        return self.apply_add_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.AllBaseCityInfoQueryHeaders()
+        return self.all_base_city_info_query_with_options(headers, runtime)
 
     def apply_add_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -184,9 +179,9 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.external_traveler_list):
             request.external_traveler_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.external_traveler_list, 'external_traveler_list', 'json')
         if not UtilClient.is_unset(tmp_req.external_traveler_standard):
-            request.external_traveler_standard_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.external_traveler_standard), 'external_traveler_standard', 'json')
+            request.external_traveler_standard_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.external_traveler_standard, 'external_traveler_standard', 'json')
         if not UtilClient.is_unset(tmp_req.hotel_share):
-            request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.hotel_share), 'hotel_share', 'json')
+            request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hotel_share, 'hotel_share', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_list):
             request.itinerary_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_list, 'itinerary_list', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_set_list):
@@ -285,10 +280,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def apply_approve(self, request):
+    def apply_add(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ApplyApproveHeaders()
-        return self.apply_approve_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ApplyAddHeaders()
+        return self.apply_add_with_options(request, headers, runtime)
 
     def apply_approve_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -330,10 +325,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def apply_list_query(self, request):
+    def apply_approve(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ApplyListQueryHeaders()
-        return self.apply_list_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ApplyApproveHeaders()
+        return self.apply_approve_with_options(request, headers, runtime)
 
     def apply_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -385,10 +380,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def apply_modify(self, request):
+    def apply_list_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ApplyModifyHeaders()
-        return self.apply_modify_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ApplyListQueryHeaders()
+        return self.apply_list_query_with_options(request, headers, runtime)
 
     def apply_modify_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -397,9 +392,9 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.external_traveler_list):
             request.external_traveler_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.external_traveler_list, 'external_traveler_list', 'json')
         if not UtilClient.is_unset(tmp_req.external_traveler_standard):
-            request.external_traveler_standard_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.external_traveler_standard), 'external_traveler_standard', 'json')
+            request.external_traveler_standard_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.external_traveler_standard, 'external_traveler_standard', 'json')
         if not UtilClient.is_unset(tmp_req.hotel_share):
-            request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.hotel_share), 'hotel_share', 'json')
+            request.hotel_share_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hotel_share, 'hotel_share', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_list):
             request.itinerary_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.itinerary_list, 'itinerary_list', 'json')
         if not UtilClient.is_unset(tmp_req.itinerary_set_list):
@@ -492,10 +487,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def apply_query(self, request):
+    def apply_modify(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ApplyQueryHeaders()
-        return self.apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ApplyModifyHeaders()
+        return self.apply_modify_with_options(request, headers, runtime)
 
     def apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -533,10 +528,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_apply_add(self, request):
+    def apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarApplyAddHeaders()
-        return self.car_apply_add_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ApplyQueryHeaders()
+        return self.apply_query_with_options(request, headers, runtime)
 
     def car_apply_add_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -596,10 +591,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_apply_modify(self, request):
+    def car_apply_add(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarApplyModifyHeaders()
-        return self.car_apply_modify_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarApplyAddHeaders()
+        return self.car_apply_add_with_options(request, headers, runtime)
 
     def car_apply_modify_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -639,10 +634,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_apply_query(self, request):
+    def car_apply_modify(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarApplyQueryHeaders()
-        return self.car_apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarApplyModifyHeaders()
+        return self.car_apply_modify_with_options(request, headers, runtime)
 
     def car_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -684,10 +679,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_bill_settlement_query(self, request):
+    def car_apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarBillSettlementQueryHeaders()
-        return self.car_bill_settlement_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarApplyQueryHeaders()
+        return self.car_apply_query_with_options(request, headers, runtime)
 
     def car_bill_settlement_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -725,10 +720,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_order_list_query(self, request):
+    def car_bill_settlement_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarOrderListQueryHeaders()
-        return self.car_order_list_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarBillSettlementQueryHeaders()
+        return self.car_bill_settlement_query_with_options(request, headers, runtime)
 
     def car_order_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -780,10 +775,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def car_order_query(self, request):
+    def car_order_list_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CarOrderQueryHeaders()
-        return self.car_order_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarOrderListQueryHeaders()
+        return self.car_order_list_query_with_options(request, headers, runtime)
 
     def car_order_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -817,10 +812,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def city_search(self, request):
+    def car_order_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CitySearchHeaders()
-        return self.city_search_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CarOrderQueryHeaders()
+        return self.car_order_query_with_options(request, headers, runtime)
 
     def city_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -852,10 +847,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def common_apply_query(self, request):
+    def city_search(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CommonApplyQueryHeaders()
-        return self.common_apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CitySearchHeaders()
+        return self.city_search_with_options(request, headers, runtime)
 
     def common_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -891,10 +886,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def common_apply_sync(self, request):
+    def common_apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CommonApplySyncHeaders()
-        return self.common_apply_sync_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CommonApplyQueryHeaders()
+        return self.common_apply_query_with_options(request, headers, runtime)
 
     def common_apply_sync_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -936,10 +931,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def corp_token(self, request):
+    def common_apply_sync(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CorpTokenHeaders()
-        return self.corp_token_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CommonApplySyncHeaders()
+        return self.common_apply_sync_with_options(request, headers, runtime)
 
     def corp_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -975,10 +970,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cost_center_delete(self, request):
+    def corp_token(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CostCenterDeleteHeaders()
-        return self.cost_center_delete_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CorpTokenHeaders()
+        return self.corp_token_with_options(request, headers, runtime)
 
     def cost_center_delete_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1010,10 +1005,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cost_center_modify(self, request):
+    def cost_center_delete(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CostCenterModifyHeaders()
-        return self.cost_center_modify_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CostCenterDeleteHeaders()
+        return self.cost_center_delete_with_options(request, headers, runtime)
 
     def cost_center_modify_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1053,10 +1048,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cost_center_query(self, request):
+    def cost_center_modify(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CostCenterQueryHeaders()
-        return self.cost_center_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CostCenterModifyHeaders()
+        return self.cost_center_modify_with_options(request, headers, runtime)
 
     def cost_center_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1094,10 +1089,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cost_center_save(self, request):
+    def cost_center_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.CostCenterSaveHeaders()
-        return self.cost_center_save_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CostCenterQueryHeaders()
+        return self.cost_center_query_with_options(request, headers, runtime)
 
     def cost_center_save_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1137,10 +1132,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def department_save(self, request):
+    def cost_center_save(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.DepartmentSaveHeaders()
-        return self.department_save_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.CostCenterSaveHeaders()
+        return self.cost_center_save_with_options(request, headers, runtime)
 
     def department_save_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1176,10 +1171,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def entity_add(self, request):
+    def department_save(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.EntityAddHeaders()
-        return self.entity_add_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.DepartmentSaveHeaders()
+        return self.department_save_with_options(request, headers, runtime)
 
     def entity_add_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1217,10 +1212,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def entity_delete(self, request):
+    def entity_add(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.EntityDeleteHeaders()
-        return self.entity_delete_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.EntityAddHeaders()
+        return self.entity_add_with_options(request, headers, runtime)
 
     def entity_delete_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1262,10 +1257,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def entity_set(self, request):
+    def entity_delete(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.EntitySetHeaders()
-        return self.entity_set_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.EntityDeleteHeaders()
+        return self.entity_delete_with_options(request, headers, runtime)
 
     def entity_set_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1303,10 +1298,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def estimated_price_query(self, request):
+    def entity_set(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.EstimatedPriceQueryHeaders()
-        return self.estimated_price_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.EntitySetHeaders()
+        return self.entity_set_with_options(request, headers, runtime)
 
     def estimated_price_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1350,10 +1345,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def exceed_apply_sync(self, request):
+    def estimated_price_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ExceedApplySyncHeaders()
-        return self.exceed_apply_sync_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.EstimatedPriceQueryHeaders()
+        return self.estimated_price_query_with_options(request, headers, runtime)
 
     def exceed_apply_sync_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1395,10 +1390,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def flight_bill_settlement_query(self, request):
+    def exceed_apply_sync(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.FlightBillSettlementQueryHeaders()
-        return self.flight_bill_settlement_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ExceedApplySyncHeaders()
+        return self.exceed_apply_sync_with_options(request, headers, runtime)
 
     def flight_bill_settlement_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1436,10 +1431,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def flight_exceed_apply_query(self, request):
+    def flight_bill_settlement_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.FlightExceedApplyQueryHeaders()
-        return self.flight_exceed_apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.FlightBillSettlementQueryHeaders()
+        return self.flight_bill_settlement_query_with_options(request, headers, runtime)
 
     def flight_exceed_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1471,10 +1466,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def flight_order_list_query(self, request):
+    def flight_exceed_apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.FlightOrderListQueryHeaders()
-        return self.flight_order_list_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.FlightExceedApplyQueryHeaders()
+        return self.flight_exceed_apply_query_with_options(request, headers, runtime)
 
     def flight_order_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1526,10 +1521,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def flight_order_query(self, request):
+    def flight_order_list_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.FlightOrderQueryHeaders()
-        return self.flight_order_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.FlightOrderListQueryHeaders()
+        return self.flight_order_list_query_with_options(request, headers, runtime)
 
     def flight_order_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1563,10 +1558,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def hotel_bill_settlement_query(self, request):
+    def flight_order_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.HotelBillSettlementQueryHeaders()
-        return self.hotel_bill_settlement_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.FlightOrderQueryHeaders()
+        return self.flight_order_query_with_options(request, headers, runtime)
 
     def hotel_bill_settlement_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1604,10 +1599,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def hotel_exceed_apply_query(self, request):
+    def hotel_bill_settlement_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.HotelExceedApplyQueryHeaders()
-        return self.hotel_exceed_apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.HotelBillSettlementQueryHeaders()
+        return self.hotel_bill_settlement_query_with_options(request, headers, runtime)
 
     def hotel_exceed_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1639,10 +1634,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def hotel_order_list_query(self, request):
+    def hotel_exceed_apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.HotelOrderListQueryHeaders()
-        return self.hotel_order_list_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.HotelExceedApplyQueryHeaders()
+        return self.hotel_exceed_apply_query_with_options(request, headers, runtime)
 
     def hotel_order_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1694,10 +1689,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def hotel_order_query(self, request):
+    def hotel_order_list_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.HotelOrderQueryHeaders()
-        return self.hotel_order_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.HotelOrderListQueryHeaders()
+        return self.hotel_order_list_query_with_options(request, headers, runtime)
 
     def hotel_order_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1729,10 +1724,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def ie_flight_bill_settlement_query(self, request):
+    def hotel_order_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.IeFlightBillSettlementQueryHeaders()
-        return self.ie_flight_bill_settlement_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.HotelOrderQueryHeaders()
+        return self.hotel_order_query_with_options(request, headers, runtime)
 
     def ie_flight_bill_settlement_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1770,10 +1765,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def invoice_add(self, request):
+    def ie_flight_bill_settlement_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.InvoiceAddHeaders()
-        return self.invoice_add_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.IeFlightBillSettlementQueryHeaders()
+        return self.ie_flight_bill_settlement_query_with_options(request, headers, runtime)
 
     def invoice_add_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1819,10 +1814,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def invoice_delete(self, request):
+    def invoice_add(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.InvoiceDeleteHeaders()
-        return self.invoice_delete_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.InvoiceAddHeaders()
+        return self.invoice_add_with_options(request, headers, runtime)
 
     def invoice_delete_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1854,10 +1849,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def invoice_modify(self, request):
+    def invoice_delete(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.InvoiceModifyHeaders()
-        return self.invoice_modify_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.InvoiceDeleteHeaders()
+        return self.invoice_delete_with_options(request, headers, runtime)
 
     def invoice_modify_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1903,10 +1898,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def invoice_rule_save(self, request):
+    def invoice_modify(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.InvoiceRuleSaveHeaders()
-        return self.invoice_rule_save_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.InvoiceModifyHeaders()
+        return self.invoice_modify_with_options(request, headers, runtime)
 
     def invoice_rule_save_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1946,10 +1941,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def invoice_search(self, request):
+    def invoice_rule_save(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.InvoiceSearchHeaders()
-        return self.invoice_search_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.InvoiceRuleSaveHeaders()
+        return self.invoice_rule_save_with_options(request, headers, runtime)
 
     def invoice_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1983,10 +1978,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def isv_user_save(self, request):
+    def invoice_search(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.IsvUserSaveHeaders()
-        return self.isv_user_save_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.InvoiceSearchHeaders()
+        return self.invoice_search_with_options(request, headers, runtime)
 
     def isv_user_save_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2022,10 +2017,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def month_bill_get(self, request):
+    def isv_user_save(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.MonthBillGetHeaders()
-        return self.month_bill_get_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.IsvUserSaveHeaders()
+        return self.isv_user_save_with_options(request, headers, runtime)
 
     def month_bill_get_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2057,10 +2052,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def project_add(self, request):
+    def month_bill_get(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ProjectAddHeaders()
-        return self.project_add_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.MonthBillGetHeaders()
+        return self.month_bill_get_with_options(request, headers, runtime)
 
     def project_add_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2100,10 +2095,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def project_delete(self, request):
+    def project_add(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ProjectDeleteHeaders()
-        return self.project_delete_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ProjectAddHeaders()
+        return self.project_add_with_options(request, headers, runtime)
 
     def project_delete_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2135,10 +2130,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def project_modify(self, request):
+    def project_delete(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.ProjectModifyHeaders()
-        return self.project_modify_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ProjectDeleteHeaders()
+        return self.project_delete_with_options(request, headers, runtime)
 
     def project_modify_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2178,10 +2173,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def sync_single_user(self, request):
+    def project_modify(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.SyncSingleUserHeaders()
-        return self.sync_single_user_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.ProjectModifyHeaders()
+        return self.project_modify_with_options(request, headers, runtime)
 
     def sync_single_user_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2237,10 +2232,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_bill_settlement_query(self, request):
+    def sync_single_user(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.TrainBillSettlementQueryHeaders()
-        return self.train_bill_settlement_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.SyncSingleUserHeaders()
+        return self.sync_single_user_with_options(request, headers, runtime)
 
     def train_bill_settlement_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2278,10 +2273,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_exceed_apply_query(self, request):
+    def train_bill_settlement_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.TrainExceedApplyQueryHeaders()
-        return self.train_exceed_apply_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.TrainBillSettlementQueryHeaders()
+        return self.train_bill_settlement_query_with_options(request, headers, runtime)
 
     def train_exceed_apply_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2313,10 +2308,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_order_list_query(self, request):
+    def train_exceed_apply_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.TrainOrderListQueryHeaders()
-        return self.train_order_list_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.TrainExceedApplyQueryHeaders()
+        return self.train_exceed_apply_query_with_options(request, headers, runtime)
 
     def train_order_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2368,10 +2363,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_order_query(self, request):
+    def train_order_list_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.TrainOrderQueryHeaders()
-        return self.train_order_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.TrainOrderListQueryHeaders()
+        return self.train_order_list_query_with_options(request, headers, runtime)
 
     def train_order_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2405,10 +2400,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_station_search(self, request):
+    def train_order_query(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.TrainStationSearchHeaders()
-        return self.train_station_search_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.TrainOrderQueryHeaders()
+        return self.train_order_query_with_options(request, headers, runtime)
 
     def train_station_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2440,10 +2435,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def user_query(self, request):
+    def train_station_search(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = btrip_open_20220520_models.UserQueryHeaders()
-        return self.user_query_with_options(request, headers, runtime)
+        headers = btrip_open_20220520_models.TrainStationSearchHeaders()
+        return self.train_station_search_with_options(request, headers, runtime)
 
     def user_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2480,3 +2475,8 @@ class Client(OpenApiClient):
             btrip_open_20220520_models.UserQueryResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def user_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.UserQueryHeaders()
+        return self.user_query_with_options(request, headers, runtime)
