@@ -32,11 +32,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def activate_zones(self, instance_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.activate_zones_with_options(instance_id, request, headers, runtime)
-
     def activate_zones_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -63,10 +58,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_connectable_cluster(self, instance_id, request):
+    def activate_zones(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_connectable_cluster_with_options(instance_id, request, headers, runtime)
+        return self.activate_zones_with_options(instance_id, request, headers, runtime)
 
     def add_connectable_cluster_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -94,10 +89,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_snapshot_repo(self, instance_id, request):
+    def add_connectable_cluster(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_snapshot_repo_with_options(instance_id, request, headers, runtime)
+        return self.add_connectable_cluster_with_options(instance_id, request, headers, runtime)
 
     def add_snapshot_repo_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -121,10 +116,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_deletion(self, instance_id, request):
+    def add_snapshot_repo(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_deletion_with_options(instance_id, request, headers, runtime)
+        return self.add_snapshot_repo_with_options(instance_id, request, headers, runtime)
 
     def cancel_deletion_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -151,10 +146,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_logstash_deletion(self, instance_id, request):
+    def cancel_deletion(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_logstash_deletion_with_options(instance_id, request, headers, runtime)
+        return self.cancel_deletion_with_options(instance_id, request, headers, runtime)
 
     def cancel_logstash_deletion_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -181,10 +176,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_task(self, instance_id, request):
+    def cancel_logstash_deletion(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_task_with_options(instance_id, request, headers, runtime)
+        return self.cancel_logstash_deletion_with_options(instance_id, request, headers, runtime)
 
     def cancel_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -213,10 +208,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def capacity_plan(self, request):
+    def cancel_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.capacity_plan_with_options(request, headers, runtime)
+        return self.cancel_task_with_options(instance_id, request, headers, runtime)
 
     def capacity_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -249,10 +244,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def close_diagnosis(self, instance_id, request):
+    def capacity_plan(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.close_diagnosis_with_options(instance_id, request, headers, runtime)
+        return self.capacity_plan_with_options(request, headers, runtime)
 
     def close_diagnosis_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -281,10 +276,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def close_https(self, instance_id, request):
+    def close_diagnosis(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.close_https_with_options(instance_id, request, headers, runtime)
+        return self.close_diagnosis_with_options(instance_id, request, headers, runtime)
 
     def close_https_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -311,10 +306,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def close_managed_index(self, instance_id, index, request):
+    def close_https(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.close_managed_index_with_options(instance_id, index, request, headers, runtime)
+        return self.close_https_with_options(instance_id, request, headers, runtime)
 
     def close_managed_index_with_options(self, instance_id, index, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -341,10 +336,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_collector(self, request):
+    def close_managed_index(self, instance_id, index, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_collector_with_options(request, headers, runtime)
+        return self.close_managed_index_with_options(instance_id, index, request, headers, runtime)
 
     def create_collector_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -372,10 +367,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_component_index(self, instance_id, name, request):
+    def create_collector(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_component_index_with_options(instance_id, name, request, headers, runtime)
+        return self.create_collector_with_options(request, headers, runtime)
 
     def create_component_index_with_options(self, instance_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -404,10 +399,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_data_stream(self, instance_id, request):
+    def create_component_index(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_data_stream_with_options(instance_id, request, headers, runtime)
+        return self.create_component_index_with_options(instance_id, name, request, headers, runtime)
 
     def create_data_stream_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -435,10 +430,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_data_tasks(self, instance_id, request):
+    def create_data_stream(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_data_tasks_with_options(instance_id, request, headers, runtime)
+        return self.create_data_stream_with_options(instance_id, request, headers, runtime)
 
     def create_data_tasks_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -448,7 +443,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='CreateDataTasks',
@@ -466,10 +461,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_ilmpolicy(self, instance_id, request):
+    def create_data_tasks(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_ilmpolicy_with_options(instance_id, request, headers, runtime)
+        return self.create_data_tasks_with_options(instance_id, request, headers, runtime)
 
     def create_ilmpolicy_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -497,10 +492,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_index_template(self, instance_id, request):
+    def create_ilmpolicy(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_index_template_with_options(instance_id, request, headers, runtime)
+        return self.create_ilmpolicy_with_options(instance_id, request, headers, runtime)
 
     def create_index_template_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -528,10 +523,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_logstash(self, request):
+    def create_index_template(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_logstash_with_options(request, headers, runtime)
+        return self.create_index_template_with_options(instance_id, request, headers, runtime)
 
     def create_logstash_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -574,10 +569,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_pipelines(self, instance_id, request):
+    def create_logstash(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_pipelines_with_options(instance_id, request, headers, runtime)
+        return self.create_logstash_with_options(request, headers, runtime)
 
     def create_pipelines_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -607,10 +602,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_snapshot(self, instance_id, request):
+    def create_pipelines(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_snapshot_with_options(instance_id, request, headers, runtime)
+        return self.create_pipelines_with_options(instance_id, request, headers, runtime)
 
     def create_snapshot_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -638,10 +633,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_vpc_endpoint(self, instance_id, request):
+    def create_snapshot(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_vpc_endpoint_with_options(instance_id, request, headers, runtime)
+        return self.create_snapshot_with_options(instance_id, request, headers, runtime)
 
     def create_vpc_endpoint_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -676,10 +671,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def deactivate_zones(self, instance_id, request):
+    def create_vpc_endpoint(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.deactivate_zones_with_options(instance_id, request, headers, runtime)
+        return self.create_vpc_endpoint_with_options(instance_id, request, headers, runtime)
 
     def deactivate_zones_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -707,10 +702,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_collector(self, res_id, request):
+    def deactivate_zones(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_collector_with_options(res_id, request, headers, runtime)
+        return self.deactivate_zones_with_options(instance_id, request, headers, runtime)
 
     def delete_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -737,10 +732,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_component_index(self, instance_id, name):
+    def delete_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_component_index_with_options(instance_id, name, headers, runtime)
+        return self.delete_collector_with_options(res_id, request, headers, runtime)
 
     def delete_component_index_with_options(self, instance_id, name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -762,10 +757,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_connected_cluster(self, instance_id, request):
+    def delete_component_index(self, instance_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_connected_cluster_with_options(instance_id, request, headers, runtime)
+        return self.delete_component_index_with_options(instance_id, name, headers, runtime)
 
     def delete_connected_cluster_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -794,10 +789,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_data_stream(self, instance_id, data_stream, request):
+    def delete_connected_cluster(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
+        return self.delete_connected_cluster_with_options(instance_id, request, headers, runtime)
 
     def delete_data_stream_with_options(self, instance_id, data_stream, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -824,10 +819,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_data_task(self, instance_id, request):
+    def delete_data_stream(self, instance_id, data_stream, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_data_task_with_options(instance_id, request, headers, runtime)
+        return self.delete_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
 
     def delete_data_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -856,10 +851,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_deprecated_template(self, instance_id, name):
+    def delete_data_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_deprecated_template_with_options(instance_id, name, headers, runtime)
+        return self.delete_data_task_with_options(instance_id, request, headers, runtime)
 
     def delete_deprecated_template_with_options(self, instance_id, name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -881,10 +876,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_ilmpolicy(self, instance_id, policy_name):
+    def delete_deprecated_template(self, instance_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
+        return self.delete_deprecated_template_with_options(instance_id, name, headers, runtime)
 
     def delete_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -906,10 +901,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_index_template(self, instance_id, index_template):
+    def delete_ilmpolicy(self, instance_id, policy_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_index_template_with_options(instance_id, index_template, headers, runtime)
+        return self.delete_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
 
     def delete_index_template_with_options(self, instance_id, index_template, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -931,10 +926,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_instance(self, instance_id, request):
+    def delete_index_template(self, instance_id, index_template):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_instance_with_options(instance_id, request, headers, runtime)
+        return self.delete_index_template_with_options(instance_id, index_template, headers, runtime)
 
     def delete_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -963,10 +958,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_logstash(self, instance_id, request):
+    def delete_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_logstash_with_options(instance_id, request, headers, runtime)
+        return self.delete_instance_with_options(instance_id, request, headers, runtime)
 
     def delete_logstash_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -995,10 +990,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_pipelines(self, instance_id, request):
+    def delete_logstash(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_pipelines_with_options(instance_id, request, headers, runtime)
+        return self.delete_logstash_with_options(instance_id, request, headers, runtime)
 
     def delete_pipelines_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1027,10 +1022,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_snapshot_repo(self, instance_id, request):
+    def delete_pipelines(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_snapshot_repo_with_options(instance_id, request, headers, runtime)
+        return self.delete_pipelines_with_options(instance_id, request, headers, runtime)
 
     def delete_snapshot_repo_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1059,10 +1054,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_vpc_endpoint(self, instance_id, endpoint_id, request):
+    def delete_snapshot_repo(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_vpc_endpoint_with_options(instance_id, endpoint_id, request, headers, runtime)
+        return self.delete_snapshot_repo_with_options(instance_id, request, headers, runtime)
 
     def delete_vpc_endpoint_with_options(self, instance_id, endpoint_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1089,10 +1084,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ack_operator(self, cluster_id):
+    def delete_vpc_endpoint(self, instance_id, endpoint_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ack_operator_with_options(cluster_id, headers, runtime)
+        return self.delete_vpc_endpoint_with_options(instance_id, endpoint_id, request, headers, runtime)
 
     def describe_ack_operator_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1114,10 +1109,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_apm(self, instance_id):
+    def describe_ack_operator(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_apm_with_options(instance_id, headers, runtime)
+        return self.describe_ack_operator_with_options(cluster_id, headers, runtime)
 
     def describe_apm_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1139,10 +1134,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_collector(self, res_id):
+    def describe_apm(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_collector_with_options(res_id, headers, runtime)
+        return self.describe_apm_with_options(instance_id, headers, runtime)
 
     def describe_collector_with_options(self, res_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1164,10 +1159,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_component_index(self, instance_id, name):
+    def describe_collector(self, res_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_component_index_with_options(instance_id, name, headers, runtime)
+        return self.describe_collector_with_options(res_id, headers, runtime)
 
     def describe_component_index_with_options(self, instance_id, name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1189,10 +1184,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_connectable_clusters(self, instance_id, request):
+    def describe_component_index(self, instance_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_connectable_clusters_with_options(instance_id, request, headers, runtime)
+        return self.describe_component_index_with_options(instance_id, name, headers, runtime)
 
     def describe_connectable_clusters_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1219,10 +1214,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_deprecated_template(self, instance_id, name):
+    def describe_connectable_clusters(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_deprecated_template_with_options(instance_id, name, headers, runtime)
+        return self.describe_connectable_clusters_with_options(instance_id, request, headers, runtime)
 
     def describe_deprecated_template_with_options(self, instance_id, name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1244,10 +1239,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_diagnose_report(self, instance_id, report_id, request):
+    def describe_deprecated_template(self, instance_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_diagnose_report_with_options(instance_id, report_id, request, headers, runtime)
+        return self.describe_deprecated_template_with_options(instance_id, name, headers, runtime)
 
     def describe_diagnose_report_with_options(self, instance_id, report_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1274,10 +1269,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_diagnosis_settings(self, instance_id, request):
+    def describe_diagnose_report(self, instance_id, report_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_diagnosis_settings_with_options(instance_id, request, headers, runtime)
+        return self.describe_diagnose_report_with_options(instance_id, report_id, request, headers, runtime)
 
     def describe_diagnosis_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1304,10 +1299,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_dynamic_settings(self, instance_id):
+    def describe_diagnosis_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_dynamic_settings_with_options(instance_id, headers, runtime)
+        return self.describe_diagnosis_settings_with_options(instance_id, request, headers, runtime)
 
     def describe_dynamic_settings_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1329,10 +1324,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_elasticsearch_health(self, instance_id):
+    def describe_dynamic_settings(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_elasticsearch_health_with_options(instance_id, headers, runtime)
+        return self.describe_dynamic_settings_with_options(instance_id, headers, runtime)
 
     def describe_elasticsearch_health_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1354,10 +1349,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ilmpolicy(self, instance_id, policy_name):
+    def describe_elasticsearch_health(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
+        return self.describe_elasticsearch_health_with_options(instance_id, headers, runtime)
 
     def describe_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1379,10 +1374,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_index_template(self, instance_id, index_template):
+    def describe_ilmpolicy(self, instance_id, policy_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_index_template_with_options(instance_id, index_template, headers, runtime)
+        return self.describe_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
 
     def describe_index_template_with_options(self, instance_id, index_template, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1404,10 +1399,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_instance(self, instance_id):
+    def describe_index_template(self, instance_id, index_template):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_instance_with_options(instance_id, headers, runtime)
+        return self.describe_index_template_with_options(instance_id, index_template, headers, runtime)
 
     def describe_instance_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1429,10 +1424,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_kibana_settings(self, instance_id):
+    def describe_instance(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_kibana_settings_with_options(instance_id, headers, runtime)
+        return self.describe_instance_with_options(instance_id, headers, runtime)
 
     def describe_kibana_settings_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1454,10 +1449,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_logstash(self, instance_id):
+    def describe_kibana_settings(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_logstash_with_options(instance_id, headers, runtime)
+        return self.describe_kibana_settings_with_options(instance_id, headers, runtime)
 
     def describe_logstash_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1479,10 +1474,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_pipeline(self, instance_id, pipeline_id):
+    def describe_logstash(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_pipeline_with_options(instance_id, pipeline_id, headers, runtime)
+        return self.describe_logstash_with_options(instance_id, headers, runtime)
 
     def describe_pipeline_with_options(self, instance_id, pipeline_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1504,10 +1499,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_pipeline_management_config(self, instance_id, request):
+    def describe_pipeline(self, instance_id, pipeline_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_pipeline_management_config_with_options(instance_id, request, headers, runtime)
+        return self.describe_pipeline_with_options(instance_id, pipeline_id, headers, runtime)
 
     def describe_pipeline_management_config_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1534,10 +1529,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def describe_pipeline_management_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(headers, runtime)
+        return self.describe_pipeline_management_config_with_options(instance_id, request, headers, runtime)
 
     def describe_regions_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1559,10 +1554,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_snapshot_setting(self, instance_id):
+    def describe_regions(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_snapshot_setting_with_options(instance_id, headers, runtime)
+        return self.describe_regions_with_options(headers, runtime)
 
     def describe_snapshot_setting_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1584,10 +1579,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_templates(self, instance_id):
+    def describe_snapshot_setting(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_templates_with_options(instance_id, headers, runtime)
+        return self.describe_snapshot_setting_with_options(instance_id, headers, runtime)
 
     def describe_templates_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1609,10 +1604,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_xpack_monitor_config(self, instance_id):
+    def describe_templates(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_xpack_monitor_config_with_options(instance_id, headers, runtime)
+        return self.describe_templates_with_options(instance_id, headers, runtime)
 
     def describe_xpack_monitor_config_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1634,10 +1629,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def diagnose_instance(self, instance_id, request):
+    def describe_xpack_monitor_config(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.diagnose_instance_with_options(instance_id, request, headers, runtime)
+        return self.describe_xpack_monitor_config_with_options(instance_id, headers, runtime)
 
     def diagnose_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1674,10 +1669,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def estimated_logstash_restart_time(self, instance_id, request):
+    def diagnose_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.estimated_logstash_restart_time_with_options(instance_id, request, headers, runtime)
+        return self.diagnose_instance_with_options(instance_id, request, headers, runtime)
 
     def estimated_logstash_restart_time_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1705,10 +1700,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def estimated_restart_time(self, instance_id, request):
+    def estimated_logstash_restart_time(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.estimated_restart_time_with_options(instance_id, request, headers, runtime)
+        return self.estimated_logstash_restart_time_with_options(instance_id, request, headers, runtime)
 
     def estimated_restart_time_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1736,10 +1731,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_cluster_data_information(self, request):
+    def estimated_restart_time(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_cluster_data_information_with_options(request, headers, runtime)
+        return self.estimated_restart_time_with_options(instance_id, request, headers, runtime)
 
     def get_cluster_data_information_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1763,10 +1758,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_elastictask(self, instance_id):
+    def get_cluster_data_information(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_elastictask_with_options(instance_id, headers, runtime)
+        return self.get_cluster_data_information_with_options(request, headers, runtime)
 
     def get_elastictask_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1788,10 +1783,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_grafana_alerts(self, project_id, request):
+    def get_elastictask(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_grafana_alerts_with_options(project_id, request, headers, runtime)
+        return self.get_elastictask_with_options(instance_id, headers, runtime)
 
     def get_emon_grafana_alerts_with_options(self, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1815,10 +1810,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_grafana_dashboards(self, project_id, request):
+    def get_emon_grafana_alerts(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_grafana_dashboards_with_options(project_id, request, headers, runtime)
+        return self.get_emon_grafana_alerts_with_options(project_id, request, headers, runtime)
 
     def get_emon_grafana_dashboards_with_options(self, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1842,10 +1837,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_emon_monitor_data(self, project_id, request):
+    def get_emon_grafana_dashboards(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_emon_monitor_data_with_options(project_id, request, headers, runtime)
+        return self.get_emon_grafana_dashboards_with_options(project_id, request, headers, runtime)
 
     def get_emon_monitor_data_with_options(self, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1869,10 +1864,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_open_store_usage(self, instance_id):
+    def get_emon_monitor_data(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_open_store_usage_with_options(instance_id, headers, runtime)
+        return self.get_emon_monitor_data_with_options(project_id, request, headers, runtime)
 
     def get_open_store_usage_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1894,10 +1889,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_region_configuration(self, request):
+    def get_open_store_usage(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_region_configuration_with_options(request, headers, runtime)
+        return self.get_open_store_usage_with_options(instance_id, headers, runtime)
 
     def get_region_configuration_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1924,10 +1919,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_suggest_shrinkable_nodes(self, instance_id, request):
+    def get_region_configuration(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_suggest_shrinkable_nodes_with_options(instance_id, request, headers, runtime)
+        return self.get_region_configuration_with_options(request, headers, runtime)
 
     def get_suggest_shrinkable_nodes_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1958,10 +1953,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_transferable_nodes(self, instance_id, request):
+    def get_suggest_shrinkable_nodes(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_transferable_nodes_with_options(instance_id, request, headers, runtime)
+        return self.get_suggest_shrinkable_nodes_with_options(instance_id, request, headers, runtime)
 
     def get_transferable_nodes_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1990,10 +1985,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def initialize_operation_role(self, request):
+    def get_transferable_nodes(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.initialize_operation_role_with_options(request, headers, runtime)
+        return self.get_transferable_nodes_with_options(instance_id, request, headers, runtime)
 
     def initialize_operation_role_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2021,10 +2016,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_ack_operator(self, cluster_id, request):
+    def initialize_operation_role(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_ack_operator_with_options(cluster_id, request, headers, runtime)
+        return self.initialize_operation_role_with_options(request, headers, runtime)
 
     def install_ack_operator_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2052,10 +2047,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_kibana_system_plugin(self, instance_id, request):
+    def install_ack_operator(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_kibana_system_plugin_with_options(instance_id, request, headers, runtime)
+        return self.install_ack_operator_with_options(cluster_id, request, headers, runtime)
 
     def install_kibana_system_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2083,10 +2078,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_logstash_system_plugin(self, instance_id, request):
+    def install_kibana_system_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_logstash_system_plugin_with_options(instance_id, request, headers, runtime)
+        return self.install_kibana_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_logstash_system_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2114,10 +2109,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_system_plugin(self, instance_id, request):
+    def install_logstash_system_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_system_plugin_with_options(instance_id, request, headers, runtime)
+        return self.install_logstash_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_system_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2145,10 +2140,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_user_plugins(self, instance_id, request):
+    def install_system_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_user_plugins_with_options(instance_id, request, headers, runtime)
+        return self.install_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_user_plugins_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2172,10 +2167,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def interrupt_elasticsearch_task(self, instance_id, request):
+    def install_user_plugins(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.interrupt_elasticsearch_task_with_options(instance_id, request, headers, runtime)
+        return self.install_user_plugins_with_options(instance_id, request, headers, runtime)
 
     def interrupt_elasticsearch_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2202,10 +2197,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def interrupt_logstash_task(self, instance_id, request):
+    def interrupt_elasticsearch_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.interrupt_logstash_task_with_options(instance_id, request, headers, runtime)
+        return self.interrupt_elasticsearch_task_with_options(instance_id, request, headers, runtime)
 
     def interrupt_logstash_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2232,10 +2227,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ack_clusters(self, request):
+    def interrupt_logstash_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ack_clusters_with_options(request, headers, runtime)
+        return self.interrupt_logstash_task_with_options(instance_id, request, headers, runtime)
 
     def list_ack_clusters_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2266,10 +2261,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ack_namespaces(self, cluster_id, request):
+    def list_ack_clusters(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ack_namespaces_with_options(cluster_id, request, headers, runtime)
+        return self.list_ack_clusters_with_options(request, headers, runtime)
 
     def list_ack_namespaces_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2298,10 +2293,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_action_records(self, instance_id, request):
+    def list_ack_namespaces(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_action_records_with_options(instance_id, request, headers, runtime)
+        return self.list_ack_namespaces_with_options(cluster_id, request, headers, runtime)
 
     def list_action_records_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2342,10 +2337,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_all_node(self, instance_id, request):
+    def list_action_records(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_all_node_with_options(instance_id, request, headers, runtime)
+        return self.list_action_records_with_options(instance_id, request, headers, runtime)
 
     def list_all_node_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2372,10 +2367,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_alternative_snapshot_repos(self, instance_id, request):
+    def list_all_node(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_alternative_snapshot_repos_with_options(instance_id, request, headers, runtime)
+        return self.list_all_node_with_options(instance_id, request, headers, runtime)
 
     def list_alternative_snapshot_repos_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2402,10 +2397,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_apm(self, request):
+    def list_alternative_snapshot_repos(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_apm_with_options(request, headers, runtime)
+        return self.list_alternative_snapshot_repos_with_options(instance_id, request, headers, runtime)
 
     def list_apm_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2440,10 +2435,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_available_es_instance_ids(self, instance_id):
+    def list_apm(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_available_es_instance_ids_with_options(instance_id, headers, runtime)
+        return self.list_apm_with_options(request, headers, runtime)
 
     def list_available_es_instance_ids_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2465,10 +2460,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_collectors(self, request):
+    def list_available_es_instance_ids(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_collectors_with_options(request, headers, runtime)
+        return self.list_available_es_instance_ids_with_options(instance_id, headers, runtime)
 
     def list_collectors_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2505,10 +2500,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_component_indices(self, instance_id, request):
+    def list_collectors(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_component_indices_with_options(instance_id, request, headers, runtime)
+        return self.list_collectors_with_options(request, headers, runtime)
 
     def list_component_indices_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2539,10 +2534,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_connected_clusters(self, instance_id):
+    def list_component_indices(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_connected_clusters_with_options(instance_id, headers, runtime)
+        return self.list_component_indices_with_options(instance_id, request, headers, runtime)
 
     def list_connected_clusters_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2564,10 +2559,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_streams(self, instance_id, request):
+    def list_connected_clusters(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_streams_with_options(instance_id, request, headers, runtime)
+        return self.list_connected_clusters_with_options(instance_id, headers, runtime)
 
     def list_data_streams_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2596,10 +2591,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_tasks(self, instance_id):
+    def list_data_streams(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_tasks_with_options(instance_id, headers, runtime)
+        return self.list_data_streams_with_options(instance_id, request, headers, runtime)
 
     def list_data_tasks_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2621,10 +2616,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_default_collector_configurations(self, request):
+    def list_data_tasks(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_default_collector_configurations_with_options(request, headers, runtime)
+        return self.list_data_tasks_with_options(instance_id, headers, runtime)
 
     def list_default_collector_configurations_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2655,10 +2650,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_deprecated_templates(self, instance_id, request):
+    def list_default_collector_configurations(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_deprecated_templates_with_options(instance_id, request, headers, runtime)
+        return self.list_default_collector_configurations_with_options(request, headers, runtime)
 
     def list_deprecated_templates_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2689,10 +2684,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_diagnose_indices(self, instance_id, request):
+    def list_deprecated_templates(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_diagnose_indices_with_options(instance_id, request, headers, runtime)
+        return self.list_deprecated_templates_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_indices_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2719,10 +2714,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_diagnose_report(self, instance_id, request):
+    def list_diagnose_indices(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_diagnose_report_with_options(instance_id, request, headers, runtime)
+        return self.list_diagnose_indices_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_report_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2761,10 +2756,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_diagnose_report_ids(self, instance_id, request):
+    def list_diagnose_report(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_diagnose_report_ids_with_options(instance_id, request, headers, runtime)
+        return self.list_diagnose_report_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_report_ids_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2801,10 +2796,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_dict_information(self, instance_id, request):
+    def list_diagnose_report_ids(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_dict_information_with_options(instance_id, request, headers, runtime)
+        return self.list_diagnose_report_ids_with_options(instance_id, request, headers, runtime)
 
     def list_dict_information_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2835,10 +2830,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_dicts(self, instance_id, request):
+    def list_dict_information(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_dicts_with_options(instance_id, request, headers, runtime)
+        return self.list_dict_information_with_options(instance_id, request, headers, runtime)
 
     def list_dicts_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2867,10 +2862,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ecs_instances(self, request):
+    def list_dicts(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ecs_instances_with_options(request, headers, runtime)
+        return self.list_dicts_with_options(instance_id, request, headers, runtime)
 
     def list_ecs_instances_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2907,10 +2902,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_extendfiles(self, instance_id):
+    def list_ecs_instances(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_extendfiles_with_options(instance_id, headers, runtime)
+        return self.list_ecs_instances_with_options(request, headers, runtime)
 
     def list_extendfiles_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2932,10 +2927,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ilmpolicies(self, instance_id, request):
+    def list_extendfiles(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ilmpolicies_with_options(instance_id, request, headers, runtime)
+        return self.list_extendfiles_with_options(instance_id, headers, runtime)
 
     def list_ilmpolicies_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2962,10 +2957,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_index_templates(self, instance_id, request):
+    def list_ilmpolicies(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_index_templates_with_options(instance_id, request, headers, runtime)
+        return self.list_ilmpolicies_with_options(instance_id, request, headers, runtime)
 
     def list_index_templates_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2996,10 +2991,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_instance(self, request):
+    def list_index_templates(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_instance_with_options(request, headers, runtime)
+        return self.list_index_templates_with_options(instance_id, request, headers, runtime)
 
     def list_instance_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3046,10 +3041,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_instance_history_events(self, request):
+    def list_instance(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_instance_history_events_with_options(request, headers, runtime)
+        return self.list_instance_with_options(request, headers, runtime)
 
     def list_instance_history_events_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -3090,7 +3085,8 @@ class Client(OpenApiClient):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='ListInstanceHistoryEvents',
@@ -3108,10 +3104,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_instance_indices(self, instance_id, request):
+    def list_instance_history_events(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_instance_indices_with_options(instance_id, request, headers, runtime)
+        return self.list_instance_history_events_with_options(request, headers, runtime)
 
     def list_instance_indices_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3148,10 +3144,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_kibana_plugins(self, instance_id, request):
+    def list_instance_indices(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_kibana_plugins_with_options(instance_id, request, headers, runtime)
+        return self.list_instance_indices_with_options(instance_id, request, headers, runtime)
 
     def list_kibana_plugins_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3180,10 +3176,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_logstash(self, request):
+    def list_kibana_plugins(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_logstash_with_options(request, headers, runtime)
+        return self.list_kibana_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_logstash_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3192,8 +3188,6 @@ class Client(OpenApiClient):
             query['description'] = request.description
         if not UtilClient.is_unset(request.instance_id):
             query['instanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['ownerId'] = request.owner_id
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
         if not UtilClient.is_unset(request.resource_group_id):
@@ -3224,10 +3218,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_logstash_log(self, instance_id, request):
+    def list_logstash(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_logstash_log_with_options(instance_id, request, headers, runtime)
+        return self.list_logstash_with_options(request, headers, runtime)
 
     def list_logstash_log_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3264,10 +3258,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_logstash_plugins(self, instance_id, request):
+    def list_logstash_log(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_logstash_plugins_with_options(instance_id, request, headers, runtime)
+        return self.list_logstash_log_with_options(instance_id, request, headers, runtime)
 
     def list_logstash_plugins_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3300,10 +3294,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_nodes(self, res_id, request):
+    def list_logstash_plugins(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_nodes_with_options(res_id, request, headers, runtime)
+        return self.list_logstash_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_nodes_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3338,10 +3332,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline(self, instance_id, request):
+    def list_nodes(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_with_options(instance_id, request, headers, runtime)
+        return self.list_nodes_with_options(res_id, request, headers, runtime)
 
     def list_pipeline_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3372,10 +3366,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_ids(self, instance_id, request):
+    def list_pipeline(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_ids_with_options(instance_id, request, headers, runtime)
+        return self.list_pipeline_with_options(instance_id, request, headers, runtime)
 
     def list_pipeline_ids_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3399,10 +3393,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_plugins(self, instance_id, request):
+    def list_pipeline_ids(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_plugins_with_options(instance_id, request, headers, runtime)
+        return self.list_pipeline_ids_with_options(instance_id, request, headers, runtime)
 
     def list_plugins_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3435,10 +3429,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_search_log(self, instance_id, request):
+    def list_plugins(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_search_log_with_options(instance_id, request, headers, runtime)
+        return self.list_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_search_log_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3475,10 +3469,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_shard_recoveries(self, instance_id, request):
+    def list_search_log(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_shard_recoveries_with_options(instance_id, request, headers, runtime)
+        return self.list_search_log_with_options(instance_id, request, headers, runtime)
 
     def list_shard_recoveries_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3505,10 +3499,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_snapshot_repos_by_instance_id(self, instance_id):
+    def list_shard_recoveries(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_snapshot_repos_by_instance_id_with_options(instance_id, headers, runtime)
+        return self.list_shard_recoveries_with_options(instance_id, request, headers, runtime)
 
     def list_snapshot_repos_by_instance_id_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3530,10 +3524,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tag_resources(self, request):
+    def list_snapshot_repos_by_instance_id(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tag_resources_with_options(request, headers, runtime)
+        return self.list_snapshot_repos_by_instance_id_with_options(instance_id, headers, runtime)
 
     def list_tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3570,10 +3564,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tags(self, request):
+    def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tags_with_options(request, headers, runtime)
+        return self.list_tag_resources_with_options(request, headers, runtime)
 
     def list_tags_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3602,10 +3596,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_vpc_endpoints(self, instance_id, request):
+    def list_tags(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_vpc_endpoints_with_options(instance_id, request, headers, runtime)
+        return self.list_tags_with_options(request, headers, runtime)
 
     def list_vpc_endpoints_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3634,10 +3628,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def migrate_to_other_zone(self, instance_id, request):
+    def list_vpc_endpoints(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.migrate_to_other_zone_with_options(instance_id, request, headers, runtime)
+        return self.list_vpc_endpoints_with_options(instance_id, request, headers, runtime)
 
     def migrate_to_other_zone_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3665,10 +3659,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_deploy_machine(self, res_id, request):
+    def migrate_to_other_zone(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_deploy_machine_with_options(res_id, request, headers, runtime)
+        return self.migrate_to_other_zone_with_options(instance_id, request, headers, runtime)
 
     def modify_deploy_machine_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3696,10 +3690,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_elastictask(self, instance_id, request):
+    def modify_deploy_machine(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_elastictask_with_options(instance_id, request, headers, runtime)
+        return self.modify_deploy_machine_with_options(res_id, request, headers, runtime)
 
     def modify_elastictask_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3723,10 +3717,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_instance_maintain_time(self, instance_id, request):
+    def modify_elastictask(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_instance_maintain_time_with_options(instance_id, request, headers, runtime)
+        return self.modify_elastictask_with_options(instance_id, request, headers, runtime)
 
     def modify_instance_maintain_time_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3754,10 +3748,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_white_ips(self, instance_id, request):
+    def modify_instance_maintain_time(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_white_ips_with_options(instance_id, request, headers, runtime)
+        return self.modify_instance_maintain_time_with_options(instance_id, request, headers, runtime)
 
     def modify_white_ips_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3796,10 +3790,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def move_resource_group(self, instance_id, request):
+    def modify_white_ips(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.move_resource_group_with_options(instance_id, request, headers, runtime)
+        return self.modify_white_ips_with_options(instance_id, request, headers, runtime)
 
     def move_resource_group_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3827,10 +3821,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def open_diagnosis(self, instance_id, request):
+    def move_resource_group(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.open_diagnosis_with_options(instance_id, request, headers, runtime)
+        return self.move_resource_group_with_options(instance_id, request, headers, runtime)
 
     def open_diagnosis_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3859,10 +3853,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def open_https(self, instance_id, request):
+    def open_diagnosis(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.open_https_with_options(instance_id, request, headers, runtime)
+        return self.open_diagnosis_with_options(instance_id, request, headers, runtime)
 
     def open_https_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3889,10 +3883,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def post_emon_try_alarm_rule(self, project_id, alarm_group_id, request):
+    def open_https(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.post_emon_try_alarm_rule_with_options(project_id, alarm_group_id, request, headers, runtime)
+        return self.open_https_with_options(instance_id, request, headers, runtime)
 
     def post_emon_try_alarm_rule_with_options(self, project_id, alarm_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3916,10 +3910,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def recommend_templates(self, instance_id, request):
+    def post_emon_try_alarm_rule(self, project_id, alarm_group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.recommend_templates_with_options(instance_id, request, headers, runtime)
+        return self.post_emon_try_alarm_rule_with_options(project_id, alarm_group_id, request, headers, runtime)
 
     def recommend_templates_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3946,10 +3940,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def reinstall_collector(self, res_id, request):
+    def recommend_templates(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.reinstall_collector_with_options(res_id, request, headers, runtime)
+        return self.recommend_templates_with_options(instance_id, request, headers, runtime)
 
     def reinstall_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3977,10 +3971,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_apm(self, instance_id):
+    def reinstall_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_apm_with_options(instance_id, headers, runtime)
+        return self.reinstall_collector_with_options(res_id, request, headers, runtime)
 
     def remove_apm_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -4002,10 +3996,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def renew_instance(self, instance_id, request):
+    def remove_apm(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.renew_instance_with_options(instance_id, request, headers, runtime)
+        return self.remove_apm_with_options(instance_id, headers, runtime)
 
     def renew_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4033,10 +4027,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def renew_logstash(self, instance_id, request):
+    def renew_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.renew_logstash_with_options(instance_id, request, headers, runtime)
+        return self.renew_instance_with_options(instance_id, request, headers, runtime)
 
     def renew_logstash_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4064,10 +4058,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def restart_collector(self, res_id, request):
+    def renew_logstash(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.restart_collector_with_options(res_id, request, headers, runtime)
+        return self.renew_logstash_with_options(instance_id, request, headers, runtime)
 
     def restart_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4094,10 +4088,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def restart_instance(self, instance_id, request):
+    def restart_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.restart_instance_with_options(instance_id, request, headers, runtime)
+        return self.restart_collector_with_options(res_id, request, headers, runtime)
 
     def restart_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4127,10 +4121,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def restart_logstash(self, instance_id, request):
+    def restart_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.restart_logstash_with_options(instance_id, request, headers, runtime)
+        return self.restart_instance_with_options(instance_id, request, headers, runtime)
 
     def restart_logstash_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4171,10 +4165,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_elasticsearch_task(self, instance_id, request):
+    def restart_logstash(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_elasticsearch_task_with_options(instance_id, request, headers, runtime)
+        return self.restart_logstash_with_options(instance_id, request, headers, runtime)
 
     def resume_elasticsearch_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4201,10 +4195,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_logstash_task(self, instance_id, request):
+    def resume_elasticsearch_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_logstash_task_with_options(instance_id, request, headers, runtime)
+        return self.resume_elasticsearch_task_with_options(instance_id, request, headers, runtime)
 
     def resume_logstash_task_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4231,10 +4225,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def rollover_data_stream(self, instance_id, data_stream, request):
+    def resume_logstash_task(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.rollover_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
+        return self.resume_logstash_task_with_options(instance_id, request, headers, runtime)
 
     def rollover_data_stream_with_options(self, instance_id, data_stream, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4261,10 +4255,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def run_pipelines(self, instance_id, request):
+    def rollover_data_stream(self, instance_id, data_stream, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.run_pipelines_with_options(instance_id, request, headers, runtime)
+        return self.rollover_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
 
     def run_pipelines_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4292,10 +4286,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def shrink_node(self, instance_id, request):
+    def run_pipelines(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.shrink_node_with_options(instance_id, request, headers, runtime)
+        return self.run_pipelines_with_options(instance_id, request, headers, runtime)
 
     def shrink_node_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4329,10 +4323,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_apm(self, instance_id):
+    def shrink_node(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_apm_with_options(instance_id, headers, runtime)
+        return self.shrink_node_with_options(instance_id, request, headers, runtime)
 
     def start_apm_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -4354,10 +4348,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_collector(self, res_id, request):
+    def start_apm(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_collector_with_options(res_id, request, headers, runtime)
+        return self.start_apm_with_options(instance_id, headers, runtime)
 
     def start_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4384,10 +4378,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_apm(self, instance_id):
+    def start_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_apm_with_options(instance_id, headers, runtime)
+        return self.start_collector_with_options(res_id, request, headers, runtime)
 
     def stop_apm_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -4409,10 +4403,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_collector(self, res_id, request):
+    def stop_apm(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_collector_with_options(res_id, request, headers, runtime)
+        return self.stop_apm_with_options(instance_id, headers, runtime)
 
     def stop_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4439,10 +4433,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_pipelines(self, instance_id, request):
+    def stop_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_pipelines_with_options(instance_id, request, headers, runtime)
+        return self.stop_collector_with_options(res_id, request, headers, runtime)
 
     def stop_pipelines_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4470,10 +4464,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def tag_resources(self, request):
+    def stop_pipelines(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.tag_resources_with_options(request, headers, runtime)
+        return self.stop_pipelines_with_options(instance_id, request, headers, runtime)
 
     def tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4504,10 +4498,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def transfer_node(self, instance_id, request):
+    def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.transfer_node_with_options(instance_id, request, headers, runtime)
+        return self.tag_resources_with_options(request, headers, runtime)
 
     def transfer_node_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4537,10 +4531,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def trigger_network(self, instance_id, request):
+    def transfer_node(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.trigger_network_with_options(instance_id, request, headers, runtime)
+        return self.transfer_node_with_options(instance_id, request, headers, runtime)
 
     def trigger_network_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4575,10 +4569,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def uninstall_kibana_plugin(self, instance_id, request):
+    def trigger_network(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.uninstall_kibana_plugin_with_options(instance_id, request, headers, runtime)
+        return self.trigger_network_with_options(instance_id, request, headers, runtime)
 
     def uninstall_kibana_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4606,10 +4600,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def uninstall_logstash_plugin(self, instance_id, request):
+    def uninstall_kibana_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.uninstall_logstash_plugin_with_options(instance_id, request, headers, runtime)
+        return self.uninstall_kibana_plugin_with_options(instance_id, request, headers, runtime)
 
     def uninstall_logstash_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4637,10 +4631,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def uninstall_plugin(self, instance_id, request):
+    def uninstall_logstash_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.uninstall_plugin_with_options(instance_id, request, headers, runtime)
+        return self.uninstall_logstash_plugin_with_options(instance_id, request, headers, runtime)
 
     def uninstall_plugin_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4668,10 +4662,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def untag_resources(self, request):
+    def uninstall_plugin(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.untag_resources_with_options(request, headers, runtime)
+        return self.uninstall_plugin_with_options(instance_id, request, headers, runtime)
 
     def untag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4705,10 +4699,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_admin_password(self, instance_id, request):
+    def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_admin_password_with_options(instance_id, request, headers, runtime)
+        return self.untag_resources_with_options(request, headers, runtime)
 
     def update_admin_password_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4739,10 +4733,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_advanced_setting(self, instance_id, request):
+    def update_admin_password(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_advanced_setting_with_options(instance_id, request, headers, runtime)
+        return self.update_admin_password_with_options(instance_id, request, headers, runtime)
 
     def update_advanced_setting_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4770,10 +4764,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_aliws_dict(self, instance_id, request):
+    def update_advanced_setting(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_aliws_dict_with_options(instance_id, request, headers, runtime)
+        return self.update_advanced_setting_with_options(instance_id, request, headers, runtime)
 
     def update_aliws_dict_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4801,10 +4795,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_apm(self, instance_id, request):
+    def update_aliws_dict(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_apm_with_options(instance_id, request, headers, runtime)
+        return self.update_aliws_dict_with_options(instance_id, request, headers, runtime)
 
     def update_apm_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4839,12 +4833,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_black_ips(self, instance_id, request):
+    def update_apm(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_black_ips_with_options(instance_id, request, headers, runtime)
+        return self.update_apm_with_options(instance_id, request, headers, runtime)
 
     def update_black_ips_with_options(self, instance_id, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: UpdateBlackIpsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateBlackIpsResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4869,10 +4877,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_collector(self, res_id, request):
+    def update_black_ips(self, instance_id, request):
+        """
+        @deprecated
+        
+
+        @param request: UpdateBlackIpsRequest
+
+        @return: UpdateBlackIpsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_collector_with_options(res_id, request, headers, runtime)
+        return self.update_black_ips_with_options(instance_id, request, headers, runtime)
 
     def update_collector_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4900,10 +4917,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_collector_name(self, res_id, request):
+    def update_collector(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_collector_name_with_options(res_id, request, headers, runtime)
+        return self.update_collector_with_options(res_id, request, headers, runtime)
 
     def update_collector_name_with_options(self, res_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4931,10 +4948,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_component_index(self, instance_id, name, request):
+    def update_collector_name(self, res_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_component_index_with_options(instance_id, name, request, headers, runtime)
+        return self.update_collector_name_with_options(res_id, request, headers, runtime)
 
     def update_component_index_with_options(self, instance_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4963,10 +4980,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_description(self, instance_id, request):
+    def update_component_index(self, instance_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_description_with_options(instance_id, request, headers, runtime)
+        return self.update_component_index_with_options(instance_id, name, request, headers, runtime)
 
     def update_description_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4997,10 +5014,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_diagnosis_settings(self, instance_id, request):
+    def update_description(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_diagnosis_settings_with_options(instance_id, request, headers, runtime)
+        return self.update_description_with_options(instance_id, request, headers, runtime)
 
     def update_diagnosis_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5030,10 +5047,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_dict(self, instance_id, request):
+    def update_diagnosis_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_dict_with_options(instance_id, request, headers, runtime)
+        return self.update_diagnosis_settings_with_options(instance_id, request, headers, runtime)
 
     def update_dict_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5061,10 +5078,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_dynamic_settings(self, instance_id, request):
+    def update_dict(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_dynamic_settings_with_options(instance_id, request, headers, runtime)
+        return self.update_dict_with_options(instance_id, request, headers, runtime)
 
     def update_dynamic_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5096,10 +5113,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_extend_config(self, instance_id, request):
+    def update_dynamic_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_extend_config_with_options(instance_id, request, headers, runtime)
+        return self.update_dynamic_settings_with_options(instance_id, request, headers, runtime)
 
     def update_extend_config_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5127,10 +5144,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_extendfiles(self, instance_id, request):
+    def update_extend_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_extendfiles_with_options(instance_id, request, headers, runtime)
+        return self.update_extend_config_with_options(instance_id, request, headers, runtime)
 
     def update_extendfiles_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5158,10 +5175,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_hot_ik_dicts(self, instance_id, request):
+    def update_extendfiles(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_hot_ik_dicts_with_options(instance_id, request, headers, runtime)
+        return self.update_extendfiles_with_options(instance_id, request, headers, runtime)
 
     def update_hot_ik_dicts_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5189,10 +5206,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_ilmpolicy(self, instance_id, policy_name, request):
+    def update_hot_ik_dicts(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_ilmpolicy_with_options(instance_id, policy_name, request, headers, runtime)
+        return self.update_hot_ik_dicts_with_options(instance_id, request, headers, runtime)
 
     def update_ilmpolicy_with_options(self, instance_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5220,10 +5237,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_index_template(self, instance_id, index_template, request):
+    def update_ilmpolicy(self, instance_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_index_template_with_options(instance_id, index_template, request, headers, runtime)
+        return self.update_ilmpolicy_with_options(instance_id, policy_name, request, headers, runtime)
 
     def update_index_template_with_options(self, instance_id, index_template, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5251,10 +5268,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_instance(self, instance_id, request):
+    def update_index_template(self, instance_id, index_template, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_instance_with_options(instance_id, request, headers, runtime)
+        return self.update_index_template_with_options(instance_id, index_template, request, headers, runtime)
 
     def update_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5303,10 +5320,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_instance_charge_type(self, instance_id, request):
+    def update_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_instance_charge_type_with_options(instance_id, request, headers, runtime)
+        return self.update_instance_with_options(instance_id, request, headers, runtime)
 
     def update_instance_charge_type_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5334,10 +5351,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_instance_settings(self, instance_id, request):
+    def update_instance_charge_type(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_instance_settings_with_options(instance_id, request, headers, runtime)
+        return self.update_instance_charge_type_with_options(instance_id, request, headers, runtime)
 
     def update_instance_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5365,10 +5382,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_kibana_settings(self, instance_id, request):
+    def update_instance_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_kibana_settings_with_options(instance_id, request, headers, runtime)
+        return self.update_instance_settings_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5396,10 +5413,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_kibana_white_ips(self, instance_id, request):
+    def update_kibana_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_kibana_white_ips_with_options(instance_id, request, headers, runtime)
+        return self.update_kibana_settings_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_white_ips_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5434,10 +5451,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_logstash(self, instance_id, request):
+    def update_kibana_white_ips(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_logstash_with_options(instance_id, request, headers, runtime)
+        return self.update_kibana_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5470,10 +5487,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_logstash_charge_type(self, instance_id, request):
+    def update_logstash(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_logstash_charge_type_with_options(instance_id, request, headers, runtime)
+        return self.update_logstash_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_charge_type_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5501,10 +5518,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_logstash_description(self, instance_id, request):
+    def update_logstash_charge_type(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_logstash_description_with_options(instance_id, request, headers, runtime)
+        return self.update_logstash_charge_type_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_description_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5532,10 +5549,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_logstash_settings(self, instance_id, request):
+    def update_logstash_description(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_logstash_settings_with_options(instance_id, request, headers, runtime)
+        return self.update_logstash_description_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5563,10 +5580,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_pipeline_management_config(self, instance_id, request):
+    def update_logstash_settings(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_pipeline_management_config_with_options(instance_id, request, headers, runtime)
+        return self.update_logstash_settings_with_options(instance_id, request, headers, runtime)
 
     def update_pipeline_management_config_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5605,10 +5622,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_pipelines(self, instance_id, request):
+    def update_pipeline_management_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_pipelines_with_options(instance_id, request, headers, runtime)
+        return self.update_pipeline_management_config_with_options(instance_id, request, headers, runtime)
 
     def update_pipelines_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5638,10 +5655,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_private_network_white_ips(self, instance_id, request):
+    def update_pipelines(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_private_network_white_ips_with_options(instance_id, request, headers, runtime)
+        return self.update_pipelines_with_options(instance_id, request, headers, runtime)
 
     def update_private_network_white_ips_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5671,10 +5688,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_public_network(self, instance_id, request):
+    def update_private_network_white_ips(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_public_network_with_options(instance_id, request, headers, runtime)
+        return self.update_private_network_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_public_network_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5702,10 +5719,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_public_white_ips(self, instance_id, request):
+    def update_public_network(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_public_white_ips_with_options(instance_id, request, headers, runtime)
+        return self.update_public_network_with_options(instance_id, request, headers, runtime)
 
     def update_public_white_ips_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5735,10 +5752,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_read_write_policy(self, instance_id, request):
+    def update_public_white_ips(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_read_write_policy_with_options(instance_id, request, headers, runtime)
+        return self.update_public_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_read_write_policy_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5766,10 +5783,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_snapshot_setting(self, instance_id, request):
+    def update_read_write_policy(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_snapshot_setting_with_options(instance_id, request, headers, runtime)
+        return self.update_read_write_policy_with_options(instance_id, request, headers, runtime)
 
     def update_snapshot_setting_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5793,10 +5810,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_synonyms_dicts(self, instance_id, request):
+    def update_snapshot_setting(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_synonyms_dicts_with_options(instance_id, request, headers, runtime)
+        return self.update_snapshot_setting_with_options(instance_id, request, headers, runtime)
 
     def update_synonyms_dicts_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5824,10 +5841,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_template(self, instance_id, template_name, request):
+    def update_synonyms_dicts(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_template_with_options(instance_id, template_name, request, headers, runtime)
+        return self.update_synonyms_dicts_with_options(instance_id, request, headers, runtime)
 
     def update_template_with_options(self, instance_id, template_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5855,10 +5872,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_white_ips(self, instance_id, request):
+    def update_template(self, instance_id, template_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_white_ips_with_options(instance_id, request, headers, runtime)
+        return self.update_template_with_options(instance_id, template_name, request, headers, runtime)
 
     def update_white_ips_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5893,10 +5910,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_xpack_monitor_config(self, instance_id, request):
+    def update_white_ips(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_xpack_monitor_config_with_options(instance_id, request, headers, runtime)
+        return self.update_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_xpack_monitor_config_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5933,10 +5950,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def upgrade_engine_version(self, instance_id, request):
+    def update_xpack_monitor_config(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upgrade_engine_version_with_options(instance_id, request, headers, runtime)
+        return self.update_xpack_monitor_config_with_options(instance_id, request, headers, runtime)
 
     def upgrade_engine_version_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5971,10 +5988,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_connection(self, instance_id, request):
+    def upgrade_engine_version(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_connection_with_options(instance_id, request, headers, runtime)
+        return self.upgrade_engine_version_with_options(instance_id, request, headers, runtime)
 
     def validate_connection_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6002,10 +6019,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_shrink_nodes(self, instance_id, request):
+    def validate_connection(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_shrink_nodes_with_options(instance_id, request, headers, runtime)
+        return self.validate_connection_with_options(instance_id, request, headers, runtime)
 
     def validate_shrink_nodes_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6037,10 +6054,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_slr_permission(self, request):
+    def validate_shrink_nodes(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_slr_permission_with_options(request, headers, runtime)
+        return self.validate_shrink_nodes_with_options(instance_id, request, headers, runtime)
 
     def validate_slr_permission_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6069,10 +6086,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_transferable_nodes(self, instance_id, request):
+    def validate_slr_permission(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_transferable_nodes_with_options(instance_id, request, headers, runtime)
+        return self.validate_slr_permission_with_options(request, headers, runtime)
 
     def validate_transferable_nodes_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6100,10 +6117,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_instance(self, request):
+    def validate_transferable_nodes(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_instance_with_options(request, headers, runtime)
+        return self.validate_transferable_nodes_with_options(instance_id, request, headers, runtime)
 
     def create_instance_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6159,3 +6176,8 @@ class Client(OpenApiClient):
             elasticsearch_20170613_models.CreateInstanceResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def create_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_with_options(request, headers, runtime)

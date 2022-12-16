@@ -2869,13 +2869,207 @@ class CreateDataStreamResponse(TeaModel):
         return self
 
 
-class CreateDataTasksRequest(TeaModel):
-    def __init__(self, client_token=None, body=None):
-        self.client_token = client_token  # type: str
-        self.body = body  # type: str
+class CreateDataTasksRequestBodyMigrateConfig(TeaModel):
+    def __init__(self, source_filter_params=None):
+        self.source_filter_params = source_filter_params  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateDataTasksRequestBodyMigrateConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_filter_params is not None:
+            result['sourceFilterParams'] = self.source_filter_params
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('sourceFilterParams') is not None:
+            self.source_filter_params = m.get('sourceFilterParams')
+        return self
+
+
+class CreateDataTasksRequestBodySinkCluster(TeaModel):
+    def __init__(self, data_source_type=None, index=None, mapping=None, password=None, routing=None, settings=None,
+                 type=None, username=None):
+        self.data_source_type = data_source_type  # type: str
+        self.index = index  # type: str
+        self.mapping = mapping  # type: str
+        self.password = password  # type: str
+        self.routing = routing  # type: str
+        self.settings = settings  # type: str
+        self.type = type  # type: str
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDataTasksRequestBodySinkCluster, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_type is not None:
+            result['dataSourceType'] = self.data_source_type
+        if self.index is not None:
+            result['index'] = self.index
+        if self.mapping is not None:
+            result['mapping'] = self.mapping
+        if self.password is not None:
+            result['password'] = self.password
+        if self.routing is not None:
+            result['routing'] = self.routing
+        if self.settings is not None:
+            result['settings'] = self.settings
+        if self.type is not None:
+            result['type'] = self.type
+        if self.username is not None:
+            result['username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataSourceType') is not None:
+            self.data_source_type = m.get('dataSourceType')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('mapping') is not None:
+            self.mapping = m.get('mapping')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('routing') is not None:
+            self.routing = m.get('routing')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        return self
+
+
+class CreateDataTasksRequestBodySourceCluster(TeaModel):
+    def __init__(self, data_source_type=None, endpoint=None, index=None, password=None, type=None, username=None,
+                 vpc_id=None, vpc_instance_id=None, vpc_instance_port=None):
+        self.data_source_type = data_source_type  # type: str
+        self.endpoint = endpoint  # type: str
+        self.index = index  # type: str
+        self.password = password  # type: str
+        self.type = type  # type: str
+        self.username = username  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.vpc_instance_id = vpc_instance_id  # type: str
+        self.vpc_instance_port = vpc_instance_port  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDataTasksRequestBodySourceCluster, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_type is not None:
+            result['dataSourceType'] = self.data_source_type
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.index is not None:
+            result['index'] = self.index
+        if self.password is not None:
+            result['password'] = self.password
+        if self.type is not None:
+            result['type'] = self.type
+        if self.username is not None:
+            result['username'] = self.username
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        if self.vpc_instance_id is not None:
+            result['vpcInstanceId'] = self.vpc_instance_id
+        if self.vpc_instance_port is not None:
+            result['vpcInstancePort'] = self.vpc_instance_port
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataSourceType') is not None:
+            self.data_source_type = m.get('dataSourceType')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        if m.get('vpcInstanceId') is not None:
+            self.vpc_instance_id = m.get('vpcInstanceId')
+        if m.get('vpcInstancePort') is not None:
+            self.vpc_instance_port = m.get('vpcInstancePort')
+        return self
+
+
+class CreateDataTasksRequestBody(TeaModel):
+    def __init__(self, migrate_config=None, sink_cluster=None, source_cluster=None):
+        self.migrate_config = migrate_config  # type: CreateDataTasksRequestBodyMigrateConfig
+        self.sink_cluster = sink_cluster  # type: CreateDataTasksRequestBodySinkCluster
+        self.source_cluster = source_cluster  # type: CreateDataTasksRequestBodySourceCluster
+
+    def validate(self):
+        if self.migrate_config:
+            self.migrate_config.validate()
+        if self.sink_cluster:
+            self.sink_cluster.validate()
+        if self.source_cluster:
+            self.source_cluster.validate()
+
+    def to_map(self):
+        _map = super(CreateDataTasksRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.migrate_config is not None:
+            result['migrateConfig'] = self.migrate_config.to_map()
+        if self.sink_cluster is not None:
+            result['sinkCluster'] = self.sink_cluster.to_map()
+        if self.source_cluster is not None:
+            result['sourceCluster'] = self.source_cluster.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('migrateConfig') is not None:
+            temp_model = CreateDataTasksRequestBodyMigrateConfig()
+            self.migrate_config = temp_model.from_map(m['migrateConfig'])
+        if m.get('sinkCluster') is not None:
+            temp_model = CreateDataTasksRequestBodySinkCluster()
+            self.sink_cluster = temp_model.from_map(m['sinkCluster'])
+        if m.get('sourceCluster') is not None:
+            temp_model = CreateDataTasksRequestBodySourceCluster()
+            self.source_cluster = temp_model.from_map(m['sourceCluster'])
+        return self
+
+
+class CreateDataTasksRequest(TeaModel):
+    def __init__(self, client_token=None, body=None):
+        self.client_token = client_token  # type: str
+        self.body = body  # type: list[CreateDataTasksRequestBody]
+
+    def validate(self):
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateDataTasksRequest, self).to_map()
@@ -2885,16 +3079,21 @@ class CreateDataTasksRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        result['body'] = []
         if self.body is not None:
-            result['body'] = self.body
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        self.body = []
         if m.get('body') is not None:
-            self.body = m.get('body')
+            for k in m.get('body'):
+                temp_model = CreateDataTasksRequestBody()
+                self.body.append(temp_model.from_map(k))
         return self
 
 
@@ -17911,10 +18110,40 @@ class ListInstanceResponse(TeaModel):
         return self
 
 
+class ListInstanceHistoryEventsRequestBody(TeaModel):
+    def __init__(self, desc=None, sort_field=None):
+        self.desc = desc  # type: bool
+        self.sort_field = sort_field  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceHistoryEventsRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.sort_field is not None:
+            result['sortField'] = self.sort_field
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('sortField') is not None:
+            self.sort_field = m.get('sortField')
+        return self
+
+
 class ListInstanceHistoryEventsRequest(TeaModel):
-    def __init__(self, event_create_end_time=None, event_create_start_time=None, event_cycle_status=None,
-                 event_execute_end_time=None, event_execute_start_time=None, event_finash_end_time=None, event_finash_start_time=None,
-                 event_level=None, event_type=None, instance_id=None, node_ip=None, page=None, size=None):
+    def __init__(self, body=None, event_create_end_time=None, event_create_start_time=None,
+                 event_cycle_status=None, event_execute_end_time=None, event_execute_start_time=None, event_finash_end_time=None,
+                 event_finash_start_time=None, event_level=None, event_type=None, instance_id=None, node_ip=None, page=None, size=None):
+        self.body = body  # type: list[ListInstanceHistoryEventsRequestBody]
         self.event_create_end_time = event_create_end_time  # type: str
         self.event_create_start_time = event_create_start_time  # type: str
         self.event_cycle_status = event_cycle_status  # type: list[str]
@@ -17930,7 +18159,10 @@ class ListInstanceHistoryEventsRequest(TeaModel):
         self.size = size  # type: int
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListInstanceHistoryEventsRequest, self).to_map()
@@ -17938,6 +18170,10 @@ class ListInstanceHistoryEventsRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.event_create_end_time is not None:
             result['eventCreateEndTime'] = self.event_create_end_time
         if self.event_create_start_time is not None:
@@ -17968,6 +18204,11 @@ class ListInstanceHistoryEventsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = ListInstanceHistoryEventsRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('eventCreateEndTime') is not None:
             self.event_create_end_time = m.get('eventCreateEndTime')
         if m.get('eventCreateStartTime') is not None:
@@ -17997,10 +18238,41 @@ class ListInstanceHistoryEventsRequest(TeaModel):
         return self
 
 
+class ListInstanceHistoryEventsShrinkRequestBody(TeaModel):
+    def __init__(self, desc=None, sort_field=None):
+        self.desc = desc  # type: bool
+        self.sort_field = sort_field  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceHistoryEventsShrinkRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.sort_field is not None:
+            result['sortField'] = self.sort_field
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('sortField') is not None:
+            self.sort_field = m.get('sortField')
+        return self
+
+
 class ListInstanceHistoryEventsShrinkRequest(TeaModel):
-    def __init__(self, event_create_end_time=None, event_create_start_time=None, event_cycle_status_shrink=None,
-                 event_execute_end_time=None, event_execute_start_time=None, event_finash_end_time=None, event_finash_start_time=None,
-                 event_level_shrink=None, event_type_shrink=None, instance_id=None, node_ip=None, page=None, size=None):
+    def __init__(self, body=None, event_create_end_time=None, event_create_start_time=None,
+                 event_cycle_status_shrink=None, event_execute_end_time=None, event_execute_start_time=None, event_finash_end_time=None,
+                 event_finash_start_time=None, event_level_shrink=None, event_type_shrink=None, instance_id=None, node_ip=None, page=None,
+                 size=None):
+        self.body = body  # type: list[ListInstanceHistoryEventsShrinkRequestBody]
         self.event_create_end_time = event_create_end_time  # type: str
         self.event_create_start_time = event_create_start_time  # type: str
         self.event_cycle_status_shrink = event_cycle_status_shrink  # type: str
@@ -18016,7 +18288,10 @@ class ListInstanceHistoryEventsShrinkRequest(TeaModel):
         self.size = size  # type: int
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListInstanceHistoryEventsShrinkRequest, self).to_map()
@@ -18024,6 +18299,10 @@ class ListInstanceHistoryEventsShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.event_create_end_time is not None:
             result['eventCreateEndTime'] = self.event_create_end_time
         if self.event_create_start_time is not None:
@@ -18054,6 +18333,11 @@ class ListInstanceHistoryEventsShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = ListInstanceHistoryEventsShrinkRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('eventCreateEndTime') is not None:
             self.event_create_end_time = m.get('eventCreateEndTime')
         if m.get('eventCreateStartTime') is not None:
@@ -18685,11 +18969,10 @@ class ListKibanaPluginsResponse(TeaModel):
 
 
 class ListLogstashRequest(TeaModel):
-    def __init__(self, description=None, instance_id=None, owner_id=None, page=None, resource_group_id=None,
-                 size=None, tags=None, version=None):
+    def __init__(self, description=None, instance_id=None, page=None, resource_group_id=None, size=None, tags=None,
+                 version=None):
         self.description = description  # type: str
         self.instance_id = instance_id  # type: str
-        self.owner_id = owner_id  # type: str
         self.page = page  # type: int
         self.resource_group_id = resource_group_id  # type: str
         self.size = size  # type: int
@@ -18709,8 +18992,6 @@ class ListLogstashRequest(TeaModel):
             result['description'] = self.description
         if self.instance_id is not None:
             result['instanceId'] = self.instance_id
-        if self.owner_id is not None:
-            result['ownerId'] = self.owner_id
         if self.page is not None:
             result['page'] = self.page
         if self.resource_group_id is not None:
@@ -18729,8 +19010,6 @@ class ListLogstashRequest(TeaModel):
             self.description = m.get('description')
         if m.get('instanceId') is not None:
             self.instance_id = m.get('instanceId')
-        if m.get('ownerId') is not None:
-            self.owner_id = m.get('ownerId')
         if m.get('page') is not None:
             self.page = m.get('page')
         if m.get('resourceGroupId') is not None:
