@@ -431,10 +431,14 @@ class AddAuthResourceRequest(TeaModel):
     def __init__(self, accept_language=None, auth_id=None, domain_id=None, gateway_unique_id=None, match_type=None,
                  path=None):
         self.accept_language = accept_language  # type: str
+        # The ID of the authorization record.
         self.auth_id = auth_id  # type: long
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.match_type = match_type  # type: str
+        # The path.
         self.path = path  # type: str
 
     def validate(self):
@@ -479,11 +483,19 @@ class AddAuthResourceRequest(TeaModel):
 
 class AddAuthResourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned if the request fails.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -569,14 +581,20 @@ class AddBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, content=None, gateway_unique_id=None, is_white=None, name=None,
                  note=None, resource_id_json_list=None, resource_type=None, status=None, type=None):
         self.accept_language = accept_language  # type: str
+        # The content of the blacklist.
         self.content = content  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # Specifies whether to enable the whitelist mode for authorization.
         self.is_white = is_white  # type: bool
         self.name = name  # type: str
         self.note = note  # type: str
         self.resource_id_json_list = resource_id_json_list  # type: str
+        # The resource type to which the blacklist or whitelist applies.
         self.resource_type = resource_type  # type: str
+        # The status of the blacklist.
         self.status = status  # type: str
+        # The type of object in the blacklist or whitelist.
         self.type = type  # type: str
 
     def validate(self):
@@ -637,11 +655,20 @@ class AddBlackWhiteListRequest(TeaModel):
 
 class AddBlackWhiteListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The ID of the record.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned if the request fails.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful.                                  
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -725,7 +752,9 @@ class AddBlackWhiteListResponse(TeaModel):
 
 class AddGatewayRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -757,22 +786,61 @@ class AddGatewayRequest(TeaModel):
                  enable_xtrace=None, enterprise_security_group=None, internet_slb_spec=None, name=None, region=None, replica=None,
                  resource_group_id=None, slb_spec=None, spec=None, tag=None, v_switch_id=None, v_switch_id_2=None, vpc=None,
                  xtrace_ratio=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable hardware acceleration.
         self.enable_hardware_acceleration = enable_hardware_acceleration  # type: bool
+        # Specifies whether to enable Log Service.
         self.enable_sls = enable_sls  # type: bool
+        # Specifies whether to enable Tracing Analysis.
         self.enable_xtrace = enable_xtrace  # type: bool
+        # Specifies whether to use an advanced security group.
         self.enterprise_security_group = enterprise_security_group  # type: bool
+        # The specifications of the Internet-facing SLB instance.
+        # 
+        # *   slb.s1.small
+        # *   slb.s2.small
+        # *   slb.s2.medium
+        # *   slb.s3.small
+        # *   slb.s3.medium
+        # *   slb.s3.large
         self.internet_slb_spec = internet_slb_spec  # type: str
+        # The name of the gateway.
         self.name = name  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The number of nodes.
         self.replica = replica  # type: int
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The specifications of the internal-facing Server Load Balancer (SLB) instance.
+        # 
+        # *   slb.s1.small
+        # *   slb.s2.small
+        # *   slb.s2.medium
+        # *   slb.s3.small
+        # *   slb.s3.medium
+        # *   slb.s3.large
         self.slb_spec = slb_spec  # type: str
+        # The node specifications.
+        # 
+        # *   MSE_GTW\_16\_32\_200\_c(16C32G)
+        # *   MSE_GTW\_2\_4\_200\_c(2C4G)
+        # *   MSE_GTW\_4\_8\_200\_c(4C8G)
+        # *   MSE_GTW\_8\_16\_200\_c(8C16G)
         self.spec = spec  # type: str
+        # The tag of the gateway.
         self.tag = tag  # type: list[AddGatewayRequestTag]
+        # The ID of the primary vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the secondary vSwitch.
         self.v_switch_id_2 = v_switch_id_2  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc = vpc  # type: str
+        # The sample rate of Tracing Analysis. Valid values: \[1,100].
         self.xtrace_ratio = xtrace_ratio  # type: str
 
     def validate(self):
@@ -869,6 +937,7 @@ class AddGatewayRequest(TeaModel):
 
 class AddGatewayResponseBodyData(TeaModel):
     def __init__(self, gateway_unique_id=None):
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -893,11 +962,23 @@ class AddGatewayResponseBodyData(TeaModel):
 
 class AddGatewayResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The return value.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: AddGatewayResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -984,14 +1065,30 @@ class AddGatewayResponse(TeaModel):
 class AddGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, http_2=None,
                  must_https=None, name=None, protocol=None, tls_max=None, tls_min=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # Specifies whether to enable `HTTP/2`.
+        # 
+        # *   `open`: enables `HTTP/2`
+        # *   `close`: disables `HTTP/2`
+        # *   `globalConfig`: uses global configurations
         self.http_2 = http_2  # type: str
+        # Specifies whether to enable HTTPS.
         self.must_https = must_https  # type: bool
+        # The domain name.
         self.name = name  # type: str
+        # The type of the protocol.
         self.protocol = protocol  # type: str
+        # The maximum version of Transport Layer Security (TLS).
         self.tls_max = tls_max  # type: str
+        # The minimum version of TLS.
         self.tls_min = tls_min  # type: str
 
     def validate(self):
@@ -1048,11 +1145,20 @@ class AddGatewayDomainRequest(TeaModel):
 
 class AddGatewayDomainResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1136,7 +1242,9 @@ class AddGatewayDomainResponse(TeaModel):
 
 class AddGatewayRouteRequestDirectResponseJSON(TeaModel):
     def __init__(self, body=None, code=None):
+        # The mock return value.
         self.body = body  # type: str
+        # The mock return code.
         self.code = code  # type: long
 
     def validate(self):
@@ -1166,14 +1274,23 @@ class AddGatewayRouteRequestDirectResponseJSON(TeaModel):
 class AddGatewayRouteRequestFallbackServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
                  service_id=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The name.
         self.name = name  # type: str
+        # The namespace in which the service resides.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The service port.
         self.service_port = service_port  # type: int
+        # The type of the service source.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -1230,8 +1347,11 @@ class AddGatewayRouteRequestFallbackServices(TeaModel):
 
 class AddGatewayRouteRequestPredicatesHeaderPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key of the request header.
         self.key = key  # type: str
+        # The matching type.
         self.type = type  # type: str
+        # The value of the request header.
         self.value = value  # type: str
 
     def validate(self):
@@ -1264,8 +1384,15 @@ class AddGatewayRouteRequestPredicatesHeaderPredicates(TeaModel):
 
 class AddGatewayRouteRequestPredicatesPathPredicates(TeaModel):
     def __init__(self, ignore_case=None, path=None, type=None):
+        # Specifies whether to perform case-insensitive matching.
         self.ignore_case = ignore_case  # type: bool
+        # The path.
         self.path = path  # type: str
+        # The route matching type. Valid values:
+        # 
+        # *   PRE: prefix matching
+        # *   EQUAL: exact matching
+        # *   ERGULAR: regular expression matching
         self.type = type  # type: str
 
     def validate(self):
@@ -1298,8 +1425,11 @@ class AddGatewayRouteRequestPredicatesPathPredicates(TeaModel):
 
 class AddGatewayRouteRequestPredicatesQueryPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The name of the parameter.
         self.key = key  # type: str
+        # The matching type.
         self.type = type  # type: str
+        # The value of the parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -1332,9 +1462,13 @@ class AddGatewayRouteRequestPredicatesQueryPredicates(TeaModel):
 
 class AddGatewayRouteRequestPredicates(TeaModel):
     def __init__(self, header_predicates=None, method_predicates=None, path_predicates=None, query_predicates=None):
+        # The information about header matching.
         self.header_predicates = header_predicates  # type: list[AddGatewayRouteRequestPredicatesHeaderPredicates]
+        # The information about method matching.
         self.method_predicates = method_predicates  # type: list[str]
+        # The information about route matching.
         self.path_predicates = path_predicates  # type: AddGatewayRouteRequestPredicatesPathPredicates
+        # The information about URL parameter matching.
         self.query_predicates = query_predicates  # type: list[AddGatewayRouteRequestPredicatesQueryPredicates]
 
     def validate(self):
@@ -1391,8 +1525,11 @@ class AddGatewayRouteRequestPredicates(TeaModel):
 
 class AddGatewayRouteRequestRedirectJSON(TeaModel):
     def __init__(self, code=None, host=None, path=None):
+        # The return code.
         self.code = code  # type: int
+        # The hostname to be redirected to.
         self.host = host  # type: str
+        # The path to be redirected to.
         self.path = path  # type: str
 
     def validate(self):
@@ -1425,8 +1562,19 @@ class AddGatewayRouteRequestRedirectJSON(TeaModel):
 
 class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList(TeaModel):
     def __init__(self, extract_key=None, extract_key_spec=None, mapping_type=None):
+        # The key extracted from the input parameter.
         self.extract_key = extract_key  # type: str
+        # The position of the input parameter.
+        # 
+        # > Valid values:
+        # 
+        # *   `ALL_QUERY_PARAMETER`: request parameter
+        # 
+        # *   `ALL_HEADER`: request header
+        # *   `ALL_PATH`: request path
+        # *   `ALL_BODY`: request body
         self.extract_key_spec = extract_key_spec  # type: str
+        # The type of the backend service parameter.
         self.mapping_type = mapping_type  # type: str
 
     def validate(self):
@@ -1460,11 +1608,37 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsLis
 class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
     def __init__(self, dubbo_mothed_name=None, http_mothed=None, mothedpath=None, param_maps_list=None,
                  pass_through_all_headers=None, pass_through_list=None):
+        # The method name of the Dubbo service.
         self.dubbo_mothed_name = dubbo_mothed_name  # type: str
+        # The HTTP method.
+        # 
+        # > Valid values:
+        # 
+        # *   ALL_GET
+        # 
+        # *   ALL_POST
+        # 
+        # *   ALL_PUT
+        # 
+        # *   ALL_DELETE
+        # 
+        # *   ALL_PATCH
         self.http_mothed = http_mothed  # type: str
+        # The path that is used to match a method.
         self.mothedpath = mothedpath  # type: str
+        # The information of parameter mappings.
         self.param_maps_list = param_maps_list  # type: list[AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList]
+        # The pass-through type of the header.
+        # 
+        # > Valid values:
+        # 
+        # *   PASS_ALL: All headers are passed through.
+        # 
+        # *   PASS_NOT: All headers are not passed through.
+        # 
+        # *   PASS_ASSIGN: Specified headers are passed through.
         self.pass_through_all_headers = pass_through_all_headers  # type: str
+        # The list of headers to be passed through.
         self.pass_through_list = pass_through_list  # type: list[str]
 
     def validate(self):
@@ -1518,9 +1692,13 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
 class AddGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
     def __init__(self, dubbo_service_group=None, dubbo_service_name=None, dubbo_service_version=None,
                  mothed_map_list=None):
+        # The service group.
         self.dubbo_service_group = dubbo_service_group  # type: str
+        # The name of the Dubbo service.
         self.dubbo_service_name = dubbo_service_name  # type: str
+        # The version of the Dubbo service.
         self.dubbo_service_version = dubbo_service_version  # type: str
+        # The forwarding rules of the Dubbo service.
         self.mothed_map_list = mothed_map_list  # type: list[AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList]
 
     def validate(self):
@@ -1566,15 +1744,25 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
 class AddGatewayRouteRequestServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
                  percent=None, service_id=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The transcoder of the Dubbo protocol.
         self.http_dubbo_transcoder = http_dubbo_transcoder  # type: AddGatewayRouteRequestServicesHttpDubboTranscoder
+        # The name.
         self.name = name  # type: str
+        # The namespace in which the service resides.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The service port.
         self.service_port = service_port  # type: int
+        # The type of the service source.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -1639,20 +1827,38 @@ class AddGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_json=None, domain_id=None,
                  domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
                  gateway_unique_id=None, name=None, predicates=None, redirect_json=None, route_order=None, services=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The destination service type.
         self.destination_type = destination_type  # type: str
+        # The mock response configuration.
         self.direct_response_json = direct_response_json  # type: AddGatewayRouteRequestDirectResponseJSON
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The list of domain names.
         self.domain_id_list_json = domain_id_list_json  # type: str
+        # Specifies whether to enable Web Application Firewall (WAF).
         self.enable_waf = enable_waf  # type: bool
+        # Specifies whether to enable the Fallback service.
         self.fallback = fallback  # type: bool
+        # The information of the Fallback service.
         self.fallback_services = fallback_services  # type: list[AddGatewayRouteRequestFallbackServices]
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rule.
         self.predicates = predicates  # type: AddGatewayRouteRequestPredicates
+        # The configuration of the redirection.
         self.redirect_json = redirect_json  # type: AddGatewayRouteRequestRedirectJSON
+        # The sequence number of the route. (A small value indicates a high priority.)
         self.route_order = route_order  # type: int
+        # The information about services.
         self.services = services  # type: list[AddGatewayRouteRequestServices]
 
     def validate(self):
@@ -1762,20 +1968,38 @@ class AddGatewayRouteShrinkRequest(TeaModel):
                  domain_id=None, domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None,
                  gateway_id=None, gateway_unique_id=None, name=None, predicates_shrink=None, redirect_jsonshrink=None,
                  route_order=None, services_shrink=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The destination service type.
         self.destination_type = destination_type  # type: str
+        # The mock response configuration.
         self.direct_response_jsonshrink = direct_response_jsonshrink  # type: str
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The list of domain names.
         self.domain_id_list_json = domain_id_list_json  # type: str
+        # Specifies whether to enable Web Application Firewall (WAF).
         self.enable_waf = enable_waf  # type: bool
+        # Specifies whether to enable the Fallback service.
         self.fallback = fallback  # type: bool
+        # The information of the Fallback service.
         self.fallback_services_shrink = fallback_services_shrink  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rule.
         self.predicates_shrink = predicates_shrink  # type: str
+        # The configuration of the redirection.
         self.redirect_jsonshrink = redirect_jsonshrink  # type: str
+        # The sequence number of the route. (A small value indicates a high priority.)
         self.route_order = route_order  # type: int
+        # The information about services.
         self.services_shrink = services_shrink  # type: str
 
     def validate(self):
@@ -1856,11 +2080,20 @@ class AddGatewayRouteShrinkRequest(TeaModel):
 
 class AddGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The response message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1944,9 +2177,16 @@ class AddGatewayRouteResponse(TeaModel):
 
 class AddGatewayServiceVersionRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The version of the service.
         self.service_version = service_version  # type: str
 
     def validate(self):
@@ -1983,11 +2223,20 @@ class AddGatewayServiceVersionRequest(TeaModel):
 
 class AddGatewayServiceVersionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. The value 200 indicates that the request is successfully processed.
         self.code = code  # type: int
+        # The ID of the created gateway.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned if the request failed.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2072,14 +2321,26 @@ class AddGatewayServiceVersionResponse(TeaModel):
 class AddGatewaySlbRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, http_port=None, https_port=None,
                  https_vserver_group_id=None, service_weight=None, slb_id=None, type=None, vserver_group_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The HTTP port number (virtual service group).
         self.http_port = http_port  # type: int
+        # The HTTPS port number (virtual service group).
         self.https_port = https_port  # type: int
+        # The ID of the HTTPS virtual service group.
         self.https_vserver_group_id = https_vserver_group_id  # type: str
+        # The service weight.
         self.service_weight = service_weight  # type: int
+        # SLB ID.
         self.slb_id = slb_id  # type: str
+        # The type.
         self.type = type  # type: str
+        # The ID of the HTTP virtual service group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -2136,11 +2397,23 @@ class AddGatewaySlbRequest(TeaModel):
 
 class AddGatewaySlbResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2226,17 +2499,40 @@ class AddMockRuleRequest(TeaModel):
     def __init__(self, accept_language=None, consumer_app_ids=None, dubbo_mock_items=None, enable=None,
                  extra_json=None, mock_type=None, name=None, provider_app_id=None, provider_app_name=None, region=None,
                  sc_mock_items=None, source=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the custom application.
         self.consumer_app_ids = consumer_app_ids  # type: str
+        # The items in the recycle bin.
         self.dubbo_mock_items = dubbo_mock_items  # type: str
+        # Specifies whether to enable the rule. Valid values:
+        # 
+        # - `true`: enables the rule. 
+        # - `false`: disables the rule.
         self.enable = enable  # type: bool
+        # The description.
         self.extra_json = extra_json  # type: str
+        # The response time threshold of slow calls. Valid values:
+        # 
+        # - 15: 15 ms
+        # - 30: 30 ms
+        # - 60: 60 ms
+        # - 120: 120 ms
         self.mock_type = mock_type  # type: long
+        # The name of the rule.
         self.name = name  # type: str
+        # The ID of the service provider application.
         self.provider_app_id = provider_app_id  # type: str
+        # The name of the service provider application.
         self.provider_app_name = provider_app_name  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The input parameters. The JSON format is supported.
         self.sc_mock_items = sc_mock_items  # type: str
+        # The source of the rule. Valid values: -custom_fc: The rule is based on a custom function. -system_custom: The rule is based on a system function.
         self.source = source  # type: str
 
     def validate(self):
@@ -2307,19 +2603,39 @@ class AddMockRuleResponseBodyData(TeaModel):
     def __init__(self, account_id=None, consumer_app_id=None, consumer_app_name=None, enable=None, extra_json=None,
                  id=None, mock_type=None, name=None, namespace_id=None, provider_app_id=None, provider_app_name=None,
                  region=None, sc_mock_item_json=None, source=None):
+        # The ID of the Alibaba Cloud account.
         self.account_id = account_id  # type: str
+        # The ID of the consumer application.
         self.consumer_app_id = consumer_app_id  # type: str
+        # The name of the consumer application.
         self.consumer_app_name = consumer_app_name  # type: str
+        # Indicates whether the rule is enabled. 
+        # 
+        # - `true`: enabled 
+        # - `false`: disabled
         self.enable = enable  # type: bool
+        # The description.
         self.extra_json = extra_json  # type: str
+        # The ID of the rule.
         self.id = id  # type: long
+        # The type of the model. Valid values:
+        # 
+        # - `[unk]0[unk]`: desktop client
+        # - `[unk]1[unk]`: mobile client
         self.mock_type = mock_type  # type: long
+        # The name of the rule.
         self.name = name  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The ID of the service provider application.
         self.provider_app_id = provider_app_id  # type: str
+        # The name of the service provider application.
         self.provider_app_name = provider_app_name  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The HTTP mock rule.
         self.sc_mock_item_json = sc_mock_item_json  # type: str
+        # The source.
         self.source = source  # type: str
 
     def validate(self):
@@ -2396,11 +2712,19 @@ class AddMockRuleResponseBodyData(TeaModel):
 
 class AddMockRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: AddMockRuleResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2486,9 +2810,16 @@ class AddMockRuleResponse(TeaModel):
 
 class AddSSLCertRequest(TeaModel):
     def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -2525,11 +2856,20 @@ class AddSSLCertRequest(TeaModel):
 
 class AddSSLCertResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # Indicates whether the association is successful.
         self.data = data  # type: bool
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2614,10 +2954,18 @@ class AddSSLCertResponse(TeaModel):
 class AddSecurityGroupRuleRequest(TeaModel):
     def __init__(self, accept_language=None, description=None, gateway_unique_id=None, port_range=None,
                  security_group_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The description of the rule.
         self.description = description  # type: str
+        # The ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The port range.
         self.port_range = port_range  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -2658,11 +3006,19 @@ class AddSecurityGroupRuleRequest(TeaModel):
 
 class AddSecurityGroupRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2746,9 +3102,13 @@ class AddSecurityGroupRuleResponse(TeaModel):
 
 class AddServiceSourceRequestIngressOptionsRequest(TeaModel):
     def __init__(self, enable_ingress=None, enable_status=None, ingress_class=None, watch_namespace=None):
+        # Specifies whether to enable Ingress.
         self.enable_ingress = enable_ingress  # type: bool
+        # Update the Ingress Status.
         self.enable_status = enable_status  # type: bool
+        # Specifies whether to monitor Ingress classes.
         self.ingress_class = ingress_class  # type: str
+        # The namespace that you want to monitor.
         self.watch_namespace = watch_namespace  # type: str
 
     def validate(self):
@@ -2786,14 +3146,27 @@ class AddServiceSourceRequestIngressOptionsRequest(TeaModel):
 class AddServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list=None,
                  ingress_options_request=None, name=None, path_list=None, source=None, type=None):
+        # The language in which the returned information is displayed. Valid values:
+        # 
+        # - zh-CN: Chinese. This is the default value.
+        # - en-US: English.
+        # - ja: Japanese.
         self.accept_language = accept_language  # type: str
+        # The address of the service.
         self.address = address  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # GroupList.
         self.group_list = group_list  # type: list[str]
+        # The Ingress configuration.
         self.ingress_options_request = ingress_options_request  # type: AddServiceSourceRequestIngressOptionsRequest
+        # The name of the service.
         self.name = name  # type: str
+        # Service root path array.
         self.path_list = path_list  # type: list[str]
+        # The type of the service source.
         self.source = source  # type: str
+        # The service type.
         self.type = type  # type: str
 
     def validate(self):
@@ -2853,14 +3226,27 @@ class AddServiceSourceRequest(TeaModel):
 class AddServiceSourceShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list_shrink=None,
                  ingress_options_request_shrink=None, name=None, path_list_shrink=None, source=None, type=None):
+        # The language in which the returned information is displayed. Valid values:
+        # 
+        # - zh-CN: Chinese. This is the default value.
+        # - en-US: English.
+        # - ja: Japanese.
         self.accept_language = accept_language  # type: str
+        # The address of the service.
         self.address = address  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # GroupList.
         self.group_list_shrink = group_list_shrink  # type: str
+        # The Ingress configuration.
         self.ingress_options_request_shrink = ingress_options_request_shrink  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # Service root path array.
         self.path_list_shrink = path_list_shrink  # type: str
+        # The type of the service source.
         self.source = source  # type: str
+        # The service type.
         self.type = type  # type: str
 
     def validate(self):
@@ -2917,11 +3303,19 @@ class AddServiceSourceShrinkRequest(TeaModel):
 
 class AddServiceSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3005,8 +3399,14 @@ class AddServiceSourceResponse(TeaModel):
 
 class ApplyGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -3039,11 +3439,19 @@ class ApplyGatewayRouteRequest(TeaModel):
 
 class ApplyGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data that indicates whether the operation is successful.
         self.data = data  # type: bool
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3128,12 +3536,22 @@ class ApplyGatewayRouteResponse(TeaModel):
 class ApplyTagPoliciesRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, enable=None, namespace_id=None, region=None, rules=None,
                  source=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # Specifies whether to enable the routing rule.
         self.enable = enable  # type: bool
+        # Optional. The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The details of the routing rule.
         self.rules = rules  # type: str
+        # The source of the routing rule.
         self.source = source  # type: str
 
     def validate(self):
@@ -3183,15 +3601,28 @@ class ApplyTagPoliciesRequest(TeaModel):
 class ApplyTagPoliciesResponseBodyData(TeaModel):
     def __init__(self, carry_data=None, enable=None, id=None, instance_num=None, name=None, rate=None, remove=None,
                  rules=None, status=None, tag=None):
+        # Indicates whether pass-through is enabled.
         self.carry_data = carry_data  # type: bool
+        # Indicates whether the routing rule is enabled. 
+        # 
+        # - `true`: enabled 
+        # - `false`: disabled
         self.enable = enable  # type: bool
+        # The ID of the primary key.
         self.id = id  # type: long
+        # The number of instances.
         self.instance_num = instance_num  # type: int
+        # The name of the routing rule.
         self.name = name  # type: str
+        # The rate.
         self.rate = rate  # type: int
+        # Indicates whether the routing rule is deleted.
         self.remove = remove  # type: bool
+        # The details of the routing rule.
         self.rules = rules  # type: str
+        # The status of the routing rule.
         self.status = status  # type: int
+        # The tag.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -3252,11 +3683,17 @@ class ApplyTagPoliciesResponseBodyData(TeaModel):
 
 class ApplyTagPoliciesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: list[ApplyTagPoliciesResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3349,11 +3786,20 @@ class ApplyTagPoliciesResponse(TeaModel):
 class CloneNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, ids=None, instance_id=None, origin_namespace_id=None, policy=None,
                  target_namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The IDs of configurations.
         self.ids = ids  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the source namespace.
         self.origin_namespace_id = origin_namespace_id  # type: str
+        # The policy used to handle write conflicts.
         self.policy = policy  # type: str
+        # The ID of the destination namespace.
         self.target_namespace_id = target_namespace_id  # type: str
 
     def validate(self):
@@ -3398,7 +3844,9 @@ class CloneNacosConfigRequest(TeaModel):
 
 class CloneNacosConfigResponseBodyDataFailData(TeaModel):
     def __init__(self, data_id=None, group=None):
+        # The data ID.
         self.data_id = data_id  # type: str
+        # The ID of the group.
         self.group = group  # type: str
 
     def validate(self):
@@ -3427,7 +3875,9 @@ class CloneNacosConfigResponseBodyDataFailData(TeaModel):
 
 class CloneNacosConfigResponseBodyDataSkipData(TeaModel):
     def __init__(self, data_id=None, group=None):
+        # The data ID.
         self.data_id = data_id  # type: str
+        # The ID of the group.
         self.group = group  # type: str
 
     def validate(self):
@@ -3456,9 +3906,13 @@ class CloneNacosConfigResponseBodyDataSkipData(TeaModel):
 
 class CloneNacosConfigResponseBodyData(TeaModel):
     def __init__(self, fail_data=None, skip_count=None, skip_data=None, succ_count=None):
+        # The details of the failed configurations.
         self.fail_data = fail_data  # type: list[CloneNacosConfigResponseBodyDataFailData]
+        # The number of skipped operations.
         self.skip_count = skip_count  # type: int
+        # The details of the skipped configurations.
         self.skip_data = skip_data  # type: list[CloneNacosConfigResponseBodyDataSkipData]
+        # The number of successful operations.
         self.succ_count = succ_count  # type: int
 
     def validate(self):
@@ -3513,13 +3967,24 @@ class CloneNacosConfigResponseBodyData(TeaModel):
 class CloneNacosConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: CloneNacosConfigResponseBodyData
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3614,13 +4079,24 @@ class CloneNacosConfigResponse(TeaModel):
 class CreateApplicationRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, region=None,
                  sentinel_enable=None, source=None, switch_enable=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The additional information.
         self.extra_info = extra_info  # type: str
+        # The programming language of the application.
         self.language = language  # type: str
+        # The region to which the application belongs.
         self.region = region  # type: str
+        # Specifies whether to enable the Sentinel-compatible mode.
         self.sentinel_enable = sentinel_enable  # type: str
+        # The service where the application is deployed. A value of ACK indicates Container Service for Kubernetes.
         self.source = source  # type: str
+        # Specifies whether to enable switching.
         self.switch_enable = switch_enable  # type: str
 
     def validate(self):
@@ -3674,16 +4150,30 @@ class CreateApplicationRequest(TeaModel):
 class CreateApplicationResponseBodyData(TeaModel):
     def __init__(self, app_id=None, app_name=None, create_time=None, extra_info=None, language=None,
                  license_key=None, region_id=None, source=None, status=None, update_time=None, user_id=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The time when the application was created.
         self.create_time = create_time  # type: long
+        # The additional information.
         self.extra_info = extra_info  # type: str
+        # The programming language of the application.
         self.language = language  # type: str
+        # The license key in use.
         self.license_key = license_key  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The service where the application is deployed. Valid values: 
+        # 
+        # - ACK: Container Service for Kubernetes 
+        # - Normal: another service
         self.source = source  # type: str
+        # The status of the application. A value of 1 indicates that the application is in a normal state.
         self.status = status  # type: int
+        # The time when the application was last modified.
         self.update_time = update_time  # type: long
+        # The ID of the Alibaba Cloud account.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -3748,11 +4238,20 @@ class CreateApplicationResponseBodyData(TeaModel):
 
 class CreateApplicationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: CreateApplicationResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: str
 
     def validate(self):
@@ -3838,7 +4337,9 @@ class CreateApplicationResponse(TeaModel):
 
 class CreateClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of a tag.
         self.key = key  # type: str
+        # The value of a tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -3870,24 +4371,102 @@ class CreateClusterRequest(TeaModel):
                  connection_type=None, disk_type=None, instance_count=None, instance_name=None, mse_version=None, net_type=None,
                  private_slb_specification=None, pub_network_flow=None, pub_slb_specification=None, region=None, request_pars=None,
                  resource_group_id=None, tag=None, v_switch_id=None, vpc_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The engine specifications. Valid values:
+        # 
+        # \[Professional Edition]
+        # 
+        # *   `MSE_SC_2_4_60_c`: 2 CPU cores and 4 GB of memory
+        # *   `MSE_SC_1_2_60_c`: 1 CPU core and 2 GB of memory
+        # *   `MSE_SC_4_8_60_c`: 4 CPU cores and 8 GB of memory
+        # *   `MSE_SC_8_16_60_c`: 8 CPU cores and 16 GB of memory
+        # *   `MSE_SC_16_32_60_c`: 16 CPU cores and 32 GB of memory
+        # 
+        # \[Developer Edition]
+        # 
+        # *   `MSE_SC_1_2_60_c`: 1 CPU core and 2 GB of memory
+        # *   `MSE_SC_2_4_60_c`: 2 CPU cores and 4 GB of memory
         self.cluster_specification = cluster_specification  # type: str
+        # The type of the instance. Valid values: ZooKeeper and Nacos-Ans.
         self.cluster_type = cluster_type  # type: str
+        # The engine version of the instance. Valid values:
+        # 
+        # \[Professional Edition]
+        # 
+        # *   `NACOS_2_0_0`: Nacos 2.0.0
+        # *   `ZooKeeper_3_8_0`: ZooKeeper 3.8.0
+        # 
+        # \[Developer Edition]
+        # 
+        # *   `NACOS_2_0_0`: Nacos 2.0.0
+        # *   `ZooKeeper_3_8_0`: ZooKeeper 3.8.0
         self.cluster_version = cluster_version  # type: str
+        # The network connection type. Valid values:
+        # 
+        # *   slb
+        # *   eni
         self.connection_type = connection_type  # type: str
+        # The disk type. Valid values:
+        # 
+        # *   alicloud-disk-ssd
+        # *   alicloud-disk-essd-pl1
         self.disk_type = disk_type  # type: str
+        # The number of nodes in the instance. Valid values: 1 to 9.
+        # 
+        # \[Professional Edition]
+        # 
+        # *   The number of nodes in an instance is greater than or equal to 3 and must be an odd number.
+        # 
+        # \[Developer Edition]
+        # 
+        # *   Only one node can be deployed for an instance.
         self.instance_count = instance_count  # type: int
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # Set this parameter unless otherwise specified. Valid values:
+        # 
+        # *   `mse_pro`: Professional Edition
+        # *   `mse_dev`: Developer Edition
         self.mse_version = mse_version  # type: str
+        # The network type of the instance. Valid values:
+        # 
+        # *   `privatenet`: VPC
+        # *   `pubnet`: Internet
         self.net_type = net_type  # type: str
+        # The specifications of the internal-facing SLB instance. Valid values:
+        # 
+        # *   `slb.s1.small`
+        # *   `slb.s3.medium`
         self.private_slb_specification = private_slb_specification  # type: str
+        # The public bandwidth. Unit: Mbit/s.\
+        # Valid values: 0 to 5000. The value 0 indicates no access to the Internet.
         self.pub_network_flow = pub_network_flow  # type: str
+        # The specifications of the Internet-facing Server Load Balancer (SLB) instance. Valid values:
+        # 
+        # *   `slb.s1.small`
+        # *   `slb.s3.medium`
         self.pub_slb_specification = pub_slb_specification  # type: str
+        # The region where the MSE instance resides. Examples:
+        # 
+        # *   `cn-hangzhou`: China (Hangzhou)
+        # *   `cn-beijing`: China (Beijing)
+        # *   `cn-shanghai`: China (Shanghai)
+        # *   `cn-zhangjiakou`: China (Zhangjiakou)
+        # *   `cn-shenzhen`: China (Shenzhen)
         self.region = region  # type: str
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The ID of the resource group. For more information about resource groups, see the topic "View basic information of a resource group."
         self.resource_group_id = resource_group_id  # type: str
+        # The list of the tags that you want to add.
         self.tag = tag  # type: list[CreateClusterRequestTag]
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -3992,11 +4571,20 @@ class CreateClusterRequest(TeaModel):
 
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, instance_id=None, message=None, order_id=None, request_id=None, success=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4081,12 +4669,22 @@ class CreateClusterResponse(TeaModel):
 class CreateEngineNamespaceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None, name=None,
                  service_count=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The description of the namespace.
         self.desc = desc  # type: str
+        # The custom ID of the namespace. If you do not specify this parameter, the automatically generated Universally Unique Identifier (UUID) is returned.
         self.id = id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The display name of the namespace.
         self.name = name  # type: str
+        # The maximum number of services that can run in the namespace.
         self.service_count = service_count  # type: int
 
     def validate(self):
@@ -4136,12 +4734,23 @@ class CreateEngineNamespaceRequest(TeaModel):
 class CreateEngineNamespaceResponseBodyData(TeaModel):
     def __init__(self, config_count=None, namespace=None, namespace_desc=None, namespace_show_name=None, quota=None,
                  service_count=None, type=None):
+        # The number of configurations.
         self.config_count = config_count  # type: int
+        # The ID of the namespace.
         self.namespace = namespace  # type: str
+        # The description of the namespace.
         self.namespace_desc = namespace_desc  # type: str
+        # The display name of the namespace.
         self.namespace_show_name = namespace_show_name  # type: str
+        # The quota of configurations.
         self.quota = quota  # type: int
+        # The number of active services.
         self.service_count = service_count  # type: int
+        # The type of the namespace. Valid values:
+        # 
+        # *   `0`: global configuration
+        # *   `1`: default namespace
+        # *   `2`: custom namespace
         self.type = type  # type: int
 
     def validate(self):
@@ -4190,11 +4799,20 @@ class CreateEngineNamespaceResponseBodyData(TeaModel):
 
 class CreateEngineNamespaceResponseBody(TeaModel):
     def __init__(self, cluster_id=None, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The details of the data.
         self.data = data  # type: CreateEngineNamespaceResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4281,14 +4899,35 @@ class CreateEngineNamespaceResponse(TeaModel):
 class CreateMseServiceApplicationRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, extra_info=None, language=None, mse_version=None,
                  region=None, sentinel_enable=None, source=None, switch_enable=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The additional information.
         self.extra_info = extra_info  # type: str
+        # The programming language of the application.
         self.language = language  # type: str
+        # The edition of the MSE instance that you want to purchase.
+        # 
+        # *   mse_pro: Professional Edition
+        # *   mse_dev: Developer Edition
         self.mse_version = mse_version  # type: str
+        # The ID of the region where the Microservices Engine (MSE) instance resides. Examples:
+        # 
+        # *   cn-hangzhou: China (Hangzhou)
+        # *   cn-beijing: China (Beijing)
+        # *   cn-shanghai: China (Shanghai)
+        # *   cn-zhangjiakou: China (Zhangjiakou)
+        # *   cn-shenzhen: China (Shenzhen)
         self.region = region  # type: str
+        # Specifies whether to enable the Sentinel-compatible mode.
         self.sentinel_enable = sentinel_enable  # type: str
+        # The service source.
         self.source = source  # type: str
+        # Specifies whether to enable switching.
         self.switch_enable = switch_enable  # type: str
 
     def validate(self):
@@ -4346,17 +4985,29 @@ class CreateMseServiceApplicationRequest(TeaModel):
 class CreateMseServiceApplicationResponseBodyData(TeaModel):
     def __init__(self, app_id=None, app_name=None, create_time=None, extra_info=None, language=None,
                  license_key=None, region_id=None, source=None, status=None, update_time=None, user_id=None, version=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The creation time.
         self.create_time = create_time  # type: long
+        # The additional information.
         self.extra_info = extra_info  # type: str
+        # The programming language of the application.
         self.language = language  # type: str
+        # The license key in use.
         self.license_key = license_key  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The type of the service source.
         self.source = source  # type: str
+        # The status.
         self.status = status  # type: int
+        # The time of the last modification.
         self.update_time = update_time  # type: long
+        # The ID of the user.
         self.user_id = user_id  # type: str
+        # The version information.
         self.version = version  # type: str
 
     def validate(self):
@@ -4425,11 +5076,20 @@ class CreateMseServiceApplicationResponseBodyData(TeaModel):
 
 class CreateMseServiceApplicationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: CreateMseServiceApplicationResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -4516,16 +5176,30 @@ class CreateMseServiceApplicationResponse(TeaModel):
 class CreateNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, beta_ips=None, content=None, data_id=None, desc=None,
                  group=None, instance_id=None, namespace_id=None, tags=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The list of IP addresses where the beta release of the configuration is performed.
         self.beta_ips = beta_ips  # type: str
+        # The content of the configuration.
         self.content = content  # type: str
+        # The data ID.
         self.data_id = data_id  # type: str
+        # The description of the configuration.
         self.desc = desc  # type: str
+        # The ID of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The tag of the configuration.
         self.tags = tags  # type: str
+        # The format of the configuration. Supported formats include TEXT, JSON, and XML.
         self.type = type  # type: str
 
     def validate(self):
@@ -4590,11 +5264,20 @@ class CreateNacosConfigRequest(TeaModel):
 
 class CreateNacosConfigResponseBody(TeaModel):
     def __init__(self, code=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4680,16 +5363,27 @@ class CreateNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, enabled=None, ephemeral=None, group_name=None,
                  instance_id=None, ip=None, metadata=None, namespace_id=None, port=None, service_name=None, weight=None):
         self.accept_language = accept_language  # type: str
+        # The name of the Nacos cluster.
         self.cluster_name = cluster_name  # type: str
+        # Specifies whether to enable the service for the instance.
         self.enabled = enabled  # type: bool
+        # Specifies whether to mark the instance as a temporary node.
         self.ephemeral = ephemeral  # type: bool
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The IP address of the Nacos instance.
         self.ip = ip  # type: str
+        # The node metadata of the instance.
         self.metadata = metadata  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The port of the Nacos instance.
         self.port = port  # type: int
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The weight of the instance.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -4758,11 +5452,17 @@ class CreateNacosInstanceRequest(TeaModel):
 
 class CreateNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The message returned.
         self.code = code  # type: int
+        # Indicates whether the request is successful.
         self.data = data  # type: str
+        # The data structure.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.message = message  # type: str
+        # The HTTP status code returned.
         self.request_id = request_id  # type: str
+        # The status code returned.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4847,13 +5547,29 @@ class CreateNacosInstanceResponse(TeaModel):
 class CreateNacosServiceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, ephemeral=None, group_name=None, instance_id=None,
                  namespace_id=None, protect_threshold=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster. This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.cluster_id = cluster_id  # type: str
+        # Specifies whether the instance is a temporary node. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.ephemeral = ephemeral  # type: bool
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The protection threshold.
         self.protect_threshold = protect_threshold  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -4906,11 +5622,20 @@ class CreateNacosServiceRequest(TeaModel):
 
 class CreateNacosServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The data of the node.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4995,15 +5720,25 @@ class CreateNacosServiceResponse(TeaModel):
 class CreateOrUpdateSwimmingLaneRequestEntryRulesRestItems(TeaModel):
     def __init__(self, cond=None, datum=None, divisor=None, name=None, name_list=None, operator=None, rate=None,
                  remainder=None, type=None, value=None):
+        # The expression. =, >, <, >=, <=\
         self.cond = cond  # type: str
+        # The base value used for the rawvalue operator.
         self.datum = datum  # type: str
+        # The divisor used for the mod operator.
         self.divisor = divisor  # type: int
+        # The name of the rule. This parameter corresponds to the key of the type parameter.
         self.name = name  # type: str
+        # The list of names.
         self.name_list = name_list  # type: list[str]
+        # The operator type. Valid values: mod, list, rawvalue, and rate.
         self.operator = operator  # type: str
+        # The rate.
         self.rate = rate  # type: int
+        # The remainder used for the mod operator.
         self.remainder = remainder  # type: int
+        # The type of the rule. Valid values: cookie, param, and header.
         self.type = type  # type: str
+        # The content of the rule.
         self.value = value  # type: str
 
     def validate(self):
@@ -5064,11 +5799,20 @@ class CreateOrUpdateSwimmingLaneRequestEntryRulesRestItems(TeaModel):
 
 class CreateOrUpdateSwimmingLaneRequestEntryRules(TeaModel):
     def __init__(self, condition=None, enable=None, path=None, paths=None, priority=None, rest_items=None):
+        # The common parameters in the JSON format.
         self.condition = condition  # type: str
+        # Specifies whether to enable the rule. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.enable = enable  # type: bool
+        # The path.
         self.path = path  # type: str
+        # The list of paths.
         self.paths = paths  # type: list[str]
+        # The priority. A smaller value of this parameter indicates a higher priority.
         self.priority = priority  # type: int
+        # The information about the rule for the REST method.
         self.rest_items = rest_items  # type: list[CreateOrUpdateSwimmingLaneRequestEntryRulesRestItems]
 
     def validate(self):
@@ -5123,21 +5867,42 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
     def __init__(self, accept_language=None, enable=None, enable_rules=None, entry_rule=None, entry_rules=None,
                  gmt_create=None, gmt_modified=None, group_id=None, id=None, license_key=None, name=None, region_id=None,
                  source=None, status=None, tag=None, user_id=None):
+        # The language of the response. Valid values:****\
+        # 
+        # *   **zh-CN**: Chinese
+        # *   **en-US**: English.
+        # 
+        # > Default value: **zh-CN**.
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable a lane.
         self.enable = enable  # type: bool
+        # Specifies whether to set a routing rule for the lane. If an Ingress gateway is used, this parameter is not required.
         self.enable_rules = enable_rules  # type: bool
+        # json string.
         self.entry_rule = entry_rule  # type: str
+        # SwimmingLane.
         self.entry_rules = entry_rules  # type: list[CreateOrUpdateSwimmingLaneRequestEntryRules]
+        # Optional. The time when the lane was created.
         self.gmt_create = gmt_create  # type: str
+        # Optional. The time when the lane was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The group to which the lane belongs.
         self.group_id = group_id  # type: long
+        # The ID of the primary key. A value -1 specifies a request that is used to create a lane. A value greater than 0 specifies a request that is used to modify a lane.
         self.id = id  # type: long
+        # The license key in use.
         self.license_key = license_key  # type: str
+        # The name of the lane.
         self.name = name  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The service source. Valid value: edasmsc.
         self.source = source  # type: str
+        # The value 0 indicates that the lane is disabled.
         self.status = status  # type: int
+        # The tag.
         self.tag = tag  # type: str
+        # The Alibaba Cloud account. The format is a number, such as 136246975637\*\*\*\*. You can leave this parameter empty.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -5231,13 +5996,24 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
 class CreateOrUpdateSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. The value 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5331,21 +6107,39 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
     def __init__(self, accept_language=None, app_ids=None, db_gray_enable=None, enable=None, entry_app=None,
                  gmt_create=None, gmt_modified=None, id=None, license_key=None, message_queue_filter_side=None,
                  message_queue_gray_enable=None, name=None, region=None, source=None, status=None, user_id=None):
+        # The language of the response. Valid values:
+        # 
+        # zh: Chinese en: English Default value: zh
         self.accept_language = accept_language  # type: str
+        # The IDs of applications. Separate application IDs with commas (,).
         self.app_ids = app_ids  # type: str
+        # Specifies whether to enable database canary release.
         self.db_gray_enable = db_gray_enable  # type: bool
+        # Specifies whether to enable a lane group.
         self.enable = enable  # type: bool
+        # The ingress application.
         self.entry_app = entry_app  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the primary key. The primary key is auto-increment.
         self.id = id  # type: long
+        # The license key in use.
         self.license_key = license_key  # type: str
+        # The side for message filtering when the canary release for messaging feature is enabled.
         self.message_queue_filter_side = message_queue_filter_side  # type: str
+        # Specifies whether to enable canary release for messaging.
         self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
+        # The name.
         self.name = name  # type: str
+        # Region.
         self.region = region  # type: str
+        # The service source. Set the value to edasmsc.
         self.source = source  # type: str
+        # The status of the lane group. The value 0 indicates that the lane group is disabled. The value 1 indicates that the lane group is enabled.
         self.status = status  # type: int
+        # The Alibaba Cloud account. The value is a number, such as 136246\*\*\*\*\*\*809. You can leave this parameter empty.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -5431,13 +6225,23 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
 class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. The value 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # true: The request was successful. false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5529,9 +6333,16 @@ class CreateOrUpdateSwimmingLaneGroupResponse(TeaModel):
 
 class CreateZnodeRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, data=None, path=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The data of the node.
         self.data = data  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -5568,9 +6379,15 @@ class CreateZnodeRequest(TeaModel):
 
 class CreateZnodeResponseBodyData(TeaModel):
     def __init__(self, data=None, dir=None, name=None, path=None):
+        # The data of the node.
         self.data = data  # type: str
+        # Indicates whether the node directory information is returned. Valid values:
+        # - `true`: The information is returned. 
+        # - `false`: The information fails to be returned.
         self.dir = dir  # type: bool
+        # The name of the node.
         self.name = name  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -5607,11 +6424,19 @@ class CreateZnodeResponseBodyData(TeaModel):
 
 class CreateZnodeResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: CreateZnodeResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5697,8 +6522,14 @@ class CreateZnodeResponse(TeaModel):
 
 class DeleteAuthResourceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the authorization record.
         self.id = id  # type: long
 
     def validate(self):
@@ -5732,15 +6563,25 @@ class DeleteAuthResourceRequest(TeaModel):
 class DeleteAuthResourceResponseBodyData(TeaModel):
     def __init__(self, auth_id=None, domain_id=None, domain_name=None, gateway_id=None, gateway_unique_id=None,
                  gmt_create=None, gmt_modified=None, id=None, is_white=None, path=None):
+        # The ID of the authorization record.
         self.auth_id = auth_id  # type: long
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the primary key.
         self.id = id  # type: long
+        # Indicates whether the whitelist mode is enabled.
         self.is_white = is_white  # type: bool
+        # The path.
         self.path = path  # type: str
 
     def validate(self):
@@ -5801,11 +6642,20 @@ class DeleteAuthResourceResponseBodyData(TeaModel):
 
 class DeleteAuthResourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: DeleteAuthResourceResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5891,7 +6741,12 @@ class DeleteAuthResourceResponse(TeaModel):
 
 class DeleteClusterRequest(TeaModel):
     def __init__(self, accept_language=None, instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -5920,10 +6775,17 @@ class DeleteClusterRequest(TeaModel):
 
 class DeleteClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6003,9 +6865,16 @@ class DeleteClusterResponse(TeaModel):
 
 class DeleteEngineNamespaceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the namespace.
         self.id = id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -6042,10 +6911,17 @@ class DeleteEngineNamespaceRequest(TeaModel):
 
 class DeleteEngineNamespaceResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6126,7 +7002,9 @@ class DeleteEngineNamespaceResponse(TeaModel):
 class DeleteGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None):
         self.accept_language = accept_language  # type: str
+        # Specifies whether to delete the Server Load Balancer (SLB) instance purchased for the gateway.
         self.delete_slb = delete_slb  # type: bool
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -6160,18 +7038,42 @@ class DeleteGatewayRequest(TeaModel):
 class DeleteGatewayResponseBodyData(TeaModel):
     def __init__(self, gateway_unique_id=None, gmt_create=None, gmt_modified=None, id=None, name=None,
                  primary_user=None, region=None, replica=None, security_group=None, spec=None, status=None, vpc=None, vswitch=None):
+        # The name of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The number of gateway replicas.
         self.gmt_create = gmt_create  # type: str
+        # The time when the gateway was created.
         self.gmt_modified = gmt_modified  # type: str
+        # The details of the data.
         self.id = id  # type: long
+        # The ID of the primary key.
         self.name = name  # type: str
+        # The ID of the region.
         self.primary_user = primary_user  # type: str
+        # The unique ID of the gateway. It is an identifier automatically generated by the system.
         self.region = region  # type: str
+        # The instance type of the gateway.
         self.replica = replica  # type: int
+        # The ID of the vSwitch.
         self.security_group = security_group  # type: str
+        # The ID of the security group.
         self.spec = spec  # type: str
+        # The information about the user.
         self.status = status  # type: int
+        # The status of the gateway. Valid values:
+        # 0: The gateway is being created.
+        # 1: The gateway fails to be created.
+        # 2: The gateway is running.
+        # 3: The gateway is changing.
+        # 4: The gateway is scaling down.
+        # 6: The gateway is scaling up.
+        # 8: The gateway is being deleted.
+        # 10: The gateway is restarting.
+        # 11: The gateway is being recreated.
+        # 12: The gateway is updating.
+        # 13: The gateway fails to be updated.
         self.vpc = vpc  # type: str
+        # The ID of the virtual private cloud (VPC) where the gateway resides.
         self.vswitch = vswitch  # type: str
 
     def validate(self):
@@ -6244,11 +7146,20 @@ class DeleteGatewayResponseBodyData(TeaModel):
 
 class DeleteGatewayResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The request is processed successfully.
         self.code = code  # type: int
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.data = data  # type: DeleteGatewayResponseBodyData
+        # The ID of the request.
         self.http_status_code = http_status_code  # type: int
+        # The HTTP status code returned.
         self.message = message  # type: str
+        # The data structure.
         self.request_id = request_id  # type: str
+        # The status code returned. A value of 200 indicates that the request is successful. Other values indicate that the request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6335,7 +7246,9 @@ class DeleteGatewayResponse(TeaModel):
 class DeleteGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the domain name.
         self.id = id  # type: str
 
     def validate(self):
@@ -6369,14 +7282,23 @@ class DeleteGatewayDomainRequest(TeaModel):
 class DeleteGatewayDomainResponseBodyData(TeaModel):
     def __init__(self, cert_identifier=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
                  gmt_modified=None, id=None, must_https=None, name=None, protocol=None):
+        # Indicates whether HTTP probing is allowed.
         self.cert_identifier = cert_identifier  # type: str
+        # The unique ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The name of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the certificate.
         self.gmt_create = gmt_create  # type: str
+        # The time when the domain name was added.
         self.gmt_modified = gmt_modified  # type: str
+        # The returned data.
         self.id = id  # type: long
+        # The protocol used by the gateway.
         self.must_https = must_https  # type: bool
+        # The ID of the domain name.
         self.name = name  # type: str
+        # The ID of the gateway.
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -6433,11 +7355,19 @@ class DeleteGatewayDomainResponseBodyData(TeaModel):
 
 class DeleteGatewayDomainResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The error message returned if the request fails.
         self.code = code  # type: int
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.data = data  # type: DeleteGatewayDomainResponseBodyData
+        # The ID of the request.
         self.http_status_code = http_status_code  # type: int
+        # The HTTP status code returned.
         self.message = message  # type: str
+        # The data structure.
         self.request_id = request_id  # type: str
+        # The status code returned.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6523,8 +7453,14 @@ class DeleteGatewayDomainResponse(TeaModel):
 
 class DeleteGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -6558,15 +7494,25 @@ class DeleteGatewayRouteRequest(TeaModel):
 class DeleteGatewayRouteResponseBodyData(TeaModel):
     def __init__(self, default_service_id=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
                  gmt_modified=None, id=None, name=None, predicates=None, route_order=None, status=None):
+        # The ID of the default service.
         self.default_service_id = default_service_id  # type: long
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the route was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the route was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # ID.
         self.id = id  # type: long
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rules of the route.
         self.predicates = predicates  # type: str
+        # The sequence number of the route.
         self.route_order = route_order  # type: int
+        # The status of the route.
         self.status = status  # type: int
 
     def validate(self):
@@ -6627,11 +7573,19 @@ class DeleteGatewayRouteResponseBodyData(TeaModel):
 
 class DeleteGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: DeleteGatewayRouteResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6717,9 +7671,16 @@ class DeleteGatewayRouteResponse(TeaModel):
 
 class DeleteGatewayServiceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, service_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
 
     def validate(self):
@@ -6758,18 +7719,31 @@ class DeleteGatewayServiceResponseBodyData(TeaModel):
     def __init__(self, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None, group_name=None,
                  id=None, ips=None, meta_info=None, name=None, namespace=None, service_name_in_registry=None,
                  source_id=None, source_type=None):
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the service was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the domain name was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the service.
         self.id = id  # type: long
+        # IP
         self.ips = ips  # type: list[str]
+        # The basic information about the service.
         self.meta_info = meta_info  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace in which the service resides.
         self.namespace = namespace  # type: str
+        # The name of the service registered with the service registry.
         self.service_name_in_registry = service_name_in_registry  # type: str
+        # The source ID of the service.
         self.source_id = source_id  # type: long
+        # The source type of the service.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -6842,11 +7816,20 @@ class DeleteGatewayServiceResponseBodyData(TeaModel):
 
 class DeleteGatewayServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: DeleteGatewayServiceResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6933,8 +7916,11 @@ class DeleteGatewayServiceResponse(TeaModel):
 class DeleteGatewayServiceVersionRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The version of the service.
         self.service_version = service_version  # type: str
 
     def validate(self):
@@ -6971,11 +7957,23 @@ class DeleteGatewayServiceVersionRequest(TeaModel):
 
 class DeleteGatewayServiceVersionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned, such as the "TaskId not found" message.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7059,9 +8057,16 @@ class DeleteGatewayServiceVersionResponse(TeaModel):
 
 class DeleteGatewaySlbRequest(TeaModel):
     def __init__(self, accept_language=None, delete_slb=None, gateway_unique_id=None, id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to delete the SLB instance purchased for the gateway when you delete the gateway.
         self.delete_slb = delete_slb  # type: bool
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the associated record.
         self.id = id  # type: str
 
     def validate(self):
@@ -7098,11 +8103,23 @@ class DeleteGatewaySlbRequest(TeaModel):
 
 class DeleteGatewaySlbResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The deletion result.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7187,11 +8204,23 @@ class DeleteGatewaySlbResponse(TeaModel):
 class DeleteNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, beta=None, data_id=None, group=None, instance_id=None,
                  namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to perform a beta release. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.beta = beta  # type: bool
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The type of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -7236,11 +8265,20 @@ class DeleteNacosConfigRequest(TeaModel):
 
 class DeleteNacosConfigResponseBody(TeaModel):
     def __init__(self, code=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7324,9 +8362,16 @@ class DeleteNacosConfigResponse(TeaModel):
 
 class DeleteNacosConfigsRequest(TeaModel):
     def __init__(self, accept_language=None, ids=None, instance_id=None, namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The IDs of configurations.
         self.ids = ids  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -7363,11 +8408,20 @@ class DeleteNacosConfigsRequest(TeaModel):
 
 class DeleteNacosConfigsResponseBody(TeaModel):
     def __init__(self, code=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7452,14 +8506,29 @@ class DeleteNacosConfigsResponse(TeaModel):
 class DeleteNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, ephemeral=None, group_name=None, instance_id=None,
                  ip=None, namespace_id=None, port=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The name of the instance.
         self.cluster_name = cluster_name  # type: str
+        # Specifies whether the instance is a temporary node. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.ephemeral = ephemeral  # type: bool
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The IP address of the instance.
         self.ip = ip  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The port number of the instance.
         self.port = port  # type: int
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -7517,13 +8586,24 @@ class DeleteNacosInstanceRequest(TeaModel):
 class DeleteNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. The value 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The data of the node.
         self.data = data  # type: str
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7616,10 +8696,18 @@ class DeleteNacosInstanceResponse(TeaModel):
 class DeleteNacosServiceRequest(TeaModel):
     def __init__(self, accept_language=None, group_name=None, instance_id=None, namespace_id=None,
                  service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -7660,11 +8748,20 @@ class DeleteNacosServiceRequest(TeaModel):
 
 class DeleteNacosServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The deletion result.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7748,8 +8845,14 @@ class DeleteNacosServiceResponse(TeaModel):
 
 class DeleteSecurityGroupRuleRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the security group rule.
         self.id = id  # type: long
 
     def validate(self):
@@ -7783,14 +8886,34 @@ class DeleteSecurityGroupRuleRequest(TeaModel):
 class DeleteSecurityGroupRuleResponseBodyData(TeaModel):
     def __init__(self, description=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
                  gmt_modified=None, id=None, ip_protocol=None, port_range=None, security_group_id=None):
+        # The description.
         self.description = description  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the security group rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the security group rule was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # ID.
         self.id = id  # type: long
+        # The transport layer protocol. The value of this parameter is case-insensitive. Valid values: 
+        #          
+        # - icmp
+        # - gre
+        # - tcp
+        # - udp
+        # - all: All protocols are supported.
         self.ip_protocol = ip_protocol  # type: str
+        # The range of destination ports that correspond to the transport layer protocol. Valid values: 
+        #          
+        # - When the value of the IpProtocol parameter is tcp or udp, the port number range is 1 to 65535. The start port number and the end port number are separated by a forward slash (/). Example: 1/200.
+        # - When the value of the IpProtocol parameter is icmp, the port number range is -1/-1, which indicates all ports.
+        # - When the value of the IpProtocol parameter is gre, the port number range is -1/-1, which indicates all ports.
+        # - When the value of the IpProtocol parameter is all, the port number range is -1/-1, which indicates all ports.
         self.port_range = port_range  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -7847,11 +8970,19 @@ class DeleteSecurityGroupRuleResponseBodyData(TeaModel):
 
 class DeleteSecurityGroupRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: DeleteSecurityGroupRuleResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7938,7 +9069,9 @@ class DeleteSecurityGroupRuleResponse(TeaModel):
 class DeleteServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, source_id=None):
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service source.
         self.source_id = source_id  # type: long
 
     def validate(self):
@@ -7971,10 +9104,17 @@ class DeleteServiceSourceRequest(TeaModel):
 
 class DeleteServiceSourceResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8054,7 +9194,12 @@ class DeleteServiceSourceResponse(TeaModel):
 
 class DeleteSwimmingLaneRequest(TeaModel):
     def __init__(self, accept_language=None, lane_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane.
         self.lane_id = lane_id  # type: long
 
     def validate(self):
@@ -8084,13 +9229,24 @@ class DeleteSwimmingLaneRequest(TeaModel):
 class DeleteSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8182,7 +9338,12 @@ class DeleteSwimmingLaneResponse(TeaModel):
 
 class DeleteSwimmingLaneGroupRequest(TeaModel):
     def __init__(self, accept_language=None, group_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane group.
         self.group_id = group_id  # type: long
 
     def validate(self):
@@ -8212,13 +9373,23 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
 class DeleteSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8310,9 +9481,16 @@ class DeleteSwimmingLaneGroupResponse(TeaModel):
 
 class DeleteZnodeRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, path=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The path of the node.
         self.path = path  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -8349,9 +9527,15 @@ class DeleteZnodeRequest(TeaModel):
 
 class DeleteZnodeResponseBodyData(TeaModel):
     def __init__(self, data=None, dir=None, name=None, path=None):
+        # The data of the node.
         self.data = data  # type: str
+        # Indicates whether the node directory information is returned. Valid values:
+        # - `true`: The information is returned. 
+        # - `false`: The information fails to be returned.
         self.dir = dir  # type: bool
+        # The name of the node.
         self.name = name  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -8388,11 +9572,19 @@ class DeleteZnodeResponseBodyData(TeaModel):
 
 class DeleteZnodeResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: DeleteZnodeResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8479,12 +9671,22 @@ class DeleteZnodeResponse(TeaModel):
 class ExportNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, data_id=None, group=None, ids=None, instance_id=None,
                  namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The data ID.
         self.data_id = data_id  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The IDs of configurations.
         self.ids = ids  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -8533,6 +9735,7 @@ class ExportNacosConfigRequest(TeaModel):
 
 class ExportNacosConfigResponseBodyData(TeaModel):
     def __init__(self, url=None):
+        # The URL used to download the exported configurations.
         self.url = url  # type: str
 
     def validate(self):
@@ -8558,13 +9761,24 @@ class ExportNacosConfigResponseBodyData(TeaModel):
 class ExportNacosConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: ExportNacosConfigResponseBodyData
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8658,8 +9872,20 @@ class ExportNacosConfigResponse(TeaModel):
 
 class GetAppMessageQueueRouteRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, region=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The region where the cluster resides. Examples:
+        # 
+        # *   `cn-hangzhou`: China (Hangzhou)
+        # *   `cn-beijing`: China (Beijing)
+        # *   `cn-shanghai`: China (Shanghai)
+        # *   `cn-zhangjiakou`: China (Zhangjiakou)
+        # *   `cn-shenzhen`: China (Shenzhen)
         self.region = region  # type: str
 
     def validate(self):
@@ -8692,10 +9918,18 @@ class GetAppMessageQueueRouteRequest(TeaModel):
 
 class GetAppMessageQueueRouteResponseBodyData(TeaModel):
     def __init__(self, app_id=None, enable=None, filter_side=None, region=None, tags=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # Indicates whether the canary release for messaging feature is enabled.
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.enable = enable  # type: bool
+        # The side for message filtering when the canary release for messaging feature is enabled.
         self.filter_side = filter_side  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The tags used to ignore message consumption for nodes in untagged environments.
         self.tags = tags  # type: list[str]
 
     def validate(self):
@@ -8736,11 +9970,20 @@ class GetAppMessageQueueRouteResponseBodyData(TeaModel):
 
 class GetAppMessageQueueRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GetAppMessageQueueRouteResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values: true and false. The value true indicates that the request was successful. The value false indicates that the request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8827,15 +10070,28 @@ class GetAppMessageQueueRouteResponse(TeaModel):
 class GetApplicationListRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, app_name=None, language=None, page_number=None,
                  page_size=None, region=None, sentinel_enable=None, source=None, switch_enable=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The programming language of the application, such as Java and Go.
         self.language = language  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The region ID.
         self.region = region  # type: str
+        # Specifies whether to enable the Sentinel-compatible mode.
         self.sentinel_enable = sentinel_enable  # type: bool
+        # The source of the application. The value is fixed as edasmsc.
         self.source = source  # type: str
+        # Specifies whether to enable switching.
         self.switch_enable = switch_enable  # type: bool
 
     def validate(self):
@@ -8897,15 +10153,25 @@ class GetApplicationListRequest(TeaModel):
 class GetApplicationListResponseBodyDataResult(TeaModel):
     def __init__(self, app_id=None, app_name=None, extra_info=None, instances_number=None, language=None,
                  license_key=None, region_id=None, source=None, status=None, user_id=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The additional information.
         self.extra_info = extra_info  # type: str
+        # The number of instances.
         self.instances_number = instances_number  # type: int
+        # The programming language of the application.
         self.language = language  # type: str
+        # The license key in use.
         self.license_key = license_key  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The source of the application.
         self.source = source  # type: str
+        # The status.
         self.status = status  # type: long
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -8966,9 +10232,13 @@ class GetApplicationListResponseBodyDataResult(TeaModel):
 
 class GetApplicationListResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The returned information.
         self.result = result  # type: list[GetApplicationListResponseBodyDataResult]
+        # The total number of entries returned.
         self.total_size = total_size  # type: int
 
     def validate(self):
@@ -9013,11 +10283,20 @@ class GetApplicationListResponseBodyData(TeaModel):
 
 class GetApplicationListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: GetApplicationListResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9162,6 +10441,7 @@ class GetApplicationListWithMetircsResponseBodyDataResultCurMetrics(TeaModel):
         self.exp_qps = exp_qps  # type: float
         self.pass_qps = pass_qps  # type: float
         self.qps = qps  # type: float
+        # Rt。
         self.rt = rt  # type: float
         self.thread = thread  # type: float
         self.timestamp = timestamp  # type: long
@@ -9215,7 +10495,9 @@ class GetApplicationListWithMetircsResponseBodyDataResultCurMetricsFm(TeaModel):
         self.block_qps = block_qps  # type: float
         self.exp_qps = exp_qps  # type: float
         self.pass_qps = pass_qps  # type: float
+        # QPS。
         self.qps = qps  # type: float
+        # Rt。
         self.rt = rt  # type: float
         self.thread = thread  # type: float
         self.timestamp = timestamp  # type: long
@@ -9500,10 +10782,18 @@ class GetApplicationListWithMetircsResponse(TeaModel):
 
 class GetBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, is_white=None, resource_type=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # Specifies whether to query the whitelist.
         self.is_white = is_white  # type: bool
+        # The type of the resource.
         self.resource_type = resource_type  # type: str
+        # The type of the blacklist or whitelist.
         self.type = type  # type: str
 
     def validate(self):
@@ -9545,16 +10835,27 @@ class GetBlackWhiteListRequest(TeaModel):
 class GetBlackWhiteListResponseBodyData(TeaModel):
     def __init__(self, content=None, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None,
                  id=None, is_white=None, resource_id=None, resource_type=None, status=None, type=None):
+        # The content of the blacklist.
         self.content = content  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the blacklist or whitelist was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the blacklist or whitelist was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # ID.
         self.id = id  # type: long
+        # Indicates whether the whitelist is queried.
         self.is_white = is_white  # type: bool
+        # The ID of the resource.
         self.resource_id = resource_id  # type: long
+        # The type of the resource.
         self.resource_type = resource_type  # type: str
+        # The status of the blacklist or whitelist.
         self.status = status  # type: str
+        # The type of the blacklist or whitelist.
         self.type = type  # type: str
 
     def validate(self):
@@ -9619,11 +10920,19 @@ class GetBlackWhiteListResponseBodyData(TeaModel):
 
 class GetBlackWhiteListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: GetBlackWhiteListResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9709,9 +11018,16 @@ class GetBlackWhiteListResponse(TeaModel):
 
 class GetEngineNamepaceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, id=None, instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the namespace.
         self.id = id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -9749,16 +11065,33 @@ class GetEngineNamepaceRequest(TeaModel):
 class GetEngineNamepaceResponseBody(TeaModel):
     def __init__(self, config_count=None, error_code=None, http_code=None, message=None, namespace=None,
                  namespace_desc=None, namespace_show_name=None, quota=None, request_id=None, success=None, type=None):
+        # The number of configurations.
         self.config_count = config_count  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The description of the namespace.
         self.namespace_desc = namespace_desc  # type: str
+        # The display name of the namespace.
         self.namespace_show_name = namespace_show_name  # type: str
+        # The quota of configurations.
         self.quota = quota  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The type of the namespace. Valid values:
+        # 
+        # - 0: global configuration                                 
+        # - 1: default namespace                                 
+        # - 2: custom namespace
         self.type = type  # type: str
 
     def validate(self):
@@ -9862,7 +11195,12 @@ class GetEngineNamepaceResponse(TeaModel):
 
 class GetGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -9891,8 +11229,11 @@ class GetGatewayRequest(TeaModel):
 
 class GetGatewayResponseBodyDataLogConfigDetails(TeaModel):
     def __init__(self, log_enabled=None, log_store_name=None, project_name=None):
+        # Indicates whether log shipping is enabled.
         self.log_enabled = log_enabled  # type: bool
+        # The name of the Logstore.
         self.log_store_name = log_store_name  # type: str
+        # The name of the project.
         self.project_name = project_name  # type: str
 
     def validate(self):
@@ -9925,7 +11266,9 @@ class GetGatewayResponseBodyDataLogConfigDetails(TeaModel):
 
 class GetGatewayResponseBodyDataXtraceDetails(TeaModel):
     def __init__(self, sample=None, trace_on=None):
+        # The sampling rate of Tracing Analysis.
         self.sample = sample  # type: int
+        # Indicates whether sampling by using Tracing Analysis is enabled.
         self.trace_on = trace_on  # type: bool
 
     def validate(self):
@@ -9957,27 +11300,49 @@ class GetGatewayResponseBodyData(TeaModel):
                  id=None, instance_id=None, log_config_details=None, mse_tag=None, name=None, primary_user=None,
                  region=None, replica=None, resource_group_id=None, security_group=None, spec=None, status=None,
                  status_desc=None, vpc=None, vswitch=None, vswitch_2=None, xtrace_details=None):
+        # The billing method, such as subscription or pay-as-you-go.
         self.charge_type = charge_type  # type: str
+        # The time when the gateway expires.
         self.end_date = end_date  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the gateway was created. The time is displayed in GMT. The time is the local time of the region in which the gateway resides.
         self.gmt_create = gmt_create  # type: str
+        # The time when the gateway was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the gateway.
         self.id = id  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The log configuration.
         self.log_config_details = log_config_details  # type: GetGatewayResponseBodyDataLogConfigDetails
+        # The tag of the instance.
         self.mse_tag = mse_tag  # type: str
+        # The name of the gateway.
         self.name = name  # type: str
+        # The Alibaba Cloud account ID of the user who created the gateway.
         self.primary_user = primary_user  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The number of gateway replicas.
         self.replica = replica  # type: int
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the security group.
         self.security_group = security_group  # type: str
+        # The specifications of the gateway.
         self.spec = spec  # type: str
+        # The status of the gateway. Valid values: 0: The gateway is being created. 1: The gateway fails to be created. 2: The gateway is running. 3: The gateway is changing. 4: The gateway is scaling down. 6: The gateway is scaling up. 8: The gateway is being deleted. 10: The gateway is restarting. 11: The gateway is being rebuilt. 12: The gateway is updating. 13: The gateway fails to be updated.
         self.status = status  # type: int
+        # The description of the status.
         self.status_desc = status_desc  # type: str
+        # The ID of the VPC.
         self.vpc = vpc  # type: str
+        # The ID of the vSwitch.
         self.vswitch = vswitch  # type: str
+        # The ID of the secondary vSwitch.
         self.vswitch_2 = vswitch_2  # type: str
+        # The details of Tracing Analysis.
         self.xtrace_details = xtrace_details  # type: GetGatewayResponseBodyDataXtraceDetails
 
     def validate(self):
@@ -10091,11 +11456,20 @@ class GetGatewayResponseBodyData(TeaModel):
 
 class GetGatewayResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The information about the gateway.
         self.data = data  # type: GetGatewayResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10181,8 +11555,14 @@ class GetGatewayResponse(TeaModel):
 
 class GetGatewayDomainDetailRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the domain name.
         self.id = id  # type: str
 
     def validate(self):
@@ -10218,26 +11598,51 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
                  common_name=None, gateway_id=None, gateway_unique_id=None, gmt_after=None, gmt_before=None, gmt_create=None,
                  gmt_modified=None, http_2=None, id=None, issuer=None, must_https=None, name=None, protocol=None, sans=None,
                  tls_max=None, tls_min=None):
+        # The start time.
         self.after_date = after_date  # type: long
+        # The algorithm.
         self.algorithm = algorithm  # type: str
+        # The expiration time.
         self.before_date = before_date  # type: long
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The name of the certificate.
         self.cert_name = cert_name  # type: str
+        # The public domain name.
         self.common_name = common_name  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The start time.
         self.gmt_after = gmt_after  # type: str
+        # The expiration time.
         self.gmt_before = gmt_before  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # Indicates whether `HTTP/2` is enabled.
+        # 
+        # *   `open`: `HTTP/2` is enabled.
+        # *   `close`: `HTTP/2` is disabled.
+        # *   `globalConfig`: Global configurations are used.
         self.http_2 = http_2  # type: str
+        # ID.
         self.id = id  # type: long
+        # The issuer.
         self.issuer = issuer  # type: str
+        # Indicates whether HTTPS is forcibly used.
         self.must_https = must_https  # type: bool
+        # The domain name.
         self.name = name  # type: str
+        # The protocol of the gateway.
         self.protocol = protocol  # type: str
+        # The name of the extended field.
         self.sans = sans  # type: str
+        # The maximum version of Transport Layer Security (TLS).
         self.tls_max = tls_max  # type: str
+        # The minimum version of TLS.
         self.tls_min = tls_min  # type: str
 
     def validate(self):
@@ -10342,11 +11747,20 @@ class GetGatewayDomainDetailResponseBodyData(TeaModel):
 
 class GetGatewayDomainDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GetGatewayDomainDetailResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10432,8 +11846,14 @@ class GetGatewayDomainDetailResponse(TeaModel):
 
 class GetGatewayOptionRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -10466,11 +11886,23 @@ class GetGatewayOptionRequest(TeaModel):
 
 class GetGatewayOptionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. The value 200 indicates that the request is successfully processed.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GatewayOption
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned, such as the "TaskId not found" message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10556,8 +11988,14 @@ class GetGatewayOptionResponse(TeaModel):
 
 class GetGatewayRouteDetailRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.route_id = route_id  # type: long
 
     def validate(self):
@@ -10591,13 +12029,21 @@ class GetGatewayRouteDetailRequest(TeaModel):
 class GetGatewayRouteDetailResponseBodyDataCors(TeaModel):
     def __init__(self, allow_credentials=None, allow_headers=None, allow_methods=None, allow_origins=None,
                  expose_headers=None, status=None, time_unit=None, unit_num=None):
+        # The credentials allowed.
         self.allow_credentials = allow_credentials  # type: bool
+        # The headers allowed.
         self.allow_headers = allow_headers  # type: str
+        # The methods allowed.
         self.allow_methods = allow_methods  # type: str
+        # The origins allowed.
         self.allow_origins = allow_origins  # type: str
+        # The response headers.
         self.expose_headers = expose_headers  # type: str
+        # The status.
         self.status = status  # type: str
+        # The time unit.
         self.time_unit = time_unit  # type: str
+        # The unit number.
         self.unit_num = unit_num  # type: long
 
     def validate(self):
@@ -10650,7 +12096,9 @@ class GetGatewayRouteDetailResponseBodyDataCors(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataDirectResponse(TeaModel):
     def __init__(self, body=None, code=None):
+        # The mock return value.
         self.body = body  # type: str
+        # The response code returned.
         self.code = code  # type: int
 
     def validate(self):
@@ -10680,15 +12128,25 @@ class GetGatewayRouteDetailResponseBodyDataDirectResponse(TeaModel):
 class GetGatewayRouteDetailResponseBodyDataFallbackServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
                  service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The name.
         self.name = name  # type: str
+        # The namespace to which the service belongs.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The service port.
         self.service_port = service_port  # type: int
+        # The type of the service source.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -10749,11 +12207,17 @@ class GetGatewayRouteDetailResponseBodyDataFallbackServices(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataHTTPRewrite(TeaModel):
     def __init__(self, host=None, path=None, path_type=None, pattern=None, status=None, substitution=None):
+        # The hostname of the gateway.
         self.host = host  # type: str
+        # The path of the node.
         self.path = path  # type: str
+        # The rewrite type.
         self.path_type = path_type  # type: str
+        # The matching pattern.
         self.pattern = pattern  # type: str
+        # The status of the policy.
         self.status = status  # type: str
+        # The replacement.
         self.substitution = substitution  # type: str
 
     def validate(self):
@@ -10798,9 +12262,13 @@ class GetGatewayRouteDetailResponseBodyDataHTTPRewrite(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataHeaderOpHeaderOpItems(TeaModel):
     def __init__(self, direction_type=None, key=None, op_type=None, value=None):
+        # The request or response.
         self.direction_type = direction_type  # type: str
+        # Header Key.
         self.key = key  # type: str
+        # The operation type.
         self.op_type = op_type  # type: str
+        # The header value.
         self.value = value  # type: str
 
     def validate(self):
@@ -10837,7 +12305,9 @@ class GetGatewayRouteDetailResponseBodyDataHeaderOpHeaderOpItems(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataHeaderOp(TeaModel):
     def __init__(self, header_op_items=None, status=None):
+        # The information about headers.
         self.header_op_items = header_op_items  # type: list[GetGatewayRouteDetailResponseBodyDataHeaderOpHeaderOpItems]
+        # The status.
         self.status = status  # type: str
 
     def validate(self):
@@ -10874,8 +12344,11 @@ class GetGatewayRouteDetailResponseBodyDataHeaderOp(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataRedirect(TeaModel):
     def __init__(self, code=None, host=None, path=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The hostname.
         self.host = host  # type: str
+        # The path.
         self.path = path  # type: str
 
     def validate(self):
@@ -10908,9 +12381,13 @@ class GetGatewayRouteDetailResponseBodyDataRedirect(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataRetry(TeaModel):
     def __init__(self, attempts=None, http_codes=None, retry_on=None, status=None):
+        # The number of retries allowed.
         self.attempts = attempts  # type: int
+        # The HTTP status code.
         self.http_codes = http_codes  # type: list[str]
+        # The retry condition.
         self.retry_on = retry_on  # type: list[str]
+        # The retry status.
         self.status = status  # type: str
 
     def validate(self):
@@ -10947,8 +12424,11 @@ class GetGatewayRouteDetailResponseBodyDataRetry(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataRoutePredicatesHeaderPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key of the request header.
         self.key = key  # type: str
+        # The type.
         self.type = type  # type: str
+        # The value of the request header.
         self.value = value  # type: str
 
     def validate(self):
@@ -10981,8 +12461,11 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicatesHeaderPredicates(TeaMo
 
 class GetGatewayRouteDetailResponseBodyDataRoutePredicatesPathPredicates(TeaModel):
     def __init__(self, ignore_case=None, path=None, type=None):
+        # Indicates whether case sensitivity is ignored.
         self.ignore_case = ignore_case  # type: bool
+        # The path.
         self.path = path  # type: str
+        # The matching type.
         self.type = type  # type: str
 
     def validate(self):
@@ -11015,8 +12498,11 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicatesPathPredicates(TeaMode
 
 class GetGatewayRouteDetailResponseBodyDataRoutePredicatesQueryPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The name of the parameter.
         self.key = key  # type: str
+        # The type.
         self.type = type  # type: str
+        # The value of the parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -11049,9 +12535,13 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicatesQueryPredicates(TeaMod
 
 class GetGatewayRouteDetailResponseBodyDataRoutePredicates(TeaModel):
     def __init__(self, header_predicates=None, method_predicates=None, path_predicates=None, query_predicates=None):
+        # The information about header matching.
         self.header_predicates = header_predicates  # type: list[GetGatewayRouteDetailResponseBodyDataRoutePredicatesHeaderPredicates]
+        # The information about method matching.
         self.method_predicates = method_predicates  # type: list[str]
+        # The information about route matching.
         self.path_predicates = path_predicates  # type: GetGatewayRouteDetailResponseBodyDataRoutePredicatesPathPredicates
+        # The information about parameter matching.
         self.query_predicates = query_predicates  # type: list[GetGatewayRouteDetailResponseBodyDataRoutePredicatesQueryPredicates]
 
     def validate(self):
@@ -11109,15 +12599,25 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicates(TeaModel):
 class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
                  service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The weight.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The service port.
         self.service_port = service_port  # type: int
+        # The source type of the service.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -11178,8 +12678,11 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyDataTimeout(TeaModel):
     def __init__(self, status=None, time_unit=None, unit_num=None):
+        # The status.
         self.status = status  # type: str
+        # The time unit.
         self.time_unit = time_unit  # type: str
+        # The unit number.
         self.unit_num = unit_num  # type: int
 
     def validate(self):
@@ -11217,35 +12720,72 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
                  gateway_unique_id=None, gmt_create=None, gmt_modified=None, httprewrite=None, header_op=None, id=None, name=None,
                  predicates=None, redirect=None, retry=None, route_order=None, route_predicates=None, route_services=None,
                  services=None, status=None, timeout=None):
+        # The status of Application High Availability Service (AHAS).
         self.ahas_status = ahas_status  # type: int
+        # The configuration for cross-origin resource sharing (CORS).
         self.cors = cors  # type: GetGatewayRouteDetailResponseBodyDataCors
+        # The default service ID.
         self.default_service_id = default_service_id  # type: long
+        # The default service name.
         self.default_service_name = default_service_name  # type: str
+        # The destination service type.
         self.destination_type = destination_type  # type: str
+        # The information about service mocking.
         self.direct_response = direct_response  # type: GetGatewayRouteDetailResponseBodyDataDirectResponse
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The domain names.
         self.domain_id_list = domain_id_list  # type: list[long]
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The domain names.
         self.domain_name_list = domain_name_list  # type: list[str]
+        # Indicates whether Web Application Firewall (WAF) is enabled.
         self.enable_waf = enable_waf  # type: bool
+        # Indicates whether the Fallback service is enabled.
         self.fallback = fallback  # type: bool
+        # The information of the Fallback service.
         self.fallback_services = fallback_services  # type: list[GetGatewayRouteDetailResponseBodyDataFallbackServices]
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The last modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # The information about the rewrite policy.
         self.httprewrite = httprewrite  # type: GetGatewayRouteDetailResponseBodyDataHTTPRewrite
+        # The information about the header configuration policy.
         self.header_op = header_op  # type: GetGatewayRouteDetailResponseBodyDataHeaderOp
+        # ID.
         self.id = id  # type: long
+        # The name.
         self.name = name  # type: str
+        # The matching conditions.
         self.predicates = predicates  # type: str
+        # The configuration of the redirection.
         self.redirect = redirect  # type: GetGatewayRouteDetailResponseBodyDataRedirect
+        # The retry configuration.
         self.retry = retry  # type: GetGatewayRouteDetailResponseBodyDataRetry
+        # The sequence number of the route.
         self.route_order = route_order  # type: int
+        # The information about route matching.
         self.route_predicates = route_predicates  # type: GetGatewayRouteDetailResponseBodyDataRoutePredicates
+        # The information about services.
         self.route_services = route_services  # type: list[GetGatewayRouteDetailResponseBodyDataRouteServices]
+        # The configurations of services.
         self.services = services  # type: str
+        # The status of the route.
+        # 
+        # *   0: unpublished
+        # *   2: publishing
+        # *   3: published
+        # *   4: editing (updated but not published)
+        # *   5: unpublishing
+        # *   6: unavailable
         self.status = status  # type: int
+        # The timeout configuration.
         self.timeout = timeout  # type: GetGatewayRouteDetailResponseBodyDataTimeout
 
     def validate(self):
@@ -11427,11 +12967,20 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
 
 class GetGatewayRouteDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GetGatewayRouteDetailResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11517,8 +13066,14 @@ class GetGatewayRouteDetailResponse(TeaModel):
 
 class GetGatewayServiceDetailRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -11551,7 +13106,9 @@ class GetGatewayServiceDetailRequest(TeaModel):
 
 class GetGatewayServiceDetailResponseBodyDataLabelDetails(TeaModel):
     def __init__(self, key=None, values=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The values of the tag.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -11637,7 +13194,9 @@ class GetGatewayServiceDetailResponseBodyDataPortTrafficPolicyList(TeaModel):
 
 class GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersionLabels(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -11666,7 +13225,9 @@ class GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersionLabels(
 
 class GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersion(TeaModel):
     def __init__(self, labels=None, name=None):
+        # The tags of the version.
         self.labels = labels  # type: list[GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersionLabels]
+        # The name of the version.
         self.name = name  # type: str
 
     def validate(self):
@@ -11703,8 +13264,11 @@ class GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersion(TeaMod
 
 class GetGatewayServiceDetailResponseBodyDataVersionDetails(TeaModel):
     def __init__(self, endpoint_num=None, endpoint_num_percent=None, service_version=None):
+        # The number of instances.
         self.endpoint_num = endpoint_num  # type: int
+        # The percentage of instances.
         self.endpoint_num_percent = endpoint_num_percent  # type: str
+        # The version of the service.
         self.service_version = service_version  # type: GetGatewayServiceDetailResponseBodyDataVersionDetailsServiceVersion
 
     def validate(self):
@@ -11739,8 +13303,11 @@ class GetGatewayServiceDetailResponseBodyDataVersionDetails(TeaModel):
 
 class GetGatewayServiceDetailResponseBodyDataVersions(TeaModel):
     def __init__(self, label=None, type=None, value=None):
+        # The key of the tag.
         self.label = label  # type: str
+        # The type of the version.
         self.type = type  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -11776,27 +13343,44 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
                  gmt_modified=None, group_name=None, health_check=None, health_status=None, id=None, ips=None, label_details=None,
                  meta_info=None, name=None, namespace=None, port_traffic_policy_list=None, ports=None,
                  service_name_in_registry=None, service_protocol=None, source_id=None, source_type=None, version_details=None, versions=None):
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The traffic policy of the service.
         self.gateway_traffic_policy = gateway_traffic_policy  # type: TrafficPolicy
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the service was added.
         self.gmt_create = gmt_create  # type: str
+        # The time when the service was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The name of the group.
         self.group_name = group_name  # type: str
         self.health_check = health_check  # type: str
         self.health_status = health_status  # type: str
+        # The ID of the service.
         self.id = id  # type: long
+        # The IP addresses of the service.
         self.ips = ips  # type: list[str]
+        # The details of tags.
         self.label_details = label_details  # type: list[GetGatewayServiceDetailResponseBodyDataLabelDetails]
+        # The basic information about the service.
         self.meta_info = meta_info  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
         self.port_traffic_policy_list = port_traffic_policy_list  # type: list[GetGatewayServiceDetailResponseBodyDataPortTrafficPolicyList]
         self.ports = ports  # type: list[int]
+        # The name of the service registered with the service registry.
         self.service_name_in_registry = service_name_in_registry  # type: str
         self.service_protocol = service_protocol  # type: str
+        # The source ID of the service.
         self.source_id = source_id  # type: long
+        # The source type of the service.
         self.source_type = source_type  # type: str
+        # The details of versions.
         self.version_details = version_details  # type: list[GetGatewayServiceDetailResponseBodyDataVersionDetails]
+        # The versions of the service.
         self.versions = versions  # type: list[GetGatewayServiceDetailResponseBodyDataVersions]
 
     def validate(self):
@@ -11943,11 +13527,19 @@ class GetGatewayServiceDetailResponseBodyData(TeaModel):
 
 class GetGatewayServiceDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: GetGatewayServiceDetailResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12033,8 +13625,14 @@ class GetGatewayServiceDetailResponse(TeaModel):
 
 class GetGovernanceKubernetesClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, region_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the region in which the cluster resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12067,7 +13665,9 @@ class GetGovernanceKubernetesClusterRequest(TeaModel):
 
 class GetGovernanceKubernetesClusterResponseBodyDataNamespaces(TeaModel):
     def __init__(self, name=None, tags=None):
+        # The name of the namespace.
         self.name = name  # type: str
+        # The tags of the namespace.
         self.tags = tags  # type: str
 
     def validate(self):
@@ -12097,13 +13697,21 @@ class GetGovernanceKubernetesClusterResponseBodyDataNamespaces(TeaModel):
 class GetGovernanceKubernetesClusterResponseBodyData(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, k_8s_version=None, namespace_infos=None, namespaces=None,
                  pilot_start_time=None, region=None, update_time=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The version of Kubernetes.
         self.k_8s_version = k_8s_version  # type: str
+        # The information about namespaces.
         self.namespace_infos = namespace_infos  # type: str
+        # The details of namespaces.
         self.namespaces = namespaces  # type: list[GetGovernanceKubernetesClusterResponseBodyDataNamespaces]
+        # The time when the cluster was started.
         self.pilot_start_time = pilot_start_time  # type: str
+        # The ID of the region in which the cluster resides.
         self.region = region  # type: str
+        # The time when the cluster was last modified.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -12164,11 +13772,19 @@ class GetGovernanceKubernetesClusterResponseBodyData(TeaModel):
 
 class GetGovernanceKubernetesClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: GetGovernanceKubernetesClusterResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12255,6 +13871,7 @@ class GetGovernanceKubernetesClusterResponse(TeaModel):
 class GetImageRequest(TeaModel):
     def __init__(self, accept_language=None, version_code=None):
         self.accept_language = accept_language  # type: str
+        # The version of the cluster.
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -12284,9 +13901,13 @@ class GetImageRequest(TeaModel):
 class GetImageResponseBodyData(TeaModel):
     def __init__(self, current_version_full_show_name=None, max_version_changelog_url=None, max_version_code=None,
                  max_version_full_show_name=None):
+        # The full name of the current cluster image version. The full name is in the X.X.X.X format.
         self.current_version_full_show_name = current_version_full_show_name  # type: str
+        # The URL of change logs for the latest version that can be updated to.
         self.max_version_changelog_url = max_version_changelog_url  # type: str
+        # The code of the latest version that can be updated to.
         self.max_version_code = max_version_code  # type: str
+        # The full name of the latest version that can be updated to.
         self.max_version_full_show_name = max_version_full_show_name  # type: str
 
     def validate(self):
@@ -12323,11 +13944,19 @@ class GetImageResponseBodyData(TeaModel):
 
 class GetImageResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: GetImageResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12413,9 +14042,16 @@ class GetImageResponse(TeaModel):
 
 class GetImportFileUrlRequest(TeaModel):
     def __init__(self, accept_language=None, content_type=None, instance_id=None, namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The type of the configuration file.
         self.content_type = content_type  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -12452,6 +14088,7 @@ class GetImportFileUrlRequest(TeaModel):
 
 class GetImportFileUrlResponseBodyData(TeaModel):
     def __init__(self, url=None):
+        # The upload URL of the configuration file.
         self.url = url  # type: str
 
     def validate(self):
@@ -12477,13 +14114,24 @@ class GetImportFileUrlResponseBodyData(TeaModel):
 class GetImportFileUrlResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: GetImportFileUrlResponseBodyData
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12577,7 +14225,12 @@ class GetImportFileUrlResponse(TeaModel):
 
 class GetKubernetesSourceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, vpc_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.vpc_id = vpc_id  # type: str
 
@@ -12611,7 +14264,9 @@ class GetKubernetesSourceRequest(TeaModel):
 
 class GetKubernetesSourceResponseBodyData(TeaModel):
     def __init__(self, cluster=None, name=None):
+        # The ID of the ACK cluster.
         self.cluster = cluster  # type: str
+        # The name of the ACK cluster.
         self.name = name  # type: str
 
     def validate(self):
@@ -12640,11 +14295,20 @@ class GetKubernetesSourceResponseBodyData(TeaModel):
 
 class GetKubernetesSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: list[GetKubernetesSourceResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12736,6 +14400,10 @@ class GetKubernetesSourceResponse(TeaModel):
 
 class GetMseFeatureSwitchRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -12760,10 +14428,17 @@ class GetMseFeatureSwitchRequest(TeaModel):
 
 class GetMseFeatureSwitchResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, result=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned results.
         self.result = result  # type: dict[str, any]
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12844,6 +14519,7 @@ class GetMseFeatureSwitchResponse(TeaModel):
 class GetMseSourceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, type=None):
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.type = type  # type: str
 
@@ -12877,10 +14553,15 @@ class GetMseSourceRequest(TeaModel):
 
 class GetMseSourceResponseBodyData(TeaModel):
     def __init__(self, address=None, cluster_id=None, instance_id=None, name=None, type=None):
+        # The endpoint of the instance.
         self.address = address  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the service source.
         self.name = name  # type: str
+        # The type of the service source.
         self.type = type  # type: str
 
     def validate(self):
@@ -12921,11 +14602,22 @@ class GetMseSourceResponseBodyData(TeaModel):
 
 class GetMseSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: list[GetMseSourceResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. Valid values: 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned, such as the "TaskId not found" message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13018,11 +14710,23 @@ class GetMseSourceResponse(TeaModel):
 class GetNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, beta=None, data_id=None, group=None, instance_id=None,
                  namespace_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to perform a beta release. Valid values: 
+        # 
+        # - `true`
+        # - `false`
         self.beta = beta  # type: bool
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
 
     def validate(self):
@@ -13068,15 +14772,25 @@ class GetNacosConfigRequest(TeaModel):
 class GetNacosConfigResponseBodyConfiguration(TeaModel):
     def __init__(self, app_name=None, beta_ips=None, content=None, data_id=None, desc=None, encrypted_data_key=None,
                  group=None, md_5=None, tags=None, type=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The list of IP addresses where the beta release of the configuration is performed.
         self.beta_ips = beta_ips  # type: str
+        # The content of the configuration.
         self.content = content  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The description of the configuration.
         self.desc = desc  # type: str
+        # The encryption key.
         self.encrypted_data_key = encrypted_data_key  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The MD5 value of the configuration.
         self.md_5 = md_5  # type: str
+        # The tags of the configuration.
         self.tags = tags  # type: str
+        # The format of the configuration.
         self.type = type  # type: str
 
     def validate(self):
@@ -13137,10 +14851,17 @@ class GetNacosConfigResponseBodyConfiguration(TeaModel):
 
 class GetNacosConfigResponseBody(TeaModel):
     def __init__(self, configuration=None, error_code=None, message=None, request_id=None, success=None):
+        # The information about the configuration.
         self.configuration = configuration  # type: GetNacosConfigResponseBodyConfiguration
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13222,11 +14943,20 @@ class GetNacosConfigResponse(TeaModel):
 
 class GetNacosHistoryConfigRequest(TeaModel):
     def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None, nid=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The historical version ID of the configuration.
         self.nid = nid  # type: str
 
     def validate(self):
@@ -13272,12 +15002,19 @@ class GetNacosHistoryConfigRequest(TeaModel):
 class GetNacosHistoryConfigResponseBodyConfiguration(TeaModel):
     def __init__(self, app_name=None, content=None, data_id=None, encrypted_data_key=None, group=None, md_5=None,
                  op_type=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The content of the configuration.
         self.content = content  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The encryption key.
         self.encrypted_data_key = encrypted_data_key  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The MD5 value of the configuration.
         self.md_5 = md_5  # type: str
+        # The type of the configuration.
         self.op_type = op_type  # type: str
 
     def validate(self):
@@ -13326,10 +15063,17 @@ class GetNacosHistoryConfigResponseBodyConfiguration(TeaModel):
 
 class GetNacosHistoryConfigResponseBody(TeaModel):
     def __init__(self, configuration=None, error_code=None, message=None, request_id=None, success=None):
+        # The information about the configuration.
         self.configuration = configuration  # type: GetNacosHistoryConfigResponseBodyConfiguration
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13411,8 +15155,14 @@ class GetNacosHistoryConfigResponse(TeaModel):
 
 class GetOverviewRequest(TeaModel):
     def __init__(self, accept_language=None, period=None, region=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The subscription period of the instance. Unit: months. Valid values: 1, 2, 3, 6, and 12.
         self.period = period  # type: int
+        # The ID of the region.
         self.region = region  # type: str
 
     def validate(self):
@@ -13445,11 +15195,20 @@ class GetOverviewRequest(TeaModel):
 
 class GetOverviewResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: str
 
     def validate(self):
@@ -13533,8 +15292,13 @@ class GetOverviewResponse(TeaModel):
 
 class GetPluginConfigRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, plugin_id=None):
+        # The language of the response. Valid values:
+        # 
+        # zh: Chinese en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the gateway plug-in.
         self.plugin_id = plugin_id  # type: long
 
     def validate(self):
@@ -13568,14 +15332,29 @@ class GetPluginConfigRequest(TeaModel):
 class GetPluginConfigResponseBodyDataGatewayConfigList(TeaModel):
     def __init__(self, config=None, config_level=None, enable=None, gateway_id=None, gateway_unique_id=None,
                  gmt_create=None, gmt_modified=None, id=None, plugin_id=None):
+        # The plug-in configuration.
         self.config = config  # type: str
+        # The application scope of the plug-in.
+        # 
+        # 0: global
+        # 
+        # 1: domain names
+        # 
+        # 2: routes
         self.config_level = config_level  # type: int
+        # Indicates whether the plug-in is enabled.
         self.enable = enable  # type: bool
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the plug-in configuration.
         self.id = id  # type: long
+        # The ID of the gateway plug-in.
         self.plugin_id = plugin_id  # type: long
 
     def validate(self):
@@ -13633,24 +15412,77 @@ class GetPluginConfigResponseBodyDataGatewayConfigList(TeaModel):
 class GetPluginConfigResponseBodyData(TeaModel):
     def __init__(self, category=None, config_check=None, gateway_config_list=None, id=None, image_name=None,
                  mode=None, name=None, phase=None, primary_user=None, priority=None, publish_state=None, readme=None,
-                 readme_en=None, status=None, summary=None, type=None, version=None, wasm_lang=None):
+                 readme_en=None, status=None, summary=None, type=None, version=None, version_json=None, wasm_lang=None):
+        # The category of the plug-in.
+        # 
+        # 0: custom
+        # 
+        # 1: permission authorization
+        # 
+        # 2: security protection
+        # 
+        # 3: transmission protocol
+        # 
+        # 4: traffic control
+        # 
+        # 5: traffic observation
         self.category = category  # type: int
+        # The information about the plug-in configuration used for checking.
         self.config_check = config_check  # type: str
+        # The list of gateway plug-in configurations.
         self.gateway_config_list = gateway_config_list  # type: list[GetPluginConfigResponseBodyDataGatewayConfigList]
+        # The ID of the plug-in.
         self.id = id  # type: long
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The mode.
         self.mode = mode  # type: int
+        # The name of the plug-in.
         self.name = name  # type: str
+        # The execution stage of the plug-in.
+        # 
+        # 0: default stage
+        # 
+        # 1: authorization stage
+        # 
+        # 2: authentication stage
+        # 
+        # 3: statistics stage
         self.phase = phase  # type: int
+        # The ID of the creator.
         self.primary_user = primary_user  # type: str
+        # The execution priority of the plug-in. A larger value indicates a higher priority.
         self.priority = priority  # type: int
+        # The publish status.
         self.publish_state = publish_state  # type: int
+        # The description of the README file.
         self.readme = readme  # type: str
+        # The description of the README file that is edited in English.
         self.readme_en = readme_en  # type: str
+        # Indicates whether the plug-in is enabled.
+        # 
+        # 0: disabled
+        # 
+        # 1: enabled
         self.status = status  # type: str
+        # The summary of the plug-in.
         self.summary = summary  # type: str
+        # The type.
         self.type = type  # type: int
+        # The version of the plug-in.
         self.version = version  # type: str
+        self.version_json = version_json  # type: str
+        # The WebAssembly language.
+        # 
+        # 0: C++\
+        # 
+        # 1: TinyGo
+        # 
+        # 2: Rust
+        # 
+        # 3: AssemblyScript
+        # 
+        # 4: Zig
         self.wasm_lang = wasm_lang  # type: int
 
     def validate(self):
@@ -13701,6 +15533,8 @@ class GetPluginConfigResponseBodyData(TeaModel):
             result['Type'] = self.type
         if self.version is not None:
             result['Version'] = self.version
+        if self.version_json is not None:
+            result['VersionJson'] = self.version_json
         if self.wasm_lang is not None:
             result['WasmLang'] = self.wasm_lang
         return result
@@ -13744,6 +15578,8 @@ class GetPluginConfigResponseBodyData(TeaModel):
             self.type = m.get('Type')
         if m.get('Version') is not None:
             self.version = m.get('Version')
+        if m.get('VersionJson') is not None:
+            self.version_json = m.get('VersionJson')
         if m.get('WasmLang') is not None:
             self.wasm_lang = m.get('WasmLang')
         return self
@@ -13752,14 +15588,23 @@ class GetPluginConfigResponseBodyData(TeaModel):
 class GetPluginConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
                  http_status_code=None, message=None, request_id=None, success=None):
+        # Code.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GetPluginConfigResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13857,10 +15702,24 @@ class GetPluginConfigResponse(TeaModel):
 
 class GetPluginsRequest(TeaModel):
     def __init__(self, accept_language=None, category=None, enable_only=None, gateway_unique_id=None, name=None):
+        # The language of the response. Valid values:
+        # 
+        # zh: Chinese en: English
         self.accept_language = accept_language  # type: str
+        # The plug-in directory.
+        # 
+        # *   0: user-defined
+        # *   1: permission authentication
+        # *   2: security protection
+        # *   3: transmission protocol
+        # *   4: traffic control
+        # *   5: traffic observation
         self.category = category  # type: int
+        # Specifies whether to enable the plug-in.
         self.enable_only = enable_only  # type: bool
+        # The ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the plug-in.
         self.name = name  # type: str
 
     def validate(self):
@@ -13900,20 +15759,63 @@ class GetPluginsRequest(TeaModel):
 
 
 class GetPluginsResponseBodyData(TeaModel):
-    def __init__(self, category=None, config_check=None, id=None, name=None, phase=None, primary_user=None,
-                 priority=None, publish_state=None, status=None, summary=None, version=None, wasm_file=None, wasm_lang=None):
+    def __init__(self, category=None, config_check=None, id=None, max_version=None, mode=None, name=None,
+                 new_version_publishing_flag=None, phase=None, primary_user=None, priority=None, publish_state=None, status=None, summary=None,
+                 version=None, wasm_file=None, wasm_lang=None):
+        # The directory of the plug-in.
+        # 
+        # 0: user-defined
+        # 
+        # 1: permission authentication
+        # 
+        # 2: security protection
+        # 
+        # 3: transmission protocol
+        # 
+        # 4: traffic control
+        # 
+        # 5: traffic observation
         self.category = category  # type: int
+        # The information about the configuration check.
         self.config_check = config_check  # type: str
+        # The ID of the plug-in.
         self.id = id  # type: long
+        self.max_version = max_version  # type: str
+        self.mode = mode  # type: int
+        # The name of the plug-in.
         self.name = name  # type: str
+        self.new_version_publishing_flag = new_version_publishing_flag  # type: bool
+        # The plug-in execution stage.
+        # 
+        # *   0: default stage
+        # *   1: authorization stage
+        # *   2: authentication stage
+        # *   3: statistics stage
         self.phase = phase  # type: int
+        # The ID of the creator.
         self.primary_user = primary_user  # type: str
+        # The plug-in execution priority. A larger value indicates a higher priority.
         self.priority = priority  # type: int
+        # The publish status.
         self.publish_state = publish_state  # type: int
+        # Indicates whether the plug-in is enabled.
+        # 
+        # *   0: disabled
+        # *   1: enabled
         self.status = status  # type: str
+        # The summary of the plug-in.
         self.summary = summary  # type: str
+        # The version of the plug-in.
         self.version = version  # type: str
+        # The Object Storage Service (OSS) of the WebAssembly plug-in.
         self.wasm_file = wasm_file  # type: str
+        # The WebAssembly language.
+        # 
+        # *   0: C++\
+        # *   1: TinyGo
+        # *   2: Rust
+        # *   3: AssemblyScript
+        # *   4: Zig
         self.wasm_lang = wasm_lang  # type: int
 
     def validate(self):
@@ -13931,8 +15833,14 @@ class GetPluginsResponseBodyData(TeaModel):
             result['ConfigCheck'] = self.config_check
         if self.id is not None:
             result['Id'] = self.id
+        if self.max_version is not None:
+            result['MaxVersion'] = self.max_version
+        if self.mode is not None:
+            result['Mode'] = self.mode
         if self.name is not None:
             result['Name'] = self.name
+        if self.new_version_publishing_flag is not None:
+            result['NewVersionPublishingFlag'] = self.new_version_publishing_flag
         if self.phase is not None:
             result['Phase'] = self.phase
         if self.primary_user is not None:
@@ -13961,8 +15869,14 @@ class GetPluginsResponseBodyData(TeaModel):
             self.config_check = m.get('ConfigCheck')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('MaxVersion') is not None:
+            self.max_version = m.get('MaxVersion')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NewVersionPublishingFlag') is not None:
+            self.new_version_publishing_flag = m.get('NewVersionPublishingFlag')
         if m.get('Phase') is not None:
             self.phase = m.get('Phase')
         if m.get('PrimaryUser') is not None:
@@ -13987,14 +15901,23 @@ class GetPluginsResponseBodyData(TeaModel):
 class GetPluginsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
                  http_status_code=None, message=None, request_id=None, success=None):
+        # Code.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: list[GetPluginsResponseBodyData]
+        # The dynamic part in the error message.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14098,11 +16021,17 @@ class GetPluginsResponse(TeaModel):
 
 class GetServiceListRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, ip=None, region=None, service_name=None, service_type=None):
+        # The language of the response.
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The IP address.
         self.ip = ip  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The type of the framework.
         self.service_type = service_type  # type: str
 
     def validate(self):
@@ -14148,11 +16077,17 @@ class GetServiceListRequest(TeaModel):
 class GetServiceListResponseBodyDataMethods(TeaModel):
     def __init__(self, method_controller=None, name=None, parameter_types=None, paths=None, request_methods=None,
                  return_type=None):
+        # The controller of the method.
         self.method_controller = method_controller  # type: str
+        # The name of the method.
         self.name = name  # type: str
+        # The data types of the parameters.
         self.parameter_types = parameter_types  # type: list[str]
+        # The paths.
         self.paths = paths  # type: list[str]
+        # The methods.
         self.request_methods = request_methods  # type: list[str]
+        # The type of the return value.
         self.return_type = return_type  # type: str
 
     def validate(self):
@@ -14198,15 +16133,25 @@ class GetServiceListResponseBodyDataMethods(TeaModel):
 class GetServiceListResponseBodyData(TeaModel):
     def __init__(self, dubbo_application_name=None, edas_app_name=None, group=None, metadata=None, methods=None,
                  registry_type=None, service_name=None, service_type=None, spring_application_name=None, version=None):
+        # The name of the Dubbo application.
         self.dubbo_application_name = dubbo_application_name  # type: str
+        # The name of the application.
         self.edas_app_name = edas_app_name  # type: str
+        # The group.
         self.group = group  # type: str
+        # The metadata.
         self.metadata = metadata  # type: dict[str, any]
+        # The methods.
         self.methods = methods  # type: list[GetServiceListResponseBodyDataMethods]
+        # The type of the service registry.
         self.registry_type = registry_type  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The type of the service.
         self.service_type = service_type  # type: str
+        # The name of the Spring application.
         self.spring_application_name = spring_application_name  # type: str
+        # The version information.
         self.version = version  # type: str
 
     def validate(self):
@@ -14275,11 +16220,17 @@ class GetServiceListResponseBodyData(TeaModel):
 
 class GetServiceListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data entries returned.
         self.data = data  # type: list[GetServiceListResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14624,7 +16575,12 @@ class GetServiceListenersResponse(TeaModel):
 
 class GetTagsBySwimmingLaneGroupIdRequest(TeaModel):
     def __init__(self, accept_language=None, group_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane group.
         self.group_id = group_id  # type: long
 
     def validate(self):
@@ -14654,13 +16610,23 @@ class GetTagsBySwimmingLaneGroupIdRequest(TeaModel):
 class GetTagsBySwimmingLaneGroupIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14750,12 +16716,189 @@ class GetTagsBySwimmingLaneGroupIdResponse(TeaModel):
         return self
 
 
+class GetZookeeperDataImportUrlRequest(TeaModel):
+    def __init__(self, accept_language=None, content_type=None, instance_id=None):
+        self.accept_language = accept_language  # type: str
+        self.content_type = content_type  # type: str
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetZookeeperDataImportUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetZookeeperDataImportUrlResponseBodyData(TeaModel):
+    def __init__(self, max_size=None, url=None):
+        self.max_size = max_size  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetZookeeperDataImportUrlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_size is not None:
+            result['MaxSize'] = self.max_size
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxSize') is not None:
+            self.max_size = m.get('MaxSize')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class GetZookeeperDataImportUrlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
+                 http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetZookeeperDataImportUrlResponseBodyData
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetZookeeperDataImportUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetZookeeperDataImportUrlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetZookeeperDataImportUrlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetZookeeperDataImportUrlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetZookeeperDataImportUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetZookeeperDataImportUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ImportNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, file_url=None, instance_id=None, namespace_id=None, policy=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The download URL of the configuration file.
         self.file_url = file_url  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The policy used to handle write conflicts.
         self.policy = policy  # type: str
 
     def validate(self):
@@ -14796,7 +16939,9 @@ class ImportNacosConfigRequest(TeaModel):
 
 class ImportNacosConfigResponseBodyDataFailData(TeaModel):
     def __init__(self, data_id=None, group=None):
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The ID of the group.
         self.group = group  # type: str
 
     def validate(self):
@@ -14825,7 +16970,9 @@ class ImportNacosConfigResponseBodyDataFailData(TeaModel):
 
 class ImportNacosConfigResponseBodyDataSkipData(TeaModel):
     def __init__(self, data_id=None, group=None):
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The ID of the group.
         self.group = group  # type: str
 
     def validate(self):
@@ -14854,9 +17001,13 @@ class ImportNacosConfigResponseBodyDataSkipData(TeaModel):
 
 class ImportNacosConfigResponseBodyData(TeaModel):
     def __init__(self, fail_data=None, skip_count=None, skip_data=None, succ_count=None):
+        # The information about configurations failed to be imported.
         self.fail_data = fail_data  # type: list[ImportNacosConfigResponseBodyDataFailData]
+        # The number of configurations that are skipped.
         self.skip_count = skip_count  # type: int
+        # The information about skipped configurations.
         self.skip_data = skip_data  # type: list[ImportNacosConfigResponseBodyDataSkipData]
+        # The number of configurations that are imported.
         self.succ_count = succ_count  # type: int
 
     def validate(self):
@@ -14911,13 +17062,24 @@ class ImportNacosConfigResponseBodyData(TeaModel):
 class ImportNacosConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: ImportNacosConfigResponseBodyData
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15012,11 +17174,17 @@ class ImportNacosConfigResponse(TeaModel):
 class ImportServicesRequestServiceList(TeaModel):
     def __init__(self, group_name=None, ips=None, name=None, namespace=None, service_port=None,
                  service_protocol=None):
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The IP addresses of the service.
         self.ips = ips  # type: list[str]
+        # The name of the service.
         self.name = name  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The port of the service.
         self.service_port = service_port  # type: long
+        # The protocol of the service.
         self.service_protocol = service_protocol  # type: str
 
     def validate(self):
@@ -15062,9 +17230,13 @@ class ImportServicesRequestServiceList(TeaModel):
 class ImportServicesRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_list=None, source_type=None,
                  tls_setting=None):
+        # The data structure.
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The information about services.
         self.service_list = service_list  # type: list[ImportServicesRequestServiceList]
+        # The source type of the service.
         self.source_type = source_type  # type: str
         self.tls_setting = tls_setting  # type: str
 
@@ -15115,9 +17287,13 @@ class ImportServicesRequest(TeaModel):
 class ImportServicesShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_list_shrink=None, source_type=None,
                  tls_setting=None):
+        # The data structure.
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The information about services.
         self.service_list_shrink = service_list_shrink  # type: str
+        # The source type of the service.
         self.source_type = source_type  # type: str
         self.tls_setting = tls_setting  # type: str
 
@@ -15159,11 +17335,20 @@ class ImportServicesShrinkRequest(TeaModel):
 
 class ImportServicesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.code = code  # type: int
+        # Import services
         self.data = data  # type: bool
+        # The message returned.
         self.http_status_code = http_status_code  # type: int
+        # The request is processed successfully.
         self.message = message  # type: str
+        # The HTTP status code returned.
         self.request_id = request_id  # type: str
+        # The returned results.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15245,18 +17430,173 @@ class ImportServicesResponse(TeaModel):
         return self
 
 
+class ImportZookeeperDataRequest(TeaModel):
+    def __init__(self, accept_language=None, file_name=None, file_url=None, instance_id=None, region_id=None,
+                 request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.file_name = file_name  # type: str
+        self.file_url = file_url  # type: str
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportZookeeperDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class ImportZookeeperDataResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        self.data = data  # type: any
+        self.error_code = error_code  # type: str
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportZookeeperDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ImportZookeeperDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ImportZookeeperDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ImportZookeeperDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ImportZookeeperDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAnsInstancesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, group_name=None, instance_id=None,
                  namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.cluster_id = cluster_id  # type: str
+        # The alias of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The name of the contact group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -15320,25 +17660,57 @@ class ListAnsInstancesResponseBodyData(TeaModel):
                  fail_count=None, healthy=None, instance_heart_beat_interval=None, instance_heart_beat_time_out=None,
                  instance_id=None, ip=None, ip_delete_timeout=None, last_beat=None, marked=None, metadata=None, ok_count=None,
                  port=None, service_name=None, weight=None):
+        # The name of the application.
         self.app = app  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The reference key.
         self.datum_key = datum_key  # type: str
+        # The default key.
         self.default_key = default_key  # type: str
+        # The effective status of the instance. Valid values:
+        # 
+        # *   `true`: The instance takes effect.
+        # *   `false`: The instance does not take effect.
         self.enabled = enabled  # type: bool
+        # Indicates whether the service is marked as a temporary node. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.ephemeral = ephemeral  # type: bool
+        # The number of failed checks.
         self.fail_count = fail_count  # type: int
+        # The health status of the instance. Valid values:
+        # 
+        # *   `true`: The instance is healthy.
+        # *   `false`: The instance is unhealthy.
         self.healthy = healthy  # type: bool
+        # The heartbeat interval of the instance. Unit: seconds.
         self.instance_heart_beat_interval = instance_heart_beat_interval  # type: int
+        # The timeout period of the instance heartbeat.
         self.instance_heart_beat_time_out = instance_heart_beat_time_out  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The public IP address.
         self.ip = ip  # type: str
+        # The timeout period for removing an IP address.
         self.ip_delete_timeout = ip_delete_timeout  # type: int
+        # The time when the instance heartbeat was last checked.
         self.last_beat = last_beat  # type: long
+        # Indicates whether the instance was marked. Valid values:
+        # 
+        # *   `true`: The instance marking was successful.
+        # *   `false`: The instance marking failed.
         self.marked = marked  # type: bool
+        # The metadata.
         self.metadata = metadata  # type: dict[str, any]
+        # The number of successful checks.
         self.ok_count = ok_count  # type: int
+        # The port number.
         self.port = port  # type: int
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The weight.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -15440,14 +17812,26 @@ class ListAnsInstancesResponseBodyData(TeaModel):
 class ListAnsInstancesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListAnsInstancesResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The total number of returned instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15552,15 +17936,28 @@ class ListAnsInstancesResponse(TeaModel):
 class ListAnsServiceClustersRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, group_name=None, instance_id=None,
                  namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The alias of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The name of the contact group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -15622,12 +18019,19 @@ class ListAnsServiceClustersRequest(TeaModel):
 class ListAnsServiceClustersResponseBodyDataClusters(TeaModel):
     def __init__(self, default_check_port=None, default_port=None, health_checker_type=None, metadata=None,
                  name=None, service_name=None, use_ipport_4check=None):
+        # The default port used for a health check.
         self.default_check_port = default_check_port  # type: int
+        # The default port.
         self.default_port = default_port  # type: int
+        # The type of health check.
         self.health_checker_type = health_checker_type  # type: str
+        # The metadata.
         self.metadata = metadata  # type: dict[str, any]
+        # The name of the cluster.
         self.name = name  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # Indicates whether the IP address is used for a health check.
         self.use_ipport_4check = use_ipport_4check  # type: bool
 
     def validate(self):
@@ -15677,12 +18081,21 @@ class ListAnsServiceClustersResponseBodyDataClusters(TeaModel):
 class ListAnsServiceClustersResponseBodyData(TeaModel):
     def __init__(self, clusters=None, ephemeral=None, group_name=None, metadata=None, name=None,
                  protect_threshold=None, selector_type=None):
+        # The information about clusters.
         self.clusters = clusters  # type: list[ListAnsServiceClustersResponseBodyDataClusters]
+        # Indicates whether the service is marked as a temporary node. Valid values:
+        # - `true` 
+        # - `false`
         self.ephemeral = ephemeral  # type: bool
+        # The name of the contact group.
         self.group_name = group_name  # type: str
+        # The metadata.
         self.metadata = metadata  # type: dict[str, any]
+        # The name of the service.
         self.name = name  # type: str
+        # The protection threshold.
         self.protect_threshold = protect_threshold  # type: float
+        # The election mode.
         self.selector_type = selector_type  # type: str
 
     def validate(self):
@@ -15739,10 +18152,17 @@ class ListAnsServiceClustersResponseBodyData(TeaModel):
 
 class ListAnsServiceClustersResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: ListAnsServiceClustersResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15825,15 +18245,32 @@ class ListAnsServiceClustersResponse(TeaModel):
 class ListAnsServicesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, group_name=None, has_ip_count=None, instance_id=None,
                  namespace_id=None, page_num=None, page_size=None, request_pars=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must specify one of them.
         self.cluster_id = cluster_id  # type: str
+        # The name of the contact group.
         self.group_name = group_name  # type: str
+        # Specifies whether to query the number of instances that are used for the service.
         self.has_ip_count = has_ip_count  # type: str
+        # The ID of the instance.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must specify one of them.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -15894,10 +18331,15 @@ class ListAnsServicesRequest(TeaModel):
 
 class ListAnsServicesResponseBodyData(TeaModel):
     def __init__(self, cluster_count=None, group_name=None, healthy_instance_count=None, ip_count=None, name=None):
+        # The total number of clusters.
         self.cluster_count = cluster_count  # type: int
+        # The name of the contact group.
         self.group_name = group_name  # type: str
+        # The total number of instances with healthy heartbeats.
         self.healthy_instance_count = healthy_instance_count  # type: int
+        # The total number of instances that are used for the current service.
         self.ip_count = ip_count  # type: int
+        # The name of the service.
         self.name = name  # type: str
 
     def validate(self):
@@ -15939,14 +18381,26 @@ class ListAnsServicesResponseBodyData(TeaModel):
 class ListAnsServicesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListAnsServicesResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The total number of returned instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16050,8 +18504,14 @@ class ListAnsServicesResponse(TeaModel):
 
 class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
     def __init__(self, accept_language=None, group_id=None, tag=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane group.
         self.group_id = group_id  # type: long
+        # The tag of the lane group.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -16085,13 +18545,24 @@ class ListAppBySwimmingLaneGroupTagRequest(TeaModel):
 class ListAppBySwimmingLaneGroupTagResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16184,12 +18655,22 @@ class ListAppBySwimmingLaneGroupTagResponse(TeaModel):
 class ListApplicationsWithTagRulesRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, app_name=None, page_number=None, page_size=None,
                  region=None, source=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region.
         self.region = region  # type: str
+        # The source of the routing rule. Default value: edasmsc.
         self.source = source  # type: str
 
     def validate(self):
@@ -16239,16 +18720,30 @@ class ListApplicationsWithTagRulesRequest(TeaModel):
 class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
     def __init__(self, carry_data=None, enable=None, gmt_modified=None, id=None, instance_num=None, name=None,
                  rate=None, remove=None, rules=None, status=None, tag=None):
+        # Indicates whether pass-through is enabled.
         self.carry_data = carry_data  # type: bool
+        # Indicates whether the routing rule is enabled. Valid values:
+        # 
+        # - `true`: enabled 
+        # - `false`: disabled
         self.enable = enable  # type: bool
+        # The time when the routing rule was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the routing rule.
         self.id = id  # type: long
+        # The number of instances.
         self.instance_num = instance_num  # type: int
+        # The name of the routing rule.
         self.name = name  # type: str
+        # The rate.
         self.rate = rate  # type: int
+        # Indicates whether the routing rule is deleted.
         self.remove = remove  # type: bool
+        # The details of the routing rule.
         self.rules = rules  # type: str
+        # The status of the routing rule.
         self.status = status  # type: int
+        # The tag of the routing rule.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -16313,9 +18808,13 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
 
 class ListApplicationsWithTagRulesResponseBodyDataResult(TeaModel):
     def __init__(self, app_id=None, app_name=None, route_rules=None, route_status=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The information about routing rules.
         self.route_rules = route_rules  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRules]
+        # The status of the route. Valid values: -0: disabled. -1: enabled.
         self.route_status = route_status  # type: long
 
     def validate(self):
@@ -16360,9 +18859,13 @@ class ListApplicationsWithTagRulesResponseBodyDataResult(TeaModel):
 
 class ListApplicationsWithTagRulesResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The data structure.
         self.result = result  # type: list[ListApplicationsWithTagRulesResponseBodyDataResult]
+        # The total number of entries returned.
         self.total_size = total_size  # type: int
 
     def validate(self):
@@ -16407,11 +18910,20 @@ class ListApplicationsWithTagRulesResponseBodyData(TeaModel):
 
 class ListApplicationsWithTagRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: ListApplicationsWithTagRulesResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. Valid values: 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values: -[unk]true[unk]: The request is successful. -[unk]false[unk]: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16497,6 +19009,10 @@ class ListApplicationsWithTagRulesResponse(TeaModel):
 
 class ListClusterConnectionTypesRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -16521,6 +19037,7 @@ class ListClusterConnectionTypesRequest(TeaModel):
 
 class ListClusterConnectionTypesResponseBodyData(TeaModel):
     def __init__(self, show_name=None):
+        # The connection type.
         self.show_name = show_name  # type: str
 
     def validate(self):
@@ -16546,13 +19063,25 @@ class ListClusterConnectionTypesResponseBodyData(TeaModel):
 class ListClusterConnectionTypesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: list[ListClusterConnectionTypesResponseBodyData]
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16650,11 +19179,444 @@ class ListClusterConnectionTypesResponse(TeaModel):
         return self
 
 
+class ListClusterHealthCheckTaskRequest(TeaModel):
+    def __init__(self, accept_language=None, instance_id=None, page_num=None, page_size=None, region_id=None,
+                 request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class ListClusterHealthCheckTaskResponseBodyDataResultRiskList(TeaModel):
+    def __init__(self, description=None, id=None, module=None, mute=None, notice_feature=None, primary_user=None,
+                 risk_code=None, risk_level=None, risk_name=None, risk_type=None, situation=None, suggestion=None,
+                 task_id=None, type=None, values=None):
+        self.description = description  # type: str
+        # ID。
+        self.id = id  # type: int
+        self.module = module  # type: str
+        self.mute = mute  # type: bool
+        self.notice_feature = notice_feature  # type: bool
+        self.primary_user = primary_user  # type: str
+        self.risk_code = risk_code  # type: str
+        self.risk_level = risk_level  # type: str
+        self.risk_name = risk_name  # type: str
+        self.risk_type = risk_type  # type: str
+        self.situation = situation  # type: str
+        self.suggestion = suggestion  # type: str
+        self.task_id = task_id  # type: long
+        self.type = type  # type: int
+        self.values = values  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskResponseBodyDataResultRiskList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.module is not None:
+            result['Module'] = self.module
+        if self.mute is not None:
+            result['Mute'] = self.mute
+        if self.notice_feature is not None:
+            result['NoticeFeature'] = self.notice_feature
+        if self.primary_user is not None:
+            result['PrimaryUser'] = self.primary_user
+        if self.risk_code is not None:
+            result['RiskCode'] = self.risk_code
+        if self.risk_level is not None:
+            result['RiskLevel'] = self.risk_level
+        if self.risk_name is not None:
+            result['RiskName'] = self.risk_name
+        if self.risk_type is not None:
+            result['RiskType'] = self.risk_type
+        if self.situation is not None:
+            result['Situation'] = self.situation
+        if self.suggestion is not None:
+            result['Suggestion'] = self.suggestion
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Module') is not None:
+            self.module = m.get('Module')
+        if m.get('Mute') is not None:
+            self.mute = m.get('Mute')
+        if m.get('NoticeFeature') is not None:
+            self.notice_feature = m.get('NoticeFeature')
+        if m.get('PrimaryUser') is not None:
+            self.primary_user = m.get('PrimaryUser')
+        if m.get('RiskCode') is not None:
+            self.risk_code = m.get('RiskCode')
+        if m.get('RiskLevel') is not None:
+            self.risk_level = m.get('RiskLevel')
+        if m.get('RiskName') is not None:
+            self.risk_name = m.get('RiskName')
+        if m.get('RiskType') is not None:
+            self.risk_type = m.get('RiskType')
+        if m.get('Situation') is not None:
+            self.situation = m.get('Situation')
+        if m.get('Suggestion') is not None:
+            self.suggestion = m.get('Suggestion')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class ListClusterHealthCheckTaskResponseBodyDataResult(TeaModel):
+    def __init__(self, app_version=None, charge_type=None, cluster_type=None, create_time=None, id=None,
+                 image_version=None, instance_id=None, primary_user=None, replica=None, risk_list=None, score=None, spec=None,
+                 status=None, total_item=None, total_risk=None, type=None, update_time=None, version_code=None):
+        self.app_version = app_version  # type: str
+        self.charge_type = charge_type  # type: str
+        self.cluster_type = cluster_type  # type: str
+        self.create_time = create_time  # type: str
+        # ID。
+        self.id = id  # type: int
+        self.image_version = image_version  # type: str
+        self.instance_id = instance_id  # type: str
+        self.primary_user = primary_user  # type: str
+        self.replica = replica  # type: str
+        self.risk_list = risk_list  # type: list[ListClusterHealthCheckTaskResponseBodyDataResultRiskList]
+        self.score = score  # type: int
+        self.spec = spec  # type: str
+        self.status = status  # type: str
+        self.total_item = total_item  # type: int
+        self.total_risk = total_risk  # type: int
+        self.type = type  # type: str
+        self.update_time = update_time  # type: str
+        self.version_code = version_code  # type: str
+
+    def validate(self):
+        if self.risk_list:
+            for k in self.risk_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_version is not None:
+            result['AppVersion'] = self.app_version
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.cluster_type is not None:
+            result['ClusterType'] = self.cluster_type
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.image_version is not None:
+            result['ImageVersion'] = self.image_version
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.primary_user is not None:
+            result['PrimaryUser'] = self.primary_user
+        if self.replica is not None:
+            result['Replica'] = self.replica
+        result['RiskList'] = []
+        if self.risk_list is not None:
+            for k in self.risk_list:
+                result['RiskList'].append(k.to_map() if k else None)
+        if self.score is not None:
+            result['Score'] = self.score
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_item is not None:
+            result['TotalItem'] = self.total_item
+        if self.total_risk is not None:
+            result['TotalRisk'] = self.total_risk
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.version_code is not None:
+            result['VersionCode'] = self.version_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppVersion') is not None:
+            self.app_version = m.get('AppVersion')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('ClusterType') is not None:
+            self.cluster_type = m.get('ClusterType')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ImageVersion') is not None:
+            self.image_version = m.get('ImageVersion')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PrimaryUser') is not None:
+            self.primary_user = m.get('PrimaryUser')
+        if m.get('Replica') is not None:
+            self.replica = m.get('Replica')
+        self.risk_list = []
+        if m.get('RiskList') is not None:
+            for k in m.get('RiskList'):
+                temp_model = ListClusterHealthCheckTaskResponseBodyDataResultRiskList()
+                self.risk_list.append(temp_model.from_map(k))
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalItem') is not None:
+            self.total_item = m.get('TotalItem')
+        if m.get('TotalRisk') is not None:
+            self.total_risk = m.get('TotalRisk')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('VersionCode') is not None:
+            self.version_code = m.get('VersionCode')
+        return self
+
+
+class ListClusterHealthCheckTaskResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: list[ListClusterHealthCheckTaskResponseBodyDataResult]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListClusterHealthCheckTaskResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListClusterHealthCheckTaskResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
+                 http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: ListClusterHealthCheckTaskResponseBodyData
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListClusterHealthCheckTaskResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListClusterHealthCheckTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListClusterHealthCheckTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListClusterHealthCheckTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListClusterHealthCheckTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListClusterTypesRequest(TeaModel):
     def __init__(self, accept_language=None, connect_type=None, mse_version=None, region_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The network type. Valid values:
+        # 
+        # *   slb
+        # *   eni
         self.connect_type = connect_type  # type: str
+        # The edition of the MSE instance that you want to activate.
+        # 
+        # *   mse_pro: Professional Edition
+        # *   mse_dev: Developer Edition
         self.mse_version = mse_version  # type: str
+        # The ID of the region in which the instance resides. The region is supported by Microservices Engine (MSE).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16691,6 +19653,7 @@ class ListClusterTypesRequest(TeaModel):
 
 class ListClusterTypesResponseBodyData(TeaModel):
     def __init__(self, show_name=None):
+        # The type of the MSE engine that can be activated.
         self.show_name = show_name  # type: str
 
     def validate(self):
@@ -16716,13 +19679,26 @@ class ListClusterTypesResponseBodyData(TeaModel):
 class ListClusterTypesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The return value.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: list[ListClusterTypesResponseBodyData]
+        # The dynamic part in the error message. This parameter is used to replace the \*\*%s\*\* variable in the **ErrMessage** parameter.
+        # 
+        # >  If the return value of the **ErrMessage** parameter is **The Value of Input Parameter %s is not valid** and the return value of the **DynamicMessage** parameter is **DtsJobId**, the specified **DtsJobId** parameter is invalid.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16822,7 +19798,12 @@ class ListClusterTypesResponse(TeaModel):
 
 class ListClusterVersionsRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_type=None, mse_version=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The type of the cluster. Valid values: ZooKeeper, Nacos-Ans, and Eureka.
         self.cluster_type = cluster_type  # type: str
         self.mse_version = mse_version  # type: str
 
@@ -16856,8 +19837,11 @@ class ListClusterVersionsRequest(TeaModel):
 
 class ListClusterVersionsResponseBodyData(TeaModel):
     def __init__(self, cluster_type=None, code=None, show_name=None):
+        # The type of the cluster.
         self.cluster_type = cluster_type  # type: str
+        # The code of the cluster type.
         self.code = code  # type: str
+        # The display name of the cluster type.
         self.show_name = show_name  # type: str
 
     def validate(self):
@@ -16891,13 +19875,23 @@ class ListClusterVersionsResponseBodyData(TeaModel):
 class ListClusterVersionsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: list[ListClusterVersionsResponseBodyData]
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16997,7 +19991,9 @@ class ListClusterVersionsResponse(TeaModel):
 
 class ListClustersRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of a tag.
         self.key = key  # type: str
+        # The value of a tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -17027,13 +20023,24 @@ class ListClustersRequestTag(TeaModel):
 class ListClustersRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_alias_name=None, page_num=None, page_size=None, region_id=None,
                  request_pars=None, resource_group_id=None, tag=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The alias of the instance. Fuzzy match is supported.
         self.cluster_alias_name = cluster_alias_name  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region in which the instance resides. The region is supported by MSE.
         self.region_id = region_id  # type: str
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The ID of the resource group. For more information about resource groups, see the topic "View basic information of a resource group."
         self.resource_group_id = resource_group_id  # type: str
+        # The list of tags. A maximum number of 20 tags are supported.
         self.tag = tag  # type: list[ListClustersRequestTag]
 
     def validate(self):
@@ -17097,24 +20104,43 @@ class ListClustersResponseBodyData(TeaModel):
                  cluster_name=None, cluster_type=None, create_time=None, end_date=None, init_status=None, instance_count=None,
                  instance_id=None, internet_address=None, internet_domain=None, intranet_address=None, intranet_domain=None,
                  mse_version=None, resource_group_id=None, tags=None, version_code=None):
+        # The application version.
         self.app_version = app_version  # type: str
+        # Indicates whether the instance can be upgraded.
         self.can_update = can_update  # type: bool
+        # The billing method, such as subscription or pay-as-you-go.
         self.charge_type = charge_type  # type: str
+        # The alias of the instance.
         self.cluster_alias_name = cluster_alias_name  # type: str
+        # The name of the instance.
         self.cluster_name = cluster_name  # type: str
+        # The type of the instance. Valid values: ZooKeeper, Nacos-Ans, and Eureka.
         self.cluster_type = cluster_type  # type: str
+        # The time when the instance was created.
         self.create_time = create_time  # type: str
+        # The time when the instance expires.
         self.end_date = end_date  # type: str
+        # The initialization status of the instance.
         self.init_status = init_status  # type: str
+        # The number of instances.
         self.instance_count = instance_count  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The public IP address of the instance.
         self.internet_address = internet_address  # type: str
+        # The public endpoint of the instance.
         self.internet_domain = internet_domain  # type: str
+        # The internal IP address of the instance.
         self.intranet_address = intranet_address  # type: str
+        # The internal endpoint of the instance.
         self.intranet_domain = intranet_domain  # type: str
+        # The edition of the instance.
         self.mse_version = mse_version  # type: str
+        # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags that are attached to the instance.
         self.tags = tags  # type: dict[str, any]
+        # The version information.
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -17212,14 +20238,26 @@ class ListClustersResponseBodyData(TeaModel):
 class ListClustersResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListClustersResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The total number of instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -17323,7 +20361,12 @@ class ListClustersResponse(TeaModel):
 
 class ListEngineNamespacesRequest(TeaModel):
     def __init__(self, accept_language=None, instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -17353,12 +20396,22 @@ class ListEngineNamespacesRequest(TeaModel):
 class ListEngineNamespacesResponseBodyData(TeaModel):
     def __init__(self, config_count=None, namespace=None, namespace_desc=None, namespace_show_name=None, quota=None,
                  service_count=None, type=None):
+        # The number of configurations.
         self.config_count = config_count  # type: int
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The description of the namespace.
         self.namespace_desc = namespace_desc  # type: str
+        # The display name of the namespace.
         self.namespace_show_name = namespace_show_name  # type: str
+        # The quota of configurations.
         self.quota = quota  # type: int
+        # The number of active services.
         self.service_count = service_count  # type: str
+        # The type of the namespace. Valid values:
+        # - `0`: global configuration
+        # - `1`: default namespace
+        # - `2`: custom namespace
         self.type = type  # type: int
 
     def validate(self):
@@ -17408,14 +20461,25 @@ class ListEngineNamespacesResponseBodyData(TeaModel):
 class ListEngineNamespacesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListEngineNamespacesResponseBodyData]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -17520,11 +20584,20 @@ class ListEngineNamespacesResponse(TeaModel):
 class ListEurekaInstancesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, page_num=None, page_size=None, request_pars=None,
                  service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -17571,19 +20644,35 @@ class ListEurekaInstancesResponseBodyData(TeaModel):
     def __init__(self, app=None, duration_in_secs=None, home_page_url=None, host_name=None, instance_id=None,
                  ip_addr=None, last_dirty_timestamp=None, last_updated_timestamp=None, metadata=None, port=None,
                  renewal_interval_in_secs=None, secure_port=None, status=None, vip_address=None):
+        # The name of the application.
         self.app = app  # type: str
+        # The timeout period of the instance.   
+        # After the specified timeout period expires, the service is unavailable by default and therefore is deleted.
         self.duration_in_secs = duration_in_secs  # type: int
+        # The URL of the homepage.
         self.home_page_url = home_page_url  # type: str
+        # The hostname.
         self.host_name = host_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The IP address of the instance.
         self.ip_addr = ip_addr  # type: str
+        # The time when the instance was last modified.
         self.last_dirty_timestamp = last_dirty_timestamp  # type: long
+        # The time when the instance heartbeat was last checked.
         self.last_updated_timestamp = last_updated_timestamp  # type: long
+        # The metadata.
         self.metadata = metadata  # type: dict[str, any]
+        # The port of the service.
         self.port = port  # type: int
+        # The maximum interval between two heartbeat checks after a heartbeat check times out.   
+        # Default value: 10.
         self.renewal_interval_in_secs = renewal_interval_in_secs  # type: int
+        # The security port.
         self.secure_port = secure_port  # type: int
+        # The number of service providers. The value is in the following format: Number of healthy instances/Total number of instances.
         self.status = status  # type: str
+        # The virtual hostname.
         self.vip_address = vip_address  # type: str
 
     def validate(self):
@@ -17661,14 +20750,25 @@ class ListEurekaInstancesResponseBodyData(TeaModel):
 class ListEurekaInstancesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListEurekaInstancesResponseBodyData]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -17773,11 +20873,20 @@ class ListEurekaInstancesResponse(TeaModel):
 class ListEurekaServicesRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, page_num=None, page_size=None, region_id=None,
                  request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -17822,8 +20931,11 @@ class ListEurekaServicesRequest(TeaModel):
 
 class ListEurekaServicesResponseBodyData(TeaModel):
     def __init__(self, instances_id=None, name=None, up_status=None):
+        # The information about instances.
         self.instances_id = instances_id  # type: list[str]
+        # The name of the service.
         self.name = name  # type: str
+        # The number of service providers. The value is in the following format: Number of healthy instances/Total number of instances.
         self.up_status = up_status  # type: str
 
     def validate(self):
@@ -17857,14 +20969,25 @@ class ListEurekaServicesResponseBodyData(TeaModel):
 class ListEurekaServicesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, page_number=None, page_size=None,
                  request_id=None, success=None, total_count=None):
+        # The details of the data.
         self.data = data  # type: list[ListEurekaServicesResponseBodyData]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -17969,12 +21092,17 @@ class ListEurekaServicesResponse(TeaModel):
 class ListGatewayRequestFilterParams(TeaModel):
     def __init__(self, gateway_type=None, gateway_unique_id=None, instance_id=None, mse_tag=None, name=None,
                  resource_group_id=None, vpc=None):
+        # The type of the gateway.
         self.gateway_type = gateway_type  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.mse_tag = mse_tag  # type: str
+        # The name of the gateway.
         self.name = name  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc = vpc  # type: str
 
     def validate(self):
@@ -18024,11 +21152,20 @@ class ListGatewayRequestFilterParams(TeaModel):
 class ListGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
                  page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable the sorting feature. This feature is not available.
         self.desc_sort = desc_sort  # type: bool
+        # The details of parameters.
         self.filter_params = filter_params  # type: ListGatewayRequestFilterParams
+        # The order information.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -18076,11 +21213,20 @@ class ListGatewayRequest(TeaModel):
 class ListGatewayShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
                  page_number=None, page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable the sorting feature. This feature is not available.
         self.desc_sort = desc_sort  # type: bool
+        # The details of parameters.
         self.filter_params_shrink = filter_params_shrink  # type: str
+        # The order information.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -18125,7 +21271,9 @@ class ListGatewayShrinkRequest(TeaModel):
 
 class ListGatewayResponseBodyDataResultInitConfig(TeaModel):
     def __init__(self, enable_waf=None, support_waf=None):
+        # Indicates whether Web Application Firewall (WAF) is enabled.
         self.enable_waf = enable_waf  # type: bool
+        # Indicates whether WAF is supported.
         self.support_waf = support_waf  # type: bool
 
     def validate(self):
@@ -18155,14 +21303,23 @@ class ListGatewayResponseBodyDataResultInitConfig(TeaModel):
 class ListGatewayResponseBodyDataResultInternetSlb(TeaModel):
     def __init__(self, gateway_slb_mode=None, gateway_slb_status=None, internet_network_flow=None, slb_id=None,
                  slb_ip=None, slb_port=None, slb_spec=None, status_desc=None, type=None):
+        # The mode of the SLB instance.
         self.gateway_slb_mode = gateway_slb_mode  # type: str
+        # The status of the SLB instance.
         self.gateway_slb_status = gateway_slb_status  # type: str
+        # The traffic of the gateway.
         self.internet_network_flow = internet_network_flow  # type: str
+        # SLB ID.
         self.slb_id = slb_id  # type: str
+        # SLB IP.
         self.slb_ip = slb_ip  # type: str
+        # The port number of the SLB instance.
         self.slb_port = slb_port  # type: str
+        # The specifications of the SLB instance.
         self.slb_spec = slb_spec  # type: str
+        # The description of the status.
         self.status_desc = status_desc  # type: str
+        # The type.
         self.type = type  # type: str
 
     def validate(self):
@@ -18220,13 +21377,21 @@ class ListGatewayResponseBodyDataResultInternetSlb(TeaModel):
 class ListGatewayResponseBodyDataResultSlb(TeaModel):
     def __init__(self, gateway_slb_mode=None, gateway_slb_status=None, slb_id=None, slb_ip=None, slb_port=None,
                  slb_spec=None, status_desc=None, type=None):
+        # The mode of the SLB instance.
         self.gateway_slb_mode = gateway_slb_mode  # type: str
+        # The status of the SLB instance.
         self.gateway_slb_status = gateway_slb_status  # type: str
+        # SLB ID.
         self.slb_id = slb_id  # type: str
+        # SLB IP.
         self.slb_ip = slb_ip  # type: str
+        # The port number of the SLB instance.
         self.slb_port = slb_port  # type: str
+        # The specifications of the SLB instance.
         self.slb_spec = slb_spec  # type: str
+        # The description of the status.
         self.status_desc = status_desc  # type: str
+        # The type.
         self.type = type  # type: str
 
     def validate(self):
@@ -18284,37 +21449,78 @@ class ListGatewayResponseBodyDataResult(TeaModel):
                  mse_tag=None, must_upgrade=None, name=None, primary_user=None, region=None, replica=None,
                  resource_group_id=None, roll_back=None, slb=None, spec=None, status=None, status_desc=None, support_wasm=None,
                  tag=None, upgrade=None, vswitch_2=None):
+        # Indicates whether Application High Availability Service (AHAS) is enabled.
         self.ahas_on = ahas_on  # type: bool
+        # The version of the application.
         self.app_version = app_version  # type: str
+        # Indicates whether Application Real-Time Monitoring Service (ARMS) is enabled.
         self.arms_on = arms_on  # type: bool
+        # The billing method.
         self.charge_type = charge_type  # type: str
+        # The current version of the gateway.
         self.current_version = current_version  # type: str
+        # The time when the subscription gateway expires.
         self.end_date = end_date  # type: str
+        # The type of the gateway.
         self.gateway_type = gateway_type  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.gateway_version = gateway_version  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the gateway.
         self.id = id  # type: long
+        # The configurations.
         self.init_config = init_config  # type: ListGatewayResponseBodyDataResultInitConfig
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The details of the Internet-facing SLB instances.
         self.internet_slb = internet_slb  # type: list[ListGatewayResponseBodyDataResultInternetSlb]
+        # The latest version of the gateway.
         self.latest_version = latest_version  # type: str
         self.mse_tag = mse_tag  # type: str
+        # Indicates whether the gateway can be forcefully updated.
         self.must_upgrade = must_upgrade  # type: bool
+        # The name of the gateway.
         self.name = name  # type: str
+        # The information about the user.
         self.primary_user = primary_user  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The number of replicas.
         self.replica = replica  # type: int
         self.resource_group_id = resource_group_id  # type: str
         self.roll_back = roll_back  # type: bool
+        # The details of the Server Load Balancer (SLB) instances.
         self.slb = slb  # type: list[ListGatewayResponseBodyDataResultSlb]
+        # The specifications of the gateway.
         self.spec = spec  # type: str
+        # The gateway status.
+        # 
+        # *   0: The gateway is being created.
+        # *   1: The gateway fails to be created.
+        # *   2: The gateway is running.
+        # *   3: The gateway is changing.
+        # *   4: The gateway is scaling down.
+        # *   6: The gateway is scaling up.
+        # *   8: The gateway is being deleted.
+        # *   9: The gateway is suspended and to be released.
+        # *   10: The gateway is restarting.
+        # *   11: The gateway is being rebuilt.
+        # *   12: The gateway is updating.
+        # *   13: The gateway fails to be updated.
         self.status = status  # type: int
+        # The description of the status.
         self.status_desc = status_desc  # type: str
+        # Indicates whether WebAssembly (Wasm) is supported.
         self.support_wasm = support_wasm  # type: bool
+        # The tag.
         self.tag = tag  # type: str
+        # Indicates whether the gateway can be updated.
         self.upgrade = upgrade  # type: bool
+        # The ID of the secondary vSwitch.
         self.vswitch_2 = vswitch_2  # type: str
 
     def validate(self):
@@ -18483,9 +21689,13 @@ class ListGatewayResponseBodyDataResult(TeaModel):
 
 class ListGatewayResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The returned data.
         self.result = result  # type: list[ListGatewayResponseBodyDataResult]
+        # The total number of entries returned.
         self.total_size = total_size  # type: long
 
     def validate(self):
@@ -18530,11 +21740,20 @@ class ListGatewayResponseBodyData(TeaModel):
 
 class ListGatewayResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The return value.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: ListGatewayResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -18620,7 +21839,12 @@ class ListGatewayResponse(TeaModel):
 
 class ListGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         self.type = type  # type: str
 
@@ -18680,19 +21904,34 @@ class ListGatewayDomainResponseBodyData(TeaModel):
     def __init__(self, cert_before_date=None, cert_identifier=None, comment=None, gateway_id=None, gmt_create=None,
                  gmt_modified=None, http_2=None, id=None, must_https=None, name=None, protocol=None, status=None, tls_max=None,
                  tls_min=None, type=None):
+        # The expiration time of the certificate.
         self.cert_before_date = cert_before_date  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
         self.comment = comment  # type: ListGatewayDomainResponseBodyDataComment
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The time when the domain name was associated.
         self.gmt_create = gmt_create  # type: str
+        # The time when the domain name was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # Specifies whether to enable `Http2`.
+        # - `open`: enables `Http2`.
+        # - `close`: disables `Http2`.
+        # - `globalConfig`: uses global configurations.
         self.http_2 = http_2  # type: str
+        # ID
         self.id = id  # type: long
+        # Indicates whether HTTPS is forcibly used.
         self.must_https = must_https  # type: bool
+        # The domain name.
         self.name = name  # type: str
+        # The type of the protocol.
         self.protocol = protocol  # type: str
         self.status = status  # type: int
+        # The maximum version of Transport Layer Security (TLS).
         self.tls_max = tls_max  # type: str
+        # The minimum version of TLS.
         self.tls_min = tls_min  # type: str
         self.type = type  # type: str
 
@@ -18776,11 +22015,19 @@ class ListGatewayDomainResponseBodyData(TeaModel):
 
 class ListGatewayDomainResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: list[ListGatewayDomainResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned if the request fails.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -18873,13 +22120,21 @@ class ListGatewayDomainResponse(TeaModel):
 class ListGatewayRouteRequestFilterParams(TeaModel):
     def __init__(self, default_service_id=None, domain_id=None, domain_name=None, gateway_id=None,
                  gateway_unique_id=None, name=None, route_order=None, status=None):
+        # The default service ID.
         self.default_service_id = default_service_id  # type: long
+        # The domain ID.
         self.domain_id = domain_id  # type: long
+        # The associated domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the gateway.
         self.name = name  # type: str
+        # The order.
         self.route_order = route_order  # type: int
+        # The status.
         self.status = status  # type: int
 
     def validate(self):
@@ -18933,11 +22188,20 @@ class ListGatewayRouteRequestFilterParams(TeaModel):
 class ListGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
                  page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable sorting.
         self.desc_sort = desc_sort  # type: bool
+        # The parameters that specify filter conditions, which are in the format of {"key1":"value1"}.
         self.filter_params = filter_params  # type: ListGatewayRouteRequestFilterParams
+        # The item based on which entries are sorted.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -18985,11 +22249,20 @@ class ListGatewayRouteRequest(TeaModel):
 class ListGatewayRouteShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
                  page_number=None, page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable sorting.
         self.desc_sort = desc_sort  # type: bool
+        # The parameters that specify filter conditions, which are in the format of {"key1":"value1"}.
         self.filter_params_shrink = filter_params_shrink  # type: str
+        # The item based on which entries are sorted.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19034,6 +22307,7 @@ class ListGatewayRouteShrinkRequest(TeaModel):
 
 class ListGatewayRouteResponseBodyDataResultComment(TeaModel):
     def __init__(self, status=None):
+        # The status.
         self.status = status  # type: str
 
     def validate(self):
@@ -19058,7 +22332,9 @@ class ListGatewayRouteResponseBodyDataResultComment(TeaModel):
 
 class ListGatewayRouteResponseBodyDataResultDirectResponse(TeaModel):
     def __init__(self, body=None, code=None):
+        # The return value for service mocking.
         self.body = body  # type: str
+        # The response code returned.
         self.code = code  # type: int
 
     def validate(self):
@@ -19088,15 +22364,25 @@ class ListGatewayRouteResponseBodyDataResultDirectResponse(TeaModel):
 class ListGatewayRouteResponseBodyDataResultFallbackServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
                  service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The name.
         self.name = name  # type: str
+        # The namespace to which the service belongs.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The service port number.
         self.service_port = service_port  # type: int
+        # The type of the service source.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -19157,8 +22443,11 @@ class ListGatewayRouteResponseBodyDataResultFallbackServices(TeaModel):
 
 class ListGatewayRouteResponseBodyDataResultRedirect(TeaModel):
     def __init__(self, code=None, host=None, path=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The hostname to be redirected to.
         self.host = host  # type: str
+        # The path.
         self.path = path  # type: str
 
     def validate(self):
@@ -19191,8 +22480,11 @@ class ListGatewayRouteResponseBodyDataResultRedirect(TeaModel):
 
 class ListGatewayRouteResponseBodyDataResultRoutePredicatesHeaderPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # Header KEY
         self.key = key  # type: str
+        # The matching type.
         self.type = type  # type: str
+        # The header value.
         self.value = value  # type: str
 
     def validate(self):
@@ -19225,8 +22517,11 @@ class ListGatewayRouteResponseBodyDataResultRoutePredicatesHeaderPredicates(TeaM
 
 class ListGatewayRouteResponseBodyDataResultRoutePredicatesPathPredicates(TeaModel):
     def __init__(self, ignore_case=None, path=None, type=None):
+        # Indicates whether case sensitivity is ignored.
         self.ignore_case = ignore_case  # type: bool
+        # The path of the node.
         self.path = path  # type: str
+        # The matching type.
         self.type = type  # type: str
 
     def validate(self):
@@ -19259,8 +22554,11 @@ class ListGatewayRouteResponseBodyDataResultRoutePredicatesPathPredicates(TeaMod
 
 class ListGatewayRouteResponseBodyDataResultRoutePredicatesQueryPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key.
         self.key = key  # type: str
+        # The matching type.
         self.type = type  # type: str
+        # The value.
         self.value = value  # type: str
 
     def validate(self):
@@ -19293,9 +22591,13 @@ class ListGatewayRouteResponseBodyDataResultRoutePredicatesQueryPredicates(TeaMo
 
 class ListGatewayRouteResponseBodyDataResultRoutePredicates(TeaModel):
     def __init__(self, header_predicates=None, method_predicates=None, path_predicates=None, query_predicates=None):
+        # The headers used for route matching.
         self.header_predicates = header_predicates  # type: list[ListGatewayRouteResponseBodyDataResultRoutePredicatesHeaderPredicates]
+        # The HTTP methods used for route matching.
         self.method_predicates = method_predicates  # type: list[str]
+        # The path used for route matching.
         self.path_predicates = path_predicates  # type: ListGatewayRouteResponseBodyDataResultRoutePredicatesPathPredicates
+        # The parameters used for route matching.
         self.query_predicates = query_predicates  # type: list[ListGatewayRouteResponseBodyDataResultRoutePredicatesQueryPredicates]
 
     def validate(self):
@@ -19352,8 +22654,21 @@ class ListGatewayRouteResponseBodyDataResultRoutePredicates(TeaModel):
 
 class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList(TeaModel):
     def __init__(self, extract_key=None, extract_key_spec=None, mapping_type=None):
+        # The key extracted from the input parameter.
         self.extract_key = extract_key  # type: str
+        # The position of the input parameter.
+        # 
+        # > Valid values:
+        # 
+        # *   `ALL_QUERY_PARAMETER`: request parameter
+        # 
+        # *   `ALL_HEADER`: request header
+        # 
+        # *   `ALL_PATH`: request path
+        # 
+        # *   `ALL_BODY`: request body
         self.extract_key_spec = extract_key_spec  # type: str
+        # The type of the backend service parameter.
         self.mapping_type = mapping_type  # type: str
 
     def validate(self):
@@ -19387,11 +22702,37 @@ class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMoth
 class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList(TeaModel):
     def __init__(self, dubbo_mothed_name=None, http_mothed=None, mothedpath=None, param_maps_list=None,
                  pass_through_all_headers=None, pass_through_list=None):
+        # The method name of the Dubbo service.
         self.dubbo_mothed_name = dubbo_mothed_name  # type: str
+        # The HTTP method.
+        # 
+        # > Valid values:
+        # 
+        # *   ALL_GET
+        # 
+        # *   ALL_POST
+        # 
+        # *   ALL_PUT
+        # 
+        # *   ALL_DELETE
+        # 
+        # *   ALL_PATCH
         self.http_mothed = http_mothed  # type: str
+        # The path used for method matching.
         self.mothedpath = mothedpath  # type: str
+        # The information about parameter mappings.
         self.param_maps_list = param_maps_list  # type: list[ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapListParamMapsList]
+        # The pass-through type of the header.
+        # 
+        # > Valid values:
+        # 
+        # *   PASS_ALL: All headers are passed through.
+        # 
+        # *   PASS_NOT: All headers are not passed through.
+        # 
+        # *   PASS_ASSIGN: Specified headers are passed through.
         self.pass_through_all_headers = pass_through_all_headers  # type: str
+        # The list of headers to be passed through.
         self.pass_through_list = pass_through_list  # type: list[str]
 
     def validate(self):
@@ -19445,9 +22786,13 @@ class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMoth
 class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder(TeaModel):
     def __init__(self, dubbo_service_group=None, dubbo_service_name=None, dubbo_service_version=None,
                  mothed_map_list=None):
+        # The Dubbo service group.
         self.dubbo_service_group = dubbo_service_group  # type: str
+        # The name of the Dubbo service.
         self.dubbo_service_name = dubbo_service_name  # type: str
+        # The version of the Dubbo service.
         self.dubbo_service_version = dubbo_service_version  # type: str
+        # The forwarding rules of the Dubbo service.
         self.mothed_map_list = mothed_map_list  # type: list[ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoderMothedMapList]
 
     def validate(self):
@@ -19493,16 +22838,27 @@ class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder(Tea
 class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
                  percent=None, service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The transcoder of the Dubbo protocol.
         self.http_dubbo_transcoder = http_dubbo_transcoder  # type: ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder
+        # The name.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The Dubbo port number.
         self.service_port = service_port  # type: int
+        # The source type.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -19573,31 +22929,57 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
                  enable_waf=None, fallback=None, fallback_services=None, gateway_id=None, gateway_unique_id=None,
                  gmt_create=None, gmt_modified=None, id=None, name=None, predicates=None, redirect=None, route_order=None,
                  route_predicates=None, route_services=None, services=None, status=None, type=None):
+        # The route comment (ingress).
         self.comment = comment  # type: ListGatewayRouteResponseBodyDataResultComment
+        # The default service ID.
         self.default_service_id = default_service_id  # type: long
+        # The default service name.
         self.default_service_name = default_service_name  # type: str
+        # The destination type.
         self.destination_type = destination_type  # type: str
+        # The information about service mocking.
         self.direct_response = direct_response  # type: ListGatewayRouteResponseBodyDataResultDirectResponse
+        # The domain ID.
         self.domain_id = domain_id  # type: long
+        # The list of domain IDs.
         self.domain_id_list = domain_id_list  # type: list[long]
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The list of domain names.
         self.domain_name_list = domain_name_list  # type: list[str]
+        # Indicates whether Web Application Firewall (WAF) is activated.
         self.enable_waf = enable_waf  # type: str
+        # Indicates whether the Fallback service is enabled.
         self.fallback = fallback  # type: bool
+        # The information about the Fallback service.
         self.fallback_services = fallback_services  # type: list[ListGatewayRouteResponseBodyDataResultFallbackServices]
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # ID.
         self.id = id  # type: long
+        # The name.
         self.name = name  # type: str
+        # The matching rules.
         self.predicates = predicates  # type: str
+        # The information about redirection.
         self.redirect = redirect  # type: ListGatewayRouteResponseBodyDataResultRedirect
+        # The order.
         self.route_order = route_order  # type: int
+        # The matching rules.
         self.route_predicates = route_predicates  # type: ListGatewayRouteResponseBodyDataResultRoutePredicates
+        # The information about services.
         self.route_services = route_services  # type: list[ListGatewayRouteResponseBodyDataResultRouteServices]
+        # The information about services.
         self.services = services  # type: str
+        # The status.
         self.status = status  # type: int
+        # The route type.
         self.type = type  # type: str
 
     def validate(self):
@@ -19751,9 +23133,13 @@ class ListGatewayRouteResponseBodyDataResult(TeaModel):
 
 class ListGatewayRouteResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The data structure.
         self.result = result  # type: list[ListGatewayRouteResponseBodyDataResult]
+        # The total number of entries returned.
         self.total_size = total_size  # type: long
 
     def validate(self):
@@ -19798,11 +23184,20 @@ class ListGatewayRouteResponseBodyData(TeaModel):
 
 class ListGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: ListGatewayRouteResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -19889,11 +23284,23 @@ class ListGatewayRouteResponse(TeaModel):
 class ListGatewayServiceRequestFilterParams(TeaModel):
     def __init__(self, gateway_unique_id=None, group_name=None, name=None, namespace=None, service_protocol=None,
                  source_type=None):
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The group.
         self.group_name = group_name  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The protocol of the service.
+        # 
+        # *   HTTP
+        # *   HTTPS
+        # *   HTTP2
+        # *   GRPC
+        # *   DUBBO
         self.service_protocol = service_protocol  # type: str
+        # The type of the service source.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -19939,11 +23346,20 @@ class ListGatewayServiceRequestFilterParams(TeaModel):
 class ListGatewayServiceRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params=None, order_item=None, page_number=None,
                  page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable sorting.
         self.desc_sort = desc_sort  # type: bool
+        # The parameters that specify filter conditions, which are in the format of {"key1":"value1"}.
         self.filter_params = filter_params  # type: ListGatewayServiceRequestFilterParams
+        # The item based on which entries are sorted.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19991,11 +23407,20 @@ class ListGatewayServiceRequest(TeaModel):
 class ListGatewayServiceShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, desc_sort=None, filter_params_shrink=None, order_item=None,
                  page_number=None, page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable sorting.
         self.desc_sort = desc_sort  # type: bool
+        # The parameters that specify filter conditions, which are in the format of {"key1":"value1"}.
         self.filter_params_shrink = filter_params_shrink  # type: str
+        # The item based on which entries are sorted.
         self.order_item = order_item  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -20040,8 +23465,11 @@ class ListGatewayServiceShrinkRequest(TeaModel):
 
 class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie(TeaModel):
     def __init__(self, name=None, path=None, ttl=None):
+        # The name of the cookie.
         self.name = name  # type: str
+        # The path of the cookie.
         self.path = path  # type: str
+        # The lifecycle of the cookie.
         self.ttl = ttl  # type: str
 
     def validate(self):
@@ -20074,9 +23502,18 @@ class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSe
 
 class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig(TeaModel):
     def __init__(self, consistent_hash_lbtype=None, http_cookie=None, minimum_ring_size=None, parameter_name=None):
+        # The type based on which consistent hashing load balancing is performed.
+        # 
+        # *   HEADER
+        # *   COOKIE
+        # *   SOURCE_IP
+        # *   QUERY_PARAMETER
         self.consistent_hash_lbtype = consistent_hash_lbtype  # type: str
+        # The cookie-based load balancing parameters.
         self.http_cookie = http_cookie  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfigHttpCookie
+        # The minimum value of the hash ring.
         self.minimum_ring_size = minimum_ring_size  # type: long
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -20115,8 +23552,16 @@ class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSe
 
 class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings(TeaModel):
     def __init__(self, consistent_hash_lbconfig=None, loadbalancer_type=None, warmup_duration=None):
+        # The consistent hashing settings.
         self.consistent_hash_lbconfig = consistent_hash_lbconfig  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettingsConsistentHashLBConfig
+        # The load balancing type.
+        # 
+        # *   ROUND_ROBIN
+        # *   LEAST_CONN
+        # *   RANDOM
+        # *   CONSISTENT_HASH
         self.loadbalancer_type = loadbalancer_type  # type: str
+        # The prefetch time of least connection load balancing.
         self.warmup_duration = warmup_duration  # type: int
 
     def validate(self):
@@ -20152,11 +23597,22 @@ class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSe
 class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls(TeaModel):
     def __init__(self, ca_cert_content=None, ca_cert_id=None, cert_id=None, mode=None, sni=None,
                  subject_alt_names=None):
+        # The public key of the CA certificate .
         self.ca_cert_content = ca_cert_content  # type: str
+        # The ID of the certification authority (CA) certificate.
         self.ca_cert_id = ca_cert_id  # type: str
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: str
+        # The TLS mode.
+        # 
+        # *   DISABLE
+        # *   SIMPLE
+        # *   MUTUAL
+        # *   ISTIO_MUTUAL
         self.mode = mode  # type: str
+        # The Server Name Indication (SNI) value.
         self.sni = sni  # type: str
+        # The array of subject aliases.
         self.subject_alt_names = subject_alt_names  # type: list[str]
 
     def validate(self):
@@ -20201,7 +23657,9 @@ class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls(TeaModel):
 
 class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy(TeaModel):
     def __init__(self, load_balancer_settings=None, tls=None):
+        # The load balancing settings.
         self.load_balancer_settings = load_balancer_settings  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyLoadBalancerSettings
+        # TLS.
         self.tls = tls  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicyTls
 
     def validate(self):
@@ -20236,14 +23694,23 @@ class ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy(TeaModel):
 class ListGatewayServiceResponseBodyDataResultHealthCheckInfo(TeaModel):
     def __init__(self, check=None, expected_statuses=None, healthy_threshold=None, http_host=None, http_path=None,
                  interval=None, protocol=None, timeout=None, unhealthy_threshold=None):
+        # Indicates whether checks are performed.
         self.check = check  # type: bool
+        # The expected status of the health check.
         self.expected_statuses = expected_statuses  # type: list[int]
+        # The threshold for healthy instances.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The URL of the HTTP request for the health check.
         self.http_host = http_host  # type: str
+        # The path to which the HTTP request for the health check is sent.
         self.http_path = http_path  # type: str
+        # The health check interval.
         self.interval = interval  # type: int
+        # The network protocol.
         self.protocol = protocol  # type: str
+        # The timeout period.
         self.timeout = timeout  # type: int
+        # The threshold for unhealthy instances.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -20300,6 +23767,7 @@ class ListGatewayServiceResponseBodyDataResultHealthCheckInfo(TeaModel):
 
 class ListGatewayServiceResponseBodyDataResultVersions(TeaModel):
     def __init__(self, name=None):
+        # The version number.
         self.name = name  # type: str
 
     def validate(self):
@@ -20328,28 +23796,59 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
                  health_status=None, id=None, ips=None, meta_info=None, name=None, namespace=None, ports=None,
                  service_name_in_registry=None, service_port=None, service_protocol=None, source_id=None, source_type=None,
                  unhealthy_endpoints=None, versions=None):
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The traffic management policy.
         self.gateway_traffic_policy = gateway_traffic_policy  # type: ListGatewayServiceResponseBodyDataResultGatewayTrafficPolicy
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the service was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the service was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The group.
         self.group_name = group_name  # type: str
+        # The health status.
+        # 
+        # *   Health
+        # *   Unhealthy
+        # *   Unknown
         self.healeh_status = healeh_status  # type: str
+        # Indicates whether health checks are performed.
         self.health_check = health_check  # type: bool
+        # The information about health checks.
         self.health_check_info = health_check_info  # type: ListGatewayServiceResponseBodyDataResultHealthCheckInfo
+        # The health status.
+        # 
+        # *   Health
+        # *   Unhealthy
+        # *   Unknown
         self.health_status = health_status  # type: str
+        # ID.
         self.id = id  # type: long
+        # The IP addresses of the service.
         self.ips = ips  # type: list[str]
+        # The metadata or IP addresses of the service.
         self.meta_info = meta_info  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The port array.
         self.ports = ports  # type: list[int]
+        # The name of the service registered with the service registry.
         self.service_name_in_registry = service_name_in_registry  # type: str
+        # The service port.
         self.service_port = service_port  # type: long
+        # The protocol of the service.
         self.service_protocol = service_protocol  # type: str
+        # The ID of the service source.
         self.source_id = source_id  # type: long
+        # The type of the service source.
         self.source_type = source_type  # type: str
+        # The array of unhealthy endpoints.
         self.unhealthy_endpoints = unhealthy_endpoints  # type: list[str]
+        # The version of the service.
         self.versions = versions  # type: list[ListGatewayServiceResponseBodyDataResultVersions]
 
     def validate(self):
@@ -20476,9 +23975,13 @@ class ListGatewayServiceResponseBodyDataResult(TeaModel):
 
 class ListGatewayServiceResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The maximum number of entries returned per page. Default value: 10.
         self.page_size = page_size  # type: int
+        # The returned information.
         self.result = result  # type: list[ListGatewayServiceResponseBodyDataResult]
+        # The total number of entries returned.
         self.total_size = total_size  # type: long
 
     def validate(self):
@@ -20523,11 +24026,20 @@ class ListGatewayServiceResponseBodyData(TeaModel):
 
 class ListGatewayServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: ListGatewayServiceResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -20613,7 +24125,12 @@ class ListGatewayServiceResponse(TeaModel):
 
 class ListGatewaySlbRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -20644,21 +24161,37 @@ class ListGatewaySlbResponseBodyData(TeaModel):
     def __init__(self, edit_enable=None, gateway_id=None, gateway_slb_mode=None, gateway_slb_status=None,
                  gmt_create=None, http_port=None, https_port=None, https_vserver_group_id=None, id=None, service_weight=None,
                  slb_id=None, slb_ip=None, slb_port=None, status_desc=None, type=None, vserver_group_id=None):
+        # Indicates whether the edit operation is supported.
         self.edit_enable = edit_enable  # type: bool
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: str
+        # The service source.
         self.gateway_slb_mode = gateway_slb_mode  # type: str
+        # The association status.
         self.gateway_slb_status = gateway_slb_status  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The port number of the HTTP virtual service group.
         self.http_port = http_port  # type: int
+        # The port number of the HTTPS virtual service group.
         self.https_port = https_port  # type: int
+        # The ID of the HTTPS virtual service group.
         self.https_vserver_group_id = https_vserver_group_id  # type: str
+        # ID
         self.id = id  # type: str
+        # The service weight.
         self.service_weight = service_weight  # type: int
+        # SLB ID
         self.slb_id = slb_id  # type: str
+        # SLB IP
         self.slb_ip = slb_ip  # type: str
+        # The port number of the SLB instance.
         self.slb_port = slb_port  # type: str
+        # The description of the status.
         self.status_desc = status_desc  # type: str
+        # The type.
         self.type = type  # type: str
+        # The ID of the HTTP virtual service group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -20743,11 +24276,20 @@ class ListGatewaySlbResponseBodyData(TeaModel):
 
 class ListGatewaySlbResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data entries returned.
         self.data = data  # type: list[ListGatewaySlbResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -20839,10 +24381,27 @@ class ListGatewaySlbResponse(TeaModel):
 
 class ListInstanceCountRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_type=None, mse_version=None, region_id=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The type of the instance. Valid values: ZooKeeper and Nacos-Ans.
         self.cluster_type = cluster_type  # type: str
+        # The edition type of the instance. Valid values:
+        # 
+        # *   `mse_dev`: Developer Edition
+        # *   `mse_pro`: Professional Edition
         self.mse_version = mse_version  # type: str
+        # The ID of the region where the instance resides. Examples:
+        # 
+        # *   cn-hangzhou: China (Hangzhou)
+        # *   cn-beijing: China (Beijing)
+        # *   cn-shanghai: China (Shanghai)
+        # *   cn-zhangjiakou: China (Zhangjiakou)
+        # *   cn-shenzhen: China (Shenzhen)
         self.region_id = region_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -20884,14 +24443,28 @@ class ListInstanceCountRequest(TeaModel):
 class ListInstanceCountResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_code=None,
                  http_status_code=None, message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The data entries returned.
         self.data = data  # type: list[int]
+        # The dynamic part in the error message.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic part in the error message. This parameter is used to replace the \*\*%s\*\* variable in the **ErrMessage** parameter.
+        # 
+        # > If the return value of the **ErrMessage** parameter is **The Value of Input Parameter %s is not valid** and the return value of the **DynamicMessage** parameter is **DtsJobId**, the specified **DtsJobId** parameter is invalid.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request failed. If the request failed, the ErrorCode parameter is returned. For more information, see the "Error codes" section of this topic.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. If the request is successful, a success message is returned. If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -20988,11 +24561,20 @@ class ListInstanceCountResponse(TeaModel):
 class ListListenersByConfigRequest(TeaModel):
     def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None,
                  request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the data.
         self.data_id = data_id  # type: str
+        # The group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -21037,8 +24619,11 @@ class ListListenersByConfigRequest(TeaModel):
 
 class ListListenersByConfigResponseBodyListeners(TeaModel):
     def __init__(self, ip=None, md_5=None, status=None):
+        # IP.
         self.ip = ip  # type: str
+        # The verification string.
         self.md_5 = md_5  # type: str
+        # The status.
         self.status = status  # type: str
 
     def validate(self):
@@ -21072,14 +24657,26 @@ class ListListenersByConfigResponseBodyListeners(TeaModel):
 class ListListenersByConfigResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, listeners=None, message=None, page_number=None,
                  page_size=None, request_id=None, success=None, total_count=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The information about listeners.
         self.listeners = listeners  # type: list[ListListenersByConfigResponseBodyListeners]
+        # The response message.
         self.message = message  # type: str
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The call was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21183,10 +24780,18 @@ class ListListenersByConfigResponse(TeaModel):
 
 class ListListenersByIpRequest(TeaModel):
     def __init__(self, accept_language=None, instance_id=None, ip=None, namespace_id=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The IP address of the listener.
         self.ip = ip  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -21227,8 +24832,11 @@ class ListListenersByIpRequest(TeaModel):
 
 class ListListenersByIpResponseBodyListeners(TeaModel):
     def __init__(self, data_id=None, group=None, md_5=None):
+        # The ID of the data.
         self.data_id = data_id  # type: str
+        # The group.
         self.group = group  # type: str
+        # The verification string.
         self.md_5 = md_5  # type: str
 
     def validate(self):
@@ -21262,14 +24870,26 @@ class ListListenersByIpResponseBodyListeners(TeaModel):
 class ListListenersByIpResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, listeners=None, message=None, page_number=None,
                  page_size=None, request_id=None, success=None, total_count=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The information about listeners.
         self.listeners = listeners  # type: list[ListListenersByIpResponseBodyListeners]
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The total number of instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21374,16 +24994,30 @@ class ListListenersByIpResponse(TeaModel):
 class ListNacosConfigsRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, data_id=None, group=None, instance_id=None,
                  namespace_id=None, page_num=None, page_size=None, region_id=None, request_pars=None, tags=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The name of the group. Default value: `default`.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region in which the cluster resides.
         self.region_id = region_id  # type: str
+        # The extended request parameters. The JSON format is supported.
         self.request_pars = request_pars  # type: str
+        # The tags of the configuration.
         self.tags = tags  # type: str
 
     def validate(self):
@@ -21448,9 +25082,13 @@ class ListNacosConfigsRequest(TeaModel):
 
 class ListNacosConfigsResponseBodyConfigurations(TeaModel):
     def __init__(self, app_name=None, data_id=None, group=None, id=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The ID of the group.
         self.group = group  # type: str
+        # The ID of the application.
         self.id = id  # type: str
 
     def validate(self):
@@ -21488,15 +25126,27 @@ class ListNacosConfigsResponseBodyConfigurations(TeaModel):
 class ListNacosConfigsResponseBody(TeaModel):
     def __init__(self, code=None, configurations=None, error_code=None, http_code=None, message=None,
                  page_number=None, page_size=None, request_id=None, success=None, total_count=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The information about configurations.
         self.configurations = configurations  # type: list[ListNacosConfigsResponseBodyConfigurations]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21605,14 +25255,26 @@ class ListNacosConfigsResponse(TeaModel):
 class ListNacosHistoryConfigsRequest(TeaModel):
     def __init__(self, accept_language=None, data_id=None, group=None, instance_id=None, namespace_id=None,
                  page_num=None, page_size=None, region_id=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region in which the cluster resides.
         self.region_id = region_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -21669,11 +25331,17 @@ class ListNacosHistoryConfigsRequest(TeaModel):
 
 class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
     def __init__(self, app_name=None, data_id=None, group=None, id=None, last_modified_time=None, op_type=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The ID of the configuration.
         self.id = id  # type: long
+        # The timestamp when the configuration was last modified.
         self.last_modified_time = last_modified_time  # type: long
+        # The type of the configuration.
         self.op_type = op_type  # type: str
 
     def validate(self):
@@ -21719,14 +25387,25 @@ class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
 class ListNacosHistoryConfigsResponseBody(TeaModel):
     def __init__(self, error_code=None, history_items=None, http_code=None, message=None, page_number=None,
                  page_size=None, request_id=None, success=None, total_count=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The information about configurations.
         self.history_items = history_items  # type: list[ListNacosHistoryConfigsResponseBodyHistoryItems]
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21830,7 +25509,12 @@ class ListNacosHistoryConfigsResponse(TeaModel):
 
 class ListSSLCertRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -21860,15 +25544,25 @@ class ListSSLCertRequest(TeaModel):
 class ListSSLCertResponseBodyData(TeaModel):
     def __init__(self, after_date=None, algorithm=None, before_date=None, cert_identifier=None, cert_name=None,
                  common_name=None, gmt_after=None, gmt_before=None, issuer=None, sans=None):
+        # The effective time of the certificate.
         self.after_date = after_date  # type: str
+        # The algorithm of the certificate.
         self.algorithm = algorithm  # type: str
+        # The expiration time of the certificate.
         self.before_date = before_date  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The name of the certificate.
         self.cert_name = cert_name  # type: str
+        # The domain name with which the certificate is associated.
         self.common_name = common_name  # type: str
+        # The effective time of the certificate.
         self.gmt_after = gmt_after  # type: str
+        # The expiration time of the certificate.
         self.gmt_before = gmt_before  # type: str
+        # The issuer of the certificate.
         self.issuer = issuer  # type: str
+        # The SSL certificate.
         self.sans = sans  # type: str
 
     def validate(self):
@@ -21929,11 +25623,19 @@ class ListSSLCertResponseBodyData(TeaModel):
 
 class ListSSLCertResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: list[ListSSLCertResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned if the request fails.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22025,7 +25727,12 @@ class ListSSLCertResponse(TeaModel):
 
 class ListSecurityGroupRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -22054,9 +25761,16 @@ class ListSecurityGroupRequest(TeaModel):
 
 class ListSecurityGroupResponseBodyData(TeaModel):
     def __init__(self, security_group_id=None, security_group_name=None, security_group_type=None, vpc_id=None):
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
+        # The name of the security group.
         self.security_group_name = security_group_name  # type: str
+        # The type of the security group. Valid values:
+        # 
+        # - normal: basic security group 
+        # - enterprise: advanced security group For more information, see [Overview](~~120621~~).
         self.security_group_type = security_group_type  # type: str
+        # VPC ID.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -22093,11 +25807,19 @@ class ListSecurityGroupResponseBodyData(TeaModel):
 
 class ListSecurityGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: list[ListSecurityGroupResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22189,7 +25911,12 @@ class ListSecurityGroupResponse(TeaModel):
 
 class ListSecurityGroupRuleRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -22219,14 +25946,23 @@ class ListSecurityGroupRuleRequest(TeaModel):
 class ListSecurityGroupRuleResponseBodyData(TeaModel):
     def __init__(self, description=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
                  gmt_modified=None, id=None, ip_protocol=None, port_range=None, security_group_id=None):
+        # The description of the rule.
         self.description = description  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the security group rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the security group rule was last modified.
         self.gmt_modified = gmt_modified  # type: str
+        # ID.
         self.id = id  # type: str
+        # The type of the protocol.
         self.ip_protocol = ip_protocol  # type: str
+        # The range of ports.
         self.port_range = port_range  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -22283,11 +26019,19 @@ class ListSecurityGroupRuleResponseBodyData(TeaModel):
 
 class ListSecurityGroupRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned results.
         self.data = data  # type: list[ListSecurityGroupRuleResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22379,7 +26123,9 @@ class ListSecurityGroupRuleResponse(TeaModel):
 
 class ListServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None):
+        # The data structure.
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -22408,9 +26154,12 @@ class ListServiceSourceRequest(TeaModel):
 
 class ListServiceSourceResponseBodyDataIngressOptions(TeaModel):
     def __init__(self, enable_ingress=None, enable_status=None, ingress_class=None, watch_namespace=None):
+        # Alibaba Cloud provides SDKs for multiple programming languages to help you integrate Alibaba Cloud products and services by using APIs. We recommend that you use an SDK to call API operations. This frees you from manual signature verification.
         self.enable_ingress = enable_ingress  # type: bool
         self.enable_status = enable_status  # type: bool
+        # ingress class
         self.ingress_class = ingress_class  # type: str
+        # Alibaba Cloud CLI allows you to search for API operations, call and debug API operations online, and dynamically generate executable sample code for SDKs.
         self.watch_namespace = watch_namespace  # type: str
 
     def validate(self):
@@ -22449,19 +26198,30 @@ class ListServiceSourceResponseBodyData(TeaModel):
     def __init__(self, address=None, binding_with_gateway=None, gateway_id=None, gateway_unique_id=None,
                  gmt_create=None, gmt_modified=None, group_list=None, id=None, ingress_options=None, name=None, path_list=None,
                  source=None, source_unique_id=None, type=None):
+        # The type of the service source.
         self.address = address  # type: str
+        # The ID of the gateway.
         self.binding_with_gateway = binding_with_gateway  # type: int
+        # The time when the service source was added.
         self.gateway_id = gateway_id  # type: long
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The time when the service source was last modified.
         self.gmt_create = gmt_create  # type: str
+        # The unique ID of the service source.
         self.gmt_modified = gmt_modified  # type: str
         self.group_list = group_list  # type: list[str]
+        # The name of the service source.
         self.id = id  # type: long
+        # Programming language
         self.ingress_options = ingress_options  # type: ListServiceSourceResponseBodyDataIngressOptions
+        # The ID of the Container Service for Kubernetes (ACK) cluster, or the endpoint of the Microservices Engine (MSE) Nacos registry.
         self.name = name  # type: str
         self.path_list = path_list  # type: list[str]
+        # Indicates whether the service source is associated with the gateway.
         self.source = source  # type: str
+        # Query service sources
         self.source_unique_id = source_unique_id  # type: str
+        # The source of the service source.
         self.type = type  # type: str
 
     def validate(self):
@@ -22540,11 +26300,19 @@ class ListServiceSourceResponseBodyData(TeaModel):
 
 class ListServiceSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: list[ListServiceSourceResponseBodyData]
+        # The error message returned if the request fails.
         self.http_status_code = http_status_code  # type: int
+        # The status code returned.
         self.message = message  # type: str
+        # The HTTP status code returned.
         self.request_id = request_id  # type: str
+        # The returned results.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22636,7 +26404,9 @@ class ListServiceSourceResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of a tag.
         self.key = key  # type: str
+        # The value of a tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -22666,11 +26436,23 @@ class ListTagResourcesRequestTag(TeaModel):
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, accept_language=None, next_token=None, region_id=None, resource_id=None, resource_type=None,
                  tag=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The token that is required for the next query.
         self.next_token = next_token  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The resource IDs. You can specify a maximum of 50 resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resources. Valid values:
+        # 
+        # *   CLUSTER: MSE instance
+        # *   GATEWAY: cloud-native gateway
         self.resource_type = resource_type  # type: str
+        # The list of tags. You can specify a maximum of 20 tags.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -22723,9 +26505,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of a resource.
         self.resource_id = resource_id  # type: str
+        # The type of a resource.
         self.resource_type = resource_type  # type: str
+        # The key of a tag.
         self.tag_key = tag_key  # type: str
+        # The value of a tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -22795,11 +26581,20 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, next_token=None, request_id=None, success=None,
                  tag_resources=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The token that is required for the next query. If the NextToken parameter is empty, no subsequent query is required.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
+        # The list of resources.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -22892,8 +26687,10 @@ class ListZkTrackRequest(TeaModel):
         self.page_num = page_num  # type: long
         self.page_size = page_size  # type: long
         self.path = path  # type: str
+        # RequestPars。
         self.request_pars = request_pars  # type: str
         self.reverse = reverse  # type: bool
+        # SessionId。
         self.session_id = session_id  # type: str
         self.start_ts = start_ts  # type: long
 
@@ -22956,6 +26753,7 @@ class ListZkTrackRequest(TeaModel):
 class ListZkTrackResponseBodyTraces(TeaModel):
     def __init__(self, acl=None, data_type=None, event_type=None, finished=None, log_date=None, multi_size=None,
                  op_type=None, path=None, result=None, session_id=None, timestamp=None, trace_type=None, ttl=None, watch=None):
+        # ACL。
         self.acl = acl  # type: str
         self.data_type = data_type  # type: str
         self.event_type = event_type  # type: str
@@ -22965,9 +26763,11 @@ class ListZkTrackResponseBodyTraces(TeaModel):
         self.op_type = op_type  # type: str
         self.path = path  # type: str
         self.result = result  # type: str
+        # SessionId。
         self.session_id = session_id  # type: str
         self.timestamp = timestamp  # type: str
         self.trace_type = trace_type  # type: str
+        # TTL。
         self.ttl = ttl  # type: long
         self.watch = watch  # type: bool
 
@@ -23157,8 +26957,14 @@ class ListZkTrackResponse(TeaModel):
 
 class ListZnodeChildrenRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, path=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -23191,9 +26997,15 @@ class ListZnodeChildrenRequest(TeaModel):
 
 class ListZnodeChildrenResponseBodyData(TeaModel):
     def __init__(self, data=None, dir=None, name=None, path=None):
+        # The data of the node.
         self.data = data  # type: str
+        # Indicates whether the node directory information is returned. Valid values:
+        # - `true`: The information is returned. 
+        # - `false`: The information fails to be returned.
         self.dir = dir  # type: bool
+        # The name of the node.
         self.name = name  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -23230,10 +27042,17 @@ class ListZnodeChildrenResponseBodyData(TeaModel):
 
 class ListZnodeChildrenResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: list[ListZnodeChildrenResponseBodyData]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -23321,9 +27140,16 @@ class ListZnodeChildrenResponse(TeaModel):
 
 class ModifyGovernanceKubernetesClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, namespace_infos=None, region_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The information about the namespaces of the cluster.
         self.namespace_infos = namespace_infos  # type: str
+        # The region in which the cluster resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -23360,11 +27186,20 @@ class ModifyGovernanceKubernetesClusterRequest(TeaModel):
 
 class ModifyGovernanceKubernetesClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: bool
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -23449,17 +27284,35 @@ class ModifyGovernanceKubernetesClusterResponse(TeaModel):
 class ModifyLosslessRuleRequest(TeaModel):
     def __init__(self, accept_language=None, aligned=None, app_id=None, app_name=None, delay_time=None, enable=None,
                  func_type=None, region_id=None, related=None, shutdown_wait_seconds=None, source=None, warmup_time=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to align the lifecycle of the application in the Kubernetes cluster with that of the microservice.
         self.aligned = aligned  # type: bool
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The registration latency.
         self.delay_time = delay_time  # type: long
+        # Specifies whether to enable the alert rule. Valid values:
+        # 
+        # *   `true`: enables the rule.
+        # *   `false`: disables the rule.
         self.enable = enable  # type: bool
+        # The slope of the prefetching curve.
         self.func_type = func_type  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
+        # Specifies whether to associate readiness probe with service prefetching.
         self.related = related  # type: bool
+        # The cooldown duration. Unit: seconds.
         self.shutdown_wait_seconds = shutdown_wait_seconds  # type: int
+        # The service source. Valid values:
         self.source = source  # type: str
+        # The prefetching duration.
         self.warmup_time = warmup_time  # type: long
 
     def validate(self):
@@ -23528,10 +27381,18 @@ class ModifyLosslessRuleRequest(TeaModel):
 
 class ModifyLosslessRuleResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -23611,8 +27472,14 @@ class ModifyLosslessRuleResponse(TeaModel):
 
 class OfflineGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.route_id = route_id  # type: str
 
     def validate(self):
@@ -23645,11 +27512,20 @@ class OfflineGatewayRouteRequest(TeaModel):
 
 class OfflineGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # Indicates whether the route is unpublished.
         self.data = data  # type: bool
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -23733,9 +27609,16 @@ class OfflineGatewayRouteResponse(TeaModel):
 
 class PullServicesRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, namespace=None, source_type=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The type of the service source.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -23772,10 +27655,15 @@ class PullServicesRequest(TeaModel):
 
 class PullServicesResponseBodyDataServices(TeaModel):
     def __init__(self, group_name=None, name=None, namespace=None, source_id=None, source_type=None):
+        # The group.
         self.group_name = group_name  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The ID of the service source.
         self.source_id = source_id  # type: str
+        # The type of the service source.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -23816,9 +27704,13 @@ class PullServicesResponseBodyDataServices(TeaModel):
 
 class PullServicesResponseBodyData(TeaModel):
     def __init__(self, group_name=None, namespace=None, namespace_show_name=None, services=None):
+        # The group.
         self.group_name = group_name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The alias of the namespace.
         self.namespace_show_name = namespace_show_name  # type: str
+        # The information about services.
         self.services = services  # type: list[PullServicesResponseBodyDataServices]
 
     def validate(self):
@@ -23863,11 +27755,20 @@ class PullServicesResponseBodyData(TeaModel):
 
 class PullServicesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The data entries returned.
         self.data = data  # type: list[PullServicesResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -23959,7 +27860,12 @@ class PullServicesResponse(TeaModel):
 
 class QueryAllSwimmingLaneRequest(TeaModel):
     def __init__(self, accept_language=None, group_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane group.
         self.group_id = group_id  # type: long
 
     def validate(self):
@@ -23989,13 +27895,23 @@ class QueryAllSwimmingLaneRequest(TeaModel):
 class QueryAllSwimmingLaneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -24087,6 +28003,10 @@ class QueryAllSwimmingLaneResponse(TeaModel):
 
 class QueryAllSwimmingLaneGroupRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -24112,13 +28032,26 @@ class QueryAllSwimmingLaneGroupRequest(TeaModel):
 class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. Valid values: 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -24210,6 +28143,10 @@ class QueryAllSwimmingLaneGroupResponse(TeaModel):
 
 class QueryBusinessLocationsRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -24236,18 +28173,31 @@ class QueryBusinessLocationsResponseBodyData(TeaModel):
     def __init__(self, cn_name=None, description=None, district_cn_name=None, district_en_name=None,
                  district_id=None, district_ordering=None, district_show_name=None, en_description=None, en_name=None,
                  name=None, ordering=None, show_name=None, type=None):
+        # The Chinese name of the region.
         self.cn_name = cn_name  # type: str
+        # The description of the region.
         self.description = description  # type: str
+        # The Chinese name of the district.
         self.district_cn_name = district_cn_name  # type: str
+        # The English name of the district.
         self.district_en_name = district_en_name  # type: str
+        # The ID of the district.
         self.district_id = district_id  # type: str
+        # The ordering information of the district.
         self.district_ordering = district_ordering  # type: int
+        # The display name of the district.
         self.district_show_name = district_show_name  # type: str
+        # The complete description of the region.
         self.en_description = en_description  # type: str
+        # The English name of the region.
         self.en_name = en_name  # type: str
+        # The ID of the region.
         self.name = name  # type: str
+        # The ordering information.
         self.ordering = ordering  # type: int
+        # The display name of the region.
         self.show_name = show_name  # type: str
+        # The type of the data.
         self.type = type  # type: str
 
     def validate(self):
@@ -24320,10 +28270,15 @@ class QueryBusinessLocationsResponseBodyData(TeaModel):
 
 class QueryBusinessLocationsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: list[QueryBusinessLocationsResponseBodyData]
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -24411,9 +28366,15 @@ class QueryBusinessLocationsResponse(TeaModel):
 
 class QueryClusterDetailRequest(TeaModel):
     def __init__(self, accept_language=None, acl_switch=None, instance_id=None, order_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
         self.acl_switch = acl_switch  # type: bool
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
 
     def validate(self):
@@ -24451,12 +28412,19 @@ class QueryClusterDetailRequest(TeaModel):
 class QueryClusterDetailResponseBodyDataInstanceModels(TeaModel):
     def __init__(self, creation_timestamp=None, health_status=None, internet_ip=None, ip=None, pod_name=None,
                  role=None, single_tunnel_vip=None, zone=None):
+        # The timestamp when the node was created.
         self.creation_timestamp = creation_timestamp  # type: str
+        # The health status of the node.
         self.health_status = health_status  # type: str
+        # The public IP address.
         self.internet_ip = internet_ip  # type: str
+        # The IP address of the node.
         self.ip = ip  # type: str
+        # The name of the pod.
         self.pod_name = pod_name  # type: str
+        # The role of the node.
         self.role = role  # type: str
+        # The single-thread IP address.
         self.single_tunnel_vip = single_tunnel_vip  # type: str
         self.zone = zone  # type: str
 
@@ -24517,42 +28485,83 @@ class QueryClusterDetailResponseBodyData(TeaModel):
                  intranet_port=None, memory_capacity=None, mse_version=None, net_type=None, order_cluster_version=None,
                  pay_info=None, pub_network_flow=None, region_id=None, resource_group_id=None, tags=None, v_switch_id=None,
                  vpc_id=None):
+        # The whitelist of the cluster.
         self.acl_entry_list = acl_entry_list  # type: str
+        # The ID of the whitelist.
         self.acl_id = acl_id  # type: str
+        # The version of the application.
         self.app_version = app_version  # type: str
+        # The billing method, such as subscription or pay-as-you-go.
         self.charge_type = charge_type  # type: str
+        # The alias of the cluster.
         self.cluster_alias_name = cluster_alias_name  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The specifications of the engine.
         self.cluster_specification = cluster_specification  # type: str
+        # The type of the cluster. Valid values: ZooKeeper, Nacos-Ans, and Eureka.
         self.cluster_type = cluster_type  # type: str
+        # The version of the cluster.
         self.cluster_version = cluster_version  # type: str
+        # The connection type. Valid values:
+        # 
+        # - slb
+        # - eni
         self.connection_type = connection_type  # type: str
+        # The number of CPUs.
         self.cpu = cpu  # type: int
+        # The time when the cluster was created.
         self.create_time = create_time  # type: str
+        # The capacity of the disk. Unit: GB.
         self.disk_capacity = disk_capacity  # type: long
+        # The type of the disk.
         self.disk_type = disk_type  # type: str
+        # The health status of the cluster.
         self.health_status = health_status  # type: str
+        # The amount of time taken to create the cluster. Unit: milliseconds.
         self.init_cost_time = init_cost_time  # type: long
+        # The creation status of the cluster.
         self.init_status = init_status  # type: str
+        # The number of nodes.
         self.instance_count = instance_count  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The information about nodes.
         self.instance_models = instance_models  # type: list[QueryClusterDetailResponseBodyDataInstanceModels]
+        # The public IP address.
         self.internet_address = internet_address  # type: str
+        # The public domain name.
         self.internet_domain = internet_domain  # type: str
+        # The private port.
         self.internet_port = internet_port  # type: str
+        # The private IP address.
         self.intranet_address = intranet_address  # type: str
+        # The private domain name.
         self.intranet_domain = intranet_domain  # type: str
+        # The private port.
         self.intranet_port = intranet_port  # type: str
+        # The size of the memory. Unit: GB.
         self.memory_capacity = memory_capacity  # type: long
+        # The version category of the cluster.
         self.mse_version = mse_version  # type: str
+        # The network type of the cluster. Valid values:
+        # 
+        # - `privatenet`: private network 
+        # - `pubnet`: the Internet
         self.net_type = net_type  # type: str
         self.order_cluster_version = order_cluster_version  # type: str
+        # The billing method, such as subscription or pay-as-you-go.
         self.pay_info = pay_info  # type: str
+        # The public bandwidth. Unit: Mbit/s.    
+        # Valid values: 0 to 5000. A value of 0 indicates no access to the Internet.
         self.pub_network_flow = pub_network_flow  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.tags = tags  # type: dict[str, any]
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -24729,10 +28738,17 @@ class QueryClusterDetailResponseBodyData(TeaModel):
 
 class QueryClusterDetailResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: QueryClusterDetailResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -24814,7 +28830,12 @@ class QueryClusterDetailResponse(TeaModel):
 
 class QueryClusterDiskSpecificationRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The type of the cluster. Valid values: ZooKeeper, Nacos-Ans, and Eureka.
         self.cluster_type = cluster_type  # type: str
 
     def validate(self):
@@ -24843,8 +28864,11 @@ class QueryClusterDiskSpecificationRequest(TeaModel):
 
 class QueryClusterDiskSpecificationResponseBodyData(TeaModel):
     def __init__(self, max=None, min=None, step=None):
+        # The maximum capacity of the disk.
         self.max = max  # type: int
+        # The minimum capacity of the disk.
         self.min = min  # type: int
+        # The step size of the disk capacity.
         self.step = step  # type: int
 
     def validate(self):
@@ -24878,13 +28902,24 @@ class QueryClusterDiskSpecificationResponseBodyData(TeaModel):
 class QueryClusterDiskSpecificationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: QueryClusterDiskSpecificationResponseBodyData
+        # The dynamic part in the error message. This parameter is used to replace the **%s** variable in the **Message** parameter. 
+        # > If the specified **InstanceId** parameter is invalid, **The Value of Input Parameter %s is not valid** is returned for **Message** and **InstanceId** is returned for **DynamicMessage**.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -24978,8 +29013,20 @@ class QueryClusterDiskSpecificationResponse(TeaModel):
 
 class QueryClusterSpecificationRequest(TeaModel):
     def __init__(self, accept_language=None, connect_type=None, mse_version=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The network type. Valid values:
+        # 
+        # *   slb
+        # *   eni
         self.connect_type = connect_type  # type: str
+        # The edition of the Microservices Engine (MSE) instance that you want to purchase.
+        # 
+        # *   mse_pro: Professional Edition
+        # *   mse_dev: Developer Edition
         self.mse_version = mse_version  # type: str
 
     def validate(self):
@@ -25012,8 +29059,11 @@ class QueryClusterSpecificationRequest(TeaModel):
 
 class QueryClusterSpecificationResponseBodyData(TeaModel):
     def __init__(self, cluster_specification_name=None, cpu_capacity=None, memory_capacity=None):
+        # The engine specifications that can be used.
         self.cluster_specification_name = cluster_specification_name  # type: str
+        # The number of vCPUs in the specifications.
         self.cpu_capacity = cpu_capacity  # type: str
+        # The memory size in the specifications. Unit: GB.
         self.memory_capacity = memory_capacity  # type: str
 
     def validate(self):
@@ -25047,12 +29097,22 @@ class QueryClusterSpecificationResponseBodyData(TeaModel):
 class QueryClusterSpecificationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, error_code=None, http_status_code=None, message=None, request_id=None,
                  success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: list[QueryClusterSpecificationResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -25149,11 +29209,19 @@ class QueryClusterSpecificationResponse(TeaModel):
 class QueryConfigRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, config_type=None, instance_id=None,
                  need_running_conf=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.config_type = config_type  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.need_running_conf = need_running_conf  # type: bool
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -25228,32 +29296,91 @@ class QueryConfigResponseBodyData(TeaModel):
                  nacos_running_env=None, naming_auth_enabled=None, naming_auth_supported=None, naming_create_service_supported=None,
                  open_super_acl=None, pass_word=None, restart_flag=None, snapshot_count=None, sync_limit=None, tick_time=None,
                  user_name=None):
+        # A reserved parameter.
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
+        # A reserved parameter.
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # Indicates whether RAM authentication of a configuration center is enabled. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.config_auth_enabled = config_auth_enabled  # type: bool
+        # Indicates whether RAM authentication is supported by a configuration center of the instance. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: supported
+        # *   `false`: not supported
         self.config_auth_supported = config_auth_supported  # type: bool
         self.config_content_limit = config_content_limit  # type: long
+        # Indicates whether configuration encryption of a configuration center is enabled by the instance. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.config_secret_enabled = config_secret_enabled  # type: bool
+        # Indicates whether configuration encryption of a configuration center is supported by the instance. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: supported
+        # *   `false`: not supported
         self.config_secret_supported = config_secret_supported  # type: bool
+        # The maximum connection duration of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.init_limit = init_limit  # type: str
+        # The maximum amount of data on each node. This parameter is valid for ZooKeeper instances. Unit: bytes.
         self.jute_maxbuffer = jute_maxbuffer  # type: str
+        # A reserved parameter.
         self.jvm_flags_custom = jvm_flags_custom  # type: str
+        # Indicates whether Mesh Configuration Protocol (MCP) is enabled. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.mcpenabled = mcpenabled  # type: bool
+        # Indicates whether MCP is supported. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: supported
+        # *   `false`: not supported
         self.mcpsupported = mcpsupported  # type: bool
+        # The number of connections between a client and a server. This parameter is valid for ZooKeeper instances.\
+        # If this parameter is set to 0, no limits are imposed on the number of connections.
         self.max_client_cnxns = max_client_cnxns  # type: str
+        # The maximum timeout period. This parameter is valid for ZooKeeper instances.
         self.max_session_timeout = max_session_timeout  # type: str
+        # The minimum timeout period. This parameter is valid for ZooKeeper instances.
         self.min_session_timeout = min_session_timeout  # type: str
         self.nacos_running_env = nacos_running_env  # type: QueryConfigResponseBodyDataNacosRunningEnv
+        # Indicates whether RAM authentication of a registry is enabled. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.naming_auth_enabled = naming_auth_enabled  # type: bool
+        # Indicates whether RAM authentication of services is supported by the instance. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: supported
+        # *   `false`: not supported
         self.naming_auth_supported = naming_auth_supported  # type: bool
+        # Indicates whether service creation is supported for the instance. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: supported
+        # *   `false`: not supported
         self.naming_create_service_supported = naming_create_service_supported  # type: bool
+        # Indicates whether super permissions are enabled. This parameter is valid for ZooKeeper instances. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.open_super_acl = open_super_acl  # type: bool
+        # The password of the user. This parameter is valid only if OpenSuperAcl is set to true.
         self.pass_word = pass_word  # type: str
+        # Indicates whether the instance was restarted and new configurations have taken effect. Valid values:
+        # 
+        # *   `true`: The restart was successful.
+        # *   `false`: The restart failed.
         self.restart_flag = restart_flag  # type: bool
+        # The frequency for generating snapshots. This parameter is valid for ZooKeeper instances.
         self.snapshot_count = snapshot_count  # type: str
+        # The connection timeout period of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.sync_limit = sync_limit  # type: str
+        # The time unit of the engine. This parameter is valid for ZooKeeper instances. Default value: 2000. Unit: milliseconds.
         self.tick_time = tick_time  # type: str
+        # The username of the user. This parameter is valid only if OpenSuperAcl is set to true.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -25384,11 +29511,20 @@ class QueryConfigResponseBodyData(TeaModel):
 
 class QueryConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: QueryConfigResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -25498,11 +29634,19 @@ class QueryGatewayRegionRequest(TeaModel):
 
 class QueryGatewayRegionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The request is processed successfully.
         self.code = code  # type: int
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.data = data  # type: list[str]
+        # The ID of the request.
         self.http_status_code = http_status_code  # type: int
+        # The HTTP status code returned.
         self.message = message  # type: str
+        # The data structure.
         self.request_id = request_id  # type: str
+        # The status code returned.
         self.success = success  # type: bool
 
     def validate(self):
@@ -25586,6 +29730,10 @@ class QueryGatewayRegionResponse(TeaModel):
 
 class QueryGatewayTypeRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -25610,11 +29758,19 @@ class QueryGatewayTypeRequest(TeaModel):
 
 class QueryGatewayTypeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful. Other values indicate that the request fails.
         self.code = code  # type: int
+        # The information about gateway types.
         self.data = data  # type: list[str]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. If the request is successful, a success message is returned. If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -25698,10 +29854,18 @@ class QueryGatewayTypeResponse(TeaModel):
 
 class QueryGovernanceKubernetesClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_name=None, page_number=None, page_size=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the Kubernetes cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the Kubernetes cluster.
         self.cluster_name = cluster_name  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -25743,11 +29907,17 @@ class QueryGovernanceKubernetesClusterRequest(TeaModel):
 class QueryGovernanceKubernetesClusterResponseBodyDataResult(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, k_8s_version=None, namespace_infos=None,
                  pilot_start_time=None, region=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The version of the cluster.
         self.k_8s_version = k_8s_version  # type: str
+        # The information of the namespace.
         self.namespace_infos = namespace_infos  # type: str
+        # The time when the ack-one-pilot component was started.
         self.pilot_start_time = pilot_start_time  # type: str
+        # Region
         self.region = region  # type: str
 
     def validate(self):
@@ -25792,9 +29962,12 @@ class QueryGovernanceKubernetesClusterResponseBodyDataResult(TeaModel):
 
 class QueryGovernanceKubernetesClusterResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, result=None, total_size=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
         self.result = result  # type: list[QueryGovernanceKubernetesClusterResponseBodyDataResult]
+        # The number of clusters.
         self.total_size = total_size  # type: int
 
     def validate(self):
@@ -25839,11 +30012,17 @@ class QueryGovernanceKubernetesClusterResponseBodyData(TeaModel):
 
 class QueryGovernanceKubernetesClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: QueryGovernanceKubernetesClusterResponseBodyData
+        # HttpCode
         self.http_status_code = http_status_code  # type: int
+        # Message
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -25930,12 +30109,49 @@ class QueryGovernanceKubernetesClusterResponse(TeaModel):
 class QueryMonitorRequest(TeaModel):
     def __init__(self, accept_language=None, end_time=None, instance_id=None, monitor_type=None, request_pars=None,
                  start_time=None, step=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The timestamp when the monitoring ends.
         self.end_time = end_time  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The metric type. The following metrics are supported:
+        # 
+        # \[Basic system metrics]
+        # 
+        # *   cpuUsage
+        # *   memoryUsage
+        # *   diskUsage
+        # *   gcCount
+        # *   gcTime
+        # 
+        # \[Nacos registry]
+        # 
+        # *   serviceCount
+        # *   writeCostTime
+        # *   readCostTime
+        # *   regCenterTps
+        # *   regCenterQps
+        # 
+        # \[Nacos configuration center]
+        # 
+        # *   publish
+        # *   getConfig
+        # 
+        # \[Zookeeper]
+        # 
+        # *   zk_TpsCount
+        # *   zk_QpsCount
+        # *   zookeeper_AvgRequestLatency
         self.monitor_type = monitor_type  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The timestamp when the monitoring starts.
         self.start_time = start_time  # type: long
+        # The interval between data points. Unit: seconds.
         self.step = step  # type: long
 
     def validate(self):
@@ -25984,8 +30200,11 @@ class QueryMonitorRequest(TeaModel):
 
 class QueryMonitorResponseBodyData(TeaModel):
     def __init__(self, cluster_name_prefix=None, pod_name=None, values=None):
+        # The prefix of the name.
         self.cluster_name_prefix = cluster_name_prefix  # type: str
+        # The name of the pod.
         self.pod_name = pod_name  # type: str
+        # The details of the data.
         self.values = values  # type: list[dict[str, any]]
 
     def validate(self):
@@ -26018,10 +30237,18 @@ class QueryMonitorResponseBodyData(TeaModel):
 
 class QueryMonitorResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: list[QueryMonitorResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26109,6 +30336,10 @@ class QueryMonitorResponse(TeaModel):
 
 class QuerySlbSpecRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -26133,11 +30364,17 @@ class QuerySlbSpecRequest(TeaModel):
 
 class QuerySlbSpecResponseBodyData(TeaModel):
     def __init__(self, id=None, max_connection=None, name=None, new_connection_per_second=None, qps=None, spec=None):
+        # The ID of the returned data.
         self.id = id  # type: int
+        # The maximum number of connections.
         self.max_connection = max_connection  # type: str
+        # The name of the instance type.
         self.name = name  # type: str
+        # The maximum connections per second (CPS).
         self.new_connection_per_second = new_connection_per_second  # type: str
+        # The maximum queries per second (QPS).
         self.qps = qps  # type: str
+        # The instance type of the SLB instance.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -26182,11 +30419,19 @@ class QuerySlbSpecResponseBodyData(TeaModel):
 
 class QuerySlbSpecResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: list[QuerySlbSpecResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. If the request is successful, a success message is returned. If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26278,7 +30523,12 @@ class QuerySlbSpecResponse(TeaModel):
 
 class QuerySwimmingLaneByIdRequest(TeaModel):
     def __init__(self, accept_language=None, lane_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the lane.
         self.lane_id = lane_id  # type: long
 
     def validate(self):
@@ -26308,13 +30558,23 @@ class QuerySwimmingLaneByIdRequest(TeaModel):
 class QuerySwimmingLaneByIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: any
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26406,10 +30666,18 @@ class QuerySwimmingLaneByIdResponse(TeaModel):
 
 class QueryZnodeDetailRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, instance_id=None, path=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The path of the node.
         self.path = path  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -26450,9 +30718,15 @@ class QueryZnodeDetailRequest(TeaModel):
 
 class QueryZnodeDetailResponseBodyData(TeaModel):
     def __init__(self, data=None, dir=None, name=None, path=None):
+        # The data of the node.
         self.data = data  # type: str
+        # Indicates whether the node directory information is returned. Valid values:
+        # - `true`: The information is returned. 
+        # - `false`: The information fails to be returned.
         self.dir = dir  # type: bool
+        # The name of the node.
         self.name = name  # type: str
+        # The path of the node.
         self.path = path  # type: str
 
     def validate(self):
@@ -26489,10 +30763,17 @@ class QueryZnodeDetailResponseBodyData(TeaModel):
 
 class QueryZnodeDetailResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: QueryZnodeDetailResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: str
 
     def validate(self):
@@ -26576,9 +30857,16 @@ class RestartClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, instance_id=None, pod_name_list=None,
                  request_pars=None):
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the pod. You can specify the names of multiple pods at a time. Separate multiple pod names with commas (,).
+        # Example: mse-a8aba010-1629719288255-reg-center-0-1,mse-a8aba010-1629719288255-reg-center-0-2.
+        # 
+        # The specified pods must belong to the current cluster and be associated with the specified instance. Otherwise, a restart exception occurs.
         self.pod_name_list = pod_name_list  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -26619,9 +30907,15 @@ class RestartClusterRequest(TeaModel):
 
 class RestartClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26697,8 +30991,14 @@ class RestartClusterResponse(TeaModel):
 
 class RetryClusterRequest(TeaModel):
     def __init__(self, accept_language=None, instance_id=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -26731,9 +31031,16 @@ class RetryClusterRequest(TeaModel):
 
 class RetryClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful.                                 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26809,9 +31116,16 @@ class RetryClusterResponse(TeaModel):
 
 class SelectGatewaySlbRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, name=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the SLB instance.
         self.name = name  # type: str
+        # The type of the SLB instance.
         self.type = type  # type: str
 
     def validate(self):
@@ -26848,7 +31162,9 @@ class SelectGatewaySlbRequest(TeaModel):
 
 class SelectGatewaySlbResponseBodyData(TeaModel):
     def __init__(self, slb_id=None, slb_name=None):
+        # SLB ID.
         self.slb_id = slb_id  # type: str
+        # The name of the SLB instance.
         self.slb_name = slb_name  # type: str
 
     def validate(self):
@@ -26877,11 +31193,20 @@ class SelectGatewaySlbResponseBodyData(TeaModel):
 
 class SelectGatewaySlbResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: list[SelectGatewaySlbResponseBodyData]
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27133,11 +31458,28 @@ class TagResourcesResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, accept_language=None, all=None, region_id=None, resource_id=None, resource_type=None,
                  tag_key=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to delete all tags. This parameter takes effect only when the TagKey.N parameter is not specified. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
         self.all = all  # type: bool
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The resource IDs. A maximum of 50 resource IDs can be specified.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resources. Valid values:
+        # 
+        # *   CLUSTER: MSE instance
+        # *   GATEWAY: cloud-native gateway
         self.resource_type = resource_type  # type: str
+        # The tag keys. A maximum of 20 tag keys are supported.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -27182,9 +31524,16 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27260,8 +31609,14 @@ class UntagResourcesResponse(TeaModel):
 
 class UpdateAclRequest(TeaModel):
     def __init__(self, accept_language=None, acl_entry_list=None, instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The IP addresses in the whitelist.
         self.acl_entry_list = acl_entry_list  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -27294,9 +31649,15 @@ class UpdateAclRequest(TeaModel):
 
 class UpdateAclResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27373,16 +31734,27 @@ class UpdateAclResponse(TeaModel):
 class UpdateBlackWhiteListRequest(TeaModel):
     def __init__(self, accept_language=None, content=None, gateway_unique_id=None, id=None, is_white=None, name=None,
                  note=None, resource_id_json_list=None, resource_type=None, status=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The content of the blacklist.
         self.content = content  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the blacklist.
         self.id = id  # type: long
+        # Specifies whether to modify the whitelist.
         self.is_white = is_white  # type: bool
         self.name = name  # type: str
         self.note = note  # type: str
         self.resource_id_json_list = resource_id_json_list  # type: str
+        # The type of the resource.
         self.resource_type = resource_type  # type: str
+        # Specifies whether to enable the blacklist or whitelist.
         self.status = status  # type: str
+        # The type of the blacklist or whitelist.
         self.type = type  # type: str
 
     def validate(self):
@@ -27447,11 +31819,19 @@ class UpdateBlackWhiteListRequest(TeaModel):
 
 class UpdateBlackWhiteListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The ID of the blacklist or whitelist.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27535,9 +31915,16 @@ class UpdateBlackWhiteListResponse(TeaModel):
 
 class UpdateClusterRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_alias_name=None, instance_id=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The alias of the cluster.
         self.cluster_alias_name = cluster_alias_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -27574,10 +31961,18 @@ class UpdateClusterRequest(TeaModel):
 
 class UpdateClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27658,10 +32053,18 @@ class UpdateClusterResponse(TeaModel):
 class UpdateClusterSpecRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, cluster_specification=None, instance_count=None,
                  instance_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The specifications of the engine.
         self.cluster_specification = cluster_specification  # type: str
+        # The number of nodes.
         self.instance_count = instance_count  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -27702,11 +32105,20 @@ class UpdateClusterSpecRequest(TeaModel):
 
 class UpdateClusterSpecResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # ID of the Request.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful. Valid values:
+        # 
+        # *   `true`: The call was successful.
+        # *   `false`: The call failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -27794,27 +32206,80 @@ class UpdateConfigRequest(TeaModel):
                  instance_id=None, jute_maxbuffer=None, mcpenabled=None, max_client_cnxns=None, max_session_timeout=None,
                  min_session_timeout=None, naming_auth_enabled=None, open_super_acl=None, pass_word=None, request_pars=None,
                  snapshot_count=None, sync_limit=None, tick_time=None, user_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # A reserved parameter.
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
+        # A reserved parameter.
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
+        # The ID of the instance.
         self.cluster_id = cluster_id  # type: str
+        # Specifies whether to enable RAM authentication for a configuration center. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
+        # 
+        # > Before you set this parameter, you must call the QueryConfig operation to obtain the ConfigAuthSupported parameter value to check whether the instance supports this feature.
         self.config_auth_enabled = config_auth_enabled  # type: bool
+        # Specifies whether to enable configuration encryption for a configuration center. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
+        # 
+        # > Before you set this parameter, you must call the QueryConfig operation to obtain the ConfigSecretSupported parameter value to check whether the instance supports this feature.
         self.config_secret_enabled = config_secret_enabled  # type: bool
+        # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.config_type = config_type  # type: str
+        # The maximum connection duration of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.init_limit = init_limit  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The maximum amount of data on each node. This parameter is valid for ZooKeeper instances. The default maximum data amount on each node is 1 megabyte. Unit: bytes.
         self.jute_maxbuffer = jute_maxbuffer  # type: str
+        # Specifies whether to enable Mesh Configuration Protocol (MCP). This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
+        # 
+        # > Before you set this parameter, you must call the QueryConfig operation to obtain the MCPSupported parameter value to check whether the instance supports this feature.
         self.mcpenabled = mcpenabled  # type: bool
+        # The number of connections between a client and a server. This parameter is valid for ZooKeeper instances.\
+        # If this parameter is set to 0, no limits are imposed on the number of connections.
         self.max_client_cnxns = max_client_cnxns  # type: str
+        # The maximum timeout period. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.max_session_timeout = max_session_timeout  # type: str
+        # The minimum timeout period. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.min_session_timeout = min_session_timeout  # type: str
+        # Specifies whether to enable RAM authentication for a registry. This parameter is valid for Nacos instances. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
+        # 
+        # > Before you set this parameter, you must call the QueryConfig operation to obtain the NamingAuthSupported parameter value to check whether the instance supports this feature.
         self.naming_auth_enabled = naming_auth_enabled  # type: bool
+        # Specifies whether to enable super permissions. This parameter is valid for ZooKeeper instances. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.open_super_acl = open_super_acl  # type: str
+        # The password that corresponds to the username.
+        # 
+        # > You must specify this parameter if OpenSuperAcl is set to true.
         self.pass_word = pass_word  # type: str
+        # The extended request parameter in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The frequency for generating snapshots. This parameter is valid for ZooKeeper instances.
         self.snapshot_count = snapshot_count  # type: str
+        # The connection timeout period of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.sync_limit = sync_limit  # type: str
+        # The time unit. This parameter is valid for ZooKeeper instances. Default value: 2000. Unit: milliseconds.
         self.tick_time = tick_time  # type: str
+        # The name of the user.
+        # 
+        # > You must specify this parameter if OpenSuperAcl is set to true.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -27923,10 +32388,18 @@ class UpdateConfigRequest(TeaModel):
 
 class UpdateConfigResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The return code.
         self.code = code  # type: int
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -28007,12 +32480,22 @@ class UpdateConfigResponse(TeaModel):
 class UpdateEngineNamespaceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, desc=None, id=None, instance_id=None, name=None,
                  service_count=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The description of the cluster.
         self.desc = desc  # type: str
+        # The ID of the namespace.
         self.id = id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the cluster.
         self.name = name  # type: str
+        # The number of active services.
         self.service_count = service_count  # type: int
 
     def validate(self):
@@ -28062,11 +32545,20 @@ class UpdateEngineNamespaceRequest(TeaModel):
 class UpdateEngineNamespaceResponseBodyData(TeaModel):
     def __init__(self, config_count=None, namespace=None, namespace_desc=None, namespace_show_name=None, quota=None,
                  type=None):
+        # The number of configurations.
         self.config_count = config_count  # type: int
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The description of the namespace.
         self.namespace_desc = namespace_desc  # type: str
+        # The display name of the namespace.
         self.namespace_show_name = namespace_show_name  # type: str
+        # The quota of configurations.
         self.quota = quota  # type: int
+        # The type of the namespace. Valid values:
+        # - `0`: global configuration
+        # - `1`: default namespace
+        # - `2`: custom namespace
         self.type = type  # type: int
 
     def validate(self):
@@ -28111,10 +32603,17 @@ class UpdateEngineNamespaceResponseBodyData(TeaModel):
 
 class UpdateEngineNamespaceResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: UpdateEngineNamespaceResponseBodyData
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -28197,14 +32696,33 @@ class UpdateEngineNamespaceResponse(TeaModel):
 class UpdateGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, http_2=None, id=None,
                  must_https=None, protocol=None, tls_max=None, tls_min=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # Specifies whether to enable `HTTP/2`.
+        # 
+        # *   `open`: enables `HTTP/2`
+        # *   `close`: disables `HTTP/2`
+        # *   `globalConfig`: uses global configurations
         self.http_2 = http_2  # type: str
+        # The ID of the domain name.
         self.id = id  # type: long
+        # Specifies whether to forcibly use HTTPS.
         self.must_https = must_https  # type: bool
+        # The type of the protocol. Valid values:
+        # 
+        # *   HTTPS
+        # *   HTTP
         self.protocol = protocol  # type: str
+        # The maximum version of Transport Layer Security (TLS).
         self.tls_max = tls_max  # type: str
+        # The minimum version of TLS.
         self.tls_min = tls_min  # type: str
 
     def validate(self):
@@ -28261,11 +32779,20 @@ class UpdateGatewayDomainRequest(TeaModel):
 
 class UpdateGatewayDomainResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -28349,8 +32876,14 @@ class UpdateGatewayDomainResponse(TeaModel):
 
 class UpdateGatewayNameRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, name=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The name of the gateway.
         self.name = name  # type: str
 
     def validate(self):
@@ -28383,11 +32916,22 @@ class UpdateGatewayNameRequest(TeaModel):
 
 class UpdateGatewayNameResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned. Valid values: 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -28471,9 +33015,22 @@ class UpdateGatewayNameResponse(TeaModel):
 
 class UpdateGatewayOptionRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_option=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The detailed configurations of the gateway.
+        # 
+        # *   **TraceDetails**: the sampling description of Tracing Analysis. Content: TraceEnabled specifies whether to activate Tracing Analysis. Sample specifies the sampling rate of Tracing Analysis.
+        # *   **LogConfigDetails**: the description of Log Service. Content: LogEnabled specifies whether to activate Log Service. ProjectName specifies the Log Service project to which logs are delivered. LogStoreName specifies the name of the Logstore.
+        # *   **EnableHardwareAcceleration**: specifies whether to enable hardware acceleration.
+        # *   **DisableHttp2Alpn**: specifies whether to disable the HTTP/2 protocol.
+        # *   **EnableWaf**: specifies whether to activate Web Application Firewall (WAF).
         self.gateway_option = gateway_option  # type: GatewayOption
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -28512,9 +33069,22 @@ class UpdateGatewayOptionRequest(TeaModel):
 
 class UpdateGatewayOptionShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_option_shrink=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The detailed configurations of the gateway.
+        # 
+        # *   **TraceDetails**: the sampling description of Tracing Analysis. Content: TraceEnabled specifies whether to activate Tracing Analysis. Sample specifies the sampling rate of Tracing Analysis.
+        # *   **LogConfigDetails**: the description of Log Service. Content: LogEnabled specifies whether to activate Log Service. ProjectName specifies the Log Service project to which logs are delivered. LogStoreName specifies the name of the Logstore.
+        # *   **EnableHardwareAcceleration**: specifies whether to enable hardware acceleration.
+        # *   **DisableHttp2Alpn**: specifies whether to disable the HTTP/2 protocol.
+        # *   **EnableWaf**: specifies whether to activate Web Application Firewall (WAF).
         self.gateway_option_shrink = gateway_option_shrink  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -28551,11 +33121,23 @@ class UpdateGatewayOptionShrinkRequest(TeaModel):
 
 class UpdateGatewayOptionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GatewayOption
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -28641,7 +33223,9 @@ class UpdateGatewayOptionResponse(TeaModel):
 
 class UpdateGatewayRouteRequestDirectResponseJSON(TeaModel):
     def __init__(self, body=None, code=None):
+        # The return value for service mocking.
         self.body = body  # type: str
+        # The status code returned for service mocking.
         self.code = code  # type: long
 
     def validate(self):
@@ -28735,8 +33319,11 @@ class UpdateGatewayRouteRequestFallbackServices(TeaModel):
 
 class UpdateGatewayRouteRequestPredicatesHeaderPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key of the request header.
         self.key = key  # type: str
+        # The matching mode.
         self.type = type  # type: str
+        # The value of the request header.
         self.value = value  # type: str
 
     def validate(self):
@@ -28769,8 +33356,11 @@ class UpdateGatewayRouteRequestPredicatesHeaderPredicates(TeaModel):
 
 class UpdateGatewayRouteRequestPredicatesPathPredicates(TeaModel):
     def __init__(self, ignore_case=None, path=None, type=None):
+        # Specifies whether to perform case-insensitive matches.
         self.ignore_case = ignore_case  # type: bool
+        # The path.
         self.path = path  # type: str
+        # The matching mode.
         self.type = type  # type: str
 
     def validate(self):
@@ -28803,8 +33393,11 @@ class UpdateGatewayRouteRequestPredicatesPathPredicates(TeaModel):
 
 class UpdateGatewayRouteRequestPredicatesQueryPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The name of the parameter.
         self.key = key  # type: str
+        # The matching mode.
         self.type = type  # type: str
+        # The value of the parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -28837,9 +33430,13 @@ class UpdateGatewayRouteRequestPredicatesQueryPredicates(TeaModel):
 
 class UpdateGatewayRouteRequestPredicates(TeaModel):
     def __init__(self, header_predicates=None, method_predicates=None, path_predicates=None, query_predicates=None):
+        # The information about header matching.
         self.header_predicates = header_predicates  # type: list[UpdateGatewayRouteRequestPredicatesHeaderPredicates]
+        # The information about method matching.
         self.method_predicates = method_predicates  # type: list[str]
+        # The information about path matching.
         self.path_predicates = path_predicates  # type: UpdateGatewayRouteRequestPredicatesPathPredicates
+        # The information about URL parameter matching.
         self.query_predicates = query_predicates  # type: list[UpdateGatewayRouteRequestPredicatesQueryPredicates]
 
     def validate(self):
@@ -28896,8 +33493,11 @@ class UpdateGatewayRouteRequestPredicates(TeaModel):
 
 class UpdateGatewayRouteRequestRedirectJSON(TeaModel):
     def __init__(self, code=None, host=None, path=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The hostname to be redirected to.
         self.host = host  # type: str
+        # The path to be redirected to.
         self.path = path  # type: str
 
     def validate(self):
@@ -29072,14 +33672,21 @@ class UpdateGatewayRouteRequestServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
                  percent=None, service_id=None, service_port=None, source_type=None, version=None):
         self.agreement_type = agreement_type  # type: str
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
         self.http_dubbo_transcoder = http_dubbo_transcoder  # type: UpdateGatewayRouteRequestServicesHttpDubboTranscoder
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace in which the service resides.
         self.namespace = namespace  # type: str
+        # The weight in the form of a percentage value.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
         self.service_port = service_port  # type: int
+        # The source type of the service.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -29144,20 +33751,35 @@ class UpdateGatewayRouteRequest(TeaModel):
     def __init__(self, accept_language=None, destination_type=None, direct_response_json=None,
                  domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
                  gateway_unique_id=None, id=None, name=None, predicates=None, redirect_json=None, route_order=None, services=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The type of the destination service.
         self.destination_type = destination_type  # type: str
+        # The information about service mocking.
         self.direct_response_json = direct_response_json  # type: UpdateGatewayRouteRequestDirectResponseJSON
+        # The IDs of domain names with which the route is associated.
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
         self.fallback = fallback  # type: bool
         self.fallback_services = fallback_services  # type: list[UpdateGatewayRouteRequestFallbackServices]
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rules of the route.
         self.predicates = predicates  # type: UpdateGatewayRouteRequestPredicates
+        # The configuration of the redirect action.
         self.redirect_json = redirect_json  # type: UpdateGatewayRouteRequestRedirectJSON
+        # The sequence number of the route.
         self.route_order = route_order  # type: int
+        # The information about services.
         self.services = services  # type: list[UpdateGatewayRouteRequestServices]
 
     def validate(self):
@@ -29267,20 +33889,35 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
                  domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None, gateway_id=None,
                  gateway_unique_id=None, id=None, name=None, predicates_shrink=None, redirect_jsonshrink=None, route_order=None,
                  services_shrink=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The type of the destination service.
         self.destination_type = destination_type  # type: str
+        # The information about service mocking.
         self.direct_response_jsonshrink = direct_response_jsonshrink  # type: str
+        # The IDs of domain names with which the route is associated.
         self.domain_id_list_json = domain_id_list_json  # type: str
         self.enable_waf = enable_waf  # type: bool
         self.fallback = fallback  # type: bool
         self.fallback_services_shrink = fallback_services_shrink  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rules of the route.
         self.predicates_shrink = predicates_shrink  # type: str
+        # The configuration of the redirect action.
         self.redirect_jsonshrink = redirect_jsonshrink  # type: str
+        # The sequence number of the route.
         self.route_order = route_order  # type: int
+        # The information about services.
         self.services_shrink = services_shrink  # type: str
 
     def validate(self):
@@ -29361,11 +33998,20 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
 
 class UpdateGatewayRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -29450,13 +34096,21 @@ class UpdateGatewayRouteResponse(TeaModel):
 class UpdateGatewayRouteCORSRequestCorsJSON(TeaModel):
     def __init__(self, allow_credentials=None, allow_headers=None, allow_methods=None, allow_origins=None,
                  expose_headers=None, status=None, time_unit=None, unit_num=None):
+        # The credentials allowed.
         self.allow_credentials = allow_credentials  # type: bool
+        # The request headers allowed.
         self.allow_headers = allow_headers  # type: str
+        # The HTTP methods allowed.
         self.allow_methods = allow_methods  # type: str
+        # The origins from which access is allowed.
         self.allow_origins = allow_origins  # type: str
+        # The response headers allowed.
         self.expose_headers = expose_headers  # type: str
+        # The status of the policy.
         self.status = status  # type: str
+        # The unit of time.
         self.time_unit = time_unit  # type: str
+        # The value of time.
         self.unit_num = unit_num  # type: long
 
     def validate(self):
@@ -29509,10 +34163,18 @@ class UpdateGatewayRouteCORSRequestCorsJSON(TeaModel):
 
 class UpdateGatewayRouteCORSRequest(TeaModel):
     def __init__(self, accept_language=None, cors_json=None, gateway_id=None, gateway_unique_id=None, id=None):
+        # The language of the response. In compliance with [RFC 7231](https://tools.ietf.org/html/rfc7231), the backend service must return a response based on the language used by the user.
+        # This parameter is empty by default. Valid values:
+        # * zh-CN: Chinese
+        # * en-US: English
         self.accept_language = accept_language  # type: str
+        # The information about the CORS policy.
         self.cors_json = cors_json  # type: UpdateGatewayRouteCORSRequestCorsJSON
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
 
     def validate(self):
@@ -29555,10 +34217,18 @@ class UpdateGatewayRouteCORSRequest(TeaModel):
 
 class UpdateGatewayRouteCORSShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, cors_jsonshrink=None, gateway_id=None, gateway_unique_id=None, id=None):
+        # The language of the response. In compliance with [RFC 7231](https://tools.ietf.org/html/rfc7231), the backend service must return a response based on the language used by the user.
+        # This parameter is empty by default. Valid values:
+        # * zh-CN: Chinese
+        # * en-US: English
         self.accept_language = accept_language  # type: str
+        # The information about the CORS policy.
         self.cors_jsonshrink = cors_jsonshrink  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
 
     def validate(self):
@@ -29599,11 +34269,20 @@ class UpdateGatewayRouteCORSShrinkRequest(TeaModel):
 
 class UpdateGatewayRouteCORSResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful.                                  
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -29688,10 +34367,18 @@ class UpdateGatewayRouteCORSResponse(TeaModel):
 class UpdateGatewayRouteHTTPRewriteRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, http_rewrite_json=None,
                  id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The information about the rewrite policy. The JSON format is supported.
         self.http_rewrite_json = http_rewrite_json  # type: str
+        # The ID of the route.
         self.id = id  # type: long
 
     def validate(self):
@@ -29732,11 +34419,19 @@ class UpdateGatewayRouteHTTPRewriteRequest(TeaModel):
 
 class UpdateGatewayRouteHTTPRewriteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -29820,10 +34515,18 @@ class UpdateGatewayRouteHTTPRewriteResponse(TeaModel):
 
 class UpdateGatewayRouteHeaderOpRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, header_op_json=None, id=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The information about the header configuration policy.
         self.header_op_json = header_op_json  # type: str
+        # The ID of the route.
         self.id = id  # type: long
 
     def validate(self):
@@ -29864,11 +34567,19 @@ class UpdateGatewayRouteHeaderOpRequest(TeaModel):
 
 class UpdateGatewayRouteHeaderOpResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -29952,9 +34663,13 @@ class UpdateGatewayRouteHeaderOpResponse(TeaModel):
 
 class UpdateGatewayRouteRetryRequestRetryJSON(TeaModel):
     def __init__(self, attempts=None, http_codes=None, retry_on=None, status=None):
+        # The number of retries allowed.
         self.attempts = attempts  # type: int
+        # The HTTP status codes returned.
         self.http_codes = http_codes  # type: list[str]
+        # The retry conditions.
         self.retry_on = retry_on  # type: list[str]
+        # The status of the policy.
         self.status = status  # type: str
 
     def validate(self):
@@ -29991,10 +34706,18 @@ class UpdateGatewayRouteRetryRequestRetryJSON(TeaModel):
 
 class UpdateGatewayRouteRetryRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, retry_json=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The information about the retry policy.
         self.retry_json = retry_json  # type: UpdateGatewayRouteRetryRequestRetryJSON
 
     def validate(self):
@@ -30038,10 +34761,18 @@ class UpdateGatewayRouteRetryRequest(TeaModel):
 class UpdateGatewayRouteRetryShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None,
                  retry_jsonshrink=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The information about the retry policy.
         self.retry_jsonshrink = retry_jsonshrink  # type: str
 
     def validate(self):
@@ -30082,11 +34813,20 @@ class UpdateGatewayRouteRetryShrinkRequest(TeaModel):
 
 class UpdateGatewayRouteRetryResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -30170,8 +34910,11 @@ class UpdateGatewayRouteRetryResponse(TeaModel):
 
 class UpdateGatewayRouteTimeoutRequestTimeoutJSON(TeaModel):
     def __init__(self, status=None, time_unit=None, unit_num=None):
+        # The status of the policy.
         self.status = status  # type: str
+        # The unit of time. A value of s indicates seconds.
         self.time_unit = time_unit  # type: str
+        # The value of the timeout period.
         self.unit_num = unit_num  # type: int
 
     def validate(self):
@@ -30204,10 +34947,18 @@ class UpdateGatewayRouteTimeoutRequestTimeoutJSON(TeaModel):
 
 class UpdateGatewayRouteTimeoutRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None, timeout_json=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The timeout period.
         self.timeout_json = timeout_json  # type: UpdateGatewayRouteTimeoutRequestTimeoutJSON
 
     def validate(self):
@@ -30251,10 +35002,18 @@ class UpdateGatewayRouteTimeoutRequest(TeaModel):
 class UpdateGatewayRouteTimeoutShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_unique_id=None, id=None,
                  timeout_jsonshrink=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route.
         self.id = id  # type: long
+        # The timeout period.
         self.timeout_jsonshrink = timeout_jsonshrink  # type: str
 
     def validate(self):
@@ -30295,11 +35054,17 @@ class UpdateGatewayRouteTimeoutShrinkRequest(TeaModel):
 
 class UpdateGatewayRouteTimeoutResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. A value of true indicates that the request is successful. A value of false indicates that the request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -30383,9 +35148,16 @@ class UpdateGatewayRouteTimeoutResponse(TeaModel):
 
 class UpdateGatewayRouteWafStatusRequest(TeaModel):
     def __init__(self, accept_language=None, enable_waf=None, gateway_unique_id=None, route_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable Web Application Firewall (WAF).
         self.enable_waf = enable_waf  # type: bool
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the route entry.
         self.route_id = route_id  # type: long
 
     def validate(self):
@@ -30423,13 +35195,21 @@ class UpdateGatewayRouteWafStatusRequest(TeaModel):
 class UpdateGatewayRouteWafStatusResponseBodyDataCors(TeaModel):
     def __init__(self, allow_credentials=None, allow_headers=None, allow_methods=None, allow_origins=None,
                  expose_headers=None, status=None, time_unit=None, unit_num=None):
+        # The credentials allowed.
         self.allow_credentials = allow_credentials  # type: bool
+        # The headers allowed.
         self.allow_headers = allow_headers  # type: str
+        # The methods allowed.
         self.allow_methods = allow_methods  # type: str
+        # The origins allowed.
         self.allow_origins = allow_origins  # type: str
+        # The response headers.
         self.expose_headers = expose_headers  # type: str
+        # The status.
         self.status = status  # type: str
+        # The time unit.
         self.time_unit = time_unit  # type: str
+        # The unit number.
         self.unit_num = unit_num  # type: long
 
     def validate(self):
@@ -30482,7 +35262,9 @@ class UpdateGatewayRouteWafStatusResponseBodyDataCors(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataDirectResponse(TeaModel):
     def __init__(self, body=None, code=None):
+        # The mock return value.
         self.body = body  # type: str
+        # The return value.
         self.code = code  # type: int
 
     def validate(self):
@@ -30511,11 +35293,17 @@ class UpdateGatewayRouteWafStatusResponseBodyDataDirectResponse(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataHTTPRewrite(TeaModel):
     def __init__(self, host=None, path=None, path_type=None, pattern=None, status=None, substitution=None):
+        # The domain name.
         self.host = host  # type: str
+        # The HTTP request path.
         self.path = path  # type: str
+        # The path type of the HTTP request.
         self.path_type = path_type  # type: str
+        # The matching pattern.
         self.pattern = pattern  # type: str
+        # The HTTP status.
         self.status = status  # type: str
+        # The replacement.
         self.substitution = substitution  # type: str
 
     def validate(self):
@@ -30560,9 +35348,13 @@ class UpdateGatewayRouteWafStatusResponseBodyDataHTTPRewrite(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataHeaderOpHeaderOpItems(TeaModel):
     def __init__(self, direction_type=None, key=None, op_type=None, value=None):
+        # The request or response.
         self.direction_type = direction_type  # type: str
+        # Header Key.
         self.key = key  # type: str
+        # The operation type.
         self.op_type = op_type  # type: str
+        # The header value.
         self.value = value  # type: str
 
     def validate(self):
@@ -30599,7 +35391,9 @@ class UpdateGatewayRouteWafStatusResponseBodyDataHeaderOpHeaderOpItems(TeaModel)
 
 class UpdateGatewayRouteWafStatusResponseBodyDataHeaderOp(TeaModel):
     def __init__(self, header_op_items=None, status=None):
+        # The policy.
         self.header_op_items = header_op_items  # type: list[UpdateGatewayRouteWafStatusResponseBodyDataHeaderOpHeaderOpItems]
+        # The status.
         self.status = status  # type: str
 
     def validate(self):
@@ -30636,8 +35430,11 @@ class UpdateGatewayRouteWafStatusResponseBodyDataHeaderOp(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRedirect(TeaModel):
     def __init__(self, code=None, host=None, path=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The hostname.
         self.host = host  # type: str
+        # The path.
         self.path = path  # type: str
 
     def validate(self):
@@ -30670,9 +35467,13 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRedirect(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRetry(TeaModel):
     def __init__(self, attempts=None, http_codes=None, retry_on=None, status=None):
+        # The number of retries allowed for a request.
         self.attempts = attempts  # type: int
+        # The HTTP status code.
         self.http_codes = http_codes  # type: list[str]
+        # The retry condition.
         self.retry_on = retry_on  # type: list[str]
+        # The retry status.
         self.status = status  # type: str
 
     def validate(self):
@@ -30709,8 +35510,11 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRetry(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesHeaderPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key of the request header.
         self.key = key  # type: str
+        # The matching type.
         self.type = type  # type: str
+        # The value of the request header.
         self.value = value  # type: str
 
     def validate(self):
@@ -30743,8 +35547,11 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesHeaderPredicates
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesPathPredicates(TeaModel):
     def __init__(self, ignore_case=None, path=None, type=None):
+        # Indicates whether case sensitivity is ignored.
         self.ignore_case = ignore_case  # type: bool
+        # The path.
         self.path = path  # type: str
+        # The matching type.
         self.type = type  # type: str
 
     def validate(self):
@@ -30777,8 +35584,11 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesPathPredicates(T
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesQueryPredicates(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The name of the parameter.
         self.key = key  # type: str
+        # The type.
         self.type = type  # type: str
+        # The value of the parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -30811,9 +35621,13 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesQueryPredicates(
 
 class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicates(TeaModel):
     def __init__(self, header_predicates=None, method_predicates=None, path_predicates=None, query_predicates=None):
+        # The rules for matching based on request headers.
         self.header_predicates = header_predicates  # type: list[UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesHeaderPredicates]
+        # The information about method matching.
         self.method_predicates = method_predicates  # type: list[str]
+        # The information about route matching.
         self.path_predicates = path_predicates  # type: UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesPathPredicates
+        # The information about parameter matching.
         self.query_predicates = query_predicates  # type: list[UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicatesQueryPredicates]
 
     def validate(self):
@@ -30871,13 +35685,21 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicates(TeaModel):
 class UpdateGatewayRouteWafStatusResponseBodyDataRouteServices(TeaModel):
     def __init__(self, group_name=None, name=None, namespace=None, percent=None, service_id=None, service_name=None,
                  source_type=None, version=None):
+        # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        # The name of the service.
         self.name = name  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The weight.
         self.percent = percent  # type: int
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The source type of the service.
         self.source_type = source_type  # type: str
+        # The version of the service.
         self.version = version  # type: str
 
     def validate(self):
@@ -30930,8 +35752,11 @@ class UpdateGatewayRouteWafStatusResponseBodyDataRouteServices(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBodyDataTimeout(TeaModel):
     def __init__(self, status=None, time_unit=None, unit_num=None):
+        # The status.
         self.status = status  # type: str
+        # The time unit.
         self.time_unit = time_unit  # type: str
+        # The unit number.
         self.unit_num = unit_num  # type: int
 
     def validate(self):
@@ -30968,32 +35793,59 @@ class UpdateGatewayRouteWafStatusResponseBodyData(TeaModel):
                  enable_waf=None, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None,
                  httprewrite=None, header_op=None, id=None, name=None, predicates=None, redirect=None, retry=None,
                  route_order=None, route_predicates=None, route_services=None, services=None, status=None, timeout=None):
+        # The configuration for cross-origin resource sharing (CORS).
         self.cors = cors  # type: UpdateGatewayRouteWafStatusResponseBodyDataCors
+        # The default service ID.
         self.default_service_id = default_service_id  # type: long
+        # The default service name.
         self.default_service_name = default_service_name  # type: str
+        # The destination service type.
         self.destination_type = destination_type  # type: str
+        # The information about service mocking.
         self.direct_response = direct_response  # type: UpdateGatewayRouteWafStatusResponseBodyDataDirectResponse
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The IDs of the domain names.
         self.domain_id_list = domain_id_list  # type: list[long]
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The domain names.
         self.domain_name_list = domain_name_list  # type: list[str]
+        # Indicates whether WAF is enabled.
         self.enable_waf = enable_waf  # type: bool
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # The information about the rewrite policy.
         self.httprewrite = httprewrite  # type: UpdateGatewayRouteWafStatusResponseBodyDataHTTPRewrite
+        # The information about the header configuration policy.
         self.header_op = header_op  # type: UpdateGatewayRouteWafStatusResponseBodyDataHeaderOp
+        # The ID of the route.
         self.id = id  # type: long
+        # The name of the route.
         self.name = name  # type: str
+        # The matching rule.
         self.predicates = predicates  # type: str
+        # The configuration of the redirection.
         self.redirect = redirect  # type: UpdateGatewayRouteWafStatusResponseBodyDataRedirect
+        # The retry configuration.
         self.retry = retry  # type: UpdateGatewayRouteWafStatusResponseBodyDataRetry
+        # The sequence number of the route.
         self.route_order = route_order  # type: int
+        # The information about route matching.
         self.route_predicates = route_predicates  # type: UpdateGatewayRouteWafStatusResponseBodyDataRoutePredicates
+        # The information about services.
         self.route_services = route_services  # type: list[UpdateGatewayRouteWafStatusResponseBodyDataRouteServices]
+        # The information about services.
         self.services = services  # type: str
+        # The status of the route.
         self.status = status  # type: int
+        # The timeout configuration.
         self.timeout = timeout  # type: UpdateGatewayRouteWafStatusResponseBodyDataTimeout
 
     def validate(self):
@@ -31154,11 +36006,20 @@ class UpdateGatewayRouteWafStatusResponseBodyData(TeaModel):
 
 class UpdateGatewayRouteWafStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. A value of 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: UpdateGatewayRouteWafStatusResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The response message.
         self.message = message  # type: str
+        # ID of the Request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31245,10 +36106,18 @@ class UpdateGatewayRouteWafStatusResponse(TeaModel):
 class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_traffic_policy=None, gateway_unique_id=None,
                  service_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   **zh**: Chinese. This is the default value.
+        # *   **en**: English.
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The traffic policy of the service.
         self.gateway_traffic_policy = gateway_traffic_policy  # type: TrafficPolicy
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -31292,10 +36161,18 @@ class UpdateGatewayServiceTrafficPolicyRequest(TeaModel):
 class UpdateGatewayServiceTrafficPolicyShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_id=None, gateway_traffic_policy_shrink=None,
                  gateway_unique_id=None, service_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   **zh**: Chinese. This is the default value.
+        # *   **en**: English.
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The traffic policy of the service.
         self.gateway_traffic_policy_shrink = gateway_traffic_policy_shrink  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
 
     def validate(self):
@@ -31336,11 +36213,20 @@ class UpdateGatewayServiceTrafficPolicyShrinkRequest(TeaModel):
 
 class UpdateGatewayServiceTrafficPolicyResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: GatewayService
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31427,8 +36313,11 @@ class UpdateGatewayServiceTrafficPolicyResponse(TeaModel):
 class UpdateGatewayServiceVersionRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, service_id=None, service_version=None):
         self.accept_language = accept_language  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: long
+        # The version of the service.
         self.service_version = service_version  # type: str
 
     def validate(self):
@@ -31465,11 +36354,19 @@ class UpdateGatewayServiceVersionRequest(TeaModel):
 
 class UpdateGatewayServiceVersionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31553,9 +36450,16 @@ class UpdateGatewayServiceVersionResponse(TeaModel):
 
 class UpdateGatewaySpecRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, replica=None, spec=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The number of nodes.
         self.replica = replica  # type: int
+        # The node specifications.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -31592,11 +36496,20 @@ class UpdateGatewaySpecRequest(TeaModel):
 
 class UpdateGatewaySpecResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # ID of the Request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31681,7 +36594,9 @@ class UpdateGatewaySpecResponse(TeaModel):
 class UpdateImageRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, version_code=None):
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The destination version of the image.
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -31714,9 +36629,15 @@ class UpdateImageRequest(TeaModel):
 
 class UpdateImageResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31792,11 +36713,23 @@ class UpdateImageResponse(TeaModel):
 
 class UpdateMessageQueueRouteRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, enable=None, filter_side=None, region=None, tags=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # Specifies whether the canary release for messaging feature is enabled for the application. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.enable = enable  # type: bool
+        # The side for message filtering when the canary release for messaging feature is enabled.
         self.filter_side = filter_side  # type: str
+        # The region ID.
         self.region = region  # type: str
+        # The tag that is negligible for the untagged environment of the application.
         self.tags = tags  # type: list[str]
 
     def validate(self):
@@ -31842,11 +36775,23 @@ class UpdateMessageQueueRouteRequest(TeaModel):
 class UpdateMessageQueueRouteShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, enable=None, filter_side=None, region=None,
                  tags_shrink=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # Specifies whether the canary release for messaging feature is enabled for the application. Valid values:
+        # 
+        # *   `true`: enabled
+        # *   `false`: disabled
         self.enable = enable  # type: bool
+        # The side for message filtering when the canary release for messaging feature is enabled.
         self.filter_side = filter_side  # type: str
+        # The region ID.
         self.region = region  # type: str
+        # The tag that is negligible for the untagged environment of the application.
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -31891,11 +36836,20 @@ class UpdateMessageQueueRouteShrinkRequest(TeaModel):
 
 class UpdateMessageQueueRouteResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned. The value 200 indicates that the request was successful. Other values indicate that the request failed.
         self.code = code  # type: int
+        # The data of the node.
         self.data = data  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -31980,14 +36934,26 @@ class UpdateMessageQueueRouteResponse(TeaModel):
 class UpdateNacosClusterRequest(TeaModel):
     def __init__(self, accept_language=None, check_port=None, cluster_name=None, group_name=None,
                  health_checker=None, instance_id=None, namespace_id=None, service_name=None, use_instance_port_for_check=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The port used for health checks.
         self.check_port = check_port  # type: int
+        # The name of the Nacos cluster.
         self.cluster_name = cluster_name  # type: str
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The type of the health check.
         self.health_checker = health_checker  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # Specifies whether to use the port of the instance for a health check.
         self.use_instance_port_for_check = use_instance_port_for_check  # type: bool
 
     def validate(self):
@@ -32044,11 +37010,17 @@ class UpdateNacosClusterRequest(TeaModel):
 
 class UpdateNacosClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The returned result.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The response message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32133,18 +37105,34 @@ class UpdateNacosClusterResponse(TeaModel):
 class UpdateNacosConfigRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, beta_ips=None, content=None, data_id=None, desc=None,
                  encrypted_data_key=None, group=None, instance_id=None, md_5=None, namespace_id=None, tags=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The list of IP addresses where the beta release of the configuration is performed.
         self.beta_ips = beta_ips  # type: str
+        # The content of the configuration.
         self.content = content  # type: str
+        # The ID of the configuration.
         self.data_id = data_id  # type: str
+        # The description of the configuration.
         self.desc = desc  # type: str
+        # The encryption key.
         self.encrypted_data_key = encrypted_data_key  # type: str
+        # The name of the group.
         self.group = group  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The MD5 value of the configuration.
         self.md_5 = md_5  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The tags of the configuration.
         self.tags = tags  # type: str
+        # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.type = type  # type: str
 
     def validate(self):
@@ -32217,10 +37205,17 @@ class UpdateNacosConfigRequest(TeaModel):
 
 class UpdateNacosConfigResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32301,17 +37296,38 @@ class UpdateNacosConfigResponse(TeaModel):
 class UpdateNacosInstanceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_name=None, enabled=None, ephemeral=None, group_name=None,
                  instance_id=None, ip=None, metadata=None, namespace_id=None, port=None, service_name=None, weight=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The name of the Nacos instance.
         self.cluster_name = cluster_name  # type: str
+        # Specifies whether to disable this service. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.enabled = enabled  # type: bool
+        # Specifies whether the node is a non-persistent node. Valid values:
+        # 
+        # *   `true`: yes
+        # *   `false`: no
         self.ephemeral = ephemeral  # type: bool
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The IP address of the Nacos instance.
         self.ip = ip  # type: str
+        # The metadata of the instance.
         self.metadata = metadata  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The port of the Nacos instance.
         self.port = port  # type: int
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The weight. Valid values: 0 to 10000. The value must be an integer. A larger value indicates a higher frequency at which the instance is accessed.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -32380,11 +37396,20 @@ class UpdateNacosInstanceRequest(TeaModel):
 
 class UpdateNacosInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The result of the modification.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32469,12 +37494,26 @@ class UpdateNacosInstanceResponse(TeaModel):
 class UpdateNacosServiceRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, group_name=None, instance_id=None, namespace_id=None,
                  protect_threshold=None, service_name=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.cluster_id = cluster_id  # type: str
+        # The name of the group.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
+        # 
+        # > This operation contains both the InstanceId and ClusterId parameters. You must configure either InstanceId or ClusterId.
         self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The protection threshold.
         self.protect_threshold = protect_threshold  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -32523,11 +37562,20 @@ class UpdateNacosServiceRequest(TeaModel):
 
 class UpdateNacosServiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The details of the data.
         self.data = data  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32612,15 +37660,31 @@ class UpdateNacosServiceResponse(TeaModel):
 class UpdatePluginConfigRequest(TeaModel):
     def __init__(self, accept_language=None, config=None, config_level=None, enable=None, gateway_id=None,
                  gateway_unique_id=None, gmt_create=None, gmt_modified=None, id=None, plugin_id=None):
+        # The language of the response. Valid values:
+        # 
+        # zh: Chinese en: English
         self.accept_language = accept_language  # type: str
+        # The plug-in configuration.
         self.config = config  # type: str
+        # The application scope of the plug-in.
+        # 
+        # *   0: global
+        # *   1: domain names
+        # *   2: routes
         self.config_level = config_level  # type: int
+        # Specifies whether to enable the plug-in.
         self.enable = enable  # type: bool
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the plug-in configuration.
         self.id = id  # type: long
+        # The ID of the gateway plug-in.
         self.plugin_id = plugin_id  # type: long
 
     def validate(self):
@@ -32682,13 +37746,21 @@ class UpdatePluginConfigRequest(TeaModel):
 class UpdatePluginConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # Code.
         self.code = code  # type: int
+        # The ID of the plug-in configuration.
         self.data = data  # type: long
+        # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32780,9 +37852,16 @@ class UpdatePluginConfigResponse(TeaModel):
 
 class UpdateSSLCertRequest(TeaModel):
     def __init__(self, accept_language=None, cert_identifier=None, domain_id=None, gateway_unique_id=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the certificate.
         self.cert_identifier = cert_identifier  # type: str
+        # The ID of the domain name.
         self.domain_id = domain_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
     def validate(self):
@@ -32819,11 +37898,20 @@ class UpdateSSLCertRequest(TeaModel):
 
 class UpdateSSLCertResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code returned.
         self.code = code  # type: int
+        # The data structure.
         self.data = data  # type: bool
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32907,9 +37995,13 @@ class UpdateSSLCertResponse(TeaModel):
 
 class UpdateServiceSourceRequestIngressOptionsRequest(TeaModel):
     def __init__(self, enable_ingress=None, enable_status=None, ingress_class=None, watch_namespace=None):
+        # Specifies whether to enable Ingress.
         self.enable_ingress = enable_ingress  # type: bool
+        # Specifies whether to update the Ingress status.
         self.enable_status = enable_status  # type: bool
+        # Specifies whether to monitor Ingress classes.
         self.ingress_class = ingress_class  # type: str
+        # The namespace whose resources you want to monitor.
         self.watch_namespace = watch_namespace  # type: str
 
     def validate(self):
@@ -32947,15 +38039,34 @@ class UpdateServiceSourceRequestIngressOptionsRequest(TeaModel):
 class UpdateServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_id=None, gateway_unique_id=None, id=None,
                  ingress_options_request=None, name=None, path_list=None, source=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The address.
         self.address = address  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service source.
         self.id = id  # type: long
+        # The configurations of Ingress resources.
         self.ingress_options_request = ingress_options_request  # type: UpdateServiceSourceRequestIngressOptionsRequest
+        # The name.
         self.name = name  # type: str
+        # An array of service root paths.
         self.path_list = path_list  # type: list[str]
+        # The service source. Valid values:
+        # 
+        # *   K8S: ACK cluster
+        # *   MSE: Nacos instance
         self.source = source  # type: str
+        # The type of the service source. Valid values:
+        # 
+        # *   K8S: ACK cluster
+        # *   NACOS: Nacos instance
         self.type = type  # type: str
 
     def validate(self):
@@ -33019,15 +38130,34 @@ class UpdateServiceSourceRequest(TeaModel):
 class UpdateServiceSourceShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_id=None, gateway_unique_id=None, id=None,
                  ingress_options_request_shrink=None, name=None, path_list_shrink=None, source=None, type=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The address.
         self.address = address  # type: str
+        # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The ID of the service source.
         self.id = id  # type: long
+        # The configurations of Ingress resources.
         self.ingress_options_request_shrink = ingress_options_request_shrink  # type: str
+        # The name.
         self.name = name  # type: str
+        # An array of service root paths.
         self.path_list_shrink = path_list_shrink  # type: str
+        # The service source. Valid values:
+        # 
+        # *   K8S: ACK cluster
+        # *   MSE: Nacos instance
         self.source = source  # type: str
+        # The type of the service source. Valid values:
+        # 
+        # *   K8S: ACK cluster
+        # *   NACOS: Nacos instance
         self.type = type  # type: str
 
     def validate(self):
@@ -33088,11 +38218,20 @@ class UpdateServiceSourceShrinkRequest(TeaModel):
 
 class UpdateServiceSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The status code returned.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -33176,10 +38315,18 @@ class UpdateServiceSourceResponse(TeaModel):
 
 class UpdateZnodeRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, data=None, path=None, request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The data of the node.
         self.data = data  # type: str
+        # The path of the node.
         self.path = path  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -33220,9 +38367,15 @@ class UpdateZnodeRequest(TeaModel):
 
 class UpdateZnodeResponseBody(TeaModel):
     def __init__(self, error_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -33298,9 +38451,16 @@ class UpdateZnodeResponse(TeaModel):
 
 class UpgradeClusterRequest(TeaModel):
     def __init__(self, accept_language=None, instance_id=None, request_pars=None, upgrade_version=None):
+        # The language of the response. Valid values:
+        # 
+        # - zh: Chinese
+        # - en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
+        # The destination version.
         self.upgrade_version = upgrade_version  # type: str
 
     def validate(self):
@@ -33337,10 +38497,20 @@ class UpgradeClusterRequest(TeaModel):
 
 class UpgradeClusterResponseBody(TeaModel):
     def __init__(self, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The error code returned if the request fails.
         self.error_code = error_code  # type: str
+        # The status code returned.
         self.http_code = http_code  # type: str
+        # The message returned. Valid values: 
+        # 
+        # - If the request is successful, a success message is returned. 
+        # - If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # - `true`: The request is successful. 
+        # - `false`: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
