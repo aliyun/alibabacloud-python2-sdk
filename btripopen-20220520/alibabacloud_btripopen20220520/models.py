@@ -20173,8 +20173,9 @@ class UserQueryRequest(TeaModel):
 
 
 class UserQueryResponseBodyModuleItems(TeaModel):
-    def __init__(self, employee_nick=None, third_part_employee_id=None, third_part_job_no=None):
+    def __init__(self, employee_nick=None, leave_status=None, third_part_employee_id=None, third_part_job_no=None):
         self.employee_nick = employee_nick  # type: str
+        self.leave_status = leave_status  # type: int
         self.third_part_employee_id = third_part_employee_id  # type: str
         self.third_part_job_no = third_part_job_no  # type: str
 
@@ -20189,6 +20190,8 @@ class UserQueryResponseBodyModuleItems(TeaModel):
         result = dict()
         if self.employee_nick is not None:
             result['employee_nick'] = self.employee_nick
+        if self.leave_status is not None:
+            result['leave_status'] = self.leave_status
         if self.third_part_employee_id is not None:
             result['third_part_employee_id'] = self.third_part_employee_id
         if self.third_part_job_no is not None:
@@ -20199,6 +20202,8 @@ class UserQueryResponseBodyModuleItems(TeaModel):
         m = m or dict()
         if m.get('employee_nick') is not None:
             self.employee_nick = m.get('employee_nick')
+        if m.get('leave_status') is not None:
+            self.leave_status = m.get('leave_status')
         if m.get('third_part_employee_id') is not None:
             self.third_part_employee_id = m.get('third_part_employee_id')
         if m.get('third_part_job_no') is not None:
