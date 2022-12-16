@@ -167,6 +167,343 @@ class CreateConsumerGroupResponse(TeaModel):
         return self
 
 
+class CreateInstanceRequestNetworkInfoInternetInfo(TeaModel):
+    def __init__(self, flow_out_bandwidth=None, flow_out_type=None, internet_spec=None, ip_whitelist=None):
+        self.flow_out_bandwidth = flow_out_bandwidth  # type: int
+        self.flow_out_type = flow_out_type  # type: str
+        self.internet_spec = internet_spec  # type: str
+        self.ip_whitelist = ip_whitelist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestNetworkInfoInternetInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flow_out_bandwidth is not None:
+            result['flowOutBandwidth'] = self.flow_out_bandwidth
+        if self.flow_out_type is not None:
+            result['flowOutType'] = self.flow_out_type
+        if self.internet_spec is not None:
+            result['internetSpec'] = self.internet_spec
+        if self.ip_whitelist is not None:
+            result['ipWhitelist'] = self.ip_whitelist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('flowOutBandwidth') is not None:
+            self.flow_out_bandwidth = m.get('flowOutBandwidth')
+        if m.get('flowOutType') is not None:
+            self.flow_out_type = m.get('flowOutType')
+        if m.get('internetSpec') is not None:
+            self.internet_spec = m.get('internetSpec')
+        if m.get('ipWhitelist') is not None:
+            self.ip_whitelist = m.get('ipWhitelist')
+        return self
+
+
+class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
+    def __init__(self, v_switch_id=None, vpc_id=None):
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestNetworkInfoVpcInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.v_switch_id is not None:
+            result['vSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('vSwitchId') is not None:
+            self.v_switch_id = m.get('vSwitchId')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        return self
+
+
+class CreateInstanceRequestNetworkInfo(TeaModel):
+    def __init__(self, internet_info=None, vpc_info=None):
+        self.internet_info = internet_info  # type: CreateInstanceRequestNetworkInfoInternetInfo
+        self.vpc_info = vpc_info  # type: CreateInstanceRequestNetworkInfoVpcInfo
+
+    def validate(self):
+        if self.internet_info:
+            self.internet_info.validate()
+        if self.vpc_info:
+            self.vpc_info.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestNetworkInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.internet_info is not None:
+            result['internetInfo'] = self.internet_info.to_map()
+        if self.vpc_info is not None:
+            result['vpcInfo'] = self.vpc_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('internetInfo') is not None:
+            temp_model = CreateInstanceRequestNetworkInfoInternetInfo()
+            self.internet_info = temp_model.from_map(m['internetInfo'])
+        if m.get('vpcInfo') is not None:
+            temp_model = CreateInstanceRequestNetworkInfoVpcInfo()
+            self.vpc_info = temp_model.from_map(m['vpcInfo'])
+        return self
+
+
+class CreateInstanceRequestProductInfo(TeaModel):
+    def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
+                 send_receive_ratio=None):
+        self.auto_scaling = auto_scaling  # type: bool
+        self.message_retention_time = message_retention_time  # type: int
+        self.msg_process_spec = msg_process_spec  # type: str
+        self.send_receive_ratio = send_receive_ratio  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestProductInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_scaling is not None:
+            result['autoScaling'] = self.auto_scaling
+        if self.message_retention_time is not None:
+            result['messageRetentionTime'] = self.message_retention_time
+        if self.msg_process_spec is not None:
+            result['msgProcessSpec'] = self.msg_process_spec
+        if self.send_receive_ratio is not None:
+            result['sendReceiveRatio'] = self.send_receive_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('autoScaling') is not None:
+            self.auto_scaling = m.get('autoScaling')
+        if m.get('messageRetentionTime') is not None:
+            self.message_retention_time = m.get('messageRetentionTime')
+        if m.get('msgProcessSpec') is not None:
+            self.msg_process_spec = m.get('msgProcessSpec')
+        if m.get('sendReceiveRatio') is not None:
+            self.send_receive_ratio = m.get('sendReceiveRatio')
+        return self
+
+
+class CreateInstanceRequest(TeaModel):
+    def __init__(self, auto_renew=None, auto_renew_period=None, instance_name=None, network_info=None,
+                 payment_type=None, period=None, period_unit=None, product_info=None, remark=None, resource_group_id=None,
+                 series_code=None, service_code=None, sub_series_code=None, client_token=None):
+        self.auto_renew = auto_renew  # type: bool
+        self.auto_renew_period = auto_renew_period  # type: int
+        self.instance_name = instance_name  # type: str
+        self.network_info = network_info  # type: CreateInstanceRequestNetworkInfo
+        self.payment_type = payment_type  # type: str
+        self.period = period  # type: int
+        self.period_unit = period_unit  # type: str
+        self.product_info = product_info  # type: CreateInstanceRequestProductInfo
+        self.remark = remark  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.series_code = series_code  # type: str
+        self.service_code = service_code  # type: str
+        self.sub_series_code = sub_series_code  # type: str
+        self.client_token = client_token  # type: str
+
+    def validate(self):
+        if self.network_info:
+            self.network_info.validate()
+        if self.product_info:
+            self.product_info.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_renew is not None:
+            result['autoRenew'] = self.auto_renew
+        if self.auto_renew_period is not None:
+            result['autoRenewPeriod'] = self.auto_renew_period
+        if self.instance_name is not None:
+            result['instanceName'] = self.instance_name
+        if self.network_info is not None:
+            result['networkInfo'] = self.network_info.to_map()
+        if self.payment_type is not None:
+            result['paymentType'] = self.payment_type
+        if self.period is not None:
+            result['period'] = self.period
+        if self.period_unit is not None:
+            result['periodUnit'] = self.period_unit
+        if self.product_info is not None:
+            result['productInfo'] = self.product_info.to_map()
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
+        if self.series_code is not None:
+            result['seriesCode'] = self.series_code
+        if self.service_code is not None:
+            result['serviceCode'] = self.service_code
+        if self.sub_series_code is not None:
+            result['subSeriesCode'] = self.sub_series_code
+        if self.client_token is not None:
+            result['clientToken'] = self.client_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('autoRenew') is not None:
+            self.auto_renew = m.get('autoRenew')
+        if m.get('autoRenewPeriod') is not None:
+            self.auto_renew_period = m.get('autoRenewPeriod')
+        if m.get('instanceName') is not None:
+            self.instance_name = m.get('instanceName')
+        if m.get('networkInfo') is not None:
+            temp_model = CreateInstanceRequestNetworkInfo()
+            self.network_info = temp_model.from_map(m['networkInfo'])
+        if m.get('paymentType') is not None:
+            self.payment_type = m.get('paymentType')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        if m.get('periodUnit') is not None:
+            self.period_unit = m.get('periodUnit')
+        if m.get('productInfo') is not None:
+            temp_model = CreateInstanceRequestProductInfo()
+            self.product_info = temp_model.from_map(m['productInfo'])
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
+        if m.get('seriesCode') is not None:
+            self.series_code = m.get('seriesCode')
+        if m.get('serviceCode') is not None:
+            self.service_code = m.get('serviceCode')
+        if m.get('subSeriesCode') is not None:
+            self.sub_series_code = m.get('subSeriesCode')
+        if m.get('clientToken') is not None:
+            self.client_token = m.get('clientToken')
+        return self
+
+
+class CreateInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
+                 message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data
+        if self.dynamic_code is not None:
+            result['dynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['dynamicMessage'] = self.dynamic_message
+        if self.http_status_code is not None:
+            result['httpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('dynamicCode') is not None:
+            self.dynamic_code = m.get('dynamicCode')
+        if m.get('dynamicMessage') is not None:
+            self.dynamic_message = m.get('dynamicMessage')
+        if m.get('httpStatusCode') is not None:
+            self.http_status_code = m.get('httpStatusCode')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CreateInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateTopicRequest(TeaModel):
     def __init__(self, message_type=None, remark=None):
         self.message_type = message_type  # type: str
@@ -813,6 +1150,30 @@ class GetInstanceResponseBodyDataAccountInfo(TeaModel):
         return self
 
 
+class GetInstanceResponseBodyDataAclInfo(TeaModel):
+    def __init__(self, acl_type=None):
+        self.acl_type = acl_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceResponseBodyDataAclInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acl_type is not None:
+            result['aclType'] = self.acl_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aclType') is not None:
+            self.acl_type = m.get('aclType')
+        return self
+
+
 class GetInstanceResponseBodyDataExtConfig(TeaModel):
     def __init__(self, acl_type=None, auto_scaling=None, flow_out_bandwidth=None, flow_out_type=None,
                  internet_spec=None, message_retention_time=None, msg_process_spec=None, send_receive_ratio=None,
@@ -952,6 +1313,45 @@ class GetInstanceResponseBodyDataNetworkInfoEndpoints(TeaModel):
         return self
 
 
+class GetInstanceResponseBodyDataNetworkInfoInternetInfo(TeaModel):
+    def __init__(self, flow_out_bandwidth=None, flow_out_type=None, internet_spec=None, ip_whitelist=None):
+        self.flow_out_bandwidth = flow_out_bandwidth  # type: int
+        self.flow_out_type = flow_out_type  # type: str
+        self.internet_spec = internet_spec  # type: str
+        self.ip_whitelist = ip_whitelist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceResponseBodyDataNetworkInfoInternetInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flow_out_bandwidth is not None:
+            result['flowOutBandwidth'] = self.flow_out_bandwidth
+        if self.flow_out_type is not None:
+            result['flowOutType'] = self.flow_out_type
+        if self.internet_spec is not None:
+            result['internetSpec'] = self.internet_spec
+        if self.ip_whitelist is not None:
+            result['ipWhitelist'] = self.ip_whitelist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('flowOutBandwidth') is not None:
+            self.flow_out_bandwidth = m.get('flowOutBandwidth')
+        if m.get('flowOutType') is not None:
+            self.flow_out_type = m.get('flowOutType')
+        if m.get('internetSpec') is not None:
+            self.internet_spec = m.get('internetSpec')
+        if m.get('ipWhitelist') is not None:
+            self.ip_whitelist = m.get('ipWhitelist')
+        return self
+
+
 class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
     def __init__(self, v_switch_id=None, vpc_id=None):
         self.v_switch_id = v_switch_id  # type: str
@@ -982,8 +1382,9 @@ class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
 
 
 class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
-    def __init__(self, endpoints=None, vpc_info=None):
+    def __init__(self, endpoints=None, internet_info=None, vpc_info=None):
         self.endpoints = endpoints  # type: list[GetInstanceResponseBodyDataNetworkInfoEndpoints]
+        self.internet_info = internet_info  # type: GetInstanceResponseBodyDataNetworkInfoInternetInfo
         self.vpc_info = vpc_info  # type: GetInstanceResponseBodyDataNetworkInfoVpcInfo
 
     def validate(self):
@@ -991,6 +1392,8 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
             for k in self.endpoints:
                 if k:
                     k.validate()
+        if self.internet_info:
+            self.internet_info.validate()
         if self.vpc_info:
             self.vpc_info.validate()
 
@@ -1004,6 +1407,8 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
         if self.endpoints is not None:
             for k in self.endpoints:
                 result['endpoints'].append(k.to_map() if k else None)
+        if self.internet_info is not None:
+            result['internetInfo'] = self.internet_info.to_map()
         if self.vpc_info is not None:
             result['vpcInfo'] = self.vpc_info.to_map()
         return result
@@ -1015,45 +1420,97 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
             for k in m.get('endpoints'):
                 temp_model = GetInstanceResponseBodyDataNetworkInfoEndpoints()
                 self.endpoints.append(temp_model.from_map(k))
+        if m.get('internetInfo') is not None:
+            temp_model = GetInstanceResponseBodyDataNetworkInfoInternetInfo()
+            self.internet_info = temp_model.from_map(m['internetInfo'])
         if m.get('vpcInfo') is not None:
             temp_model = GetInstanceResponseBodyDataNetworkInfoVpcInfo()
             self.vpc_info = temp_model.from_map(m['vpcInfo'])
         return self
 
 
+class GetInstanceResponseBodyDataProductInfo(TeaModel):
+    def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
+                 send_receive_ratio=None, support_auto_scaling=None):
+        self.auto_scaling = auto_scaling  # type: bool
+        self.message_retention_time = message_retention_time  # type: int
+        self.msg_process_spec = msg_process_spec  # type: str
+        self.send_receive_ratio = send_receive_ratio  # type: float
+        self.support_auto_scaling = support_auto_scaling  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceResponseBodyDataProductInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_scaling is not None:
+            result['autoScaling'] = self.auto_scaling
+        if self.message_retention_time is not None:
+            result['messageRetentionTime'] = self.message_retention_time
+        if self.msg_process_spec is not None:
+            result['msgProcessSpec'] = self.msg_process_spec
+        if self.send_receive_ratio is not None:
+            result['sendReceiveRatio'] = self.send_receive_ratio
+        if self.support_auto_scaling is not None:
+            result['supportAutoScaling'] = self.support_auto_scaling
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('autoScaling') is not None:
+            self.auto_scaling = m.get('autoScaling')
+        if m.get('messageRetentionTime') is not None:
+            self.message_retention_time = m.get('messageRetentionTime')
+        if m.get('msgProcessSpec') is not None:
+            self.msg_process_spec = m.get('msgProcessSpec')
+        if m.get('sendReceiveRatio') is not None:
+            self.send_receive_ratio = m.get('sendReceiveRatio')
+        if m.get('supportAutoScaling') is not None:
+            self.support_auto_scaling = m.get('supportAutoScaling')
+        return self
+
+
 class GetInstanceResponseBodyData(TeaModel):
-    def __init__(self, account_info=None, bid=None, commodity_code=None, create_time=None, expire_time=None,
-                 ext_config=None, group_count=None, instance_id=None, instance_name=None, instance_quotas=None,
-                 network_info=None, payment_type=None, region_id=None, release_time=None, remark=None, series_code=None,
-                 service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None, update_time=None,
-                 user_id=None):
+    def __init__(self, account_info=None, acl_info=None, bid=None, commodity_code=None, create_time=None,
+                 expire_time=None, ext_config=None, instance_id=None, instance_name=None, instance_quotas=None,
+                 network_info=None, payment_type=None, product_info=None, region_id=None, release_time=None, remark=None,
+                 resource_group_id=None, series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None,
+                 update_time=None, user_id=None):
         self.account_info = account_info  # type: GetInstanceResponseBodyDataAccountInfo
+        self.acl_info = acl_info  # type: GetInstanceResponseBodyDataAclInfo
+        # BID
         self.bid = bid  # type: str
         self.commodity_code = commodity_code  # type: str
         self.create_time = create_time  # type: str
         self.expire_time = expire_time  # type: str
         self.ext_config = ext_config  # type: GetInstanceResponseBodyDataExtConfig
-        self.group_count = group_count  # type: long
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_quotas = instance_quotas  # type: list[GetInstanceResponseBodyDataInstanceQuotas]
         self.network_info = network_info  # type: GetInstanceResponseBodyDataNetworkInfo
         self.payment_type = payment_type  # type: str
+        self.product_info = product_info  # type: GetInstanceResponseBodyDataProductInfo
         self.region_id = region_id  # type: str
         self.release_time = release_time  # type: str
         self.remark = remark  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.series_code = series_code  # type: str
         self.service_code = service_code  # type: str
         self.start_time = start_time  # type: str
         self.status = status  # type: str
         self.sub_series_code = sub_series_code  # type: str
-        self.topic_count = topic_count  # type: long
         self.update_time = update_time  # type: str
         self.user_id = user_id  # type: str
 
     def validate(self):
         if self.account_info:
             self.account_info.validate()
+        if self.acl_info:
+            self.acl_info.validate()
         if self.ext_config:
             self.ext_config.validate()
         if self.instance_quotas:
@@ -1062,6 +1519,8 @@ class GetInstanceResponseBodyData(TeaModel):
                     k.validate()
         if self.network_info:
             self.network_info.validate()
+        if self.product_info:
+            self.product_info.validate()
 
     def to_map(self):
         _map = super(GetInstanceResponseBodyData, self).to_map()
@@ -1071,6 +1530,8 @@ class GetInstanceResponseBodyData(TeaModel):
         result = dict()
         if self.account_info is not None:
             result['accountInfo'] = self.account_info.to_map()
+        if self.acl_info is not None:
+            result['aclInfo'] = self.acl_info.to_map()
         if self.bid is not None:
             result['bid'] = self.bid
         if self.commodity_code is not None:
@@ -1081,8 +1542,6 @@ class GetInstanceResponseBodyData(TeaModel):
             result['expireTime'] = self.expire_time
         if self.ext_config is not None:
             result['extConfig'] = self.ext_config.to_map()
-        if self.group_count is not None:
-            result['groupCount'] = self.group_count
         if self.instance_id is not None:
             result['instanceId'] = self.instance_id
         if self.instance_name is not None:
@@ -1095,12 +1554,16 @@ class GetInstanceResponseBodyData(TeaModel):
             result['networkInfo'] = self.network_info.to_map()
         if self.payment_type is not None:
             result['paymentType'] = self.payment_type
+        if self.product_info is not None:
+            result['productInfo'] = self.product_info.to_map()
         if self.region_id is not None:
             result['regionId'] = self.region_id
         if self.release_time is not None:
             result['releaseTime'] = self.release_time
         if self.remark is not None:
             result['remark'] = self.remark
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
         if self.series_code is not None:
             result['seriesCode'] = self.series_code
         if self.service_code is not None:
@@ -1111,8 +1574,6 @@ class GetInstanceResponseBodyData(TeaModel):
             result['status'] = self.status
         if self.sub_series_code is not None:
             result['subSeriesCode'] = self.sub_series_code
-        if self.topic_count is not None:
-            result['topicCount'] = self.topic_count
         if self.update_time is not None:
             result['updateTime'] = self.update_time
         if self.user_id is not None:
@@ -1124,6 +1585,9 @@ class GetInstanceResponseBodyData(TeaModel):
         if m.get('accountInfo') is not None:
             temp_model = GetInstanceResponseBodyDataAccountInfo()
             self.account_info = temp_model.from_map(m['accountInfo'])
+        if m.get('aclInfo') is not None:
+            temp_model = GetInstanceResponseBodyDataAclInfo()
+            self.acl_info = temp_model.from_map(m['aclInfo'])
         if m.get('bid') is not None:
             self.bid = m.get('bid')
         if m.get('commodityCode') is not None:
@@ -1135,8 +1599,6 @@ class GetInstanceResponseBodyData(TeaModel):
         if m.get('extConfig') is not None:
             temp_model = GetInstanceResponseBodyDataExtConfig()
             self.ext_config = temp_model.from_map(m['extConfig'])
-        if m.get('groupCount') is not None:
-            self.group_count = m.get('groupCount')
         if m.get('instanceId') is not None:
             self.instance_id = m.get('instanceId')
         if m.get('instanceName') is not None:
@@ -1151,12 +1613,17 @@ class GetInstanceResponseBodyData(TeaModel):
             self.network_info = temp_model.from_map(m['networkInfo'])
         if m.get('paymentType') is not None:
             self.payment_type = m.get('paymentType')
+        if m.get('productInfo') is not None:
+            temp_model = GetInstanceResponseBodyDataProductInfo()
+            self.product_info = temp_model.from_map(m['productInfo'])
         if m.get('regionId') is not None:
             self.region_id = m.get('regionId')
         if m.get('releaseTime') is not None:
             self.release_time = m.get('releaseTime')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
         if m.get('seriesCode') is not None:
             self.series_code = m.get('seriesCode')
         if m.get('serviceCode') is not None:
@@ -1167,8 +1634,6 @@ class GetInstanceResponseBodyData(TeaModel):
             self.status = m.get('status')
         if m.get('subSeriesCode') is not None:
             self.sub_series_code = m.get('subSeriesCode')
-        if m.get('topicCount') is not None:
-            self.topic_count = m.get('topicCount')
         if m.get('updateTime') is not None:
             self.update_time = m.get('updateTime')
         if m.get('userId') is not None:
@@ -2375,7 +2840,57 @@ class UpdateConsumerGroupResponse(TeaModel):
         return self
 
 
-class UpdateInstanceRequestExtConfig(TeaModel):
+class UpdateInstanceRequestNetworkInfoInternetInfo(TeaModel):
+    def __init__(self, ip_whitelist=None):
+        self.ip_whitelist = ip_whitelist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateInstanceRequestNetworkInfoInternetInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip_whitelist is not None:
+            result['ipWhitelist'] = self.ip_whitelist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ipWhitelist') is not None:
+            self.ip_whitelist = m.get('ipWhitelist')
+        return self
+
+
+class UpdateInstanceRequestNetworkInfo(TeaModel):
+    def __init__(self, internet_info=None):
+        self.internet_info = internet_info  # type: UpdateInstanceRequestNetworkInfoInternetInfo
+
+    def validate(self):
+        if self.internet_info:
+            self.internet_info.validate()
+
+    def to_map(self):
+        _map = super(UpdateInstanceRequestNetworkInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.internet_info is not None:
+            result['internetInfo'] = self.internet_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('internetInfo') is not None:
+            temp_model = UpdateInstanceRequestNetworkInfoInternetInfo()
+            self.internet_info = temp_model.from_map(m['internetInfo'])
+        return self
+
+
+class UpdateInstanceRequestProductInfo(TeaModel):
     def __init__(self, auto_scaling=None, message_retention_time=None, send_receive_ratio=None):
         self.auto_scaling = auto_scaling  # type: bool
         self.message_retention_time = message_retention_time  # type: int
@@ -2385,7 +2900,7 @@ class UpdateInstanceRequestExtConfig(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(UpdateInstanceRequestExtConfig, self).to_map()
+        _map = super(UpdateInstanceRequestProductInfo, self).to_map()
         if _map is not None:
             return _map
 
@@ -2409,79 +2924,18 @@ class UpdateInstanceRequestExtConfig(TeaModel):
         return self
 
 
-class UpdateInstanceRequestNetworkInfoEndpoints(TeaModel):
-    def __init__(self, endpoint_type=None, ip_whitelist=None):
-        self.endpoint_type = endpoint_type  # type: str
-        self.ip_whitelist = ip_whitelist  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateInstanceRequestNetworkInfoEndpoints, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.endpoint_type is not None:
-            result['endpointType'] = self.endpoint_type
-        if self.ip_whitelist is not None:
-            result['ipWhitelist'] = self.ip_whitelist
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('endpointType') is not None:
-            self.endpoint_type = m.get('endpointType')
-        if m.get('ipWhitelist') is not None:
-            self.ip_whitelist = m.get('ipWhitelist')
-        return self
-
-
-class UpdateInstanceRequestNetworkInfo(TeaModel):
-    def __init__(self, endpoints=None):
-        self.endpoints = endpoints  # type: list[UpdateInstanceRequestNetworkInfoEndpoints]
-
-    def validate(self):
-        if self.endpoints:
-            for k in self.endpoints:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(UpdateInstanceRequestNetworkInfo, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['endpoints'] = []
-        if self.endpoints is not None:
-            for k in self.endpoints:
-                result['endpoints'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.endpoints = []
-        if m.get('endpoints') is not None:
-            for k in m.get('endpoints'):
-                temp_model = UpdateInstanceRequestNetworkInfoEndpoints()
-                self.endpoints.append(temp_model.from_map(k))
-        return self
-
-
 class UpdateInstanceRequest(TeaModel):
-    def __init__(self, ext_config=None, instance_name=None, network_info=None, remark=None):
-        self.ext_config = ext_config  # type: UpdateInstanceRequestExtConfig
+    def __init__(self, instance_name=None, network_info=None, product_info=None, remark=None):
         self.instance_name = instance_name  # type: str
         self.network_info = network_info  # type: UpdateInstanceRequestNetworkInfo
+        self.product_info = product_info  # type: UpdateInstanceRequestProductInfo
         self.remark = remark  # type: str
 
     def validate(self):
-        if self.ext_config:
-            self.ext_config.validate()
         if self.network_info:
             self.network_info.validate()
+        if self.product_info:
+            self.product_info.validate()
 
     def to_map(self):
         _map = super(UpdateInstanceRequest, self).to_map()
@@ -2489,26 +2943,26 @@ class UpdateInstanceRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.ext_config is not None:
-            result['extConfig'] = self.ext_config.to_map()
         if self.instance_name is not None:
             result['instanceName'] = self.instance_name
         if self.network_info is not None:
             result['networkInfo'] = self.network_info.to_map()
+        if self.product_info is not None:
+            result['productInfo'] = self.product_info.to_map()
         if self.remark is not None:
             result['remark'] = self.remark
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('extConfig') is not None:
-            temp_model = UpdateInstanceRequestExtConfig()
-            self.ext_config = temp_model.from_map(m['extConfig'])
         if m.get('instanceName') is not None:
             self.instance_name = m.get('instanceName')
         if m.get('networkInfo') is not None:
             temp_model = UpdateInstanceRequestNetworkInfo()
             self.network_info = temp_model.from_map(m['networkInfo'])
+        if m.get('productInfo') is not None:
+            temp_model = UpdateInstanceRequestProductInfo()
+            self.product_info = temp_model.from_map(m['productInfo'])
         if m.get('remark') is not None:
             self.remark = m.get('remark')
         return self

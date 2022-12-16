@@ -31,11 +31,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_consumer_group(self, instance_id, consumer_group_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_consumer_group_with_options(instance_id, consumer_group_id, request, headers, runtime)
-
     def create_consumer_group_with_options(self, instance_id, consumer_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -65,10 +60,68 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_topic(self, instance_id, topic_name, request):
+    def create_consumer_group(self, instance_id, consumer_group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_topic_with_options(instance_id, topic_name, request, headers, runtime)
+        return self.create_consumer_group_with_options(instance_id, consumer_group_id, request, headers, runtime)
+
+    def create_instance_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
+        body = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            body['autoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_period):
+            body['autoRenewPeriod'] = request.auto_renew_period
+        if not UtilClient.is_unset(request.instance_name):
+            body['instanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.network_info):
+            body['networkInfo'] = request.network_info
+        if not UtilClient.is_unset(request.payment_type):
+            body['paymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.period):
+            body['period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            body['periodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.product_info):
+            body['productInfo'] = request.product_info
+        if not UtilClient.is_unset(request.remark):
+            body['remark'] = request.remark
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.series_code):
+            body['seriesCode'] = request.series_code
+        if not UtilClient.is_unset(request.service_code):
+            body['serviceCode'] = request.service_code
+        if not UtilClient.is_unset(request.sub_series_code):
+            body['subSeriesCode'] = request.sub_series_code
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateInstance',
+            version='2022-08-01',
+            protocol='HTTPS',
+            pathname='/instances',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rocket_mq20220801_models.CreateInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_with_options(request, headers, runtime)
 
     def create_topic_with_options(self, instance_id, topic_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -97,10 +150,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_consumer_group(self, instance_id, consumer_group_id):
+    def create_topic(self, instance_id, topic_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
+        return self.create_topic_with_options(instance_id, topic_name, request, headers, runtime)
 
     def delete_consumer_group_with_options(self, instance_id, consumer_group_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -122,10 +175,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_instance(self, instance_id):
+    def delete_consumer_group(self, instance_id, consumer_group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_instance_with_options(instance_id, headers, runtime)
+        return self.delete_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
 
     def delete_instance_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -147,10 +200,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_topic(self, instance_id, topic_name):
+    def delete_instance(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_topic_with_options(instance_id, topic_name, headers, runtime)
+        return self.delete_instance_with_options(instance_id, headers, runtime)
 
     def delete_topic_with_options(self, instance_id, topic_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -172,10 +225,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_consumer_group(self, instance_id, consumer_group_id):
+    def delete_topic(self, instance_id, topic_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
+        return self.delete_topic_with_options(instance_id, topic_name, headers, runtime)
 
     def get_consumer_group_with_options(self, instance_id, consumer_group_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -197,10 +250,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_instance(self, instance_id):
+    def get_consumer_group(self, instance_id, consumer_group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_instance_with_options(instance_id, headers, runtime)
+        return self.get_consumer_group_with_options(instance_id, consumer_group_id, headers, runtime)
 
     def get_instance_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -222,10 +275,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_topic(self, instance_id, topic_name):
+    def get_instance(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_topic_with_options(instance_id, topic_name, headers, runtime)
+        return self.get_instance_with_options(instance_id, headers, runtime)
 
     def get_topic_with_options(self, instance_id, topic_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -247,10 +300,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_consumer_groups(self, instance_id, request):
+    def get_topic(self, instance_id, topic_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_consumer_groups_with_options(instance_id, request, headers, runtime)
+        return self.get_topic_with_options(instance_id, topic_name, headers, runtime)
 
     def list_consumer_groups_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -281,10 +334,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_instances(self, request):
+    def list_consumer_groups(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_instances_with_options(request, headers, runtime)
+        return self.list_consumer_groups_with_options(instance_id, request, headers, runtime)
 
     def list_instances_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -315,10 +368,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_topics(self, instance_id, request):
+    def list_instances(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_topics_with_options(instance_id, request, headers, runtime)
+        return self.list_instances_with_options(request, headers, runtime)
 
     def list_topics_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -349,10 +402,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_consumer_group(self, instance_id, consumer_group_id, request):
+    def list_topics(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_consumer_group_with_options(instance_id, consumer_group_id, request, headers, runtime)
+        return self.list_topics_with_options(instance_id, request, headers, runtime)
 
     def update_consumer_group_with_options(self, instance_id, consumer_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -383,20 +436,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_instance(self, instance_id, request):
+    def update_consumer_group(self, instance_id, consumer_group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_instance_with_options(instance_id, request, headers, runtime)
+        return self.update_consumer_group_with_options(instance_id, consumer_group_id, request, headers, runtime)
 
     def update_instance_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.ext_config):
-            body['extConfig'] = request.ext_config
         if not UtilClient.is_unset(request.instance_name):
             body['instanceName'] = request.instance_name
         if not UtilClient.is_unset(request.network_info):
             body['networkInfo'] = request.network_info
+        if not UtilClient.is_unset(request.product_info):
+            body['productInfo'] = request.product_info
         if not UtilClient.is_unset(request.remark):
             body['remark'] = request.remark
         req = open_api_models.OpenApiRequest(
@@ -419,10 +472,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_topic(self, instance_id, topic_name, request):
+    def update_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_topic_with_options(instance_id, topic_name, request, headers, runtime)
+        return self.update_instance_with_options(instance_id, request, headers, runtime)
 
     def update_topic_with_options(self, instance_id, topic_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -448,3 +501,8 @@ class Client(OpenApiClient):
             rocket_mq20220801_models.UpdateTopicResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_topic(self, instance_id, topic_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_topic_with_options(instance_id, topic_name, request, headers, runtime)
