@@ -27283,7 +27283,8 @@ class ModifyGovernanceKubernetesClusterResponse(TeaModel):
 
 class ModifyLosslessRuleRequest(TeaModel):
     def __init__(self, accept_language=None, aligned=None, app_id=None, app_name=None, delay_time=None, enable=None,
-                 func_type=None, region_id=None, related=None, shutdown_wait_seconds=None, source=None, warmup_time=None):
+                 func_type=None, loss_less_detail=None, notice=None, region_id=None, related=None, shutdown_wait_seconds=None,
+                 source=None, warmup_time=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -27304,6 +27305,8 @@ class ModifyLosslessRuleRequest(TeaModel):
         self.enable = enable  # type: bool
         # The slope of the prefetching curve.
         self.func_type = func_type  # type: long
+        self.loss_less_detail = loss_less_detail  # type: bool
+        self.notice = notice  # type: bool
         # The region ID.
         self.region_id = region_id  # type: str
         # Specifies whether to associate readiness probe with service prefetching.
@@ -27338,6 +27341,10 @@ class ModifyLosslessRuleRequest(TeaModel):
             result['Enable'] = self.enable
         if self.func_type is not None:
             result['FuncType'] = self.func_type
+        if self.loss_less_detail is not None:
+            result['LossLessDetail'] = self.loss_less_detail
+        if self.notice is not None:
+            result['Notice'] = self.notice
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.related is not None:
@@ -27366,6 +27373,10 @@ class ModifyLosslessRuleRequest(TeaModel):
             self.enable = m.get('Enable')
         if m.get('FuncType') is not None:
             self.func_type = m.get('FuncType')
+        if m.get('LossLessDetail') is not None:
+            self.loss_less_detail = m.get('LossLessDetail')
+        if m.get('Notice') is not None:
+            self.notice = m.get('Notice')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Related') is not None:
