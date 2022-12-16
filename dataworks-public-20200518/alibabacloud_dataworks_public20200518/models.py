@@ -3,6 +3,105 @@
 from Tea.model import TeaModel
 
 
+class Collection(TeaModel):
+    def __init__(self, collection_type=None, comment=None, create_time=None, level=None, name=None, owner_id=None,
+                 owner_name=None, qualified_name=None, update_time=None):
+        self.collection_type = collection_type  # type: str
+        self.comment = comment  # type: str
+        self.create_time = create_time  # type: long
+        self.level = level  # type: int
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: str
+        self.owner_name = owner_name  # type: str
+        self.qualified_name = qualified_name  # type: str
+        self.update_time = update_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Collection, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_type is not None:
+            result['CollectionType'] = self.collection_type
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.level is not None:
+            result['Level'] = self.level
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.owner_name is not None:
+            result['OwnerName'] = self.owner_name
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionType') is not None:
+            self.collection_type = m.get('CollectionType')
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Level') is not None:
+            self.level = m.get('Level')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('OwnerName') is not None:
+            self.owner_name = m.get('OwnerName')
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class Entity(TeaModel):
+    def __init__(self, entity_content=None, qualified_name=None, tenant_id=None):
+        self.entity_content = entity_content  # type: dict[str, any]
+        self.qualified_name = qualified_name  # type: str
+        self.tenant_id = tenant_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Entity, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_content is not None:
+            result['EntityContent'] = self.entity_content
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EntityContent') is not None:
+            self.entity_content = m.get('EntityContent')
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        return self
+
+
 class AbolishDataServiceApiRequest(TeaModel):
     def __init__(self, api_id=None, project_id=None, tenant_id=None):
         self.api_id = api_id  # type: long
@@ -10908,8 +11007,10 @@ class GetDagResponseBodyData(TeaModel):
         self.bizdate = bizdate  # type: long
         self.create_time = create_time  # type: long
         self.create_user = create_user  # type: str
+        # DagId。
         self.dag_id = dag_id  # type: long
         self.finish_time = finish_time  # type: long
+        # Gmtdate。
         self.gmtdate = gmtdate  # type: long
         self.modify_time = modify_time  # type: long
         self.name = name  # type: str
@@ -19993,12 +20094,14 @@ class GetMetaTableListByCategoryResponse(TeaModel):
 
 
 class GetMetaTableOutputRequest(TeaModel):
-    def __init__(self, end_date=None, page_number=None, page_size=None, start_date=None, table_guid=None):
+    def __init__(self, end_date=None, page_number=None, page_size=None, start_date=None, table_guid=None,
+                 task_id=None):
         self.end_date = end_date  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.start_date = start_date  # type: str
         self.table_guid = table_guid  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -20019,6 +20122,8 @@ class GetMetaTableOutputRequest(TeaModel):
             result['StartDate'] = self.start_date
         if self.table_guid is not None:
             result['TableGuid'] = self.table_guid
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
@@ -20033,6 +20138,8 @@ class GetMetaTableOutputRequest(TeaModel):
             self.start_date = m.get('StartDate')
         if m.get('TableGuid') is not None:
             self.table_guid = m.get('TableGuid')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
@@ -22573,6 +22680,7 @@ class GetOptionValueForProjectRequest(TeaModel):
 class GetOptionValueForProjectResponseBody(TeaModel):
     def __init__(self, option_value=None, request_id=None):
         self.option_value = option_value  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28041,8 +28149,10 @@ class ListDagsResponseBodyDataDags(TeaModel):
         self.bizdate = bizdate  # type: long
         self.create_time = create_time  # type: long
         self.create_user = create_user  # type: str
+        # DagId。
         self.dag_id = dag_id  # type: long
         self.finish_time = finish_time  # type: long
+        # Gmtdate。
         self.gmtdate = gmtdate  # type: long
         self.modify_time = modify_time  # type: long
         self.name = name  # type: str
@@ -32454,6 +32564,7 @@ class ListExtensionsResponseBodyPagingInfo(TeaModel):
 class ListExtensionsResponseBody(TeaModel):
     def __init__(self, paging_info=None, request_id=None):
         self.paging_info = paging_info  # type: ListExtensionsResponseBodyPagingInfo
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -39535,13 +39646,12 @@ class ListResourceGroupsRequestTags(TeaModel):
 
 class ListResourceGroupsRequest(TeaModel):
     def __init__(self, biz_ext_key=None, keyword=None, resource_group_type=None,
-                 resource_manager_resource_group_id=None, tags=None, type_names=None):
+                 resource_manager_resource_group_id=None, tags=None):
         self.biz_ext_key = biz_ext_key  # type: str
         self.keyword = keyword  # type: str
         self.resource_group_type = resource_group_type  # type: int
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         self.tags = tags  # type: list[ListResourceGroupsRequestTags]
-        self.type_names = type_names  # type: str
 
     def validate(self):
         if self.tags:
@@ -39567,8 +39677,6 @@ class ListResourceGroupsRequest(TeaModel):
         if self.tags is not None:
             for k in self.tags:
                 result['Tags'].append(k.to_map() if k else None)
-        if self.type_names is not None:
-            result['TypeNames'] = self.type_names
         return result
 
     def from_map(self, m=None):
@@ -39586,20 +39694,17 @@ class ListResourceGroupsRequest(TeaModel):
             for k in m.get('Tags'):
                 temp_model = ListResourceGroupsRequestTags()
                 self.tags.append(temp_model.from_map(k))
-        if m.get('TypeNames') is not None:
-            self.type_names = m.get('TypeNames')
         return self
 
 
 class ListResourceGroupsShrinkRequest(TeaModel):
     def __init__(self, biz_ext_key=None, keyword=None, resource_group_type=None,
-                 resource_manager_resource_group_id=None, tags_shrink=None, type_names=None):
+                 resource_manager_resource_group_id=None, tags_shrink=None):
         self.biz_ext_key = biz_ext_key  # type: str
         self.keyword = keyword  # type: str
         self.resource_group_type = resource_group_type  # type: int
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         self.tags_shrink = tags_shrink  # type: str
-        self.type_names = type_names  # type: str
 
     def validate(self):
         pass
@@ -39620,8 +39725,6 @@ class ListResourceGroupsShrinkRequest(TeaModel):
             result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.tags_shrink is not None:
             result['Tags'] = self.tags_shrink
-        if self.type_names is not None:
-            result['TypeNames'] = self.type_names
         return result
 
     def from_map(self, m=None):
@@ -39636,8 +39739,6 @@ class ListResourceGroupsShrinkRequest(TeaModel):
             self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Tags') is not None:
             self.tags_shrink = m.get('Tags')
-        if m.get('TypeNames') is not None:
-            self.type_names = m.get('TypeNames')
         return self
 
 
@@ -44562,6 +44663,7 @@ class TestDataServiceApiRequestQueryParam(TeaModel):
 class TestDataServiceApiRequest(TeaModel):
     def __init__(self, api_id=None, body_content=None, body_params=None, head_params=None, path_params=None,
                  query_param=None):
+        # API Id
         self.api_id = api_id  # type: long
         self.body_content = body_content  # type: str
         self.body_params = body_params  # type: list[TestDataServiceApiRequestBodyParams]
@@ -46899,6 +47001,7 @@ class UpdateIDEEventResultRequest(TeaModel):
         self.check_result = check_result  # type: str
         self.check_result_tip = check_result_tip  # type: str
         self.extension_code = extension_code  # type: str
+        # 扩展点消息UUID
         self.message_id = message_id  # type: str
 
     def validate(self):
@@ -49194,6 +49297,7 @@ class UpdateWorkbenchEventResultRequest(TeaModel):
 
 class UpdateWorkbenchEventResultResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 

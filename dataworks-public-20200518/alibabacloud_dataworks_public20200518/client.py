@@ -410,6 +410,17 @@ class Client(OpenApiClient):
         return self.create_business_with_options(request, runtime)
 
     def create_connection_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateConnectionResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_type):
@@ -446,6 +457,15 @@ class Client(OpenApiClient):
         )
 
     def create_connection(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateConnectionRequest
+
+        @return: CreateConnectionResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_connection_with_options(request, runtime)
 
@@ -488,6 +508,17 @@ class Client(OpenApiClient):
         return self.create_disync_task_with_options(request, runtime)
 
     def create_dag_complement_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateDagComplementRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDagComplementResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_begin_time):
@@ -532,10 +563,30 @@ class Client(OpenApiClient):
         )
 
     def create_dag_complement(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateDagComplementRequest
+
+        @return: CreateDagComplementResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dag_complement_with_options(request, runtime)
 
     def create_dag_test_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateDagTestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDagTestResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.bizdate):
@@ -568,6 +619,15 @@ class Client(OpenApiClient):
         )
 
     def create_dag_test(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateDagTestRequest
+
+        @return: CreateDagTestResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dag_test_with_options(request, runtime)
 
@@ -1043,6 +1103,17 @@ class Client(OpenApiClient):
         return create_import_migration_resp
 
     def create_manual_dag_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateManualDagRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateManualDagResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_date):
@@ -1081,6 +1152,15 @@ class Client(OpenApiClient):
         )
 
     def create_manual_dag(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateManualDagRequest
+
+        @return: CreateManualDagResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_manual_dag_with_options(request, runtime)
 
@@ -1673,6 +1753,17 @@ class Client(OpenApiClient):
         return self.delete_business_with_options(request, runtime)
 
     def delete_connection_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DeleteConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteConnectionResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_id):
@@ -1697,6 +1788,15 @@ class Client(OpenApiClient):
         )
 
     def delete_connection(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DeleteConnectionRequest
+
+        @return: DeleteConnectionResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_connection_with_options(request, runtime)
 
@@ -3209,6 +3309,17 @@ class Client(OpenApiClient):
         return self.get_instance_with_options(request, runtime)
 
     def get_instance_consume_time_rank_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceConsumeTimeRankRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceConsumeTimeRankResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.bizdate):
@@ -3235,10 +3346,30 @@ class Client(OpenApiClient):
         )
 
     def get_instance_consume_time_rank(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceConsumeTimeRankRequest
+
+        @return: GetInstanceConsumeTimeRankResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_consume_time_rank_with_options(request, runtime)
 
     def get_instance_count_trend_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceCountTrendRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceCountTrendResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.begin_date):
@@ -3267,10 +3398,30 @@ class Client(OpenApiClient):
         )
 
     def get_instance_count_trend(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceCountTrendRequest
+
+        @return: GetInstanceCountTrendResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_count_trend_with_options(request, runtime)
 
     def get_instance_error_rank_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceErrorRankRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceErrorRankResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -3295,6 +3446,15 @@ class Client(OpenApiClient):
         )
 
     def get_instance_error_rank(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceErrorRankRequest
+
+        @return: GetInstanceErrorRankResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_error_rank_with_options(request, runtime)
 
@@ -3331,6 +3491,17 @@ class Client(OpenApiClient):
         return self.get_instance_log_with_options(request, runtime)
 
     def get_instance_status_count_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceStatusCountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceStatusCountResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_date):
@@ -3359,6 +3530,15 @@ class Client(OpenApiClient):
         )
 
     def get_instance_status_count(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetInstanceStatusCountRequest
+
+        @return: GetInstanceStatusCountResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_status_count_with_options(request, runtime)
 
@@ -3399,6 +3579,17 @@ class Client(OpenApiClient):
         return self.get_instance_status_statistic_with_options(request, runtime)
 
     def get_manual_dag_instances_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetManualDagInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetManualDagInstancesResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dag_id):
@@ -3427,6 +3618,15 @@ class Client(OpenApiClient):
         )
 
     def get_manual_dag_instances(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetManualDagInstancesRequest
+
+        @return: GetManualDagInstancesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_manual_dag_instances_with_options(request, runtime)
 
@@ -3571,6 +3771,16 @@ class Client(OpenApiClient):
         return self.get_meta_dbtable_list_with_options(request, runtime)
 
     def get_meta_table_basic_info_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: GetMetaTableBasicInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableBasicInfoResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3593,6 +3803,14 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_basic_info(self, request):
+        """
+        ***\
+        
+
+        @param request: GetMetaTableBasicInfoRequest
+
+        @return: GetMetaTableBasicInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_basic_info_with_options(request, runtime)
 
@@ -3799,6 +4017,8 @@ class Client(OpenApiClient):
             query['StartDate'] = request.start_date
         if not UtilClient.is_unset(request.table_guid):
             query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3827,7 +4047,7 @@ class Client(OpenApiClient):
         request = dataworks_public_20200518_models.GetMetaTablePartitionShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.sort_criterion):
-            request.sort_criterion_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.sort_criterion), 'SortCriterion', 'json')
+            request.sort_criterion_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sort_criterion, 'SortCriterion', 'json')
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
@@ -4045,6 +4265,17 @@ class Client(OpenApiClient):
         return self.get_node_code_with_options(request, runtime)
 
     def get_node_on_baseline_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetNodeOnBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeOnBaselineResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -4069,6 +4300,15 @@ class Client(OpenApiClient):
         )
 
     def get_node_on_baseline(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetNodeOnBaselineRequest
+
+        @return: GetNodeOnBaselineResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_on_baseline_with_options(request, runtime)
 
@@ -4103,6 +4343,17 @@ class Client(OpenApiClient):
         return self.get_node_parents_with_options(request, runtime)
 
     def get_node_type_list_info_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetNodeTypeListInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeTypeListInfoResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.keyword):
@@ -4137,6 +4388,15 @@ class Client(OpenApiClient):
         )
 
     def get_node_type_list_info(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetNodeTypeListInfoRequest
+
+        @return: GetNodeTypeListInfoResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_type_list_info_with_options(request, runtime)
 
@@ -4279,6 +4539,17 @@ class Client(OpenApiClient):
         return self.get_project_with_options(request, runtime)
 
     def get_project_detail_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetProjectDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetProjectDetailResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -4303,6 +4574,15 @@ class Client(OpenApiClient):
         )
 
     def get_project_detail(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetProjectDetailRequest
+
+        @return: GetProjectDetailResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_project_detail_with_options(request, runtime)
 
@@ -4455,6 +4735,17 @@ class Client(OpenApiClient):
         return self.get_sensitive_data_with_options(request, runtime)
 
     def get_success_instance_trend_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetSuccessInstanceTrendRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetSuccessInstanceTrendResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -4479,10 +4770,29 @@ class Client(OpenApiClient):
         )
 
     def get_success_instance_trend(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetSuccessInstanceTrendRequest
+
+        @return: GetSuccessInstanceTrendResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_success_instance_trend_with_options(request, runtime)
 
     def get_topic_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: GetTopicRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTopicResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.topic_id):
@@ -4507,6 +4817,14 @@ class Client(OpenApiClient):
         )
 
     def get_topic(self, request):
+        """
+        ***\
+        
+
+        @param request: GetTopicRequest
+
+        @return: GetTopicResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_topic_with_options(request, runtime)
 
@@ -4817,6 +5135,17 @@ class Client(OpenApiClient):
         return self.list_calc_engines_with_options(request, runtime)
 
     def list_connections_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ListConnectionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListConnectionsResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -4839,6 +5168,15 @@ class Client(OpenApiClient):
         )
 
     def list_connections(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ListConnectionsRequest
+
+        @return: ListConnectionsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_connections_with_options(request, runtime)
 
@@ -5735,6 +6073,17 @@ class Client(OpenApiClient):
         return self.list_migrations_with_options(request, runtime)
 
     def list_node_iowith_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ListNodeIORequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodeIOResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.io_type):
@@ -5763,6 +6112,15 @@ class Client(OpenApiClient):
         )
 
     def list_node_io(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ListNodeIORequest
+
+        @return: ListNodeIOResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_node_iowith_options(request, runtime)
 
@@ -5947,6 +6305,17 @@ class Client(OpenApiClient):
         return self.list_permission_apply_orders_with_options(request, runtime)
 
     def list_program_type_count_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ListProgramTypeCountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListProgramTypeCountResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_env):
@@ -5973,6 +6342,15 @@ class Client(OpenApiClient):
         )
 
     def list_program_type_count(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ListProgramTypeCountRequest
+
+        @return: ListProgramTypeCountResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_program_type_count_with_options(request, runtime)
 
@@ -6103,6 +6481,16 @@ class Client(OpenApiClient):
         return self.list_projects_with_options(request, runtime)
 
     def list_quality_results_by_entity_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: ListQualityResultsByEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListQualityResultsByEntityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.end_date):
@@ -6137,6 +6525,14 @@ class Client(OpenApiClient):
         )
 
     def list_quality_results_by_entity(self, request):
+        """
+        ***\
+        
+
+        @param request: ListQualityResultsByEntityRequest
+
+        @return: ListQualityResultsByEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_quality_results_by_entity_with_options(request, runtime)
 
@@ -6307,8 +6703,6 @@ class Client(OpenApiClient):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
         if not UtilClient.is_unset(request.tags_shrink):
             query['Tags'] = request.tags_shrink
-        if not UtilClient.is_unset(request.type_names):
-            query['TypeNames'] = request.type_names
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -7051,6 +7445,17 @@ class Client(OpenApiClient):
         return self.search_meta_tables_with_options(request, runtime)
 
     def search_nodes_by_output_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: SearchNodesByOutputRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SearchNodesByOutputResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.outputs):
@@ -7077,10 +7482,30 @@ class Client(OpenApiClient):
         )
 
     def search_nodes_by_output(self, request):
+        """
+        @deprecated
+        
+
+        @param request: SearchNodesByOutputRequest
+
+        @return: SearchNodesByOutputResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.search_nodes_by_output_with_options(request, runtime)
 
     def set_data_source_share_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: SetDataSourceShareRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetDataSourceShareResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.datasource_name):
@@ -7113,6 +7538,15 @@ class Client(OpenApiClient):
         )
 
     def set_data_source_share(self, request):
+        """
+        @deprecated
+        
+
+        @param request: SetDataSourceShareRequest
+
+        @return: SetDataSourceShareResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_data_source_share_with_options(request, runtime)
 
@@ -7597,6 +8031,17 @@ class Client(OpenApiClient):
         return self.update_business_with_options(request, runtime)
 
     def update_connection_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: UpdateConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateConnectionResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_id):
@@ -7629,6 +8074,15 @@ class Client(OpenApiClient):
         )
 
     def update_connection(self, request):
+        """
+        @deprecated
+        
+
+        @param request: UpdateConnectionRequest
+
+        @return: UpdateConnectionResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_connection_with_options(request, runtime)
 
