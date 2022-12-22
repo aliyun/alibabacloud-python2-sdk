@@ -225,6 +225,124 @@ class AbolishDataServiceApiResponse(TeaModel):
         return self
 
 
+class AddMetaCollectionEntityRequest(TeaModel):
+    def __init__(self, collection_qualified_name=None, entity_qualified_name=None):
+        self.collection_qualified_name = collection_qualified_name  # type: str
+        self.entity_qualified_name = entity_qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMetaCollectionEntityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_qualified_name is not None:
+            result['CollectionQualifiedName'] = self.collection_qualified_name
+        if self.entity_qualified_name is not None:
+            result['EntityQualifiedName'] = self.entity_qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionQualifiedName') is not None:
+            self.collection_qualified_name = m.get('CollectionQualifiedName')
+        if m.get('EntityQualifiedName') is not None:
+            self.entity_qualified_name = m.get('EntityQualifiedName')
+        return self
+
+
+class AddMetaCollectionEntityResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, request_id=None, status=None,
+                 success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMetaCollectionEntityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class AddMetaCollectionEntityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddMetaCollectionEntityResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddMetaCollectionEntityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddMetaCollectionEntityResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AddProjectMemberToRoleRequest(TeaModel):
     def __init__(self, client_token=None, project_id=None, role_code=None, user_id=None):
         self.client_token = client_token  # type: str
@@ -3592,6 +3710,135 @@ class CreateMetaCategoryResponse(TeaModel):
         return self
 
 
+class CreateMetaCollectionRequest(TeaModel):
+    def __init__(self, collection_type=None, comment=None, name=None, parent_qualified_name=None):
+        self.collection_type = collection_type  # type: str
+        self.comment = comment  # type: str
+        self.name = name  # type: str
+        self.parent_qualified_name = parent_qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateMetaCollectionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_type is not None:
+            result['CollectionType'] = self.collection_type
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.parent_qualified_name is not None:
+            result['ParentQualifiedName'] = self.parent_qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionType') is not None:
+            self.collection_type = m.get('CollectionType')
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ParentQualifiedName') is not None:
+            self.parent_qualified_name = m.get('ParentQualifiedName')
+        return self
+
+
+class CreateMetaCollectionResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, qualified_name=None,
+                 request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: str
+        self.qualified_name = qualified_name  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateMetaCollectionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateMetaCollectionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateMetaCollectionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateMetaCollectionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateMetaCollectionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreatePermissionApplyOrderRequestApplyObjectColumnMetaList(TeaModel):
     def __init__(self, name=None):
         self.name = name  # type: str
@@ -6739,6 +6986,238 @@ class DeleteMetaCategoryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteMetaCategoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteMetaCollectionRequest(TeaModel):
+    def __init__(self, qualified_name=None):
+        self.qualified_name = qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        return self
+
+
+class DeleteMetaCollectionResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, request_id=None, status=None,
+                 success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteMetaCollectionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteMetaCollectionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteMetaCollectionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteMetaCollectionEntityRequest(TeaModel):
+    def __init__(self, collection_qualified_name=None, entity_qualified_name=None):
+        self.collection_qualified_name = collection_qualified_name  # type: str
+        self.entity_qualified_name = entity_qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionEntityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_qualified_name is not None:
+            result['CollectionQualifiedName'] = self.collection_qualified_name
+        if self.entity_qualified_name is not None:
+            result['EntityQualifiedName'] = self.entity_qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionQualifiedName') is not None:
+            self.collection_qualified_name = m.get('CollectionQualifiedName')
+        if m.get('EntityQualifiedName') is not None:
+            self.entity_qualified_name = m.get('EntityQualifiedName')
+        return self
+
+
+class DeleteMetaCollectionEntityResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, request_id=None, status=None,
+                 success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionEntityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteMetaCollectionEntityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteMetaCollectionEntityResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteMetaCollectionEntityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteMetaCollectionEntityResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -17718,6 +18197,122 @@ class GetMetaCategoryResponse(TeaModel):
         return self
 
 
+class GetMetaCollectionDetailRequest(TeaModel):
+    def __init__(self, qualified_name=None):
+        self.qualified_name = qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMetaCollectionDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        return self
+
+
+class GetMetaCollectionDetailResponseBody(TeaModel):
+    def __init__(self, collection=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.collection = collection  # type: Collection
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.collection:
+            self.collection.validate()
+
+    def to_map(self):
+        _map = super(GetMetaCollectionDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection.to_map()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            temp_model = Collection()
+            self.collection = temp_model.from_map(m['Collection'])
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetMetaCollectionDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMetaCollectionDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMetaCollectionDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMetaCollectionDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetMetaColumnLineageRequest(TeaModel):
     def __init__(self, cluster_id=None, column_guid=None, column_name=None, data_source_type=None,
                  database_name=None, direction=None, page_num=None, page_size=None, table_name=None):
@@ -20697,6 +21292,182 @@ class GetMetaTablePartitionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetMetaTablePartitionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetMetaTableProducingTasksRequest(TeaModel):
+    def __init__(self, cluster_id=None, data_source_type=None, db_name=None, schema_name=None, table_guid=None,
+                 table_name=None):
+        self.cluster_id = cluster_id  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.db_name = db_name  # type: str
+        self.schema_name = schema_name  # type: str
+        self.table_guid = table_guid  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMetaTableProducingTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_guid is not None:
+            result['TableGuid'] = self.table_guid
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableGuid') is not None:
+            self.table_guid = m.get('TableGuid')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class GetMetaTableProducingTasksResponseBodyData(TeaModel):
+    def __init__(self, task_id=None, task_name=None):
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMetaTableProducingTasksResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class GetMetaTableProducingTasksResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.data = data  # type: list[GetMetaTableProducingTasksResponseBodyData]
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetMetaTableProducingTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetMetaTableProducingTasksResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetMetaTableProducingTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMetaTableProducingTasksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMetaTableProducingTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMetaTableProducingTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -34897,6 +35668,372 @@ class ListManualDagInstancesResponse(TeaModel):
         return self
 
 
+class ListMetaCollectionEntitiesRequest(TeaModel):
+    def __init__(self, collection_qualified_name=None, entity_type=None, keyword=None, next_token=None,
+                 page_size=None):
+        self.collection_qualified_name = collection_qualified_name  # type: str
+        self.entity_type = entity_type  # type: str
+        self.keyword = keyword  # type: str
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMetaCollectionEntitiesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_qualified_name is not None:
+            result['CollectionQualifiedName'] = self.collection_qualified_name
+        if self.entity_type is not None:
+            result['EntityType'] = self.entity_type
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionQualifiedName') is not None:
+            self.collection_qualified_name = m.get('CollectionQualifiedName')
+        if m.get('EntityType') is not None:
+            self.entity_type = m.get('EntityType')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListMetaCollectionEntitiesResponseBodyData(TeaModel):
+    def __init__(self, entity_list=None, next_token=None):
+        self.entity_list = entity_list  # type: list[Entity]
+        self.next_token = next_token  # type: str
+
+    def validate(self):
+        if self.entity_list:
+            for k in self.entity_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionEntitiesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['EntityList'] = []
+        if self.entity_list is not None:
+            for k in self.entity_list:
+                result['EntityList'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.entity_list = []
+        if m.get('EntityList') is not None:
+            for k in m.get('EntityList'):
+                temp_model = Entity()
+                self.entity_list.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        return self
+
+
+class ListMetaCollectionEntitiesResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.data = data  # type: ListMetaCollectionEntitiesResponseBodyData
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionEntitiesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListMetaCollectionEntitiesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListMetaCollectionEntitiesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListMetaCollectionEntitiesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionEntitiesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListMetaCollectionEntitiesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListMetaCollectionsRequest(TeaModel):
+    def __init__(self, administrator=None, collection_type=None, creator=None, follower=None, keyword=None,
+                 next_token=None, order_by=None, page_size=None, parent_qualified_name=None):
+        self.administrator = administrator  # type: str
+        self.collection_type = collection_type  # type: str
+        self.creator = creator  # type: str
+        self.follower = follower  # type: str
+        self.keyword = keyword  # type: str
+        self.next_token = next_token  # type: str
+        self.order_by = order_by  # type: str
+        self.page_size = page_size  # type: int
+        self.parent_qualified_name = parent_qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMetaCollectionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.administrator is not None:
+            result['Administrator'] = self.administrator
+        if self.collection_type is not None:
+            result['CollectionType'] = self.collection_type
+        if self.creator is not None:
+            result['Creator'] = self.creator
+        if self.follower is not None:
+            result['Follower'] = self.follower
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.parent_qualified_name is not None:
+            result['ParentQualifiedName'] = self.parent_qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Administrator') is not None:
+            self.administrator = m.get('Administrator')
+        if m.get('CollectionType') is not None:
+            self.collection_type = m.get('CollectionType')
+        if m.get('Creator') is not None:
+            self.creator = m.get('Creator')
+        if m.get('Follower') is not None:
+            self.follower = m.get('Follower')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ParentQualifiedName') is not None:
+            self.parent_qualified_name = m.get('ParentQualifiedName')
+        return self
+
+
+class ListMetaCollectionsResponseBodyData(TeaModel):
+    def __init__(self, collection_list=None, next_token=None):
+        self.collection_list = collection_list  # type: list[Collection]
+        self.next_token = next_token  # type: str
+
+    def validate(self):
+        if self.collection_list:
+            for k in self.collection_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CollectionList'] = []
+        if self.collection_list is not None:
+            for k in self.collection_list:
+                result['CollectionList'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.collection_list = []
+        if m.get('CollectionList') is not None:
+            for k in m.get('CollectionList'):
+                temp_model = Collection()
+                self.collection_list.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        return self
+
+
+class ListMetaCollectionsResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.data = data  # type: ListMetaCollectionsResponseBodyData
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListMetaCollectionsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListMetaCollectionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListMetaCollectionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListMetaCollectionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListMetaCollectionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListMetaDBRequest(TeaModel):
     def __init__(self, cluster_id=None, data_source_type=None, page_num=None, page_size=None, project_id=None):
         self.cluster_id = cluster_id  # type: str
@@ -47218,6 +48355,129 @@ class UpdateMetaCategoryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateMetaCategoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateMetaCollectionRequest(TeaModel):
+    def __init__(self, comment=None, name=None, qualified_name=None):
+        self.comment = comment  # type: str
+        self.name = name  # type: str
+        self.qualified_name = qualified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateMetaCollectionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        return self
+
+
+class UpdateMetaCollectionResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, request_id=None, status=None,
+                 success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.status = status  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateMetaCollectionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateMetaCollectionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateMetaCollectionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateMetaCollectionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateMetaCollectionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
