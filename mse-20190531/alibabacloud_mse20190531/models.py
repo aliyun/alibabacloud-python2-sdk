@@ -2495,6 +2495,253 @@ class AddGatewaySlbResponse(TeaModel):
         return self
 
 
+class AddMigrationTaskRequest(TeaModel):
+    def __init__(self, accept_language=None, cluster_type=None, id=None, origin_instance_address=None,
+                 origin_instance_name=None, origin_instance_namespace=None, project_desc=None, request_pars=None,
+                 target_cluster_name=None, target_cluster_url=None, target_instance_id=None):
+        self.accept_language = accept_language  # type: str
+        self.cluster_type = cluster_type  # type: str
+        self.id = id  # type: str
+        self.origin_instance_address = origin_instance_address  # type: str
+        self.origin_instance_name = origin_instance_name  # type: str
+        self.origin_instance_namespace = origin_instance_namespace  # type: str
+        self.project_desc = project_desc  # type: str
+        self.request_pars = request_pars  # type: str
+        self.target_cluster_name = target_cluster_name  # type: str
+        self.target_cluster_url = target_cluster_url  # type: str
+        self.target_instance_id = target_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMigrationTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.cluster_type is not None:
+            result['ClusterType'] = self.cluster_type
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.origin_instance_address is not None:
+            result['OriginInstanceAddress'] = self.origin_instance_address
+        if self.origin_instance_name is not None:
+            result['OriginInstanceName'] = self.origin_instance_name
+        if self.origin_instance_namespace is not None:
+            result['OriginInstanceNamespace'] = self.origin_instance_namespace
+        if self.project_desc is not None:
+            result['ProjectDesc'] = self.project_desc
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        if self.target_cluster_name is not None:
+            result['TargetClusterName'] = self.target_cluster_name
+        if self.target_cluster_url is not None:
+            result['TargetClusterUrl'] = self.target_cluster_url
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ClusterType') is not None:
+            self.cluster_type = m.get('ClusterType')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('OriginInstanceAddress') is not None:
+            self.origin_instance_address = m.get('OriginInstanceAddress')
+        if m.get('OriginInstanceName') is not None:
+            self.origin_instance_name = m.get('OriginInstanceName')
+        if m.get('OriginInstanceNamespace') is not None:
+            self.origin_instance_namespace = m.get('OriginInstanceNamespace')
+        if m.get('ProjectDesc') is not None:
+            self.project_desc = m.get('ProjectDesc')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        if m.get('TargetClusterName') is not None:
+            self.target_cluster_name = m.get('TargetClusterName')
+        if m.get('TargetClusterUrl') is not None:
+            self.target_cluster_url = m.get('TargetClusterUrl')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class AddMigrationTaskResponseBodyData(TeaModel):
+    def __init__(self, cluster_type=None, gmt_create=None, gmt_modified=None, id=None, origin_instance_address=None,
+                 origin_instance_name=None, origin_instance_namespace=None, project_desc=None, target_cluster_name=None,
+                 target_cluster_url=None, target_instance_id=None, user_id=None):
+        self.cluster_type = cluster_type  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: str
+        self.origin_instance_address = origin_instance_address  # type: str
+        self.origin_instance_name = origin_instance_name  # type: str
+        self.origin_instance_namespace = origin_instance_namespace  # type: str
+        self.project_desc = project_desc  # type: str
+        self.target_cluster_name = target_cluster_name  # type: str
+        self.target_cluster_url = target_cluster_url  # type: str
+        self.target_instance_id = target_instance_id  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMigrationTaskResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_type is not None:
+            result['ClusterType'] = self.cluster_type
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.origin_instance_address is not None:
+            result['OriginInstanceAddress'] = self.origin_instance_address
+        if self.origin_instance_name is not None:
+            result['OriginInstanceName'] = self.origin_instance_name
+        if self.origin_instance_namespace is not None:
+            result['OriginInstanceNamespace'] = self.origin_instance_namespace
+        if self.project_desc is not None:
+            result['ProjectDesc'] = self.project_desc
+        if self.target_cluster_name is not None:
+            result['TargetClusterName'] = self.target_cluster_name
+        if self.target_cluster_url is not None:
+            result['TargetClusterUrl'] = self.target_cluster_url
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterType') is not None:
+            self.cluster_type = m.get('ClusterType')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('OriginInstanceAddress') is not None:
+            self.origin_instance_address = m.get('OriginInstanceAddress')
+        if m.get('OriginInstanceName') is not None:
+            self.origin_instance_name = m.get('OriginInstanceName')
+        if m.get('OriginInstanceNamespace') is not None:
+            self.origin_instance_namespace = m.get('OriginInstanceNamespace')
+        if m.get('ProjectDesc') is not None:
+            self.project_desc = m.get('ProjectDesc')
+        if m.get('TargetClusterName') is not None:
+            self.target_cluster_name = m.get('TargetClusterName')
+        if m.get('TargetClusterUrl') is not None:
+            self.target_cluster_url = m.get('TargetClusterUrl')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class AddMigrationTaskResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        self.data = data  # type: AddMigrationTaskResponseBodyData
+        self.error_code = error_code  # type: str
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(AddMigrationTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = AddMigrationTaskResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class AddMigrationTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddMigrationTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddMigrationTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddMigrationTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AddMockRuleRequest(TeaModel):
     def __init__(self, accept_language=None, consumer_app_ids=None, dubbo_mock_items=None, enable=None,
                  extra_json=None, mock_type=None, name=None, provider_app_id=None, provider_app_name=None, region=None,
@@ -29022,6 +29269,414 @@ class QueryClusterDiskSpecificationResponse(TeaModel):
         return self
 
 
+class QueryClusterInfoRequest(TeaModel):
+    def __init__(self, accept_language=None, acl_switch=None, cluster_id=None, instance_id=None, order_id=None,
+                 region_id=None, request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.acl_switch = acl_switch  # type: bool
+        self.cluster_id = cluster_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.order_id = order_id  # type: str
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryClusterInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.acl_switch is not None:
+            result['AclSwitch'] = self.acl_switch
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AclSwitch') is not None:
+            self.acl_switch = m.get('AclSwitch')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class QueryClusterInfoResponseBodyDataInstanceModels(TeaModel):
+    def __init__(self, creation_timestamp=None, health_status=None, internet_ip=None, ip=None, pod_name=None,
+                 role=None, single_tunnel_vip=None, zone=None):
+        self.creation_timestamp = creation_timestamp  # type: str
+        self.health_status = health_status  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.ip = ip  # type: str
+        self.pod_name = pod_name  # type: str
+        self.role = role  # type: str
+        self.single_tunnel_vip = single_tunnel_vip  # type: str
+        self.zone = zone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryClusterInfoResponseBodyDataInstanceModels, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_timestamp is not None:
+            result['CreationTimestamp'] = self.creation_timestamp
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
+        if self.internet_ip is not None:
+            result['InternetIp'] = self.internet_ip
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.pod_name is not None:
+            result['PodName'] = self.pod_name
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.single_tunnel_vip is not None:
+            result['SingleTunnelVip'] = self.single_tunnel_vip
+        if self.zone is not None:
+            result['Zone'] = self.zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreationTimestamp') is not None:
+            self.creation_timestamp = m.get('CreationTimestamp')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
+        if m.get('InternetIp') is not None:
+            self.internet_ip = m.get('InternetIp')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('PodName') is not None:
+            self.pod_name = m.get('PodName')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SingleTunnelVip') is not None:
+            self.single_tunnel_vip = m.get('SingleTunnelVip')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
+        return self
+
+
+class QueryClusterInfoResponseBodyData(TeaModel):
+    def __init__(self, acl_entry_list=None, acl_id=None, app_version=None, charge_type=None,
+                 cluster_alias_name=None, cluster_name=None, cluster_specification=None, cluster_type=None, cluster_version=None,
+                 connection_type=None, cpu=None, create_time=None, disk_capacity=None, disk_type=None, health_status=None,
+                 init_cost_time=None, init_status=None, instance_count=None, instance_id=None, instance_models=None,
+                 internet_address=None, internet_domain=None, internet_port=None, intranet_address=None, intranet_domain=None,
+                 intranet_port=None, memory_capacity=None, mse_version=None, net_type=None, pay_info=None, pub_network_flow=None,
+                 region_id=None, tags=None, v_switch_id=None, vpc_id=None):
+        self.acl_entry_list = acl_entry_list  # type: str
+        self.acl_id = acl_id  # type: str
+        self.app_version = app_version  # type: str
+        self.charge_type = charge_type  # type: str
+        self.cluster_alias_name = cluster_alias_name  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.cluster_specification = cluster_specification  # type: str
+        self.cluster_type = cluster_type  # type: str
+        self.cluster_version = cluster_version  # type: str
+        self.connection_type = connection_type  # type: str
+        self.cpu = cpu  # type: int
+        self.create_time = create_time  # type: str
+        self.disk_capacity = disk_capacity  # type: long
+        self.disk_type = disk_type  # type: str
+        self.health_status = health_status  # type: str
+        self.init_cost_time = init_cost_time  # type: long
+        self.init_status = init_status  # type: str
+        self.instance_count = instance_count  # type: int
+        self.instance_id = instance_id  # type: str
+        self.instance_models = instance_models  # type: list[QueryClusterInfoResponseBodyDataInstanceModels]
+        self.internet_address = internet_address  # type: str
+        self.internet_domain = internet_domain  # type: str
+        self.internet_port = internet_port  # type: str
+        self.intranet_address = intranet_address  # type: str
+        self.intranet_domain = intranet_domain  # type: str
+        self.intranet_port = intranet_port  # type: str
+        self.memory_capacity = memory_capacity  # type: long
+        self.mse_version = mse_version  # type: str
+        self.net_type = net_type  # type: str
+        self.pay_info = pay_info  # type: str
+        self.pub_network_flow = pub_network_flow  # type: str
+        self.region_id = region_id  # type: str
+        self.tags = tags  # type: dict[str, any]
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.instance_models:
+            for k in self.instance_models:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryClusterInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acl_entry_list is not None:
+            result['AclEntryList'] = self.acl_entry_list
+        if self.acl_id is not None:
+            result['AclId'] = self.acl_id
+        if self.app_version is not None:
+            result['AppVersion'] = self.app_version
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.cluster_alias_name is not None:
+            result['ClusterAliasName'] = self.cluster_alias_name
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
+        if self.cluster_specification is not None:
+            result['ClusterSpecification'] = self.cluster_specification
+        if self.cluster_type is not None:
+            result['ClusterType'] = self.cluster_type
+        if self.cluster_version is not None:
+            result['ClusterVersion'] = self.cluster_version
+        if self.connection_type is not None:
+            result['ConnectionType'] = self.connection_type
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.disk_capacity is not None:
+            result['DiskCapacity'] = self.disk_capacity
+        if self.disk_type is not None:
+            result['DiskType'] = self.disk_type
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
+        if self.init_cost_time is not None:
+            result['InitCostTime'] = self.init_cost_time
+        if self.init_status is not None:
+            result['InitStatus'] = self.init_status
+        if self.instance_count is not None:
+            result['InstanceCount'] = self.instance_count
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        result['InstanceModels'] = []
+        if self.instance_models is not None:
+            for k in self.instance_models:
+                result['InstanceModels'].append(k.to_map() if k else None)
+        if self.internet_address is not None:
+            result['InternetAddress'] = self.internet_address
+        if self.internet_domain is not None:
+            result['InternetDomain'] = self.internet_domain
+        if self.internet_port is not None:
+            result['InternetPort'] = self.internet_port
+        if self.intranet_address is not None:
+            result['IntranetAddress'] = self.intranet_address
+        if self.intranet_domain is not None:
+            result['IntranetDomain'] = self.intranet_domain
+        if self.intranet_port is not None:
+            result['IntranetPort'] = self.intranet_port
+        if self.memory_capacity is not None:
+            result['MemoryCapacity'] = self.memory_capacity
+        if self.mse_version is not None:
+            result['MseVersion'] = self.mse_version
+        if self.net_type is not None:
+            result['NetType'] = self.net_type
+        if self.pay_info is not None:
+            result['PayInfo'] = self.pay_info
+        if self.pub_network_flow is not None:
+            result['PubNetworkFlow'] = self.pub_network_flow
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AclEntryList') is not None:
+            self.acl_entry_list = m.get('AclEntryList')
+        if m.get('AclId') is not None:
+            self.acl_id = m.get('AclId')
+        if m.get('AppVersion') is not None:
+            self.app_version = m.get('AppVersion')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('ClusterAliasName') is not None:
+            self.cluster_alias_name = m.get('ClusterAliasName')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
+        if m.get('ClusterSpecification') is not None:
+            self.cluster_specification = m.get('ClusterSpecification')
+        if m.get('ClusterType') is not None:
+            self.cluster_type = m.get('ClusterType')
+        if m.get('ClusterVersion') is not None:
+            self.cluster_version = m.get('ClusterVersion')
+        if m.get('ConnectionType') is not None:
+            self.connection_type = m.get('ConnectionType')
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DiskCapacity') is not None:
+            self.disk_capacity = m.get('DiskCapacity')
+        if m.get('DiskType') is not None:
+            self.disk_type = m.get('DiskType')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
+        if m.get('InitCostTime') is not None:
+            self.init_cost_time = m.get('InitCostTime')
+        if m.get('InitStatus') is not None:
+            self.init_status = m.get('InitStatus')
+        if m.get('InstanceCount') is not None:
+            self.instance_count = m.get('InstanceCount')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        self.instance_models = []
+        if m.get('InstanceModels') is not None:
+            for k in m.get('InstanceModels'):
+                temp_model = QueryClusterInfoResponseBodyDataInstanceModels()
+                self.instance_models.append(temp_model.from_map(k))
+        if m.get('InternetAddress') is not None:
+            self.internet_address = m.get('InternetAddress')
+        if m.get('InternetDomain') is not None:
+            self.internet_domain = m.get('InternetDomain')
+        if m.get('InternetPort') is not None:
+            self.internet_port = m.get('InternetPort')
+        if m.get('IntranetAddress') is not None:
+            self.intranet_address = m.get('IntranetAddress')
+        if m.get('IntranetDomain') is not None:
+            self.intranet_domain = m.get('IntranetDomain')
+        if m.get('IntranetPort') is not None:
+            self.intranet_port = m.get('IntranetPort')
+        if m.get('MemoryCapacity') is not None:
+            self.memory_capacity = m.get('MemoryCapacity')
+        if m.get('MseVersion') is not None:
+            self.mse_version = m.get('MseVersion')
+        if m.get('NetType') is not None:
+            self.net_type = m.get('NetType')
+        if m.get('PayInfo') is not None:
+            self.pay_info = m.get('PayInfo')
+        if m.get('PubNetworkFlow') is not None:
+            self.pub_network_flow = m.get('PubNetworkFlow')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class QueryClusterInfoResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+        self.data = data  # type: QueryClusterInfoResponseBodyData
+        self.error_code = error_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryClusterInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = QueryClusterInfoResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryClusterInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryClusterInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryClusterInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryClusterInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryClusterSpecificationRequest(TeaModel):
     def __init__(self, accept_language=None, connect_type=None, mse_version=None):
         # The language of the response. Valid values:
@@ -30113,6 +30768,217 @@ class QueryGovernanceKubernetesClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryGovernanceKubernetesClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryInstancesInfoRequest(TeaModel):
+    def __init__(self, accept_language=None, cluster_id=None, instance_id=None, order_id=None, region_id=None,
+                 request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.order_id = order_id  # type: str
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryInstancesInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class QueryInstancesInfoResponseBodyData(TeaModel):
+    def __init__(self, client_port=None, creation_timestamp=None, health_status=None, internet_ip=None, ip=None,
+                 pod_name=None, role=None, single_tunnel_vip=None, zone=None):
+        self.client_port = client_port  # type: str
+        self.creation_timestamp = creation_timestamp  # type: str
+        self.health_status = health_status  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.ip = ip  # type: str
+        self.pod_name = pod_name  # type: str
+        self.role = role  # type: str
+        self.single_tunnel_vip = single_tunnel_vip  # type: str
+        self.zone = zone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryInstancesInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_port is not None:
+            result['ClientPort'] = self.client_port
+        if self.creation_timestamp is not None:
+            result['CreationTimestamp'] = self.creation_timestamp
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
+        if self.internet_ip is not None:
+            result['InternetIp'] = self.internet_ip
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.pod_name is not None:
+            result['PodName'] = self.pod_name
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.single_tunnel_vip is not None:
+            result['SingleTunnelVip'] = self.single_tunnel_vip
+        if self.zone is not None:
+            result['Zone'] = self.zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientPort') is not None:
+            self.client_port = m.get('ClientPort')
+        if m.get('CreationTimestamp') is not None:
+            self.creation_timestamp = m.get('CreationTimestamp')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
+        if m.get('InternetIp') is not None:
+            self.internet_ip = m.get('InternetIp')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('PodName') is not None:
+            self.pod_name = m.get('PodName')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SingleTunnelVip') is not None:
+            self.single_tunnel_vip = m.get('SingleTunnelVip')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
+        return self
+
+
+class QueryInstancesInfoResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        self.data = data  # type: list[QueryInstancesInfoResponseBodyData]
+        self.error_code = error_code  # type: str
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryInstancesInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = QueryInstancesInfoResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryInstancesInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryInstancesInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryInstancesInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryInstancesInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
