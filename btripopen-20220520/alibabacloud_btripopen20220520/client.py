@@ -936,6 +936,31 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.CommonApplySyncHeaders()
         return self.common_apply_sync_with_options(request, headers, runtime)
 
+    def corp_auth_link_info_query_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CorpAuthLinkInfoQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/corp-authority-link/v1/info',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.CorpAuthLinkInfoQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def corp_auth_link_info_query(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.corp_auth_link_info_query_with_options(headers, runtime)
+
     def corp_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
