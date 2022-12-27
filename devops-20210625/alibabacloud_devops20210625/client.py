@@ -31,10 +31,75 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_repository_member(self, repository_id, request):
+    def add_group_member_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.access_level):
+            body['accessLevel'] = request.access_level
+        if not UtilClient.is_unset(request.aliyun_pks):
+            body['aliyunPks'] = request.aliyun_pks
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddGroupMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/members/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.AddGroupMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_group_member(self, group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_repository_member_with_options(repository_id, request, headers, runtime)
+        return self.add_group_member_with_options(group_id, request, headers, runtime)
+
+    def add_pipeline_relations_with_options(self, organization_id, pipeline_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.rel_object_ids):
+            query['relObjectIds'] = request.rel_object_ids
+        if not UtilClient.is_unset(request.rel_object_type):
+            query['relObjectType'] = request.rel_object_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddPipelineRelations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/%s/pipelineRelations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.AddPipelineRelationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_pipeline_relations(self, organization_id, pipeline_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_pipeline_relations_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def add_repository_member_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -69,10 +134,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_webhook(self, repository_id, request):
+    def add_repository_member(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_webhook_with_options(repository_id, request, headers, runtime)
+        return self.add_repository_member_with_options(repository_id, request, headers, runtime)
 
     def add_webhook_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -119,10 +184,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_branch(self, repository_id, request):
+    def add_webhook(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_branch_with_options(repository_id, request, headers, runtime)
+        return self.add_webhook_with_options(repository_id, request, headers, runtime)
 
     def create_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -157,10 +222,48 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_file(self, repository_id, request):
+    def create_branch(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_file_with_options(repository_id, request, headers, runtime)
+        return self.create_branch_with_options(repository_id, request, headers, runtime)
+
+    def create_deploy_key_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.key):
+            body['key'] = request.key
+        if not UtilClient.is_unset(request.title):
+            body['title'] = request.title
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeployKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/keys/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateDeployKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_deploy_key(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_deploy_key_with_options(repository_id, request, headers, runtime)
 
     def create_file_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -201,10 +304,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_flow_tag(self, organization_id, request):
+    def create_file(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_flow_tag_with_options(organization_id, request, headers, runtime)
+        return self.create_file_with_options(repository_id, request, headers, runtime)
 
     def create_flow_tag_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -235,10 +338,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_flow_tag_group(self, organization_id, request):
+    def create_flow_tag(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_flow_tag_group_with_options(organization_id, request, headers, runtime)
+        return self.create_flow_tag_with_options(organization_id, request, headers, runtime)
 
     def create_flow_tag_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -265,10 +368,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_host_group(self, organization_id, request):
+    def create_flow_tag_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_host_group_with_options(organization_id, request, headers, runtime)
+        return self.create_flow_tag_group_with_options(organization_id, request, headers, runtime)
 
     def create_host_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -313,10 +416,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_oauth_token(self, request):
+    def create_host_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_oauth_token_with_options(request, headers, runtime)
+        return self.create_host_group_with_options(organization_id, request, headers, runtime)
 
     def create_oauth_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -353,10 +456,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_pipeline_group(self, organization_id, request):
+    def create_oauth_token(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_pipeline_group_with_options(organization_id, request, headers, runtime)
+        return self.create_oauth_token_with_options(request, headers, runtime)
 
     def create_pipeline_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -383,10 +486,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_project(self, organization_id, request):
+    def create_pipeline_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_project_with_options(organization_id, request, headers, runtime)
+        return self.create_pipeline_group_with_options(organization_id, request, headers, runtime)
 
     def create_project_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -419,10 +522,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_protectd_branch(self, repository_id, request):
+    def create_project(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_protectd_branch_with_options(repository_id, request, headers, runtime)
+        return self.create_project_with_options(organization_id, request, headers, runtime)
 
     def create_protectd_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -469,10 +572,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_repository(self, request):
+    def create_protectd_branch(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_repository_with_options(request, headers, runtime)
+        return self.create_protectd_branch_with_options(repository_id, request, headers, runtime)
 
     def create_repository_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -541,10 +644,56 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_resource_member(self, organization_id, resource_type, resource_id, request):
+    def create_repository(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_resource_member_with_options(organization_id, resource_type, resource_id, request, headers, runtime)
+        return self.create_repository_with_options(request, headers, runtime)
+
+    def create_repository_group_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.avatar_url):
+            body['avatarUrl'] = request.avatar_url
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.parent_id):
+            body['parentId'] = request.parent_id
+        if not UtilClient.is_unset(request.path):
+            body['path'] = request.path
+        if not UtilClient.is_unset(request.visibility_level):
+            body['visibilityLevel'] = request.visibility_level
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRepositoryGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateRepositoryGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_repository_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_repository_group_with_options(request, headers, runtime)
 
     def create_resource_member_with_options(self, organization_id, resource_type, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -573,10 +722,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_sprint(self, organization_id, request):
+    def create_resource_member(self, organization_id, resource_type, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_sprint_with_options(organization_id, request, headers, runtime)
+        return self.create_resource_member_with_options(organization_id, resource_type, resource_id, request, headers, runtime)
 
     def create_sprint_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -611,10 +760,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_ssh_key(self, organization_id):
+    def create_sprint(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_ssh_key_with_options(organization_id, headers, runtime)
+        return self.create_sprint_with_options(organization_id, request, headers, runtime)
 
     def create_ssh_key_with_options(self, organization_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -636,10 +785,50 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_variable_group(self, organization_id, request):
+    def create_ssh_key(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_variable_group_with_options(organization_id, request, headers, runtime)
+        return self.create_ssh_key_with_options(organization_id, headers, runtime)
+
+    def create_tag_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.message):
+            body['message'] = request.message
+        if not UtilClient.is_unset(request.ref):
+            body['ref'] = request.ref
+        if not UtilClient.is_unset(request.tag_name):
+            body['tagName'] = request.tag_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/tags/create' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_tag(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_tag_with_options(repository_id, request, headers, runtime)
 
     def create_variable_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -670,10 +859,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_workitem(self, organization_id, request):
+    def create_variable_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_workitem_with_options(organization_id, request, headers, runtime)
+        return self.create_variable_group_with_options(organization_id, request, headers, runtime)
 
     def create_workitem_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -728,10 +917,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_workitem_comment(self, organization_id, request):
+    def create_workitem(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_workitem_comment_with_options(organization_id, request, headers, runtime)
+        return self.create_workitem_with_options(organization_id, request, headers, runtime)
 
     def create_workitem_comment_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -764,10 +953,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_workitem_estimate(self, organization_id, request):
+    def create_workitem_comment(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_workitem_estimate_with_options(organization_id, request, headers, runtime)
+        return self.create_workitem_comment_with_options(organization_id, request, headers, runtime)
 
     def create_workitem_estimate_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -802,10 +991,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_workitem_record(self, organization_id, request):
+    def create_workitem_estimate(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_workitem_record_with_options(organization_id, request, headers, runtime)
+        return self.create_workitem_estimate_with_options(organization_id, request, headers, runtime)
 
     def create_workitem_record_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -844,10 +1033,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_workspace(self, request):
+    def create_workitem_record(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_workspace_with_options(request, headers, runtime)
+        return self.create_workitem_record_with_options(organization_id, request, headers, runtime)
 
     def create_workspace_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -888,10 +1077,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_branch(self, repository_id, request):
+    def create_workspace(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_branch_with_options(repository_id, request, headers, runtime)
+        return self.create_workspace_with_options(request, headers, runtime)
 
     def delete_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -922,10 +1111,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_file(self, repository_id, request):
+    def delete_branch(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_file_with_options(repository_id, request, headers, runtime)
+        return self.delete_branch_with_options(repository_id, request, headers, runtime)
 
     def delete_file_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -960,10 +1149,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_flow_tag(self, organization_id, id):
+    def delete_file(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_flow_tag_with_options(organization_id, id, headers, runtime)
+        return self.delete_file_with_options(repository_id, request, headers, runtime)
 
     def delete_flow_tag_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -985,10 +1174,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_flow_tag_group(self, organization_id, id):
+    def delete_flow_tag(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_flow_tag_group_with_options(organization_id, id, headers, runtime)
+        return self.delete_flow_tag_with_options(organization_id, id, headers, runtime)
 
     def delete_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1010,10 +1199,48 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_host_group(self, organization_id, id):
+    def delete_flow_tag_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_host_group_with_options(organization_id, id, headers, runtime)
+        return self.delete_flow_tag_group_with_options(organization_id, id, headers, runtime)
+
+    def delete_group_member_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.aliyun_pk):
+            query['aliyunPk'] = request.aliyun_pk
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.member_type):
+            body['memberType'] = request.member_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteGroupMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/members/remove/aliyun_pk' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteGroupMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_group_member(self, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_group_member_with_options(group_id, request, headers, runtime)
 
     def delete_host_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1035,10 +1262,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_pipeline(self, organization_id, pipeline_id):
+    def delete_host_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
+        return self.delete_host_group_with_options(organization_id, id, headers, runtime)
 
     def delete_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1060,10 +1287,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_pipeline_group(self, organization_id, group_id):
+    def delete_pipeline(self, organization_id, pipeline_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_pipeline_group_with_options(organization_id, group_id, headers, runtime)
+        return self.delete_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def delete_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1085,10 +1312,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_project(self, organization_id, request):
+    def delete_pipeline_group(self, organization_id, group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_project_with_options(organization_id, request, headers, runtime)
+        return self.delete_pipeline_group_with_options(organization_id, group_id, headers, runtime)
+
+    def delete_pipeline_relations_with_options(self, organization_id, pipeline_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.rel_object_id):
+            query['relObjectId'] = request.rel_object_id
+        if not UtilClient.is_unset(request.rel_object_type):
+            query['relObjectType'] = request.rel_object_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeletePipelineRelations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/%s/pipelineRelations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeletePipelineRelationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_pipeline_relations(self, organization_id, pipeline_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_pipeline_relations_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def delete_project_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1115,10 +1374,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_protected_branch(self, repository_id, protected_branch_id, request):
+    def delete_project(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_protected_branch_with_options(repository_id, protected_branch_id, request, headers, runtime)
+        return self.delete_project_with_options(organization_id, request, headers, runtime)
 
     def delete_protected_branch_with_options(self, repository_id, protected_branch_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1147,10 +1406,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_repository(self, repository_id, request):
+    def delete_protected_branch(self, repository_id, protected_branch_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_repository_with_options(repository_id, request, headers, runtime)
+        return self.delete_protected_branch_with_options(repository_id, protected_branch_id, request, headers, runtime)
 
     def delete_repository_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1183,10 +1442,82 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_repository_webhook(self, repository_id, hook_id, request):
+    def delete_repository(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_repository_webhook_with_options(repository_id, hook_id, request, headers, runtime)
+        return self.delete_repository_with_options(repository_id, request, headers, runtime)
+
+    def delete_repository_group_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.reason):
+            body['reason'] = request.reason
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRepositoryGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/remove' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteRepositoryGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_repository_group(self, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_repository_group_with_options(group_id, request, headers, runtime)
+
+    def delete_repository_member_with_options(self, repository_id, aliyun_pk, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.member_type):
+            body['memberType'] = request.member_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRepositoryMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/members/delete/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(aliyun_pk))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteRepositoryMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_repository_member(self, repository_id, aliyun_pk, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_repository_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
 
     def delete_repository_webhook_with_options(self, repository_id, hook_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1215,10 +1546,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource_member(self, organization_id, resource_type, resource_id, account_id):
+    def delete_repository_webhook(self, repository_id, hook_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_member_with_options(organization_id, resource_type, resource_id, account_id, headers, runtime)
+        return self.delete_repository_webhook_with_options(repository_id, hook_id, request, headers, runtime)
 
     def delete_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1240,10 +1571,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_variable_group(self, organization_id, id):
+    def delete_resource_member(self, organization_id, resource_type, resource_id, account_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_variable_group_with_options(organization_id, id, headers, runtime)
+        return self.delete_resource_member_with_options(organization_id, resource_type, resource_id, account_id, headers, runtime)
+
+    def delete_tag_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.tag_name):
+            query['tagName'] = request.tag_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/tags/delete' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_tag(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_tag_with_options(repository_id, request, headers, runtime)
 
     def delete_variable_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1265,10 +1630,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_workitem_all_comment(self, organization_id, request):
+    def delete_variable_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_workitem_all_comment_with_options(organization_id, request, headers, runtime)
+        return self.delete_variable_group_with_options(organization_id, id, headers, runtime)
 
     def delete_workitem_all_comment_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1295,10 +1660,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_workitem_comment(self, organization_id, request):
+    def delete_workitem_all_comment(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_workitem_comment_with_options(organization_id, request, headers, runtime)
+        return self.delete_workitem_all_comment_with_options(organization_id, request, headers, runtime)
 
     def delete_workitem_comment_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1327,10 +1692,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def frozen_workspace(self, workspace_id):
+    def delete_workitem_comment(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.frozen_workspace_with_options(workspace_id, headers, runtime)
+        return self.delete_workitem_comment_with_options(organization_id, request, headers, runtime)
+
+    def enable_deploy_key_with_options(self, repository_id, key_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableDeployKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/keys/%s/enable' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(key_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.EnableDeployKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_deploy_key(self, repository_id, key_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.enable_deploy_key_with_options(repository_id, key_id, request, headers, runtime)
 
     def frozen_workspace_with_options(self, workspace_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1352,10 +1749,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_branch_info(self, repository_id, request):
+    def frozen_workspace(self, workspace_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_branch_info_with_options(repository_id, request, headers, runtime)
+        return self.frozen_workspace_with_options(workspace_id, headers, runtime)
 
     def get_branch_info_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1386,10 +1783,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_codeup_organization(self, identity, request):
+    def get_branch_info(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_codeup_organization_with_options(identity, request, headers, runtime)
+        return self.get_branch_info_with_options(repository_id, request, headers, runtime)
 
     def get_codeup_organization_with_options(self, identity, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1416,10 +1813,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_custom_field_option(self, organization_id, field_id, request):
+    def get_codeup_organization(self, identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_custom_field_option_with_options(organization_id, field_id, request, headers, runtime)
+        return self.get_codeup_organization_with_options(identity, request, headers, runtime)
 
     def get_custom_field_option_with_options(self, organization_id, field_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1450,10 +1847,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_file_blobs(self, repository_id, request):
+    def get_custom_field_option(self, organization_id, field_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_file_blobs_with_options(repository_id, request, headers, runtime)
+        return self.get_custom_field_option_with_options(organization_id, field_id, request, headers, runtime)
 
     def get_file_blobs_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1490,10 +1887,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_file_last_commit(self, repository_id, request):
+    def get_file_blobs(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_file_last_commit_with_options(repository_id, request, headers, runtime)
+        return self.get_file_blobs_with_options(repository_id, request, headers, runtime)
 
     def get_file_last_commit_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1528,10 +1925,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_flow_tag_group(self, organization_id, id):
+    def get_file_last_commit(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_flow_tag_group_with_options(organization_id, id, headers, runtime)
+        return self.get_file_last_commit_with_options(repository_id, request, headers, runtime)
 
     def get_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1553,10 +1950,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_host_group(self, organization_id, id):
+    def get_flow_tag_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_host_group_with_options(organization_id, id, headers, runtime)
+        return self.get_flow_tag_group_with_options(organization_id, id, headers, runtime)
+
+    def get_group_detail_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.group_id):
+            query['groupId'] = request.group_id
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetGroupDetail',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/get_detail',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetGroupDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_group_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_group_detail_with_options(request, headers, runtime)
 
     def get_host_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1578,10 +2009,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_organization_member(self, organization_id, account_id):
+    def get_host_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_organization_member_with_options(organization_id, account_id, headers, runtime)
+        return self.get_host_group_with_options(organization_id, id, headers, runtime)
 
     def get_organization_member_with_options(self, organization_id, account_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1603,10 +2034,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline(self, organization_id, pipeline_id):
+    def get_organization_member(self, organization_id, account_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
+        return self.get_organization_member_with_options(organization_id, account_id, headers, runtime)
 
     def get_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1628,10 +2059,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline_artifact_url(self, organization_id, request):
+    def get_pipeline(self, organization_id, pipeline_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_artifact_url_with_options(organization_id, request, headers, runtime)
+        return self.get_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def get_pipeline_artifact_url_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1660,10 +2091,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline_emas_artifact_url(self, organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request):
+    def get_pipeline_artifact_url(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_emas_artifact_url_with_options(organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request, headers, runtime)
+        return self.get_pipeline_artifact_url_with_options(organization_id, request, headers, runtime)
 
     def get_pipeline_emas_artifact_url_with_options(self, organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1690,10 +2121,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline_group(self, organization_id, group_id):
+    def get_pipeline_emas_artifact_url(self, organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_group_with_options(organization_id, group_id, headers, runtime)
+        return self.get_pipeline_emas_artifact_url_with_options(organization_id, emas_job_instance_id, md_5, pipeline_id, pipeline_run_id, request, headers, runtime)
 
     def get_pipeline_group_with_options(self, organization_id, group_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1715,10 +2146,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
+    def get_pipeline_group(self, organization_id, group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
+        return self.get_pipeline_group_with_options(organization_id, group_id, headers, runtime)
 
     def get_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1740,10 +2171,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_pipeline_scan_report_url(self, organization_id, request):
+    def get_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_pipeline_scan_report_url_with_options(organization_id, request, headers, runtime)
+        return self.get_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def get_pipeline_scan_report_url_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1770,10 +2201,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_project_info(self, organization_id, project_id):
+    def get_pipeline_scan_report_url(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_info_with_options(organization_id, project_id, headers, runtime)
+        return self.get_pipeline_scan_report_url_with_options(organization_id, request, headers, runtime)
 
     def get_project_info_with_options(self, organization_id, project_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1795,10 +2226,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_project_member(self, repository_id, aliyun_pk, request):
+    def get_project_info(self, organization_id, project_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
+        return self.get_project_info_with_options(organization_id, project_id, headers, runtime)
 
     def get_project_member_with_options(self, repository_id, aliyun_pk, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1827,10 +2258,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_repository(self, request):
+    def get_project_member(self, repository_id, aliyun_pk, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_repository_with_options(request, headers, runtime)
+        return self.get_project_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
 
     def get_repository_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1861,10 +2292,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_repository_commit(self, repository_id, sha, request):
+    def get_repository(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_repository_commit_with_options(repository_id, sha, request, headers, runtime)
+        return self.get_repository_with_options(request, headers, runtime)
 
     def get_repository_commit_with_options(self, repository_id, sha, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1895,10 +2326,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_sprint_info(self, organization_id, sprint_id):
+    def get_repository_commit(self, repository_id, sha, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_sprint_info_with_options(organization_id, sprint_id, headers, runtime)
+        return self.get_repository_commit_with_options(repository_id, sha, request, headers, runtime)
+
+    def get_repository_tag_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.tag_name):
+            query['tagName'] = request.tag_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRepositoryTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/tag/info' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetRepositoryTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_repository_tag(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_repository_tag_with_options(repository_id, request, headers, runtime)
 
     def get_sprint_info_with_options(self, organization_id, sprint_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1920,10 +2385,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+    def get_sprint_info(self, organization_id, sprint_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+        return self.get_sprint_info_with_options(organization_id, sprint_id, headers, runtime)
+
+    def get_user_info_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/users/current',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetUserInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_user_info_with_options(request, headers, runtime)
 
     def get_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1945,10 +2440,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_variable_group(self, organization_id, id):
+    def get_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_variable_group_with_options(organization_id, id, headers, runtime)
+        return self.get_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def get_variable_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1970,10 +2465,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_work_item_activity(self, organization_id, workitem_id):
+    def get_variable_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_work_item_activity_with_options(organization_id, workitem_id, headers, runtime)
+        return self.get_variable_group_with_options(organization_id, id, headers, runtime)
 
     def get_work_item_activity_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1995,10 +2490,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_work_item_info(self, organization_id, workitem_id):
+    def get_work_item_activity(self, organization_id, workitem_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_work_item_info_with_options(organization_id, workitem_id, headers, runtime)
+        return self.get_work_item_activity_with_options(organization_id, workitem_id, headers, runtime)
 
     def get_work_item_info_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2020,10 +2515,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_work_item_work_flow_info(self, organization_id, workitem_id, request):
+    def get_work_item_info(self, organization_id, workitem_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_work_item_work_flow_info_with_options(organization_id, workitem_id, request, headers, runtime)
+        return self.get_work_item_info_with_options(organization_id, workitem_id, headers, runtime)
 
     def get_work_item_work_flow_info_with_options(self, organization_id, workitem_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2050,10 +2545,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_workitem_comment_list(self, organization_id, workitem_id):
+    def get_work_item_work_flow_info(self, organization_id, workitem_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_workitem_comment_list_with_options(organization_id, workitem_id, headers, runtime)
+        return self.get_work_item_work_flow_info_with_options(organization_id, workitem_id, request, headers, runtime)
 
     def get_workitem_comment_list_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2075,10 +2570,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_workitem_relations(self, organization_id, workitem_id, request):
+    def get_workitem_comment_list(self, organization_id, workitem_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_workitem_relations_with_options(organization_id, workitem_id, request, headers, runtime)
+        return self.get_workitem_comment_list_with_options(organization_id, workitem_id, headers, runtime)
 
     def get_workitem_relations_with_options(self, organization_id, workitem_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2105,10 +2600,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_workitem_time_type_list(self, organization_id):
+    def get_workitem_relations(self, organization_id, workitem_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_workitem_time_type_list_with_options(organization_id, headers, runtime)
+        return self.get_workitem_relations_with_options(organization_id, workitem_id, request, headers, runtime)
 
     def get_workitem_time_type_list_with_options(self, organization_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2130,10 +2625,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_workspace(self, workspace_id):
+    def get_workitem_time_type_list(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_workspace_with_options(workspace_id, headers, runtime)
+        return self.get_workitem_time_type_list_with_options(organization_id, headers, runtime)
 
     def get_workspace_with_options(self, workspace_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2155,10 +2650,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def join_pipeline_group(self, organization_id, request):
+    def get_workspace(self, workspace_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.join_pipeline_group_with_options(organization_id, request, headers, runtime)
+        return self.get_workspace_with_options(workspace_id, headers, runtime)
 
     def join_pipeline_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2187,10 +2682,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_flow_tag_groups(self, organization_id):
+    def join_pipeline_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_flow_tag_groups_with_options(organization_id, headers, runtime)
+        return self.join_pipeline_group_with_options(organization_id, request, headers, runtime)
 
     def list_flow_tag_groups_with_options(self, organization_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2212,10 +2707,80 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_host_groups(self, organization_id, request):
+    def list_flow_tag_groups(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_host_groups_with_options(organization_id, request, headers, runtime)
+        return self.list_flow_tag_groups_with_options(organization_id, headers, runtime)
+
+    def list_group_member_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroupMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListGroupMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_group_member(self, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_group_member_with_options(group_id, request, headers, runtime)
+
+    def list_group_repositories_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroupRepositories',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/projects' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListGroupRepositoriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_group_repositories(self, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_group_repositories_with_options(group_id, request, headers, runtime)
 
     def list_host_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2258,10 +2823,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_organization_members(self, organization_id, request):
+    def list_host_groups(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_organization_members_with_options(organization_id, request, headers, runtime)
+        return self.list_host_groups_with_options(organization_id, request, headers, runtime)
 
     def list_organization_members_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2302,10 +2867,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_group_pipelines(self, organization_id, group_id, request):
+    def list_organization_members(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_group_pipelines_with_options(organization_id, group_id, request, headers, runtime)
+        return self.list_organization_members_with_options(organization_id, request, headers, runtime)
+
+    def list_organizations_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_level):
+            query['accessLevel'] = request.access_level
+        if not UtilClient.is_unset(request.min_access_level):
+            query['minAccessLevel'] = request.min_access_level
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOrganizations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organizations/list',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListOrganizationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_organizations(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_organizations_with_options(request, headers, runtime)
 
     def list_pipeline_group_pipelines_with_options(self, organization_id, group_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2346,10 +2943,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_groups(self, organization_id, request):
+    def list_pipeline_group_pipelines(self, organization_id, group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_groups_with_options(organization_id, request, headers, runtime)
+        return self.list_pipeline_group_pipelines_with_options(organization_id, group_id, request, headers, runtime)
 
     def list_pipeline_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2378,10 +2975,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_job_historys(self, organization_id, pipeline_id, request):
+    def list_pipeline_groups(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_job_historys_with_options(organization_id, pipeline_id, request, headers, runtime)
+        return self.list_pipeline_groups_with_options(organization_id, request, headers, runtime)
 
     def list_pipeline_job_historys_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2414,10 +3011,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_jobs(self, organization_id, pipeline_id, request):
+    def list_pipeline_job_historys(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_jobs_with_options(organization_id, pipeline_id, request, headers, runtime)
+        return self.list_pipeline_job_historys_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def list_pipeline_jobs_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2444,10 +3041,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipeline_runs(self, organization_id, pipeline_id, request):
+    def list_pipeline_jobs(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipeline_runs_with_options(organization_id, pipeline_id, request, headers, runtime)
+        return self.list_pipeline_jobs_with_options(organization_id, pipeline_id, request, headers, runtime)
+
+    def list_pipeline_relations_with_options(self, organization_id, pipeline_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.rel_object_type):
+            query['relObjectType'] = request.rel_object_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPipelineRelations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/%s/pipelineRelations' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(pipeline_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListPipelineRelationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_pipeline_relations(self, organization_id, pipeline_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_pipeline_relations_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def list_pipeline_runs_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2484,10 +3111,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_pipelines(self, organization_id, request):
+    def list_pipeline_runs(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_pipelines_with_options(organization_id, request, headers, runtime)
+        return self.list_pipeline_runs_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def list_pipelines_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2532,10 +3159,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_project_members(self, organization_id, project_id, request):
+    def list_pipelines(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_project_members_with_options(organization_id, project_id, request, headers, runtime)
+        return self.list_pipelines_with_options(organization_id, request, headers, runtime)
 
     def list_project_members_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2562,10 +3189,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_project_templates(self, organization_id, request):
+    def list_project_members(self, organization_id, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_project_templates_with_options(organization_id, request, headers, runtime)
+        return self.list_project_members_with_options(organization_id, project_id, request, headers, runtime)
 
     def list_project_templates_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2592,10 +3219,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_project_workitem_types(self, organization_id, project_id, request):
+    def list_project_templates(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_project_workitem_types_with_options(organization_id, project_id, request, headers, runtime)
+        return self.list_project_templates_with_options(organization_id, request, headers, runtime)
 
     def list_project_workitem_types_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2624,10 +3251,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_projects(self, organization_id, request):
+    def list_project_workitem_types(self, organization_id, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_projects_with_options(organization_id, request, headers, runtime)
+        return self.list_project_workitem_types_with_options(organization_id, project_id, request, headers, runtime)
 
     def list_projects_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2664,10 +3291,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_protected_branches(self, repository_id, request):
+    def list_projects(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_protected_branches_with_options(repository_id, request, headers, runtime)
+        return self.list_projects_with_options(organization_id, request, headers, runtime)
 
     def list_protected_branches_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2696,10 +3323,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repositories(self, request):
+    def list_protected_branches(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repositories_with_options(request, headers, runtime)
+        return self.list_protected_branches_with_options(repository_id, request, headers, runtime)
 
     def list_repositories_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2740,10 +3367,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_branches(self, repository_id, request):
+    def list_repositories(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_branches_with_options(repository_id, request, headers, runtime)
+        return self.list_repositories_with_options(request, headers, runtime)
 
     def list_repository_branches_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2780,10 +3407,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_commit_diff(self, repository_id, sha, request):
+    def list_repository_branches(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_commit_diff_with_options(repository_id, sha, request, headers, runtime)
+        return self.list_repository_branches_with_options(repository_id, request, headers, runtime)
 
     def list_repository_commit_diff_with_options(self, repository_id, sha, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2814,10 +3441,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_commits(self, repository_id, request):
+    def list_repository_commit_diff(self, repository_id, sha, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_commits_with_options(repository_id, request, headers, runtime)
+        return self.list_repository_commit_diff_with_options(repository_id, sha, request, headers, runtime)
 
     def list_repository_commits_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2864,10 +3491,56 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_member_with_inherited(self, repository_id, request):
+    def list_repository_commits(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_member_with_inherited_with_options(repository_id, request, headers, runtime)
+        return self.list_repository_commits_with_options(repository_id, request, headers, runtime)
+
+    def list_repository_groups_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.include_personal):
+            query['includePersonal'] = request.include_personal
+        if not UtilClient.is_unset(request.order_by):
+            query['orderBy'] = request.order_by
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_id):
+            query['parentId'] = request.parent_id
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRepositoryGroups',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/get/all',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListRepositoryGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_repository_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_repository_groups_with_options(request, headers, runtime)
 
     def list_repository_member_with_inherited_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2896,10 +3569,50 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_tree(self, repository_id, request):
+    def list_repository_member_with_inherited(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_tree_with_options(repository_id, request, headers, runtime)
+        return self.list_repository_member_with_inherited_with_options(repository_id, request, headers, runtime)
+
+    def list_repository_tags_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRepositoryTags',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/tag/list' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListRepositoryTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_repository_tags(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_repository_tags_with_options(repository_id, request, headers, runtime)
 
     def list_repository_tree_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2934,10 +3647,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_repository_webhook(self, repository_id, request):
+    def list_repository_tree(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_repository_webhook_with_options(repository_id, request, headers, runtime)
+        return self.list_repository_tree_with_options(repository_id, request, headers, runtime)
 
     def list_repository_webhook_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2970,10 +3683,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resource_members(self, organization_id, resource_type, resource_id):
+    def list_repository_webhook(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_resource_members_with_options(organization_id, resource_type, resource_id, headers, runtime)
+        return self.list_repository_webhook_with_options(repository_id, request, headers, runtime)
 
     def list_resource_members_with_options(self, organization_id, resource_type, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2995,10 +3708,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_service_connections(self, organization_id, request):
+    def list_resource_members(self, organization_id, resource_type, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_service_connections_with_options(organization_id, request, headers, runtime)
+        return self.list_resource_members_with_options(organization_id, resource_type, resource_id, headers, runtime)
 
     def list_service_connections_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3025,10 +3738,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_sprints(self, organization_id, request):
+    def list_service_connections(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_sprints_with_options(organization_id, request, headers, runtime)
+        return self.list_service_connections_with_options(organization_id, request, headers, runtime)
 
     def list_sprints_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3061,10 +3774,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_variable_groups(self, organization_id, request):
+    def list_sprints(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_variable_groups_with_options(organization_id, request, headers, runtime)
+        return self.list_sprints_with_options(organization_id, request, headers, runtime)
 
     def list_variable_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3097,10 +3810,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_work_item_all_fields(self, organization_id, request):
+    def list_variable_groups(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_work_item_all_fields_with_options(organization_id, request, headers, runtime)
+        return self.list_variable_groups_with_options(organization_id, request, headers, runtime)
 
     def list_work_item_all_fields_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3131,10 +3844,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_work_item_work_flow_status(self, organization_id, request):
+    def list_work_item_all_fields(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_work_item_work_flow_status_with_options(organization_id, request, headers, runtime)
+        return self.list_work_item_all_fields_with_options(organization_id, request, headers, runtime)
 
     def list_work_item_work_flow_status_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3167,10 +3880,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_workitem_time(self, organization_id, workitem_id):
+    def list_work_item_work_flow_status(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_workitem_time_with_options(organization_id, workitem_id, headers, runtime)
+        return self.list_work_item_work_flow_status_with_options(organization_id, request, headers, runtime)
 
     def list_workitem_time_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3192,10 +3905,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_workitems(self, organization_id, request):
+    def list_workitem_time(self, organization_id, workitem_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_workitems_with_options(organization_id, request, headers, runtime)
+        return self.list_workitem_time_with_options(organization_id, workitem_id, headers, runtime)
 
     def list_workitems_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3240,10 +3953,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_workspaces(self, request):
+    def list_workitems(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_workspaces_with_options(request, headers, runtime)
+        return self.list_workitems_with_options(organization_id, request, headers, runtime)
 
     def list_workspaces_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -3282,10 +3995,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def log_pipeline_job_run(self, organization_id, pipeline_id, job_id, pipeline_run_id):
+    def list_workspaces(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.log_pipeline_job_run_with_options(organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime)
+        return self.list_workspaces_with_options(request, headers, runtime)
 
     def log_pipeline_job_run_with_options(self, organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3307,10 +4020,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def log_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+    def log_pipeline_job_run(self, organization_id, pipeline_id, job_id, pipeline_run_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.log_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+        return self.log_pipeline_job_run_with_options(organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime)
 
     def log_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3332,10 +4045,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def pass_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
+    def log_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pass_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
+        return self.log_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def pass_pipeline_validate_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3357,10 +4070,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def refuse_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
+    def pass_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.refuse_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
+        return self.pass_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def refuse_pipeline_validate_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3382,10 +4095,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def release_workspace(self, workspace_id):
+    def refuse_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.release_workspace_with_options(workspace_id, headers, runtime)
+        return self.refuse_pipeline_validate_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def release_workspace_with_options(self, workspace_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3407,10 +4120,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def reset_ssh_key(self, organization_id):
+    def release_workspace(self, workspace_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.reset_ssh_key_with_options(organization_id, headers, runtime)
+        return self.release_workspace_with_options(workspace_id, headers, runtime)
 
     def reset_ssh_key_with_options(self, organization_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3432,10 +4145,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+    def reset_ssh_key(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+        return self.reset_ssh_key_with_options(organization_id, headers, runtime)
 
     def resume_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3457,10 +4170,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def retry_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
+    def resume_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.retry_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
+        return self.resume_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def retry_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3482,10 +4195,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def retry_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+    def retry_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.retry_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+        return self.retry_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def retry_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3507,10 +4220,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def skip_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
+    def retry_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.skip_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
+        return self.retry_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def skip_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3532,10 +4245,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def skip_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+    def skip_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.skip_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+        return self.skip_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def skip_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3557,10 +4270,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_pipeline_run(self, organization_id, pipeline_id, request):
+    def skip_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_pipeline_run_with_options(organization_id, pipeline_id, request, headers, runtime)
+        return self.skip_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
     def start_pipeline_run_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3587,10 +4300,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
+    def start_pipeline_run(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
+        return self.start_pipeline_run_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def stop_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3612,10 +4325,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
+    def stop_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
+        return self.stop_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def stop_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3637,10 +4350,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+    def stop_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+        return self.stop_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def stop_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3662,10 +4375,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def trigger_repository_mirror_sync(self, repository_id, request):
+    def stop_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.trigger_repository_mirror_sync_with_options(repository_id, request, headers, runtime)
+        return self.stop_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
 
     def trigger_repository_mirror_sync_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3698,10 +4411,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_file(self, repository_id, request):
+    def trigger_repository_mirror_sync(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_file_with_options(repository_id, request, headers, runtime)
+        return self.trigger_repository_mirror_sync_with_options(repository_id, request, headers, runtime)
 
     def update_file_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3744,10 +4457,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_flow_tag(self, organization_id, id, request):
+    def update_file(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_flow_tag_with_options(organization_id, id, request, headers, runtime)
+        return self.update_file_with_options(repository_id, request, headers, runtime)
 
     def update_flow_tag_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3778,10 +4491,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_flow_tag_group(self, organization_id, id, request):
+    def update_flow_tag(self, organization_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_flow_tag_group_with_options(organization_id, id, request, headers, runtime)
+        return self.update_flow_tag_with_options(organization_id, id, request, headers, runtime)
 
     def update_flow_tag_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3808,10 +4521,50 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_host_group(self, organization_id, id, request):
+    def update_flow_tag_group(self, organization_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_host_group_with_options(organization_id, id, request, headers, runtime)
+        return self.update_flow_tag_group_with_options(organization_id, id, request, headers, runtime)
+
+    def update_group_member_with_options(self, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.aliyun_pk):
+            query['aliyunPk'] = request.aliyun_pk
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.access_level):
+            body['accessLevel'] = request.access_level
+        if not UtilClient.is_unset(request.member_type):
+            body['memberType'] = request.member_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateGroupMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/groups/%s/members/update/aliyun_pk' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateGroupMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_group_member(self, group_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_group_member_with_options(group_id, request, headers, runtime)
 
     def update_host_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3856,10 +4609,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_pipeline_base_info(self, organization_id, pipeline_id, request):
+    def update_host_group(self, organization_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_pipeline_base_info_with_options(organization_id, pipeline_id, request, headers, runtime)
+        return self.update_host_group_with_options(organization_id, id, request, headers, runtime)
 
     def update_pipeline_base_info_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3890,10 +4643,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_pipeline_group(self, organization_id, group_id, request):
+    def update_pipeline_base_info(self, organization_id, pipeline_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_pipeline_group_with_options(organization_id, group_id, request, headers, runtime)
+        return self.update_pipeline_base_info_with_options(organization_id, pipeline_id, request, headers, runtime)
 
     def update_pipeline_group_with_options(self, organization_id, group_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3920,10 +4673,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_project_member(self, organization_id, project_id, request):
+    def update_pipeline_group(self, organization_id, group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_project_member_with_options(organization_id, project_id, request, headers, runtime)
+        return self.update_pipeline_group_with_options(organization_id, group_id, request, headers, runtime)
 
     def update_project_member_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3958,10 +4711,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_protected_branches(self, repository_id, id, request):
+    def update_project_member(self, organization_id, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_protected_branches_with_options(repository_id, id, request, headers, runtime)
+        return self.update_project_member_with_options(organization_id, project_id, request, headers, runtime)
 
     def update_protected_branches_with_options(self, repository_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4008,10 +4761,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_repository(self, repository_id, request):
+    def update_protected_branches(self, repository_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_repository_with_options(repository_id, request, headers, runtime)
+        return self.update_protected_branches_with_options(repository_id, id, request, headers, runtime)
 
     def update_repository_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4076,10 +4829,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_repository_member(self, repository_id, aliyun_pk, request):
+    def update_repository(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_repository_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
+        return self.update_repository_with_options(repository_id, request, headers, runtime)
 
     def update_repository_member_with_options(self, repository_id, aliyun_pk, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4120,10 +4873,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_resource_member(self, organization_id, resource_type, resource_id, account_id, request):
+    def update_repository_member(self, repository_id, aliyun_pk, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_resource_member_with_options(organization_id, resource_type, resource_id, account_id, request, headers, runtime)
+        return self.update_repository_member_with_options(repository_id, aliyun_pk, request, headers, runtime)
 
     def update_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4150,10 +4903,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_variable_group(self, organization_id, id, request):
+    def update_resource_member(self, organization_id, resource_type, resource_id, account_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_variable_group_with_options(organization_id, id, request, headers, runtime)
+        return self.update_resource_member_with_options(organization_id, resource_type, resource_id, account_id, request, headers, runtime)
 
     def update_variable_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4184,10 +4937,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_work_item(self, organization_id, request):
+    def update_variable_group(self, organization_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_work_item_with_options(organization_id, request, headers, runtime)
+        return self.update_variable_group_with_options(organization_id, id, request, headers, runtime)
 
     def update_work_item_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4220,10 +4973,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_workitem_comment(self, organization_id, request):
+    def update_work_item(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_workitem_comment_with_options(organization_id, request, headers, runtime)
+        return self.update_work_item_with_options(organization_id, request, headers, runtime)
 
     def update_workitem_comment_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4255,3 +5008,8 @@ class Client(OpenApiClient):
             devops_20210625_models.UpdateWorkitemCommentResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_workitem_comment(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_workitem_comment_with_options(organization_id, request, headers, runtime)
