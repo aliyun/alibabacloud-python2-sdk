@@ -35,6 +35,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cate_ids):
             query['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            query['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -80,11 +84,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_all_trend_category_with_options(runtime)
 
+    def get_crowd_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cate_ids):
+            body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.page_index):
+            body['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetCrowdData',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qssj_20220112_models.GetCrowdDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_crowd_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_crowd_data_with_options(request, runtime)
+
     def get_crowd_label_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -113,6 +155,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cate_ids):
             query['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            query['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -169,8 +215,18 @@ class Client(OpenApiClient):
     def get_price_range_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.brand_names):
+            body['BrandNames'] = request.brand_names
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.section):
+            body['Section'] = request.section
+        if not UtilClient.is_unset(request.shop_ids):
+            body['ShopIds'] = request.shop_ids
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -199,6 +255,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cate_ids):
             query['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            query['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -225,8 +285,26 @@ class Client(OpenApiClient):
     def get_store_sales_volume_top_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.brand_names):
+            body['BrandNames'] = request.brand_names
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.ending_price):
+            body['EndingPrice'] = request.ending_price
+        if not UtilClient.is_unset(request.ending_sales_volume):
+            body['EndingSalesVolume'] = request.ending_sales_volume
+        if not UtilClient.is_unset(request.page_index):
+            body['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.shop_ids):
+            body['ShopIds'] = request.shop_ids
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.start_price):
+            body['StartPrice'] = request.start_price
+        if not UtilClient.is_unset(request.start_sales_volume):
+            body['StartSalesVolume'] = request.start_sales_volume
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -253,8 +331,26 @@ class Client(OpenApiClient):
     def get_store_search_top_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.brand_names):
+            body['BrandNames'] = request.brand_names
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.ending_price):
+            body['EndingPrice'] = request.ending_price
+        if not UtilClient.is_unset(request.ending_sales_volume):
+            body['EndingSalesVolume'] = request.ending_sales_volume
+        if not UtilClient.is_unset(request.page_index):
+            body['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.shop_ids):
+            body['ShopIds'] = request.shop_ids
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.start_price):
+            body['StartPrice'] = request.start_price
+        if not UtilClient.is_unset(request.start_sales_volume):
+            body['StartSalesVolume'] = request.start_sales_volume
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -278,15 +374,65 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_store_search_top_with_options(request, runtime)
 
+    def get_style_online_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.brand_names):
+            query['BrandNames'] = request.brand_names
+        if not UtilClient.is_unset(request.cate_ids):
+            query['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            query['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.shop_ids):
+            query['ShopIds'] = request.shop_ids
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetStyleOnline',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qssj_20220112_models.GetStyleOnlineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_style_online(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_style_online_with_options(request, runtime)
+
     def get_style_top_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.brand_names):
+            body['BrandNames'] = request.brand_names
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.ending_price):
+            body['EndingPrice'] = request.ending_price
         if not UtilClient.is_unset(request.page_index):
             body['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.shop_ids):
+            body['ShopIds'] = request.shop_ids
         if not UtilClient.is_unset(request.sort_order):
             body['SortOrder'] = request.sort_order
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.start_price):
+            body['StartPrice'] = request.start_price
         if not UtilClient.is_unset(request.time_display):
             body['TimeDisplay'] = request.time_display
         req = open_api_models.OpenApiRequest(
@@ -431,8 +577,16 @@ class Client(OpenApiClient):
     def get_trend_statistic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.brand_names):
+            body['BrandNames'] = request.brand_names
         if not UtilClient.is_unset(request.cate_ids):
             body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.shop_ids):
+            body['ShopIds'] = request.shop_ids
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -455,3 +609,37 @@ class Client(OpenApiClient):
     def get_trend_statistic(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_trend_statistic_with_options(request, runtime)
+
+    def get_trend_word_and_index_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cate_ids):
+            body['CateIds'] = request.cate_ids
+        if not UtilClient.is_unset(request.ending_date):
+            body['EndingDate'] = request.ending_date
+        if not UtilClient.is_unset(request.page_index):
+            body['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetTrendWordAndIndex',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qssj_20220112_models.GetTrendWordAndIndexResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_trend_word_and_index(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_trend_word_and_index_with_options(request, runtime)

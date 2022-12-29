@@ -4,8 +4,10 @@ from Tea.model import TeaModel
 
 
 class GetAgeDistributionRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, cate_ids=None, ending_date=None, start_date=None):
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -18,12 +20,20 @@ class GetAgeDistributionRequest(TeaModel):
         result = dict()
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
@@ -288,9 +298,227 @@ class GetAllTrendCategoryResponse(TeaModel):
         return self
 
 
-class GetCrowdLabelRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+class GetCrowdDataRequest(TeaModel):
+    def __init__(self, cate_ids=None, ending_date=None, page_index=None, start_date=None):
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.page_index = page_index  # type: long
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCrowdDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cate_ids is not None:
+            result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CateIds') is not None:
+            self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class GetCrowdDataResponseBodyData(TeaModel):
+    def __init__(self, age=None, buyer_id=None, cate_id=None, cate_name=None, classification=None,
+                 classification_new=None, gender=None, online_date=None, order_amount=None, order_quantity=None, province=None,
+                 search_volume=None, trend_level=None):
+        self.age = age  # type: int
+        self.buyer_id = buyer_id  # type: long
+        self.cate_id = cate_id  # type: long
+        self.cate_name = cate_name  # type: str
+        self.classification = classification  # type: str
+        self.classification_new = classification_new  # type: str
+        self.gender = gender  # type: str
+        self.online_date = online_date  # type: str
+        self.order_amount = order_amount  # type: float
+        self.order_quantity = order_quantity  # type: long
+        self.province = province  # type: str
+        self.search_volume = search_volume  # type: long
+        self.trend_level = trend_level  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCrowdDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.age is not None:
+            result['Age'] = self.age
+        if self.buyer_id is not None:
+            result['BuyerId'] = self.buyer_id
+        if self.cate_id is not None:
+            result['CateId'] = self.cate_id
+        if self.cate_name is not None:
+            result['CateName'] = self.cate_name
+        if self.classification is not None:
+            result['Classification'] = self.classification
+        if self.classification_new is not None:
+            result['ClassificationNew'] = self.classification_new
+        if self.gender is not None:
+            result['Gender'] = self.gender
+        if self.online_date is not None:
+            result['OnlineDate'] = self.online_date
+        if self.order_amount is not None:
+            result['OrderAmount'] = self.order_amount
+        if self.order_quantity is not None:
+            result['OrderQuantity'] = self.order_quantity
+        if self.province is not None:
+            result['Province'] = self.province
+        if self.search_volume is not None:
+            result['SearchVolume'] = self.search_volume
+        if self.trend_level is not None:
+            result['TrendLevel'] = self.trend_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Age') is not None:
+            self.age = m.get('Age')
+        if m.get('BuyerId') is not None:
+            self.buyer_id = m.get('BuyerId')
+        if m.get('CateId') is not None:
+            self.cate_id = m.get('CateId')
+        if m.get('CateName') is not None:
+            self.cate_name = m.get('CateName')
+        if m.get('Classification') is not None:
+            self.classification = m.get('Classification')
+        if m.get('ClassificationNew') is not None:
+            self.classification_new = m.get('ClassificationNew')
+        if m.get('Gender') is not None:
+            self.gender = m.get('Gender')
+        if m.get('OnlineDate') is not None:
+            self.online_date = m.get('OnlineDate')
+        if m.get('OrderAmount') is not None:
+            self.order_amount = m.get('OrderAmount')
+        if m.get('OrderQuantity') is not None:
+            self.order_quantity = m.get('OrderQuantity')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        if m.get('SearchVolume') is not None:
+            self.search_volume = m.get('SearchVolume')
+        if m.get('TrendLevel') is not None:
+            self.trend_level = m.get('TrendLevel')
+        return self
+
+
+class GetCrowdDataResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success_response=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[GetCrowdDataResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success_response = success_response  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetCrowdDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_response is not None:
+            result['SuccessResponse'] = self.success_response
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetCrowdDataResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessResponse') is not None:
+            self.success_response = m.get('SuccessResponse')
+        return self
+
+
+class GetCrowdDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCrowdDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCrowdDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCrowdDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCrowdLabelRequest(TeaModel):
+    def __init__(self, cate_ids=None, ending_date=None, start_date=None):
+        self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -303,12 +531,20 @@ class GetCrowdLabelRequest(TeaModel):
         result = dict()
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
@@ -449,8 +685,10 @@ class GetCrowdLabelResponse(TeaModel):
 
 
 class GetCrowdReginRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, cate_ids=None, ending_date=None, start_date=None):
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -463,12 +701,20 @@ class GetCrowdReginRequest(TeaModel):
         result = dict()
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
@@ -827,8 +1073,14 @@ class GetOpportunityMarketResponse(TeaModel):
 
 
 class GetPriceRangeRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, section=None, shop_ids=None,
+                 start_date=None):
+        self.brand_names = brand_names  # type: str
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.section = section  # type: long
+        self.shop_ids = shop_ids  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -839,14 +1091,34 @@ class GetPriceRangeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.section is not None:
+            result['Section'] = self.section
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('Section') is not None:
+            self.section = m.get('Section')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
@@ -981,8 +1253,10 @@ class GetPriceRangeResponse(TeaModel):
 
 
 class GetSexRatioRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, cate_ids=None, ending_date=None, start_date=None):
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -995,12 +1269,20 @@ class GetSexRatioRequest(TeaModel):
         result = dict()
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
@@ -1194,8 +1476,18 @@ class GetSexRatioResponse(TeaModel):
 
 
 class GetStoreSalesVolumeTopRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, ending_price=None,
+                 ending_sales_volume=None, page_index=None, shop_ids=None, start_date=None, start_price=None, start_sales_volume=None):
+        self.brand_names = brand_names  # type: str
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.ending_price = ending_price  # type: str
+        self.ending_sales_volume = ending_sales_volume  # type: str
+        self.page_index = page_index  # type: long
+        self.shop_ids = shop_ids  # type: str
+        self.start_date = start_date  # type: str
+        self.start_price = start_price  # type: str
+        self.start_sales_volume = start_sales_volume  # type: str
 
     def validate(self):
         pass
@@ -1206,20 +1498,62 @@ class GetStoreSalesVolumeTopRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.ending_price is not None:
+            result['EndingPrice'] = self.ending_price
+        if self.ending_sales_volume is not None:
+            result['EndingSalesVolume'] = self.ending_sales_volume
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_price is not None:
+            result['StartPrice'] = self.start_price
+        if self.start_sales_volume is not None:
+            result['StartSalesVolume'] = self.start_sales_volume
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('EndingPrice') is not None:
+            self.ending_price = m.get('EndingPrice')
+        if m.get('EndingSalesVolume') is not None:
+            self.ending_sales_volume = m.get('EndingSalesVolume')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartPrice') is not None:
+            self.start_price = m.get('StartPrice')
+        if m.get('StartSalesVolume') is not None:
+            self.start_sales_volume = m.get('StartSalesVolume')
         return self
 
 
 class GetStoreSalesVolumeTopResponseBodyData(TeaModel):
-    def __init__(self, shop_name=None):
+    def __init__(self, commodity_quantity=None, sales_volume=None, search_volume=None, shop_id=None, shop_name=None,
+                 total_sales=None):
+        self.commodity_quantity = commodity_quantity  # type: long
+        self.sales_volume = sales_volume  # type: long
+        self.search_volume = search_volume  # type: long
+        self.shop_id = shop_id  # type: long
         self.shop_name = shop_name  # type: str
+        self.total_sales = total_sales  # type: float
 
     def validate(self):
         pass
@@ -1230,14 +1564,34 @@ class GetStoreSalesVolumeTopResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.commodity_quantity is not None:
+            result['CommodityQuantity'] = self.commodity_quantity
+        if self.sales_volume is not None:
+            result['SalesVolume'] = self.sales_volume
+        if self.search_volume is not None:
+            result['SearchVolume'] = self.search_volume
+        if self.shop_id is not None:
+            result['ShopId'] = self.shop_id
         if self.shop_name is not None:
             result['ShopName'] = self.shop_name
+        if self.total_sales is not None:
+            result['TotalSales'] = self.total_sales
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CommodityQuantity') is not None:
+            self.commodity_quantity = m.get('CommodityQuantity')
+        if m.get('SalesVolume') is not None:
+            self.sales_volume = m.get('SalesVolume')
+        if m.get('SearchVolume') is not None:
+            self.search_volume = m.get('SearchVolume')
+        if m.get('ShopId') is not None:
+            self.shop_id = m.get('ShopId')
         if m.get('ShopName') is not None:
             self.shop_name = m.get('ShopName')
+        if m.get('TotalSales') is not None:
+            self.total_sales = m.get('TotalSales')
         return self
 
 
@@ -1333,8 +1687,18 @@ class GetStoreSalesVolumeTopResponse(TeaModel):
 
 
 class GetStoreSearchTopRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, ending_price=None,
+                 ending_sales_volume=None, page_index=None, shop_ids=None, start_date=None, start_price=None, start_sales_volume=None):
+        self.brand_names = brand_names  # type: str
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.ending_price = ending_price  # type: str
+        self.ending_sales_volume = ending_sales_volume  # type: str
+        self.page_index = page_index  # type: long
+        self.shop_ids = shop_ids  # type: str
+        self.start_date = start_date  # type: str
+        self.start_price = start_price  # type: str
+        self.start_sales_volume = start_sales_volume  # type: str
 
     def validate(self):
         pass
@@ -1345,20 +1709,62 @@ class GetStoreSearchTopRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.ending_price is not None:
+            result['EndingPrice'] = self.ending_price
+        if self.ending_sales_volume is not None:
+            result['EndingSalesVolume'] = self.ending_sales_volume
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_price is not None:
+            result['StartPrice'] = self.start_price
+        if self.start_sales_volume is not None:
+            result['StartSalesVolume'] = self.start_sales_volume
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('EndingPrice') is not None:
+            self.ending_price = m.get('EndingPrice')
+        if m.get('EndingSalesVolume') is not None:
+            self.ending_sales_volume = m.get('EndingSalesVolume')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartPrice') is not None:
+            self.start_price = m.get('StartPrice')
+        if m.get('StartSalesVolume') is not None:
+            self.start_sales_volume = m.get('StartSalesVolume')
         return self
 
 
 class GetStoreSearchTopResponseBodyData(TeaModel):
-    def __init__(self, shop_name=None):
+    def __init__(self, commodity_quantity=None, sales_volume=None, search_volume=None, shop_id=None, shop_name=None,
+                 total_sales=None):
+        self.commodity_quantity = commodity_quantity  # type: long
+        self.sales_volume = sales_volume  # type: long
+        self.search_volume = search_volume  # type: long
+        self.shop_id = shop_id  # type: long
         self.shop_name = shop_name  # type: str
+        self.total_sales = total_sales  # type: float
 
     def validate(self):
         pass
@@ -1369,14 +1775,34 @@ class GetStoreSearchTopResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.commodity_quantity is not None:
+            result['CommodityQuantity'] = self.commodity_quantity
+        if self.sales_volume is not None:
+            result['SalesVolume'] = self.sales_volume
+        if self.search_volume is not None:
+            result['SearchVolume'] = self.search_volume
+        if self.shop_id is not None:
+            result['ShopId'] = self.shop_id
         if self.shop_name is not None:
             result['ShopName'] = self.shop_name
+        if self.total_sales is not None:
+            result['TotalSales'] = self.total_sales
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CommodityQuantity') is not None:
+            self.commodity_quantity = m.get('CommodityQuantity')
+        if m.get('SalesVolume') is not None:
+            self.sales_volume = m.get('SalesVolume')
+        if m.get('SearchVolume') is not None:
+            self.search_volume = m.get('SearchVolume')
+        if m.get('ShopId') is not None:
+            self.shop_id = m.get('ShopId')
         if m.get('ShopName') is not None:
             self.shop_name = m.get('ShopName')
+        if m.get('TotalSales') is not None:
+            self.total_sales = m.get('TotalSales')
         return self
 
 
@@ -1471,11 +1897,260 @@ class GetStoreSearchTopResponse(TeaModel):
         return self
 
 
-class GetStyleTopRequest(TeaModel):
-    def __init__(self, cate_ids=None, page_index=None, sort_order=None, time_display=None):
+class GetStyleOnlineRequest(TeaModel):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, page_index=None, shop_ids=None,
+                 start_date=None):
+        self.brand_names = brand_names  # type: str
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
         self.page_index = page_index  # type: long
+        self.shop_ids = shop_ids  # type: str
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStyleOnlineRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
+        if self.cate_ids is not None:
+            result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
+        if m.get('CateIds') is not None:
+            self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class GetStyleOnlineResponseBodyData(TeaModel):
+    def __init__(self, attribute_content=None, brand_name=None, buyer_tags=None, cate_name=None, color=None,
+                 exposure_value=None, images=None, material=None, price=None, product_link=None, sales_volume=None,
+                 search_volume=None, shop_id=None, shop_name=None, style=None, title=None):
+        self.attribute_content = attribute_content  # type: str
+        self.brand_name = brand_name  # type: str
+        self.buyer_tags = buyer_tags  # type: str
+        self.cate_name = cate_name  # type: str
+        self.color = color  # type: str
+        self.exposure_value = exposure_value  # type: long
+        self.images = images  # type: list[str]
+        self.material = material  # type: str
+        self.price = price  # type: float
+        self.product_link = product_link  # type: str
+        self.sales_volume = sales_volume  # type: float
+        self.search_volume = search_volume  # type: float
+        self.shop_id = shop_id  # type: long
+        self.shop_name = shop_name  # type: str
+        self.style = style  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStyleOnlineResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute_content is not None:
+            result['AttributeContent'] = self.attribute_content
+        if self.brand_name is not None:
+            result['BrandName'] = self.brand_name
+        if self.buyer_tags is not None:
+            result['BuyerTags'] = self.buyer_tags
+        if self.cate_name is not None:
+            result['CateName'] = self.cate_name
+        if self.color is not None:
+            result['Color'] = self.color
+        if self.exposure_value is not None:
+            result['ExposureValue'] = self.exposure_value
+        if self.images is not None:
+            result['Images'] = self.images
+        if self.material is not None:
+            result['Material'] = self.material
+        if self.price is not None:
+            result['Price'] = self.price
+        if self.product_link is not None:
+            result['ProductLink'] = self.product_link
+        if self.sales_volume is not None:
+            result['SalesVolume'] = self.sales_volume
+        if self.search_volume is not None:
+            result['SearchVolume'] = self.search_volume
+        if self.shop_id is not None:
+            result['ShopId'] = self.shop_id
+        if self.shop_name is not None:
+            result['ShopName'] = self.shop_name
+        if self.style is not None:
+            result['Style'] = self.style
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttributeContent') is not None:
+            self.attribute_content = m.get('AttributeContent')
+        if m.get('BrandName') is not None:
+            self.brand_name = m.get('BrandName')
+        if m.get('BuyerTags') is not None:
+            self.buyer_tags = m.get('BuyerTags')
+        if m.get('CateName') is not None:
+            self.cate_name = m.get('CateName')
+        if m.get('Color') is not None:
+            self.color = m.get('Color')
+        if m.get('ExposureValue') is not None:
+            self.exposure_value = m.get('ExposureValue')
+        if m.get('Images') is not None:
+            self.images = m.get('Images')
+        if m.get('Material') is not None:
+            self.material = m.get('Material')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
+        if m.get('ProductLink') is not None:
+            self.product_link = m.get('ProductLink')
+        if m.get('SalesVolume') is not None:
+            self.sales_volume = m.get('SalesVolume')
+        if m.get('SearchVolume') is not None:
+            self.search_volume = m.get('SearchVolume')
+        if m.get('ShopId') is not None:
+            self.shop_id = m.get('ShopId')
+        if m.get('ShopName') is not None:
+            self.shop_name = m.get('ShopName')
+        if m.get('Style') is not None:
+            self.style = m.get('Style')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class GetStyleOnlineResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success_response=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[GetStyleOnlineResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success_response = success_response  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetStyleOnlineResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_response is not None:
+            result['SuccessResponse'] = self.success_response
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetStyleOnlineResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessResponse') is not None:
+            self.success_response = m.get('SuccessResponse')
+        return self
+
+
+class GetStyleOnlineResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetStyleOnlineResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetStyleOnlineResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetStyleOnlineResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetStyleTopRequest(TeaModel):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, ending_price=None, page_index=None,
+                 shop_ids=None, sort_order=None, start_date=None, start_price=None, time_display=None):
+        self.brand_names = brand_names  # type: str
+        self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.ending_price = ending_price  # type: str
+        self.page_index = page_index  # type: long
+        self.shop_ids = shop_ids  # type: str
         self.sort_order = sort_order  # type: long
+        self.start_date = start_date  # type: str
+        self.start_price = start_price  # type: str
         self.time_display = time_display  # type: long
 
     def validate(self):
@@ -1487,24 +2162,48 @@ class GetStyleTopRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.ending_price is not None:
+            result['EndingPrice'] = self.ending_price
         if self.page_index is not None:
             result['PageIndex'] = self.page_index
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
         if self.sort_order is not None:
             result['SortOrder'] = self.sort_order
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.start_price is not None:
+            result['StartPrice'] = self.start_price
         if self.time_display is not None:
             result['TimeDisplay'] = self.time_display
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('EndingPrice') is not None:
+            self.ending_price = m.get('EndingPrice')
         if m.get('PageIndex') is not None:
             self.page_index = m.get('PageIndex')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
         if m.get('SortOrder') is not None:
             self.sort_order = m.get('SortOrder')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('StartPrice') is not None:
+            self.start_price = m.get('StartPrice')
         if m.get('TimeDisplay') is not None:
             self.time_display = m.get('TimeDisplay')
         return self
@@ -1512,19 +2211,21 @@ class GetStyleTopRequest(TeaModel):
 
 class GetStyleTopResponseBodyData(TeaModel):
     def __init__(self, attribute_content=None, brand_name=None, buyer_tags=None, cate_name=None, color=None,
-                 images=None, material=None, price=None, product_link=None, sales_volume=None, search_volume=None,
-                 shop_name=None, style=None, title=None):
+                 exposure_value=None, images=None, material=None, price=None, product_link=None, sales_volume=None,
+                 search_volume=None, shop_id=None, shop_name=None, style=None, title=None):
         self.attribute_content = attribute_content  # type: str
         self.brand_name = brand_name  # type: str
         self.buyer_tags = buyer_tags  # type: str
         self.cate_name = cate_name  # type: str
         self.color = color  # type: str
+        self.exposure_value = exposure_value  # type: long
         self.images = images  # type: list[str]
         self.material = material  # type: str
         self.price = price  # type: float
         self.product_link = product_link  # type: str
         self.sales_volume = sales_volume  # type: float
         self.search_volume = search_volume  # type: float
+        self.shop_id = shop_id  # type: long
         self.shop_name = shop_name  # type: str
         self.style = style  # type: str
         self.title = title  # type: str
@@ -1548,6 +2249,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             result['CateName'] = self.cate_name
         if self.color is not None:
             result['Color'] = self.color
+        if self.exposure_value is not None:
+            result['ExposureValue'] = self.exposure_value
         if self.images is not None:
             result['Images'] = self.images
         if self.material is not None:
@@ -1560,6 +2263,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             result['SalesVolume'] = self.sales_volume
         if self.search_volume is not None:
             result['SearchVolume'] = self.search_volume
+        if self.shop_id is not None:
+            result['ShopId'] = self.shop_id
         if self.shop_name is not None:
             result['ShopName'] = self.shop_name
         if self.style is not None:
@@ -1580,6 +2285,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             self.cate_name = m.get('CateName')
         if m.get('Color') is not None:
             self.color = m.get('Color')
+        if m.get('ExposureValue') is not None:
+            self.exposure_value = m.get('ExposureValue')
         if m.get('Images') is not None:
             self.images = m.get('Images')
         if m.get('Material') is not None:
@@ -1592,6 +2299,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             self.sales_volume = m.get('SalesVolume')
         if m.get('SearchVolume') is not None:
             self.search_volume = m.get('SearchVolume')
+        if m.get('ShopId') is not None:
+            self.shop_id = m.get('ShopId')
         if m.get('ShopName') is not None:
             self.shop_name = m.get('ShopName')
         if m.get('Style') is not None:
@@ -2387,8 +3096,12 @@ class GetTrendSearchRecordResponse(TeaModel):
 
 
 class GetTrendStatisticRequest(TeaModel):
-    def __init__(self, cate_ids=None):
+    def __init__(self, brand_names=None, cate_ids=None, ending_date=None, shop_ids=None, start_date=None):
+        self.brand_names = brand_names  # type: str
         self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.shop_ids = shop_ids  # type: str
+        self.start_date = start_date  # type: str
 
     def validate(self):
         pass
@@ -2399,20 +3112,40 @@ class GetTrendStatisticRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_names is not None:
+            result['BrandNames'] = self.brand_names
         if self.cate_ids is not None:
             result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.shop_ids is not None:
+            result['ShopIds'] = self.shop_ids
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandNames') is not None:
+            self.brand_names = m.get('BrandNames')
         if m.get('CateIds') is not None:
             self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('ShopIds') is not None:
+            self.shop_ids = m.get('ShopIds')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
         return self
 
 
 class GetTrendStatisticResponseBodyData(TeaModel):
-    def __init__(self, commodity_count=None, sales=None, shop_count=None):
+    def __init__(self, brand_count=None, commodity_count=None, exposure_value=None, hits=None, sales=None,
+                 shop_count=None):
+        self.brand_count = brand_count  # type: long
         self.commodity_count = commodity_count  # type: long
+        self.exposure_value = exposure_value  # type: long
+        self.hits = hits  # type: long
         self.sales = sales  # type: float
         self.shop_count = shop_count  # type: long
 
@@ -2425,8 +3158,14 @@ class GetTrendStatisticResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_count is not None:
+            result['BrandCount'] = self.brand_count
         if self.commodity_count is not None:
             result['CommodityCount'] = self.commodity_count
+        if self.exposure_value is not None:
+            result['ExposureValue'] = self.exposure_value
+        if self.hits is not None:
+            result['Hits'] = self.hits
         if self.sales is not None:
             result['Sales'] = self.sales
         if self.shop_count is not None:
@@ -2435,8 +3174,14 @@ class GetTrendStatisticResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BrandCount') is not None:
+            self.brand_count = m.get('BrandCount')
         if m.get('CommodityCount') is not None:
             self.commodity_count = m.get('CommodityCount')
+        if m.get('ExposureValue') is not None:
+            self.exposure_value = m.get('ExposureValue')
+        if m.get('Hits') is not None:
+            self.hits = m.get('Hits')
         if m.get('Sales') is not None:
             self.sales = m.get('Sales')
         if m.get('ShopCount') is not None:
@@ -2525,6 +3270,206 @@ class GetTrendStatisticResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTrendStatisticResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetTrendWordAndIndexRequest(TeaModel):
+    def __init__(self, cate_ids=None, ending_date=None, page_index=None, start_date=None):
+        self.cate_ids = cate_ids  # type: str
+        self.ending_date = ending_date  # type: str
+        self.page_index = page_index  # type: long
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTrendWordAndIndexRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cate_ids is not None:
+            result['CateIds'] = self.cate_ids
+        if self.ending_date is not None:
+            result['EndingDate'] = self.ending_date
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CateIds') is not None:
+            self.cate_ids = m.get('CateIds')
+        if m.get('EndingDate') is not None:
+            self.ending_date = m.get('EndingDate')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class GetTrendWordAndIndexResponseBodyData(TeaModel):
+    def __init__(self, brand_index=None, cate_id=None, cate_name=None, ecommerce_index=None,
+                 institutional_index=None, media_index=None, social_index=None, trend_index=None, trend_word=None, year_month=None):
+        self.brand_index = brand_index  # type: float
+        self.cate_id = cate_id  # type: long
+        self.cate_name = cate_name  # type: str
+        self.ecommerce_index = ecommerce_index  # type: float
+        self.institutional_index = institutional_index  # type: float
+        self.media_index = media_index  # type: float
+        self.social_index = social_index  # type: float
+        self.trend_index = trend_index  # type: float
+        self.trend_word = trend_word  # type: str
+        self.year_month = year_month  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTrendWordAndIndexResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.brand_index is not None:
+            result['BrandIndex'] = self.brand_index
+        if self.cate_id is not None:
+            result['CateId'] = self.cate_id
+        if self.cate_name is not None:
+            result['CateName'] = self.cate_name
+        if self.ecommerce_index is not None:
+            result['EcommerceIndex'] = self.ecommerce_index
+        if self.institutional_index is not None:
+            result['InstitutionalIndex'] = self.institutional_index
+        if self.media_index is not None:
+            result['MediaIndex'] = self.media_index
+        if self.social_index is not None:
+            result['SocialIndex'] = self.social_index
+        if self.trend_index is not None:
+            result['TrendIndex'] = self.trend_index
+        if self.trend_word is not None:
+            result['TrendWord'] = self.trend_word
+        if self.year_month is not None:
+            result['YearMonth'] = self.year_month
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BrandIndex') is not None:
+            self.brand_index = m.get('BrandIndex')
+        if m.get('CateId') is not None:
+            self.cate_id = m.get('CateId')
+        if m.get('CateName') is not None:
+            self.cate_name = m.get('CateName')
+        if m.get('EcommerceIndex') is not None:
+            self.ecommerce_index = m.get('EcommerceIndex')
+        if m.get('InstitutionalIndex') is not None:
+            self.institutional_index = m.get('InstitutionalIndex')
+        if m.get('MediaIndex') is not None:
+            self.media_index = m.get('MediaIndex')
+        if m.get('SocialIndex') is not None:
+            self.social_index = m.get('SocialIndex')
+        if m.get('TrendIndex') is not None:
+            self.trend_index = m.get('TrendIndex')
+        if m.get('TrendWord') is not None:
+            self.trend_word = m.get('TrendWord')
+        if m.get('YearMonth') is not None:
+            self.year_month = m.get('YearMonth')
+        return self
+
+
+class GetTrendWordAndIndexResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, massage=None, request_id=None, success_response=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[GetTrendWordAndIndexResponseBodyData]
+        self.massage = massage  # type: str
+        self.request_id = request_id  # type: str
+        self.success_response = success_response  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTrendWordAndIndexResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.massage is not None:
+            result['Massage'] = self.massage
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_response is not None:
+            result['SuccessResponse'] = self.success_response
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetTrendWordAndIndexResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Massage') is not None:
+            self.massage = m.get('Massage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessResponse') is not None:
+            self.success_response = m.get('SuccessResponse')
+        return self
+
+
+class GetTrendWordAndIndexResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTrendWordAndIndexResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTrendWordAndIndexResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTrendWordAndIndexResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
