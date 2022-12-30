@@ -31,17 +31,25 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_auth_resource_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def add_auth_resource_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.AddAuthResourceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.auth_resource_header_list):
+            request.auth_resource_header_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.auth_resource_header_list, 'AuthResourceHeaderList', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.auth_id):
             query['AuthId'] = request.auth_id
+        if not UtilClient.is_unset(request.auth_resource_header_list_shrink):
+            query['AuthResourceHeaderList'] = request.auth_resource_header_list_shrink
         if not UtilClient.is_unset(request.domain_id):
             query['DomainId'] = request.domain_id
         if not UtilClient.is_unset(request.gateway_unique_id):
             query['GatewayUniqueId'] = request.gateway_unique_id
+        if not UtilClient.is_unset(request.ignore_case):
+            query['IgnoreCase'] = request.ignore_case
         if not UtilClient.is_unset(request.match_type):
             query['MatchType'] = request.match_type
         if not UtilClient.is_unset(request.path):
@@ -1560,6 +1568,38 @@ class Client(OpenApiClient):
     def delete_gateway_slb(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_gateway_slb_with_options(request, runtime)
+
+    def delete_migration_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteMigrationTask',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.DeleteMigrationTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_migration_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_migration_task_with_options(request, runtime)
 
     def delete_nacos_config_with_options(self, request, runtime):
         """
@@ -3395,6 +3435,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_clusters_with_options(request, runtime)
 
+    def list_config_track_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListConfigTrack',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListConfigTrackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_config_track(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_config_track_with_options(request, runtime)
+
     def list_engine_namespaces_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -3807,6 +3873,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_listeners_by_ip_with_options(request, runtime)
 
+    def list_migration_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMigrationTask',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListMigrationTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_migration_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_migration_task_with_options(request, runtime)
+
     def list_nacos_configs_with_options(self, request, runtime):
         """
         > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
@@ -3934,6 +4026,32 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.list_nacos_history_configs_with_options(request, runtime)
+
+    def list_naming_track_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNamingTrack',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListNamingTrackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_naming_track(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_naming_track_with_options(request, runtime)
 
     def list_sslcert_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5836,6 +5954,54 @@ class Client(OpenApiClient):
     def update_message_queue_route(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_message_queue_route_with_options(request, runtime)
+
+    def update_migration_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_type):
+            query['ClusterType'] = request.cluster_type
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.origin_instance_address):
+            query['OriginInstanceAddress'] = request.origin_instance_address
+        if not UtilClient.is_unset(request.origin_instance_name):
+            query['OriginInstanceName'] = request.origin_instance_name
+        if not UtilClient.is_unset(request.origin_instance_namespace):
+            query['OriginInstanceNamespace'] = request.origin_instance_namespace
+        if not UtilClient.is_unset(request.project_desc):
+            query['ProjectDesc'] = request.project_desc
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.target_cluster_name):
+            query['TargetClusterName'] = request.target_cluster_name
+        if not UtilClient.is_unset(request.target_cluster_url):
+            query['TargetClusterUrl'] = request.target_cluster_url
+        if not UtilClient.is_unset(request.target_instance_id):
+            query['TargetInstanceId'] = request.target_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateMigrationTask',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.UpdateMigrationTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_migration_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_migration_task_with_options(request, runtime)
 
     def update_nacos_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
