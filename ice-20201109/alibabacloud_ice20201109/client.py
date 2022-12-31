@@ -279,6 +279,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.cancel_favorite_public_media_with_options(request, runtime)
 
+    def create_audit_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.audit_content):
+            query['AuditContent'] = request.audit_content
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAudit',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.CreateAuditResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_audit(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_audit_with_options(request, runtime)
+
     def create_custom_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -430,7 +460,7 @@ class Client(OpenApiClient):
         request = ice20201109_models.CreateLiveTranscodeTemplateShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.template_config):
-            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.template_config), 'TemplateConfig', 'json')
+            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.template_config, 'TemplateConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
@@ -1514,6 +1544,8 @@ class Client(OpenApiClient):
     def describe_play_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.play_ts):
+            query['PlayTs'] = request.play_ts
         if not UtilClient.is_unset(request.session_id):
             query['SessionId'] = request.session_id
         req = open_api_models.OpenApiRequest(
@@ -1546,6 +1578,8 @@ class Client(OpenApiClient):
             query['PageNo'] = request.page_no
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.play_ts):
+            query['PlayTs'] = request.play_ts
         if not UtilClient.is_unset(request.session_id):
             query['SessionId'] = request.session_id
         req = open_api_models.OpenApiRequest(
@@ -1958,6 +1992,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.project_id):
             query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.request_source):
+            query['RequestSource'] = request.request_source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2331,6 +2367,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_media_producing_job_with_options(request, runtime)
 
+    def get_package_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPackageJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetPackageJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_package_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_package_job_with_options(request, runtime)
+
     def get_pipeline_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2362,6 +2426,8 @@ class Client(OpenApiClient):
     def get_play_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.input_url):
+            query['InputURL'] = request.input_url
         if not UtilClient.is_unset(request.media_id):
             query['MediaId'] = request.media_id
         req = open_api_models.OpenApiRequest(
@@ -2535,7 +2601,11 @@ class Client(OpenApiClient):
 
     def get_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.related_mediaid_flag):
+            query['RelatedMediaidFlag'] = request.related_mediaid_flag
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2544,7 +2614,7 @@ class Client(OpenApiClient):
             version='2020-11-09',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -2561,7 +2631,11 @@ class Client(OpenApiClient):
 
     def get_template_materials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.file_list):
+            query['FileList'] = request.file_list
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2570,7 +2644,7 @@ class Client(OpenApiClient):
             version='2020-11-09',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -2588,8 +2662,8 @@ class Client(OpenApiClient):
     def get_transcode_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.job_id):
-            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.parent_job_id):
+            query['ParentJobId'] = request.parent_job_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3077,6 +3151,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_media_info_jobs_with_options(request, runtime)
 
+    def list_package_jobs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_of_create_time):
+            query['EndOfCreateTime'] = request.end_of_create_time
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.next_page_token):
+            query['NextPageToken'] = request.next_page_token
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_of_create_time):
+            query['StartOfCreateTime'] = request.start_of_create_time
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPackageJobs',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.ListPackageJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_package_jobs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_package_jobs_with_options(request, runtime)
+
     def list_pipelines_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3294,14 +3408,14 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.end_of_create_time):
             query['EndOfCreateTime'] = request.end_of_create_time
-        if not UtilClient.is_unset(request.job_id):
-            query['JobId'] = request.job_id
         if not UtilClient.is_unset(request.next_page_token):
             query['NextPageToken'] = request.next_page_token
         if not UtilClient.is_unset(request.order_by):
             query['OrderBy'] = request.order_by
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_job_id):
+            query['ParentJobId'] = request.parent_job_id
         if not UtilClient.is_unset(request.start_of_create_time):
             query['StartOfCreateTime'] = request.start_of_create_time
         if not UtilClient.is_unset(request.status):
@@ -3328,42 +3442,6 @@ class Client(OpenApiClient):
     def list_transcode_jobs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_transcode_jobs_with_options(request, runtime)
-
-    def query_censor_job_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.job_ids):
-            query['JobIds'] = request.job_ids
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryCensorJobList',
-            version='2020-11-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ice20201109_models.QueryCensorJobListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_censor_job_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_censor_job_list_with_options(request, runtime)
 
     def query_iproduction_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3434,6 +3512,54 @@ class Client(OpenApiClient):
     def query_media_censor_job_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_media_censor_job_detail_with_options(request, runtime)
+
+    def query_media_censor_job_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_of_job_created_time_range):
+            query['EndOfJobCreatedTimeRange'] = request.end_of_job_created_time_range
+        if not UtilClient.is_unset(request.job_ids):
+            query['JobIds'] = request.job_ids
+        if not UtilClient.is_unset(request.maximum_page_size):
+            query['MaximumPageSize'] = request.maximum_page_size
+        if not UtilClient.is_unset(request.next_page_token):
+            query['NextPageToken'] = request.next_page_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pipeline_id):
+            query['PipelineId'] = request.pipeline_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_of_job_created_time_range):
+            query['StartOfJobCreatedTimeRange'] = request.start_of_job_created_time_range
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryMediaCensorJobList',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.QueryMediaCensorJobListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_media_censor_job_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_media_censor_job_list_with_options(request, runtime)
 
     def query_smarttag_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3514,6 +3640,8 @@ class Client(OpenApiClient):
             query['MediaType'] = request.media_type
         if not UtilClient.is_unset(request.overwrite):
             query['Overwrite'] = request.overwrite
+        if not UtilClient.is_unset(request.reference_id):
+            query['ReferenceId'] = request.reference_id
         if not UtilClient.is_unset(request.register_config):
             query['RegisterConfig'] = request.register_config
         if not UtilClient.is_unset(request.title):
@@ -3992,13 +4120,13 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitDynamicImageJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.output):
-            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.output), 'Output', 'json')
+            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.output, 'Output', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         if not UtilClient.is_unset(tmp_req.template_config):
-            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.template_config), 'TemplateConfig', 'json')
+            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.template_config, 'TemplateConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.input_shrink):
             query['Input'] = request.input_shrink
@@ -4040,11 +4168,11 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitIProductionJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.output):
-            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.output), 'Output', 'json')
+            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.output, 'Output', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.function_name):
             query['FunctionName'] = request.function_name
@@ -4130,9 +4258,9 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitLiveRecordJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.record_output):
-            request.record_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.record_output), 'RecordOutput', 'json')
+            request.record_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.record_output, 'RecordOutput', 'json')
         if not UtilClient.is_unset(tmp_req.stream_input):
-            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.stream_input), 'StreamInput', 'json')
+            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.stream_input, 'StreamInput', 'json')
         body = {}
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
@@ -4172,9 +4300,9 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitLiveSnapshotJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.snapshot_output):
-            request.snapshot_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.snapshot_output), 'SnapshotOutput', 'json')
+            request.snapshot_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.snapshot_output, 'SnapshotOutput', 'json')
         if not UtilClient.is_unset(tmp_req.stream_input):
-            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.stream_input), 'StreamInput', 'json')
+            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.stream_input, 'StreamInput', 'json')
         body = {}
         if not UtilClient.is_unset(request.callback_url):
             body['CallbackUrl'] = request.callback_url
@@ -4214,11 +4342,11 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitLiveTranscodeJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.stream_input):
-            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.stream_input), 'StreamInput', 'json')
+            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.stream_input, 'StreamInput', 'json')
         if not UtilClient.is_unset(tmp_req.timed_config):
-            request.timed_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.timed_config), 'TimedConfig', 'json')
+            request.timed_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.timed_config, 'TimedConfig', 'json')
         if not UtilClient.is_unset(tmp_req.transcode_output):
-            request.transcode_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.transcode_output), 'TranscodeOutput', 'json')
+            request.transcode_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transcode_output, 'TranscodeOutput', 'json')
         query = {}
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
@@ -4260,9 +4388,9 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitMediaCensorJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.barrages):
             query['Barrages'] = request.barrages
@@ -4312,9 +4440,9 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitMediaInfoJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.input_shrink):
             query['Input'] = request.input_shrink
@@ -4395,14 +4523,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_media_producing_job_with_options(request, runtime)
 
+    def submit_package_job_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ice20201109_models.SubmitPackageJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.inputs):
+            request.inputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.inputs, 'Inputs', 'json')
+        if not UtilClient.is_unset(tmp_req.output):
+            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.output, 'Output', 'json')
+        if not UtilClient.is_unset(tmp_req.schedule_config):
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.inputs_shrink):
+            query['Inputs'] = request.inputs_shrink
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.output_shrink):
+            query['Output'] = request.output_shrink
+        if not UtilClient.is_unset(request.schedule_config_shrink):
+            query['ScheduleConfig'] = request.schedule_config_shrink
+        if not UtilClient.is_unset(request.user_data):
+            query['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitPackageJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SubmitPackageJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_package_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_package_job_with_options(request, runtime)
+
     def submit_smarttag_job_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ice20201109_models.SubmitSmarttagJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.content):
             query['Content'] = request.content
@@ -4452,13 +4624,13 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitSnapshotJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.output):
-            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.output), 'Output', 'json')
+            request.output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.output, 'Output', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         if not UtilClient.is_unset(tmp_req.template_config):
-            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.template_config), 'TemplateConfig', 'json')
+            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.template_config, 'TemplateConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.input_shrink):
             query['Input'] = request.input_shrink
@@ -4496,6 +4668,17 @@ class Client(OpenApiClient):
         return self.submit_snapshot_job_with_options(request, runtime)
 
     def submit_subtitle_produce_job_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: SubmitSubtitleProduceJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitSubtitleProduceJobResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -4534,6 +4717,15 @@ class Client(OpenApiClient):
         )
 
     def submit_subtitle_produce_job(self, request):
+        """
+        @deprecated
+        
+
+        @param request: SubmitSubtitleProduceJobRequest
+
+        @return: SubmitSubtitleProduceJobResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_subtitle_produce_job_with_options(request, runtime)
 
@@ -4542,9 +4734,9 @@ class Client(OpenApiClient):
         request = ice20201109_models.SubmitSyncMediaInfoJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.input):
-            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.input), 'Input', 'json')
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.input_shrink):
             query['Input'] = request.input_shrink
@@ -4586,7 +4778,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.output_group):
             request.output_group_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.output_group, 'OutputGroup', 'json')
         if not UtilClient.is_unset(tmp_req.schedule_config):
-            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.schedule_config), 'ScheduleConfig', 'json')
+            request.schedule_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule_config, 'ScheduleConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.input_group_shrink):
             query['InputGroup'] = request.input_group_shrink
@@ -4802,11 +4994,11 @@ class Client(OpenApiClient):
         request = ice20201109_models.UpdateLiveTranscodeJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.stream_input):
-            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.stream_input), 'StreamInput', 'json')
+            request.stream_input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.stream_input, 'StreamInput', 'json')
         if not UtilClient.is_unset(tmp_req.timed_config):
-            request.timed_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.timed_config), 'TimedConfig', 'json')
+            request.timed_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.timed_config, 'TimedConfig', 'json')
         if not UtilClient.is_unset(tmp_req.transcode_output):
-            request.transcode_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.transcode_output), 'TranscodeOutput', 'json')
+            request.transcode_output_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transcode_output, 'TranscodeOutput', 'json')
         query = {}
         if not UtilClient.is_unset(request.job_id):
             query['JobId'] = request.job_id
@@ -4846,7 +5038,7 @@ class Client(OpenApiClient):
         request = ice20201109_models.UpdateLiveTranscodeTemplateShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.template_config):
-            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.template_config), 'TemplateConfig', 'json')
+            request.template_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.template_config, 'TemplateConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
@@ -4898,6 +5090,8 @@ class Client(OpenApiClient):
             query['MediaId'] = request.media_id
         if not UtilClient.is_unset(request.media_tags):
             query['MediaTags'] = request.media_tags
+        if not UtilClient.is_unset(request.reference_id):
+            query['ReferenceId'] = request.reference_id
         if not UtilClient.is_unset(request.title):
             query['Title'] = request.title
         if not UtilClient.is_unset(request.user_data):
@@ -4960,6 +5154,17 @@ class Client(OpenApiClient):
         return self.update_pipeline_with_options(request, runtime)
 
     def update_smart_job_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: UpdateSmartJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateSmartJobResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.feextend):
@@ -4986,6 +5191,15 @@ class Client(OpenApiClient):
         )
 
     def update_smart_job(self, request):
+        """
+        @deprecated
+        
+
+        @param request: UpdateSmartJobRequest
+
+        @return: UpdateSmartJobResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_smart_job_with_options(request, runtime)
 
