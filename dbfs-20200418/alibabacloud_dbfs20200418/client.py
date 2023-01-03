@@ -103,6 +103,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_tags_batch_with_options(request, runtime)
 
+    def apply_auto_snapshot_policy_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dbfs20200418_models.ApplyAutoSnapshotPolicyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dbfs_ids):
+            request.dbfs_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dbfs_ids, 'DbfsIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.dbfs_ids_shrink):
+            query['DbfsIds'] = request.dbfs_ids_shrink
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ApplyAutoSnapshotPolicy',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ApplyAutoSnapshotPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def apply_auto_snapshot_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.apply_auto_snapshot_policy_with_options(request, runtime)
+
     def attach_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -345,6 +381,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_snapshot_with_options(request, runtime)
 
+    def delete_auto_snapshot_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAutoSnapshotPolicy',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DeleteAutoSnapshotPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_auto_snapshot_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_auto_snapshot_policy_with_options(request, runtime)
+
     def delete_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -531,6 +597,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_dbfs_with_options(request, runtime)
 
+    def get_auto_snapshot_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAutoSnapshotPolicy',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.GetAutoSnapshotPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_auto_snapshot_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_auto_snapshot_policy_with_options(request, runtime)
+
     def get_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -588,6 +684,116 @@ class Client(OpenApiClient):
     def get_service_linked_role(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_service_linked_role_with_options(request, runtime)
+
+    def list_auto_snapshot_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_key):
+            query['FilterKey'] = request.filter_key
+        if not UtilClient.is_unset(request.filter_value):
+            query['FilterValue'] = request.filter_value
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAutoSnapshotPolicies',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListAutoSnapshotPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_auto_snapshot_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_auto_snapshot_policies_with_options(request, runtime)
+
+    def list_auto_snapshot_policy_applied_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_key):
+            query['FilterKey'] = request.filter_key
+        if not UtilClient.is_unset(request.filter_value):
+            query['FilterValue'] = request.filter_value
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAutoSnapshotPolicyAppliedDbfs',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListAutoSnapshotPolicyAppliedDbfsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_auto_snapshot_policy_applied_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_auto_snapshot_policy_applied_dbfs_with_options(request, runtime)
+
+    def list_auto_snapshot_policy_unapplied_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_key):
+            query['FilterKey'] = request.filter_key
+        if not UtilClient.is_unset(request.filter_value):
+            query['FilterValue'] = request.filter_value
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAutoSnapshotPolicyUnappliedDbfs',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListAutoSnapshotPolicyUnappliedDbfsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_auto_snapshot_policy_unapplied_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_auto_snapshot_policy_unapplied_dbfs_with_options(request, runtime)
 
     def list_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -804,6 +1010,84 @@ class Client(OpenApiClient):
     def list_tag_values(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tag_values_with_options(request, runtime)
+
+    def modify_auto_snapshot_policy_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dbfs20200418_models.ModifyAutoSnapshotPolicyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.repeat_weekdays):
+            request.repeat_weekdays_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.repeat_weekdays, 'RepeatWeekdays', 'json')
+        if not UtilClient.is_unset(tmp_req.time_points):
+            request.time_points_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.time_points, 'TimePoints', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.policy_name):
+            query['PolicyName'] = request.policy_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.repeat_weekdays_shrink):
+            query['RepeatWeekdays'] = request.repeat_weekdays_shrink
+        if not UtilClient.is_unset(request.retention_days):
+            query['RetentionDays'] = request.retention_days
+        if not UtilClient.is_unset(request.time_points_shrink):
+            query['TimePoints'] = request.time_points_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAutoSnapshotPolicy',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ModifyAutoSnapshotPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_auto_snapshot_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_auto_snapshot_policy_with_options(request, runtime)
+
+    def modify_snapshot_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
+        if not UtilClient.is_unset(request.snapshot_name):
+            query['SnapshotName'] = request.snapshot_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifySnapshotAttribute',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ModifySnapshotAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_snapshot_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_snapshot_attribute_with_options(request, runtime)
 
     def rename_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
