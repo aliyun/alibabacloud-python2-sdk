@@ -31021,11 +31021,11 @@ class QueryConfigResponseBodyDataNacosRunningEnv(TeaModel):
 class QueryConfigResponseBodyData(TeaModel):
     def __init__(self, autopurge_purge_interval=None, autopurge_snap_retain_count=None, cluster_name=None,
                  config_auth_enabled=None, config_auth_supported=None, config_content_limit=None, config_secret_enabled=None,
-                 config_secret_supported=None, init_limit=None, jute_maxbuffer=None, jvm_flags_custom=None, mcpenabled=None,
-                 mcpsupported=None, max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None,
-                 nacos_running_env=None, naming_auth_enabled=None, naming_auth_supported=None, naming_create_service_supported=None,
-                 open_super_acl=None, pass_word=None, restart_flag=None, snapshot_count=None, sync_limit=None, tick_time=None,
-                 user_name=None):
+                 config_secret_supported=None, extended_types_enable=None, init_limit=None, jute_maxbuffer=None, jvm_flags_custom=None,
+                 mcpenabled=None, mcpsupported=None, max_client_cnxns=None, max_session_timeout=None,
+                 min_session_timeout=None, nacos_running_env=None, naming_auth_enabled=None, naming_auth_supported=None,
+                 naming_create_service_supported=None, open_super_acl=None, pass_word=None, restart_flag=None, snapshot_count=None, sync_limit=None,
+                 tick_time=None, user_name=None):
         # A reserved parameter.
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         # A reserved parameter.
@@ -31053,6 +31053,7 @@ class QueryConfigResponseBodyData(TeaModel):
         # *   `true`: supported
         # *   `false`: not supported
         self.config_secret_supported = config_secret_supported  # type: bool
+        self.extended_types_enable = extended_types_enable  # type: bool
         # The maximum connection duration of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.init_limit = init_limit  # type: str
         # The maximum amount of data on each node. This parameter is valid for ZooKeeper instances. Unit: bytes.
@@ -31139,6 +31140,8 @@ class QueryConfigResponseBodyData(TeaModel):
             result['ConfigSecretEnabled'] = self.config_secret_enabled
         if self.config_secret_supported is not None:
             result['ConfigSecretSupported'] = self.config_secret_supported
+        if self.extended_types_enable is not None:
+            result['ExtendedTypesEnable'] = self.extended_types_enable
         if self.init_limit is not None:
             result['InitLimit'] = self.init_limit
         if self.jute_maxbuffer is not None:
@@ -31197,6 +31200,8 @@ class QueryConfigResponseBodyData(TeaModel):
             self.config_secret_enabled = m.get('ConfigSecretEnabled')
         if m.get('ConfigSecretSupported') is not None:
             self.config_secret_supported = m.get('ConfigSecretSupported')
+        if m.get('ExtendedTypesEnable') is not None:
+            self.extended_types_enable = m.get('ExtendedTypesEnable')
         if m.get('InitLimit') is not None:
             self.init_limit = m.get('InitLimit')
         if m.get('JuteMaxbuffer') is not None:
@@ -34168,10 +34173,11 @@ class UpdateClusterSpecResponse(TeaModel):
 
 class UpdateConfigRequest(TeaModel):
     def __init__(self, accept_language=None, autopurge_purge_interval=None, autopurge_snap_retain_count=None,
-                 cluster_id=None, config_auth_enabled=None, config_secret_enabled=None, config_type=None, init_limit=None,
-                 instance_id=None, jute_maxbuffer=None, mcpenabled=None, max_client_cnxns=None, max_session_timeout=None,
-                 min_session_timeout=None, naming_auth_enabled=None, open_super_acl=None, pass_word=None, request_pars=None,
-                 snapshot_count=None, sync_limit=None, tick_time=None, user_name=None):
+                 cluster_id=None, config_auth_enabled=None, config_secret_enabled=None, config_type=None,
+                 extended_types_enable=None, init_limit=None, instance_id=None, jute_maxbuffer=None, mcpenabled=None,
+                 max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None, naming_auth_enabled=None,
+                 open_super_acl=None, pass_word=None, request_pars=None, snapshot_count=None, sync_limit=None, tick_time=None,
+                 user_name=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -34199,6 +34205,7 @@ class UpdateConfigRequest(TeaModel):
         self.config_secret_enabled = config_secret_enabled  # type: bool
         # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.config_type = config_type  # type: str
+        self.extended_types_enable = extended_types_enable  # type: str
         # The maximum connection duration of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.init_limit = init_limit  # type: str
         # The ID of the instance.
@@ -34271,6 +34278,8 @@ class UpdateConfigRequest(TeaModel):
             result['ConfigSecretEnabled'] = self.config_secret_enabled
         if self.config_type is not None:
             result['ConfigType'] = self.config_type
+        if self.extended_types_enable is not None:
+            result['ExtendedTypesEnable'] = self.extended_types_enable
         if self.init_limit is not None:
             result['InitLimit'] = self.init_limit
         if self.instance_id is not None:
@@ -34319,6 +34328,8 @@ class UpdateConfigRequest(TeaModel):
             self.config_secret_enabled = m.get('ConfigSecretEnabled')
         if m.get('ConfigType') is not None:
             self.config_type = m.get('ConfigType')
+        if m.get('ExtendedTypesEnable') is not None:
+            self.extended_types_enable = m.get('ExtendedTypesEnable')
         if m.get('InitLimit') is not None:
             self.init_limit = m.get('InitLimit')
         if m.get('InstanceId') is not None:
