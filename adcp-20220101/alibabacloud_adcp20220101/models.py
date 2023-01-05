@@ -272,11 +272,12 @@ class CreateHubClusterResponse(TeaModel):
 
 
 class DeleteHubClusterRequest(TeaModel):
-    def __init__(self, cluster_id=None, force=None):
+    def __init__(self, cluster_id=None, force=None, retain_resources=None):
         # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to forcefully delete the master instance. Valid values: - true: forcefully delete the master instance. - false: does not forcefully delete the master instance. Default value: false.
         self.force = force  # type: bool
+        self.retain_resources = retain_resources  # type: list[str]
 
     def validate(self):
         pass
@@ -291,6 +292,8 @@ class DeleteHubClusterRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.force is not None:
             result['Force'] = self.force
+        if self.retain_resources is not None:
+            result['RetainResources'] = self.retain_resources
         return result
 
     def from_map(self, m=None):
@@ -299,6 +302,44 @@ class DeleteHubClusterRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('Force') is not None:
             self.force = m.get('Force')
+        if m.get('RetainResources') is not None:
+            self.retain_resources = m.get('RetainResources')
+        return self
+
+
+class DeleteHubClusterShrinkRequest(TeaModel):
+    def __init__(self, cluster_id=None, force=None, retain_resources_shrink=None):
+        # The ID of the master instance.
+        self.cluster_id = cluster_id  # type: str
+        # Specifies whether to forcefully delete the master instance. Valid values: - true: forcefully delete the master instance. - false: does not forcefully delete the master instance. Default value: false.
+        self.force = force  # type: bool
+        self.retain_resources_shrink = retain_resources_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteHubClusterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.retain_resources_shrink is not None:
+            result['RetainResources'] = self.retain_resources_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('RetainResources') is not None:
+            self.retain_resources_shrink = m.get('RetainResources')
         return self
 
 
