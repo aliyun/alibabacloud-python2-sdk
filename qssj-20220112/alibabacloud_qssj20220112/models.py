@@ -3141,12 +3141,13 @@ class GetTrendStatisticRequest(TeaModel):
 
 class GetTrendStatisticResponseBodyData(TeaModel):
     def __init__(self, brand_count=None, commodity_count=None, exposure_value=None, hits=None, sales=None,
-                 shop_count=None):
+                 sales_volume=None, shop_count=None):
         self.brand_count = brand_count  # type: long
         self.commodity_count = commodity_count  # type: long
         self.exposure_value = exposure_value  # type: long
         self.hits = hits  # type: long
         self.sales = sales  # type: float
+        self.sales_volume = sales_volume  # type: long
         self.shop_count = shop_count  # type: long
 
     def validate(self):
@@ -3168,6 +3169,8 @@ class GetTrendStatisticResponseBodyData(TeaModel):
             result['Hits'] = self.hits
         if self.sales is not None:
             result['Sales'] = self.sales
+        if self.sales_volume is not None:
+            result['SalesVolume'] = self.sales_volume
         if self.shop_count is not None:
             result['ShopCount'] = self.shop_count
         return result
@@ -3184,6 +3187,8 @@ class GetTrendStatisticResponseBodyData(TeaModel):
             self.hits = m.get('Hits')
         if m.get('Sales') is not None:
             self.sales = m.get('Sales')
+        if m.get('SalesVolume') is not None:
+            self.sales_volume = m.get('SalesVolume')
         if m.get('ShopCount') is not None:
             self.shop_count = m.get('ShopCount')
         return self
