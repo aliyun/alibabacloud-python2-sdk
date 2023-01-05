@@ -2211,7 +2211,7 @@ class GetStyleTopRequest(TeaModel):
 
 class GetStyleTopResponseBodyData(TeaModel):
     def __init__(self, attribute_content=None, brand_name=None, buyer_tags=None, cate_name=None, color=None,
-                 exposure_value=None, images=None, material=None, price=None, product_link=None, sales_volume=None,
+                 exposure_value=None, images=None, material=None, price=None, product_link=None, sales=None, sales_volume=None,
                  search_volume=None, shop_id=None, shop_name=None, style=None, title=None):
         self.attribute_content = attribute_content  # type: str
         self.brand_name = brand_name  # type: str
@@ -2223,7 +2223,8 @@ class GetStyleTopResponseBodyData(TeaModel):
         self.material = material  # type: str
         self.price = price  # type: float
         self.product_link = product_link  # type: str
-        self.sales_volume = sales_volume  # type: float
+        self.sales = sales  # type: float
+        self.sales_volume = sales_volume  # type: long
         self.search_volume = search_volume  # type: float
         self.shop_id = shop_id  # type: long
         self.shop_name = shop_name  # type: str
@@ -2259,6 +2260,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             result['Price'] = self.price
         if self.product_link is not None:
             result['ProductLink'] = self.product_link
+        if self.sales is not None:
+            result['Sales'] = self.sales
         if self.sales_volume is not None:
             result['SalesVolume'] = self.sales_volume
         if self.search_volume is not None:
@@ -2295,6 +2298,8 @@ class GetStyleTopResponseBodyData(TeaModel):
             self.price = m.get('Price')
         if m.get('ProductLink') is not None:
             self.product_link = m.get('ProductLink')
+        if m.get('Sales') is not None:
+            self.sales = m.get('Sales')
         if m.get('SalesVolume') is not None:
             self.sales_volume = m.get('SalesVolume')
         if m.get('SearchVolume') is not None:
