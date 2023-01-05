@@ -1155,16 +1155,16 @@ class CreateBaselineRequestOvertimeSettings(TeaModel):
 
 
 class CreateBaselineRequest(TeaModel):
-    def __init__(self, alert_margin_threshold=None, baseline_name=None, baseline_type=None, overtime_settings=None,
-                 owner=None, priority=None, project_id=None, task_ids=None):
+    def __init__(self, alert_margin_threshold=None, baseline_name=None, baseline_type=None, node_ids=None,
+                 overtime_settings=None, owner=None, priority=None, project_id=None):
         self.alert_margin_threshold = alert_margin_threshold  # type: int
         self.baseline_name = baseline_name  # type: str
         self.baseline_type = baseline_type  # type: str
+        self.node_ids = node_ids  # type: str
         self.overtime_settings = overtime_settings  # type: list[CreateBaselineRequestOvertimeSettings]
         self.owner = owner  # type: str
         self.priority = priority  # type: int
         self.project_id = project_id  # type: long
-        self.task_ids = task_ids  # type: str
 
     def validate(self):
         if self.overtime_settings:
@@ -1184,6 +1184,8 @@ class CreateBaselineRequest(TeaModel):
             result['BaselineName'] = self.baseline_name
         if self.baseline_type is not None:
             result['BaselineType'] = self.baseline_type
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
         result['OvertimeSettings'] = []
         if self.overtime_settings is not None:
             for k in self.overtime_settings:
@@ -1194,8 +1196,6 @@ class CreateBaselineRequest(TeaModel):
             result['Priority'] = self.priority
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
-        if self.task_ids is not None:
-            result['TaskIds'] = self.task_ids
         return result
 
     def from_map(self, m=None):
@@ -1206,6 +1206,8 @@ class CreateBaselineRequest(TeaModel):
             self.baseline_name = m.get('BaselineName')
         if m.get('BaselineType') is not None:
             self.baseline_type = m.get('BaselineType')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
         self.overtime_settings = []
         if m.get('OvertimeSettings') is not None:
             for k in m.get('OvertimeSettings'):
@@ -1217,8 +1219,6 @@ class CreateBaselineRequest(TeaModel):
             self.priority = m.get('Priority')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
-        if m.get('TaskIds') is not None:
-            self.task_ids = m.get('TaskIds')
         return self
 
 
@@ -42452,6 +42452,124 @@ class ListTopicsResponse(TeaModel):
         return self
 
 
+class MountDirectoryRequest(TeaModel):
+    def __init__(self, target_id=None, target_type=None):
+        self.target_id = target_id  # type: str
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MountDirectoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        return self
+
+
+class MountDirectoryResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.data = data  # type: int
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MountDirectoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class MountDirectoryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MountDirectoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MountDirectoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MountDirectoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OfflineNodeRequest(TeaModel):
     def __init__(self, node_id=None, project_id=None):
         self.node_id = node_id  # type: long
@@ -46486,6 +46604,124 @@ class TopTenErrorTimesInstanceResponse(TeaModel):
         return self
 
 
+class UmountDirectoryRequest(TeaModel):
+    def __init__(self, target_id=None, target_type=None):
+        self.target_id = target_id  # type: str
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UmountDirectoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        return self
+
+
+class UmountDirectoryResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
+                 success=None):
+        self.data = data  # type: int
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UmountDirectoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UmountDirectoryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UmountDirectoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UmountDirectoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UmountDirectoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateBaselineRequestAlertSettingsDingRobots(TeaModel):
     def __init__(self, at_all=None, web_url=None):
         self.at_all = at_all  # type: bool
@@ -46635,8 +46871,8 @@ class UpdateBaselineRequestOvertimeSettings(TeaModel):
 
 class UpdateBaselineRequest(TeaModel):
     def __init__(self, alert_enabled=None, alert_margin_threshold=None, alert_settings=None, baseline_id=None,
-                 baseline_name=None, baseline_type=None, enabled=None, overtime_settings=None, owner=None, priority=None,
-                 project_id=None, remove_task_ids=None, task_ids=None):
+                 baseline_name=None, baseline_type=None, enabled=None, node_ids=None, overtime_settings=None, owner=None,
+                 priority=None, project_id=None, remove_node_ids=None):
         self.alert_enabled = alert_enabled  # type: bool
         self.alert_margin_threshold = alert_margin_threshold  # type: int
         self.alert_settings = alert_settings  # type: list[UpdateBaselineRequestAlertSettings]
@@ -46644,12 +46880,12 @@ class UpdateBaselineRequest(TeaModel):
         self.baseline_name = baseline_name  # type: str
         self.baseline_type = baseline_type  # type: str
         self.enabled = enabled  # type: bool
+        self.node_ids = node_ids  # type: str
         self.overtime_settings = overtime_settings  # type: list[UpdateBaselineRequestOvertimeSettings]
         self.owner = owner  # type: str
         self.priority = priority  # type: int
         self.project_id = project_id  # type: long
-        self.remove_task_ids = remove_task_ids  # type: str
-        self.task_ids = task_ids  # type: str
+        self.remove_node_ids = remove_node_ids  # type: str
 
     def validate(self):
         if self.alert_settings:
@@ -46683,6 +46919,8 @@ class UpdateBaselineRequest(TeaModel):
             result['BaselineType'] = self.baseline_type
         if self.enabled is not None:
             result['Enabled'] = self.enabled
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
         result['OvertimeSettings'] = []
         if self.overtime_settings is not None:
             for k in self.overtime_settings:
@@ -46693,10 +46931,8 @@ class UpdateBaselineRequest(TeaModel):
             result['Priority'] = self.priority
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
-        if self.remove_task_ids is not None:
-            result['RemoveTaskIds'] = self.remove_task_ids
-        if self.task_ids is not None:
-            result['TaskIds'] = self.task_ids
+        if self.remove_node_ids is not None:
+            result['RemoveNodeIds'] = self.remove_node_ids
         return result
 
     def from_map(self, m=None):
@@ -46718,6 +46954,8 @@ class UpdateBaselineRequest(TeaModel):
             self.baseline_type = m.get('BaselineType')
         if m.get('Enabled') is not None:
             self.enabled = m.get('Enabled')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
         self.overtime_settings = []
         if m.get('OvertimeSettings') is not None:
             for k in m.get('OvertimeSettings'):
@@ -46729,17 +46967,15 @@ class UpdateBaselineRequest(TeaModel):
             self.priority = m.get('Priority')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
-        if m.get('RemoveTaskIds') is not None:
-            self.remove_task_ids = m.get('RemoveTaskIds')
-        if m.get('TaskIds') is not None:
-            self.task_ids = m.get('TaskIds')
+        if m.get('RemoveNodeIds') is not None:
+            self.remove_node_ids = m.get('RemoveNodeIds')
         return self
 
 
 class UpdateBaselineShrinkRequest(TeaModel):
     def __init__(self, alert_enabled=None, alert_margin_threshold=None, alert_settings_shrink=None,
-                 baseline_id=None, baseline_name=None, baseline_type=None, enabled=None, overtime_settings_shrink=None,
-                 owner=None, priority=None, project_id=None, remove_task_ids=None, task_ids=None):
+                 baseline_id=None, baseline_name=None, baseline_type=None, enabled=None, node_ids=None,
+                 overtime_settings_shrink=None, owner=None, priority=None, project_id=None, remove_node_ids=None):
         self.alert_enabled = alert_enabled  # type: bool
         self.alert_margin_threshold = alert_margin_threshold  # type: int
         self.alert_settings_shrink = alert_settings_shrink  # type: str
@@ -46747,12 +46983,12 @@ class UpdateBaselineShrinkRequest(TeaModel):
         self.baseline_name = baseline_name  # type: str
         self.baseline_type = baseline_type  # type: str
         self.enabled = enabled  # type: bool
+        self.node_ids = node_ids  # type: str
         self.overtime_settings_shrink = overtime_settings_shrink  # type: str
         self.owner = owner  # type: str
         self.priority = priority  # type: int
         self.project_id = project_id  # type: long
-        self.remove_task_ids = remove_task_ids  # type: str
-        self.task_ids = task_ids  # type: str
+        self.remove_node_ids = remove_node_ids  # type: str
 
     def validate(self):
         pass
@@ -46777,6 +47013,8 @@ class UpdateBaselineShrinkRequest(TeaModel):
             result['BaselineType'] = self.baseline_type
         if self.enabled is not None:
             result['Enabled'] = self.enabled
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
         if self.overtime_settings_shrink is not None:
             result['OvertimeSettings'] = self.overtime_settings_shrink
         if self.owner is not None:
@@ -46785,10 +47023,8 @@ class UpdateBaselineShrinkRequest(TeaModel):
             result['Priority'] = self.priority
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
-        if self.remove_task_ids is not None:
-            result['RemoveTaskIds'] = self.remove_task_ids
-        if self.task_ids is not None:
-            result['TaskIds'] = self.task_ids
+        if self.remove_node_ids is not None:
+            result['RemoveNodeIds'] = self.remove_node_ids
         return result
 
     def from_map(self, m=None):
@@ -46807,6 +47043,8 @@ class UpdateBaselineShrinkRequest(TeaModel):
             self.baseline_type = m.get('BaselineType')
         if m.get('Enabled') is not None:
             self.enabled = m.get('Enabled')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
         if m.get('OvertimeSettings') is not None:
             self.overtime_settings_shrink = m.get('OvertimeSettings')
         if m.get('Owner') is not None:
@@ -46815,10 +47053,8 @@ class UpdateBaselineShrinkRequest(TeaModel):
             self.priority = m.get('Priority')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
-        if m.get('RemoveTaskIds') is not None:
-            self.remove_task_ids = m.get('RemoveTaskIds')
-        if m.get('TaskIds') is not None:
-            self.task_ids = m.get('TaskIds')
+        if m.get('RemoveNodeIds') is not None:
+            self.remove_node_ids = m.get('RemoveNodeIds')
         return self
 
 
