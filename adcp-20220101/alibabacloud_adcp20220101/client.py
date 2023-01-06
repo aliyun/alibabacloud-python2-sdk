@@ -90,8 +90,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_cluster_to_hub_with_options(request, runtime)
 
-    def create_hub_cluster_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_hub_cluster_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = adcp_20220101_models.CreateHubClusterShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.cluster_configuration):
+            request.cluster_configuration_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.cluster_configuration, 'ClusterConfiguration', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.cluster_configuration_shrink):
+            query['ClusterConfiguration'] = request.cluster_configuration_shrink
         body = {}
         if not UtilClient.is_unset(request.api_server_public_eip):
             body['ApiServerPublicEip'] = request.api_server_public_eip
@@ -110,6 +117,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.vpc_id):
             body['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
