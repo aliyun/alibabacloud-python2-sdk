@@ -431,6 +431,8 @@ class Client(OpenApiClient):
             query['Email'] = request.email
         if not UtilClient.is_unset(request.mobile_phone):
             query['MobilePhone'] = request.mobile_phone
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.user_principal_name):
             query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
@@ -1459,6 +1461,8 @@ class Client(OpenApiClient):
             query['Marker'] = request.marker
         if not UtilClient.is_unset(request.max_items):
             query['MaxItems'] = request.max_items
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1489,6 +1493,8 @@ class Client(OpenApiClient):
             query['Marker'] = request.marker
         if not UtilClient.is_unset(request.max_items):
             query['MaxItems'] = request.max_items
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
