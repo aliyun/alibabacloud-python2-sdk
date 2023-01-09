@@ -1454,6 +1454,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_samlproviders_with_options(request, runtime)
 
+    def list_tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_principal_name):
+            query['ResourcePrincipalName'] = request.resource_principal_name
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ims_20190815_models.ListTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_tag_resources_with_options(request, runtime)
+
     def list_user_basic_infos_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1759,12 +1797,14 @@ class Client(OpenApiClient):
             query['AllowUserToManagePersonalDingTalk'] = request.allow_user_to_manage_personal_ding_talk
         if not UtilClient.is_unset(request.enable_save_mfaticket):
             query['EnableSaveMFATicket'] = request.enable_save_mfaticket
-        if not UtilClient.is_unset(request.enforce_mfafor_login):
-            query['EnforceMFAForLogin'] = request.enforce_mfafor_login
         if not UtilClient.is_unset(request.login_network_masks):
             query['LoginNetworkMasks'] = request.login_network_masks
         if not UtilClient.is_unset(request.login_session_duration):
             query['LoginSessionDuration'] = request.login_session_duration
+        if not UtilClient.is_unset(request.mfaoperation_for_login):
+            query['MFAOperationForLogin'] = request.mfaoperation_for_login
+        if not UtilClient.is_unset(request.operation_for_risk_login):
+            query['OperationForRiskLogin'] = request.operation_for_risk_login
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1820,6 +1860,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_user_sso_settings_with_options(request, runtime)
 
+    def tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_principal_name):
+            query['ResourcePrincipalName'] = request.resource_principal_name
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagResources',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ims_20190815_models.TagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.tag_resources_with_options(request, runtime)
+
     def unbind_mfadevice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1847,6 +1921,42 @@ class Client(OpenApiClient):
     def unbind_mfadevice(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unbind_mfadevice_with_options(request, runtime)
+
+    def untag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_principal_name):
+            query['ResourcePrincipalName'] = request.resource_principal_name
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UntagResources',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ims_20190815_models.UntagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def untag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.untag_resources_with_options(request, runtime)
 
     def update_access_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)

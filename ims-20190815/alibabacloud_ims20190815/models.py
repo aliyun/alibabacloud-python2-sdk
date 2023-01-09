@@ -5155,13 +5155,14 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceAccessKeyPreference(Tea
 
 
 class GetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(TeaModel):
-    def __init__(self, allow_user_to_change_password=None, enable_save_mfaticket=None, enforce_mfafor_login=None,
-                 login_network_masks=None, login_session_duration=None):
+    def __init__(self, allow_user_to_change_password=None, enable_save_mfaticket=None, login_network_masks=None,
+                 login_session_duration=None, mfaoperation_for_login=None, operation_for_risk_login=None):
         self.allow_user_to_change_password = allow_user_to_change_password  # type: bool
         self.enable_save_mfaticket = enable_save_mfaticket  # type: bool
-        self.enforce_mfafor_login = enforce_mfafor_login  # type: bool
         self.login_network_masks = login_network_masks  # type: str
         self.login_session_duration = login_session_duration  # type: int
+        self.mfaoperation_for_login = mfaoperation_for_login  # type: str
+        self.operation_for_risk_login = operation_for_risk_login  # type: str
 
     def validate(self):
         pass
@@ -5176,12 +5177,14 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(
             result['AllowUserToChangePassword'] = self.allow_user_to_change_password
         if self.enable_save_mfaticket is not None:
             result['EnableSaveMFATicket'] = self.enable_save_mfaticket
-        if self.enforce_mfafor_login is not None:
-            result['EnforceMFAForLogin'] = self.enforce_mfafor_login
         if self.login_network_masks is not None:
             result['LoginNetworkMasks'] = self.login_network_masks
         if self.login_session_duration is not None:
             result['LoginSessionDuration'] = self.login_session_duration
+        if self.mfaoperation_for_login is not None:
+            result['MFAOperationForLogin'] = self.mfaoperation_for_login
+        if self.operation_for_risk_login is not None:
+            result['OperationForRiskLogin'] = self.operation_for_risk_login
         return result
 
     def from_map(self, m=None):
@@ -5190,12 +5193,14 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(
             self.allow_user_to_change_password = m.get('AllowUserToChangePassword')
         if m.get('EnableSaveMFATicket') is not None:
             self.enable_save_mfaticket = m.get('EnableSaveMFATicket')
-        if m.get('EnforceMFAForLogin') is not None:
-            self.enforce_mfafor_login = m.get('EnforceMFAForLogin')
         if m.get('LoginNetworkMasks') is not None:
             self.login_network_masks = m.get('LoginNetworkMasks')
         if m.get('LoginSessionDuration') is not None:
             self.login_session_duration = m.get('LoginSessionDuration')
+        if m.get('MFAOperationForLogin') is not None:
+            self.mfaoperation_for_login = m.get('MFAOperationForLogin')
+        if m.get('OperationForRiskLogin') is not None:
+            self.operation_for_risk_login = m.get('OperationForRiskLogin')
         return self
 
 
@@ -7383,6 +7388,244 @@ class ListSAMLProvidersResponse(TeaModel):
         return self
 
 
+class ListTagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListTagResourcesRequest(TeaModel):
+    def __init__(self, next_token=None, page_size=None, resource_id=None, resource_principal_name=None,
+                 resource_type=None, tag=None):
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_principal_name = resource_principal_name  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[ListTagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_principal_name is not None:
+            result['ResourcePrincipalName'] = self.resource_principal_name
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourcePrincipalName') is not None:
+            self.resource_principal_name = m.get('ResourcePrincipalName')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListTagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
+    def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResourcesTagResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class ListTagResourcesResponseBodyTagResources(TeaModel):
+    def __init__(self, tag_resource=None):
+        self.tag_resource = tag_resource  # type: list[ListTagResourcesResponseBodyTagResourcesTagResource]
+
+    def validate(self):
+        if self.tag_resource:
+            for k in self.tag_resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResources, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['TagResource'] = []
+        if self.tag_resource is not None:
+            for k in self.tag_resource:
+                result['TagResource'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag_resource = []
+        if m.get('TagResource') is not None:
+            for k in m.get('TagResource'):
+                temp_model = ListTagResourcesResponseBodyTagResourcesTagResource()
+                self.tag_resource.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagResourcesResponseBody(TeaModel):
+    def __init__(self, is_truncated=None, next_token=None, request_id=None, tag_resources=None):
+        self.is_truncated = is_truncated  # type: bool
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
+
+    def validate(self):
+        if self.tag_resources:
+            self.tag_resources.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_truncated is not None:
+            result['IsTruncated'] = self.is_truncated
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.tag_resources is not None:
+            result['TagResources'] = self.tag_resources.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsTruncated') is not None:
+            self.is_truncated = m.get('IsTruncated')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TagResources') is not None:
+            temp_model = ListTagResourcesResponseBodyTagResources()
+            self.tag_resources = temp_model.from_map(m['TagResources'])
+        return self
+
+
+class ListTagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListUserBasicInfosRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
@@ -9134,15 +9377,16 @@ class SetPasswordPolicyResponse(TeaModel):
 class SetSecurityPreferenceRequest(TeaModel):
     def __init__(self, allow_user_to_change_password=None, allow_user_to_manage_access_keys=None,
                  allow_user_to_manage_mfadevices=None, allow_user_to_manage_personal_ding_talk=None, enable_save_mfaticket=None,
-                 enforce_mfafor_login=None, login_network_masks=None, login_session_duration=None):
+                 login_network_masks=None, login_session_duration=None, mfaoperation_for_login=None, operation_for_risk_login=None):
         self.allow_user_to_change_password = allow_user_to_change_password  # type: bool
         self.allow_user_to_manage_access_keys = allow_user_to_manage_access_keys  # type: bool
         self.allow_user_to_manage_mfadevices = allow_user_to_manage_mfadevices  # type: bool
         self.allow_user_to_manage_personal_ding_talk = allow_user_to_manage_personal_ding_talk  # type: bool
         self.enable_save_mfaticket = enable_save_mfaticket  # type: bool
-        self.enforce_mfafor_login = enforce_mfafor_login  # type: bool
         self.login_network_masks = login_network_masks  # type: str
         self.login_session_duration = login_session_duration  # type: int
+        self.mfaoperation_for_login = mfaoperation_for_login  # type: str
+        self.operation_for_risk_login = operation_for_risk_login  # type: str
 
     def validate(self):
         pass
@@ -9163,12 +9407,14 @@ class SetSecurityPreferenceRequest(TeaModel):
             result['AllowUserToManagePersonalDingTalk'] = self.allow_user_to_manage_personal_ding_talk
         if self.enable_save_mfaticket is not None:
             result['EnableSaveMFATicket'] = self.enable_save_mfaticket
-        if self.enforce_mfafor_login is not None:
-            result['EnforceMFAForLogin'] = self.enforce_mfafor_login
         if self.login_network_masks is not None:
             result['LoginNetworkMasks'] = self.login_network_masks
         if self.login_session_duration is not None:
             result['LoginSessionDuration'] = self.login_session_duration
+        if self.mfaoperation_for_login is not None:
+            result['MFAOperationForLogin'] = self.mfaoperation_for_login
+        if self.operation_for_risk_login is not None:
+            result['OperationForRiskLogin'] = self.operation_for_risk_login
         return result
 
     def from_map(self, m=None):
@@ -9183,12 +9429,14 @@ class SetSecurityPreferenceRequest(TeaModel):
             self.allow_user_to_manage_personal_ding_talk = m.get('AllowUserToManagePersonalDingTalk')
         if m.get('EnableSaveMFATicket') is not None:
             self.enable_save_mfaticket = m.get('EnableSaveMFATicket')
-        if m.get('EnforceMFAForLogin') is not None:
-            self.enforce_mfafor_login = m.get('EnforceMFAForLogin')
         if m.get('LoginNetworkMasks') is not None:
             self.login_network_masks = m.get('LoginNetworkMasks')
         if m.get('LoginSessionDuration') is not None:
             self.login_session_duration = m.get('LoginSessionDuration')
+        if m.get('MFAOperationForLogin') is not None:
+            self.mfaoperation_for_login = m.get('MFAOperationForLogin')
+        if m.get('OperationForRiskLogin') is not None:
+            self.operation_for_risk_login = m.get('OperationForRiskLogin')
         return self
 
 
@@ -9217,13 +9465,14 @@ class SetSecurityPreferenceResponseBodySecurityPreferenceAccessKeyPreference(Tea
 
 
 class SetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(TeaModel):
-    def __init__(self, allow_user_to_change_password=None, enable_save_mfaticket=None, enforce_mfafor_login=None,
-                 login_network_masks=None, login_session_duration=None):
+    def __init__(self, allow_user_to_change_password=None, enable_save_mfaticket=None, login_network_masks=None,
+                 login_session_duration=None, mfaoperation_for_login=None, operation_for_risk_login=None):
         self.allow_user_to_change_password = allow_user_to_change_password  # type: bool
         self.enable_save_mfaticket = enable_save_mfaticket  # type: bool
-        self.enforce_mfafor_login = enforce_mfafor_login  # type: bool
         self.login_network_masks = login_network_masks  # type: str
         self.login_session_duration = login_session_duration  # type: int
+        self.mfaoperation_for_login = mfaoperation_for_login  # type: str
+        self.operation_for_risk_login = operation_for_risk_login  # type: str
 
     def validate(self):
         pass
@@ -9238,12 +9487,14 @@ class SetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(
             result['AllowUserToChangePassword'] = self.allow_user_to_change_password
         if self.enable_save_mfaticket is not None:
             result['EnableSaveMFATicket'] = self.enable_save_mfaticket
-        if self.enforce_mfafor_login is not None:
-            result['EnforceMFAForLogin'] = self.enforce_mfafor_login
         if self.login_network_masks is not None:
             result['LoginNetworkMasks'] = self.login_network_masks
         if self.login_session_duration is not None:
             result['LoginSessionDuration'] = self.login_session_duration
+        if self.mfaoperation_for_login is not None:
+            result['MFAOperationForLogin'] = self.mfaoperation_for_login
+        if self.operation_for_risk_login is not None:
+            result['OperationForRiskLogin'] = self.operation_for_risk_login
         return result
 
     def from_map(self, m=None):
@@ -9252,12 +9503,14 @@ class SetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(
             self.allow_user_to_change_password = m.get('AllowUserToChangePassword')
         if m.get('EnableSaveMFATicket') is not None:
             self.enable_save_mfaticket = m.get('EnableSaveMFATicket')
-        if m.get('EnforceMFAForLogin') is not None:
-            self.enforce_mfafor_login = m.get('EnforceMFAForLogin')
         if m.get('LoginNetworkMasks') is not None:
             self.login_network_masks = m.get('LoginNetworkMasks')
         if m.get('LoginSessionDuration') is not None:
             self.login_session_duration = m.get('LoginSessionDuration')
+        if m.get('MFAOperationForLogin') is not None:
+            self.mfaoperation_for_login = m.get('MFAOperationForLogin')
+        if m.get('OperationForRiskLogin') is not None:
+            self.operation_for_risk_login = m.get('OperationForRiskLogin')
         return self
 
 
@@ -9568,6 +9821,145 @@ class SetUserSsoSettingsResponse(TeaModel):
         return self
 
 
+class TagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class TagResourcesRequest(TeaModel):
+    def __init__(self, resource_id=None, resource_principal_name=None, resource_type=None, tag=None):
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_principal_name = resource_principal_name  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[TagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_principal_name is not None:
+            result['ResourcePrincipalName'] = self.resource_principal_name
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourcePrincipalName') is not None:
+            self.resource_principal_name = m.get('ResourcePrincipalName')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = TagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class TagResourcesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class TagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UnbindMFADeviceRequest(TeaModel):
     def __init__(self, user_principal_name=None):
         self.user_principal_name = user_principal_name  # type: str
@@ -9682,6 +10074,113 @@ class UnbindMFADeviceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UnbindMFADeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UntagResourcesRequest(TeaModel):
+    def __init__(self, all=None, resource_id=None, resource_principal_name=None, resource_type=None, tag_key=None):
+        self.all = all  # type: bool
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_principal_name = resource_principal_name  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all is not None:
+            result['All'] = self.all
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_principal_name is not None:
+            result['ResourcePrincipalName'] = self.resource_principal_name
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('All') is not None:
+            self.all = m.get('All')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourcePrincipalName') is not None:
+            self.resource_principal_name = m.get('ResourcePrincipalName')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        return self
+
+
+class UntagResourcesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UntagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UntagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UntagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
