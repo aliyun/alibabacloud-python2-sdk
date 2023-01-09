@@ -667,7 +667,7 @@ class Client(OpenApiClient):
 
     def clone_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CloneNacosConfigRequest
@@ -711,7 +711,7 @@ class Client(OpenApiClient):
 
     def clone_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CloneNacosConfigRequest
@@ -931,7 +931,7 @@ class Client(OpenApiClient):
 
     def create_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosConfigRequest
@@ -985,7 +985,7 @@ class Client(OpenApiClient):
 
     def create_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosConfigRequest
@@ -997,7 +997,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance_with_options(self, request, runtime):
         """
-        Programming language
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosInstanceRequest
@@ -1055,7 +1055,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance(self, request):
         """
-        Programming language
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosInstanceRequest
@@ -1067,7 +1067,7 @@ class Client(OpenApiClient):
 
     def create_nacos_service_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosServiceRequest
@@ -1115,7 +1115,7 @@ class Client(OpenApiClient):
 
     def create_nacos_service(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosServiceRequest
@@ -1210,6 +1210,8 @@ class Client(OpenApiClient):
             query['MessageQueueGrayEnable'] = request.message_queue_gray_enable
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.source):
@@ -1659,7 +1661,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_configs_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosConfigsRequest
@@ -1699,7 +1701,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_configs(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosConfigsRequest
@@ -1711,7 +1713,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_instance_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosInstanceRequest
@@ -1761,7 +1763,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_instance(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosInstanceRequest
@@ -1773,7 +1775,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_service_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosServiceRequest
@@ -1815,7 +1817,7 @@ class Client(OpenApiClient):
 
     def delete_nacos_service(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: DeleteNacosServiceRequest
@@ -1985,7 +1987,7 @@ class Client(OpenApiClient):
 
     def export_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ExportNacosConfigRequest
@@ -2031,7 +2033,7 @@ class Client(OpenApiClient):
 
     def export_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ExportNacosConfigRequest
@@ -2084,6 +2086,8 @@ class Client(OpenApiClient):
             query['AppName'] = request.app_name
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2128,6 +2132,8 @@ class Client(OpenApiClient):
             query['AppId'] = request.app_id
         if not UtilClient.is_unset(request.app_name):
             query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2451,7 +2457,7 @@ class Client(OpenApiClient):
 
     def get_import_file_url_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetImportFileUrlRequest
@@ -2491,7 +2497,7 @@ class Client(OpenApiClient):
 
     def get_import_file_url(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetImportFileUrlRequest
@@ -2595,7 +2601,7 @@ class Client(OpenApiClient):
 
     def get_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetNacosConfigRequest
@@ -2639,7 +2645,7 @@ class Client(OpenApiClient):
 
     def get_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetNacosConfigRequest
@@ -2651,7 +2657,7 @@ class Client(OpenApiClient):
 
     def get_nacos_history_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetNacosHistoryConfigRequest
@@ -2695,7 +2701,7 @@ class Client(OpenApiClient):
 
     def get_nacos_history_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: GetNacosHistoryConfigRequest
@@ -2957,7 +2963,7 @@ class Client(OpenApiClient):
 
     def import_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ImportNacosConfigRequest
@@ -2999,7 +3005,7 @@ class Client(OpenApiClient):
 
     def import_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ImportNacosConfigRequest
@@ -3133,7 +3139,7 @@ class Client(OpenApiClient):
 
     def list_ans_service_clusters_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListAnsServiceClustersRequest
@@ -3165,7 +3171,7 @@ class Client(OpenApiClient):
 
     def list_ans_service_clusters(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListAnsServiceClustersRequest
@@ -3177,7 +3183,7 @@ class Client(OpenApiClient):
 
     def list_ans_services_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListAnsServicesRequest
@@ -3209,7 +3215,7 @@ class Client(OpenApiClient):
 
     def list_ans_services(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListAnsServicesRequest
@@ -3901,7 +3907,7 @@ class Client(OpenApiClient):
 
     def list_nacos_configs_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListNacosConfigsRequest
@@ -3955,7 +3961,7 @@ class Client(OpenApiClient):
 
     def list_nacos_configs(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListNacosConfigsRequest
@@ -3967,7 +3973,7 @@ class Client(OpenApiClient):
 
     def list_nacos_history_configs_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListNacosHistoryConfigsRequest
@@ -4017,7 +4023,7 @@ class Client(OpenApiClient):
 
     def list_nacos_history_configs(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: ListNacosHistoryConfigsRequest
@@ -4316,6 +4322,8 @@ class Client(OpenApiClient):
             query['FuncType'] = request.func_type
         if not UtilClient.is_unset(request.loss_less_detail):
             query['LossLessDetail'] = request.loss_less_detail
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.notice):
             query['Notice'] = request.notice
         if not UtilClient.is_unset(request.region_id):
@@ -4383,6 +4391,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.offline_gateway_route_with_options(request, runtime)
 
+    def order_cluster_health_check_risk_notice_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mute):
+            query['Mute'] = request.mute
+        if not UtilClient.is_unset(request.notice_type):
+            query['NoticeType'] = request.notice_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.risk_code):
+            query['RiskCode'] = request.risk_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='OrderClusterHealthCheckRiskNotice',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.OrderClusterHealthCheckRiskNoticeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def order_cluster_health_check_risk_notice(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.order_cluster_health_check_risk_notice_with_options(request, runtime)
+
     def pull_services_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4416,6 +4464,36 @@ class Client(OpenApiClient):
     def pull_services(self, request):
         runtime = util_models.RuntimeOptions()
         return self.pull_services_with_options(request, runtime)
+
+    def put_cluster_health_check_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PutClusterHealthCheckTask',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.PutClusterHealthCheckTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def put_cluster_health_check_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.put_cluster_health_check_task_with_options(request, runtime)
 
     def query_all_swimming_lane_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4452,6 +4530,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5183,7 +5263,7 @@ class Client(OpenApiClient):
 
     def update_cluster_spec_with_options(self, request, runtime):
         """
-        You can call this API operation to update the number of nodes or specifications of a pay-as-you-go MSE instance. You are charged for node addition or specifications upgrades of the instance. For more information about billing, see [Billing overview](~~139842~~)
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~1806469~~`).
         
 
         @param request: UpdateClusterSpecRequest
@@ -5225,7 +5305,7 @@ class Client(OpenApiClient):
 
     def update_cluster_spec(self, request):
         """
-        You can call this API operation to update the number of nodes or specifications of a pay-as-you-go MSE instance. You are charged for node addition or specifications upgrades of the instance. For more information about billing, see [Billing overview](~~139842~~)
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~1806469~~`).
         
 
         @param request: UpdateClusterSpecRequest
@@ -5833,7 +5913,7 @@ class Client(OpenApiClient):
 
     def update_gateway_spec_with_options(self, request, runtime):
         """
-        You can call this operation to update the number or specifications of nodes in a pay-as-you-go cloud-native gateway. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~250950~~`).
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go cloud-native gateway. You are charged when you add nodes or upgrade node specifications. For more information, see [Pricing](~~250950~~).
         
 
         @param request: UpdateGatewaySpecRequest
@@ -5873,7 +5953,7 @@ class Client(OpenApiClient):
 
     def update_gateway_spec(self, request):
         """
-        You can call this operation to update the number or specifications of nodes in a pay-as-you-go cloud-native gateway. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~250950~~`).
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go cloud-native gateway. You are charged when you add nodes or upgrade node specifications. For more information, see [Pricing](~~250950~~).
         
 
         @param request: UpdateGatewaySpecRequest
@@ -6051,7 +6131,7 @@ class Client(OpenApiClient):
 
     def update_nacos_config_with_options(self, request, runtime):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: UpdateNacosConfigRequest
@@ -6109,7 +6189,7 @@ class Client(OpenApiClient):
 
     def update_nacos_config(self, request):
         """
-        > The current API operation is not provided in Nacos SDK. For information about Nacos SDK, see the [official Nacos documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: UpdateNacosConfigRequest
@@ -6191,7 +6271,7 @@ class Client(OpenApiClient):
 
     def update_nacos_service_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: UpdateNacosServiceRequest
@@ -6237,7 +6317,7 @@ class Client(OpenApiClient):
 
     def update_nacos_service(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For more information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: UpdateNacosServiceRequest
