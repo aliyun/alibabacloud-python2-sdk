@@ -115,6 +115,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_eai_with_options(request, runtime)
 
+    def change_resource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_region_id):
+            query['ResourceRegionId'] = request.resource_region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeResourceGroup',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.ChangeResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_resource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_resource_group_with_options(request, runtime)
+
     def create_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -126,6 +158,8 @@ class Client(OpenApiClient):
             query['InstanceType'] = request.instance_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.security_group_id):
             query['SecurityGroupId'] = request.security_group_id
         if not UtilClient.is_unset(request.v_switch_id):
@@ -154,6 +188,17 @@ class Client(OpenApiClient):
         return self.create_eai_with_options(request, runtime)
 
     def create_eai_all_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateEaiAllRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateEaiAllResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_image_id):
@@ -186,6 +231,8 @@ class Client(OpenApiClient):
             query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -206,8 +253,109 @@ class Client(OpenApiClient):
         )
 
     def create_eai_all(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateEaiAllRequest
+
+        @return: CreateEaiAllResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_eai_all_with_options(request, runtime)
+
+    def create_eai_eci_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eais_20190624_models.CreateEaiEciShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.eci):
+            request.eci_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.eci, 'Eci', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.eais_name):
+            query['EaisName'] = request.eais_name
+        if not UtilClient.is_unset(request.eais_type):
+            query['EaisType'] = request.eais_type
+        if not UtilClient.is_unset(request.eci_shrink):
+            query['Eci'] = request.eci_shrink
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEaiEci',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaiEciResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_eai_eci(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_eai_eci_with_options(request, runtime)
+
+    def create_eai_ecs_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eais_20190624_models.CreateEaiEcsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ecs):
+            request.ecs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ecs, 'Ecs', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.eais_name):
+            query['EaisName'] = request.eais_name
+        if not UtilClient.is_unset(request.eais_type):
+            query['EaisType'] = request.eais_type
+        if not UtilClient.is_unset(request.ecs_shrink):
+            query['Ecs'] = request.ecs_shrink
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEaiEcs',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaiEcsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_eai_ecs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_eai_ecs_with_options(request, runtime)
 
     def create_eai_jupyter_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -224,6 +372,8 @@ class Client(OpenApiClient):
             query['EnvironmentVar'] = request.environment_var_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.security_group_id):
             query['SecurityGroupId'] = request.security_group_id
         if not UtilClient.is_unset(request.v_switch_id):
@@ -330,6 +480,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
