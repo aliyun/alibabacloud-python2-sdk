@@ -4503,6 +4503,16 @@ class Client(OpenApiClient):
         return self.describe_dcdn_waf_service_with_options(request, runtime)
 
     def describe_dcdn_waf_spec_info_with_options(self, runtime):
+        """
+        You can call this operation up to 20 times per second per account.
+        
+
+        @param request: DescribeDcdnWafSpecInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDcdnWafSpecInfoResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeDcdnWafSpecInfo',
@@ -4521,6 +4531,12 @@ class Client(OpenApiClient):
         )
 
     def describe_dcdn_waf_spec_info(self):
+        """
+        You can call this operation up to 20 times per second per account.
+        
+
+        @return: DescribeDcdnWafSpecInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_waf_spec_info_with_options(runtime)
 
@@ -5627,6 +5643,16 @@ class Client(OpenApiClient):
         return self.tag_dcdn_resources_with_options(request, runtime)
 
     def untag_dcdn_resources_with_options(self, request, runtime):
+        """
+        >  You can call this API operation up to 100 times per second per account.
+        
+
+        @param request: UntagDcdnResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagDcdnResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -5657,6 +5683,14 @@ class Client(OpenApiClient):
         )
 
     def untag_dcdn_resources(self, request):
+        """
+        >  You can call this API operation up to 100 times per second per account.
+        
+
+        @param request: UntagDcdnResourcesRequest
+
+        @return: UntagDcdnResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.untag_dcdn_resources_with_options(request, runtime)
 

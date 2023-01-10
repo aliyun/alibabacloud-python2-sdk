@@ -23345,8 +23345,11 @@ class DescribeDcdnWafServiceResponse(TeaModel):
 
 class DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs(TeaModel):
     def __init__(self, config=None, expr=None, value=None):
+        # The configuration code of the protection rule.
         self.config = config  # type: str
+        # The configuration expression of the protection rule.
         self.expr = expr  # type: str
+        # The value of the configuration expression of the protection rule.
         self.value = value  # type: str
 
     def validate(self):
@@ -23379,7 +23382,16 @@ class DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs(TeaModel):
 
 class DescribeDcdnWafSpecInfoResponseBodySpecInfos(TeaModel):
     def __init__(self, configs=None, defense_scene=None):
+        # The configuration information of the protection rule.
         self.configs = configs  # type: list[DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs]
+        # The type of the protection policy. Valid values:
+        # 
+        # *   waf_group: basic web protection
+        # *   custom_acl: custom protection
+        # *   whitelist: IP address whitelist
+        # *   ip_blacklist: IP address blacklist
+        # *   region_block: region blacklist
+        # *   bot: bot management
         self.defense_scene = defense_scene  # type: str
 
     def validate(self):
@@ -23416,8 +23428,11 @@ class DescribeDcdnWafSpecInfoResponseBodySpecInfos(TeaModel):
 
 class DescribeDcdnWafSpecInfoResponseBody(TeaModel):
     def __init__(self, edition=None, request_id=None, spec_infos=None):
+        # The version of WAF.
         self.edition = edition  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The supported types of protection policies and the configuration information of protection rules.
         self.spec_infos = spec_infos  # type: list[DescribeDcdnWafSpecInfoResponseBodySpecInfos]
 
     def validate(self):
@@ -27684,9 +27699,18 @@ class TagDcdnResourcesResponse(TeaModel):
 
 class UntagDcdnResourcesRequest(TeaModel):
     def __init__(self, all=None, resource_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to delete all tags. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        # 
+        # Default value: **false**.
         self.all = all  # type: bool
+        # The ID of the resource. Valid values of N: **1** to **50**.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resources from which you want to detach tags. The resource type. Set this value to **DOMAIN**.
         self.resource_type = resource_type  # type: str
+        # The key of a tag. Valid values of N: **1** to **20**.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -27723,6 +27747,7 @@ class UntagDcdnResourcesRequest(TeaModel):
 
 class UntagDcdnResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
