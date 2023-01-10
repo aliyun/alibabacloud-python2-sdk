@@ -684,6 +684,7 @@ class EventSourceParameters(TeaModel):
 class HTTPTriggerConfig(TeaModel):
     def __init__(self, auth_type=None, disable_urlinternet=None, methods=None):
         self.auth_type = auth_type  # type: str
+        # 禁用默认公网域名访问的开关，设置为true 时，访问函数默认提供的公网URL地址会返回403错误。设置为 false 则不会有任何影响。
         self.disable_urlinternet = disable_urlinternet  # type: bool
         self.methods = methods  # type: list[str]
 
@@ -1210,8 +1211,9 @@ class NASConfig(TeaModel):
 
 
 class OSSMountConfigMountPoints(TeaModel):
-    def __init__(self, bucket_name=None, endpoint=None, mount_dir=None, read_only=None):
+    def __init__(self, bucket_name=None, bucket_path=None, endpoint=None, mount_dir=None, read_only=None):
         self.bucket_name = bucket_name  # type: str
+        self.bucket_path = bucket_path  # type: str
         self.endpoint = endpoint  # type: str
         self.mount_dir = mount_dir  # type: str
         self.read_only = read_only  # type: bool
@@ -1227,6 +1229,8 @@ class OSSMountConfigMountPoints(TeaModel):
         result = dict()
         if self.bucket_name is not None:
             result['bucketName'] = self.bucket_name
+        if self.bucket_path is not None:
+            result['bucketPath'] = self.bucket_path
         if self.endpoint is not None:
             result['endpoint'] = self.endpoint
         if self.mount_dir is not None:
@@ -1239,6 +1243,8 @@ class OSSMountConfigMountPoints(TeaModel):
         m = m or dict()
         if m.get('bucketName') is not None:
             self.bucket_name = m.get('bucketName')
+        if m.get('bucketPath') is not None:
+            self.bucket_path = m.get('bucketPath')
         if m.get('endpoint') is not None:
             self.endpoint = m.get('endpoint')
         if m.get('mountDir') is not None:
@@ -2429,16 +2435,21 @@ class ClaimGPUInstanceHeaders(TeaModel):
 
 class ClaimGPUInstanceRequest(TeaModel):
     def __init__(self, disk_performance_level=None, disk_size_gigabytes=None, image_id=None, instance_type=None,
-                 internet_bandwidth_out=None, password=None, source_cidr_ip=None, tcp_port_range=None, udp_port_range=None):
+                 internet_bandwidth_out=None, password=None, role=None, sg_id=None, source_cidr_ip=None, tcp_port_range=None,
+                 udp_port_range=None, vpc_id=None, vsw_id=None):
         self.disk_performance_level = disk_performance_level  # type: str
         self.disk_size_gigabytes = disk_size_gigabytes  # type: str
         self.image_id = image_id  # type: str
         self.instance_type = instance_type  # type: str
         self.internet_bandwidth_out = internet_bandwidth_out  # type: str
         self.password = password  # type: str
+        self.role = role  # type: str
+        self.sg_id = sg_id  # type: str
         self.source_cidr_ip = source_cidr_ip  # type: str
         self.tcp_port_range = tcp_port_range  # type: list[str]
         self.udp_port_range = udp_port_range  # type: list[str]
+        self.vpc_id = vpc_id  # type: str
+        self.vsw_id = vsw_id  # type: str
 
     def validate(self):
         pass
@@ -2461,12 +2472,20 @@ class ClaimGPUInstanceRequest(TeaModel):
             result['internetBandwidthOut'] = self.internet_bandwidth_out
         if self.password is not None:
             result['password'] = self.password
+        if self.role is not None:
+            result['role'] = self.role
+        if self.sg_id is not None:
+            result['sgId'] = self.sg_id
         if self.source_cidr_ip is not None:
             result['sourceCidrIp'] = self.source_cidr_ip
         if self.tcp_port_range is not None:
             result['tcpPortRange'] = self.tcp_port_range
         if self.udp_port_range is not None:
             result['udpPortRange'] = self.udp_port_range
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        if self.vsw_id is not None:
+            result['vswId'] = self.vsw_id
         return result
 
     def from_map(self, m=None):
@@ -2483,12 +2502,20 @@ class ClaimGPUInstanceRequest(TeaModel):
             self.internet_bandwidth_out = m.get('internetBandwidthOut')
         if m.get('password') is not None:
             self.password = m.get('password')
+        if m.get('role') is not None:
+            self.role = m.get('role')
+        if m.get('sgId') is not None:
+            self.sg_id = m.get('sgId')
         if m.get('sourceCidrIp') is not None:
             self.source_cidr_ip = m.get('sourceCidrIp')
         if m.get('tcpPortRange') is not None:
             self.tcp_port_range = m.get('tcpPortRange')
         if m.get('udpPortRange') is not None:
             self.udp_port_range = m.get('udpPortRange')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        if m.get('vswId') is not None:
+            self.vsw_id = m.get('vswId')
         return self
 
 
@@ -2568,8 +2595,11 @@ class ClaimGPUInstanceResponse(TeaModel):
 class CreateAliasHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -2607,11 +2637,23 @@ class CreateAliasHeaders(TeaModel):
 class CreateAliasRequest(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, description=None, resolve_policy=None,
                  route_policy=None, version_id=None):
+        # The canary release version to which the alias points and the weight of the canary release version.
+        # 
+        # *   The canary release version takes effect only when the function is invoked.
+        # *   The value consists of a version number and a specific weight. For example, 2:0.05 indicates that when a function is invoked, Version 2 is the canary release version, 5% of the traffic is distributed to the canary release version, and 95% of the traffic is distributed to the major version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The name of the alias.  The name contains only letters, digits, hyphens (-), and underscores (\_). The name must be 1 to 128 characters in length and cannot start with a digit or hyphen (-).  The name cannot be **LATEST**.
         self.alias_name = alias_name  # type: str
+        # The description of the alias.
         self.description = description  # type: str
+        # The canary release mode. Valid values:
+        # 
+        # *   **Random**: random canary release. This is the default value.
+        # *   **Content**: rule-based canary release.
         self.resolve_policy = resolve_policy  # type: str
+        # The canary release rule. Traffic that meets the canary release rule is routed to the canary release instance.
         self.route_policy = route_policy  # type: RoutePolicy
+        # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -2659,11 +2701,20 @@ class CreateAliasRequest(TeaModel):
 class CreateAliasResponseBody(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
                  last_modified_time=None, version_id=None):
+        # The canary release version to which the alias points and the weight of the canary release version.
+        # 
+        # *   The canary release version takes effect only when the function is invoked.
+        # *   The value consists of a version number and a specific weight. For example, 2:0.05 indicates that when a function is invoked, Version 2 is the canary release version, 5% of the traffic is distributed to the canary release version, and 95% of the traffic is distributed to the major version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The name of the alias.
         self.alias_name = alias_name  # type: str
+        # The time when the alias was created.
         self.created_time = created_time  # type: str
+        # The description of the alias.
         self.description = description  # type: str
+        # The time when the alias was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -2748,8 +2799,11 @@ class CreateAliasResponse(TeaModel):
 class CreateCustomDomainHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -2786,10 +2840,19 @@ class CreateCustomDomainHeaders(TeaModel):
 
 class CreateCustomDomainRequest(TeaModel):
     def __init__(self, cert_config=None, domain_name=None, protocol=None, route_config=None, tls_config=None):
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The protocol types supported by the domain name. Valid values:
+        # 
+        # - **HTTP**: Only HTTP is supported. 
+        # - **HTTPS**: Only HTTPS is supported. 
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -2839,14 +2902,27 @@ class CreateCustomDomainRequest(TeaModel):
 class CreateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+        # The ID of the account.
         self.account_id = account_id  # type: str
+        # The version of the API.
         self.api_version = api_version  # type: str
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The time when the domain name was added.
         self.created_time = created_time  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The protocol types supported by the domain name. Valid values:
+        # 
+        # - **HTTP**: Only HTTP is supported. 
+        # - **HTTPS**: Only HTTPS is supported. 
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -2952,9 +3028,13 @@ class CreateFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
                  x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The CRC-64 value of the function code package.
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request. The value is the same as that of the requestId parameter in the response.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -2999,27 +3079,56 @@ class CreateFunctionRequest(TeaModel):
                  function_name=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
                  runtime=None, timeout=None):
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # The code of the function. The code must be packaged into a ZIP file. Choose **code** or **customContainerConfig** for the function.
         self.code = code  # type: Code
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The configurations of the custom container runtime. After you configure the custom container runtime, Function Compute can execute the function in a container created from a custom image. Choose **code** or **customContainerConfig** for the function.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # The custom Domain Name System (DNS) configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The name of the function. The name can contain letters, digits, underscores (\_), and hyphens (-) only. The name cannot start with a digit or a hyphen (-). The name must be 1 to 64 characters in length.
         self.function_name = function_name  # type: str
+        # The handler of the function. The format varies based on the programming language. For more information, see [Function handlers](~~157704~~).
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period expires, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. For more information, see [Initializer functions](~~157704~~).
         self.initializer = initializer  # type: str
+        # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
+        # The memory size for the function. Unit: MB. The memory size must be a multiple of 64 MB. The memory size varies based on the function instance type. For more information, see [Instance types](~~179379~~).
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -3150,31 +3259,64 @@ class CreateFunctionResponseBody(TeaModel):
                  handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
                  memory_size=None, runtime=None, timeout=None):
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # The CRC-64 value of the function code package.
         self.code_checksum = code_checksum  # type: str
+        # The size of the function code package that is returned by the system. Unit: byte.
         self.code_size = code_size  # type: long
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The time when the function was created.
         self.created_time = created_time  # type: str
+        # The configurations of the custom container runtime. After you configure the custom container runtime, Function Compute can execute the function in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # The custom DNS configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The unique ID generated by the system for the function.
         self.function_id = function_id  # type: str
+        # The name of the function.
         self.function_name = function_name  # type: str
+        # The handler of the function.
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. The format is determined by the programming language.
         self.initializer = initializer  # type: str
+        # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # The time when the function was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
+        # The memory size for the function. Unit: MB.
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 60. Valid values: 1 to 600. When this period expires, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -3353,8 +3495,11 @@ class CreateFunctionResponse(TeaModel):
 class CreateLayerVersionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -3391,8 +3536,11 @@ class CreateLayerVersionHeaders(TeaModel):
 
 class CreateLayerVersionRequest(TeaModel):
     def __init__(self, code=None, compatible_runtime=None, description=None):
+        # The code of the layer.
         self.code = code  # type: Code
+        # The list of runtime environments that are supported by the layer.
         self.compatible_runtime = compatible_runtime  # type: list[str]
+        # The description of the layer.
         self.description = description  # type: str
 
     def validate(self):
@@ -3428,15 +3576,25 @@ class CreateLayerVersionRequest(TeaModel):
 class CreateLayerVersionResponseBody(TeaModel):
     def __init__(self, acl=None, arn=None, code=None, code_checksum=None, codesize=None, compatible_runtime=None,
                  create_time=None, description=None, layer_name=None, version=None):
+        # The access mode of the layer.
         self.acl = acl  # type: int
+        # The name of the layer.
         self.arn = arn  # type: str
+        # The information about the layer code package.
         self.code = code  # type: OutputCodeLocation
+        # The checksum of the layer code package.
         self.code_checksum = code_checksum  # type: str
+        # The size of the layer code package. Unit: Byte.
         self.codesize = codesize  # type: long
+        # The list of runtime environments that are supported by the layer.
         self.compatible_runtime = compatible_runtime  # type: list[str]
+        # The time when the layer version was created. The time follows the **yyyy-MM-ddTHH:mm:ssZ** format.
         self.create_time = create_time  # type: str
+        # The description of the layer version.
         self.description = description  # type: str
+        # The name of the layer.
         self.layer_name = layer_name  # type: str
+        # The version of the layer.
         self.version = version  # type: int
 
     def validate(self):
@@ -3539,8 +3697,11 @@ class CreateLayerVersionResponse(TeaModel):
 class CreateServiceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -3578,14 +3739,29 @@ class CreateServiceHeaders(TeaModel):
 class CreateServiceRequest(TeaModel):
     def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None,
                  oss_mount_config=None, role=None, service_name=None, tracing_config=None, vpc_config=None):
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # - **true**: allows functions in the specified service to access the Internet. Default value: true.
+        # - **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The log configuration. Function Compute writes function execution logs to the specified Logstore.
         self.log_config = log_config  # type: LogConfig
+        # The configuration of the Apsara File Storage NAS (NAS) file system. The configurations allow functions in the specified service to access the NAS file system.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. The RAM role is used in the following scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The name of the service. The name contains only letters, digits, hyphens (-), and underscores (_). The name must be 1 to 128 characters in length and cannot start with a digit or hyphen (-).
         self.service_name = service_name  # type: str
+        # The configurations of Tracing Analysis. After Function Compute is integrated with Tracing Analysis, you can record the duration of a request in Function Compute, view the cold start time of a function, and record the execution duration of a function. For more information, see [Tracing Analysis](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The VPC configurations. The configurations allow functions in the specified service to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -3658,17 +3834,35 @@ class CreateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
                  tracing_config=None, vpc_config=None):
+        # The time when the service was created.
         self.created_time = created_time  # type: str
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # *   **true**: allows functions in the specified service to access the Internet.
+        # *   **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The time when the service was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The log configuration. Function Compute writes function execution logs to the specified Logstore.
         self.log_config = log_config  # type: LogConfig
+        # The configuration of the NAS file system. The configurations allow functions in the specified service to access the NAS file system.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. The RAM role is used in the following scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The unique ID generated by the system for the service.
         self.service_id = service_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The configuration of Tracing Analysis. After Function Compute is integrated with Tracing Analysis, you can record the duration of a request in Function Compute, view the cold start time of a function, and record the execution duration of a function. For more information, see [Tracing Analysis](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The VPC configurations. The configurations allow functions in the specified service to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -3791,8 +3985,11 @@ class CreateServiceResponse(TeaModel):
 class CreateTriggerHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the request is initiated on the client. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -3830,12 +4027,35 @@ class CreateTriggerHeaders(TeaModel):
 class CreateTriggerRequest(TeaModel):
     def __init__(self, description=None, invocation_role=None, qualifier=None, source_arn=None, trigger_config=None,
                  trigger_name=None, trigger_type=None):
+        # The description of the trigger.
         self.description = description  # type: str
+        # The role that is used by the event source such as OSS to invoke the function. For more information, see [Overview](~~53102~~).
         self.invocation_role = invocation_role  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the event source for the trigger.
         self.source_arn = source_arn  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type. For more information about the format, see the following topics:
+        # 
+        # *   OSS trigger: [OSSTriggerConfig](javascript:void\(0\)).
+        # *   Log Service trigger: [LogTriggerConfig](javascript:void\(0\)).
+        # *   Time trigger: [TimeTriggerConfig](javascript:void\(0\)).
+        # *   HTTP trigger: [HTTPTriggerConfig](javascript:void\(0\)).
+        # *   Tablestore trigger: Specify the **SourceArn** parameter and leave this parameter empty.
+        # *   Alibaba Cloud CDN event trigger: [CDNEventsTriggerConfig](javascript:void\(0\)).
+        # *   MNS topic trigger: [MnsTopicTriggerConfig](javascript:void\(0\)).
         self.trigger_config = trigger_config  # type: str
+        # The name of the trigger. The name contains only letters, digits, hyphens (-), and underscores (\_). The name must be 1 to 128 characters in length and cannot start with a digit or hyphen (-).
         self.trigger_name = trigger_name  # type: str
+        # The type of the trigger. Valid values:
+        # 
+        # *   **oss**: OSS event trigger. For more information, see [Overview](~~62922~~).
+        # *   **log**: Log Service trigger. For more information, see [Overview](~~84386~~).
+        # *   **timer**: time trigger. For more information, see [Overview](~~68172~~).
+        # *   **http**: HTTP trigger. For more information, see [Overview](~~71229~~).
+        # *   **tablestore**: Tablestore trigger. For more information, see [Overview](~~100092~~).
+        # *   **cdn_events**: CDN event trigger. For more information, see [Overview](~~73333~~).
+        # *   **mns_topic**: MNS topic trigger. For more information, see [Overview](~~97032~~).
         self.trigger_type = trigger_type  # type: str
 
     def validate(self):
@@ -3886,18 +4106,31 @@ class CreateTriggerResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
                  last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
                  trigger_type=None, url_internet=None, url_intranet=None):
+        # The time when the trigger was created.
         self.created_time = created_time  # type: str
+        # The description of the trigger.
         self.description = description  # type: str
+        # The domain name used to invoke the function by using HTTP. You can add this domain name as the prefix to the endpoint of Function Compute. This way, you can invoke the function that corresponds to the trigger by using HTTP. For example, `{domainName}.cn-shanghai.fc.aliyuncs.com`.
         self.domain_name = domain_name  # type: str
+        # The ARN of the RAM role that is used by the event source to invoke the function.
         self.invocation_role = invocation_role  # type: str
+        # The time when the trigger was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The version of the service.
         self.qualifier = qualifier  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type.
         self.trigger_config = trigger_config  # type: str
+        # The unique ID of the trigger.
         self.trigger_id = trigger_id  # type: str
+        # The name of the trigger. The name contains only letters, digits, hyphens (-), and underscores (\_). The name must be 1 to 128 characters in length and cannot start with a digit or hyphen (-).
         self.trigger_name = trigger_name  # type: str
+        # The trigger type, such as **oss**, **log**, **tablestore**, **timer**, **http**, **cdn_events**, and **mns_topic**.
         self.trigger_type = trigger_type  # type: str
+        # The public domain address. You can access HTTP triggers over the Internet by using HTTP or HTTPS.
         self.url_internet = url_internet  # type: str
+        # The private endpoint. In a VPC, you can access HTTP triggers by using HTTP or HTTPS.
         self.url_intranet = url_intranet  # type: str
 
     def validate(self):
@@ -4010,8 +4243,11 @@ class CreateTriggerResponse(TeaModel):
 class CreateVpcBindingHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4048,6 +4284,7 @@ class CreateVpcBindingHeaders(TeaModel):
 
 class CreateVpcBindingRequest(TeaModel):
     def __init__(self, vpc_id=None):
+        # The ID of the VPC to be bound.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -4103,9 +4340,15 @@ class CreateVpcBindingResponse(TeaModel):
 class DeleteAliasHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # If the ETag specified in the request matches the ETag value of the object, OSS transmits the object and returns 200 OK. If the ETag specified in the request does not match the ETag value of the object, OSS returns 412 Precondition Failed. 
+        # The ETag value of a resource is used to check whether the resource has changed. You can check data integrity by using the ETag value. 
+        # Default value: null
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4177,8 +4420,11 @@ class DeleteAliasResponse(TeaModel):
 class DeleteCustomDomainHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4246,9 +4492,13 @@ class DeleteCustomDomainResponse(TeaModel):
 class DeleteFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ETag value of the resource. This value is used to ensure that the modified resource is consistent with the resource to be modified. The ETag value is returned in the responses of the CREATE, GET, and UPDATE operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API. The value is the same as that of the requestId parameter in the response.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4320,8 +4570,11 @@ class DeleteFunctionResponse(TeaModel):
 class DeleteFunctionAsyncInvokeConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4358,6 +4611,7 @@ class DeleteFunctionAsyncInvokeConfigHeaders(TeaModel):
 
 class DeleteFunctionAsyncInvokeConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The qualifier.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -4413,9 +4667,13 @@ class DeleteFunctionAsyncInvokeConfigResponse(TeaModel):
 class DeleteFunctionOnDemandConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # If the ETag specified in the request matches the ETag value of the OndemandConfig, FC returns 200 OK. If the ETag specified in the request does not match the ETag value of the object, FC returns 412 Precondition Failed.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API, which is also the unique ID of the request.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4456,6 +4714,7 @@ class DeleteFunctionOnDemandConfigHeaders(TeaModel):
 
 class DeleteFunctionOnDemandConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The alias of the service or LATEST.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -4511,8 +4770,11 @@ class DeleteFunctionOnDemandConfigResponse(TeaModel):
 class DeleteLayerVersionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4580,9 +4842,13 @@ class DeleteLayerVersionResponse(TeaModel):
 class DeleteServiceHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ETag value of the service. This value is used to ensure that the modified service is consistent with the service to be modified. The ETag value is returned in the responses of the [CreateService](~~175256~~), [UpdateService](~~188167~~), and [GetService](~~189225~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4654,8 +4920,11 @@ class DeleteServiceResponse(TeaModel):
 class DeleteServiceVersionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4723,9 +4992,13 @@ class DeleteServiceVersionResponse(TeaModel):
 class DeleteTriggerHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # This parameter is used to ensure that the modified resource is consistent with the resource to be modified. You can obtain the parameter value from the responses of [CreateTrigger](~~415729~~), [GetTrigger](~~415732~~), and [UpdateTrigger](~~415731~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the request is initiated on the client. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4797,8 +5070,11 @@ class DeleteTriggerResponse(TeaModel):
 class DeleteVpcBindingHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4866,8 +5142,11 @@ class DeleteVpcBindingResponse(TeaModel):
 class DeregisterEventSourceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4904,6 +5183,7 @@ class DeregisterEventSourceHeaders(TeaModel):
 
 class DeregisterEventSourceRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -4959,8 +5239,11 @@ class DeregisterEventSourceResponse(TeaModel):
 class GetAccountSettingsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -4997,7 +5280,9 @@ class GetAccountSettingsHeaders(TeaModel):
 
 class GetAccountSettingsResponseBody(TeaModel):
     def __init__(self, available_azs=None, default_role=None):
+        # The list of zones.
         self.available_azs = available_azs  # type: list[str]
+        # The default RAM role.
         self.default_role = default_role  # type: str
 
     def validate(self):
@@ -5066,8 +5351,11 @@ class GetAccountSettingsResponse(TeaModel):
 class GetAliasHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5105,13 +5393,27 @@ class GetAliasHeaders(TeaModel):
 class GetAliasResponseBody(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
                  last_modified_time=None, resolve_policy=None, route_policy=None, version_id=None):
+        # The canary release version to which the alias points and the weight of the canary release version. 
+        # 
+        # - The canary release version takes effect only when the function is invoked. 
+        # - The value consists of a version number and the corresponding weight. For example, 2:0.05 indicates that when a function is invoked, Version 2 is the canary release version, 5% of the traffic is distributed to the canary release version, and 95% of the traffic is distributed to the major version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The name of the alias.
         self.alias_name = alias_name  # type: str
+        # The time when the alias was created.
         self.created_time = created_time  # type: str
+        # The description of the alias.
         self.description = description  # type: str
+        # The time when the alias was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The canary release mode. Valid values:
+        # 
+        # - **Random**: random canary release. This is the default value.
+        # - **Content**: rule-based canary release.
         self.resolve_policy = resolve_policy  # type: str
+        # Canary release rule. The traffic that meets the conditions of the canary release rule is diverted to the canary release instances.
         self.route_policy = route_policy  # type: RoutePolicy
+        # The version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -5206,8 +5508,11 @@ class GetAliasResponse(TeaModel):
 class GetCustomDomainHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5245,14 +5550,27 @@ class GetCustomDomainHeaders(TeaModel):
 class GetCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+        # The version number of the API.
         self.account_id = account_id  # type: str
+        # The version number of the API.
         self.api_version = api_version  # type: str
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The time when the domain name was added.
         self.created_time = created_time  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The protocol types supported by the domain name. Valid values:
+        # 
+        # - **HTTP**: Only HTTP is supported. 
+        # - **HTTPS**: Only HTTPS is supported. 
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -5357,8 +5675,11 @@ class GetCustomDomainResponse(TeaModel):
 class GetFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5395,6 +5716,7 @@ class GetFunctionHeaders(TeaModel):
 
 class GetFunctionRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -5424,32 +5746,65 @@ class GetFunctionResponseBody(TeaModel):
                  handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
                  layers_arn_v2=None, memory_size=None, runtime=None, timeout=None):
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # The CRC-64 value of the function code package.
         self.code_checksum = code_checksum  # type: str
+        # The size of the function code package. Unit: byte.
         self.code_size = code_size  # type: long
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The time when the function was created.
         self.created_time = created_time  # type: str
+        # The configurations of the custom container runtime. After you configure the custom container runtime, Function Compute can execute the function in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfigInfo
+        # The custom Domain Name System (DNS) configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The ID that is generated by the system for the function. Each function ID is unique in Function Compute.
         self.function_id = function_id  # type: str
+        # The name of the function.
         self.function_name = function_name  # type: str
+        # The handler of the function. For more information, see [Function handler](~~157704~~).
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. The format of the value is determined by the programming language that you use. For more information, see [Initializer function](~~157704~~).
         self.initializer = initializer  # type: str
+        # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # The time when the function was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
         self.layers_arn_v2 = layers_arn_v2  # type: list[str]
+        # The memory size for the function. Unit: MB. The memory size must be a multiple of 64 MB. The memory size varies based on the function instance type. For more information, see [Instance types](~~179379~~).
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 60. Valid values: 1 to 600. When this period expires, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -5632,8 +5987,11 @@ class GetFunctionResponse(TeaModel):
 class GetFunctionAsyncInvokeConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the Function Compute is called. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5670,6 +6028,7 @@ class GetFunctionAsyncInvokeConfigHeaders(TeaModel):
 
 class GetFunctionAsyncInvokeConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The qualifier.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -5695,14 +6054,26 @@ class GetFunctionAsyncInvokeConfigRequest(TeaModel):
 class GetFunctionAsyncInvokeConfigResponseBody(TeaModel):
     def __init__(self, created_time=None, destination_config=None, function=None, last_modified_time=None,
                  max_async_event_age_in_seconds=None, max_async_retry_attempts=None, qualifier=None, service=None, stateful_invocation=None):
+        # The time when the desktop group was created.
         self.created_time = created_time  # type: str
+        # The configuration structure of the destination for asynchronous invocations.
         self.destination_config = destination_config  # type: DestinationConfig
+        # The name of the function.
         self.function = function  # type: str
+        # The time when the configuration was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The maximum validity period of a message.
         self.max_async_event_age_in_seconds = max_async_event_age_in_seconds  # type: long
+        # The maximum number of retries allowed after an asynchronous invocation fails.
         self.max_async_retry_attempts = max_async_retry_attempts  # type: long
+        # The version or alias of the service to which the function belongs.
         self.qualifier = qualifier  # type: str
+        # The name of the service.
         self.service = service  # type: str
+        # Indicates whether the asynchronous task feature is enabled.
+        # 
+        # *   **true**: The asynchronous task feature is enabled.
+        # *   **false**: The asynchronous task feature is disabled.
         self.stateful_invocation = stateful_invocation  # type: bool
 
     def validate(self):
@@ -5801,8 +6172,11 @@ class GetFunctionAsyncInvokeConfigResponse(TeaModel):
 class GetFunctionCodeHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5839,6 +6213,7 @@ class GetFunctionCodeHeaders(TeaModel):
 
 class GetFunctionCodeRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -5863,7 +6238,9 @@ class GetFunctionCodeRequest(TeaModel):
 
 class GetFunctionCodeResponseBody(TeaModel):
     def __init__(self, checksum=None, url=None):
+        # The CRC-64 value of the function code package.
         self.checksum = checksum  # type: str
+        # The URL of the function code package.
         self.url = url  # type: str
 
     def validate(self):
@@ -5932,8 +6309,11 @@ class GetFunctionCodeResponse(TeaModel):
 class GetFunctionOnDemandConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the yyyy-mm-ddhh:mm:ss format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API, which is also the unique ID of the request.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -5970,6 +6350,7 @@ class GetFunctionOnDemandConfigHeaders(TeaModel):
 
 class GetFunctionOnDemandConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The alias of the service or LATEST.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -5994,7 +6375,9 @@ class GetFunctionOnDemandConfigRequest(TeaModel):
 
 class GetFunctionOnDemandConfigResponseBody(TeaModel):
     def __init__(self, maximum_instance_count=None, resource=None):
+        # The maximum number of instances.
         self.maximum_instance_count = maximum_instance_count  # type: long
+        # The description of the resource.
         self.resource = resource  # type: str
 
     def validate(self):
@@ -6063,8 +6446,11 @@ class GetFunctionOnDemandConfigResponse(TeaModel):
 class GetLayerVersionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6141,8 +6527,11 @@ class GetLayerVersionResponse(TeaModel):
 class GetProvisionConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6179,6 +6568,7 @@ class GetProvisionConfigHeaders(TeaModel):
 
 class GetProvisionConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The name of the alias.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -6204,12 +6594,19 @@ class GetProvisionConfigRequest(TeaModel):
 class GetProvisionConfigResponseBody(TeaModel):
     def __init__(self, always_allocate_cpu=None, current=None, current_error=None, resource=None,
                  scheduled_actions=None, target=None, target_tracking_policies=None):
+        # Specifies whether to always allocate CPU to a function instance.
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        # The actual number of provisioned instances.
         self.current = current  # type: long
+        # The error message returned if a provisioned instance fails to be created.
         self.current_error = current_error  # type: str
+        # The description of the resource.
         self.resource = resource  # type: str
+        # The configurations of scheduled auto scaling.
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledActions]
+        # The expected number of provisioned instances.
         self.target = target  # type: long
+        # The configurations of metric-based auto scaling.
         self.target_tracking_policies = target_tracking_policies  # type: list[TargetTrackingPolicies]
 
     def validate(self):
@@ -6315,8 +6712,11 @@ class GetProvisionConfigResponse(TeaModel):
 class GetResourceTagsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6353,6 +6753,9 @@ class GetResourceTagsHeaders(TeaModel):
 
 class GetResourceTagsRequest(TeaModel):
     def __init__(self, resource_arn=None):
+        # The Alibaba Cloud Resource Name (ARN) of the resource. 
+        # 
+        # > You can use the value of this parameter to query the information about the resource, such as the account, service, and region information of the resource. You can manage tags only for services for top level resources.
         self.resource_arn = resource_arn  # type: str
 
     def validate(self):
@@ -6377,7 +6780,11 @@ class GetResourceTagsRequest(TeaModel):
 
 class GetResourceTagsResponseBody(TeaModel):
     def __init__(self, resource_arn=None, tags=None):
+        # The ARN of the resource. 
+        # 
+        # > You can use the value of this parameter to query the information about the resource, such as the account, service, and region information of the resource.
         self.resource_arn = resource_arn  # type: str
+        # The tag dictionary.
         self.tags = tags  # type: dict[str, str]
 
     def validate(self):
@@ -6446,8 +6853,11 @@ class GetResourceTagsResponse(TeaModel):
 class GetServiceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6484,6 +6894,7 @@ class GetServiceHeaders(TeaModel):
 
 class GetServiceRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -6510,17 +6921,35 @@ class GetServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
                  tracing_config=None, vpc_config=None):
+        # The time when the service was created.
         self.created_time = created_time  # type: str
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # *   **true**: allows functions in the specified service to access the Internet.
+        # *   **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The time when the service was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The log configuration, which specifies a Logstore to store function execution logs.
         self.log_config = log_config  # type: LogConfig
+        # The configuration of the NAS file system. The configuration allows functions in the specified service in Function Compute to access the NAS file system.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. Scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The unique ID generated by the system for the service.
         self.service_id = service_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The configurations of Tracing Analysis. After you configure Tracing Analysis for a service in Function Compute, you can record the execution duration of a request, view the amount of cold start time for a function, and record the execution duration of a function. For more information, see [Overview](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The VPC configuration. The configuration allows a function to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -6644,11 +7073,23 @@ class GetStatefulAsyncInvocationHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
                  x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The CRC-64 value of the function code package. This value is used to check data integrity. The value is automatically calculated by the tool.
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The invocation method. 
+        # 
+        # - **Sync**: synchronous invocation 
+        # - **Async**: asynchronous invocation
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        # The method used to return logs. Valid values: 
+        # 
+        # - **Tail**: returns the last 4 KB of logs that are generated for the current request. 
+        # - **None**: does not return logs for the current request. This is the default value.
         self.x_fc_log_type = x_fc_log_type  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6697,6 +7138,7 @@ class GetStatefulAsyncInvocationHeaders(TeaModel):
 
 class GetStatefulAsyncInvocationRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service to which the asynchronous task belongs.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -6761,8 +7203,11 @@ class GetStatefulAsyncInvocationResponse(TeaModel):
 class GetTriggerHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the request is initiated on the client. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6801,18 +7246,39 @@ class GetTriggerResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
                  last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
                  trigger_type=None, url_internet=None, url_intranet=None):
+        # The time when the trigger was created.
         self.created_time = created_time  # type: str
+        # The description of the trigger.
         self.description = description  # type: str
+        # The domain name used to invoke the function by using HTTP. You can add this domain name as the prefix to the endpoint of Function Compute. This way, you can invoke the function that corresponds to the trigger by using HTTP. For example, `{domainName}.cn-shanghai.fc.aliyuncs.com`.
         self.domain_name = domain_name  # type: str
+        # The ARN of the RAM role that is used by the event source to invoke the function.
         self.invocation_role = invocation_role  # type: str
+        # The time when the trigger was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type. For more information about the format, see the following topics:
+        # 
+        # *   OSS trigger: [OSSTriggerConfig](javascript:void\(0\)).
+        # *   Log Service trigger: [LogTriggerConfig](javascript:void\(0\)).
+        # *   Time trigger: [TimeTriggerConfig](javascript:void\(0\)).
+        # *   HTTP trigger: [HTTPTriggerConfig](javascript:void\(0\)).
+        # *   Tablestore trigger: Specify the **SourceArn** parameter and leave this parameter empty.
+        # *   Alibaba Cloud CDN event trigger: [CDNEventsTriggerConfig](javascript:void\(0\)).
+        # *   MNS topic trigger: [MnsTopicTriggerConfig](javascript:void\(0\)).
         self.trigger_config = trigger_config  # type: str
+        # The unique ID of the trigger.
         self.trigger_id = trigger_id  # type: str
+        # The name of the trigger.
         self.trigger_name = trigger_name  # type: str
+        # The trigger type, such as **oss**, **log**, **tablestore**, **timer**, **http**, **cdn_events**, and **mns_topic**.
         self.trigger_type = trigger_type  # type: str
+        # The public domain address. You can access HTTP triggers over the Internet by using HTTP or HTTPS.
         self.url_internet = url_internet  # type: str
+        # The private endpoint. In a VPC, you can access HTTP triggers by using HTTP or HTTPS.
         self.url_intranet = url_intranet  # type: str
 
     def validate(self):
@@ -6926,11 +7392,25 @@ class InvokeFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_invocation_type=None,
                  x_fc_log_type=None, x_fc_stateful_async_invocation_id=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The method used to invoke the function. Valid values:
+        # 
+        # *   **Sync**: synchronous
+        # *   **Async**: asynchronous
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        # The method used to return logs. Valid values:
+        # 
+        # *   **Tail**: returns the last 4 KB of logs that are generated for the current request.
+        # *   **None**: No logs are returned for the current request. Default value: None.
         self.x_fc_log_type = x_fc_log_type  # type: str
+        # The ID of the asynchronous task. You must enable the asynchronous task feature in advance.
+        # 
+        # > When you use an SDK to invoke a function, we recommend that you specify a business-related ID to facilitate subsequent operations. For example, you can use the video name as the invocation ID for a video-processing function. This way, you can use the ID to check whether the video is processed or terminate the processing of the video. The ID must start with a letter or an underscore (\_) and can contain letters, digits, underscores (\_), and hyphens (-). The ID can be up to 128 characters in length. If you do not specify the ID of the asynchronous invocation, Function Compute automatically generates an ID.
         self.x_fc_stateful_async_invocation_id = x_fc_stateful_async_invocation_id  # type: str
+        # The trace ID of the request for Function Compute API. The value is the same as that of the **requestId** parameter in the response.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -6979,7 +7459,9 @@ class InvokeFunctionHeaders(TeaModel):
 
 class InvokeFunctionRequest(TeaModel):
     def __init__(self, body=None, qualifier=None):
+        # The event to be processed by the function. Set this parameter to a binary string. Function Compute passes the event to the function for processing.
         self.body = body  # type: bytes
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -7045,8 +7527,11 @@ class InvokeFunctionResponse(TeaModel):
 class ListAliasesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the yyyy-mm-ddhh:mm:ss format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -7083,9 +7568,13 @@ class ListAliasesHeaders(TeaModel):
 
 class ListAliasesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
+        # The maximum number of resources to return.
         self.limit = limit  # type: int
+        # The token used to obtain more results.
         self.next_token = next_token  # type: str
+        # The prefix.
         self.prefix = prefix  # type: str
+        # The starting position of the result list.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -7123,13 +7612,19 @@ class ListAliasesRequest(TeaModel):
 class ListAliasesResponseBodyAliases(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
                  last_modified_time=None, resolve_policy=None, route_policy=None, version_id=None):
+        # The weight of the canary release version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The name of the alias.
         self.alias_name = alias_name  # type: str
+        # The creation time.
         self.created_time = created_time  # type: str
+        # The description of the alias.
         self.description = description  # type: str
+        # The last update time.
         self.last_modified_time = last_modified_time  # type: str
         self.resolve_policy = resolve_policy  # type: str
         self.route_policy = route_policy  # type: RoutePolicy
+        # The ID of the version.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -7184,7 +7679,9 @@ class ListAliasesResponseBodyAliases(TeaModel):
 
 class ListAliasesResponseBody(TeaModel):
     def __init__(self, aliases=None, next_token=None):
+        # The list of aliases.
         self.aliases = aliases  # type: list[ListAliasesResponseBodyAliases]
+        # The token used to obtain more results.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -7261,8 +7758,11 @@ class ListAliasesResponse(TeaModel):
 class ListCustomDomainsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -7299,9 +7799,13 @@ class ListCustomDomainsHeaders(TeaModel):
 
 class ListCustomDomainsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The prefix that the returned domain names must contain.
         self.prefix = prefix  # type: str
+        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -7339,14 +7843,27 @@ class ListCustomDomainsRequest(TeaModel):
 class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+        # The ID of the account.
         self.account_id = account_id  # type: str
+        # The version of the API.
         self.api_version = api_version  # type: str
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The time when the domain name was added.
         self.created_time = created_time  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The protocol types supported by the domain name. Valid values: 
+        # 
+        # - **HTTP**: Only HTTP is supported. 
+        # - **HTTPS**: Only HTTPS is supported. 
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -7411,7 +7928,9 @@ class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
 
 class ListCustomDomainsResponseBody(TeaModel):
     def __init__(self, custom_domains=None, next_token=None):
+        # The information about custom domain names.
         self.custom_domains = custom_domains  # type: list[ListCustomDomainsResponseBodyCustomDomains]
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -7488,8 +8007,11 @@ class ListCustomDomainsResponse(TeaModel):
 class ListEventSourcesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -7526,6 +8048,7 @@ class ListEventSourcesHeaders(TeaModel):
 
 class ListEventSourcesRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -7550,7 +8073,9 @@ class ListEventSourcesRequest(TeaModel):
 
 class ListEventSourcesResponseBodyEventSources(TeaModel):
     def __init__(self, created_time=None, source_arn=None):
+        # The time when the event source was created.
         self.created_time = created_time  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
 
     def validate(self):
@@ -7579,6 +8104,7 @@ class ListEventSourcesResponseBodyEventSources(TeaModel):
 
 class ListEventSourcesResponseBody(TeaModel):
     def __init__(self, event_sources=None):
+        # The information about event sources.
         self.event_sources = event_sources  # type: list[ListEventSourcesResponseBodyEventSources]
 
     def validate(self):
@@ -7652,11 +8178,23 @@ class ListFunctionAsyncInvokeConfigsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
                  x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The CRC-64 value of the function code package. This value is used to check data integrity. The value is automatically calculated by the tool.
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        # The time when the Function Compute is called. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The invocation method.
+        # 
+        # *   **Sync**: synchronous
+        # *   **Async**: asynchronous
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        # The method used to return logs. Valid values:
+        # 
+        # *   **Tail**: returns the last 4 KB of logs that are generated for the current request.
+        # *   **None**: No logs are returned for the current request. Default value: None.
         self.x_fc_log_type = x_fc_log_type  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -7705,7 +8243,9 @@ class ListFunctionAsyncInvokeConfigsHeaders(TeaModel):
 
 class ListFunctionAsyncInvokeConfigsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
+        # The maximum number of resources to return.
         self.limit = limit  # type: int
+        # The token required to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -7735,14 +8275,28 @@ class ListFunctionAsyncInvokeConfigsRequest(TeaModel):
 class ListFunctionAsyncInvokeConfigsResponseBodyConfigs(TeaModel):
     def __init__(self, created_time=None, destination_config=None, function=None, last_modified_time=None,
                  max_async_event_age_in_seconds=None, max_async_retry_attempts=None, qualifier=None, service=None, stateful_invocation=None):
+        # The time when the desktop group was created.
         self.created_time = created_time  # type: str
+        # The configuration structure of the destination for asynchronous invocations. If you have not configured this parameter, this parameter is null.
         self.destination_config = destination_config  # type: DestinationConfig
+        # The name of the function.
         self.function = function  # type: str
+        # The time when the configuration was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The maximum validity period of a message. If you have not configured this parameter, this parameter is null.
         self.max_async_event_age_in_seconds = max_async_event_age_in_seconds  # type: long
+        # The maximum number of retries allowed after an asynchronous invocation fails. If you have not configured this parameter, this parameter is null.
         self.max_async_retry_attempts = max_async_retry_attempts  # type: long
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The name of the service.
         self.service = service  # type: str
+        # Indicates whether the asynchronous task feature is enabled.
+        # 
+        # *   **true**: The asynchronous task feature is enabled.
+        # *   **false**: The asynchronous task feature is disabled.
+        # 
+        # If you have not configured this parameter, this parameter is null.
         self.stateful_invocation = stateful_invocation  # type: bool
 
     def validate(self):
@@ -7801,7 +8355,9 @@ class ListFunctionAsyncInvokeConfigsResponseBodyConfigs(TeaModel):
 
 class ListFunctionAsyncInvokeConfigsResponseBody(TeaModel):
     def __init__(self, configs=None, next_token=None):
+        # The list of asynchronous invocation configurations.
         self.configs = configs  # type: list[ListFunctionAsyncInvokeConfigsResponseBodyConfigs]
+        # The token used to obtain more results.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -7878,8 +8434,11 @@ class ListFunctionAsyncInvokeConfigsResponse(TeaModel):
 class ListFunctionsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -7916,10 +8475,15 @@ class ListFunctionsHeaders(TeaModel):
 
 class ListFunctionsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, qualifier=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token required to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The prefix that the names of returned resources must contain.
         self.prefix = prefix  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -7964,29 +8528,60 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
                  environment_variables=None, function_id=None, function_name=None, handler=None, initialization_timeout=None,
                  initializer=None, instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
                  instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # The CRC-64 value of the function code package.
         self.code_checksum = code_checksum  # type: str
+        # The size of the function code package that is returned by the system. Unit: byte.
         self.code_size = code_size  # type: long
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The time when the function was created.
         self.created_time = created_time  # type: str
+        # The configurations of the custom container runtime.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function.
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The unique ID generated by the system for the function.
         self.function_id = function_id  # type: str
+        # The name of the function.
         self.function_name = function_name  # type: str
+        # The handler of the function.
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. The format of the value is determined by the programming language that you use. For more information, see [Initializer function](~~157704~~).
         self.initializer = initializer  # type: str
+        # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # The time when the function was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
+        # The memory size for the function. Unit: MB.
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 60. Valid values: 1 to 600. When this period expires, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -8111,7 +8706,9 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
 
 class ListFunctionsResponseBody(TeaModel):
     def __init__(self, functions=None, next_token=None):
+        # The information about functions.
         self.functions = functions  # type: list[ListFunctionsResponseBodyFunctions]
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -8188,6 +8785,7 @@ class ListFunctionsResponse(TeaModel):
 class ListInstancesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
 
     def validate(self):
@@ -8216,8 +8814,13 @@ class ListInstancesHeaders(TeaModel):
 
 class ListInstancesRequest(TeaModel):
     def __init__(self, instance_ids=None, limit=None, qualifier=None):
+        # The IDs of the instance.
         self.instance_ids = instance_ids  # type: list[str]
+        # The maximum number of resources to return. Valid values: \[0,1000].
+        # 
+        # The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The version or alias.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -8250,7 +8853,9 @@ class ListInstancesRequest(TeaModel):
 
 class ListInstancesResponseBodyInstances(TeaModel):
     def __init__(self, instance_id=None, version_id=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The version of the service to which the instance belongs. If the instance belongs to the LATEST alias, 0 is returned as the version.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -8279,6 +8884,7 @@ class ListInstancesResponseBodyInstances(TeaModel):
 
 class ListInstancesResponseBody(TeaModel):
     def __init__(self, instances=None):
+        # The information about instances.
         self.instances = instances  # type: list[ListInstancesResponseBodyInstances]
 
     def validate(self):
@@ -8351,8 +8957,11 @@ class ListInstancesResponse(TeaModel):
 class ListLayerVersionsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -8389,7 +8998,9 @@ class ListLayerVersionsHeaders(TeaModel):
 
 class ListLayerVersionsRequest(TeaModel):
     def __init__(self, limit=None, start_version=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The initial version of the layer.
         self.start_version = start_version  # type: int
 
     def validate(self):
@@ -8418,7 +9029,9 @@ class ListLayerVersionsRequest(TeaModel):
 
 class ListLayerVersionsResponseBody(TeaModel):
     def __init__(self, layers=None, next_version=None):
+        # The information about layer versions.
         self.layers = layers  # type: list[Layer]
+        # The initial version of the layer for the next query.
         self.next_version = next_version  # type: int
 
     def validate(self):
@@ -8495,8 +9108,11 @@ class ListLayerVersionsResponse(TeaModel):
 class ListLayersHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -8533,11 +9149,17 @@ class ListLayersHeaders(TeaModel):
 
 class ListLayersRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, official=None, prefix=None, public=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned configurations is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token required to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # Specifies whether to obtain the official public layer. When the official parameter is set to true, the public field does not take effect. The default value is false.
         self.official = official  # type: bool
+        # The name prefix of the layer. The names of returned resources must contain the prefix. If the name prefix is a, the names of returned resources must start with a.
         self.prefix = prefix  # type: str
+        # Specifies whether to obtain only the common layer. Default value: false.
         self.public = public  # type: bool
+        # The name of the start layer. The returned layers are sorted in alphabetical order, and the layers that include and follow the layer specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -8582,7 +9204,9 @@ class ListLayersRequest(TeaModel):
 
 class ListLayersResponseBody(TeaModel):
     def __init__(self, layers=None, next_token=None):
+        # The information about layers.
         self.layers = layers  # type: list[Layer]
+        # The name of the start layer for the next query, which is also the token used to obtain more results.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -8659,8 +9283,11 @@ class ListLayersResponse(TeaModel):
 class ListOnDemandConfigsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -8697,9 +9324,13 @@ class ListOnDemandConfigsHeaders(TeaModel):
 
 class ListOnDemandConfigsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The prefix that the names of returned resources must contain. If the name prefix is a, the names of returned resources must start with a.
         self.prefix = prefix  # type: str
+        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -8736,7 +9367,9 @@ class ListOnDemandConfigsRequest(TeaModel):
 
 class ListOnDemandConfigsResponseBody(TeaModel):
     def __init__(self, configs=None, next_token=None):
+        # The information about the provisioned configuration.
         self.configs = configs  # type: list[OnDemandConfig]
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -8813,8 +9446,11 @@ class ListOnDemandConfigsResponse(TeaModel):
 class ListProvisionConfigsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -8851,9 +9487,13 @@ class ListProvisionConfigsHeaders(TeaModel):
 
 class ListProvisionConfigsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, qualifier=None, service_name=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: long
+        # The token used to obtain more results. You do not need to provide this parameter in the first call. The tokens for subsequent queries are obtained from the returned results.
         self.next_token = next_token  # type: str
+        # The qualifier of the service to which resources belong. The qualifier must be aliasName and used together with the serviceName parameter.
         self.qualifier = qualifier  # type: str
+        # The name of the service to which resources belong.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -8891,12 +9531,19 @@ class ListProvisionConfigsRequest(TeaModel):
 class ListProvisionConfigsResponseBodyProvisionConfigs(TeaModel):
     def __init__(self, always_allocate_cpu=None, current=None, current_error=None, resource=None,
                  scheduled_actions=None, target=None, target_tracking_policies=None):
+        # Specifies whether to always allocate CPU to a function instance.
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        # The actual number of provisioned instances.
         self.current = current  # type: long
+        # The error message returned if a provisioned instance fails to be created.
         self.current_error = current_error  # type: str
+        # The description of the resource.
         self.resource = resource  # type: str
+        # The configurations of scheduled auto scaling.
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledActions]
+        # The expected number of provisioned instances.
         self.target = target  # type: long
+        # The configurations of metric-based auto scaling.
         self.target_tracking_policies = target_tracking_policies  # type: list[TargetTrackingPolicies]
 
     def validate(self):
@@ -8962,7 +9609,9 @@ class ListProvisionConfigsResponseBodyProvisionConfigs(TeaModel):
 
 class ListProvisionConfigsResponseBody(TeaModel):
     def __init__(self, next_token=None, provision_configs=None):
+        # The token used to obtain more results.
         self.next_token = next_token  # type: str
+        # The information about provisioned instances.
         self.provision_configs = provision_configs  # type: list[ListProvisionConfigsResponseBodyProvisionConfigs]
 
     def validate(self):
@@ -9039,8 +9688,11 @@ class ListProvisionConfigsResponse(TeaModel):
 class ListReservedCapacitiesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the Function Compute API is called. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -9077,7 +9729,9 @@ class ListReservedCapacitiesHeaders(TeaModel):
 
 class ListReservedCapacitiesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
+        # The maximum number of resources to return. Valid values: \[1, 100].
         self.limit = limit  # type: str
+        # The token that is required for pagination.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -9106,7 +9760,9 @@ class ListReservedCapacitiesRequest(TeaModel):
 
 class ListReservedCapacitiesResponseBody(TeaModel):
     def __init__(self, next_token=None, reserved_capacities=None):
+        # The pagination token to request the next page of results.
         self.next_token = next_token  # type: str
+        # The information about subscription instances.
         self.reserved_capacities = reserved_capacities  # type: list[OpenReservedCapacity]
 
     def validate(self):
@@ -9183,8 +9839,11 @@ class ListReservedCapacitiesResponse(TeaModel):
 class ListServiceVersionsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -9221,9 +9880,15 @@ class ListServiceVersionsHeaders(TeaModel):
 
 class ListServiceVersionsRequest(TeaModel):
     def __init__(self, direction=None, limit=None, next_token=None, start_key=None):
+        # The order in which the returned versions are sorted. Valid values:
+        #   - **FORWARD**: in ascending order. 
+        #   - **BACKWARD**: in descending order. This is the default value.
         self.direction = direction  # type: str
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The starting position of the result list. The returned resources are sorted based on the version number, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -9260,9 +9925,13 @@ class ListServiceVersionsRequest(TeaModel):
 
 class ListServiceVersionsResponseBodyVersions(TeaModel):
     def __init__(self, created_time=None, description=None, last_modified_time=None, version_id=None):
+        # The time when the service version was created.
         self.created_time = created_time  # type: str
+        # The description of the service version.
         self.description = description  # type: str
+        # The time when the service version was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The version of the service.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -9299,8 +9968,13 @@ class ListServiceVersionsResponseBodyVersions(TeaModel):
 
 class ListServiceVersionsResponseBody(TeaModel):
     def __init__(self, direction=None, next_token=None, versions=None):
+        # The order in which the returned versions are sorted. Valid values:
+        #   - **FORWARD**: in ascending order. 
+        #   - **BACKWARD**: in descending order. This is the default value.
         self.direction = direction  # type: str
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The list of versions.
         self.versions = versions  # type: list[ListServiceVersionsResponseBodyVersions]
 
     def validate(self):
@@ -9381,8 +10055,11 @@ class ListServiceVersionsResponse(TeaModel):
 class ListServicesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -9419,9 +10096,13 @@ class ListServicesHeaders(TeaModel):
 
 class ListServicesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned configurations is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The starting position of the query. If this parameter is left empty, the query starts from the beginning. You do not need to specify this parameter in the first query. If the number of asynchronous tasks exceeds the limit, the nextToken parameter is returned, the value of which can be used in subsequent calls to obtain more results.
         self.next_token = next_token  # type: str
+        # The prefix that the names of returned resources must contain. If the name prefix is a, the names of returned resources must start with a.
         self.prefix = prefix  # type: str
+        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -9460,17 +10141,35 @@ class ListServicesResponseBodyServices(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
                  tracing_config=None, vpc_config=None):
+        # The time when the service was created.
         self.created_time = created_time  # type: str
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # *   **true**: allows functions in the specified service to access the Internet.
+        # *   **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The time when the service was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The log configuration, which specifies a Logstore to store function execution logs.
         self.log_config = log_config  # type: LogConfig
+        # The configurations of the NAS file system. The configuration allows functions in the specified service in Function Compute to access the NAS file system.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. The RAM role is used in the following scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The unique ID generated by the system for the service.
         self.service_id = service_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The configurations of Tracing Analysis. After you configure Tracing Analysis for a service in Function Compute, you can record the execution duration of a request, view the amount of cold start time for a function, and record the execution duration of a function. For more information, see [Overview](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The VPC configuration. The configuration allows a function to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -9553,7 +10252,9 @@ class ListServicesResponseBodyServices(TeaModel):
 
 class ListServicesResponseBody(TeaModel):
     def __init__(self, next_token=None, services=None):
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
+        # The information about a service.
         self.services = services  # type: list[ListServicesResponseBodyServices]
 
     def validate(self):
@@ -9630,8 +10331,11 @@ class ListServicesResponse(TeaModel):
 class ListStatefulAsyncInvocationFunctionsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -9668,7 +10372,9 @@ class ListStatefulAsyncInvocationFunctionsHeaders(TeaModel):
 
 class ListStatefulAsyncInvocationFunctionsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The starting position of the query. If this parameter is left empty, the query starts from the beginning. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -9697,7 +10403,9 @@ class ListStatefulAsyncInvocationFunctionsRequest(TeaModel):
 
 class ListStatefulAsyncInvocationFunctionsResponseBody(TeaModel):
     def __init__(self, data=None, next_token=None):
+        # The details of returned data.
         self.data = data  # type: list[AsyncConfigMeta]
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -9775,11 +10483,23 @@ class ListStatefulAsyncInvocationsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
                  x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The CRC-64 value of the function code package. This value is used to check data integrity. The value is automatically calculated by the tool.
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The invocation method. 
+        # 
+        # - **Sync**: synchronous invocation 
+        # - **Async**: asynchronous invocation
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        # The method used to return logs. Valid values: 
+        # 
+        # - **Tail**: returns the last 4 KB of logs that are generated for the current request. 
+        # - **None**: does not return logs for the current request. This is the default value.
         self.x_fc_log_type = x_fc_log_type  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -9829,14 +10549,39 @@ class ListStatefulAsyncInvocationsHeaders(TeaModel):
 class ListStatefulAsyncInvocationsRequest(TeaModel):
     def __init__(self, include_payload=None, invocation_id_prefix=None, limit=None, next_token=None, qualifier=None,
                  sort_order_by_time=None, started_time_begin=None, started_time_end=None, status=None):
+        # - **true**: returns the invocationPayload parameter in the response. 
+        # - **false**: does not return the invocationPayload parameter in the response. 
+        # 
+        # > The `invocationPayload` parameter indicates the input parameters of an asynchronous task.
         self.include_payload = include_payload  # type: bool
+        # The name prefix of the asynchronous invocation. The names of returned resources must contain the prefix. For example, if invocationidPrefix is set to job, the names of returned resources must start with job.
         self.invocation_id_prefix = invocation_id_prefix  # type: str
+        # The maximum number of asynchronous invocations to return. Valid values: [1, 100]. Default value: 50.
         self.limit = limit  # type: int
+        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
+        # The version or alias of the service to which the asynchronous task belongs.
         self.qualifier = qualifier  # type: str
+        # The order in which the returned asynchronous invocations are sorted. Valid values:
+        # 
+        # - **asc**: in ascending order 
+        # - **desc**: in descending order
         self.sort_order_by_time = sort_order_by_time  # type: str
+        # The start time of the asynchronous task.
         self.started_time_begin = started_time_begin  # type: long
+        # The end time of the asynchronous task.
         self.started_time_end = started_time_end  # type: long
+        # The status of the asynchronous task. 
+        # 
+        # - **Enqueued**: The asynchronous invocation is enqueued and is waiting to be executed. 
+        # - **Succeeded**: The invocation is successful. 
+        # - **Failed**: The invocation fails. 
+        # - **Running**: The invocation is being executed. 
+        # - **Stopped**: The invocation is terminated. 
+        # - **Stopping**: The invocation is being terminated. 
+        # - **Invalid**: The invocation is invalid and not executed due to specific reasons. For example, the function is deleted. 
+        # - **Expired**: The maximum validity period of messages is specified for asynchronous invocation. The invocation is discarded and not executed because the specified maximum validity period of messages expires. 
+        # - **Retrying**: The asynchronous invocation is being retried due to an execution error.
         self.status = status  # type: str
 
     def validate(self):
@@ -9893,7 +10638,9 @@ class ListStatefulAsyncInvocationsRequest(TeaModel):
 
 class ListStatefulAsyncInvocationsResponseBody(TeaModel):
     def __init__(self, invocations=None, next_token=None):
+        # The information about asynchronous tasks.
         self.invocations = invocations  # type: list[StatefulAsyncInvocation]
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -9970,8 +10717,11 @@ class ListStatefulAsyncInvocationsResponse(TeaModel):
 class ListTaggedResourcesHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10008,7 +10758,9 @@ class ListTaggedResourcesHeaders(TeaModel):
 
 class ListTaggedResourcesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token used to obtain more results. You do not need to provide this parameter in the first call. The tokens for subsequent queries are obtained from the returned results.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -10037,7 +10789,9 @@ class ListTaggedResourcesRequest(TeaModel):
 
 class ListTaggedResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, resources=None):
+        # The token used to obtain more results. You do not need to provide this parameter in the first call. The tokens for subsequent queries are obtained from the returned results.
         self.next_token = next_token  # type: str
+        # The information about tagged services.
         self.resources = resources  # type: list[Resource]
 
     def validate(self):
@@ -10114,8 +10868,11 @@ class ListTaggedResourcesResponse(TeaModel):
 class ListTriggersHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the request is initiated on the client. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10152,9 +10909,13 @@ class ListTriggersHeaders(TeaModel):
 
 class ListTriggersRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
+        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
         self.limit = limit  # type: int
+        # The token required to obtain more results. You do not need to provide this parameter in the first call. The tokens for subsequent queries are obtained from the returned results.
         self.next_token = next_token  # type: str
+        # The prefix that the names of returned resources must contain.
         self.prefix = prefix  # type: str
+        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -10193,18 +10954,39 @@ class ListTriggersResponseBodyTriggers(TeaModel):
     def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
                  last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
                  trigger_type=None, url_internet=None, url_intranet=None):
+        # The time when the trigger was created.
         self.created_time = created_time  # type: str
+        # The description of the trigger.
         self.description = description  # type: str
+        # The domain name used to invoke the function by using HTTP. You can add this domain name as the prefix to the endpoint of Function Compute. This way, you can invoke the function that corresponds to the trigger by using HTTP. For example, `{domainName}.cn-shanghai.fc.aliyuncs.com`.
         self.domain_name = domain_name  # type: str
+        # The ARN of the RAM role that is used by the event source to invoke the function.
         self.invocation_role = invocation_role  # type: str
+        # The time when the trigger was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type. For more information about the format, see the following topics:
+        # 
+        # *   OSS trigger: [OSSTriggerConfig](javascript:void\(0\)).
+        # *   Log Service trigger: [LogTriggerConfig](javascript:void\(0\)).
+        # *   Time trigger: [TimeTriggerConfig](javascript:void\(0\)).
+        # *   HTTP trigger: [HTTPTriggerConfig](javascript:void\(0\)).
+        # *   Tablestore trigger: Specify the **SourceArn** parameter and leave this parameter empty.
+        # *   Alibaba Cloud CDN event trigger: [CDNEventsTriggerConfig](javascript:void\(0\)).
+        # *   MNS topic trigger: [MnsTopicTriggerConfig](javascript:void\(0\)).
         self.trigger_config = trigger_config  # type: str
+        # The unique ID of the trigger.
         self.trigger_id = trigger_id  # type: str
+        # The name of the trigger.
         self.trigger_name = trigger_name  # type: str
+        # The trigger type, such as **oss**, **log**, **tablestore**, **timer**, **http**, **cdn_events**, and **mns_topic**.
         self.trigger_type = trigger_type  # type: str
+        # The public domain address. You can access HTTP triggers over the Internet by using HTTP or HTTPS.
         self.url_internet = url_internet  # type: str
+        # The private endpoint. In a VPC, you can access HTTP triggers by using HTTP or HTTPS.
         self.url_intranet = url_intranet  # type: str
 
     def validate(self):
@@ -10277,7 +11059,9 @@ class ListTriggersResponseBodyTriggers(TeaModel):
 
 class ListTriggersResponseBody(TeaModel):
     def __init__(self, next_token=None, triggers=None):
+        # The token used to obtain more results. If this parameter is left empty, all the results are returned.
         self.next_token = next_token  # type: str
+        # The information about triggers.
         self.triggers = triggers  # type: list[ListTriggersResponseBodyTriggers]
 
     def validate(self):
@@ -10354,8 +11138,11 @@ class ListTriggersResponse(TeaModel):
 class ListVpcBindingsHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10392,6 +11179,7 @@ class ListVpcBindingsHeaders(TeaModel):
 
 class ListVpcBindingsResponseBody(TeaModel):
     def __init__(self, vpc_ids=None):
+        # The IDs of bound VPCs.
         self.vpc_ids = vpc_ids  # type: list[str]
 
     def validate(self):
@@ -10456,9 +11244,13 @@ class ListVpcBindingsResponse(TeaModel):
 class PublishServiceVersionHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ETag value of the service. This value is used to ensure that the modified service is consistent with the service to be modified. The ETag value is returned in the responses of the [CreateService](~~175256~~), [UpdateService](~~188167~~), and [GetService](~~189225~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the yyyy-mm-ddhh:mm:ss format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10499,6 +11291,7 @@ class PublishServiceVersionHeaders(TeaModel):
 
 class PublishServiceVersionRequest(TeaModel):
     def __init__(self, description=None):
+        # The description of the service version.
         self.description = description  # type: str
 
     def validate(self):
@@ -10523,9 +11316,13 @@ class PublishServiceVersionRequest(TeaModel):
 
 class PublishServiceVersionResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, last_modified_time=None, version_id=None):
+        # The time when the service version was created.
         self.created_time = created_time  # type: str
+        # The description of the service version.
         self.description = description  # type: str
+        # The time when the service version was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The version of the service.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -10602,8 +11399,11 @@ class PublishServiceVersionResponse(TeaModel):
 class PutFunctionAsyncInvokeConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10641,10 +11441,18 @@ class PutFunctionAsyncInvokeConfigHeaders(TeaModel):
 class PutFunctionAsyncInvokeConfigRequest(TeaModel):
     def __init__(self, destination_config=None, max_async_event_age_in_seconds=None,
                  max_async_retry_attempts=None, stateful_invocation=None, qualifier=None):
+        # The configuration structure of the destination for asynchronous invocation.
         self.destination_config = destination_config  # type: DestinationConfig
+        # The maximum validity period of messages. Valid values: 1 to 2592000. Unit: seconds.
         self.max_async_event_age_in_seconds = max_async_event_age_in_seconds  # type: long
+        # The maximum number of retries allowed after an asynchronous invocation fails. Default value: 3. Valid values: 0 to 8.
         self.max_async_retry_attempts = max_async_retry_attempts  # type: long
+        # Specifies whether to enable the asynchronous task feature. 
+        # 
+        # - **true**: enables the asynchronous task feature. 
+        # - **false**: does not enable the asynchronous task feature.
         self.stateful_invocation = stateful_invocation  # type: bool
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -10688,14 +11496,26 @@ class PutFunctionAsyncInvokeConfigRequest(TeaModel):
 class PutFunctionAsyncInvokeConfigResponseBody(TeaModel):
     def __init__(self, created_time=None, destination_config=None, function=None, last_modified_time=None,
                  max_async_event_age_in_seconds=None, max_async_retry_attempts=None, qualifier=None, service=None, stateful_invocation=None):
+        # The creation time.
         self.created_time = created_time  # type: str
+        # The configuration structure of the destination for asynchronous invocation.
         self.destination_config = destination_config  # type: DestinationConfig
+        # The name of the function.
         self.function = function  # type: str
+        # The time when the configuration was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The maximum validity period of messages.
         self.max_async_event_age_in_seconds = max_async_event_age_in_seconds  # type: long
+        # The maximum number of retries allowed after an asynchronous invocation fails.
         self.max_async_retry_attempts = max_async_retry_attempts  # type: long
+        # The qualifier.
         self.qualifier = qualifier  # type: str
+        # The name of the service.
         self.service = service  # type: str
+        # Specifies whether to enable the asynchronous task feature. 
+        # 
+        # - **true**: enables the asynchronous task feature. 
+        # - **false**: does not enable the asynchronous task feature.
         self.stateful_invocation = stateful_invocation  # type: bool
 
     def validate(self):
@@ -10794,9 +11614,13 @@ class PutFunctionAsyncInvokeConfigResponse(TeaModel):
 class PutFunctionOnDemandConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # If the ETag specified in the request matches the ETag value of the OndemandConfig, FC returns 200 OK. If the ETag specified in the request does not match the ETag value of the object, FC returns 412 Precondition Failed.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The start time when the function is invoked. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API, which is also the unique ID of the request.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10837,7 +11661,9 @@ class PutFunctionOnDemandConfigHeaders(TeaModel):
 
 class PutFunctionOnDemandConfigRequest(TeaModel):
     def __init__(self, maximum_instance_count=None, qualifier=None):
+        # The maximum number of on-demand instances. For more information, see [Instance scaling limits](~~185038~~).
         self.maximum_instance_count = maximum_instance_count  # type: long
+        # The alias of the service or LATEST.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -10866,7 +11692,9 @@ class PutFunctionOnDemandConfigRequest(TeaModel):
 
 class PutFunctionOnDemandConfigResponseBody(TeaModel):
     def __init__(self, maximum_instance_count=None, resource=None):
+        # The maximum number of instances.
         self.maximum_instance_count = maximum_instance_count  # type: long
+        # The description of the resource.
         self.resource = resource  # type: str
 
     def validate(self):
@@ -10935,8 +11763,11 @@ class PutFunctionOnDemandConfigResponse(TeaModel):
 class PutLayerACLHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the operation is called. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request for Function Compute API.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -10973,6 +11804,10 @@ class PutLayerACLHeaders(TeaModel):
 
 class PutLayerACLRequest(TeaModel):
     def __init__(self, public=None):
+        # Specifies whether the layer is public.
+        # 
+        # *   **true**: Public.
+        # *   **false**: Not public.
         self.public = public  # type: bool
 
     def validate(self):
@@ -11028,8 +11863,11 @@ class PutLayerACLResponse(TeaModel):
 class PutProvisionConfigHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11067,10 +11905,15 @@ class PutProvisionConfigHeaders(TeaModel):
 class PutProvisionConfigRequest(TeaModel):
     def __init__(self, always_allocate_cpu=None, scheduled_actions=None, target=None,
                  target_tracking_policies=None, qualifier=None):
+        # Specifies whether to always allocate CPU resources. Default value: true.
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        # The configurations of scheduled auto scaling.
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledActions]
+        # The number of provisioned instances. Value range: [1,100000].
         self.target = target  # type: long
+        # The configurations of metric-based auto scaling.
         self.target_tracking_policies = target_tracking_policies  # type: list[TargetTrackingPolicies]
+        # The name of the alias.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -11129,11 +11972,17 @@ class PutProvisionConfigRequest(TeaModel):
 class PutProvisionConfigResponseBody(TeaModel):
     def __init__(self, always_allocate_cpu=None, current=None, resource=None, scheduled_actions=None, target=None,
                  target_tracking_policies=None):
+        # Specifies whether to always allocate CPU to a function instance.
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        # The actual number of provisioned instances.
         self.current = current  # type: long
+        # The description of the resource.
         self.resource = resource  # type: str
+        # The configurations of scheduled auto scaling.
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledActions]
+        # The expected number of provisioned instances.
         self.target = target  # type: long
+        # The configurations of metric-based auto scaling.
         self.target_tracking_policies = target_tracking_policies  # type: list[TargetTrackingPolicies]
 
     def validate(self):
@@ -11235,8 +12084,11 @@ class PutProvisionConfigResponse(TeaModel):
 class RegisterEventSourceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11273,7 +12125,9 @@ class RegisterEventSourceHeaders(TeaModel):
 
 class RegisterEventSourceRequest(TeaModel):
     def __init__(self, source_arn=None, qualifier=None):
+        # The Alibaba Cloud Resource Name (ARN) of the event source.
         self.source_arn = source_arn  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -11302,7 +12156,9 @@ class RegisterEventSourceRequest(TeaModel):
 
 class RegisterEventSourceResponseBody(TeaModel):
     def __init__(self, created_time=None, source_arn=None):
+        # The time when the event source was created.
         self.created_time = created_time  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
 
     def validate(self):
@@ -11440,8 +12296,11 @@ class ReleaseGPUInstanceResponse(TeaModel):
 class StopStatefulAsyncInvocationHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11478,6 +12337,7 @@ class StopStatefulAsyncInvocationHeaders(TeaModel):
 
 class StopStatefulAsyncInvocationRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the service to which the asynchronous task belongs.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -11533,8 +12393,11 @@ class StopStatefulAsyncInvocationResponse(TeaModel):
 class TagResourceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the function is invoked. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11571,7 +12434,11 @@ class TagResourceHeaders(TeaModel):
 
 class TagResourceRequest(TeaModel):
     def __init__(self, resource_arn=None, tags=None):
+        # The ARN of the resource.
+        # 
+        # > You can use the value of this parameter to query the information about the resource, such as the account, service, and region information of the resource. You can manage tags only for services for top level resources.
         self.resource_arn = resource_arn  # type: str
+        # The tag dictionary.
         self.tags = tags  # type: dict[str, str]
 
     def validate(self):
@@ -11631,8 +12498,11 @@ class TagResourceResponse(TeaModel):
 class UntagResourceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11669,8 +12539,15 @@ class UntagResourceHeaders(TeaModel):
 
 class UntagResourceRequest(TeaModel):
     def __init__(self, all=None, resource_arn=None, tag_keys=None):
+        # Specifies whether to remove all tags. This parameter takes effect only when no tag key is specified. Valid values:
+        #   - **true**: removes all tags. 
+        #   - **false**: does not remove all tags.
         self.all = all  # type: bool
+        # The ARN of the resource. 
+        # 
+        # > You can use the value of this parameter to query the information about the resource, such as the account, service, and region information of the resource. You can manage tags only for services for top level resources.
         self.resource_arn = resource_arn  # type: str
+        # The keys of the tags that you want to remove.
         self.tag_keys = tag_keys  # type: list[str]
 
     def validate(self):
@@ -11734,9 +12611,15 @@ class UntagResourceResponse(TeaModel):
 class UpdateAliasHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # If the ETag specified in the request matches the ETag value of the object, the object and 200 OK are returned. Otherwise, 412 Precondition Failed is returned.
+        # 
+        # The ETag value of an object is used to check data integrity of the object. This parameter is empty by default.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the invocation request of Function Compute.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11778,10 +12661,21 @@ class UpdateAliasHeaders(TeaModel):
 class UpdateAliasRequest(TeaModel):
     def __init__(self, additional_version_weight=None, description=None, resolve_policy=None, route_policy=None,
                  version_id=None):
+        # The canary release version to which the alias points and the weight of the canary release version.
+        # 
+        # *   The canary release version takes effect only when the function is invoked.
+        # *   The value consists of a version number and a specific weight. For example, 2:0.05 indicates that when a function is invoked, Version 2 is the canary release version, 5% of the traffic is distributed to the canary release version, and 95% of the traffic is distributed to the major version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The description of the alias.
         self.description = description  # type: str
+        # The canary release mode. Valid values:
+        # 
+        # *   **Random**: random canary release. This is the default value.
+        # *   **Content**: rule-based canary release.
         self.resolve_policy = resolve_policy  # type: str
+        # The canary release rule. Traffic that meets the canary release rule is routed to the canary release instance.
         self.route_policy = route_policy  # type: RoutePolicy
+        # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -11825,11 +12719,20 @@ class UpdateAliasRequest(TeaModel):
 class UpdateAliasResponseBody(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
                  last_modified_time=None, version_id=None):
+        # The canary release version to which the alias points and the weight of the canary release version.
+        # 
+        # *   The canary release version takes effect only when the function is invoked.
+        # *   The value consists of a version number and a specific weight. For example, 2:0.05 indicates that when a function is invoked, Version 2 is the canary release version, 5% of the traffic is distributed to the canary release version, and 95% of the traffic is distributed to the major version.
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # The name of the alias.
         self.alias_name = alias_name  # type: str
+        # The time when the alias was created.
         self.created_time = created_time  # type: str
+        # The description of the alias.
         self.description = description  # type: str
+        # The time when the alias was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -11914,8 +12817,11 @@ class UpdateAliasResponse(TeaModel):
 class UpdateCustomDomainHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -11952,9 +12858,17 @@ class UpdateCustomDomainHeaders(TeaModel):
 
 class UpdateCustomDomainRequest(TeaModel):
     def __init__(self, cert_config=None, protocol=None, route_config=None, tls_config=None):
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The protocol types supported by the domain name. Valid values:
+        # 
+        # - **HTTP**: Only HTTP is supported.
+        # - **HTTPS**: Only HTTPS is supported.
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -12000,14 +12914,27 @@ class UpdateCustomDomainRequest(TeaModel):
 class UpdateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+        # The ID of the account.
         self.account_id = account_id  # type: str
+        # The version number of the API.
         self.api_version = api_version  # type: str
+        # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
+        # The time when the domain name was added.
         self.created_time = created_time  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The protocol types supported by the domain name. Valid values: 
+        # 
+        # - **HTTP**: Only HTTP is supported.
+        # - **HTTPS**: Only HTTPS is supported.
+        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
+        # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
+        # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
 
     def validate(self):
@@ -12113,10 +13040,15 @@ class UpdateFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
                  x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ETag value of the resource. The value is used to ensure that the modified resource is consistent with the resource to be modified. The ETag value is returned in the responses of the [CreateFunction](~~415747~~), [GetFunction](~~415750~~), and [UpdateFunction](~~415749~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The CRC-64 value of the function code package.
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The trace ID of the request. The value is the same as that of the requestId parameter in the response.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -12165,26 +13097,57 @@ class UpdateFunctionRequest(TeaModel):
                  disk_size=None, environment_variables=None, handler=None, initialization_timeout=None, initializer=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
                  runtime=None, timeout=None):
+        # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # **Function code packages** can be provided with the following two methods. You must use only one of the methods in a single request.
+        # 
+        # *   Specify the names of the **Object Storage Service (OSS) bucket** and **object** where the code package is stored.
+        # *   Set the **zipFile** parameter to the Base64-encoded content of the ZIP file.
         self.code = code  # type: Code
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The configurations of the custom container runtime. After you configure the custom container, Function Compute can execute functions in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # The custom Domain Name System (DNS) configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The handler of the function. The format varies based on the programming language. For more information, see [Function handlers](~~157704~~).
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. The format is determined by the programming language. For more information, see [Function handlers](~~157704~~).
         self.initializer = initializer  # type: str
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
+        # The memory size for the function. Unit: MB. The memory size must be a multiple of 64 MB. The memory size varies based on the function instance type. For more information, see [Instance types](~~179379~~).
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -12308,33 +13271,67 @@ class UpdateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
                  description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_lifecycle_config=None,
-                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
+        # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
+        # The CRC-64 value of the function code package.
         self.code_checksum = code_checksum  # type: str
+        # The size of the function code package that is returned by the system. Unit: byte.
         self.code_size = code_size  # type: long
+        # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
+        # The time when the function was created.
         self.created_time = created_time  # type: str
+        # The configurations of the custom container runtime. After you configure the custom container runtime, Function Compute can execute the function in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # The custom DNS configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
+        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
+        # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
+        # The description of the function.
         self.description = description  # type: str
+        # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
+        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # The unique ID generated by the system for the function.
         self.function_id = function_id  # type: str
+        # The name of the function.
         self.function_name = function_name  # type: str
+        # The handler of the function.
         self.handler = handler  # type: str
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
+        # The handler of the initializer function. The format is determined by the programming language.
         self.initializer = initializer  # type: str
+        # The number of requests that can be concurrently processed by a single instance.
+        self.instance_concurrency = instance_concurrency  # type: int
+        # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # 
+        # The value must be less than or equal to that of **instanceConcurrency**.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
+        # The instance type of the function. Valid values:
+        # 
+        # *   **e1**: elastic instance
+        # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
+        # The time when the function was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # An array that consists of the information of layers.
+        # 
+        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
         self.layers = layers  # type: list[str]
+        # The memory size for the function. Unit: MB.
         self.memory_size = memory_size  # type: int
+        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
         self.runtime = runtime  # type: str
+        # The timeout period for the execution. Unit: seconds.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -12389,6 +13386,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['initializationTimeout'] = self.initialization_timeout
         if self.initializer is not None:
             result['initializer'] = self.initializer
+        if self.instance_concurrency is not None:
+            result['instanceConcurrency'] = self.instance_concurrency
         if self.instance_lifecycle_config is not None:
             result['instanceLifecycleConfig'] = self.instance_lifecycle_config.to_map()
         if self.instance_soft_concurrency is not None:
@@ -12447,6 +13446,8 @@ class UpdateFunctionResponseBody(TeaModel):
             self.initialization_timeout = m.get('initializationTimeout')
         if m.get('initializer') is not None:
             self.initializer = m.get('initializer')
+        if m.get('instanceConcurrency') is not None:
+            self.instance_concurrency = m.get('instanceConcurrency')
         if m.get('instanceLifecycleConfig') is not None:
             temp_model = InstanceLifecycleConfig()
             self.instance_lifecycle_config = temp_model.from_map(m['instanceLifecycleConfig'])
@@ -12509,9 +13510,13 @@ class UpdateFunctionResponse(TeaModel):
 class UpdateServiceHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The value used to ensure that the modified service is consistent with the service to be modified. The value is obtained from the responses of the [CreateService](~~175256~~), [UpdateService](~~188167~~), and [GetService](~~189225~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the Function Compute API is called. The format is **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -12553,13 +13558,27 @@ class UpdateServiceHeaders(TeaModel):
 class UpdateServiceRequest(TeaModel):
     def __init__(self, description=None, internet_access=None, log_config=None, nas_config=None,
                  oss_mount_config=None, role=None, tracing_config=None, vpc_config=None):
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # *   **true**: allows functions in the specified service to access the Internet.
+        # *   **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The log configuration. Function Compute writes function execution logs to the specified Logstore.
         self.log_config = log_config  # type: LogConfig
+        # The configurations of the NAS file system. The configurations allow functions to access the specified NAS resources.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. The RAM role is used in the following scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The configurations of Tracing Analysis. After you configure Tracing Analysis for a service in Function Compute, you can record the execution duration of a request, view the amount of cold start time for a function, and record the execution duration of a function. For more information, see [Overview](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The virtual private cloud (VPC) configuration, which allows functions in the specified service in Function Compute to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -12628,17 +13647,35 @@ class UpdateServiceResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, internet_access=None, last_modified_time=None,
                  log_config=None, nas_config=None, oss_mount_config=None, role=None, service_id=None, service_name=None,
                  tracing_config=None, vpc_config=None):
+        # The time when the service was created.
         self.created_time = created_time  # type: str
+        # The description of the service.
         self.description = description  # type: str
+        # Specifies whether to allow functions to access the Internet. Valid values:
+        # 
+        # *   **true**: allows functions in the specified service to access the Internet.
+        # *   **false**: does not allow functions in the specified service to access the Internet.
         self.internet_access = internet_access  # type: bool
+        # The time when the service was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        # The log configuration, which specifies a Logstore to store function execution logs.
         self.log_config = log_config  # type: LogConfig
+        # The configurations of the NAS file system. The configuration allows functions in the specified service in Function Compute to access the NAS file system.
         self.nas_config = nas_config  # type: NASConfig
+        # The OSS mount configurations.
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
+        # The RAM role that is used to grant required permissions to Function Compute. The RAM role is used in the following scenarios:
+        # 
+        # *   Sends function execution logs to your Logstore.
+        # *   Generates a token for a function to access other cloud resources during function execution.
         self.role = role  # type: str
+        # The unique ID generated by the system for the service.
         self.service_id = service_id  # type: str
+        # The name of the service.
         self.service_name = service_name  # type: str
+        # The configurations of Tracing Analysis. After you configure Tracing Analysis for a service in Function Compute, you can record the execution duration of a request, view the amount of cold start time for a function, and record the execution duration of a function. For more information, see [Overview](~~189804~~).
         self.tracing_config = tracing_config  # type: TracingConfig
+        # The VPC configuration. The configuration allows a function to access the specified VPC.
         self.vpc_config = vpc_config  # type: VPCConfig
 
     def validate(self):
@@ -12761,9 +13798,13 @@ class UpdateServiceResponse(TeaModel):
 class UpdateTriggerHeaders(TeaModel):
     def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # This parameter is used to ensure that the modified resource is consistent with the resource to be modified. You can obtain the parameter value from the responses of [CreateTrigger](~~190054~~), [GetTrigger](~~190056~~), and [UpdateTrigger](~~190055~~) operations.
         self.if_match = if_match  # type: str
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time when the request is initiated on the client. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -12804,9 +13845,21 @@ class UpdateTriggerHeaders(TeaModel):
 
 class UpdateTriggerRequest(TeaModel):
     def __init__(self, description=None, invocation_role=None, qualifier=None, trigger_config=None):
+        # The description of the trigger.
         self.description = description  # type: str
+        # The role that is used by the event source such as OSS to invoke the function. For more information, see [Overview](~~53102~~).
         self.invocation_role = invocation_role  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type. For more information about the format, see the following topics:
+        # 
+        # *   OSS trigger: [OSSTriggerConfig](javascript:void\(0\)).
+        # *   Log Service trigger: [LogTriggerConfig](javascript:void\(0\)).
+        # *   Time trigger: [TimeTriggerConfig](javascript:void\(0\)).
+        # *   HTTP trigger: [HTTPTriggerConfig](javascript:void\(0\)).
+        # *   Tablestore trigger: Specify the **SourceArn** parameter and leave this parameter empty.
+        # *   Alibaba Cloud CDN event trigger: [CDNEventsTriggerConfig](javascript:void\(0\)).
+        # *   MNS topic trigger: [MnsTopicTriggerConfig](javascript:void\(0\)).
         self.trigger_config = trigger_config  # type: str
 
     def validate(self):
@@ -12845,18 +13898,31 @@ class UpdateTriggerResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
                  last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
                  trigger_type=None, url_internet=None, url_intranet=None):
+        # The time when the audio or video file was created.
         self.created_time = created_time  # type: str
+        # The description of the trigger.
         self.description = description  # type: str
+        # The domain name used to invoke the function by using HTTP. You can add this domain name as the prefix to the endpoint of Function Compute. This way, you can invoke the function that corresponds to the trigger by using HTTP. For example, `{domainName}.cn-shanghai.fc.aliyuncs.com`.
         self.domain_name = domain_name  # type: str
+        # The ARN of the RAM role that is used by the event source to invoke the function.
         self.invocation_role = invocation_role  # type: str
+        # The last modification time.
         self.last_modified_time = last_modified_time  # type: str
+        # The version or alias of the service.
         self.qualifier = qualifier  # type: str
+        # The ARN of the event source.
         self.source_arn = source_arn  # type: str
+        # The configurations of the trigger. The configurations vary based on the trigger type.
         self.trigger_config = trigger_config  # type: str
+        # The unique ID of the trigger.
         self.trigger_id = trigger_id  # type: str
+        # The name of the trigger.
         self.trigger_name = trigger_name  # type: str
+        # The trigger type, such as **oss**, **log**, **tablestore**, **timer**, **http**, **cdn_events**, and **mns_topic**.
         self.trigger_type = trigger_type  # type: str
+        # The public domain address. You can access HTTP triggers over the Internet by using HTTP or HTTPS.
         self.url_internet = url_internet  # type: str
+        # The private endpoint. In a VPC, you can access HTTP triggers by using HTTP or HTTPS.
         self.url_intranet = url_intranet  # type: str
 
     def validate(self):
