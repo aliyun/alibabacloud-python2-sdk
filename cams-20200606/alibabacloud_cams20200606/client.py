@@ -164,6 +164,246 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.bee_bot_chat_with_options(request, runtime)
 
+    def chatapp_bind_waba_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.waba_id):
+            body['WabaId'] = request.waba_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ChatappBindWaba',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappBindWabaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_bind_waba(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_bind_waba_with_options(request, runtime)
+
+    def chatapp_embed_sign_up_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.input_token):
+            body['InputToken'] = request.input_token
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ChatappEmbedSignUp',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappEmbedSignUpResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_embed_sign_up(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_embed_sign_up_with_options(request, runtime)
+
+    def chatapp_migration_register_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChatappMigrationRegister',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappMigrationRegisterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_migration_register(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_migration_register_with_options(request, runtime)
+
+    def chatapp_migration_verified_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.verify_code):
+            query['VerifyCode'] = request.verify_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChatappMigrationVerified',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappMigrationVerifiedResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_migration_verified(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_migration_verified_with_options(request, runtime)
+
+    def chatapp_phone_number_register_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ChatappPhoneNumberRegister',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappPhoneNumberRegisterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_phone_number_register(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_phone_number_register_with_options(request, runtime)
+
+    def chatapp_sync_phone_number_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChatappSyncPhoneNumber',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappSyncPhoneNumberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_sync_phone_number(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_sync_phone_number_with_options(request, runtime)
+
+    def chatapp_verify_and_register_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.verify_code):
+            body['VerifyCode'] = request.verify_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ChatappVerifyAndRegister',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ChatappVerifyAndRegisterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def chatapp_verify_and_register(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.chatapp_verify_and_register_with_options(request, runtime)
+
+    def create_chatapp_migration_initiate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.country_code):
+            query['CountryCode'] = request.country_code
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.mobile_number):
+            query['MobileNumber'] = request.mobile_number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateChatappMigrationInitiate',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.CreateChatappMigrationInitiateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_chatapp_migration_initiate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_chatapp_migration_initiate_with_options(request, runtime)
+
     def create_chatapp_template_with_options(self, tmp_req, runtime):
         """
         ### QPS limit
@@ -346,6 +586,132 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_chatapp_template_detail_with_options(request, runtime)
 
+    def get_chatapp_verify_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.locale):
+            body['Locale'] = request.locale
+        if not UtilClient.is_unset(request.method):
+            body['Method'] = request.method
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetChatappVerifyCode',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetChatappVerifyCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_chatapp_verify_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_chatapp_verify_code_with_options(request, runtime)
+
+    def get_migration_verify_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.locale):
+            query['Locale'] = request.locale
+        if not UtilClient.is_unset(request.method):
+            query['Method'] = request.method
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMigrationVerifyCode',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetMigrationVerifyCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_migration_verify_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_migration_verify_code_with_options(request, runtime)
+
+    def get_phone_number_verification_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetPhoneNumberVerificationStatus',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetPhoneNumberVerificationStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_phone_number_verification_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_phone_number_verification_status_with_options(request, runtime)
+
+    def isv_get_app_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='IsvGetAppId',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.IsvGetAppIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def isv_get_app_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.isv_get_app_id_with_options(request, runtime)
+
     def list_chatapp_template_with_options(self, tmp_req, runtime):
         """
         ### QPS limit
@@ -456,6 +822,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_chatapp_template_with_options(request, runtime)
 
+    def modify_phone_business_profile_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.ModifyPhoneBusinessProfileShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.websites):
+            request.websites_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.websites, 'Websites', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.profile_picture_url):
+            query['ProfilePictureUrl'] = request.profile_picture_url
+        if not UtilClient.is_unset(request.vertical):
+            query['Vertical'] = request.vertical
+        if not UtilClient.is_unset(request.websites_shrink):
+            query['Websites'] = request.websites_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyPhoneBusinessProfile',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ModifyPhoneBusinessProfileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_phone_business_profile(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_phone_business_profile_with_options(request, runtime)
+
     def query_chatapp_bind_waba_with_options(self, request, runtime):
         """
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -551,6 +963,66 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.query_chatapp_phone_numbers_with_options(request, runtime)
+
+    def query_phone_business_profile_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPhoneBusinessProfile',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.QueryPhoneBusinessProfileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_phone_business_profile(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_phone_business_profile_with_options(request, runtime)
+
+    def query_waba_business_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.waba_id):
+            query['WabaId'] = request.waba_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryWabaBusinessInfo',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.QueryWabaBusinessInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_waba_business_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_waba_business_info_with_options(request, runtime)
 
     def send_chatapp_mass_message_with_options(self, tmp_req, runtime):
         """
@@ -715,3 +1187,75 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.send_chatapp_message_with_options(request, runtime)
+
+    def update_account_webhook_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.http_flag):
+            query['HttpFlag'] = request.http_flag
+        if not UtilClient.is_unset(request.queue_flag):
+            query['QueueFlag'] = request.queue_flag
+        if not UtilClient.is_unset(request.status_callback_url):
+            query['StatusCallbackUrl'] = request.status_callback_url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAccountWebhook',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.UpdateAccountWebhookResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_account_webhook(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_account_webhook_with_options(request, runtime)
+
+    def update_phone_webhook_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            query['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.http_flag):
+            query['HttpFlag'] = request.http_flag
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.queue_flag):
+            query['QueueFlag'] = request.queue_flag
+        if not UtilClient.is_unset(request.status_callback_url):
+            query['StatusCallbackUrl'] = request.status_callback_url
+        if not UtilClient.is_unset(request.up_callback_url):
+            query['UpCallbackUrl'] = request.up_callback_url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdatePhoneWebhook',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.UpdatePhoneWebhookResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_phone_webhook(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_phone_webhook_with_options(request, runtime)

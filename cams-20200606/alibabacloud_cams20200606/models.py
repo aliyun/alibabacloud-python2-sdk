@@ -949,6 +949,1091 @@ class BeeBotChatResponse(TeaModel):
         return self
 
 
+class ChatappBindWabaRequest(TeaModel):
+    def __init__(self, waba_id=None):
+        # WabaId
+        self.waba_id = waba_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappBindWabaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.waba_id is not None:
+            result['WabaId'] = self.waba_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WabaId') is not None:
+            self.waba_id = m.get('WabaId')
+        return self
+
+
+class ChatappBindWabaResponseBodyData(TeaModel):
+    def __init__(self, cust_space_id=None, waba_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # wabaId
+        self.waba_id = waba_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappBindWabaResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.waba_id is not None:
+            result['WabaId'] = self.waba_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('WabaId') is not None:
+            self.waba_id = m.get('WabaId')
+        return self
+
+
+class ChatappBindWabaResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: ChatappBindWabaResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ChatappBindWabaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ChatappBindWabaResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappBindWabaResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappBindWabaResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappBindWabaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappBindWabaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappEmbedSignUpRequest(TeaModel):
+    def __init__(self, input_token=None):
+        self.input_token = input_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappEmbedSignUpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.input_token is not None:
+            result['InputToken'] = self.input_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InputToken') is not None:
+            self.input_token = m.get('InputToken')
+        return self
+
+
+class ChatappEmbedSignUpResponseBodyWabas(TeaModel):
+    def __init__(self, account_review_status=None, currency=None, id=None, message_template_namespace=None,
+                 name=None):
+        self.account_review_status = account_review_status  # type: str
+        self.currency = currency  # type: str
+        # WabaId
+        self.id = id  # type: str
+        self.message_template_namespace = message_template_namespace  # type: str
+        # Waba Name
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappEmbedSignUpResponseBodyWabas, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_review_status is not None:
+            result['AccountReviewStatus'] = self.account_review_status
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message_template_namespace is not None:
+            result['MessageTemplateNamespace'] = self.message_template_namespace
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountReviewStatus') is not None:
+            self.account_review_status = m.get('AccountReviewStatus')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MessageTemplateNamespace') is not None:
+            self.message_template_namespace = m.get('MessageTemplateNamespace')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class ChatappEmbedSignUpResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, wabas=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.wabas = wabas  # type: list[ChatappEmbedSignUpResponseBodyWabas]
+
+    def validate(self):
+        if self.wabas:
+            for k in self.wabas:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChatappEmbedSignUpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Wabas'] = []
+        if self.wabas is not None:
+            for k in self.wabas:
+                result['Wabas'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.wabas = []
+        if m.get('Wabas') is not None:
+            for k in m.get('Wabas'):
+                temp_model = ChatappEmbedSignUpResponseBodyWabas()
+                self.wabas.append(temp_model.from_map(k))
+        return self
+
+
+class ChatappEmbedSignUpResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappEmbedSignUpResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappEmbedSignUpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappEmbedSignUpResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappMigrationRegisterRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappMigrationRegisterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class ChatappMigrationRegisterResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappMigrationRegisterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappMigrationRegisterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappMigrationRegisterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappMigrationRegisterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappMigrationRegisterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappMigrationVerifiedRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None, verify_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+        self.verify_code = verify_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappMigrationVerifiedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.verify_code is not None:
+            result['VerifyCode'] = self.verify_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('VerifyCode') is not None:
+            self.verify_code = m.get('VerifyCode')
+        return self
+
+
+class ChatappMigrationVerifiedResponseBodyData(TeaModel):
+    def __init__(self, id=None, phone_number=None):
+        self.id = id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappMigrationVerifiedResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class ChatappMigrationVerifiedResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: ChatappMigrationVerifiedResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ChatappMigrationVerifiedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ChatappMigrationVerifiedResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappMigrationVerifiedResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappMigrationVerifiedResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappMigrationVerifiedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappMigrationVerifiedResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappPhoneNumberRegisterRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappPhoneNumberRegisterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class ChatappPhoneNumberRegisterResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappPhoneNumberRegisterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappPhoneNumberRegisterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappPhoneNumberRegisterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappPhoneNumberRegisterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappPhoneNumberRegisterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappSyncPhoneNumberRequest(TeaModel):
+    def __init__(self, cust_space_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappSyncPhoneNumberRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        return self
+
+
+class ChatappSyncPhoneNumberResponseBodyPhoneNumbers(TeaModel):
+    def __init__(self, code_verification_status=None, messaging_limit_tier=None, name_status=None,
+                 new_name_status=None, phone_number=None, quality_rating=None, status=None, status_callback_url=None,
+                 status_queue=None, up_callback_url=None, up_queue=None, verified_name=None):
+        self.code_verification_status = code_verification_status  # type: str
+        self.messaging_limit_tier = messaging_limit_tier  # type: str
+        self.name_status = name_status  # type: str
+        self.new_name_status = new_name_status  # type: str
+        self.phone_number = phone_number  # type: str
+        self.quality_rating = quality_rating  # type: str
+        self.status = status  # type: str
+        self.status_callback_url = status_callback_url  # type: str
+        self.status_queue = status_queue  # type: str
+        self.up_callback_url = up_callback_url  # type: str
+        self.up_queue = up_queue  # type: str
+        self.verified_name = verified_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappSyncPhoneNumberResponseBodyPhoneNumbers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code_verification_status is not None:
+            result['CodeVerificationStatus'] = self.code_verification_status
+        if self.messaging_limit_tier is not None:
+            result['MessagingLimitTier'] = self.messaging_limit_tier
+        if self.name_status is not None:
+            result['NameStatus'] = self.name_status
+        if self.new_name_status is not None:
+            result['NewNameStatus'] = self.new_name_status
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.quality_rating is not None:
+            result['QualityRating'] = self.quality_rating
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_callback_url is not None:
+            result['StatusCallbackUrl'] = self.status_callback_url
+        if self.status_queue is not None:
+            result['StatusQueue'] = self.status_queue
+        if self.up_callback_url is not None:
+            result['UpCallbackUrl'] = self.up_callback_url
+        if self.up_queue is not None:
+            result['UpQueue'] = self.up_queue
+        if self.verified_name is not None:
+            result['VerifiedName'] = self.verified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CodeVerificationStatus') is not None:
+            self.code_verification_status = m.get('CodeVerificationStatus')
+        if m.get('MessagingLimitTier') is not None:
+            self.messaging_limit_tier = m.get('MessagingLimitTier')
+        if m.get('NameStatus') is not None:
+            self.name_status = m.get('NameStatus')
+        if m.get('NewNameStatus') is not None:
+            self.new_name_status = m.get('NewNameStatus')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('QualityRating') is not None:
+            self.quality_rating = m.get('QualityRating')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusCallbackUrl') is not None:
+            self.status_callback_url = m.get('StatusCallbackUrl')
+        if m.get('StatusQueue') is not None:
+            self.status_queue = m.get('StatusQueue')
+        if m.get('UpCallbackUrl') is not None:
+            self.up_callback_url = m.get('UpCallbackUrl')
+        if m.get('UpQueue') is not None:
+            self.up_queue = m.get('UpQueue')
+        if m.get('VerifiedName') is not None:
+            self.verified_name = m.get('VerifiedName')
+        return self
+
+
+class ChatappSyncPhoneNumberResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, phone_numbers=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.phone_numbers = phone_numbers  # type: list[ChatappSyncPhoneNumberResponseBodyPhoneNumbers]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.phone_numbers:
+            for k in self.phone_numbers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChatappSyncPhoneNumberResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        result['PhoneNumbers'] = []
+        if self.phone_numbers is not None:
+            for k in self.phone_numbers:
+                result['PhoneNumbers'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        self.phone_numbers = []
+        if m.get('PhoneNumbers') is not None:
+            for k in m.get('PhoneNumbers'):
+                temp_model = ChatappSyncPhoneNumberResponseBodyPhoneNumbers()
+                self.phone_numbers.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappSyncPhoneNumberResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappSyncPhoneNumberResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappSyncPhoneNumberResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappSyncPhoneNumberResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChatappVerifyAndRegisterRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None, verify_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+        self.verify_code = verify_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappVerifyAndRegisterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.verify_code is not None:
+            result['VerifyCode'] = self.verify_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('VerifyCode') is not None:
+            self.verify_code = m.get('VerifyCode')
+        return self
+
+
+class ChatappVerifyAndRegisterResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChatappVerifyAndRegisterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChatappVerifyAndRegisterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChatappVerifyAndRegisterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChatappVerifyAndRegisterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChatappVerifyAndRegisterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateChatappMigrationInitiateRequest(TeaModel):
+    def __init__(self, country_code=None, cust_space_id=None, mobile_number=None):
+        self.country_code = country_code  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.mobile_number = mobile_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateChatappMigrationInitiateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.country_code is not None:
+            result['CountryCode'] = self.country_code
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.mobile_number is not None:
+            result['MobileNumber'] = self.mobile_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CountryCode') is not None:
+            self.country_code = m.get('CountryCode')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('MobileNumber') is not None:
+            self.mobile_number = m.get('MobileNumber')
+        return self
+
+
+class CreateChatappMigrationInitiateResponseBodyData(TeaModel):
+    def __init__(self, id=None, phone_number=None, status=None):
+        self.id = id  # type: str
+        self.phone_number = phone_number  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateChatappMigrationInitiateResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateChatappMigrationInitiateResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateChatappMigrationInitiateResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateChatappMigrationInitiateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateChatappMigrationInitiateResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateChatappMigrationInitiateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateChatappMigrationInitiateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateChatappMigrationInitiateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateChatappMigrationInitiateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, phone_number=None, text=None, type=None, url=None, url_type=None):
         # The mobile phone number. This parameter is valid only if the Type parameter is set to **PHONE_NUMBER**.
@@ -1878,6 +2963,511 @@ class GetChatappTemplateDetailResponse(TeaModel):
         return self
 
 
+class GetChatappVerifyCodeRequest(TeaModel):
+    def __init__(self, cust_space_id=None, locale=None, method=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.locale = locale  # type: str
+        self.method = method  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetChatappVerifyCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.locale is not None:
+            result['Locale'] = self.locale
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Locale') is not None:
+            self.locale = m.get('Locale')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetChatappVerifyCodeResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetChatappVerifyCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetChatappVerifyCodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetChatappVerifyCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetChatappVerifyCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetChatappVerifyCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetMigrationVerifyCodeRequest(TeaModel):
+    def __init__(self, cust_space_id=None, locale=None, method=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.locale = locale  # type: str
+        self.method = method  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMigrationVerifyCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.locale is not None:
+            result['Locale'] = self.locale
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Locale') is not None:
+            self.locale = m.get('Locale')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetMigrationVerifyCodeResponseBodyData(TeaModel):
+    def __init__(self, id=None, phone_number=None):
+        self.id = id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMigrationVerifyCodeResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetMigrationVerifyCodeResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetMigrationVerifyCodeResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetMigrationVerifyCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetMigrationVerifyCodeResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetMigrationVerifyCodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMigrationVerifyCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMigrationVerifyCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMigrationVerifyCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPhoneNumberVerificationStatusRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPhoneNumberVerificationStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetPhoneNumberVerificationStatusResponseBodyData(TeaModel):
+    def __init__(self, code_verification_status=None, id=None, phone_number=None):
+        self.code_verification_status = code_verification_status  # type: str
+        self.id = id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPhoneNumberVerificationStatusResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code_verification_status is not None:
+            result['CodeVerificationStatus'] = self.code_verification_status
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CodeVerificationStatus') is not None:
+            self.code_verification_status = m.get('CodeVerificationStatus')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetPhoneNumberVerificationStatusResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetPhoneNumberVerificationStatusResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetPhoneNumberVerificationStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetPhoneNumberVerificationStatusResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetPhoneNumberVerificationStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPhoneNumberVerificationStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPhoneNumberVerificationStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPhoneNumberVerificationStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class IsvGetAppIdRequest(TeaModel):
+    def __init__(self, type=None):
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(IsvGetAppIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class IsvGetAppIdResponseBody(TeaModel):
+    def __init__(self, app_id=None, code=None, message=None, request_id=None):
+        self.app_id = app_id  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(IsvGetAppIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class IsvGetAppIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: IsvGetAppIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(IsvGetAppIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = IsvGetAppIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListChatappTemplateRequestPage(TeaModel):
     def __init__(self, index=None, size=None):
         # The number of the page to return. Default value: 1.
@@ -2591,6 +4181,199 @@ class ModifyChatappTemplateResponse(TeaModel):
         return self
 
 
+class ModifyPhoneBusinessProfileRequest(TeaModel):
+    def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
+                 profile_picture_url=None, vertical=None, websites=None):
+        self.address = address  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.description = description  # type: str
+        self.email = email  # type: str
+        self.phone_number = phone_number  # type: str
+        self.profile_picture_url = profile_picture_url  # type: str
+        self.vertical = vertical  # type: str
+        self.websites = websites  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPhoneBusinessProfileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.email is not None:
+            result['Email'] = self.email
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.profile_picture_url is not None:
+            result['ProfilePictureUrl'] = self.profile_picture_url
+        if self.vertical is not None:
+            result['Vertical'] = self.vertical
+        if self.websites is not None:
+            result['Websites'] = self.websites
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('ProfilePictureUrl') is not None:
+            self.profile_picture_url = m.get('ProfilePictureUrl')
+        if m.get('Vertical') is not None:
+            self.vertical = m.get('Vertical')
+        if m.get('Websites') is not None:
+            self.websites = m.get('Websites')
+        return self
+
+
+class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
+    def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
+                 profile_picture_url=None, vertical=None, websites_shrink=None):
+        self.address = address  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.description = description  # type: str
+        self.email = email  # type: str
+        self.phone_number = phone_number  # type: str
+        self.profile_picture_url = profile_picture_url  # type: str
+        self.vertical = vertical  # type: str
+        self.websites_shrink = websites_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPhoneBusinessProfileShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.email is not None:
+            result['Email'] = self.email
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.profile_picture_url is not None:
+            result['ProfilePictureUrl'] = self.profile_picture_url
+        if self.vertical is not None:
+            result['Vertical'] = self.vertical
+        if self.websites_shrink is not None:
+            result['Websites'] = self.websites_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('ProfilePictureUrl') is not None:
+            self.profile_picture_url = m.get('ProfilePictureUrl')
+        if m.get('Vertical') is not None:
+            self.vertical = m.get('Vertical')
+        if m.get('Websites') is not None:
+            self.websites_shrink = m.get('Websites')
+        return self
+
+
+class ModifyPhoneBusinessProfileResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPhoneBusinessProfileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyPhoneBusinessProfileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyPhoneBusinessProfileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyPhoneBusinessProfileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyPhoneBusinessProfileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryChatappBindWabaRequest(TeaModel):
     def __init__(self, cust_space_id=None, isv_code=None):
         # The space ID of the user under the ISV account.
@@ -2972,6 +4755,314 @@ class QueryChatappPhoneNumbersResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryChatappPhoneNumbersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryPhoneBusinessProfileRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPhoneBusinessProfileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class QueryPhoneBusinessProfileResponseBodyData(TeaModel):
+    def __init__(self, address=None, description=None, email=None, profile_picture_url=None, vertical=None,
+                 websites=None):
+        self.address = address  # type: str
+        self.description = description  # type: str
+        self.email = email  # type: str
+        self.profile_picture_url = profile_picture_url  # type: str
+        self.vertical = vertical  # type: str
+        self.websites = websites  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPhoneBusinessProfileResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.email is not None:
+            result['Email'] = self.email
+        if self.profile_picture_url is not None:
+            result['ProfilePictureUrl'] = self.profile_picture_url
+        if self.vertical is not None:
+            result['Vertical'] = self.vertical
+        if self.websites is not None:
+            result['Websites'] = self.websites
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        if m.get('ProfilePictureUrl') is not None:
+            self.profile_picture_url = m.get('ProfilePictureUrl')
+        if m.get('Vertical') is not None:
+            self.vertical = m.get('Vertical')
+        if m.get('Websites') is not None:
+            self.websites = m.get('Websites')
+        return self
+
+
+class QueryPhoneBusinessProfileResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryPhoneBusinessProfileResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryPhoneBusinessProfileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryPhoneBusinessProfileResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryPhoneBusinessProfileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryPhoneBusinessProfileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryPhoneBusinessProfileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryPhoneBusinessProfileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryWabaBusinessInfoRequest(TeaModel):
+    def __init__(self, cust_space_id=None, waba_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # wabaId
+        self.waba_id = waba_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryWabaBusinessInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.waba_id is not None:
+            result['WabaId'] = self.waba_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('WabaId') is not None:
+            self.waba_id = m.get('WabaId')
+        return self
+
+
+class QueryWabaBusinessInfoResponseBodyData(TeaModel):
+    def __init__(self, business_id=None, business_name=None, verification_status=None, vertical=None):
+        self.business_id = business_id  # type: str
+        self.business_name = business_name  # type: str
+        self.verification_status = verification_status  # type: str
+        self.vertical = vertical  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryWabaBusinessInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
+        if self.business_name is not None:
+            result['BusinessName'] = self.business_name
+        if self.verification_status is not None:
+            result['VerificationStatus'] = self.verification_status
+        if self.vertical is not None:
+            result['Vertical'] = self.vertical
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
+        if m.get('BusinessName') is not None:
+            self.business_name = m.get('BusinessName')
+        if m.get('VerificationStatus') is not None:
+            self.verification_status = m.get('VerificationStatus')
+        if m.get('Vertical') is not None:
+            self.vertical = m.get('Vertical')
+        return self
+
+
+class QueryWabaBusinessInfoResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryWabaBusinessInfoResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryWabaBusinessInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryWabaBusinessInfoResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryWabaBusinessInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryWabaBusinessInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryWabaBusinessInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryWabaBusinessInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3680,6 +5771,241 @@ class SendChatappMessageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SendChatappMessageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateAccountWebhookRequest(TeaModel):
+    def __init__(self, cust_space_id=None, http_flag=None, queue_flag=None, status_callback_url=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.http_flag = http_flag  # type: str
+        self.queue_flag = queue_flag  # type: str
+        self.status_callback_url = status_callback_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAccountWebhookRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.http_flag is not None:
+            result['HttpFlag'] = self.http_flag
+        if self.queue_flag is not None:
+            result['QueueFlag'] = self.queue_flag
+        if self.status_callback_url is not None:
+            result['StatusCallbackUrl'] = self.status_callback_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('HttpFlag') is not None:
+            self.http_flag = m.get('HttpFlag')
+        if m.get('QueueFlag') is not None:
+            self.queue_flag = m.get('QueueFlag')
+        if m.get('StatusCallbackUrl') is not None:
+            self.status_callback_url = m.get('StatusCallbackUrl')
+        return self
+
+
+class UpdateAccountWebhookResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAccountWebhookResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateAccountWebhookResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAccountWebhookResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAccountWebhookResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateAccountWebhookResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdatePhoneWebhookRequest(TeaModel):
+    def __init__(self, cust_space_id=None, http_flag=None, phone_number=None, queue_flag=None,
+                 status_callback_url=None, up_callback_url=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.http_flag = http_flag  # type: str
+        self.phone_number = phone_number  # type: str
+        self.queue_flag = queue_flag  # type: str
+        self.status_callback_url = status_callback_url  # type: str
+        self.up_callback_url = up_callback_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneWebhookRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.http_flag is not None:
+            result['HttpFlag'] = self.http_flag
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.queue_flag is not None:
+            result['QueueFlag'] = self.queue_flag
+        if self.status_callback_url is not None:
+            result['StatusCallbackUrl'] = self.status_callback_url
+        if self.up_callback_url is not None:
+            result['UpCallbackUrl'] = self.up_callback_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('HttpFlag') is not None:
+            self.http_flag = m.get('HttpFlag')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('QueueFlag') is not None:
+            self.queue_flag = m.get('QueueFlag')
+        if m.get('StatusCallbackUrl') is not None:
+            self.status_callback_url = m.get('StatusCallbackUrl')
+        if m.get('UpCallbackUrl') is not None:
+            self.up_callback_url = m.get('UpCallbackUrl')
+        return self
+
+
+class UpdatePhoneWebhookResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneWebhookResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdatePhoneWebhookResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdatePhoneWebhookResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdatePhoneWebhookResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdatePhoneWebhookResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
