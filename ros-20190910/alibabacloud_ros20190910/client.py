@@ -30,6 +30,40 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def cancel_stack_operation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.allowed_stack_operations):
+            query['AllowedStackOperations'] = request.allowed_stack_operations
+        if not UtilClient.is_unset(request.cancel_type):
+            query['CancelType'] = request.cancel_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.stack_id):
+            query['StackId'] = request.stack_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelStackOperation',
+            version='2019-09-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ros20190910_models.CancelStackOperationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_stack_operation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_stack_operation_with_options(request, runtime)
+
     def cancel_update_stack_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -263,7 +297,7 @@ class Client(OpenApiClient):
         request = ros20190910_models.CreateStackGroupShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.auto_deployment):
-            request.auto_deployment_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.auto_deployment), 'AutoDeployment', 'json')
+            request.auto_deployment_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.auto_deployment, 'AutoDeployment', 'json')
         query = {}
         if not UtilClient.is_unset(request.administration_role_name):
             query['AdministrationRoleName'] = request.administration_role_name
@@ -325,7 +359,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
-            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deployment_targets, 'DeploymentTargets', 'json')
         if not UtilClient.is_unset(tmp_req.operation_preferences):
             request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.region_ids):
@@ -421,11 +455,11 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.preference_parameters):
             request.preference_parameters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.preference_parameters, 'PreferenceParameters', 'json')
         if not UtilClient.is_unset(tmp_req.source_resource_group):
-            request.source_resource_group_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.source_resource_group), 'SourceResourceGroup', 'json')
+            request.source_resource_group_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_resource_group, 'SourceResourceGroup', 'json')
         if not UtilClient.is_unset(tmp_req.source_resources):
             request.source_resources_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_resources, 'SourceResources', 'json')
         if not UtilClient.is_unset(tmp_req.source_tag):
-            request.source_tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.source_tag), 'SourceTag', 'json')
+            request.source_tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_tag, 'SourceTag', 'json')
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
@@ -575,7 +609,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
-            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deployment_targets, 'DeploymentTargets', 'json')
         if not UtilClient.is_unset(tmp_req.operation_preferences):
             request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.region_ids):
@@ -2557,9 +2591,9 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
         if not UtilClient.is_unset(tmp_req.auto_deployment):
-            request.auto_deployment_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.auto_deployment), 'AutoDeployment', 'json')
+            request.auto_deployment_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.auto_deployment, 'AutoDeployment', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
-            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deployment_targets, 'DeploymentTargets', 'json')
         if not UtilClient.is_unset(tmp_req.operation_preferences):
             request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.region_ids):
@@ -2631,7 +2665,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
-            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+            request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deployment_targets, 'DeploymentTargets', 'json')
         if not UtilClient.is_unset(tmp_req.operation_preferences):
             request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.region_ids):
@@ -2761,11 +2795,11 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.preference_parameters):
             request.preference_parameters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.preference_parameters, 'PreferenceParameters', 'json')
         if not UtilClient.is_unset(tmp_req.source_resource_group):
-            request.source_resource_group_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.source_resource_group), 'SourceResourceGroup', 'json')
+            request.source_resource_group_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_resource_group, 'SourceResourceGroup', 'json')
         if not UtilClient.is_unset(tmp_req.source_resources):
             request.source_resources_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_resources, 'SourceResources', 'json')
         if not UtilClient.is_unset(tmp_req.source_tag):
-            request.source_tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.source_tag), 'SourceTag', 'json')
+            request.source_tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_tag, 'SourceTag', 'json')
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
