@@ -4,7 +4,8 @@ from Tea.model import TeaModel
 
 
 class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
-    def __init__(self, max_retry_times=None, retry_policy=None):
+    def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        self.dead_letter_target_topic = dead_letter_target_topic  # type: str
         self.max_retry_times = max_retry_times  # type: int
         self.retry_policy = retry_policy  # type: str
 
@@ -17,6 +18,8 @@ class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.dead_letter_target_topic is not None:
+            result['deadLetterTargetTopic'] = self.dead_letter_target_topic
         if self.max_retry_times is not None:
             result['maxRetryTimes'] = self.max_retry_times
         if self.retry_policy is not None:
@@ -25,6 +28,8 @@ class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('deadLetterTargetTopic') is not None:
+            self.dead_letter_target_topic = m.get('deadLetterTargetTopic')
         if m.get('maxRetryTimes') is not None:
             self.max_retry_times = m.get('maxRetryTimes')
         if m.get('retryPolicy') is not None:
@@ -930,7 +935,8 @@ class DeleteTopicResponse(TeaModel):
 
 
 class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
-    def __init__(self, max_retry_times=None, retry_policy=None):
+    def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        self.dead_letter_target_topic = dead_letter_target_topic  # type: str
         self.max_retry_times = max_retry_times  # type: int
         self.retry_policy = retry_policy  # type: str
 
@@ -943,6 +949,8 @@ class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.dead_letter_target_topic is not None:
+            result['deadLetterTargetTopic'] = self.dead_letter_target_topic
         if self.max_retry_times is not None:
             result['maxRetryTimes'] = self.max_retry_times
         if self.retry_policy is not None:
@@ -951,6 +959,8 @@ class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('deadLetterTargetTopic') is not None:
+            self.dead_letter_target_topic = m.get('deadLetterTargetTopic')
         if m.get('maxRetryTimes') is not None:
             self.max_retry_times = m.get('maxRetryTimes')
         if m.get('retryPolicy') is not None:
@@ -2435,8 +2445,9 @@ class ListInstancesResponse(TeaModel):
 
 
 class ListTopicsRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None):
+    def __init__(self, filter=None, message_types=None, page_number=None, page_size=None):
         self.filter = filter  # type: str
+        self.message_types = message_types  # type: list[str]
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -2451,6 +2462,8 @@ class ListTopicsRequest(TeaModel):
         result = dict()
         if self.filter is not None:
             result['filter'] = self.filter
+        if self.message_types is not None:
+            result['messageTypes'] = self.message_types
         if self.page_number is not None:
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
@@ -2461,6 +2474,47 @@ class ListTopicsRequest(TeaModel):
         m = m or dict()
         if m.get('filter') is not None:
             self.filter = m.get('filter')
+        if m.get('messageTypes') is not None:
+            self.message_types = m.get('messageTypes')
+        if m.get('pageNumber') is not None:
+            self.page_number = m.get('pageNumber')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        return self
+
+
+class ListTopicsShrinkRequest(TeaModel):
+    def __init__(self, filter=None, message_types_shrink=None, page_number=None, page_size=None):
+        self.filter = filter  # type: str
+        self.message_types_shrink = message_types_shrink  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTopicsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter is not None:
+            result['filter'] = self.filter
+        if self.message_types_shrink is not None:
+            result['messageTypes'] = self.message_types_shrink
+        if self.page_number is not None:
+            result['pageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('filter') is not None:
+            self.filter = m.get('filter')
+        if m.get('messageTypes') is not None:
+            self.message_types_shrink = m.get('messageTypes')
         if m.get('pageNumber') is not None:
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:

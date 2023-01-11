@@ -373,11 +373,17 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_instances_with_options(request, headers, runtime)
 
-    def list_topics_with_options(self, instance_id, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def list_topics_with_options(self, instance_id, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rocket_mq20220801_models.ListTopicsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.message_types):
+            request.message_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.message_types, 'messageTypes', 'simple')
         query = {}
         if not UtilClient.is_unset(request.filter):
             query['filter'] = request.filter
+        if not UtilClient.is_unset(request.message_types_shrink):
+            query['messageTypes'] = request.message_types_shrink
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
