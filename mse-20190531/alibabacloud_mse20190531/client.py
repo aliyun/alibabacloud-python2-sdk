@@ -728,10 +728,10 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.app_name):
             query['AppName'] = request.app_name
-        if not UtilClient.is_unset(request.extra_info):
-            query['ExtraInfo'] = request.extra_info
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.sentinel_enable):
@@ -886,6 +886,17 @@ class Client(OpenApiClient):
         return self.create_engine_namespace_with_options(request, runtime)
 
     def create_mse_service_application_with_options(self, request, runtime):
+        """
+        @deprecated : CreateMseServiceApplication is deprecated, please use mse::2019-05-31::CreateApplication instead.
+        
+
+        @param request: CreateMseServiceApplicationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateMseServiceApplicationResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -926,6 +937,15 @@ class Client(OpenApiClient):
         )
 
     def create_mse_service_application(self, request):
+        """
+        @deprecated : CreateMseServiceApplication is deprecated, please use mse::2019-05-31::CreateApplication instead.
+        
+
+        @param request: CreateMseServiceApplicationRequest
+
+        @return: CreateMseServiceApplicationResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_mse_service_application_with_options(request, runtime)
 
@@ -6006,10 +6026,14 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
         if not UtilClient.is_unset(request.enable):
             query['Enable'] = request.enable
         if not UtilClient.is_unset(request.filter_side):
             query['FilterSide'] = request.filter_side
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.tags_shrink):
