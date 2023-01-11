@@ -377,6 +377,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_card_flow_info_with_options(request, runtime)
 
+    def get_card_latest_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.iccid):
+            query['Iccid'] = request.iccid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCardLatestFlow',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetCardLatestFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_card_latest_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_card_latest_flow_with_options(request, runtime)
+
+    def get_card_status_statistics_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetCardStatusStatistics',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetCardStatusStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_card_status_statistics(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_card_status_statistics_with_options(runtime)
+
     def get_credential_pool_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -406,6 +456,102 @@ class Client(OpenApiClient):
     def get_credential_pool_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_credential_pool_statistics_with_options(request, runtime)
+
+    def get_operate_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product):
+            query['ApiProduct'] = request.api_product
+        if not UtilClient.is_unset(request.res_id):
+            query['ResId'] = request.res_id
+        if not UtilClient.is_unset(request.serial_no):
+            query['SerialNo'] = request.serial_no
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOperateResult',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetOperateResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_operate_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_operate_result_with_options(request, runtime)
+
+    def get_real_name_status_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = linkcard_20210520_models.GetRealNameStatusShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.list_msisdns):
+            request.list_msisdns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.list_msisdns, 'ListMsisdns', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.iccid):
+            query['Iccid'] = request.iccid
+        if not UtilClient.is_unset(request.list_msisdns_shrink):
+            query['ListMsisdns'] = request.list_msisdns_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRealNameStatus',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetRealNameStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_real_name_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_real_name_status_with_options(request, runtime)
+
+    def get_sim_card_state_distribution_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.credential_no):
+            query['CredentialNO'] = request.credential_no
+        if not UtilClient.is_unset(request.date):
+            query['Date'] = request.date
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSimCardStateDistribution',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetSimCardStateDistributionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_sim_card_state_distribution(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_sim_card_state_distribution_with_options(request, runtime)
 
     def list_card_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
