@@ -56,13 +56,13 @@ class Client(OpenApiClient):
         headers = {}
         return self.cancel_task_with_options(task_id, headers, runtime)
 
-    def create_resource_with_options(self, resource_path, request, headers, runtime):
+    def create_resource_with_options(self, request_path, request, headers, runtime):
         """
         POST /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param request: CreateResourceRequest
 
@@ -82,13 +82,13 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateResource',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -100,13 +100,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_resource(self, resource_path, request):
+    def create_resource(self, request_path, request):
         """
         POST /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param request: CreateResourceRequest
 
@@ -114,15 +114,15 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_resource_with_options(resource_path, request, headers, runtime)
+        return self.create_resource_with_options(request_path, request, headers, runtime)
 
-    def delete_resource_with_options(self, resource_path, request, headers, runtime):
+    def delete_resource_with_options(self, request_path, request, headers, runtime):
         """
         DELETE /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}/{resourceId}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param request: DeleteResourceRequest
 
@@ -147,7 +147,7 @@ class Client(OpenApiClient):
             action='DeleteResource',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -159,13 +159,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource(self, resource_path, request):
+    def delete_resource(self, request_path, request):
         """
         DELETE /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}/{resourceId}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param request: DeleteResourceRequest
 
@@ -173,9 +173,9 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_with_options(resource_path, request, headers, runtime)
+        return self.delete_resource_with_options(request_path, request, headers, runtime)
 
-    def get_resource_type_with_options(self, resource_path, headers, runtime):
+    def get_resource_type_with_options(self, request_path, headers, runtime):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -188,7 +188,7 @@ class Client(OpenApiClient):
             action='GetResourceType',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -200,12 +200,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_resource_type(self, resource_path):
+    def get_resource_type(self, request_path):
         runtime = util_models.RuntimeOptions()
         headers = cloudcontrol_20220830_models.GetResourceTypeHeaders()
-        return self.get_resource_type_with_options(resource_path, headers, runtime)
+        return self.get_resource_type_with_options(request_path, headers, runtime)
 
-    def get_resources_with_options(self, resource_path, tmp_req, headers, runtime):
+    def get_resources_with_options(self, request_path, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = cloudcontrol_20220830_models.GetResourcesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -228,7 +228,7 @@ class Client(OpenApiClient):
             action='GetResources',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -240,10 +240,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_resources(self, resource_path, request):
+    def get_resources(self, request_path, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_resources_with_options(resource_path, request, headers, runtime)
+        return self.get_resources_with_options(request_path, request, headers, runtime)
 
     def get_task_with_options(self, task_id, headers, runtime):
         """
@@ -287,13 +287,13 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_task_with_options(task_id, headers, runtime)
 
-    def list_data_sources_with_options(self, resource_path, tmp_req, headers, runtime):
+    def list_data_sources_with_options(self, request_path, tmp_req, headers, runtime):
         """
         GET /api/v1/providers/{provider}/products/{product}/dataSources/{resourceType}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param tmp_req: ListDataSourcesRequest
 
@@ -322,7 +322,7 @@ class Client(OpenApiClient):
             action='ListDataSources',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -334,13 +334,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_sources(self, resource_path, request):
+    def list_data_sources(self, request_path, request):
         """
         GET /api/v1/providers/{provider}/products/{product}/dataSources/{resourceType}。
         
 
-        @type resource_path: str
-        @param resource_path: the whole path of resource string
+        @type request_path: str
+        @param request_path: the whole path of resource string
 
         @param request: ListDataSourcesRequest
 
@@ -348,7 +348,7 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_sources_with_options(resource_path, request, headers, runtime)
+        return self.list_data_sources_with_options(request_path, request, headers, runtime)
 
     def list_products_with_options(self, provider, request, headers, runtime):
         """
@@ -470,7 +470,7 @@ class Client(OpenApiClient):
         headers = cloudcontrol_20220830_models.ListResourceTypesHeaders()
         return self.list_resource_types_with_options(provider, product, request, headers, runtime)
 
-    def update_resource_with_options(self, resource_path, request, headers, runtime):
+    def update_resource_with_options(self, request_path, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -480,13 +480,13 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateResource',
             version='2022-08-30',
             protocol='HTTPS',
-            pathname='%s' % TeaConverter.to_unicode(resource_path),
+            pathname='%s' % TeaConverter.to_unicode(request_path),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -498,7 +498,7 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_resource(self, resource_path, request):
+    def update_resource(self, request_path, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_resource_with_options(resource_path, request, headers, runtime)
+        return self.update_resource_with_options(request_path, request, headers, runtime)

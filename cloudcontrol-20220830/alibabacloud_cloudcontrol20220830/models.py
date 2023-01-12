@@ -68,7 +68,7 @@ class CancelTaskResponse(TeaModel):
 
 class CreateResourceRequest(TeaModel):
     def __init__(self, body=None, client_token=None, region_id=None):
-        self.body = body  # type: str
+        self.body = body  # type: dict[str, any]
         self.client_token = client_token  # type: str
         self.region_id = region_id  # type: str
 
@@ -794,7 +794,7 @@ class GetResourcesShrinkRequest(TeaModel):
 
 class GetResourcesResponseBodyResource(TeaModel):
     def __init__(self, resource_attributes=None, resource_id=None):
-        self.resource_attributes = resource_attributes  # type: str
+        self.resource_attributes = resource_attributes  # type: dict[str, any]
         self.resource_id = resource_id  # type: str
 
     def validate(self):
@@ -823,7 +823,7 @@ class GetResourcesResponseBodyResource(TeaModel):
 
 class GetResourcesResponseBodyResources(TeaModel):
     def __init__(self, resource_attributes=None, resource_id=None):
-        self.resource_attributes = resource_attributes  # type: str
+        self.resource_attributes = resource_attributes  # type: dict[str, any]
         self.resource_id = resource_id  # type: str
 
     def validate(self):
@@ -1987,7 +1987,7 @@ class ListResourceTypesResponse(TeaModel):
 
 class UpdateResourceRequest(TeaModel):
     def __init__(self, body=None, client_token=None, region_id=None):
-        self.body = body  # type: str
+        self.body = body  # type: dict[str, any]
         self.client_token = client_token  # type: str
         self.region_id = region_id  # type: str
 
