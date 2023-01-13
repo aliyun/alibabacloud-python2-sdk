@@ -24766,13 +24766,15 @@ class GetQualityFollowerRequest(TeaModel):
 
 
 class GetQualityFollowerResponseBodyData(TeaModel):
-    def __init__(self, alarm_mode=None, entity_id=None, follower=None, follower_account_name=None, id=None,
-                 project_name=None, table_name=None):
+    def __init__(self, alarm_mode=None, create_time=None, entity_id=None, follower=None, follower_account_name=None,
+                 id=None, modify_time=None, project_name=None, table_name=None):
         self.alarm_mode = alarm_mode  # type: int
+        self.create_time = create_time  # type: long
         self.entity_id = entity_id  # type: str
         self.follower = follower  # type: str
         self.follower_account_name = follower_account_name  # type: str
         self.id = id  # type: long
+        self.modify_time = modify_time  # type: long
         self.project_name = project_name  # type: str
         self.table_name = table_name  # type: str
 
@@ -24787,6 +24789,8 @@ class GetQualityFollowerResponseBodyData(TeaModel):
         result = dict()
         if self.alarm_mode is not None:
             result['AlarmMode'] = self.alarm_mode
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.entity_id is not None:
             result['EntityId'] = self.entity_id
         if self.follower is not None:
@@ -24795,6 +24799,8 @@ class GetQualityFollowerResponseBodyData(TeaModel):
             result['FollowerAccountName'] = self.follower_account_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         if self.project_name is not None:
             result['ProjectName'] = self.project_name
         if self.table_name is not None:
@@ -24805,6 +24811,8 @@ class GetQualityFollowerResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('AlarmMode') is not None:
             self.alarm_mode = m.get('AlarmMode')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('EntityId') is not None:
             self.entity_id = m.get('EntityId')
         if m.get('Follower') is not None:
@@ -24813,6 +24821,8 @@ class GetQualityFollowerResponseBodyData(TeaModel):
             self.follower_account_name = m.get('FollowerAccountName')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         if m.get('ProjectName') is not None:
             self.project_name = m.get('ProjectName')
         if m.get('TableName') is not None:
@@ -24949,8 +24959,9 @@ class GetQualityRuleRequest(TeaModel):
 class GetQualityRuleResponseBodyData(TeaModel):
     def __init__(self, block_type=None, checker=None, checker_name=None, comment=None, critical_threshold=None,
                  entity_id=None, expect_value=None, fix_check=None, id=None, method_id=None, method_name=None, on_duty=None,
-                 on_duty_account_name=None, operator=None, predict_type=None, property=None, rule_name=None, rule_type=None,
-                 template_id=None, template_name=None, trend=None, warning_threshold=None, where_condition=None):
+                 on_duty_account_name=None, open_switch=None, operator=None, predict_type=None, property=None, rule_name=None,
+                 rule_type=None, template_id=None, template_name=None, trend=None, warning_threshold=None,
+                 where_condition=None):
         self.block_type = block_type  # type: int
         self.checker = checker  # type: int
         self.checker_name = checker_name  # type: str
@@ -24964,6 +24975,7 @@ class GetQualityRuleResponseBodyData(TeaModel):
         self.method_name = method_name  # type: str
         self.on_duty = on_duty  # type: str
         self.on_duty_account_name = on_duty_account_name  # type: str
+        self.open_switch = open_switch  # type: bool
         self.operator = operator  # type: str
         self.predict_type = predict_type  # type: int
         self.property = property  # type: str
@@ -25010,6 +25022,8 @@ class GetQualityRuleResponseBodyData(TeaModel):
             result['OnDuty'] = self.on_duty
         if self.on_duty_account_name is not None:
             result['OnDutyAccountName'] = self.on_duty_account_name
+        if self.open_switch is not None:
+            result['OpenSwitch'] = self.open_switch
         if self.operator is not None:
             result['Operator'] = self.operator
         if self.predict_type is not None:
@@ -25060,6 +25074,8 @@ class GetQualityRuleResponseBodyData(TeaModel):
             self.on_duty = m.get('OnDuty')
         if m.get('OnDutyAccountName') is not None:
             self.on_duty_account_name = m.get('OnDutyAccountName')
+        if m.get('OpenSwitch') is not None:
+            self.open_switch = m.get('OpenSwitch')
         if m.get('Operator') is not None:
             self.operator = m.get('Operator')
         if m.get('PredictType') is not None:
@@ -39425,7 +39441,7 @@ class ListQualityResultsByRuleRequest(TeaModel):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.project_name = project_name  # type: str
-        self.rule_id = rule_id  # type: int
+        self.rule_id = rule_id  # type: long
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -39551,9 +39567,10 @@ class ListQualityResultsByRuleResponseBodyDataRuleChecks(TeaModel):
                  check_result_status=None, checker_id=None, checker_name=None, checker_type=None, comment=None, critical_threshold=None,
                  date_type=None, discrete_check=None, end_time=None, entity_id=None, expect_value=None, external_id=None,
                  external_type=None, fixed_check=None, id=None, is_prediction=None, lower_value=None, match_expression=None,
-                 method_name=None, op=None, project_name=None, property=None, reference_value=None, result_string=None,
-                 rule_id=None, rule_name=None, sample_value=None, table_name=None, task_id=None, template_id=None,
-                 template_name=None, time_cost=None, trend=None, upper_value=None, warning_threshold=None, where_condition=None):
+                 method_name=None, op=None, open=None, project_name=None, property=None, reference_value=None,
+                 result_string=None, rule_id=None, rule_name=None, sample_value=None, table_name=None, task_id=None,
+                 template_id=None, template_name=None, time_cost=None, trend=None, upper_value=None, warning_threshold=None,
+                 where_condition=None):
         self.actual_expression = actual_expression  # type: str
         self.begin_time = begin_time  # type: long
         self.biz_date = biz_date  # type: long
@@ -39568,22 +39585,23 @@ class ListQualityResultsByRuleResponseBodyDataRuleChecks(TeaModel):
         self.date_type = date_type  # type: str
         self.discrete_check = discrete_check  # type: bool
         self.end_time = end_time  # type: long
-        self.entity_id = entity_id  # type: int
+        self.entity_id = entity_id  # type: long
         self.expect_value = expect_value  # type: float
         self.external_id = external_id  # type: str
         self.external_type = external_type  # type: str
         self.fixed_check = fixed_check  # type: bool
-        self.id = id  # type: int
+        self.id = id  # type: long
         self.is_prediction = is_prediction  # type: bool
         self.lower_value = lower_value  # type: float
         self.match_expression = match_expression  # type: str
         self.method_name = method_name  # type: str
         self.op = op  # type: str
+        self.open = open  # type: bool
         self.project_name = project_name  # type: str
         self.property = property  # type: str
         self.reference_value = reference_value  # type: list[ListQualityResultsByRuleResponseBodyDataRuleChecksReferenceValue]
         self.result_string = result_string  # type: str
-        self.rule_id = rule_id  # type: int
+        self.rule_id = rule_id  # type: long
         self.rule_name = rule_name  # type: str
         self.sample_value = sample_value  # type: list[ListQualityResultsByRuleResponseBodyDataRuleChecksSampleValue]
         self.table_name = table_name  # type: str
@@ -39662,6 +39680,8 @@ class ListQualityResultsByRuleResponseBodyDataRuleChecks(TeaModel):
             result['MethodName'] = self.method_name
         if self.op is not None:
             result['Op'] = self.op
+        if self.open is not None:
+            result['Open'] = self.open
         if self.project_name is not None:
             result['ProjectName'] = self.project_name
         if self.property is not None:
@@ -39752,6 +39772,8 @@ class ListQualityResultsByRuleResponseBodyDataRuleChecks(TeaModel):
             self.method_name = m.get('MethodName')
         if m.get('Op') is not None:
             self.op = m.get('Op')
+        if m.get('Open') is not None:
+            self.open = m.get('Open')
         if m.get('ProjectName') is not None:
             self.project_name = m.get('ProjectName')
         if m.get('Property') is not None:
