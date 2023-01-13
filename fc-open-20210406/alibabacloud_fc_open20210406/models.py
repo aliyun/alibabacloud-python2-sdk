@@ -2394,11 +2394,38 @@ class VendorConfig(TeaModel):
         return self
 
 
+class WAFConfig(TeaModel):
+    def __init__(self, enable_waf=None):
+        self.enable_waf = enable_waf  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(WAFConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_waf is not None:
+            result['enableWAF'] = self.enable_waf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enableWAF') is not None:
+            self.enable_waf = m.get('enableWAF')
+        return self
+
+
 class ClaimGPUInstanceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -2437,18 +2464,31 @@ class ClaimGPUInstanceRequest(TeaModel):
     def __init__(self, disk_performance_level=None, disk_size_gigabytes=None, image_id=None, instance_type=None,
                  internet_bandwidth_out=None, password=None, role=None, sg_id=None, source_cidr_ip=None, tcp_port_range=None,
                  udp_port_range=None, vpc_id=None, vsw_id=None):
+        # The disk performance level of the GPU rendering instance.
         self.disk_performance_level = disk_performance_level  # type: str
+        # The system disk space of the GPU rendering instance.
         self.disk_size_gigabytes = disk_size_gigabytes  # type: str
+        # The image ID of the GPU-rendered instance.
         self.image_id = image_id  # type: str
+        # The specifications of the GPU rendering instance.
         self.instance_type = instance_type  # type: str
+        # The outbound Internet bandwidth of the GPU rendering instance.
         self.internet_bandwidth_out = internet_bandwidth_out  # type: str
+        # The password of the GPU rendering instance.
         self.password = password  # type: str
+        # The role of the user.
         self.role = role  # type: str
+        # The ID of the security group.
         self.sg_id = sg_id  # type: str
+        # The source IPv4 CIDR block of the GPU rendering instance.
         self.source_cidr_ip = source_cidr_ip  # type: str
+        # The range of TCP ports that are open to the security group of the GPU-rendered instance.
         self.tcp_port_range = tcp_port_range  # type: list[str]
+        # The range of UDP ports that are open to the security group of the GPU rendering instance.
         self.udp_port_range = udp_port_range  # type: list[str]
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch.
         self.vsw_id = vsw_id  # type: str
 
     def validate(self):
@@ -2521,8 +2561,11 @@ class ClaimGPUInstanceRequest(TeaModel):
 
 class ClaimGPUInstanceResponseBody(TeaModel):
     def __init__(self, created_time=None, instance_id=None, public_ip=None):
+        # The time when the product instance was created.
         self.created_time = created_time  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The public IP address.
         self.public_ip = public_ip  # type: str
 
     def validate(self):
@@ -2839,7 +2882,8 @@ class CreateCustomDomainHeaders(TeaModel):
 
 
 class CreateCustomDomainRequest(TeaModel):
-    def __init__(self, cert_config=None, domain_name=None, protocol=None, route_config=None, tls_config=None):
+    def __init__(self, cert_config=None, domain_name=None, protocol=None, route_config=None, tls_config=None,
+                 waf_config=None):
         # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
         # The domain name.
@@ -2854,6 +2898,7 @@ class CreateCustomDomainRequest(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -2862,6 +2907,8 @@ class CreateCustomDomainRequest(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(CreateCustomDomainRequest, self).to_map()
@@ -2879,6 +2926,8 @@ class CreateCustomDomainRequest(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -2896,12 +2945,15 @@ class CreateCustomDomainRequest(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
 class CreateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
-                 last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+                 last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
         # The ID of the account.
         self.account_id = account_id  # type: str
         # The version of the API.
@@ -2924,6 +2976,7 @@ class CreateCustomDomainResponseBody(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -2932,6 +2985,8 @@ class CreateCustomDomainResponseBody(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(CreateCustomDomainResponseBody, self).to_map()
@@ -2957,6 +3012,8 @@ class CreateCustomDomainResponseBody(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -2982,6 +3039,9 @@ class CreateCustomDomainResponseBody(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
@@ -5549,7 +5609,7 @@ class GetCustomDomainHeaders(TeaModel):
 
 class GetCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
-                 last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+                 last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
         # The version number of the API.
         self.account_id = account_id  # type: str
         # The version number of the API.
@@ -5572,6 +5632,7 @@ class GetCustomDomainResponseBody(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -5580,6 +5641,8 @@ class GetCustomDomainResponseBody(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(GetCustomDomainResponseBody, self).to_map()
@@ -5605,6 +5668,8 @@ class GetCustomDomainResponseBody(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -5630,6 +5695,9 @@ class GetCustomDomainResponseBody(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
@@ -7842,7 +7910,7 @@ class ListCustomDomainsRequest(TeaModel):
 
 class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
-                 last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+                 last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
         # The ID of the account.
         self.account_id = account_id  # type: str
         # The version of the API.
@@ -7865,6 +7933,7 @@ class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -7873,6 +7942,8 @@ class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(ListCustomDomainsResponseBodyCustomDomains, self).to_map()
@@ -7898,6 +7969,8 @@ class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -7923,6 +7996,9 @@ class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
@@ -12227,8 +12303,11 @@ class RegisterEventSourceResponse(TeaModel):
 class ReleaseGPUInstanceHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_date=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
+        # The time on which the function is invoked. The format of the value is: EEE,d MMM yyyy HH:mm:ss GMT.
         self.x_fc_date = x_fc_date  # type: str
+        # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
@@ -12857,7 +12936,7 @@ class UpdateCustomDomainHeaders(TeaModel):
 
 
 class UpdateCustomDomainRequest(TeaModel):
-    def __init__(self, cert_config=None, protocol=None, route_config=None, tls_config=None):
+    def __init__(self, cert_config=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
         # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
         # The protocol types supported by the domain name. Valid values:
@@ -12870,6 +12949,7 @@ class UpdateCustomDomainRequest(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -12878,6 +12958,8 @@ class UpdateCustomDomainRequest(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(UpdateCustomDomainRequest, self).to_map()
@@ -12893,6 +12975,8 @@ class UpdateCustomDomainRequest(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -12908,12 +12992,15 @@ class UpdateCustomDomainRequest(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
 class UpdateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
-                 last_modified_time=None, protocol=None, route_config=None, tls_config=None):
+                 last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
         # The ID of the account.
         self.account_id = account_id  # type: str
         # The version number of the API.
@@ -12936,6 +13023,7 @@ class UpdateCustomDomainResponseBody(TeaModel):
         self.route_config = route_config  # type: RouteConfig
         # The configurations of the TLS.
         self.tls_config = tls_config  # type: TLSConfig
+        self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
         if self.cert_config:
@@ -12944,6 +13032,8 @@ class UpdateCustomDomainResponseBody(TeaModel):
             self.route_config.validate()
         if self.tls_config:
             self.tls_config.validate()
+        if self.waf_config:
+            self.waf_config.validate()
 
     def to_map(self):
         _map = super(UpdateCustomDomainResponseBody, self).to_map()
@@ -12969,6 +13059,8 @@ class UpdateCustomDomainResponseBody(TeaModel):
             result['routeConfig'] = self.route_config.to_map()
         if self.tls_config is not None:
             result['tlsConfig'] = self.tls_config.to_map()
+        if self.waf_config is not None:
+            result['wafConfig'] = self.waf_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -12994,6 +13086,9 @@ class UpdateCustomDomainResponseBody(TeaModel):
         if m.get('tlsConfig') is not None:
             temp_model = TLSConfig()
             self.tls_config = temp_model.from_map(m['tlsConfig'])
+        if m.get('wafConfig') is not None:
+            temp_model = WAFConfig()
+            self.waf_config = temp_model.from_map(m['wafConfig'])
         return self
 
 
