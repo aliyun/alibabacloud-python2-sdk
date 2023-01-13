@@ -1,3 +1,6 @@
+2023-01-13 Version: 0.2.0
+- Add ClearDeviceDesiredProperty open api.
+
 2022-09-16 Version: 1.2.8
 - Iot_20180120 TeaDSL SDK.
 
