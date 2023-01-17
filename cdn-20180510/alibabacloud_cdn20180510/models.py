@@ -204,8 +204,8 @@ class AddCdnDomainResponse(TeaModel):
 
 
 class AddFCTriggerRequest(TeaModel):
-    def __init__(self, event_meta_name=None, event_meta_version=None, function_arn=None, notes=None, owner_id=None,
-                 role_arn=None, source_arn=None, trigger_arn=None):
+    def __init__(self, event_meta_name=None, event_meta_version=None, function_arn=None, notes=None, role_arn=None,
+                 source_arn=None, trigger_arn=None):
         # The name of the event.
         self.event_meta_name = event_meta_name  # type: str
         # The version of the event.
@@ -214,8 +214,6 @@ class AddFCTriggerRequest(TeaModel):
         self.function_arn = function_arn  # type: str
         # The remarks.
         self.notes = notes  # type: str
-        # 用户ID。
-        self.owner_id = owner_id  # type: long
         # The assigned Resource Access Management (RAM) role.
         self.role_arn = role_arn  # type: str
         # The resources and filters for event listening.
@@ -240,8 +238,6 @@ class AddFCTriggerRequest(TeaModel):
             result['FunctionARN'] = self.function_arn
         if self.notes is not None:
             result['Notes'] = self.notes
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.role_arn is not None:
             result['RoleARN'] = self.role_arn
         if self.source_arn is not None:
@@ -260,8 +256,6 @@ class AddFCTriggerRequest(TeaModel):
             self.function_arn = m.get('FunctionARN')
         if m.get('Notes') is not None:
             self.notes = m.get('Notes')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('RoleARN') is not None:
             self.role_arn = m.get('RoleARN')
         if m.get('SourceARN') is not None:
@@ -1317,7 +1311,7 @@ class BatchUpdateCdnDomainResponse(TeaModel):
 
 class CreateCdnCertificateSigningRequestRequest(TeaModel):
     def __init__(self, city=None, common_name=None, country=None, email=None, organization=None,
-                 organization_unit=None, owner_id=None, sans=None, state=None):
+                 organization_unit=None, sans=None, state=None):
         # The city to which the organization belongs. Default value: Hangzhou.
         self.city = city  # type: str
         # The Common Name of the SSL certificate.
@@ -1330,7 +1324,6 @@ class CreateCdnCertificateSigningRequestRequest(TeaModel):
         self.organization = organization  # type: str
         # The name of the organization unit. Default value: Aliyun CDN.
         self.organization_unit = organization_unit  # type: str
-        self.owner_id = owner_id  # type: long
         # The Subject Alternative Name (SAN) extension of the SSL certificate. This extension is used to add domain names to the certificate. Separate multiple domain names with commas (,).
         self.sans = sans  # type: str
         # The provincial district to which the organization belongs. Default value: Zhejiang.
@@ -1357,8 +1350,6 @@ class CreateCdnCertificateSigningRequestRequest(TeaModel):
             result['Organization'] = self.organization
         if self.organization_unit is not None:
             result['OrganizationUnit'] = self.organization_unit
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.sans is not None:
             result['SANs'] = self.sans
         if self.state is not None:
@@ -1379,8 +1370,6 @@ class CreateCdnCertificateSigningRequestRequest(TeaModel):
             self.organization = m.get('Organization')
         if m.get('OrganizationUnit') is not None:
             self.organization_unit = m.get('OrganizationUnit')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('SANs') is not None:
             self.sans = m.get('SANs')
         if m.get('State') is not None:
@@ -1471,7 +1460,7 @@ class CreateCdnCertificateSigningRequestResponse(TeaModel):
 
 
 class CreateCdnDeliverTaskRequest(TeaModel):
-    def __init__(self, deliver=None, domain_name=None, name=None, owner_id=None, reports=None, schedule=None):
+    def __init__(self, deliver=None, domain_name=None, name=None, reports=None, schedule=None):
         # The method that is used to send operations reports. Operations reports are sent to you only by email. The settings must be escaped in JSON.
         self.deliver = deliver  # type: str
         # The domain names to be tracked. Separate multiple domain names with commas (,). You can specify up to 500 domain names. If you want to specify more than 500 domain names, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex).  
@@ -1480,7 +1469,6 @@ class CreateCdnDeliverTaskRequest(TeaModel):
         self.domain_name = domain_name  # type: str
         # The name of the tracking task.
         self.name = name  # type: str
-        self.owner_id = owner_id  # type: long
         # The operations reports that are tracked by the task. The data must be escaped in JSON.
         self.reports = reports  # type: str
         # The parameters that specify the time interval at which the tracking task sends operations reports. The settings must be escaped in JSON.
@@ -1501,8 +1489,6 @@ class CreateCdnDeliverTaskRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.name is not None:
             result['Name'] = self.name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.reports is not None:
             result['Reports'] = self.reports
         if self.schedule is not None:
@@ -1517,8 +1503,6 @@ class CreateCdnDeliverTaskRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('Name') is not None:
             self.name = m.get('Name')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Reports') is not None:
             self.reports = m.get('Reports')
         if m.get('Schedule') is not None:
@@ -1597,12 +1581,11 @@ class CreateCdnDeliverTaskResponse(TeaModel):
 
 
 class CreateCdnSubTaskRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None, report_ids=None):
+    def __init__(self, domain_name=None, report_ids=None):
         # The domain names to be tracked. Separate multiple domain names with commas (,). You can specify up to 500 domain names. If you want to specify more than 500 domain names, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex).
         # 
         # >  If you do not specify a domain name, the custom operations reports are created for all domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
         # The IDs of the metrics that you want to include in the report. Separate multiple IDs with commas (,). Valid values:
         # 
         # *   **1**: frequently requested URLs (ranked by the number of requests)
@@ -1630,8 +1613,6 @@ class CreateCdnSubTaskRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.report_ids is not None:
             result['ReportIds'] = self.report_ids
         return result
@@ -1640,8 +1621,6 @@ class CreateCdnSubTaskRequest(TeaModel):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ReportIds') is not None:
             self.report_ids = m.get('ReportIds')
         return self
@@ -1712,8 +1691,7 @@ class CreateCdnSubTaskResponse(TeaModel):
 
 
 class CreateIllegalUrlExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, task_name=None, time_point=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, task_name=None, time_point=None):
         # The name of the export task.
         self.task_name = task_name  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-DDThh:mm:ssZ format. The finest granularity is one day.
@@ -1728,8 +1706,6 @@ class CreateIllegalUrlExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.task_name is not None:
             result['TaskName'] = self.task_name
         if self.time_point is not None:
@@ -1738,8 +1714,6 @@ class CreateIllegalUrlExportTaskRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TaskName') is not None:
             self.task_name = m.get('TaskName')
         if m.get('TimePoint') is not None:
@@ -1818,12 +1792,11 @@ class CreateIllegalUrlExportTaskResponse(TeaModel):
 
 
 class CreateRealTimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, logstore=None, owner_id=None, project=None, region=None):
+    def __init__(self, domain=None, logstore=None, project=None, region=None):
         # The accelerated domain name for which you want to configure real-time log delivery. You can specify multiple domain names and separate them with commas (,).
         self.domain = domain  # type: str
         # The name of the Logstore that collects log data from Alibaba Cloud Content Delivery Network (CDN) in real time.
         self.logstore = logstore  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery.
         self.project = project  # type: str
         # The ID of the region where the Log Service project is deployed. For more information, see [Regions that support real-time log delivery](~~144883~~).
@@ -1842,8 +1815,6 @@ class CreateRealTimeLogDeliveryRequest(TeaModel):
             result['Domain'] = self.domain
         if self.logstore is not None:
             result['Logstore'] = self.logstore
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.region is not None:
@@ -1856,8 +1827,6 @@ class CreateRealTimeLogDeliveryRequest(TeaModel):
             self.domain = m.get('Domain')
         if m.get('Logstore') is not None:
             self.logstore = m.get('Logstore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('Region') is not None:
@@ -1930,8 +1899,8 @@ class CreateRealTimeLogDeliveryResponse(TeaModel):
 
 
 class CreateUsageDetailDataExportTaskRequest(TeaModel):
-    def __init__(self, domain_names=None, end_time=None, group=None, language=None, owner_id=None, start_time=None,
-                 task_name=None, type=None):
+    def __init__(self, domain_names=None, end_time=None, group=None, language=None, start_time=None, task_name=None,
+                 type=None):
         # The accelerated domain names based on which the resource usage details are generated. If you do not specify a domain name group, resource usage details are exported based on this parameter.
         # 
         # If you do not set this parameter, resource usage details are exported based on user accounts.
@@ -1949,7 +1918,6 @@ class CreateUsageDetailDataExportTaskRequest(TeaModel):
         # *   **zh-cn**: Chinese. This is the default value.
         # *   **en-us**: English
         self.language = language  # type: str
-        self.owner_id = owner_id  # type: long
         # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -1979,8 +1947,6 @@ class CreateUsageDetailDataExportTaskRequest(TeaModel):
             result['Group'] = self.group
         if self.language is not None:
             result['Language'] = self.language
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.task_name is not None:
@@ -1999,8 +1965,6 @@ class CreateUsageDetailDataExportTaskRequest(TeaModel):
             self.group = m.get('Group')
         if m.get('Language') is not None:
             self.language = m.get('Language')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('TaskName') is not None:
@@ -2093,7 +2057,7 @@ class CreateUsageDetailDataExportTaskResponse(TeaModel):
 
 
 class CreateUserUsageDataExportTaskRequest(TeaModel):
-    def __init__(self, end_time=None, language=None, owner_id=None, start_time=None, task_name=None):
+    def __init__(self, end_time=None, language=None, start_time=None, task_name=None):
         # The end of the time range to query. The end time must be later than the start time.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -2103,7 +2067,6 @@ class CreateUserUsageDataExportTaskRequest(TeaModel):
         # *   **zh-cn**: Chinese. This is the default value.
         # *   **en-us**: English.
         self.language = language  # type: str
-        self.owner_id = owner_id  # type: long
         # The start of the time range to query. The time interval at which the specified data is collected is five minutes.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -2124,8 +2087,6 @@ class CreateUserUsageDataExportTaskRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.language is not None:
             result['Language'] = self.language
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.task_name is not None:
@@ -2138,8 +2099,6 @@ class CreateUserUsageDataExportTaskRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('Language') is not None:
             self.language = m.get('Language')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('TaskName') is not None:
@@ -2230,10 +2189,9 @@ class CreateUserUsageDataExportTaskResponse(TeaModel):
 
 
 class DeleteCdnDeliverTaskRequest(TeaModel):
-    def __init__(self, deliver_id=None, owner_id=None):
+    def __init__(self, deliver_id=None):
         # The IDs of the tracking tasks that you want to delete. You can call the [DescribeCdnDeliverList](~~270877~~) operation to query task IDs.
         self.deliver_id = deliver_id  # type: long
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -2246,16 +2204,12 @@ class DeleteCdnDeliverTaskRequest(TeaModel):
         result = dict()
         if self.deliver_id is not None:
             result['DeliverId'] = self.deliver_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DeliverId') is not None:
             self.deliver_id = m.get('DeliverId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -2422,30 +2376,6 @@ class DeleteCdnDomainResponse(TeaModel):
         return self
 
 
-class DeleteCdnSubTaskRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteCdnSubTaskRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
 class DeleteCdnSubTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
         # The ID of the request.
@@ -2511,8 +2441,7 @@ class DeleteCdnSubTaskResponse(TeaModel):
 
 
 class DeleteFCTriggerRequest(TeaModel):
-    def __init__(self, owner_id=None, trigger_arn=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, trigger_arn=None):
         # The trigger that corresponds to the Function Compute service.
         self.trigger_arn = trigger_arn  # type: str
 
@@ -2525,16 +2454,12 @@ class DeleteFCTriggerRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.trigger_arn is not None:
             result['TriggerARN'] = self.trigger_arn
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TriggerARN') is not None:
             self.trigger_arn = m.get('TriggerARN')
         return self
@@ -2605,10 +2530,9 @@ class DeleteFCTriggerResponse(TeaModel):
 
 
 class DeleteRealTimeLogLogstoreRequest(TeaModel):
-    def __init__(self, logstore=None, owner_id=None, project=None, region=None):
+    def __init__(self, logstore=None, project=None, region=None):
         # The name of the Logstore to which log entries are delivered.
         self.logstore = logstore  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery.
         self.project = project  # type: str
         # The ID of the region where the Log Service project is deployed. For more information, see [Regions that support real-time log delivery](~~144883~~).
@@ -2625,8 +2549,6 @@ class DeleteRealTimeLogLogstoreRequest(TeaModel):
         result = dict()
         if self.logstore is not None:
             result['Logstore'] = self.logstore
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.region is not None:
@@ -2637,8 +2559,6 @@ class DeleteRealTimeLogLogstoreRequest(TeaModel):
         m = m or dict()
         if m.get('Logstore') is not None:
             self.logstore = m.get('Logstore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('Region') is not None:
@@ -2711,12 +2631,11 @@ class DeleteRealTimeLogLogstoreResponse(TeaModel):
 
 
 class DeleteRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, logstore=None, owner_id=None, project=None, region=None):
+    def __init__(self, domain=None, logstore=None, project=None, region=None):
         # The acceleration domain name for which you want to disable real-time log delivery. You can specify multiple domain names and separate them with commas (,).
         self.domain = domain  # type: str
         # The name of the Logstore that collects log data from Alibaba Cloud Content Delivery Network (CDN) in real time.
         self.logstore = logstore  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery.
         self.project = project  # type: str
         # The ID of the region where the Log Service project is deployed. For more information, see [Regions that support real-time log delivery](~~144883~~).
@@ -2735,8 +2654,6 @@ class DeleteRealtimeLogDeliveryRequest(TeaModel):
             result['Domain'] = self.domain
         if self.logstore is not None:
             result['Logstore'] = self.logstore
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.region is not None:
@@ -2749,8 +2666,6 @@ class DeleteRealtimeLogDeliveryRequest(TeaModel):
             self.domain = m.get('Domain')
         if m.get('Logstore') is not None:
             self.logstore = m.get('Logstore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('Region') is not None:
@@ -3033,8 +2948,7 @@ class DeleteSpecificStagingConfigResponse(TeaModel):
 
 
 class DeleteUsageDetailDataExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, task_id=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, task_id=None):
         # The ID of the task. You can call the [DescribeUserUsageDataExportTask](~~91062~~) operation to query the most recent task list.
         self.task_id = task_id  # type: str
 
@@ -3047,16 +2961,12 @@ class DeleteUsageDetailDataExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -3127,8 +3037,7 @@ class DeleteUsageDetailDataExportTaskResponse(TeaModel):
 
 
 class DeleteUserUsageDataExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, task_id=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, task_id=None):
         # The ID of the export task that you want to delete.
         self.task_id = task_id  # type: str
 
@@ -3141,16 +3050,12 @@ class DeleteUserUsageDataExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -3221,14 +3126,13 @@ class DeleteUserUsageDataExportTaskResponse(TeaModel):
 
 
 class DescribeBlockedRegionsRequest(TeaModel):
-    def __init__(self, language=None, owner_id=None):
+    def __init__(self, language=None):
         # The language. Valid values:
         # 
         # - **zh**: simplified Chinese
         # - **en**: English
         # - **jp**: Japanese
         self.language = language  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -3241,16 +3145,12 @@ class DescribeBlockedRegionsRequest(TeaModel):
         result = dict()
         if self.language is not None:
             result['Language'] = self.language
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Language') is not None:
             self.language = m.get('Language')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -3748,8 +3648,7 @@ class DescribeCdnCertificateListResponse(TeaModel):
 
 
 class DescribeCdnDeletedDomainsRequest(TeaModel):
-    def __init__(self, owner_id=None, page_number=None, page_size=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, page_number=None, page_size=None):
         # The number of the page to return. Pages start from page **1**. Valid values: **1** to **100000**.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Default value: **20**. Valid values: **1** to **500**. The value must be an integer.
@@ -3764,8 +3663,6 @@ class DescribeCdnDeletedDomainsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -3774,8 +3671,6 @@ class DescribeCdnDeletedDomainsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -5172,12 +5067,11 @@ class DescribeCdnDomainLogsResponse(TeaModel):
 
 
 class DescribeCdnDomainStagingConfigRequest(TeaModel):
-    def __init__(self, domain_name=None, function_names=None, owner_id=None):
+    def __init__(self, domain_name=None, function_names=None):
         # The accelerated domain name. You can specify only one domain name in each call.
         self.domain_name = domain_name  # type: str
         # The list of feature names. Separate multiple values with commas (,). For more information, see [A list of features](~~388460~~).
         self.function_names = function_names  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -5192,8 +5086,6 @@ class DescribeCdnDomainStagingConfigRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.function_names is not None:
             result['FunctionNames'] = self.function_names
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
@@ -5202,8 +5094,6 @@ class DescribeCdnDomainStagingConfigRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('FunctionNames') is not None:
             self.function_names = m.get('FunctionNames')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -5387,10 +5277,9 @@ class DescribeCdnDomainStagingConfigResponse(TeaModel):
 
 
 class DescribeCdnHttpsDomainListRequest(TeaModel):
-    def __init__(self, keyword=None, owner_id=None, page_number=None, page_size=None):
+    def __init__(self, keyword=None, page_number=None, page_size=None):
         # The keyword used for search.
         self.keyword = keyword  # type: str
-        self.owner_id = owner_id  # type: long
         # The number of the page to return. Valid values: **1** to **100000**.
         self.page_number = page_number  # type: int
         # The maximum number of entries to return on each page. Default value: **20**.
@@ -5407,8 +5296,6 @@ class DescribeCdnHttpsDomainListRequest(TeaModel):
         result = dict()
         if self.keyword is not None:
             result['Keyword'] = self.keyword
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -5419,8 +5306,6 @@ class DescribeCdnHttpsDomainListRequest(TeaModel):
         m = m or dict()
         if m.get('Keyword') is not None:
             self.keyword = m.get('Keyword')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -5957,8 +5842,8 @@ class DescribeCdnRegionAndIspResponse(TeaModel):
 
 
 class DescribeCdnReportRequest(TeaModel):
-    def __init__(self, area=None, domain_name=None, end_time=None, http_code=None, is_overseas=None, owner_id=None,
-                 report_id=None, start_time=None):
+    def __init__(self, area=None, domain_name=None, end_time=None, http_code=None, is_overseas=None, report_id=None,
+                 start_time=None):
         # The region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
         # 
         # *   If you do not specify a region, all regions are queried.
@@ -5982,7 +5867,6 @@ class DescribeCdnReportRequest(TeaModel):
         # *   **1**: outside the Chinese mainland
         # *   **0**: inside the Chinese mainland
         self.is_overseas = is_overseas  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the operations report that you want to query. You can enter only one ID in each call. You can call the [DescribeCdnSubList](~~271655~~) operation to query the report ID.
         self.report_id = report_id  # type: long
         # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
@@ -6007,8 +5891,6 @@ class DescribeCdnReportRequest(TeaModel):
             result['HttpCode'] = self.http_code
         if self.is_overseas is not None:
             result['IsOverseas'] = self.is_overseas
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.report_id is not None:
             result['ReportId'] = self.report_id
         if self.start_time is not None:
@@ -6027,8 +5909,6 @@ class DescribeCdnReportRequest(TeaModel):
             self.http_code = m.get('HttpCode')
         if m.get('IsOverseas') is not None:
             self.is_overseas = m.get('IsOverseas')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ReportId') is not None:
             self.report_id = m.get('ReportId')
         if m.get('StartTime') is not None:
@@ -6107,8 +5987,7 @@ class DescribeCdnReportResponse(TeaModel):
 
 
 class DescribeCdnReportListRequest(TeaModel):
-    def __init__(self, owner_id=None, report_id=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, report_id=None):
         # The ID of the operations report that you want to query. If you do not specify an ID, all operations reports are queried.
         self.report_id = report_id  # type: long
 
@@ -6121,16 +6000,12 @@ class DescribeCdnReportListRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.report_id is not None:
             result['ReportId'] = self.report_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ReportId') is not None:
             self.report_id = m.get('ReportId')
         return self
@@ -6764,30 +6639,6 @@ class DescribeCdnServiceResponse(TeaModel):
         return self
 
 
-class DescribeCdnSubListRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeCdnSubListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
 class DescribeCdnSubListResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
         # The information about the tracking task.
@@ -6859,12 +6710,11 @@ class DescribeCdnSubListResponse(TeaModel):
 
 
 class DescribeCdnUserBillHistoryRequest(TeaModel):
-    def __init__(self, end_time=None, owner_id=None, start_time=None):
+    def __init__(self, end_time=None, start_time=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # The end of the time range to query. The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # The minimum data collection interval is 5 minutes.
@@ -6881,8 +6731,6 @@ class DescribeCdnUserBillHistoryRequest(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -6891,8 +6739,6 @@ class DescribeCdnUserBillHistoryRequest(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -7143,7 +6989,7 @@ class DescribeCdnUserBillHistoryResponse(TeaModel):
 
 
 class DescribeCdnUserBillPredictionRequest(TeaModel):
-    def __init__(self, area=None, dimension=None, end_time=None, owner_id=None, start_time=None):
+    def __init__(self, area=None, dimension=None, end_time=None, start_time=None):
         # The billable region. Valid values:
         # 
         # *   **CN**: Chinese mainland
@@ -7166,7 +7012,6 @@ class DescribeCdnUserBillPredictionRequest(TeaModel):
         # 
         # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The default value is 00:00 on the first day of the current month. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         self.start_time = start_time  # type: str
 
@@ -7185,8 +7030,6 @@ class DescribeCdnUserBillPredictionRequest(TeaModel):
             result['Dimension'] = self.dimension
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -7199,8 +7042,6 @@ class DescribeCdnUserBillPredictionRequest(TeaModel):
             self.dimension = m.get('Dimension')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -7380,14 +7221,13 @@ class DescribeCdnUserBillPredictionResponse(TeaModel):
 
 
 class DescribeCdnUserBillTypeRequest(TeaModel):
-    def __init__(self, end_time=None, owner_id=None, start_time=None):
+    def __init__(self, end_time=None, start_time=None):
         # The end of the time range that was queried.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # Example: 2016-10-20T04:00:00Z.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The start of the time range that was queried.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
@@ -7406,8 +7246,6 @@ class DescribeCdnUserBillTypeRequest(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -7416,8 +7254,6 @@ class DescribeCdnUserBillTypeRequest(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -8465,10 +8301,9 @@ class DescribeCdnUserResourcePackageResponse(TeaModel):
 
 
 class DescribeCdnWafDomainRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None, region_id=None, resource_group_id=None):
+    def __init__(self, domain_name=None, region_id=None, resource_group_id=None):
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the region.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
@@ -8485,8 +8320,6 @@ class DescribeCdnWafDomainRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -8497,8 +8330,6 @@ class DescribeCdnWafDomainRequest(TeaModel):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -8635,10 +8466,9 @@ class DescribeCdnWafDomainResponse(TeaModel):
 
 
 class DescribeCertificateInfoByIDRequest(TeaModel):
-    def __init__(self, cert_id=None, owner_id=None):
+    def __init__(self, cert_id=None):
         # The ID of the SSL certificate. You can query only one certificate in each call.
         self.cert_id = cert_id  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -8651,16 +8481,12 @@ class DescribeCertificateInfoByIDRequest(TeaModel):
         result = dict()
         if self.cert_id is not None:
             result['CertId'] = self.cert_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CertId') is not None:
             self.cert_id = m.get('CertId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -8835,10 +8661,9 @@ class DescribeCertificateInfoByIDResponse(TeaModel):
 
 
 class DescribeCustomLogConfigRequest(TeaModel):
-    def __init__(self, config_id=None, owner_id=None):
+    def __init__(self, config_id=None):
         # The ID of the custom configuration.
         self.config_id = config_id  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -8851,16 +8676,12 @@ class DescribeCustomLogConfigRequest(TeaModel):
         result = dict()
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -9905,8 +9726,8 @@ class DescribeDomainBpsDataByTimeStampResponse(TeaModel):
 
 
 class DescribeDomainCcActivityLogRequest(TeaModel):
-    def __init__(self, domain_name=None, end_time=None, owner_id=None, page_number=None, page_size=None,
-                 rule_name=None, start_time=None, trigger_object=None, value=None):
+    def __init__(self, domain_name=None, end_time=None, page_number=None, page_size=None, rule_name=None,
+                 start_time=None, trigger_object=None, value=None):
         # The accelerated domain name. You can specify multiple domain names and separate them with commas (,).
         # 
         # If you do not specify a domain name, data of all domain names is queried.
@@ -9915,7 +9736,6 @@ class DescribeDomainCcActivityLogRequest(TeaModel):
         # 
         # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: long
         # The number of entries to return on each page. Default value: **30**.
@@ -9955,8 +9775,6 @@ class DescribeDomainCcActivityLogRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -9977,8 +9795,6 @@ class DescribeDomainCcActivityLogRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -10578,10 +10394,9 @@ class DescribeDomainCnameResponse(TeaModel):
 
 
 class DescribeDomainCustomLogConfigRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None):
+    def __init__(self, domain_name=None):
         # The accelerated domain name. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -10594,16 +10409,12 @@ class DescribeDomainCustomLogConfigRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -15596,10 +15407,9 @@ class DescribeDomainRealTimeTrafficDataResponse(TeaModel):
 
 
 class DescribeDomainRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, owner_id=None):
+    def __init__(self, domain=None):
         # The accelerated domain name for which real-time log delivery is enabled. Only one domain name is supported.
         self.domain = domain  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -15612,16 +15422,12 @@ class DescribeDomainRealtimeLogDeliveryRequest(TeaModel):
         result = dict()
         if self.domain is not None:
             result['Domain'] = self.domain
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -16933,14 +16739,13 @@ class DescribeDomainSrcQpsDataResponse(TeaModel):
 
 
 class DescribeDomainSrcTopUrlVisitRequest(TeaModel):
-    def __init__(self, domain_name=None, end_time=None, owner_id=None, sort_by=None, start_time=None):
+    def __init__(self, domain_name=None, end_time=None, sort_by=None, start_time=None):
         # The accelerated domain name. Separate multiple accelerated domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # >  The end time must be later than the start time. The difference between the end time and the start time cannot exceed seven days.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The method that is used to sort the returned URLs.**** Valid values:
         # 
         # *   **traf**: by network traffic.
@@ -16964,8 +16769,6 @@ class DescribeDomainSrcTopUrlVisitRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
         if self.start_time is not None:
@@ -16978,8 +16781,6 @@ class DescribeDomainSrcTopUrlVisitRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
         if m.get('StartTime') is not None:
@@ -17738,8 +17539,8 @@ class DescribeDomainSrcTrafficDataResponse(TeaModel):
 
 
 class DescribeDomainTopClientIpVisitRequest(TeaModel):
-    def __init__(self, domain_name=None, end_time=None, limit=None, location_name_en=None, owner_id=None,
-                 sort_by=None, start_time=None):
+    def __init__(self, domain_name=None, end_time=None, limit=None, location_name_en=None, sort_by=None,
+                 start_time=None):
         # The accelerated domain name. Separate multiple accelerated domain names with commas (,).
         # 
         # By default, this operation queries client IP addresses for all accelerated domain names.
@@ -17756,7 +17557,6 @@ class DescribeDomainTopClientIpVisitRequest(TeaModel):
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         self.location_name_en = location_name_en  # type: str
-        self.owner_id = owner_id  # type: long
         # The method that is used to sort the client IP addresses. Valid values:
         # 
         # *   **traf**: by network traffic. This is the default value.
@@ -17782,8 +17582,6 @@ class DescribeDomainTopClientIpVisitRequest(TeaModel):
             result['Limit'] = self.limit
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
         if self.start_time is not None:
@@ -17800,8 +17598,6 @@ class DescribeDomainTopClientIpVisitRequest(TeaModel):
             self.limit = m.get('Limit')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
         if m.get('StartTime') is not None:
@@ -17931,14 +17727,13 @@ class DescribeDomainTopClientIpVisitResponse(TeaModel):
 
 
 class DescribeDomainTopReferVisitRequest(TeaModel):
-    def __init__(self, domain_name=None, end_time=None, owner_id=None, sort_by=None, start_time=None):
+    def __init__(self, domain_name=None, end_time=None, sort_by=None, start_time=None):
         # The accelerated domain names. Separate multiple accelerated domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The sorting method. Valid values:
         # 
         # *   **traf**: by network traffic.
@@ -17960,8 +17755,6 @@ class DescribeDomainTopReferVisitRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
         if self.start_time is not None:
@@ -17974,8 +17767,6 @@ class DescribeDomainTopReferVisitRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
         if m.get('StartTime') is not None:
@@ -20146,12 +19937,11 @@ class DescribeDomainsUsageByDayResponse(TeaModel):
 
 
 class DescribeEsExceptionDataRequest(TeaModel):
-    def __init__(self, end_time=None, owner_id=None, rule_id=None, start_time=None):
+    def __init__(self, end_time=None, rule_id=None, start_time=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the script that you want to query. You can call the [DescribeCdnDomainConfigs](~~90924~~) operation to query script IDs.
         self.rule_id = rule_id  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -20168,8 +19958,6 @@ class DescribeEsExceptionDataRequest(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.start_time is not None:
@@ -20180,12 +19968,34 @@ class DescribeEsExceptionDataRequest(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeEsExceptionDataResponseBodyContentsPoints(TeaModel):
+    def __init__(self, points=None):
+        self.points = points  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEsExceptionDataResponseBodyContentsPoints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.points is not None:
+            result['Points'] = self.points
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Points') is not None:
+            self.points = m.get('Points')
         return self
 
 
@@ -20196,10 +20006,13 @@ class DescribeEsExceptionDataResponseBodyContents(TeaModel):
         # The name of the chart that shows the errors of the script.
         self.name = name  # type: str
         # The value of each time and the column of each data entry.
-        self.points = points  # type: list[str]
+        self.points = points  # type: list[DescribeEsExceptionDataResponseBodyContentsPoints]
 
     def validate(self):
-        pass
+        if self.points:
+            for k in self.points:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeEsExceptionDataResponseBodyContents, self).to_map()
@@ -20211,8 +20024,10 @@ class DescribeEsExceptionDataResponseBodyContents(TeaModel):
             result['Columns'] = self.columns
         if self.name is not None:
             result['Name'] = self.name
+        result['Points'] = []
         if self.points is not None:
-            result['Points'] = self.points
+            for k in self.points:
+                result['Points'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -20221,8 +20036,11 @@ class DescribeEsExceptionDataResponseBodyContents(TeaModel):
             self.columns = m.get('Columns')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        self.points = []
         if m.get('Points') is not None:
-            self.points = m.get('Points')
+            for k in m.get('Points'):
+                temp_model = DescribeEsExceptionDataResponseBodyContentsPoints()
+                self.points.append(temp_model.from_map(k))
         return self
 
 
@@ -20305,12 +20123,11 @@ class DescribeEsExceptionDataResponse(TeaModel):
 
 
 class DescribeEsExecuteDataRequest(TeaModel):
-    def __init__(self, end_time=None, owner_id=None, rule_id=None, start_time=None):
+    def __init__(self, end_time=None, rule_id=None, start_time=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the script that you want to query. You can call the [DescribeCdnDomainConfigs](~~90924~~) operation to query script IDs.
         self.rule_id = rule_id  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -20327,8 +20144,6 @@ class DescribeEsExecuteDataRequest(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.start_time is not None:
@@ -20339,8 +20154,6 @@ class DescribeEsExecuteDataRequest(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('StartTime') is not None:
@@ -20464,8 +20277,7 @@ class DescribeEsExecuteDataResponse(TeaModel):
 
 
 class DescribeFCTriggerRequest(TeaModel):
-    def __init__(self, owner_id=None, trigger_arn=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, trigger_arn=None):
         # The trigger that corresponds to the Function Compute service.
         self.trigger_arn = trigger_arn  # type: str
 
@@ -20478,16 +20290,12 @@ class DescribeFCTriggerRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.trigger_arn is not None:
             result['TriggerARN'] = self.trigger_arn
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TriggerARN') is not None:
             self.trigger_arn = m.get('TriggerARN')
         return self
@@ -20622,8 +20430,7 @@ class DescribeFCTriggerResponse(TeaModel):
 
 
 class DescribeIllegalUrlExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, task_id=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, task_id=None):
         # The ID of the task. You can call the [CreateIllegalUrlExportTask](~~156492~~) operation to query task IDs.
         self.task_id = task_id  # type: str
 
@@ -20636,16 +20443,12 @@ class DescribeIllegalUrlExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -20850,10 +20653,9 @@ class DescribeIpInfoResponse(TeaModel):
 
 
 class DescribeIpStatusRequest(TeaModel):
-    def __init__(self, ips=None, owner_id=None):
+    def __init__(self, ips=None):
         # The IP addresses that you want to query. Separate IP addresses with underscores (\_), such as Ips=ip1\_ip2.
         self.ips = ips  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -20866,16 +20668,12 @@ class DescribeIpStatusRequest(TeaModel):
         result = dict()
         if self.ips is not None:
             result['Ips'] = self.ips
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Ips') is not None:
             self.ips = m.get('Ips')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -21129,6 +20927,213 @@ class DescribeL2VipsByDomainResponse(TeaModel):
         return self
 
 
+class DescribePreloadDetailByIdRequest(TeaModel):
+    def __init__(self, task_id=None):
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePreloadDetailByIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DescribePreloadDetailByIdResponseBodyUrlDetailsUrls(TeaModel):
+    def __init__(self, description=None, success=None, url=None):
+        self.description = description  # type: str
+        self.success = success  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePreloadDetailByIdResponseBodyUrlDetailsUrls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class DescribePreloadDetailByIdResponseBodyUrlDetails(TeaModel):
+    def __init__(self, creation_time=None, domain=None, end_time=None, process=None, ret_code=None, status=None,
+                 task_id=None, urls=None):
+        self.creation_time = creation_time  # type: str
+        self.domain = domain  # type: str
+        self.end_time = end_time  # type: str
+        self.process = process  # type: str
+        self.ret_code = ret_code  # type: str
+        self.status = status  # type: str
+        self.task_id = task_id  # type: str
+        self.urls = urls  # type: list[DescribePreloadDetailByIdResponseBodyUrlDetailsUrls]
+
+    def validate(self):
+        if self.urls:
+            for k in self.urls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePreloadDetailByIdResponseBodyUrlDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.process is not None:
+            result['Process'] = self.process
+        if self.ret_code is not None:
+            result['RetCode'] = self.ret_code
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        result['Urls'] = []
+        if self.urls is not None:
+            for k in self.urls:
+                result['Urls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Process') is not None:
+            self.process = m.get('Process')
+        if m.get('RetCode') is not None:
+            self.ret_code = m.get('RetCode')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        self.urls = []
+        if m.get('Urls') is not None:
+            for k in m.get('Urls'):
+                temp_model = DescribePreloadDetailByIdResponseBodyUrlDetailsUrls()
+                self.urls.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePreloadDetailByIdResponseBody(TeaModel):
+    def __init__(self, request_id=None, total_count=None, url_details=None):
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+        self.url_details = url_details  # type: list[DescribePreloadDetailByIdResponseBodyUrlDetails]
+
+    def validate(self):
+        if self.url_details:
+            for k in self.url_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePreloadDetailByIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['UrlDetails'] = []
+        if self.url_details is not None:
+            for k in self.url_details:
+                result['UrlDetails'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.url_details = []
+        if m.get('UrlDetails') is not None:
+            for k in m.get('UrlDetails'):
+                temp_model = DescribePreloadDetailByIdResponseBodyUrlDetails()
+                self.url_details.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePreloadDetailByIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePreloadDetailByIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePreloadDetailByIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePreloadDetailByIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeRangeDataByLocateAndIspServiceRequest(TeaModel):
     def __init__(self, domain_names=None, end_time=None, isp_names=None, location_names=None, owner_id=None,
                  start_time=None):
@@ -21267,7 +21272,7 @@ class DescribeRangeDataByLocateAndIspServiceResponse(TeaModel):
 
 
 class DescribeRealtimeDeliveryAccRequest(TeaModel):
-    def __init__(self, end_time=None, interval=None, log_store=None, owner_id=None, project=None, start_time=None):
+    def __init__(self, end_time=None, interval=None, log_store=None, project=None, start_time=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # The end of the time range to query. The end time must be later than the start time.
@@ -21280,7 +21285,6 @@ class DescribeRealtimeDeliveryAccRequest(TeaModel):
         self.interval = interval  # type: str
         # The name of the Logstore that collects log data from Alibaba Cloud Content Delivery Network (CDN) in real time. By default, all Logstores are queried.
         self.log_store = log_store  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery. By default, all projects are queried.
         self.project = project  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -21301,8 +21305,6 @@ class DescribeRealtimeDeliveryAccRequest(TeaModel):
             result['Interval'] = self.interval
         if self.log_store is not None:
             result['LogStore'] = self.log_store
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.start_time is not None:
@@ -21317,8 +21319,6 @@ class DescribeRealtimeDeliveryAccRequest(TeaModel):
             self.interval = m.get('Interval')
         if m.get('LogStore') is not None:
             self.log_store = m.get('LogStore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('StartTime') is not None:
@@ -22130,30 +22130,6 @@ class DescribeRefreshTasksResponse(TeaModel):
         return self
 
 
-class DescribeStagingIpRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeStagingIpRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
 class DescribeStagingIpResponseBodyIPV4s(TeaModel):
     def __init__(self, ipv4=None):
         self.ipv4 = ipv4  # type: list[str]
@@ -22480,14 +22456,13 @@ class DescribeTagResourcesResponse(TeaModel):
 
 
 class DescribeTopDomainsByFlowRequest(TeaModel):
-    def __init__(self, end_time=None, limit=None, owner_id=None, start_time=None):
+    def __init__(self, end_time=None, limit=None, start_time=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
         # The maximum number of domain names to query. Valid values: **1** to **100**. Default value: **20**.
         self.limit = limit  # type: long
-        self.owner_id = owner_id  # type: long
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # >  Set StartTime to UTC time in the yyyy-MM-ddTHH:mm:ssZ format. For example, if the local time is 00:00, June 1, 2021, set StartTime to 2021-05-31T16:00:00Z.
@@ -22506,8 +22481,6 @@ class DescribeTopDomainsByFlowRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.limit is not None:
             result['Limit'] = self.limit
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -22518,8 +22491,6 @@ class DescribeTopDomainsByFlowRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('Limit') is not None:
             self.limit = m.get('Limit')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -22713,30 +22684,6 @@ class DescribeTopDomainsByFlowResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = DescribeTopDomainsByFlowResponseBody()
             self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeUserCertificateExpireCountRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeUserCertificateExpireCountRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -23522,30 +23469,6 @@ class DescribeUserDomainsResponse(TeaModel):
         return self
 
 
-class DescribeUserTagsRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeUserTagsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
 class DescribeUserTagsResponseBodyTags(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag.
@@ -23656,8 +23579,7 @@ class DescribeUserTagsResponse(TeaModel):
 
 
 class DescribeUserUsageDataExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, page_number=None, page_size=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, page_number=None, page_size=None):
         # The number of the page to return. Valid values: **1** to **100000**.
         self.page_number = page_number  # type: str
         # The number of entries to return on each page. Default value: **20**. Maximum value: **50**.
@@ -23674,8 +23596,6 @@ class DescribeUserUsageDataExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -23684,8 +23604,6 @@ class DescribeUserUsageDataExportTaskRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -23942,8 +23860,7 @@ class DescribeUserUsageDataExportTaskResponse(TeaModel):
 
 
 class DescribeUserUsageDetailDataExportTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, page_number=None, page_size=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, page_number=None, page_size=None):
         # The number of the page to return. Valid values: **1** to **100000**.
         self.page_number = page_number  # type: str
         # The number of entries to return on each page. Default value: **20**. Maximum value: **50**.
@@ -23960,8 +23877,6 @@ class DescribeUserUsageDetailDataExportTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -23970,8 +23885,6 @@ class DescribeUserUsageDetailDataExportTaskRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -24365,10 +24278,9 @@ class DescribeUserVipsByDomainResponse(TeaModel):
 
 
 class DescribeVerifyContentRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None):
+    def __init__(self, domain_name=None):
         # The domain name of which the ownership was verified. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -24381,16 +24293,12 @@ class DescribeVerifyContentRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -24465,10 +24373,9 @@ class DescribeVerifyContentResponse(TeaModel):
 
 
 class DisableRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, owner_id=None):
+    def __init__(self, domain=None):
         # The accelerated domain name for which you want to disable real-time log delivery. You can specify multiple domain names and separate them with commas (,).
         self.domain = domain  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -24481,16 +24388,12 @@ class DisableRealtimeLogDeliveryRequest(TeaModel):
         result = dict()
         if self.domain is not None:
             result['Domain'] = self.domain
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -24559,10 +24462,9 @@ class DisableRealtimeLogDeliveryResponse(TeaModel):
 
 
 class EnableRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, owner_id=None):
+    def __init__(self, domain=None):
         # The accelerated domain name for which you want to enable real-time log delivery. You can specify multiple domain names and separate them with commas (,).
         self.domain = domain  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -24575,16 +24477,12 @@ class EnableRealtimeLogDeliveryRequest(TeaModel):
         result = dict()
         if self.domain is not None:
             result['Domain'] = self.domain
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -24653,10 +24551,9 @@ class EnableRealtimeLogDeliveryResponse(TeaModel):
 
 
 class ListDomainsByLogConfigIdRequest(TeaModel):
-    def __init__(self, config_id=None, owner_id=None):
+    def __init__(self, config_id=None):
         # The ID of the custom configuration.
         self.config_id = config_id  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -24669,16 +24566,12 @@ class ListDomainsByLogConfigIdRequest(TeaModel):
         result = dict()
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -24779,12 +24672,11 @@ class ListDomainsByLogConfigIdResponse(TeaModel):
 
 
 class ListFCTriggerRequest(TeaModel):
-    def __init__(self, event_meta_name=None, event_meta_version=None, owner_id=None):
+    def __init__(self, event_meta_name=None, event_meta_version=None):
         # The name of the event for which the Function Compute trigger is set. You can specify only one name.
         self.event_meta_name = event_meta_name  # type: str
         # The version number of the event. You can specify only one version number.
         self.event_meta_version = event_meta_version  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -24799,8 +24691,6 @@ class ListFCTriggerRequest(TeaModel):
             result['EventMetaName'] = self.event_meta_name
         if self.event_meta_version is not None:
             result['EventMetaVersion'] = self.event_meta_version
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
@@ -24809,8 +24699,6 @@ class ListFCTriggerRequest(TeaModel):
             self.event_meta_name = m.get('EventMetaName')
         if m.get('EventMetaVersion') is not None:
             self.event_meta_version = m.get('EventMetaVersion')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -24949,10 +24837,9 @@ class ListFCTriggerResponse(TeaModel):
 
 
 class ListRealtimeLogDeliveryDomainsRequest(TeaModel):
-    def __init__(self, logstore=None, owner_id=None, project=None, region=None):
+    def __init__(self, logstore=None, project=None, region=None):
         # The name of the Logstore that collects log data from Alibaba Cloud Content Delivery Network (CDN) in real time. You can specify multiple Logstore names and separate them with commas (,).
         self.logstore = logstore  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery. You can specify multiple project names and separate them with commas (,).
         self.project = project  # type: str
         # The ID of the region where the Log Service project is deployed. You can specify multiple region IDs and separate them with commas (,).
@@ -24971,8 +24858,6 @@ class ListRealtimeLogDeliveryDomainsRequest(TeaModel):
         result = dict()
         if self.logstore is not None:
             result['Logstore'] = self.logstore
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.region is not None:
@@ -24983,8 +24868,6 @@ class ListRealtimeLogDeliveryDomainsRequest(TeaModel):
         m = m or dict()
         if m.get('Logstore') is not None:
             self.logstore = m.get('Logstore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('Region') is not None:
@@ -25130,30 +25013,6 @@ class ListRealtimeLogDeliveryDomainsResponse(TeaModel):
         return self
 
 
-class ListRealtimeLogDeliveryInfosRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListRealtimeLogDeliveryInfosRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
 class ListRealtimeLogDeliveryInfosResponseBodyContentRealtimeLogDeliveryInfos(TeaModel):
     def __init__(self, logstore=None, project=None, region=None):
         # The name of the Logstore that collects log data from Alibaba Cloud Content Delivery Network (CDN) in real time.
@@ -25292,30 +25151,6 @@ class ListRealtimeLogDeliveryInfosResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListRealtimeLogDeliveryInfosResponseBody()
             self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListUserCustomLogConfigRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListUserCustomLogConfigRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -25538,10 +25373,9 @@ class ModifyCdnDomainResponse(TeaModel):
 
 
 class ModifyCdnDomainSchdmByPropertyRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None, property=None):
+    def __init__(self, domain_name=None, property=None):
         # The accelerated domain name for which you want to change the accelerated region. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
         # The accelerated region. Valid values for coverage:
         # 
         # *   **domestic**: Chinese mainland
@@ -25560,8 +25394,6 @@ class ModifyCdnDomainSchdmByPropertyRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.property is not None:
             result['Property'] = self.property
         return result
@@ -25570,8 +25402,6 @@ class ModifyCdnDomainSchdmByPropertyRequest(TeaModel):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Property') is not None:
             self.property = m.get('Property')
         return self
@@ -25642,12 +25472,11 @@ class ModifyCdnDomainSchdmByPropertyResponse(TeaModel):
 
 
 class ModifyRealtimeLogDeliveryRequest(TeaModel):
-    def __init__(self, domain=None, logstore=None, owner_id=None, project=None, region=None):
+    def __init__(self, domain=None, logstore=None, project=None, region=None):
         # The accelerated domain name for which you want to modify the configurations of real-time log delivery. Only one domain name is supported.
         self.domain = domain  # type: str
         # The name of the Logstore.
         self.logstore = logstore  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the Log Service project that is used for real-time log delivery.
         self.project = project  # type: str
         # The ID of the region where the Log Service project is deployed. For more information, see [Regions that support real-time log delivery](~~144883~~).
@@ -25666,8 +25495,6 @@ class ModifyRealtimeLogDeliveryRequest(TeaModel):
             result['Domain'] = self.domain
         if self.logstore is not None:
             result['Logstore'] = self.logstore
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.project is not None:
             result['Project'] = self.project
         if self.region is not None:
@@ -25680,8 +25507,6 @@ class ModifyRealtimeLogDeliveryRequest(TeaModel):
             self.domain = m.get('Domain')
         if m.get('Logstore') is not None:
             self.logstore = m.get('Logstore')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Project') is not None:
             self.project = m.get('Project')
         if m.get('Region') is not None:
@@ -25853,10 +25678,9 @@ class OpenCdnServiceResponse(TeaModel):
 
 
 class PublishStagingConfigToProductionRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None):
+    def __init__(self, domain_name=None):
         # The accelerated domain name. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -25869,16 +25693,12 @@ class PublishStagingConfigToProductionRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -25947,7 +25767,8 @@ class PublishStagingConfigToProductionResponse(TeaModel):
 
 
 class PushObjectCacheRequest(TeaModel):
-    def __init__(self, area=None, l_2preload=None, object_path=None, owner_id=None, security_token=None):
+    def __init__(self, area=None, l_2preload=None, object_path=None, owner_id=None, security_token=None,
+                 with_header=None):
         # The accelerated region where content is to be prefetched. Valid values:
         # 
         # *   **domestic**: **Chinese Mainland Only**\
@@ -25970,6 +25791,7 @@ class PushObjectCacheRequest(TeaModel):
         self.object_path = object_path  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.with_header = with_header  # type: str
 
     def validate(self):
         pass
@@ -25990,6 +25812,8 @@ class PushObjectCacheRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.with_header is not None:
+            result['WithHeader'] = self.with_header
         return result
 
     def from_map(self, m=None):
@@ -26004,6 +25828,8 @@ class PushObjectCacheRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('WithHeader') is not None:
+            self.with_header = m.get('WithHeader')
         return self
 
 
@@ -26205,10 +26031,9 @@ class RefreshObjectCachesResponse(TeaModel):
 
 
 class RollbackStagingConfigRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None):
+    def __init__(self, domain_name=None):
         # The accelerated domain name. You can specify only one domain name in each call.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -26221,16 +26046,12 @@ class RollbackStagingConfigRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -26299,10 +26120,9 @@ class RollbackStagingConfigResponse(TeaModel):
 
 
 class SetCdnDomainCSRCertificateRequest(TeaModel):
-    def __init__(self, domain_name=None, owner_id=None, server_certificate=None):
+    def __init__(self, domain_name=None, server_certificate=None):
         # The accelerated domain name for which you want to configure an SSL certificate. The domain name must have HTTPS secure acceleration enabled.
         self.domain_name = domain_name  # type: str
-        self.owner_id = owner_id  # type: long
         # The content of the certificate. The certificate must match the certificate signing request (CSR) created by calling the [CreateCdnCertificateSigningRequest](~~144478~~) operation. Make sure that the certificate is in the PEM format, and the content of the certificate is encoded in Base64 and then encoded by encodeURIComponent.
         self.server_certificate = server_certificate  # type: str
 
@@ -26317,8 +26137,6 @@ class SetCdnDomainCSRCertificateRequest(TeaModel):
         result = dict()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.server_certificate is not None:
             result['ServerCertificate'] = self.server_certificate
         return result
@@ -26327,8 +26145,6 @@ class SetCdnDomainCSRCertificateRequest(TeaModel):
         m = m or dict()
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ServerCertificate') is not None:
             self.server_certificate = m.get('ServerCertificate')
         return self
@@ -26515,7 +26331,7 @@ class SetCdnDomainSMCertificateResponse(TeaModel):
 
 
 class SetCdnDomainStagingConfigRequest(TeaModel):
-    def __init__(self, domain_name=None, functions=None, owner_id=None):
+    def __init__(self, domain_name=None, functions=None):
         # The accelerated domain name. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
         # The features that you want to configure. Format:
@@ -26542,7 +26358,6 @@ class SetCdnDomainStagingConfigRequest(TeaModel):
         #         ]
         #  ```
         self.functions = functions  # type: str
-        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -26557,8 +26372,6 @@ class SetCdnDomainStagingConfigRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.functions is not None:
             result['Functions'] = self.functions
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
@@ -26567,8 +26380,6 @@ class SetCdnDomainStagingConfigRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('Functions') is not None:
             self.functions = m.get('Functions')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -26952,8 +26763,8 @@ class SetReqHeaderConfigResponse(TeaModel):
 
 
 class SetWaitingRoomConfigRequest(TeaModel):
-    def __init__(self, allow_pct=None, domain_name=None, gap_time=None, max_time_wait=None, owner_id=None,
-                 wait_uri=None, wait_url=None):
+    def __init__(self, allow_pct=None, domain_name=None, gap_time=None, max_time_wait=None, wait_uri=None,
+                 wait_url=None):
         # The percentage of requests that are allowed to be redirected to the origin server. Valid values: **0** to **100**.
         self.allow_pct = allow_pct  # type: int
         # The accelerated domain name. You can specify only one domain name.
@@ -26962,7 +26773,6 @@ class SetWaitingRoomConfigRequest(TeaModel):
         self.gap_time = gap_time  # type: int
         # The maximum length of time that users need to wait in the queue. Unit: seconds.
         self.max_time_wait = max_time_wait  # type: int
-        self.owner_id = owner_id  # type: long
         # The regular expression that is used to match URI strings for which the virtual waiting room feature is enabled.
         self.wait_uri = wait_uri  # type: str
         # The URL of the waiting page.
@@ -26985,8 +26795,6 @@ class SetWaitingRoomConfigRequest(TeaModel):
             result['GapTime'] = self.gap_time
         if self.max_time_wait is not None:
             result['MaxTimeWait'] = self.max_time_wait
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.wait_uri is not None:
             result['WaitUri'] = self.wait_uri
         if self.wait_url is not None:
@@ -27003,8 +26811,6 @@ class SetWaitingRoomConfigRequest(TeaModel):
             self.gap_time = m.get('GapTime')
         if m.get('MaxTimeWait') is not None:
             self.max_time_wait = m.get('MaxTimeWait')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('WaitUri') is not None:
             self.wait_uri = m.get('WaitUri')
         if m.get('WaitUrl') is not None:
@@ -27306,8 +27112,7 @@ class TagResourcesRequestTag(TeaModel):
 
 
 class TagResourcesRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_id=None, resource_type=None, tag=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, resource_id=None, resource_type=None, tag=None):
         # The list of resource ID.
         self.resource_id = resource_id  # type: list[str]
         # The type of resource. The resource type. Set the value to **DOMAIN**.
@@ -27327,8 +27132,6 @@ class TagResourcesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_type is not None:
@@ -27341,8 +27144,6 @@ class TagResourcesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceType') is not None:
@@ -27420,7 +27221,7 @@ class TagResourcesResponse(TeaModel):
 
 
 class UntagResourcesRequest(TeaModel):
-    def __init__(self, all=None, owner_id=None, resource_id=None, resource_type=None, tag_key=None):
+    def __init__(self, all=None, resource_id=None, resource_type=None, tag_key=None):
         # Specifies whether to delete all tags. Valid values:
         # 
         # *   **true**: yes.
@@ -27428,7 +27229,6 @@ class UntagResourcesRequest(TeaModel):
         # 
         # Default value: **false**.
         self.all = all  # type: bool
-        self.owner_id = owner_id  # type: long
         # The list of resource ID. The max items count is up to 20.
         self.resource_id = resource_id  # type: list[str]
         # The type of resource. The resource type. Set the value to **DOMAIN**.
@@ -27447,8 +27247,6 @@ class UntagResourcesRequest(TeaModel):
         result = dict()
         if self.all is not None:
             result['All'] = self.all
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_type is not None:
@@ -27461,8 +27259,6 @@ class UntagResourcesRequest(TeaModel):
         m = m or dict()
         if m.get('All') is not None:
             self.all = m.get('All')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceType') is not None:
@@ -27537,8 +27333,7 @@ class UntagResourcesResponse(TeaModel):
 
 
 class UpdateCdnDeliverTaskRequest(TeaModel):
-    def __init__(self, deliver=None, deliver_id=None, domain_name=None, name=None, owner_id=None, reports=None,
-                 schedule=None):
+    def __init__(self, deliver=None, deliver_id=None, domain_name=None, name=None, reports=None, schedule=None):
         # The method that is used to send operations reports. Operations reports are sent to you only by email. The settings must be escaped in JSON.
         self.deliver = deliver  # type: str
         # The ID of the tracking task that you want to update.
@@ -27549,7 +27344,6 @@ class UpdateCdnDeliverTaskRequest(TeaModel):
         self.domain_name = domain_name  # type: str
         # The name of the tracking task.
         self.name = name  # type: str
-        self.owner_id = owner_id  # type: long
         # The operations reports that are tracked by the task. The data must be escaped in JSON.
         self.reports = reports  # type: str
         # The parameters that specify the time interval at which the tracking task sends operations reports. The settings must be escaped in JSON.
@@ -27572,8 +27366,6 @@ class UpdateCdnDeliverTaskRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.name is not None:
             result['Name'] = self.name
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.reports is not None:
             result['Reports'] = self.reports
         if self.schedule is not None:
@@ -27590,8 +27382,6 @@ class UpdateCdnDeliverTaskRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('Name') is not None:
             self.name = m.get('Name')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Reports') is not None:
             self.reports = m.get('Reports')
         if m.get('Schedule') is not None:
@@ -27664,14 +27454,13 @@ class UpdateCdnDeliverTaskResponse(TeaModel):
 
 
 class UpdateCdnSubTaskRequest(TeaModel):
-    def __init__(self, domain_name=None, end_time=None, owner_id=None, report_ids=None, start_time=None):
+    def __init__(self, domain_name=None, end_time=None, report_ids=None, start_time=None):
         # The domain names that you want to track. You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
         # 
         # If you do not specify a domain name, the task collects data from all domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end time of the operations report. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         self.end_time = end_time  # type: str
-        self.owner_id = owner_id  # type: long
         # The IDs of operations reports that you want to update. Separate IDs with commas (,).
         self.report_ids = report_ids  # type: str
         # The start time of the operations report. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
@@ -27690,8 +27479,6 @@ class UpdateCdnSubTaskRequest(TeaModel):
             result['DomainName'] = self.domain_name
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.report_ids is not None:
             result['ReportIds'] = self.report_ids
         if self.start_time is not None:
@@ -27704,8 +27491,6 @@ class UpdateCdnSubTaskRequest(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('ReportIds') is not None:
             self.report_ids = m.get('ReportIds')
         if m.get('StartTime') is not None:
@@ -27778,13 +27563,11 @@ class UpdateCdnSubTaskResponse(TeaModel):
 
 
 class UpdateFCTriggerRequest(TeaModel):
-    def __init__(self, function_arn=None, notes=None, owner_id=None, role_arn=None, source_arn=None,
-                 trigger_arn=None):
+    def __init__(self, function_arn=None, notes=None, role_arn=None, source_arn=None, trigger_arn=None):
         # The feature trigger.
         self.function_arn = function_arn  # type: str
         # The remarks.
         self.notes = notes  # type: str
-        self.owner_id = owner_id  # type: long
         # The assigned Resource Access Management (RAM) role.
         self.role_arn = role_arn  # type: str
         # The resources and filters for event listening.
@@ -27805,8 +27588,6 @@ class UpdateFCTriggerRequest(TeaModel):
             result['FunctionARN'] = self.function_arn
         if self.notes is not None:
             result['Notes'] = self.notes
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.role_arn is not None:
             result['RoleARN'] = self.role_arn
         if self.source_arn is not None:
@@ -27821,8 +27602,6 @@ class UpdateFCTriggerRequest(TeaModel):
             self.function_arn = m.get('FunctionARN')
         if m.get('Notes') is not None:
             self.notes = m.get('Notes')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('RoleARN') is not None:
             self.role_arn = m.get('RoleARN')
         if m.get('SourceARN') is not None:
