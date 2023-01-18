@@ -15689,6 +15689,4239 @@ class FlightRefundPreCalResponse(TeaModel):
         return self
 
 
+class FlightSearchListHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightSearchListRequest(TeaModel):
+    def __init__(self, airline_code=None, arr_city_code=None, arr_city_name=None, arr_date=None, cabin_class=None,
+                 dep_city_code=None, dep_city_name=None, dep_date=None, flight_no=None, need_multi_class_price=None,
+                 transfer_city_code=None, transfer_flight_no=None, transfer_leave_date=None, trip_type=None):
+        self.airline_code = airline_code  # type: str
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_city_name = arr_city_name  # type: str
+        self.arr_date = arr_date  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_city_name = dep_city_name  # type: str
+        self.dep_date = dep_date  # type: str
+        self.flight_no = flight_no  # type: str
+        self.need_multi_class_price = need_multi_class_price  # type: bool
+        self.transfer_city_code = transfer_city_code  # type: str
+        self.transfer_flight_no = transfer_flight_no  # type: str
+        self.transfer_leave_date = transfer_leave_date  # type: str
+        self.trip_type = trip_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_city_name is not None:
+            result['arr_city_name'] = self.arr_city_name
+        if self.arr_date is not None:
+            result['arr_date'] = self.arr_date
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_city_name is not None:
+            result['dep_city_name'] = self.dep_city_name
+        if self.dep_date is not None:
+            result['dep_date'] = self.dep_date
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.need_multi_class_price is not None:
+            result['need_multi_class_price'] = self.need_multi_class_price
+        if self.transfer_city_code is not None:
+            result['transfer_city_code'] = self.transfer_city_code
+        if self.transfer_flight_no is not None:
+            result['transfer_flight_no'] = self.transfer_flight_no
+        if self.transfer_leave_date is not None:
+            result['transfer_leave_date'] = self.transfer_leave_date
+        if self.trip_type is not None:
+            result['trip_type'] = self.trip_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_city_name') is not None:
+            self.arr_city_name = m.get('arr_city_name')
+        if m.get('arr_date') is not None:
+            self.arr_date = m.get('arr_date')
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_city_name') is not None:
+            self.dep_city_name = m.get('dep_city_name')
+        if m.get('dep_date') is not None:
+            self.dep_date = m.get('dep_date')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('need_multi_class_price') is not None:
+            self.need_multi_class_price = m.get('need_multi_class_price')
+        if m.get('transfer_city_code') is not None:
+            self.transfer_city_code = m.get('transfer_city_code')
+        if m.get('transfer_flight_no') is not None:
+            self.transfer_flight_no = m.get('transfer_flight_no')
+        if m.get('transfer_leave_date') is not None:
+            self.transfer_leave_date = m.get('transfer_leave_date')
+        if m.get('trip_type') is not None:
+            self.trip_type = m.get('trip_type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListAirlineInfo(TeaModel):
+    def __init__(self, airline_code=None, airline_name=None, airline_simple_name=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_name = airline_name  # type: str
+        self.airline_simple_name = airline_simple_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_name is not None:
+            result['airline_name'] = self.airline_name
+        if self.airline_simple_name is not None:
+            result['airline_simple_name'] = self.airline_simple_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_name') is not None:
+            self.airline_name = m.get('airline_name')
+        if m.get('airline_simple_name') is not None:
+            self.airline_simple_name = m.get('airline_simple_name')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListArrAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, city_code=None, city_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.city_code = city_code  # type: str
+        self.city_name = city_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListArrAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription(TeaModel):
+    def __init__(self, desc=None, icon=None, image=None, title=None):
+        self.desc = desc  # type: str
+        self.icon = icon  # type: str
+        self.image = image  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.image is not None:
+            result['image'] = self.image
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO(TeaModel):
+    def __init__(self, image=None, largest=None, middle=None, smallest=None):
+        self.image = image  # type: str
+        self.largest = largest  # type: str
+        self.middle = middle  # type: str
+        self.smallest = smallest  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image is not None:
+            result['image'] = self.image
+        if self.largest is not None:
+            result['largest'] = self.largest
+        if self.middle is not None:
+            result['middle'] = self.middle
+        if self.smallest is not None:
+            result['smallest'] = self.smallest
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('largest') is not None:
+            self.largest = m.get('largest')
+        if m.get('middle') is not None:
+            self.middle = m.get('middle')
+        if m.get('smallest') is not None:
+            self.smallest = m.get('smallest')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes(TeaModel):
+    def __init__(self, baggage_desc=None, baggage_sub_content_type=None, description=None, image_do=None,
+                 is_highlight=None, sub_title=None):
+        self.baggage_desc = baggage_desc  # type: list[str]
+        self.baggage_sub_content_type = baggage_sub_content_type  # type: int
+        self.description = description  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription
+        self.image_do = image_do  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO
+        self.is_highlight = is_highlight  # type: bool
+        self.sub_title = sub_title  # type: str
+
+    def validate(self):
+        if self.description:
+            self.description.validate()
+        if self.image_do:
+            self.image_do.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_desc is not None:
+            result['baggage_desc'] = self.baggage_desc
+        if self.baggage_sub_content_type is not None:
+            result['baggage_sub_content_type'] = self.baggage_sub_content_type
+        if self.description is not None:
+            result['description'] = self.description.to_map()
+        if self.image_do is not None:
+            result['image_d_o'] = self.image_do.to_map()
+        if self.is_highlight is not None:
+            result['is_highlight'] = self.is_highlight
+        if self.sub_title is not None:
+            result['sub_title'] = self.sub_title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_desc') is not None:
+            self.baggage_desc = m.get('baggage_desc')
+        if m.get('baggage_sub_content_type') is not None:
+            self.baggage_sub_content_type = m.get('baggage_sub_content_type')
+        if m.get('description') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription()
+            self.description = temp_model.from_map(m['description'])
+        if m.get('image_d_o') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO()
+            self.image_do = temp_model.from_map(m['image_d_o'])
+        if m.get('is_highlight') is not None:
+            self.is_highlight = m.get('is_highlight')
+        if m.get('sub_title') is not None:
+            self.sub_title = m.get('sub_title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItems(TeaModel):
+    def __init__(self, baggage_sub_content_visualizes=None, extra_content_visualizes=None, is_struct=None,
+                 ptc=None, title=None):
+        self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
+        self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.baggage_sub_content_visualizes:
+            for k in self.baggage_sub_content_visualizes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_content_visualizes'] = []
+        if self.baggage_sub_content_visualizes is not None:
+            for k in self.baggage_sub_content_visualizes:
+                result['baggage_sub_content_visualizes'].append(k.to_map() if k else None)
+        if self.extra_content_visualizes is not None:
+            result['extra_content_visualizes'] = self.extra_content_visualizes
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_content_visualizes = []
+        if m.get('baggage_sub_content_visualizes') is not None:
+            for k in m.get('baggage_sub_content_visualizes'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes()
+                self.baggage_sub_content_visualizes.append(temp_model.from_map(k))
+        if m.get('extra_content_visualizes') is not None:
+            self.extra_content_visualizes = m.get('extra_content_visualizes')
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemTips(TeaModel):
+    def __init__(self, logo=None, tips_desc=None, tips_image=None):
+        self.logo = logo  # type: str
+        self.tips_desc = tips_desc  # type: str
+        self.tips_image = tips_image  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemTips, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logo is not None:
+            result['logo'] = self.logo
+        if self.tips_desc is not None:
+            result['tips_desc'] = self.tips_desc
+        if self.tips_image is not None:
+            result['tips_image'] = self.tips_image
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('logo') is not None:
+            self.logo = m.get('logo')
+        if m.get('tips_desc') is not None:
+            self.tips_desc = m.get('tips_desc')
+        if m.get('tips_image') is not None:
+            self.tips_image = m.get('tips_image')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItem(TeaModel):
+    def __init__(self, baggage_sub_items=None, index=None, table_head=None, tips=None, title=None, type=None):
+        self.baggage_sub_items = baggage_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItems]
+        self.index = index  # type: int
+        self.table_head = table_head  # type: str
+        self.tips = tips  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemTips
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.baggage_sub_items:
+            for k in self.baggage_sub_items:
+                if k:
+                    k.validate()
+        if self.tips:
+            self.tips.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_items'] = []
+        if self.baggage_sub_items is not None:
+            for k in self.baggage_sub_items:
+                result['baggage_sub_items'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.tips is not None:
+            result['tips'] = self.tips.to_map()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_items = []
+        if m.get('baggage_sub_items') is not None:
+            for k in m.get('baggage_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItems()
+                self.baggage_sub_items.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('tips') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemTips()
+            self.tips = temp_model.from_map(m['tips'])
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleList(TeaModel):
+    def __init__(self, baggage_info=None, baggage_item=None, change_rule=None, change_rule_item=None, extra=None,
+                 refund_rule=None, refund_rule_item=None, sign_rule=None, tuigaiqian_info=None, upgrade_rule=None):
+        self.baggage_info = baggage_info  # type: str
+        self.baggage_item = baggage_item  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItem
+        self.change_rule = change_rule  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRule
+        self.change_rule_item = change_rule_item  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItem
+        self.extra = extra  # type: str
+        self.refund_rule = refund_rule  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRule
+        self.refund_rule_item = refund_rule_item  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItem
+        self.sign_rule = sign_rule  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRule
+        self.tuigaiqian_info = tuigaiqian_info  # type: str
+        self.upgrade_rule = upgrade_rule  # type: FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRule
+
+    def validate(self):
+        if self.baggage_item:
+            self.baggage_item.validate()
+        if self.change_rule:
+            self.change_rule.validate()
+        if self.change_rule_item:
+            self.change_rule_item.validate()
+        if self.refund_rule:
+            self.refund_rule.validate()
+        if self.refund_rule_item:
+            self.refund_rule_item.validate()
+        if self.sign_rule:
+            self.sign_rule.validate()
+        if self.upgrade_rule:
+            self.upgrade_rule.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_info is not None:
+            result['baggage_info'] = self.baggage_info
+        if self.baggage_item is not None:
+            result['baggage_item'] = self.baggage_item.to_map()
+        if self.change_rule is not None:
+            result['change_rule'] = self.change_rule.to_map()
+        if self.change_rule_item is not None:
+            result['change_rule_item'] = self.change_rule_item.to_map()
+        if self.extra is not None:
+            result['extra'] = self.extra
+        if self.refund_rule is not None:
+            result['refund_rule'] = self.refund_rule.to_map()
+        if self.refund_rule_item is not None:
+            result['refund_rule_item'] = self.refund_rule_item.to_map()
+        if self.sign_rule is not None:
+            result['sign_rule'] = self.sign_rule.to_map()
+        if self.tuigaiqian_info is not None:
+            result['tuigaiqian_info'] = self.tuigaiqian_info
+        if self.upgrade_rule is not None:
+            result['upgrade_rule'] = self.upgrade_rule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_info') is not None:
+            self.baggage_info = m.get('baggage_info')
+        if m.get('baggage_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItem()
+            self.baggage_item = temp_model.from_map(m['baggage_item'])
+        if m.get('change_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRule()
+            self.change_rule = temp_model.from_map(m['change_rule'])
+        if m.get('change_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItem()
+            self.change_rule_item = temp_model.from_map(m['change_rule_item'])
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
+        if m.get('refund_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRule()
+            self.refund_rule = temp_model.from_map(m['refund_rule'])
+        if m.get('refund_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItem()
+            self.refund_rule_item = temp_model.from_map(m['refund_rule_item'])
+        if m.get('sign_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListSignRule()
+            self.sign_rule = temp_model.from_map(m['sign_rule'])
+        if m.get('tuigaiqian_info') is not None:
+            self.tuigaiqian_info = m.get('tuigaiqian_info')
+        if m.get('upgrade_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleListUpgradeRule()
+            self.upgrade_rule = temp_model.from_map(m['upgrade_rule'])
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListCabinInfoList(TeaModel):
+    def __init__(self, agent_id=None, build_price=None, cabin=None, cabin_class=None, cabin_class_name=None,
+                 child_cabin=None, class_name=None, class_rule=None, discount=None, flight_rule_list=None,
+                 flight_rule_list_str=None, invoice_type=None, is_protocol=None, memo=None, oil_price=None, order_params=None,
+                 ota_item_id=None, price=None, product_type=None, product_type_desc=None, promotion_price=None,
+                 remained_seat_count=None, ticket_price=None, total_price=None):
+        self.agent_id = agent_id  # type: long
+        self.build_price = build_price  # type: int
+        self.cabin = cabin  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_class_name = cabin_class_name  # type: str
+        self.child_cabin = child_cabin  # type: str
+        self.class_name = class_name  # type: str
+        self.class_rule = class_rule  # type: str
+        self.discount = discount  # type: str
+        self.flight_rule_list = flight_rule_list  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleList]
+        self.flight_rule_list_str = flight_rule_list_str  # type: str
+        self.invoice_type = invoice_type  # type: int
+        self.is_protocol = is_protocol  # type: bool
+        self.memo = memo  # type: str
+        self.oil_price = oil_price  # type: int
+        self.order_params = order_params  # type: str
+        self.ota_item_id = ota_item_id  # type: str
+        self.price = price  # type: int
+        self.product_type = product_type  # type: long
+        self.product_type_desc = product_type_desc  # type: str
+        self.promotion_price = promotion_price  # type: str
+        self.remained_seat_count = remained_seat_count  # type: str
+        self.ticket_price = ticket_price  # type: int
+        self.total_price = total_price  # type: int
+
+    def validate(self):
+        if self.flight_rule_list:
+            for k in self.flight_rule_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListCabinInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.build_price is not None:
+            result['build_price'] = self.build_price
+        if self.cabin is not None:
+            result['cabin'] = self.cabin
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.cabin_class_name is not None:
+            result['cabin_class_name'] = self.cabin_class_name
+        if self.child_cabin is not None:
+            result['child_cabin'] = self.child_cabin
+        if self.class_name is not None:
+            result['class_name'] = self.class_name
+        if self.class_rule is not None:
+            result['class_rule'] = self.class_rule
+        if self.discount is not None:
+            result['discount'] = self.discount
+        result['flight_rule_list'] = []
+        if self.flight_rule_list is not None:
+            for k in self.flight_rule_list:
+                result['flight_rule_list'].append(k.to_map() if k else None)
+        if self.flight_rule_list_str is not None:
+            result['flight_rule_list_str'] = self.flight_rule_list_str
+        if self.invoice_type is not None:
+            result['invoice_type'] = self.invoice_type
+        if self.is_protocol is not None:
+            result['is_protocol'] = self.is_protocol
+        if self.memo is not None:
+            result['memo'] = self.memo
+        if self.oil_price is not None:
+            result['oil_price'] = self.oil_price
+        if self.order_params is not None:
+            result['order_params'] = self.order_params
+        if self.ota_item_id is not None:
+            result['ota_item_id'] = self.ota_item_id
+        if self.price is not None:
+            result['price'] = self.price
+        if self.product_type is not None:
+            result['product_type'] = self.product_type
+        if self.product_type_desc is not None:
+            result['product_type_desc'] = self.product_type_desc
+        if self.promotion_price is not None:
+            result['promotion_price'] = self.promotion_price
+        if self.remained_seat_count is not None:
+            result['remained_seat_count'] = self.remained_seat_count
+        if self.ticket_price is not None:
+            result['ticket_price'] = self.ticket_price
+        if self.total_price is not None:
+            result['total_price'] = self.total_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('build_price') is not None:
+            self.build_price = m.get('build_price')
+        if m.get('cabin') is not None:
+            self.cabin = m.get('cabin')
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('cabin_class_name') is not None:
+            self.cabin_class_name = m.get('cabin_class_name')
+        if m.get('child_cabin') is not None:
+            self.child_cabin = m.get('child_cabin')
+        if m.get('class_name') is not None:
+            self.class_name = m.get('class_name')
+        if m.get('class_rule') is not None:
+            self.class_rule = m.get('class_rule')
+        if m.get('discount') is not None:
+            self.discount = m.get('discount')
+        self.flight_rule_list = []
+        if m.get('flight_rule_list') is not None:
+            for k in m.get('flight_rule_list'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoListFlightRuleList()
+                self.flight_rule_list.append(temp_model.from_map(k))
+        if m.get('flight_rule_list_str') is not None:
+            self.flight_rule_list_str = m.get('flight_rule_list_str')
+        if m.get('invoice_type') is not None:
+            self.invoice_type = m.get('invoice_type')
+        if m.get('is_protocol') is not None:
+            self.is_protocol = m.get('is_protocol')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        if m.get('oil_price') is not None:
+            self.oil_price = m.get('oil_price')
+        if m.get('order_params') is not None:
+            self.order_params = m.get('order_params')
+        if m.get('ota_item_id') is not None:
+            self.ota_item_id = m.get('ota_item_id')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('product_type') is not None:
+            self.product_type = m.get('product_type')
+        if m.get('product_type_desc') is not None:
+            self.product_type_desc = m.get('product_type_desc')
+        if m.get('promotion_price') is not None:
+            self.promotion_price = m.get('promotion_price')
+        if m.get('remained_seat_count') is not None:
+            self.remained_seat_count = m.get('remained_seat_count')
+        if m.get('ticket_price') is not None:
+            self.ticket_price = m.get('ticket_price')
+        if m.get('total_price') is not None:
+            self.total_price = m.get('total_price')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListDepAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, city_code=None, city_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.city_code = city_code  # type: str
+        self.city_name = city_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListDepAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription(TeaModel):
+    def __init__(self, desc=None, icon=None, image=None, title=None):
+        self.desc = desc  # type: str
+        self.icon = icon  # type: str
+        self.image = image  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.image is not None:
+            result['image'] = self.image
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO(TeaModel):
+    def __init__(self, image=None, largest=None, middle=None, smallest=None):
+        self.image = image  # type: str
+        self.largest = largest  # type: str
+        self.middle = middle  # type: str
+        self.smallest = smallest  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image is not None:
+            result['image'] = self.image
+        if self.largest is not None:
+            result['largest'] = self.largest
+        if self.middle is not None:
+            result['middle'] = self.middle
+        if self.smallest is not None:
+            result['smallest'] = self.smallest
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('largest') is not None:
+            self.largest = m.get('largest')
+        if m.get('middle') is not None:
+            self.middle = m.get('middle')
+        if m.get('smallest') is not None:
+            self.smallest = m.get('smallest')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes(TeaModel):
+    def __init__(self, baggage_desc=None, baggage_sub_content_type=None, description=None, image_do=None,
+                 is_highlight=None, sub_title=None):
+        self.baggage_desc = baggage_desc  # type: list[str]
+        self.baggage_sub_content_type = baggage_sub_content_type  # type: int
+        self.description = description  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription
+        self.image_do = image_do  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO
+        self.is_highlight = is_highlight  # type: bool
+        self.sub_title = sub_title  # type: str
+
+    def validate(self):
+        if self.description:
+            self.description.validate()
+        if self.image_do:
+            self.image_do.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_desc is not None:
+            result['baggage_desc'] = self.baggage_desc
+        if self.baggage_sub_content_type is not None:
+            result['baggage_sub_content_type'] = self.baggage_sub_content_type
+        if self.description is not None:
+            result['description'] = self.description.to_map()
+        if self.image_do is not None:
+            result['image_d_o'] = self.image_do.to_map()
+        if self.is_highlight is not None:
+            result['is_highlight'] = self.is_highlight
+        if self.sub_title is not None:
+            result['sub_title'] = self.sub_title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_desc') is not None:
+            self.baggage_desc = m.get('baggage_desc')
+        if m.get('baggage_sub_content_type') is not None:
+            self.baggage_sub_content_type = m.get('baggage_sub_content_type')
+        if m.get('description') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription()
+            self.description = temp_model.from_map(m['description'])
+        if m.get('image_d_o') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO()
+            self.image_do = temp_model.from_map(m['image_d_o'])
+        if m.get('is_highlight') is not None:
+            self.is_highlight = m.get('is_highlight')
+        if m.get('sub_title') is not None:
+            self.sub_title = m.get('sub_title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItems(TeaModel):
+    def __init__(self, baggage_sub_content_visualizes=None, extra_content_visualizes=None, is_struct=None,
+                 ptc=None, title=None):
+        self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
+        self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.baggage_sub_content_visualizes:
+            for k in self.baggage_sub_content_visualizes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_content_visualizes'] = []
+        if self.baggage_sub_content_visualizes is not None:
+            for k in self.baggage_sub_content_visualizes:
+                result['baggage_sub_content_visualizes'].append(k.to_map() if k else None)
+        if self.extra_content_visualizes is not None:
+            result['extra_content_visualizes'] = self.extra_content_visualizes
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_content_visualizes = []
+        if m.get('baggage_sub_content_visualizes') is not None:
+            for k in m.get('baggage_sub_content_visualizes'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes()
+                self.baggage_sub_content_visualizes.append(temp_model.from_map(k))
+        if m.get('extra_content_visualizes') is not None:
+            self.extra_content_visualizes = m.get('extra_content_visualizes')
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemTips(TeaModel):
+    def __init__(self, logo=None, tips_desc=None, tips_image=None):
+        self.logo = logo  # type: str
+        self.tips_desc = tips_desc  # type: str
+        self.tips_image = tips_image  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemTips, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logo is not None:
+            result['logo'] = self.logo
+        if self.tips_desc is not None:
+            result['tips_desc'] = self.tips_desc
+        if self.tips_image is not None:
+            result['tips_image'] = self.tips_image
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('logo') is not None:
+            self.logo = m.get('logo')
+        if m.get('tips_desc') is not None:
+            self.tips_desc = m.get('tips_desc')
+        if m.get('tips_image') is not None:
+            self.tips_image = m.get('tips_image')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItem(TeaModel):
+    def __init__(self, baggage_sub_items=None, index=None, table_head=None, tips=None, title=None, type=None):
+        self.baggage_sub_items = baggage_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItems]
+        self.index = index  # type: int
+        self.table_head = table_head  # type: str
+        self.tips = tips  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemTips
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.baggage_sub_items:
+            for k in self.baggage_sub_items:
+                if k:
+                    k.validate()
+        if self.tips:
+            self.tips.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_items'] = []
+        if self.baggage_sub_items is not None:
+            for k in self.baggage_sub_items:
+                result['baggage_sub_items'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.tips is not None:
+            result['tips'] = self.tips.to_map()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_items = []
+        if m.get('baggage_sub_items') is not None:
+            for k in m.get('baggage_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItems()
+                self.baggage_sub_items.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('tips') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItemTips()
+            self.tips = temp_model.from_map(m['tips'])
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListFlightRuleList(TeaModel):
+    def __init__(self, baggage_info=None, baggage_item=None, change_rule=None, change_rule_item=None, extra=None,
+                 refund_rule=None, refund_rule_item=None, sign_rule=None, tuigaiqian_info=None, upgrade_rule=None):
+        self.baggage_info = baggage_info  # type: str
+        self.baggage_item = baggage_item  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItem
+        self.change_rule = change_rule  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRule
+        self.change_rule_item = change_rule_item  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItem
+        self.extra = extra  # type: str
+        self.refund_rule = refund_rule  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRule
+        self.refund_rule_item = refund_rule_item  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItem
+        self.sign_rule = sign_rule  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRule
+        self.tuigaiqian_info = tuigaiqian_info  # type: str
+        self.upgrade_rule = upgrade_rule  # type: FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRule
+
+    def validate(self):
+        if self.baggage_item:
+            self.baggage_item.validate()
+        if self.change_rule:
+            self.change_rule.validate()
+        if self.change_rule_item:
+            self.change_rule_item.validate()
+        if self.refund_rule:
+            self.refund_rule.validate()
+        if self.refund_rule_item:
+            self.refund_rule_item.validate()
+        if self.sign_rule:
+            self.sign_rule.validate()
+        if self.upgrade_rule:
+            self.upgrade_rule.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListFlightRuleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_info is not None:
+            result['baggage_info'] = self.baggage_info
+        if self.baggage_item is not None:
+            result['baggage_item'] = self.baggage_item.to_map()
+        if self.change_rule is not None:
+            result['change_rule'] = self.change_rule.to_map()
+        if self.change_rule_item is not None:
+            result['change_rule_item'] = self.change_rule_item.to_map()
+        if self.extra is not None:
+            result['extra'] = self.extra
+        if self.refund_rule is not None:
+            result['refund_rule'] = self.refund_rule.to_map()
+        if self.refund_rule_item is not None:
+            result['refund_rule_item'] = self.refund_rule_item.to_map()
+        if self.sign_rule is not None:
+            result['sign_rule'] = self.sign_rule.to_map()
+        if self.tuigaiqian_info is not None:
+            result['tuigaiqian_info'] = self.tuigaiqian_info
+        if self.upgrade_rule is not None:
+            result['upgrade_rule'] = self.upgrade_rule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_info') is not None:
+            self.baggage_info = m.get('baggage_info')
+        if m.get('baggage_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListBaggageItem()
+            self.baggage_item = temp_model.from_map(m['baggage_item'])
+        if m.get('change_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRule()
+            self.change_rule = temp_model.from_map(m['change_rule'])
+        if m.get('change_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListChangeRuleItem()
+            self.change_rule_item = temp_model.from_map(m['change_rule_item'])
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
+        if m.get('refund_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRule()
+            self.refund_rule = temp_model.from_map(m['refund_rule'])
+        if m.get('refund_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListRefundRuleItem()
+            self.refund_rule_item = temp_model.from_map(m['refund_rule_item'])
+        if m.get('sign_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListSignRule()
+            self.sign_rule = temp_model.from_map(m['sign_rule'])
+        if m.get('tuigaiqian_info') is not None:
+            self.tuigaiqian_info = m.get('tuigaiqian_info')
+        if m.get('upgrade_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleListUpgradeRule()
+            self.upgrade_rule = temp_model.from_map(m['upgrade_rule'])
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferAirlineInfo(TeaModel):
+    def __init__(self, airline_code=None, airline_name=None, airline_simple_name=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_name = airline_name  # type: str
+        self.airline_simple_name = airline_simple_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_name is not None:
+            result['airline_name'] = self.airline_name
+        if self.airline_simple_name is not None:
+            result['airline_simple_name'] = self.airline_simple_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_name') is not None:
+            self.airline_name = m.get('airline_name')
+        if m.get('airline_simple_name') is not None:
+            self.airline_simple_name = m.get('airline_simple_name')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferArrAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, city_code=None, city_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.city_code = city_code  # type: str
+        self.city_name = city_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferArrAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferDepAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, city_code=None, city_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.city_code = city_code  # type: str
+        self.city_name = city_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferDepAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription(TeaModel):
+    def __init__(self, desc=None, icon=None, image=None, title=None):
+        self.desc = desc  # type: str
+        self.icon = icon  # type: str
+        self.image = image  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.image is not None:
+            result['image'] = self.image
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO(TeaModel):
+    def __init__(self, image=None, largest=None, middle=None, smallest=None):
+        self.image = image  # type: str
+        self.largest = largest  # type: str
+        self.middle = middle  # type: str
+        self.smallest = smallest  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image is not None:
+            result['image'] = self.image
+        if self.largest is not None:
+            result['largest'] = self.largest
+        if self.middle is not None:
+            result['middle'] = self.middle
+        if self.smallest is not None:
+            result['smallest'] = self.smallest
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('largest') is not None:
+            self.largest = m.get('largest')
+        if m.get('middle') is not None:
+            self.middle = m.get('middle')
+        if m.get('smallest') is not None:
+            self.smallest = m.get('smallest')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes(TeaModel):
+    def __init__(self, baggage_desc=None, baggage_sub_content_type=None, description=None, image_do=None,
+                 is_highlight=None, sub_title=None):
+        self.baggage_desc = baggage_desc  # type: list[str]
+        self.baggage_sub_content_type = baggage_sub_content_type  # type: int
+        self.description = description  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription
+        self.image_do = image_do  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO
+        self.is_highlight = is_highlight  # type: bool
+        self.sub_title = sub_title  # type: str
+
+    def validate(self):
+        if self.description:
+            self.description.validate()
+        if self.image_do:
+            self.image_do.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_desc is not None:
+            result['baggage_desc'] = self.baggage_desc
+        if self.baggage_sub_content_type is not None:
+            result['baggage_sub_content_type'] = self.baggage_sub_content_type
+        if self.description is not None:
+            result['description'] = self.description.to_map()
+        if self.image_do is not None:
+            result['image_d_o'] = self.image_do.to_map()
+        if self.is_highlight is not None:
+            result['is_highlight'] = self.is_highlight
+        if self.sub_title is not None:
+            result['sub_title'] = self.sub_title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_desc') is not None:
+            self.baggage_desc = m.get('baggage_desc')
+        if m.get('baggage_sub_content_type') is not None:
+            self.baggage_sub_content_type = m.get('baggage_sub_content_type')
+        if m.get('description') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesDescription()
+            self.description = temp_model.from_map(m['description'])
+        if m.get('image_d_o') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizesImageDO()
+            self.image_do = temp_model.from_map(m['image_d_o'])
+        if m.get('is_highlight') is not None:
+            self.is_highlight = m.get('is_highlight')
+        if m.get('sub_title') is not None:
+            self.sub_title = m.get('sub_title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItems(TeaModel):
+    def __init__(self, baggage_sub_content_visualizes=None, extra_content_visualizes=None, is_struct=None,
+                 ptc=None, title=None):
+        self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
+        self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.baggage_sub_content_visualizes:
+            for k in self.baggage_sub_content_visualizes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_content_visualizes'] = []
+        if self.baggage_sub_content_visualizes is not None:
+            for k in self.baggage_sub_content_visualizes:
+                result['baggage_sub_content_visualizes'].append(k.to_map() if k else None)
+        if self.extra_content_visualizes is not None:
+            result['extra_content_visualizes'] = self.extra_content_visualizes
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_content_visualizes = []
+        if m.get('baggage_sub_content_visualizes') is not None:
+            for k in m.get('baggage_sub_content_visualizes'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes()
+                self.baggage_sub_content_visualizes.append(temp_model.from_map(k))
+        if m.get('extra_content_visualizes') is not None:
+            self.extra_content_visualizes = m.get('extra_content_visualizes')
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemTips(TeaModel):
+    def __init__(self, logo=None, tips_desc=None, tips_image=None):
+        self.logo = logo  # type: str
+        self.tips_desc = tips_desc  # type: str
+        self.tips_image = tips_image  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemTips, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logo is not None:
+            result['logo'] = self.logo
+        if self.tips_desc is not None:
+            result['tips_desc'] = self.tips_desc
+        if self.tips_image is not None:
+            result['tips_image'] = self.tips_image
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('logo') is not None:
+            self.logo = m.get('logo')
+        if m.get('tips_desc') is not None:
+            self.tips_desc = m.get('tips_desc')
+        if m.get('tips_image') is not None:
+            self.tips_image = m.get('tips_image')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItem(TeaModel):
+    def __init__(self, baggage_sub_items=None, index=None, table_head=None, tips=None, title=None, type=None):
+        self.baggage_sub_items = baggage_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItems]
+        self.index = index  # type: int
+        self.table_head = table_head  # type: str
+        self.tips = tips  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemTips
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.baggage_sub_items:
+            for k in self.baggage_sub_items:
+                if k:
+                    k.validate()
+        if self.tips:
+            self.tips.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['baggage_sub_items'] = []
+        if self.baggage_sub_items is not None:
+            for k in self.baggage_sub_items:
+                result['baggage_sub_items'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.tips is not None:
+            result['tips'] = self.tips.to_map()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baggage_sub_items = []
+        if m.get('baggage_sub_items') is not None:
+            for k in m.get('baggage_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemBaggageSubItems()
+                self.baggage_sub_items.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('tips') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItemTips()
+            self.tips = temp_model.from_map(m['tips'])
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemExtraContents(TeaModel):
+    def __init__(self, content=None, title=None):
+        self.content = content  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemExtraContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents(TeaModel):
+    def __init__(self, fee_desc=None, fee_range=None, style=None):
+        self.fee_desc = fee_desc  # type: str
+        self.fee_range = fee_range  # type: str
+        self.style = style  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fee_desc is not None:
+            result['fee_desc'] = self.fee_desc
+        if self.fee_range is not None:
+            result['fee_range'] = self.fee_range
+        if self.style is not None:
+            result['style'] = self.style
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fee_desc') is not None:
+            self.fee_desc = m.get('fee_desc')
+        if m.get('fee_range') is not None:
+            self.fee_range = m.get('fee_range')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
+    def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        self.is_struct = is_struct  # type: bool
+        # PTC
+        self.ptc = ptc  # type: str
+        self.refund_sub_contents = refund_sub_contents  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.refund_sub_contents:
+            for k in self.refund_sub_contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_struct is not None:
+            result['is_struct'] = self.is_struct
+        if self.ptc is not None:
+            result['ptc'] = self.ptc
+        result['refund_sub_contents'] = []
+        if self.refund_sub_contents is not None:
+            for k in self.refund_sub_contents:
+                result['refund_sub_contents'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('is_struct') is not None:
+            self.is_struct = m.get('is_struct')
+        if m.get('ptc') is not None:
+            self.ptc = m.get('ptc')
+        self.refund_sub_contents = []
+        if m.get('refund_sub_contents') is not None:
+            for k in m.get('refund_sub_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents()
+                self.refund_sub_contents.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItem(TeaModel):
+    def __init__(self, extra_contents=None, index=None, refund_sub_items=None, sub_table_head=None, table_head=None,
+                 title=None, type=None):
+        self.extra_contents = extra_contents  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemExtraContents]
+        self.index = index  # type: int
+        self.refund_sub_items = refund_sub_items  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItems]
+        self.sub_table_head = sub_table_head  # type: list[str]
+        self.table_head = table_head  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.extra_contents:
+            for k in self.extra_contents:
+                if k:
+                    k.validate()
+        if self.refund_sub_items:
+            for k in self.refund_sub_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['extra_contents'] = []
+        if self.extra_contents is not None:
+            for k in self.extra_contents:
+                result['extra_contents'].append(k.to_map() if k else None)
+        if self.index is not None:
+            result['index'] = self.index
+        result['refund_sub_items'] = []
+        if self.refund_sub_items is not None:
+            for k in self.refund_sub_items:
+                result['refund_sub_items'].append(k.to_map() if k else None)
+        if self.sub_table_head is not None:
+            result['sub_table_head'] = self.sub_table_head
+        if self.table_head is not None:
+            result['table_head'] = self.table_head
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.extra_contents = []
+        if m.get('extra_contents') is not None:
+            for k in m.get('extra_contents'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemExtraContents()
+                self.extra_contents.append(temp_model.from_map(k))
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        self.refund_sub_items = []
+        if m.get('refund_sub_items') is not None:
+            for k in m.get('refund_sub_items'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItemRefundSubItems()
+                self.refund_sub_items.append(temp_model.from_map(k))
+        if m.get('sub_table_head') is not None:
+            self.sub_table_head = m.get('sub_table_head')
+        if m.get('table_head') is not None:
+            self.table_head = m.get('table_head')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRuleInfo(TeaModel):
+    def __init__(self, content=None, cost=None, cost_percent=None, time_stamp=None, time_type=None, title=None):
+        self.content = content  # type: str
+        self.cost = cost  # type: int
+        self.cost_percent = cost_percent  # type: int
+        self.time_stamp = time_stamp  # type: int
+        self.time_type = time_type  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRuleInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.cost_percent is not None:
+            result['cost_percent'] = self.cost_percent
+        if self.time_stamp is not None:
+            result['time_stamp'] = self.time_stamp
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('cost_percent') is not None:
+            self.cost_percent = m.get('cost_percent')
+        if m.get('time_stamp') is not None:
+            self.time_stamp = m.get('time_stamp')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRule(TeaModel):
+    def __init__(self, able=None, info=None):
+        self.able = able  # type: bool
+        self.info = info  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRuleInfo]
+
+    def validate(self):
+        if self.info:
+            for k in self.info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.able is not None:
+            result['able'] = self.able
+        result['info'] = []
+        if self.info is not None:
+            for k in self.info:
+                result['info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('able') is not None:
+            self.able = m.get('able')
+        self.info = []
+        if m.get('info') is not None:
+            for k in m.get('info'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRuleInfo()
+                self.info.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleList(TeaModel):
+    def __init__(self, baggage_info=None, baggage_item=None, change_rule=None, change_rule_item=None, extra=None,
+                 refund_rule=None, refund_rule_item=None, sign_rule=None, tuigaiqian_info=None, upgrade_rule=None):
+        self.baggage_info = baggage_info  # type: str
+        self.baggage_item = baggage_item  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItem
+        self.change_rule = change_rule  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRule
+        self.change_rule_item = change_rule_item  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItem
+        self.extra = extra  # type: str
+        self.refund_rule = refund_rule  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRule
+        self.refund_rule_item = refund_rule_item  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItem
+        self.sign_rule = sign_rule  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRule
+        self.tuigaiqian_info = tuigaiqian_info  # type: str
+        self.upgrade_rule = upgrade_rule  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRule
+
+    def validate(self):
+        if self.baggage_item:
+            self.baggage_item.validate()
+        if self.change_rule:
+            self.change_rule.validate()
+        if self.change_rule_item:
+            self.change_rule_item.validate()
+        if self.refund_rule:
+            self.refund_rule.validate()
+        if self.refund_rule_item:
+            self.refund_rule_item.validate()
+        if self.sign_rule:
+            self.sign_rule.validate()
+        if self.upgrade_rule:
+            self.upgrade_rule.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baggage_info is not None:
+            result['baggage_info'] = self.baggage_info
+        if self.baggage_item is not None:
+            result['baggage_item'] = self.baggage_item.to_map()
+        if self.change_rule is not None:
+            result['change_rule'] = self.change_rule.to_map()
+        if self.change_rule_item is not None:
+            result['change_rule_item'] = self.change_rule_item.to_map()
+        if self.extra is not None:
+            result['extra'] = self.extra
+        if self.refund_rule is not None:
+            result['refund_rule'] = self.refund_rule.to_map()
+        if self.refund_rule_item is not None:
+            result['refund_rule_item'] = self.refund_rule_item.to_map()
+        if self.sign_rule is not None:
+            result['sign_rule'] = self.sign_rule.to_map()
+        if self.tuigaiqian_info is not None:
+            result['tuigaiqian_info'] = self.tuigaiqian_info
+        if self.upgrade_rule is not None:
+            result['upgrade_rule'] = self.upgrade_rule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('baggage_info') is not None:
+            self.baggage_info = m.get('baggage_info')
+        if m.get('baggage_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListBaggageItem()
+            self.baggage_item = temp_model.from_map(m['baggage_item'])
+        if m.get('change_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRule()
+            self.change_rule = temp_model.from_map(m['change_rule'])
+        if m.get('change_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListChangeRuleItem()
+            self.change_rule_item = temp_model.from_map(m['change_rule_item'])
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
+        if m.get('refund_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRule()
+            self.refund_rule = temp_model.from_map(m['refund_rule'])
+        if m.get('refund_rule_item') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListRefundRuleItem()
+            self.refund_rule_item = temp_model.from_map(m['refund_rule_item'])
+        if m.get('sign_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListSignRule()
+            self.sign_rule = temp_model.from_map(m['sign_rule'])
+        if m.get('tuigaiqian_info') is not None:
+            self.tuigaiqian_info = m.get('tuigaiqian_info')
+        if m.get('upgrade_rule') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleListUpgradeRule()
+            self.upgrade_rule = temp_model.from_map(m['upgrade_rule'])
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightListTransferInfo(TeaModel):
+    def __init__(self, flight_size=None, flight_type=None, transfer_airline_info=None,
+                 transfer_arr_airport_info=None, transfer_arr_date=None, transfer_dep_airport_info=None, transfer_dep_date=None,
+                 transfer_flight_no=None, transfer_flight_rule_list=None):
+        self.flight_size = flight_size  # type: str
+        self.flight_type = flight_type  # type: str
+        self.transfer_airline_info = transfer_airline_info  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferAirlineInfo
+        self.transfer_arr_airport_info = transfer_arr_airport_info  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferArrAirportInfo
+        self.transfer_arr_date = transfer_arr_date  # type: str
+        self.transfer_dep_airport_info = transfer_dep_airport_info  # type: FlightSearchListResponseBodyModuleFlightListTransferInfoTransferDepAirportInfo
+        self.transfer_dep_date = transfer_dep_date  # type: str
+        self.transfer_flight_no = transfer_flight_no  # type: str
+        self.transfer_flight_rule_list = transfer_flight_rule_list  # type: list[FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleList]
+
+    def validate(self):
+        if self.transfer_airline_info:
+            self.transfer_airline_info.validate()
+        if self.transfer_arr_airport_info:
+            self.transfer_arr_airport_info.validate()
+        if self.transfer_dep_airport_info:
+            self.transfer_dep_airport_info.validate()
+        if self.transfer_flight_rule_list:
+            for k in self.transfer_flight_rule_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightListTransferInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flight_size is not None:
+            result['flight_size'] = self.flight_size
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.transfer_airline_info is not None:
+            result['transfer_airline_info'] = self.transfer_airline_info.to_map()
+        if self.transfer_arr_airport_info is not None:
+            result['transfer_arr_airport_info'] = self.transfer_arr_airport_info.to_map()
+        if self.transfer_arr_date is not None:
+            result['transfer_arr_date'] = self.transfer_arr_date
+        if self.transfer_dep_airport_info is not None:
+            result['transfer_dep_airport_info'] = self.transfer_dep_airport_info.to_map()
+        if self.transfer_dep_date is not None:
+            result['transfer_dep_date'] = self.transfer_dep_date
+        if self.transfer_flight_no is not None:
+            result['transfer_flight_no'] = self.transfer_flight_no
+        result['transfer_flight_rule_list'] = []
+        if self.transfer_flight_rule_list is not None:
+            for k in self.transfer_flight_rule_list:
+                result['transfer_flight_rule_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('flight_size') is not None:
+            self.flight_size = m.get('flight_size')
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('transfer_airline_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferAirlineInfo()
+            self.transfer_airline_info = temp_model.from_map(m['transfer_airline_info'])
+        if m.get('transfer_arr_airport_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferArrAirportInfo()
+            self.transfer_arr_airport_info = temp_model.from_map(m['transfer_arr_airport_info'])
+        if m.get('transfer_arr_date') is not None:
+            self.transfer_arr_date = m.get('transfer_arr_date')
+        if m.get('transfer_dep_airport_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferDepAirportInfo()
+            self.transfer_dep_airport_info = temp_model.from_map(m['transfer_dep_airport_info'])
+        if m.get('transfer_dep_date') is not None:
+            self.transfer_dep_date = m.get('transfer_dep_date')
+        if m.get('transfer_flight_no') is not None:
+            self.transfer_flight_no = m.get('transfer_flight_no')
+        self.transfer_flight_rule_list = []
+        if m.get('transfer_flight_rule_list') is not None:
+            for k in m.get('transfer_flight_rule_list'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfoTransferFlightRuleList()
+                self.transfer_flight_rule_list.append(temp_model.from_map(k))
+        return self
+
+
+class FlightSearchListResponseBodyModuleFlightList(TeaModel):
+    def __init__(self, airline_info=None, arr_airport_info=None, arr_date=None, build_price=None, cabin=None,
+                 cabin_class=None, cabin_info_list=None, carrier_airline=None, carrier_no=None, class_rule=None,
+                 dep_airport_info=None, dep_city_code=None, dep_date=None, discount=None, flight_no=None, flight_rule_list=None,
+                 flight_rule_list_str=None, flight_size=None, flight_type=None, invoice_type=None, is_protocol=None, is_share=None,
+                 is_stop=None, is_transfer=None, meal_desc=None, memo=None, oil_price=None, ota_item_id=None, price=None,
+                 product_type=None, product_type_desc=None, promotion_price=None, remained_seat_count=None, secret_params=None,
+                 segment_number=None, stop_arr_time=None, stop_city=None, stop_dep_time=None, ticket_price=None, total_price=None,
+                 transfer_info=None, trip_type=None):
+        self.airline_info = airline_info  # type: FlightSearchListResponseBodyModuleFlightListAirlineInfo
+        self.arr_airport_info = arr_airport_info  # type: FlightSearchListResponseBodyModuleFlightListArrAirportInfo
+        self.arr_date = arr_date  # type: str
+        self.build_price = build_price  # type: int
+        self.cabin = cabin  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_info_list = cabin_info_list  # type: list[FlightSearchListResponseBodyModuleFlightListCabinInfoList]
+        self.carrier_airline = carrier_airline  # type: str
+        self.carrier_no = carrier_no  # type: str
+        self.class_rule = class_rule  # type: str
+        self.dep_airport_info = dep_airport_info  # type: FlightSearchListResponseBodyModuleFlightListDepAirportInfo
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_date = dep_date  # type: str
+        self.discount = discount  # type: int
+        self.flight_no = flight_no  # type: str
+        self.flight_rule_list = flight_rule_list  # type: list[FlightSearchListResponseBodyModuleFlightListFlightRuleList]
+        self.flight_rule_list_str = flight_rule_list_str  # type: str
+        self.flight_size = flight_size  # type: str
+        self.flight_type = flight_type  # type: str
+        self.invoice_type = invoice_type  # type: int
+        self.is_protocol = is_protocol  # type: bool
+        self.is_share = is_share  # type: bool
+        self.is_stop = is_stop  # type: bool
+        self.is_transfer = is_transfer  # type: bool
+        self.meal_desc = meal_desc  # type: str
+        self.memo = memo  # type: str
+        self.oil_price = oil_price  # type: int
+        self.ota_item_id = ota_item_id  # type: str
+        self.price = price  # type: int
+        self.product_type = product_type  # type: long
+        self.product_type_desc = product_type_desc  # type: str
+        self.promotion_price = promotion_price  # type: str
+        self.remained_seat_count = remained_seat_count  # type: str
+        self.secret_params = secret_params  # type: str
+        self.segment_number = segment_number  # type: str
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_city = stop_city  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+        self.ticket_price = ticket_price  # type: int
+        self.total_price = total_price  # type: str
+        self.transfer_info = transfer_info  # type: FlightSearchListResponseBodyModuleFlightListTransferInfo
+        self.trip_type = trip_type  # type: int
+
+    def validate(self):
+        if self.airline_info:
+            self.airline_info.validate()
+        if self.arr_airport_info:
+            self.arr_airport_info.validate()
+        if self.cabin_info_list:
+            for k in self.cabin_info_list:
+                if k:
+                    k.validate()
+        if self.dep_airport_info:
+            self.dep_airport_info.validate()
+        if self.flight_rule_list:
+            for k in self.flight_rule_list:
+                if k:
+                    k.validate()
+        if self.transfer_info:
+            self.transfer_info.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModuleFlightList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_info is not None:
+            result['airline_info'] = self.airline_info.to_map()
+        if self.arr_airport_info is not None:
+            result['arr_airport_info'] = self.arr_airport_info.to_map()
+        if self.arr_date is not None:
+            result['arr_date'] = self.arr_date
+        if self.build_price is not None:
+            result['build_price'] = self.build_price
+        if self.cabin is not None:
+            result['cabin'] = self.cabin
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        result['cabin_info_list'] = []
+        if self.cabin_info_list is not None:
+            for k in self.cabin_info_list:
+                result['cabin_info_list'].append(k.to_map() if k else None)
+        if self.carrier_airline is not None:
+            result['carrier_airline'] = self.carrier_airline
+        if self.carrier_no is not None:
+            result['carrier_no'] = self.carrier_no
+        if self.class_rule is not None:
+            result['class_rule'] = self.class_rule
+        if self.dep_airport_info is not None:
+            result['dep_airport_info'] = self.dep_airport_info.to_map()
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_date is not None:
+            result['dep_date'] = self.dep_date
+        if self.discount is not None:
+            result['discount'] = self.discount
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        result['flight_rule_list'] = []
+        if self.flight_rule_list is not None:
+            for k in self.flight_rule_list:
+                result['flight_rule_list'].append(k.to_map() if k else None)
+        if self.flight_rule_list_str is not None:
+            result['flight_rule_list_str'] = self.flight_rule_list_str
+        if self.flight_size is not None:
+            result['flight_size'] = self.flight_size
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.invoice_type is not None:
+            result['invoice_type'] = self.invoice_type
+        if self.is_protocol is not None:
+            result['is_protocol'] = self.is_protocol
+        if self.is_share is not None:
+            result['is_share'] = self.is_share
+        if self.is_stop is not None:
+            result['is_stop'] = self.is_stop
+        if self.is_transfer is not None:
+            result['is_transfer'] = self.is_transfer
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.memo is not None:
+            result['memo'] = self.memo
+        if self.oil_price is not None:
+            result['oil_price'] = self.oil_price
+        if self.ota_item_id is not None:
+            result['ota_item_id'] = self.ota_item_id
+        if self.price is not None:
+            result['price'] = self.price
+        if self.product_type is not None:
+            result['product_type'] = self.product_type
+        if self.product_type_desc is not None:
+            result['product_type_desc'] = self.product_type_desc
+        if self.promotion_price is not None:
+            result['promotion_price'] = self.promotion_price
+        if self.remained_seat_count is not None:
+            result['remained_seat_count'] = self.remained_seat_count
+        if self.secret_params is not None:
+            result['secret_params'] = self.secret_params
+        if self.segment_number is not None:
+            result['segment_number'] = self.segment_number
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_city is not None:
+            result['stop_city'] = self.stop_city
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        if self.ticket_price is not None:
+            result['ticket_price'] = self.ticket_price
+        if self.total_price is not None:
+            result['total_price'] = self.total_price
+        if self.transfer_info is not None:
+            result['transfer_info'] = self.transfer_info.to_map()
+        if self.trip_type is not None:
+            result['trip_type'] = self.trip_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListAirlineInfo()
+            self.airline_info = temp_model.from_map(m['airline_info'])
+        if m.get('arr_airport_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListArrAirportInfo()
+            self.arr_airport_info = temp_model.from_map(m['arr_airport_info'])
+        if m.get('arr_date') is not None:
+            self.arr_date = m.get('arr_date')
+        if m.get('build_price') is not None:
+            self.build_price = m.get('build_price')
+        if m.get('cabin') is not None:
+            self.cabin = m.get('cabin')
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        self.cabin_info_list = []
+        if m.get('cabin_info_list') is not None:
+            for k in m.get('cabin_info_list'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListCabinInfoList()
+                self.cabin_info_list.append(temp_model.from_map(k))
+        if m.get('carrier_airline') is not None:
+            self.carrier_airline = m.get('carrier_airline')
+        if m.get('carrier_no') is not None:
+            self.carrier_no = m.get('carrier_no')
+        if m.get('class_rule') is not None:
+            self.class_rule = m.get('class_rule')
+        if m.get('dep_airport_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListDepAirportInfo()
+            self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_date') is not None:
+            self.dep_date = m.get('dep_date')
+        if m.get('discount') is not None:
+            self.discount = m.get('discount')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        self.flight_rule_list = []
+        if m.get('flight_rule_list') is not None:
+            for k in m.get('flight_rule_list'):
+                temp_model = FlightSearchListResponseBodyModuleFlightListFlightRuleList()
+                self.flight_rule_list.append(temp_model.from_map(k))
+        if m.get('flight_rule_list_str') is not None:
+            self.flight_rule_list_str = m.get('flight_rule_list_str')
+        if m.get('flight_size') is not None:
+            self.flight_size = m.get('flight_size')
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('invoice_type') is not None:
+            self.invoice_type = m.get('invoice_type')
+        if m.get('is_protocol') is not None:
+            self.is_protocol = m.get('is_protocol')
+        if m.get('is_share') is not None:
+            self.is_share = m.get('is_share')
+        if m.get('is_stop') is not None:
+            self.is_stop = m.get('is_stop')
+        if m.get('is_transfer') is not None:
+            self.is_transfer = m.get('is_transfer')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        if m.get('oil_price') is not None:
+            self.oil_price = m.get('oil_price')
+        if m.get('ota_item_id') is not None:
+            self.ota_item_id = m.get('ota_item_id')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('product_type') is not None:
+            self.product_type = m.get('product_type')
+        if m.get('product_type_desc') is not None:
+            self.product_type_desc = m.get('product_type_desc')
+        if m.get('promotion_price') is not None:
+            self.promotion_price = m.get('promotion_price')
+        if m.get('remained_seat_count') is not None:
+            self.remained_seat_count = m.get('remained_seat_count')
+        if m.get('secret_params') is not None:
+            self.secret_params = m.get('secret_params')
+        if m.get('segment_number') is not None:
+            self.segment_number = m.get('segment_number')
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_city') is not None:
+            self.stop_city = m.get('stop_city')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        if m.get('ticket_price') is not None:
+            self.ticket_price = m.get('ticket_price')
+        if m.get('total_price') is not None:
+            self.total_price = m.get('total_price')
+        if m.get('transfer_info') is not None:
+            temp_model = FlightSearchListResponseBodyModuleFlightListTransferInfo()
+            self.transfer_info = temp_model.from_map(m['transfer_info'])
+        if m.get('trip_type') is not None:
+            self.trip_type = m.get('trip_type')
+        return self
+
+
+class FlightSearchListResponseBodyModule(TeaModel):
+    def __init__(self, flight_list=None, is_replace_pnr=None):
+        self.flight_list = flight_list  # type: list[FlightSearchListResponseBodyModuleFlightList]
+        self.is_replace_pnr = is_replace_pnr  # type: bool
+
+    def validate(self):
+        if self.flight_list:
+            for k in self.flight_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['flight_list'] = []
+        if self.flight_list is not None:
+            for k in self.flight_list:
+                result['flight_list'].append(k.to_map() if k else None)
+        if self.is_replace_pnr is not None:
+            result['is_replace_pnr'] = self.is_replace_pnr
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.flight_list = []
+        if m.get('flight_list') is not None:
+            for k in m.get('flight_list'):
+                temp_model = FlightSearchListResponseBodyModuleFlightList()
+                self.flight_list.append(temp_model.from_map(k))
+        if m.get('is_replace_pnr') is not None:
+            self.is_replace_pnr = m.get('is_replace_pnr')
+        return self
+
+
+class FlightSearchListResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: FlightSearchListResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightSearchListResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightSearchListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightSearchListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightSearchListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightSearchListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class HotelBillSettlementQueryHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
