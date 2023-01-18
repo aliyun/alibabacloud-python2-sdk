@@ -251,6 +251,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_get_media_infos_with_options(request, runtime)
 
+    def cancel_dnajob_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelDNAJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.CancelDNAJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_dnajob(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_dnajob_with_options(request, runtime)
+
     def cancel_favorite_public_media_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -342,6 +378,46 @@ class Client(OpenApiClient):
     def create_custom_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_custom_template_with_options(request, runtime)
+
+    def create_dnadbwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.model):
+            query['Model'] = request.model
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDNADB',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.CreateDNADBResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dnadb(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dnadbwith_options(request, runtime)
 
     def create_editing_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -654,6 +730,80 @@ class Client(OpenApiClient):
     def delete_custom_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_custom_template_with_options(request, runtime)
+
+    def delete_dnadbwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbid):
+            query['DBId'] = request.dbid
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDNADB',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.DeleteDNADBResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dnadb(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dnadbwith_options(request, runtime)
+
+    def delete_dnafiles_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbid):
+            query['DBId'] = request.dbid
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.primary_keys):
+            query['PrimaryKeys'] = request.primary_keys
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDNAFiles',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.DeleteDNAFilesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dnafiles(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dnafiles_with_options(request, runtime)
 
     def delete_editing_project_materials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2717,6 +2867,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_url_upload_infos_with_options(request, runtime)
 
+    def get_workflow_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflowTask',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetWorkflowTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_workflow_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_workflow_task_with_options(request, runtime)
+
     def list_all_public_media_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2786,6 +2964,82 @@ class Client(OpenApiClient):
     def list_custom_templates(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_custom_templates_with_options(request, runtime)
+
+    def list_dnadbwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbids):
+            query['DBIds'] = request.dbids
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDNADB',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.ListDNADBResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dnadb(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dnadbwith_options(request, runtime)
+
+    def list_dnafiles_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbid):
+            query['DBId'] = request.dbid
+        if not UtilClient.is_unset(request.next_page_token):
+            query['NextPageToken'] = request.next_page_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDNAFiles',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.ListDNAFilesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dnafiles(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dnafiles_with_options(request, runtime)
 
     def list_dynamic_image_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3443,6 +3697,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_transcode_jobs_with_options(request, runtime)
 
+    def query_dnajob_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.job_ids):
+            query['JobIds'] = request.job_ids
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDNAJobList',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.QueryDNAJobListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_dnajob_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_dnajob_list_with_options(request, runtime)
+
     def query_iproduction_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3985,6 +4275,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_event_callback_with_options(request, runtime)
 
+    def start_workflow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.task_input):
+            query['TaskInput'] = request.task_input
+        if not UtilClient.is_unset(request.user_data):
+            query['UserData'] = request.user_data
+        if not UtilClient.is_unset(request.workflow_id):
+            query['WorkflowId'] = request.workflow_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartWorkflow',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.StartWorkflowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_workflow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_workflow_with_options(request, runtime)
+
     def submit_asrjob_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4062,6 +4384,58 @@ class Client(OpenApiClient):
     def submit_audio_produce_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_audio_produce_job_with_options(request, runtime)
+
+    def submit_dnajob_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ice20201109_models.SubmitDNAJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.input):
+            request.input_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.input, 'Input', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
+        if not UtilClient.is_unset(request.dbid):
+            query['DBId'] = request.dbid
+        if not UtilClient.is_unset(request.input_shrink):
+            query['Input'] = request.input_shrink
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pipeline_id):
+            query['PipelineId'] = request.pipeline_id
+        if not UtilClient.is_unset(request.primary_key):
+            query['PrimaryKey'] = request.primary_key
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.user_data):
+            query['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitDNAJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SubmitDNAJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_dnajob(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_dnajob_with_options(request, runtime)
 
     def submit_dynamic_chart_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
