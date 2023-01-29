@@ -19531,17 +19531,18 @@ class FlightSearchListResponseBodyModuleFlightListTransferInfo(TeaModel):
 
 
 class FlightSearchListResponseBodyModuleFlightList(TeaModel):
-    def __init__(self, airline_info=None, arr_airport_info=None, arr_date=None, build_price=None, cabin=None,
-                 cabin_class=None, cabin_info_list=None, carrier_airline=None, carrier_no=None, class_rule=None,
-                 dep_airport_info=None, dep_city_code=None, dep_date=None, discount=None, flight_no=None, flight_rule_list=None,
-                 flight_rule_list_str=None, flight_size=None, flight_type=None, invoice_type=None, is_protocol=None, is_share=None,
-                 is_stop=None, is_transfer=None, meal_desc=None, memo=None, oil_price=None, ota_item_id=None, price=None,
-                 product_type=None, product_type_desc=None, promotion_price=None, remained_seat_count=None, secret_params=None,
-                 segment_number=None, stop_arr_time=None, stop_city=None, stop_dep_time=None, ticket_price=None, total_price=None,
-                 transfer_info=None, trip_type=None):
+    def __init__(self, airline_info=None, arr_airport_info=None, arr_date=None, basic_cabin_price=None,
+                 build_price=None, cabin=None, cabin_class=None, cabin_info_list=None, carrier_airline=None, carrier_no=None,
+                 class_rule=None, dep_airport_info=None, dep_city_code=None, dep_date=None, discount=None, flight_no=None,
+                 flight_rule_list=None, flight_rule_list_str=None, flight_size=None, flight_type=None, invoice_type=None,
+                 is_protocol=None, is_share=None, is_stop=None, is_transfer=None, meal_desc=None, memo=None, oil_price=None,
+                 ota_item_id=None, price=None, product_type=None, product_type_desc=None, promotion_price=None,
+                 remained_seat_count=None, secret_params=None, segment_number=None, stop_arr_time=None, stop_city=None,
+                 stop_dep_time=None, ticket_price=None, total_price=None, transfer_info=None, trip_type=None):
         self.airline_info = airline_info  # type: FlightSearchListResponseBodyModuleFlightListAirlineInfo
         self.arr_airport_info = arr_airport_info  # type: FlightSearchListResponseBodyModuleFlightListArrAirportInfo
         self.arr_date = arr_date  # type: str
+        self.basic_cabin_price = basic_cabin_price  # type: int
         self.build_price = build_price  # type: int
         self.cabin = cabin  # type: str
         self.cabin_class = cabin_class  # type: str
@@ -19612,6 +19613,8 @@ class FlightSearchListResponseBodyModuleFlightList(TeaModel):
             result['arr_airport_info'] = self.arr_airport_info.to_map()
         if self.arr_date is not None:
             result['arr_date'] = self.arr_date
+        if self.basic_cabin_price is not None:
+            result['basic_cabin_price'] = self.basic_cabin_price
         if self.build_price is not None:
             result['build_price'] = self.build_price
         if self.cabin is not None:
@@ -19706,6 +19709,8 @@ class FlightSearchListResponseBodyModuleFlightList(TeaModel):
             self.arr_airport_info = temp_model.from_map(m['arr_airport_info'])
         if m.get('arr_date') is not None:
             self.arr_date = m.get('arr_date')
+        if m.get('basic_cabin_price') is not None:
+            self.basic_cabin_price = m.get('basic_cabin_price')
         if m.get('build_price') is not None:
             self.build_price = m.get('build_price')
         if m.get('cabin') is not None:
