@@ -5,9 +5,15 @@ from Tea.model import TeaModel
 
 class AbolishApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.api_id = api_id  # type: str
+        # The ID of the specified API.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -44,6 +50,7 @@ class AbolishApiRequest(TeaModel):
 
 class AbolishApiResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -107,7 +114,14 @@ class AbolishApiResponse(TeaModel):
 
 class AddAccessControlListEntryRequest(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, security_token=None):
+        # The ACL settings.
+        # 
+        # *   entry: the entries that you want to add to the ACL. You can add CIDR blocks. Separate multiple CIDR blocks with commas (,).
+        # *   comment: the description of the ACL.
+        # 
+        # > You can add at most 50 IP addresses or CIDR blocks to an ACL in each call. If the IP address or CIDR block that you want to add to an ACL already exists, the IP address or CIDR block is not added. The entries that you add must be CIDR blocks.
         self.acl_entrys = acl_entrys  # type: str
+        # The ID of the access control list (ACL).
         self.acl_id = acl_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -141,6 +155,7 @@ class AddAccessControlListEntryRequest(TeaModel):
 
 class AddAccessControlListEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -204,8 +219,17 @@ class AddAccessControlListEntryResponse(TeaModel):
 
 class AddIpControlPolicyItemRequest(TeaModel):
     def __init__(self, app_id=None, cidr_ip=None, ip_control_id=None, security_token=None):
+        # The restriction policy on app IDs for a specific policy. You can restrict app IDs only for whitelists. The IpControlType values of whitelists are ALLOW.
+        # 
+        # *   You can add only one app ID restriction policy at a time.
+        # *   If this parameter is empty, no restriction is imposed on the app IDs.
+        # *   If this parameter is not empty, there is restriction not only on IP addresses, but also on apps.
+        # *   Please note that if this parameter is not empty and the security authentication method of the API is No Authentication, all API calls are restricted.
+        # *   If this parameter is not empty for a blacklist, API Gateway automatically skips this parameter and sets only restriction on IP addresses. The IpControlType value of a blacklist is REFUSE.
         self.app_id = app_id  # type: str
+        # The IP addresses or CIDR blocks involved in the policy. Separate multiple IP addresses or CIDR blocks with semicolons (;). You can specify a maximum of 10 IP addresses or CIDR blocks.
         self.cidr_ip = cidr_ip  # type: str
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -243,7 +267,9 @@ class AddIpControlPolicyItemRequest(TeaModel):
 
 class AddIpControlPolicyItemResponseBody(TeaModel):
     def __init__(self, policy_item_id=None, request_id=None):
+        # The ID of the policy. The ID is unique.
         self.policy_item_id = policy_item_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -313,9 +339,16 @@ class AddTrafficSpecialControlRequest(TeaModel):
     def __init__(self, security_token=None, special_key=None, special_type=None, traffic_control_id=None,
                  traffic_value=None):
         self.security_token = security_token  # type: str
+        # The ID of the app or Alibaba Cloud account. Specify this parameter based on the value of the **SpecialType** parameter. You can view your account ID on the [Account Management](https://account.console.aliyun.com/?spm=a2c4g.11186623.2.15.3f053654YpMPwo#/secure) page.
         self.special_key = special_key  # type: str
+        # The type of the special throttling policy. Valid values:
+        # 
+        # *   **APP**\
+        # *   **USER**\
         self.special_type = special_type  # type: str
+        # The ID of the specified throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
+        # The special throttling value.
         self.traffic_value = traffic_value  # type: int
 
     def validate(self):
@@ -356,6 +389,7 @@ class AddTrafficSpecialControlRequest(TeaModel):
 
 class AddTrafficSpecialControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -420,11 +454,20 @@ class AddTrafficSpecialControlResponse(TeaModel):
 class AttachPluginRequest(TeaModel):
     def __init__(self, api_id=None, api_ids=None, group_id=None, plugin_id=None, security_token=None,
                  stage_name=None):
+        # The number of the API to be bound.
         self.api_id = api_id  # type: str
+        # The number of the API to be operated. Separate multiple numbers with commas (,). A maximum of 100 numbers can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group that contains the API to which the plug-in is to be bound.
         self.group_id = group_id  # type: str
+        # The ID of the plug-in to be bound.
         self.plugin_id = plugin_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE: the pre-release environment**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -469,6 +512,7 @@ class AttachPluginRequest(TeaModel):
 
 class AttachPluginResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -532,9 +576,13 @@ class AttachPluginResponse(TeaModel):
 
 class BatchAbolishApisRequestApi(TeaModel):
     def __init__(self, api_uid=None, group_id=None, stage_id=None, stage_name=None):
+        # The name of the environment.
         self.api_uid = api_uid  # type: str
+        # The ID of the API.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.stage_id = stage_id  # type: str
+        # The ID of the operation.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -571,6 +619,7 @@ class BatchAbolishApisRequestApi(TeaModel):
 
 class BatchAbolishApisRequest(TeaModel):
     def __init__(self, api=None, security_token=None):
+        # The ID of the environment.
         self.api = api  # type: list[BatchAbolishApisRequestApi]
         self.security_token = security_token  # type: str
 
@@ -608,7 +657,9 @@ class BatchAbolishApisRequest(TeaModel):
 
 class BatchAbolishApisResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the request.
         self.operation_id = operation_id  # type: str
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -676,7 +727,9 @@ class BatchAbolishApisResponse(TeaModel):
 
 class BatchDeployApisRequestApi(TeaModel):
     def __init__(self, api_uid=None, group_id=None):
+        # The ID of the API.
         self.api_uid = api_uid  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
 
     def validate(self):
@@ -705,9 +758,16 @@ class BatchDeployApisRequestApi(TeaModel):
 
 class BatchDeployApisRequest(TeaModel):
     def __init__(self, api=None, description=None, security_token=None, stage_name=None):
+        # The APIs that you want to operate.
         self.api = api  # type: list[BatchDeployApisRequestApi]
+        # The description.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
+        # *   PRE: the pre-release environment
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -752,7 +812,9 @@ class BatchDeployApisRequest(TeaModel):
 
 class BatchDeployApisResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -820,6 +882,7 @@ class BatchDeployApisResponse(TeaModel):
 
 class CreateAccessControlListRequest(TeaModel):
     def __init__(self, acl_name=None, address_ipversion=None, security_token=None):
+        # The name of the ACL. The name must be 1 to 30 characters in length, and can contain letters, digits, periods (.), hyphens (-), forward slashes (/), and underscores (\_). The name must be unique within the region.
         self.acl_name = acl_name  # type: str
         self.address_ipversion = address_ipversion  # type: str
         self.security_token = security_token  # type: str
@@ -854,6 +917,7 @@ class CreateAccessControlListRequest(TeaModel):
 
 class CreateAccessControlListResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -922,32 +986,94 @@ class CreateApiRequest(TeaModel):
                  request_config=None, request_parameters=None, result_body_model=None, result_descriptions=None,
                  result_sample=None, result_type=None, security_token=None, service_config=None, service_parameters=None,
                  service_parameters_map=None, system_parameters=None, visibility=None, web_socket_api_type=None):
+        # If the **AuthType** is **APP** authentication, you need to pass this value to specify the signature algorithm. If you do not specify this parameter, the default value HmacSHA256 is used. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.allow_signature_method = allow_signature_method  # type: str
+        # The name of the API that you want to create. The name must be unique within the API group. The name must be 4 to 50 characters in length. It must start with a letter and can contain letters, digits, and underscores (\_).
         self.api_name = api_name  # type: str
+        # If **AuthType** is set to **APP**, the valid values are:
+        # 
+        # *   **DEFAULT**: The default value that is used if no other values are passed. This value means that the setting of the group is used.
+        # *   **DISABLE**: The authentication is disabled.
+        # *   **HEADER**: AppCode can be placed in the Header parameter for authentication.
+        # *   **HEADER_QUERY**: AppCode can be placed in the Header or Query parameter for authentication.
         self.app_code_auth_type = app_code_auth_type  # type: str
+        # API安全认证类型，目前可以取值：
+        # 
+        # - **APP**：只允许已授权的APP调用
+        # - **ANONYMOUS**：允许匿名调用，设置为允许匿名调用需要注意：
+        #   任何能够获取该API服务信息的人，都将能够调用该API。网关不会对调用者做身份认证，也无法设置按用户的流量控制，若开放该API请设置好按API的流量控制。
         self.auth_type = auth_type  # type: str
+        # Specifies whether to enable backend services.
         self.backend_enable = backend_enable  # type: bool
+        # The IDof the backend service
         self.backend_id = backend_id  # type: str
+        # The parameters of the API.
         self.constant_parameters = constant_parameters  # type: str
+        # The description of the API. The description can be up to 180 characters in length.
         self.description = description  # type: str
+        # *   Specifies whether to set **DisableInternet** to **true** to limit API calls to within the VPC.
+        # *   If you set **DisableInternet** to **false**, the limit is lifted. The default value is false when you create an API.
         self.disable_internet = disable_internet  # type: bool
+        # The sample error codes returned by the backend service.
+        # 
+        # For more information, see [ErrorCodeSample](~~44392~~).
         self.error_code_samples = error_code_samples  # type: str
+        # The sample error response from the backend service.
         self.fail_result_sample = fail_result_sample  # type: str
+        # *   Specifies whether to set **ForceNonceCheck** to **true** to force the check of X-Ca-Nonce during the request. This is the unique identifier of the request and is generally identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If you set **ForceNonceCheck** to **false**, the check is not performed. The default value is false when you create an API.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The switch status of ACL. Valid values:- **on** and **off**.
         self.open_id_connect_config = open_id_connect_config  # type: str
+        # The configuration items of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestConfig](~~43985~~).
         self.request_config = request_config  # type: str
+        # The parameters of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestParameter](~~43986~~).
         self.request_parameters = request_parameters  # type: str
+        # The return description of the API.
         self.result_body_model = result_body_model  # type: str
+        # The return description of the API.
         self.result_descriptions = result_descriptions  # type: str
+        # The sample response from the backend service.
         self.result_sample = result_sample  # type: str
+        # The format of the response from the backend service. Valid values: JSON, TEXT, BINARY, XML, and HTML. Default value: JSON.
         self.result_type = result_type  # type: str
         self.security_token = security_token  # type: str
+        # The configuration items of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceConfig](~~43987~~).
         self.service_config = service_config  # type: str
+        # The parameters of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameter](~~43988~~).
         self.service_parameters = service_parameters  # type: str
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameterMap](~~43989~~).
         self.service_parameters_map = service_parameters_map  # type: str
+        # The common parameters of APIs in JSON format.
         self.system_parameters = system_parameters  # type: str
+        # Specifies whether to make the API public. Valid values:
+        # 
+        # *   **PUBLIC**: Make the API public. If you set this parameter to PUBLIC, this API is displayed on the APIs page for all users after the API is published to the production environment.
+        # *   **PRIVATE**: Make the API private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.visibility = visibility  # type: str
+        # The type of the two-way communication API.
+        # 
+        # *   **COMMON**: normal APIs
+        # *   **REGISTER**: registered APIs
+        # *   **UNREGISTER**: unregistered APIs
+        # *   **NOTIFY**: downstream notification APIs
+        # 
+        # For more information, see [Two-way communication](~~66031~~).
         self.web_socket_api_type = web_socket_api_type  # type: str
 
     def validate(self):
@@ -1076,7 +1202,9 @@ class CreateApiRequest(TeaModel):
 
 class CreateApiResponseBody(TeaModel):
     def __init__(self, api_id=None, request_id=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1144,7 +1272,9 @@ class CreateApiResponse(TeaModel):
 
 class CreateApiGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -1174,11 +1304,16 @@ class CreateApiGroupRequestTag(TeaModel):
 class CreateApiGroupRequest(TeaModel):
     def __init__(self, base_path=None, description=None, group_name=None, instance_id=None, security_token=None,
                  tag=None):
+        # The root path of the API.
         self.base_path = base_path  # type: str
+        # The description of the API group. The description can be up to 180 characters in length.
         self.description = description  # type: str
+        # The name of the API group. The name must be globally unique. The name must be 4 to 50 characters in length. It must start with a letter and can contain letters, digits, and underscores (\_).
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the lifecycle rule. You can specify multiple tags.
         self.tag = tag  # type: list[CreateApiGroupRequestTag]
 
     def validate(self):
@@ -1232,14 +1367,27 @@ class CreateApiGroupRequest(TeaModel):
 class CreateApiGroupResponseBody(TeaModel):
     def __init__(self, base_path=None, description=None, group_id=None, group_name=None, instance_id=None,
                  instance_type=None, request_id=None, sub_domain=None, tag_status=None):
+        # The root path of the API.
         self.base_path = base_path  # type: str
+        # The description of the API group.
         self.description = description  # type: str
+        # The ID of the API group to which the domain name to be deleted is bound. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The name of the group to which an API belongs.
         self.group_name = group_name  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The type of the instance.
+        # 
+        # *   CLASSIC_SHARED: shared instance that uses the classic network configuration
+        # *   VPC_SHARED: shared instance that uses VPC
+        # *   VPC_DEDICATED: dedicated instance that uses VPC
         self.instance_type = instance_type  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The second-level domain name bound to the API group. This domain name is used to test API calls.
         self.sub_domain = sub_domain  # type: str
+        # Indicates whether the tag exists. If the value is **true**, the tag exists. If the value is **false**, the tag does not exist.
         self.tag_status = tag_status  # type: bool
 
     def validate(self):
@@ -1336,12 +1484,17 @@ class CreateApiGroupResponse(TeaModel):
 class CreateApiStageVariableRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, stage_id=None, stage_route_model=None,
                  support_route=None, variable_name=None, variable_value=None):
+        # The ID of the runtime environment.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the variable to be added. This parameter is case-sensitive.
         self.stage_id = stage_id  # type: str
         self.stage_route_model = stage_route_model  # type: str
+        # The value of the variable.
         self.support_route = support_route  # type: bool
+        # Specifies whether routing is supported.
         self.variable_name = variable_name  # type: str
+        # The ID of the request.
         self.variable_value = variable_value  # type: str
 
     def validate(self):
@@ -1390,6 +1543,7 @@ class CreateApiStageVariableRequest(TeaModel):
 
 class CreateApiStageVariableResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1453,7 +1607,13 @@ class CreateApiStageVariableResponse(TeaModel):
 
 class CreateAppRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.`` If the parameter has a value, you must specify a value for the tag key with the same N as tag.N.Key. Otherwise, an error is reported.
         self.value = value  # type: str
 
     def validate(self):
@@ -1483,13 +1643,20 @@ class CreateAppRequestTag(TeaModel):
 class CreateAppRequest(TeaModel):
     def __init__(self, app_code=None, app_key=None, app_name=None, app_secret=None, description=None,
                  security_token=None, source=None, tag=None):
+        # The AppCode of the app.
         self.app_code = app_code  # type: str
+        # The app key that is used for calling an API.
         self.app_key = app_key  # type: str
+        # The name of the app. The name must be 4 to 26 characters in length. It must start with a letter and can contain letters, digits, and underscores (\_).
         self.app_name = app_name  # type: str
+        # The password of the app.
         self.app_secret = app_secret  # type: str
+        # The description of the app. The description can contain a maximum of 180 characters in length.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The creation mode. An app can be created by using the console or calling the API operation.
         self.source = source  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[CreateAppRequestTag]
 
     def validate(self):
@@ -1550,8 +1717,11 @@ class CreateAppRequest(TeaModel):
 
 class CreateAppResponseBody(TeaModel):
     def __init__(self, app_id=None, request_id=None, tag_status=None):
+        # The unique ID of the application.
         self.app_id = app_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the tag exists. If the value is **true**, the tag exists. If the value is **false**, the tag does not exist.
         self.tag_status = tag_status  # type: bool
 
     def validate(self):
@@ -1624,9 +1794,13 @@ class CreateAppResponse(TeaModel):
 class CreateBackendRequest(TeaModel):
     def __init__(self, backend_name=None, backend_type=None, create_event_bridge_service_linked_role=None,
                  description=None, security_token=None):
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service. Valid values: `HTTP, VPC, FC_EVENT, FC_HTTP, OSS, and MOCK`.
         self.backend_type = backend_type  # type: str
+        # Specifies whether to create a role associated with EventBridge.
         self.create_event_bridge_service_linked_role = create_event_bridge_service_linked_role  # type: bool
+        # The description of the backend service.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
 
@@ -1668,7 +1842,9 @@ class CreateBackendRequest(TeaModel):
 
 class CreateBackendResponseBody(TeaModel):
     def __init__(self, backend_id=None, request_id=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1737,11 +1913,19 @@ class CreateBackendResponse(TeaModel):
 class CreateBackendModelRequest(TeaModel):
     def __init__(self, backend_id=None, backend_model_data=None, backend_type=None, description=None,
                  security_token=None, stage_name=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The information about the backend model.
         self.backend_model_data = backend_model_data  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The description of the backend model.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -1786,7 +1970,9 @@ class CreateBackendModelRequest(TeaModel):
 
 class CreateBackendModelResponseBody(TeaModel):
     def __init__(self, backend_model_id=None, request_id=None):
+        # The ID of the backend model.
         self.backend_model_id = backend_model_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1854,7 +2040,13 @@ class CreateBackendModelResponse(TeaModel):
 
 class CreateDatasetRequest(TeaModel):
     def __init__(self, dataset_name=None, dataset_type=None, security_token=None):
+        # Dataset Name
         self.dataset_name = dataset_name  # type: str
+        # The type of the dataset. Valid values:
+        # 
+        # *   JWT_BLOCKING: a JSON Web Token (JWT) blacklist
+        # *   IP_WHITELIST_CIDR : an IP address whitelist
+        # *   PARAMETER_ACCESS : parameter-based access control
         self.dataset_type = dataset_type  # type: str
         self.security_token = security_token  # type: str
 
@@ -1888,7 +2080,9 @@ class CreateDatasetRequest(TeaModel):
 
 class CreateDatasetResponseBody(TeaModel):
     def __init__(self, dataset_id=None, request_id=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1956,10 +2150,14 @@ class CreateDatasetResponse(TeaModel):
 
 class CreateDatasetItemRequest(TeaModel):
     def __init__(self, dataset_id=None, description=None, expired_time=None, security_token=None, value=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The description of the data entry. The description cannot be more than 180 characters in length.
         self.description = description  # type: str
+        # The time in UTC when the data entry expires. The time is in the **yyyy-MM-ddTHH:mm:ssZ** format. If this parameter is empty, the data entry does not expire.
         self.expired_time = expired_time  # type: str
         self.security_token = security_token  # type: str
+        # The value of the data entry. The value corresponds to the dataset type.
         self.value = value  # type: str
 
     def validate(self):
@@ -2000,7 +2198,9 @@ class CreateDatasetItemRequest(TeaModel):
 
 class CreateDatasetItemResponseBody(TeaModel):
     def __init__(self, dataset_item_id=None, request_id=None):
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2066,21 +2266,66 @@ class CreateDatasetItemResponse(TeaModel):
         return self
 
 
-class CreateInstanceRequest(TeaModel):
-    def __init__(self, auto_pay=None, charge_type=None, duration=None, https_policy=None, instance_name=None,
-                 instance_spec=None, pricing_cycle=None, token=None, zone_id=None):
-        self.auto_pay = auto_pay  # type: bool
-        self.charge_type = charge_type  # type: str
-        self.duration = duration  # type: int
-        self.https_policy = https_policy  # type: str
-        self.instance_name = instance_name  # type: str
-        self.instance_spec = instance_spec  # type: str
-        self.pricing_cycle = pricing_cycle  # type: str
-        self.token = token  # type: str
-        self.zone_id = zone_id  # type: str
+class CreateInstanceRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateInstanceRequest(TeaModel):
+    def __init__(self, auto_pay=None, charge_type=None, duration=None, https_policy=None, instance_name=None,
+                 instance_spec=None, pricing_cycle=None, tag=None, token=None, zone_id=None):
+        # Specifies whether payment is automatically made during renewal. Valid values:
+        # 
+        # *   **True**: Automatic payment is enabled. Make sure that your Alibaba Cloud account has adequate balance.
+        # *   **False**: Automatic payment is disabled. You have to manually pay in the console. Log on to the console. In the upper-right corner, choose **Expenses > User Center**. In the left-side navigation pane, click **Orders**. On the page that appears, find your order and complete the payment.
+        # 
+        # Default value: **False**.
+        self.auto_pay = auto_pay  # type: bool
+        # The billing method of the instance.
+        self.charge_type = charge_type  # type: str
+        self.duration = duration  # type: int
+        # The HTTPS policy.
+        self.https_policy = https_policy  # type: str
+        # The name of the instance.
+        self.instance_name = instance_name  # type: str
+        # The specifications of the instance.
+        self.instance_spec = instance_spec  # type: str
+        self.pricing_cycle = pricing_cycle  # type: str
+        self.tag = tag  # type: list[CreateInstanceRequestTag]
+        # The password.
+        self.token = token  # type: str
+        # The zone.
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateInstanceRequest, self).to_map()
@@ -2102,6 +2347,10 @@ class CreateInstanceRequest(TeaModel):
             result['InstanceSpec'] = self.instance_spec
         if self.pricing_cycle is not None:
             result['PricingCycle'] = self.pricing_cycle
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.token is not None:
             result['Token'] = self.token
         if self.zone_id is not None:
@@ -2124,6 +2373,11 @@ class CreateInstanceRequest(TeaModel):
             self.instance_spec = m.get('InstanceSpec')
         if m.get('PricingCycle') is not None:
             self.pricing_cycle = m.get('PricingCycle')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateInstanceRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('Token') is not None:
             self.token = m.get('Token')
         if m.get('ZoneId') is not None:
@@ -2132,9 +2386,12 @@ class CreateInstanceRequest(TeaModel):
 
 
 class CreateInstanceResponseBody(TeaModel):
-    def __init__(self, instance_id=None, request_id=None):
+    def __init__(self, instance_id=None, request_id=None, tag_status=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        self.tag_status = tag_status  # type: bool
 
     def validate(self):
         pass
@@ -2149,6 +2406,8 @@ class CreateInstanceResponseBody(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.tag_status is not None:
+            result['TagStatus'] = self.tag_status
         return result
 
     def from_map(self, m=None):
@@ -2157,6 +2416,8 @@ class CreateInstanceResponseBody(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TagStatus') is not None:
+            self.tag_status = m.get('TagStatus')
         return self
 
 
@@ -2201,6 +2462,7 @@ class CreateInstanceResponse(TeaModel):
 
 class CreateIntranetDomainRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None):
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -2230,7 +2492,9 @@ class CreateIntranetDomainRequest(TeaModel):
 
 class CreateIntranetDomainResponseBody(TeaModel):
     def __init__(self, domain_name=None, request_id=None):
+        # The ID of the request.
         self.domain_name = domain_name  # type: str
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2298,7 +2562,20 @@ class CreateIntranetDomainResponse(TeaModel):
 
 class CreateIpControlRequestIpControlPolicys(TeaModel):
     def __init__(self, app_id=None, cidr_ip=None):
+        # The ID of the application that is restricted by the policy. You can configure the AppId parameter only when the value of the IpControlType parameter is ALLOW.
+        # 
+        # *   You can add only one application ID at a time.
+        # *   If this parameter is empty, no applications are restricted.
+        # *   If this parameter is not empty, not only IP addresses but also applications are restricted.
+        # *   If this parameter is not empty and no security authentication method is specified for the API, all API calls are restricted.
+        # *   If the value of the IpControlType parameter is REFUSE and the AppId parameter is not empty, API Gateway automatically ignores the AppId parameter and restricts only the IP addresses.
+        # *   Valid values of N in IpControlPolicys.N: `[1,100]`.
         self.app_id = app_id  # type: str
+        # The IP address or CIDR block involved in a policy.
+        # 
+        # *   If you want to specify a policy when you create an ACL, this parameter is required.
+        # *   The IP address or CIDR block that is defined in each policy. Separate multiple IP addresses or CIDR blocks with semicolons (;). You can add a maximum of 10 IP addresses or CIDR blocks.
+        # *   Valid values of N in IpControlPolicys.N: `[1,100]`.
         self.cidr_ip = cidr_ip  # type: str
 
     def validate(self):
@@ -2328,9 +2605,16 @@ class CreateIpControlRequestIpControlPolicys(TeaModel):
 class CreateIpControlRequest(TeaModel):
     def __init__(self, description=None, ip_control_name=None, ip_control_policys=None, ip_control_type=None,
                  security_token=None):
+        # The description. The description can be up to 200 characters in length.
         self.description = description  # type: str
+        # The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\_). The name cannot start with an underscore (\_).``
         self.ip_control_name = ip_control_name  # type: str
+        # The information about the policies. The information is an array of ipcontrolpolicys data.
         self.ip_control_policys = ip_control_policys  # type: list[CreateIpControlRequestIpControlPolicys]
+        # The type of the ACL. Valid values:
+        # 
+        # *   **ALLOW**: an IP address whitelist
+        # *   **REFUSE**: an IP address blacklist
         self.ip_control_type = ip_control_type  # type: str
         self.security_token = security_token  # type: str
 
@@ -2380,7 +2664,9 @@ class CreateIpControlRequest(TeaModel):
 
 class CreateIpControlResponseBody(TeaModel):
     def __init__(self, ip_control_id=None, request_id=None):
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2448,9 +2734,12 @@ class CreateIpControlResponse(TeaModel):
 
 class CreateLogConfigRequest(TeaModel):
     def __init__(self, log_type=None, security_token=None, sls_log_store=None, sls_project=None):
+        # The log type.
         self.log_type = log_type  # type: str
         self.security_token = security_token  # type: str
+        # slslogstore
         self.sls_log_store = sls_log_store  # type: str
+        # The name of the Log Service project.
         self.sls_project = sls_project  # type: str
 
     def validate(self):
@@ -2487,6 +2776,7 @@ class CreateLogConfigRequest(TeaModel):
 
 class CreateLogConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2550,9 +2840,13 @@ class CreateLogConfigResponse(TeaModel):
 
 class CreateModelRequest(TeaModel):
     def __init__(self, description=None, group_id=None, model_name=None, schema=None):
+        # The description of the model definition.
         self.description = description  # type: str
+        # The ID of the API group to which the model belongs.
         self.group_id = group_id  # type: str
+        # The name of the model. The name must be unique within the group.
         self.model_name = model_name  # type: str
+        # The definition of the model in JSON Schema.
         self.schema = schema  # type: str
 
     def validate(self):
@@ -2590,15 +2884,25 @@ class CreateModelRequest(TeaModel):
 class CreateModelResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, group_id=None, model_id=None, model_name=None,
                  model_ref=None, modified_time=None, region_id=None, request_id=None, schema=None):
+        # The time when the model was created.
         self.created_time = created_time  # type: str
+        # The description of the created model.
         self.description = description  # type: str
+        # The ID of the API group to which the created model belongs.
         self.group_id = group_id  # type: str
+        # The ID of the created model.
         self.model_id = model_id  # type: str
+        # The name of the created model.
         self.model_name = model_name  # type: str
+        # The URI of the created model.
         self.model_ref = model_ref  # type: str
+        # The time when the model is last modified.
         self.modified_time = modified_time  # type: str
+        # The region to which the created model belongs.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The definition of the created model.
         self.schema = schema  # type: str
 
     def validate(self):
@@ -2698,8 +3002,11 @@ class CreateModelResponse(TeaModel):
 
 class CreateMonitorGroupRequest(TeaModel):
     def __init__(self, auth=None, group_id=None, raw_monitor_group_id=None, security_token=None):
+        # The ID of the API group. This ID is generated by the system and is unique globally.
         self.auth = auth  # type: str
+        # The ID of the monitoring group.
         self.group_id = group_id  # type: str
+        # The caller authentication status of the API. Valid values: **ok**: The authentication is successful. **mismatch**: The request is redirected. **servicenotfound**: A request error occurred. **Unknown**: An unknown error occurred.
         self.raw_monitor_group_id = raw_monitor_group_id  # type: long
         self.security_token = security_token  # type: str
 
@@ -2737,7 +3044,9 @@ class CreateMonitorGroupRequest(TeaModel):
 
 class CreateMonitorGroupResponseBody(TeaModel):
     def __init__(self, monitor_group_id=None, request_id=None):
+        # The ID of the request.
         self.monitor_group_id = monitor_group_id  # type: long
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2805,7 +3114,13 @@ class CreateMonitorGroupResponse(TeaModel):
 
 class CreatePluginRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.value = value  # type: str
 
     def validate(self):
@@ -2835,11 +3150,23 @@ class CreatePluginRequestTag(TeaModel):
 class CreatePluginRequest(TeaModel):
     def __init__(self, description=None, plugin_data=None, plugin_name=None, plugin_type=None, security_token=None,
                  tag=None):
+        # The description of the plug-in. The description can contain a maximum of 200 characters in length.
         self.description = description  # type: str
+        # The plug-in definition statement, which can be in JSON or YAML format.
         self.plugin_data = plugin_data  # type: str
+        # The name of the plug-in. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). However, it cannot start with an underscore.
         self.plugin_name = plugin_name  # type: str
+        # The type of the plug-in. Valid values:
+        # 
+        # *   **ipControl: IP address-based access control**\
+        # *   **trafficControl: throttling**\
+        # *   **backendSignature: backend signature**\
+        # *   **jwtAuth** :JWT (OpenId Connect) authentication
+        # *   **cors** :cross-origin resource sharing (CORS)
+        # *   **caching**\
         self.plugin_type = plugin_type  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[CreatePluginRequestTag]
 
     def validate(self):
@@ -2892,8 +3219,11 @@ class CreatePluginRequest(TeaModel):
 
 class CreatePluginResponseBody(TeaModel):
     def __init__(self, plugin_id=None, request_id=None, tag_status=None):
+        # The ID of the plug-in.
         self.plugin_id = plugin_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the plug-in is successfully marked.
         self.tag_status = tag_status  # type: bool
 
     def validate(self):
@@ -2966,8 +3296,11 @@ class CreatePluginResponse(TeaModel):
 class CreateSignatureRequest(TeaModel):
     def __init__(self, security_token=None, signature_key=None, signature_name=None, signature_secret=None):
         self.security_token = security_token  # type: str
+        # The Key value of the key. The value must be 6 to 20 characters in length and can contain letters, digits, and underscores (\_). It must start with a letter.
         self.signature_key = signature_key  # type: str
+        # The displayed name of the key. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). It must start with a letter.
         self.signature_name = signature_name  # type: str
+        # The Secret value of the key. The value must be 6 to 30 characters in length and can contain letters, digits, and special characters. Special characters include underscores (\_), at signs (@), number signs (#), exclamation points (!), and asterisks (\*). The value must start with a letter.
         self.signature_secret = signature_secret  # type: str
 
     def validate(self):
@@ -3004,8 +3337,11 @@ class CreateSignatureRequest(TeaModel):
 
 class CreateSignatureResponseBody(TeaModel):
     def __init__(self, request_id=None, signature_id=None, signature_name=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the back-end signature key.
         self.signature_id = signature_id  # type: str
+        # The name of the back-end signature key.
         self.signature_name = signature_name  # type: str
 
     def validate(self):
@@ -3078,12 +3414,23 @@ class CreateSignatureResponse(TeaModel):
 class CreateTrafficControlRequest(TeaModel):
     def __init__(self, api_default=None, app_default=None, description=None, security_token=None,
                  traffic_control_name=None, traffic_control_unit=None, user_default=None):
+        # The default throttling value for each API.
         self.api_default = api_default  # type: int
+        # The default throttling value for each app.
         self.app_default = app_default  # type: int
+        # The description of the throttling policy.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The name of the throttling policy. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). It cannot start with an underscore.
         self.traffic_control_name = traffic_control_name  # type: str
+        # The unit to be used in the throttling policy. Valid values:
+        # 
+        # *   **SECOND**\
+        # *   **MINUTE**\
+        # *   **HOUR**\
+        # *   **DAY**\
         self.traffic_control_unit = traffic_control_unit  # type: str
+        # The default throttling value for each user.
         self.user_default = user_default  # type: int
 
     def validate(self):
@@ -3132,7 +3479,9 @@ class CreateTrafficControlRequest(TeaModel):
 
 class CreateTrafficControlResponseBody(TeaModel):
     def __init__(self, request_id=None, traffic_control_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -3200,6 +3549,7 @@ class CreateTrafficControlResponse(TeaModel):
 
 class DeleteAccessControlListRequest(TeaModel):
     def __init__(self, acl_id=None, security_token=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -3229,6 +3579,7 @@ class DeleteAccessControlListRequest(TeaModel):
 
 class DeleteAccessControlListResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3293,6 +3644,7 @@ class DeleteAccessControlListResponse(TeaModel):
 class DeleteAllTrafficSpecialControlRequest(TeaModel):
     def __init__(self, security_token=None, traffic_control_id=None):
         self.security_token = security_token  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -3321,6 +3673,7 @@ class DeleteAllTrafficSpecialControlRequest(TeaModel):
 
 class DeleteAllTrafficSpecialControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3384,7 +3737,9 @@ class DeleteAllTrafficSpecialControlResponse(TeaModel):
 
 class DeleteApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -3418,6 +3773,7 @@ class DeleteApiRequest(TeaModel):
 
 class DeleteApiResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3481,7 +3837,9 @@ class DeleteApiResponse(TeaModel):
 
 class DeleteApiGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # The ID of the request.
         self.value = value  # type: str
 
     def validate(self):
@@ -3510,8 +3868,10 @@ class DeleteApiGroupRequestTag(TeaModel):
 
 class DeleteApiGroupRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, tag=None):
+        # The object tags that match the lifecycle rule. You can specify multiple tags.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The key of the tag.
         self.tag = tag  # type: list[DeleteApiGroupRequestTag]
 
     def validate(self):
@@ -3552,6 +3912,7 @@ class DeleteApiGroupRequest(TeaModel):
 
 class DeleteApiGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3615,9 +3976,12 @@ class DeleteApiGroupResponse(TeaModel):
 
 class DeleteApiStageVariableRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, stage_id=None, variable_name=None):
+        # The name of the variable to be deleted. This parameter is case-sensitive.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_id = stage_id  # type: str
+        # *   This operation is intended for API providers.
         self.variable_name = variable_name  # type: str
 
     def validate(self):
@@ -3654,6 +4018,7 @@ class DeleteApiStageVariableRequest(TeaModel):
 
 class DeleteApiStageVariableResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # Deletes a specified variable in a specified environment.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3717,7 +4082,9 @@ class DeleteApiStageVariableResponse(TeaModel):
 
 class DeleteAppRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -3746,8 +4113,10 @@ class DeleteAppRequestTag(TeaModel):
 
 class DeleteAppRequest(TeaModel):
     def __init__(self, app_id=None, security_token=None, tag=None):
+        # The ID of the application.
         self.app_id = app_id  # type: long
         self.security_token = security_token  # type: str
+        # The tags. Up to 20 elements are allowed.
         self.tag = tag  # type: list[DeleteAppRequestTag]
 
     def validate(self):
@@ -3788,6 +4157,7 @@ class DeleteAppRequest(TeaModel):
 
 class DeleteAppResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3851,6 +4221,7 @@ class DeleteAppResponse(TeaModel):
 
 class DeleteBackendRequest(TeaModel):
     def __init__(self, backend_id=None, security_token=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -3880,6 +4251,7 @@ class DeleteBackendRequest(TeaModel):
 
 class DeleteBackendResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3943,9 +4315,16 @@ class DeleteBackendResponse(TeaModel):
 
 class DeleteBackendModelRequest(TeaModel):
     def __init__(self, backend_id=None, backend_model_id=None, security_token=None, stage_name=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The ID of the backend model.
         self.backend_model_id = backend_model_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -3982,7 +4361,9 @@ class DeleteBackendModelRequest(TeaModel):
 
 class DeleteBackendModelResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4050,6 +4431,7 @@ class DeleteBackendModelResponse(TeaModel):
 
 class DeleteDatasetRequest(TeaModel):
     def __init__(self, dataset_id=None, security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4079,6 +4461,7 @@ class DeleteDatasetRequest(TeaModel):
 
 class DeleteDatasetResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4142,7 +4525,9 @@ class DeleteDatasetResponse(TeaModel):
 
 class DeleteDatasetItemRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_item_id=None, security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4176,6 +4561,7 @@ class DeleteDatasetItemRequest(TeaModel):
 
 class DeleteDatasetItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4239,7 +4625,9 @@ class DeleteDatasetItemResponse(TeaModel):
 
 class DeleteDomainRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, security_token=None):
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the API group to which the domain name to be unbound is bound. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4273,6 +4661,7 @@ class DeleteDomainRequest(TeaModel):
 
 class DeleteDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4336,8 +4725,11 @@ class DeleteDomainResponse(TeaModel):
 
 class DeleteDomainCertificateRequest(TeaModel):
     def __init__(self, certificate_id=None, domain_name=None, group_id=None, security_token=None):
+        # The ID of the request.
         self.certificate_id = certificate_id  # type: str
+        # The ID of the SSL certificate that you want to delete. It is automatically generated by the system and globally unique.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4375,6 +4767,7 @@ class DeleteDomainCertificateRequest(TeaModel):
 
 class DeleteDomainCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4438,7 +4831,9 @@ class DeleteDomainCertificateResponse(TeaModel):
 
 class DeleteInstanceRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # The ID of the request.
         self.value = value  # type: str
 
     def validate(self):
@@ -4467,7 +4862,9 @@ class DeleteInstanceRequestTag(TeaModel):
 
 class DeleteInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, tag=None):
+        # The tag of objects that match the lifecycle rule. You can specify multiple tags.
         self.instance_id = instance_id  # type: str
+        # The key of the tag.
         self.tag = tag  # type: list[DeleteInstanceRequestTag]
 
     def validate(self):
@@ -4504,6 +4901,7 @@ class DeleteInstanceRequest(TeaModel):
 
 class DeleteInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4567,6 +4965,7 @@ class DeleteInstanceResponse(TeaModel):
 
 class DeleteIpControlRequest(TeaModel):
     def __init__(self, ip_control_id=None, security_token=None):
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4596,6 +4995,7 @@ class DeleteIpControlRequest(TeaModel):
 
 class DeleteIpControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4659,6 +5059,7 @@ class DeleteIpControlResponse(TeaModel):
 
 class DeleteLogConfigRequest(TeaModel):
     def __init__(self, log_type=None, security_token=None):
+        # The log type. Valid values: **log** and **survey**.
         self.log_type = log_type  # type: str
         self.security_token = security_token  # type: str
 
@@ -4688,6 +5089,7 @@ class DeleteLogConfigRequest(TeaModel):
 
 class DeleteLogConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4751,7 +5153,9 @@ class DeleteLogConfigResponse(TeaModel):
 
 class DeleteModelRequest(TeaModel):
     def __init__(self, group_id=None, model_name=None):
+        # The ID of the API group to which the model belongs.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
 
     def validate(self):
@@ -4780,6 +5184,7 @@ class DeleteModelRequest(TeaModel):
 
 class DeleteModelResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4843,7 +5248,9 @@ class DeleteModelResponse(TeaModel):
 
 class DeleteMonitorGroupRequest(TeaModel):
     def __init__(self, group_id=None, raw_monitor_group_id=None, security_token=None):
+        # The ID of the monitoring group.
         self.group_id = group_id  # type: str
+        # The ID of the request.
         self.raw_monitor_group_id = raw_monitor_group_id  # type: long
         self.security_token = security_token  # type: str
 
@@ -4877,6 +5284,7 @@ class DeleteMonitorGroupRequest(TeaModel):
 
 class DeleteMonitorGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4940,7 +5348,13 @@ class DeleteMonitorGroupResponse(TeaModel):
 
 class DeletePluginRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.value = value  # type: str
 
     def validate(self):
@@ -4969,8 +5383,10 @@ class DeletePluginRequestTag(TeaModel):
 
 class DeletePluginRequest(TeaModel):
     def __init__(self, plugin_id=None, security_token=None, tag=None):
+        # The ID of the plug-in to be deleted.
         self.plugin_id = plugin_id  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[DeletePluginRequestTag]
 
     def validate(self):
@@ -5011,6 +5427,7 @@ class DeletePluginRequest(TeaModel):
 
 class DeletePluginResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5075,6 +5492,7 @@ class DeletePluginResponse(TeaModel):
 class DeleteSignatureRequest(TeaModel):
     def __init__(self, security_token=None, signature_id=None):
         self.security_token = security_token  # type: str
+        # The ID of the key to be deleted.
         self.signature_id = signature_id  # type: str
 
     def validate(self):
@@ -5103,6 +5521,7 @@ class DeleteSignatureRequest(TeaModel):
 
 class DeleteSignatureResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5167,6 +5586,7 @@ class DeleteSignatureResponse(TeaModel):
 class DeleteTrafficControlRequest(TeaModel):
     def __init__(self, security_token=None, traffic_control_id=None):
         self.security_token = security_token  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -5195,6 +5615,7 @@ class DeleteTrafficControlRequest(TeaModel):
 
 class DeleteTrafficControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5259,8 +5680,14 @@ class DeleteTrafficControlResponse(TeaModel):
 class DeleteTrafficSpecialControlRequest(TeaModel):
     def __init__(self, security_token=None, special_key=None, special_type=None, traffic_control_id=None):
         self.security_token = security_token  # type: str
+        # The ID of the app or Alibaba Cloud account. You can view your account ID on the [Account Management](https://account.console.aliyun.com/?spm=a2c4g.11186623.2.15.343130a8sDi8cO#/secure) page.
         self.special_key = special_key  # type: str
+        # The type of the special throttling policy. Valid values:
+        # 
+        # *   **APP**\
+        # *   **USER**\
         self.special_type = special_type  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -5297,6 +5724,7 @@ class DeleteTrafficSpecialControlRequest(TeaModel):
 
 class DeleteTrafficSpecialControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5360,10 +5788,18 @@ class DeleteTrafficSpecialControlResponse(TeaModel):
 
 class DeployApiRequest(TeaModel):
     def __init__(self, api_id=None, description=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The publishing remarks.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE: the pre-release environment**\
+        # *   **TEST: the test environment**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -5404,6 +5840,7 @@ class DeployApiRequest(TeaModel):
 
 class DeployApiResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5467,6 +5904,7 @@ class DeployApiResponse(TeaModel):
 
 class DescribeAbolishApiTaskRequest(TeaModel):
     def __init__(self, operation_uid=None, security_token=None):
+        # The ID of the request.
         self.operation_uid = operation_uid  # type: str
         self.security_token = security_token  # type: str
 
@@ -5497,13 +5935,24 @@ class DescribeAbolishApiTaskRequest(TeaModel):
 class DescribeAbolishApiTaskResponseBodyApiAbolishResultsApiAbolishResult(TeaModel):
     def __init__(self, abolish_status=None, api_name=None, api_uid=None, error_msg=None, group_id=None,
                  group_name=None, stage_id=None, stage_name=None):
+        # The ID of the API group.
         self.abolish_status = abolish_status  # type: str
+        # auditing
         self.api_name = api_name  # type: str
+        # The error message.
         self.api_uid = api_uid  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.error_msg = error_msg  # type: str
+        # The name of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the API.
         self.group_name = group_name  # type: str
+        # The unpublishing status.
         self.stage_id = stage_id  # type: str
+        # The name of the API.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -5588,7 +6037,9 @@ class DescribeAbolishApiTaskResponseBodyApiAbolishResults(TeaModel):
 
 class DescribeAbolishApiTaskResponseBody(TeaModel):
     def __init__(self, api_abolish_results=None, request_id=None):
+        # The result returned.
         self.api_abolish_results = api_abolish_results  # type: DescribeAbolishApiTaskResponseBodyApiAbolishResults
+        # The result returned.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5658,6 +6109,7 @@ class DescribeAbolishApiTaskResponse(TeaModel):
 
 class DescribeAccessControlListAttributeRequest(TeaModel):
     def __init__(self, acl_id=None, security_token=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -5687,7 +6139,9 @@ class DescribeAccessControlListAttributeRequest(TeaModel):
 
 class DescribeAccessControlListAttributeResponseBodyAclEntrysAclEntry(TeaModel):
     def __init__(self, acl_entry_comment=None, acl_entry_ip=None):
+        # The description of an entry.
         self.acl_entry_comment = acl_entry_comment  # type: str
+        # The entries of the access control policy.
         self.acl_entry_ip = acl_entry_ip  # type: str
 
     def validate(self):
@@ -5748,10 +6202,15 @@ class DescribeAccessControlListAttributeResponseBodyAclEntrys(TeaModel):
 
 class DescribeAccessControlListAttributeResponseBody(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, acl_name=None, is_used=None, request_id=None):
+        # The information about the access control policy.
         self.acl_entrys = acl_entrys  # type: DescribeAccessControlListAttributeResponseBodyAclEntrys
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
+        # Indicates whether the policy was used.
         self.is_used = is_used  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5833,9 +6292,12 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
 
 class DescribeAccessControlListsRequest(TeaModel):
     def __init__(self, acl_name=None, address_ipversion=None, page_number=None, page_size=None, security_token=None):
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
         self.address_ipversion = address_ipversion  # type: str
+        # The page number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -5877,7 +6339,9 @@ class DescribeAccessControlListsRequest(TeaModel):
 
 class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, address_ipversion=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
         self.address_ipversion = address_ipversion  # type: str
 
@@ -5943,10 +6407,15 @@ class DescribeAccessControlListsResponseBodyAcls(TeaModel):
 
 class DescribeAccessControlListsResponseBody(TeaModel):
     def __init__(self, acls=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The ACLs.
         self.acls = acls  # type: DescribeAccessControlListsResponseBodyAcls
+        # The page number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6028,7 +6497,9 @@ class DescribeAccessControlListsResponse(TeaModel):
 
 class DescribeApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -6062,8 +6533,11 @@ class DescribeApiRequest(TeaModel):
 
 class DescribeApiResponseBodyBackendConfig(TeaModel):
     def __init__(self, backend_id=None, backend_name=None, backend_type=None):
+        # Backend service type
         self.backend_id = backend_id  # type: str
+        # The configuration items of API requests sent by the consumer to API Gateway.
         self.backend_name = backend_name  # type: str
+        # The name of the backend service.
         self.backend_type = backend_type  # type: str
 
     def validate(self):
@@ -6096,9 +6570,13 @@ class DescribeApiResponseBodyBackendConfig(TeaModel):
 
 class DescribeApiResponseBodyConstantParametersConstantParameter(TeaModel):
     def __init__(self, constant_value=None, description=None, location=None, service_parameter_name=None):
+        # The parameters of API requests sent by the consumer to API Gateway.
         self.constant_value = constant_value  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.description = description  # type: str
+        # The name of the backend service parameter.
         self.location = location  # type: str
+        # The value of the parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -6168,10 +6646,15 @@ class DescribeApiResponseBodyConstantParameters(TeaModel):
 class DescribeApiResponseBodyCustomSystemParametersCustomSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # Description
         self.demo_value = demo_value  # type: str
+        # Client IP Address
         self.description = description  # type: str
+        # The name of the corresponding backend parameter.
         self.location = location  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.parameter_name = parameter_name  # type: str
+        # System parameters sent by API Gateway to the backend service
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -6244,8 +6727,11 @@ class DescribeApiResponseBodyCustomSystemParameters(TeaModel):
 
 class DescribeApiResponseBodyDeployedInfosDeployedInfo(TeaModel):
     def __init__(self, deployed_status=None, effective_version=None, stage_name=None):
+        # auditing
         self.deployed_status = deployed_status  # type: str
+        # The deployment status. Valid values: DEPLOYED and NONDEPLOYED.
         self.effective_version = effective_version  # type: str
+        # The effective version.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -6310,9 +6796,13 @@ class DescribeApiResponseBodyDeployedInfos(TeaModel):
 
 class DescribeApiResponseBodyErrorCodeSamplesErrorCodeSample(TeaModel):
     def __init__(self, code=None, description=None, message=None, model=None):
+        # Model
         self.code = code  # type: str
+        # The UserId parameter is missing from the request.
         self.description = description  # type: str
+        # Description
         self.message = message  # type: str
+        # Error message
         self.model = model  # type: str
 
     def validate(self):
@@ -6381,9 +6871,13 @@ class DescribeApiResponseBodyErrorCodeSamples(TeaModel):
 
 class DescribeApiResponseBodyOpenIdConnectConfig(TeaModel):
     def __init__(self, id_token_param_name=None, open_id_api_type=None, public_key=None, public_key_id=None):
+        # The ID of the public key.
         self.id_token_param_name = id_token_param_name  # type: str
+        # The name of the parameter that corresponds to the token.
         self.open_id_api_type = open_id_api_type  # type: str
+        # The sample error codes returned by the backend service.
         self.public_key = public_key  # type: str
+        # The public key.
         self.public_key_id = public_key_id  # type: str
 
     def validate(self):
@@ -6421,12 +6915,21 @@ class DescribeApiResponseBodyOpenIdConnectConfig(TeaModel):
 class DescribeApiResponseBodyRequestConfig(TeaModel):
     def __init__(self, body_format=None, body_model=None, post_body_description=None, request_http_method=None,
                  request_mode=None, request_path=None, request_protocol=None):
+        # The request mode. Valid values: MAPPING and PASSTHROUGH.
         self.body_format = body_format  # type: str
+        # The API request path. If the complete API URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the API request path is ` /object/add  `.
         self.body_model = body_model  # type: str
+        # The protocol type supported by the API. Valid values: HTTP and HTTPS. Separate multiple values with commas (,), such as "HTTP,HTTPS".
         self.post_body_description = post_body_description  # type: str
+        # This parameter takes effect only when the RequestMode parameter is set to MAPPING.********\
+        # 
+        # The server data transmission method used for POST and PUT requests. Valid values: FORM and STREAM. FORM indicates that data in key-value pairs is transmitted as forms. STREAM indicates that data is transmitted as byte streams.
         self.request_http_method = request_http_method  # type: str
+        # The description of the request body.
         self.request_mode = request_mode  # type: str
+        # The HTTP method used to make the request. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.request_path = request_path  # type: str
+        # The configuration items of API requests sent by API Gateway to the backend service.
         self.request_protocol = request_protocol  # type: str
 
     def validate(self):
@@ -6478,22 +6981,39 @@ class DescribeApiResponseBodyRequestParametersRequestParameter(TeaModel):
                  description=None, doc_order=None, doc_show=None, enum_value=None, json_scheme=None, location=None,
                  max_length=None, max_value=None, min_length=None, min_value=None, parameter_type=None,
                  regular_expression=None, required=None):
+        # The hash values that can be entered when **ParameterType** is set to Int, Long, Float, Double, or String. Separate different values with commas (,), such as 1,2,3,4,9 or A,B,C,E,F.
         self.api_parameter_name = api_parameter_name  # type: str
+        # The minimum parameter value when **ParameterType** is set to Int, Long, Float, or Double.
         self.array_items_type = array_items_type  # type: str
+        # The name of the parameter.
         self.default_value = default_value  # type: str
+        # Indicates whether the parameter is required. Valid values: **REQUIRED** and **OPTIONAL**.
         self.demo_value = demo_value  # type: str
+        # Age
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.doc_order = doc_order  # type: int
+        # The maximum parameter length when **ParameterType** is set to String.
         self.doc_show = doc_show  # type: str
+        # Examples
         self.enum_value = enum_value  # type: str
+        # The maximum parameter value when **ParameterType** is set to Int, Long, Float, or Double.
         self.json_scheme = json_scheme  # type: str
+        # The parameters of API requests sent by API Gateway to the backend service.
         self.location = location  # type: str
+        # The default value.
         self.max_length = max_length  # type: long
+        # The type of the array element.
         self.max_value = max_value  # type: long
+        # The order in the document.
         self.min_length = min_length  # type: long
+        # Indicates whether the document is public. Valid values: **PUBLIC** and **PRIVATE**.
         self.min_value = min_value  # type: long
+        # The regular expression used for parameter validation when **ParameterType** is set to String.
         self.parameter_type = parameter_type  # type: str
+        # The minimum parameter length when **ParameterType** is set to String.
         self.regular_expression = regular_expression  # type: str
+        # Description
         self.required = required  # type: str
 
     def validate(self):
@@ -6615,12 +7135,17 @@ class DescribeApiResponseBodyRequestParameters(TeaModel):
 class DescribeApiResponseBodyResultDescriptionsResultDescription(TeaModel):
     def __init__(self, description=None, has_child=None, id=None, key=None, mandatory=None, name=None, pid=None,
                  type=None):
+        # The ID of the parent node.
         self.description = description  # type: str
+        # The description.
         self.has_child = has_child  # type: bool
+        # System parameters sent by API Gateway to the backend service
         self.id = id  # type: str
         self.key = key  # type: str
+        # The ID of the result.
         self.mandatory = mandatory  # type: bool
         self.name = name  # type: str
+        # Indicates whether the request parameter is required.
         self.pid = pid  # type: str
         self.type = type  # type: str
 
@@ -6706,9 +7231,13 @@ class DescribeApiResponseBodyResultDescriptions(TeaModel):
 
 class DescribeApiResponseBodyServiceConfigEventBridgeConfig(TeaModel):
     def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        # The Arn that is authorized by a RAM user to EventBridge.
         self.event_bridge_region_id = event_bridge_region_id  # type: str
+        # The event source.
         self.event_bus = event_bus  # type: str
+        # The ID of the region where the EventBridge instance is located.
         self.event_source = event_source  # type: str
+        # Configuration items of the third-party OpenID Connect authentication method
         self.role_arn = role_arn  # type: str
 
     def validate(self):
@@ -6747,17 +7276,33 @@ class DescribeApiResponseBodyServiceConfigFunctionComputeConfig(TeaModel):
     def __init__(self, content_type_catagory=None, content_type_value=None, fc_base_url=None, fc_type=None,
                  function_name=None, method=None, only_business_path=None, path=None, qualifier=None, region_id=None,
                  role_arn=None, service_name=None):
+        # The API request path.
         self.content_type_catagory = content_type_catagory  # type: str
+        # The region where the Function Compute instance is located.
         self.content_type_value = content_type_value  # type: str
+        # The value of the ContentType header when the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.fc_base_url = fc_base_url  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role to be assumed by API Gateway to access Function Compute.
         self.fc_type = fc_type  # type: str
+        # The ContentType header type used when you call the backend service over HTTP.
+        # 
+        # *   **DEFAULT**: the default header type in API Gateway
+        # *   **CUSTOM**: a custom header type
+        # *   **CLIENT**: the ContentType header type of the client
         self.function_name = function_name  # type: str
+        # The root path of Function Compute.
         self.method = method  # type: str
+        # The function name defined in Function Compute.
         self.only_business_path = only_business_path  # type: bool
+        # The service name defined in Function Compute.
         self.path = path  # type: str
+        # Information when the backend service is OSS
         self.qualifier = qualifier  # type: str
+        # The backend only receives the service path.
         self.region_id = region_id  # type: str
+        # The request method.
         self.role_arn = role_arn  # type: str
+        # The alias of the function.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -6826,7 +7371,9 @@ class DescribeApiResponseBodyServiceConfigFunctionComputeConfig(TeaModel):
 
 class DescribeApiResponseBodyServiceConfigMockHeadersMockHeader(TeaModel):
     def __init__(self, header_name=None, header_value=None):
+        # Configuration items related to VPC channels
         self.header_name = header_name  # type: str
+        # The name of the HTTP header.
         self.header_value = header_value  # type: str
 
     def validate(self):
@@ -6888,8 +7435,10 @@ class DescribeApiResponseBodyServiceConfigMockHeaders(TeaModel):
 class DescribeApiResponseBodyServiceConfigOssConfig(TeaModel):
     def __init__(self, action=None, bucket_name=None, key=None, oss_region_id=None):
         self.action = action  # type: str
+        # Configuration items of EventBridge
         self.bucket_name = bucket_name  # type: str
         self.key = key  # type: str
+        # The OSS bucket.
         self.oss_region_id = oss_region_id  # type: str
 
     def validate(self):
@@ -6926,10 +7475,15 @@ class DescribeApiResponseBodyServiceConfigOssConfig(TeaModel):
 
 class DescribeApiResponseBodyServiceConfigVpcConfig(TeaModel):
     def __init__(self, instance_id=None, name=None, port=None, vpc_id=None, vpc_scheme=None):
+        # The port number that corresponds to the instance.
         self.instance_id = instance_id  # type: str
+        # Backend configuration items when the backend service is Function Compute
         self.name = name  # type: str
+        # The name of the VPC access authorization.
         self.port = port  # type: int
+        # The VPC protocol.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the ECS or SLB instance in the VPC.
         self.vpc_scheme = vpc_scheme  # type: str
 
     def validate(self):
@@ -6973,22 +7527,49 @@ class DescribeApiResponseBodyServiceConfig(TeaModel):
                  event_bridge_config=None, function_compute_config=None, mock=None, mock_headers=None, mock_result=None,
                  mock_status_code=None, oss_config=None, service_address=None, service_http_method=None, service_path=None,
                  service_protocol=None, service_timeout=None, service_vpc_enable=None, vpc_config=None):
+        # The status code returned for service mocking.
         self.aone_app_name = aone_app_name  # type: str
+        # The URL used to call the back-end service. If the complete back-end service URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the value of ServiceAddress is **http://api.a.com:8080**.``
         self.content_type_catagory = content_type_catagory  # type: str
+        # The protocol used by the backend service. Valid values: HTTP and HTTPS.
         self.content_type_value = content_type_value  # type: str
+        # The event bus.
         self.event_bridge_config = event_bridge_config  # type: DescribeApiResponseBodyServiceConfigEventBridgeConfig
+        # The type of the Function Compute instance.
         self.function_compute_config = function_compute_config  # type: DescribeApiResponseBodyServiceConfigFunctionComputeConfig
+        # Specifies whether to enable the VPC channel. Valid values:
+        # 
+        # *   **TRUE**: The VPC channel is enabled. You must create the corresponding VPC access authorization before you can enable a VPC channel.
+        # *   **FALSE**: The VPC channel is not enabled.
         self.mock = mock  # type: str
+        # The value of the HTTP header.
         self.mock_headers = mock_headers  # type: DescribeApiResponseBodyServiceConfigMockHeaders
+        # The HTTP method used to call a backend service. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.mock_result = mock_result  # type: str
+        # The value of the ContentType header when the ServiceProtocol parameter is set to HTTP and the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.mock_status_code = mock_status_code  # type: int
+        # The ID of the region where the OSS instance is located.
         self.oss_config = oss_config  # type: DescribeApiResponseBodyServiceConfigOssConfig
+        # Specifies whether to enable the Mock mode. Valid values:
+        # 
+        # *   **TRUE**: The Mock mode is enabled.
+        # *   **FALSE**: The Mock mode is not enabled.
         self.service_address = service_address  # type: str
+        # The timeout period of the backend service. Unit: milliseconds.
         self.service_http_method = service_http_method  # type: str
+        # The ContentType header type used when you call the backend service over HTTP.
+        # 
+        # *   **DEFAULT**: the default header type in API Gateway
+        # *   **CUSTOM**: a custom header type
+        # *   **CLIENT**: the ContentType header type of the client
         self.service_path = service_path  # type: str
+        # The path used to call the back-end service. If the complete back-end service path is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, ServicePath is **/object/add**.``
         self.service_protocol = service_protocol  # type: str
+        # The simulated headers.
         self.service_timeout = service_timeout  # type: int
+        # The result returned when the Mock mode is enabled.
         self.service_vpc_enable = service_vpc_enable  # type: str
+        # The ID of the VPC.
         self.vpc_config = vpc_config  # type: DescribeApiResponseBodyServiceConfigVpcConfig
 
     def validate(self):
@@ -7091,8 +7672,11 @@ class DescribeApiResponseBodyServiceConfig(TeaModel):
 
 class DescribeApiResponseBodyServiceParametersServiceParameter(TeaModel):
     def __init__(self, location=None, parameter_type=None, service_parameter_name=None):
+        # The data type of the back-end service parameter.
         self.location = location  # type: str
+        # The name of the backend service parameter.
         self.parameter_type = parameter_type  # type: str
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -7157,7 +7741,9 @@ class DescribeApiResponseBodyServiceParameters(TeaModel):
 
 class DescribeApiResponseBodyServiceParametersMapServiceParameterMap(TeaModel):
     def __init__(self, request_parameter_name=None, service_parameter_name=None):
+        # The name of the backend service parameter.
         self.request_parameter_name = request_parameter_name  # type: str
+        # The API publishing status.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -7219,10 +7805,15 @@ class DescribeApiResponseBodyServiceParametersMap(TeaModel):
 class DescribeApiResponseBodySystemParametersSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # Description
         self.demo_value = demo_value  # type: str
+        # Client IP Address
         self.description = description  # type: str
+        # The name of the corresponding backend parameter.
         self.location = location  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.parameter_name = parameter_name  # type: str
+        # Custom system parameters
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -7302,41 +7893,116 @@ class DescribeApiResponseBody(TeaModel):
                  request_parameters=None, result_body_model=None, result_descriptions=None, result_sample=None, result_type=None,
                  service_config=None, service_parameters=None, service_parameters_map=None, system_parameters=None,
                  visibility=None, web_socket_api_type=None):
+        # The region ID of the API.
         self.allow_signature_method = allow_signature_method  # type: str
+        # The format of the response from the backend service. Valid values: JSON, TEXT, BINARY, XML, and HTML.
         self.api_id = api_id  # type: str
+        # Specifies whether to enable backend services.
         self.api_name = api_name  # type: str
+        # If **AuthType** is set to **APP**, this value must be passed to specify the signature algorithm. If you do not specify a value, HmacSHA256 is used by default. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.app_code_auth_type = app_code_auth_type  # type: str
+        # The last modification time of the API.
         self.auth_type = auth_type  # type: str
+        # The ID of the backend service.
         self.backend_config = backend_config  # type: DescribeApiResponseBodyBackendConfig
+        # Backend configurations
         self.backend_enable = backend_enable  # type: bool
+        # Description
         self.constant_parameters = constant_parameters  # type: DescribeApiResponseBodyConstantParameters
+        # The name of the API, which is unique in the group.
         self.created_time = created_time  # type: str
+        # Examples
         self.custom_system_parameters = custom_system_parameters  # type: DescribeApiResponseBodyCustomSystemParameters
+        # The name of the runtime environment. Valid values: RELEASE and TEST.
         self.deployed_infos = deployed_infos  # type: DescribeApiResponseBodyDeployedInfos
+        # The name of the API group.
         self.description = description  # type: str
+        # The returned description of the API.
         self.disable_internet = disable_internet  # type: bool
+        # Error codes
         self.error_code_samples = error_code_samples  # type: DescribeApiResponseBodyErrorCodeSamples
+        # The security authentication method of the API. Valid values:
+        # 
+        # *   **APP**: Only authorized applications can call the API.
+        # 
+        # *   **ANONYMOUS**: The API can be anonymously called. In this mode, you must take note of the following rules:
+        # 
+        #     *   All users who have obtained the API service information can call this API. API Gateway does not authenticate callers and cannot set user-specific throttling policies. If you make this API public, set API-specific throttling policies.
+        #     *   We recommend that you do not make the API whose security authentication method is ANONYMOUS available in Alibaba Cloud Marketplace because API Gateway cannot meter calls on the caller or limit the number of calls on the API. If you want to make the API group to which the API belongs available in Alibaba Cloud Marketplace, we recommend that you move the API to another group, set its type to PRIVATE, or set its security authentication method to APP.
+        # 
+        # *   **APPOPENID**: The OpenID Connect account authentication method is used. Only applications authorized by OpenID Connect can call the API. If this method is selected, the OpenIdConnectConfig parameter is required.
         self.fail_result_sample = fail_result_sample  # type: str
+        # Specifies whether to make the API public. Valid values:
+        # 
+        # *   **PUBLIC**: Make the API public. If you set this parameter to PUBLIC, this API is displayed on the APIs page for all users after the API is published to the production environment.
+        # *   **PRIVATE**: Make the API private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # Specifies whether to enable the Mock mode. Valid values:
+        # 
+        # *   OPEN: The Mock mode is enabled.
+        # *   CLOSED: The Mock mode is not enabled.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.group_name = group_name  # type: str
+        # The result returned for service mocking.
         self.mock = mock  # type: str
+        # The creation time of the API.
         self.mock_result = mock_result  # type: str
+        # The ID of the request.
         self.modified_time = modified_time  # type: str
+        # The OpenID Connect mode. Valid values:
+        # 
+        # *   **IDTOKEN**: indicates the APIs that are called by clients to obtain tokens. If you specify this value, the PublicKeyId parameter and the PublicKey parameter are required.
+        # *   **BUSINESS**: indicates business APIs. Tokens are used to call the business APIs. If you specify this value, the IdTokenParamName parameter is required.
         self.open_id_connect_config = open_id_connect_config  # type: DescribeApiResponseBodyOpenIdConnectConfig
+        # Specifies whether to carry the header : X-Ca-Nonce when calling an API. This is the unique identifier of the request and is generally identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent reply attacks. Valid values:
+        # 
+        # *   **true**: This field is forcibly checked when an API is requested to prevent replay attacks.
+        # *   **false**: This field is not checked.
         self.region_id = region_id  # type: str
+        # The body model.
         self.request_config = request_config  # type: DescribeApiResponseBodyRequestConfig
+        # The description of the API.
         self.request_id = request_id  # type: str
+        # The JSON Schema used for JSON validation when **ParameterType** is set to String.
         self.request_parameters = request_parameters  # type: DescribeApiResponseBodyRequestParameters
+        # The sample response from the backend service.
         self.result_body_model = result_body_model  # type: str
+        # The returned description of the API.
         self.result_descriptions = result_descriptions  # type: DescribeApiResponseBodyResultDescriptions
+        # If **AuthType** is set to **APP**, the valid values are:
+        # 
+        # *   **DEFAULT**: The default value that is used if no other values are passed. This value means that the setting of the group is used.
+        # *   **DISABLE**: The authentication is disabled.
+        # *   **HEADER**: AppCode can be placed in the Header parameter for authentication.
+        # *   **HEADER_QUERY**: AppCode can be placed in the Header or Query parameter for authentication.
         self.result_sample = result_sample  # type: str
+        # The type of the two-way communication API. Valid values:
+        # 
+        # *   **COMMON**: general APIs
+        # *   **REGISTER**: registered APIs
+        # *   **UNREGISTER**: unregistered APIs
+        # *   **NOTIFY**: downstream notification
+        # 
+        # For more information, see [Two-way communication](~~66031~~).
         self.result_type = result_type  # type: str
+        # The application name in AONE.
         self.service_config = service_config  # type: DescribeApiResponseBodyServiceConfig
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.service_parameters = service_parameters  # type: DescribeApiResponseBodyServiceParameters
+        # The corresponding frontend parameter name. It must be included in RequestParametersObject and matches ApiParameterName in RequestParameter data.
         self.service_parameters_map = service_parameters_map  # type: DescribeApiResponseBodyServiceParametersMap
+        # Examples
         self.system_parameters = system_parameters  # type: DescribeApiResponseBodySystemParameters
+        # The sample error response from the backend service.
         self.visibility = visibility  # type: str
+        # Specifies whether to limit API calls to within the VPC. Valid values:
+        # 
+        # *   **true**: Only API calls from the VPC are supported.
+        # *   **false**: API calls from the VPC and Internet are both supported.
         self.web_socket_api_type = web_socket_api_type  # type: str
 
     def validate(self):
@@ -7578,9 +8244,17 @@ class DescribeApiResponse(TeaModel):
 
 class DescribeApiDocRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
+        # 
+        # If this parameter is not specified, the default value is used, which is RELEASE.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -7617,8 +8291,11 @@ class DescribeApiDocRequest(TeaModel):
 
 class DescribeApiDocResponseBodyErrorCodeSamplesErrorCodeSample(TeaModel):
     def __init__(self, code=None, description=None, message=None):
+        # The error code.
         self.code = code  # type: str
+        # The description of the error code.
         self.description = description  # type: str
+        # The error message.
         self.message = message  # type: str
 
     def validate(self):
@@ -7684,11 +8361,23 @@ class DescribeApiDocResponseBodyErrorCodeSamples(TeaModel):
 class DescribeApiDocResponseBodyRequestConfig(TeaModel):
     def __init__(self, body_format=None, post_body_description=None, request_http_method=None, request_mode=None,
                  request_path=None, request_protocol=None):
+        # This parameter takes effect only when the RequestMode parameter is set to MAPPING.********\
+        # 
+        # The format in which data is transmitted to the server for POST and PUT requests. Valid values: FORM and STREAM. FORM indicates that data is transmitted in the key-value pair format. STREAM indicates that data is transmitted as byte streams.
         self.body_format = body_format  # type: str
+        # The description of the request body.
         self.post_body_description = post_body_description  # type: str
+        # The HTTP method that was used to make the request. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.request_http_method = request_http_method  # type: str
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
+        # *   MAPPING_PASSTHROUGH: Parameters are mapped. Unknown parameters are passed through.
         self.request_mode = request_mode  # type: str
+        # The API request path. If the complete API URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the API request path is ` /object/add  `.
         self.request_path = request_path  # type: str
+        # The protocol types supported by the API. Valid values: HTTP and HTTPS. Separate multiple values with commas (,), such as "HTTP,HTTPS".
         self.request_protocol = request_protocol  # type: str
 
     def validate(self):
@@ -7736,22 +8425,39 @@ class DescribeApiDocResponseBodyRequestParametersRequestParameter(TeaModel):
                  description=None, doc_order=None, doc_show=None, enum_value=None, json_scheme=None, location=None,
                  max_length=None, max_value=None, min_length=None, min_value=None, parameter_type=None,
                  regular_expression=None, required=None):
+        # The name of the API parameter.
         self.api_parameter_name = api_parameter_name  # type: str
+        # The type of the array element.
         self.array_items_type = array_items_type  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # Description
         self.description = description  # type: str
+        # The order in the document.
         self.doc_order = doc_order  # type: int
+        # Indicates whether the document is public. Valid values: PUBLIC and PRIVATE.
         self.doc_show = doc_show  # type: str
+        # The hash values that can be entered when ParameterType is set to Int, Long, Float, Double, or String. Different values are separated with commas (,), such as 1,2,3,4,9 or A,B,C,E,F.
         self.enum_value = enum_value  # type: str
+        # JSON scheme
         self.json_scheme = json_scheme  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The maximum length.
         self.max_length = max_length  # type: long
+        # The maximum value.
         self.max_value = max_value  # type: long
+        # The minimum length.
         self.min_length = min_length  # type: long
+        # The minimum value.
         self.min_value = min_value  # type: long
+        # The type of the parameter.
         self.parameter_type = parameter_type  # type: str
+        # The regular expression used for parameter validation when ParameterType is set to String.
         self.regular_expression = regular_expression  # type: str
+        # Indicates whether the parameter is required.
         self.required = required  # type: str
 
     def validate(self):
@@ -7873,10 +8579,12 @@ class DescribeApiDocResponseBodyRequestParameters(TeaModel):
 class DescribeApiDocResponseBodyResultDescriptionsResultDescription(TeaModel):
     def __init__(self, description=None, has_child=None, id=None, key=None, mandatory=None, name=None, pid=None,
                  type=None):
+        # The description of the API.
         self.description = description  # type: str
         self.has_child = has_child  # type: bool
         self.id = id  # type: str
         self.key = key  # type: str
+        # Indicates whether the parameter is required.
         self.mandatory = mandatory  # type: bool
         self.name = name  # type: str
         self.pid = pid  # type: str
@@ -7967,25 +8675,50 @@ class DescribeApiDocResponseBody(TeaModel):
                  disable_internet=None, error_code_samples=None, fail_result_sample=None, force_nonce_check=None, group_id=None,
                  group_name=None, region_id=None, request_config=None, request_id=None, request_parameters=None,
                  result_descriptions=None, result_sample=None, result_type=None, stage_name=None, visibility=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The authentication method. Valid values: APP and ANONYMOUS. APP indicates that only Alibaba Cloud applications can call the API. ANONYMOUS indicates that anonymous users can call the API.
         self.auth_type = auth_type  # type: str
+        # The publishing time.
         self.deployed_time = deployed_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # *   If the value of **DisableInternet** is set to **true**, API calls are limited within the VPC.
+        # *   If the value of **DisableInternet** is set to **false**, the limit is lifted. The default value is false when you create an API.
         self.disable_internet = disable_internet  # type: bool
+        # The sample error codes returned by the backend service.
         self.error_code_samples = error_code_samples  # type: DescribeApiDocResponseBodyErrorCodeSamples
+        # The sample error response from the backend service.
         self.fail_result_sample = fail_result_sample  # type: str
+        # *   If the value of **ForceNonceCheck** is set to **true**, X-Ca-Nonce must be checked during the request. This is the unique identifier of the request and is identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If the value of **ForceNonceCheck** is set to **false**, the X-Ca-Nonce is not checked. The default value is false when you create an API.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the group to which the API belongs.
         self.group_name = group_name  # type: str
+        # The region ID of the API group.
         self.region_id = region_id  # type: str
+        # The returned API frontend definition information. It is an array consisting of RequestConfig data.
         self.request_config = request_config  # type: DescribeApiDocResponseBodyRequestConfig
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned frontend request parameters.
         self.request_parameters = request_parameters  # type: DescribeApiDocResponseBodyRequestParameters
+        # The return descriptions of the API.
         self.result_descriptions = result_descriptions  # type: DescribeApiDocResponseBodyResultDescriptions
+        # The sample response.
         self.result_sample = result_sample  # type: str
+        # The format of the return value.
         self.result_type = result_type  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # Indicates whether the API is public. Valid values: PUBLIC and PRIVATE.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -8136,7 +8869,9 @@ class DescribeApiDocResponse(TeaModel):
 
 class DescribeApiGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -8165,8 +8900,10 @@ class DescribeApiGroupRequestTag(TeaModel):
 
 class DescribeApiGroupRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, tag=None):
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The object tags that match the lifecycle rule. You can specify multiple tags.
         self.tag = tag  # type: list[DescribeApiGroupRequestTag]
 
     def validate(self):
@@ -8209,17 +8946,38 @@ class DescribeApiGroupResponseBodyCustomDomainsDomainItem(TeaModel):
     def __init__(self, bind_stage_name=None, certificate_id=None, certificate_name=None, custom_domain_type=None,
                  domain_binding_status=None, domain_cnamestatus=None, domain_legal_status=None, domain_name=None, domain_remark=None,
                  domain_web_socket_status=None, is_http_redirect_to_https=None, wildcard_domain_patterns=None, wss_enable=None):
+        # The name of the bound runtime environment.
         self.bind_stage_name = bind_stage_name  # type: str
+        # The unique ID of the SSL certificate, which is automatically generated by the system.
         self.certificate_id = certificate_id  # type: str
+        # The name of the SSL certificate.
         self.certificate_name = certificate_name  # type: str
+        # The type of the custom domain name.
         self.custom_domain_type = custom_domain_type  # type: str
+        # The binding status of the custom domain name. Valid values:
+        # 
+        # *   **BINDING**: The domain name is bound.
+        # *   **BOUND**: The domain name is not bound.
         self.domain_binding_status = domain_binding_status  # type: str
+        # The domain name resolution status. Valid values:
+        # 
+        # *   **RESOLVED**: The domain name has been resolved.
+        # *   **UNRESOLVED**: The domain name has not been resolved.
         self.domain_cnamestatus = domain_cnamestatus  # type: str
+        # The validity status of the domain name. Valid values:
+        # 
+        # *   **NORMAL**: The domain name is valid.
+        # *   **ABNORMAL**: The domain name is invalid. This status affects API calls and must be resolved as soon as possible.
         self.domain_legal_status = domain_legal_status  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The domain name-related remarks, such as the cause for a domain name exception.
         self.domain_remark = domain_remark  # type: str
+        # The status of the domain name that uses the WebSocket feature.
         self.domain_web_socket_status = domain_web_socket_status  # type: str
+        # Indicates whether to redirect HTTP requests to HTTPS.
         self.is_http_redirect_to_https = is_http_redirect_to_https  # type: bool
+        # The wildcard domain name mode.
         self.wildcard_domain_patterns = wildcard_domain_patterns  # type: str
         self.wss_enable = wss_enable  # type: str
 
@@ -8325,8 +9083,11 @@ class DescribeApiGroupResponseBodyCustomDomains(TeaModel):
 
 class DescribeApiGroupResponseBodyStageItemsStageInfo(TeaModel):
     def __init__(self, description=None, stage_id=None, stage_name=None):
+        # The description of the runtime environment.
         self.description = description  # type: str
+        # The ID of the runtime environment.
         self.stage_id = stage_id  # type: str
+        # The name of the runtime environment.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -8397,37 +9158,82 @@ class DescribeApiGroupResponseBody(TeaModel):
                  ipv_6status=None, modified_time=None, passthrough_headers=None, region_id=None, request_id=None,
                  rpc_pattern=None, stage_items=None, status=None, sub_domain=None, traffic_limit=None, user_log_config=None,
                  vpc_domain=None, vpc_slb_intranet_domain=None):
+        # The root path of the API.
         self.base_path = base_path  # type: str
+        # The billing status of the API group.
+        # 
+        # *   **NORMAL**: The API group is normal.
+        # *   **LOCKED**: The API group is locked due to overdue payments.
         self.billing_status = billing_status  # type: str
+        # The VPC second-level domain name.
         self.classic_vpc_sub_domain = classic_vpc_sub_domain  # type: str
+        # The products on Alibaba Cloud Marketplace.
         self.cloud_market_commodity = cloud_market_commodity  # type: bool
+        # The CloudMonitor application group.
         self.cms_monitor_group = cms_monitor_group  # type: str
+        # The list of associated tags. Separate multiple tags with commas (,).
         self.compatible_flags = compatible_flags  # type: str
+        # The creation time (UTC) of the API group.
         self.created_time = created_time  # type: str
+        # The custom domain name information.
         self.custom_domains = custom_domains  # type: DescribeApiGroupResponseBodyCustomDomains
+        # The custom trace configuration.
         self.custom_trace_config = custom_trace_config  # type: str
+        # The list of custom configuration items.
         self.customer_configs = customer_configs  # type: str
+        # The default domain name.
         self.default_domain = default_domain  # type: str
+        # The description of the API group.
         self.description = description  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The name of the group to which the API belongs.
         self.group_name = group_name  # type: str
+        # The HTTPS policy.
         self.https_policy = https_policy  # type: str
+        # The validity status of the API group. Valid values:
+        # 
+        # *   **NORMAL**: The API group is normal.
+        # *   **LOCKED**: The API group is locked because it is not valid.
         self.illegal_status = illegal_status  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The type of the instance.
+        # 
+        # *   CLASSIC_SHARED: shared instance that uses the classic network configuration
+        # *   VPC_SHARED: shared instance that uses VPC
+        # *   VPC_DEDICATED: dedicated instance that uses VPC
         self.instance_type = instance_type  # type: str
+        # The VIP list of the instance.
         self.instance_vip_list = instance_vip_list  # type: str
+        # The IPv6 status.
         self.ipv_6status = ipv_6status  # type: str
+        # The last modification time (UTC) of the API group.
         self.modified_time = modified_time  # type: str
+        # Specifies whether to pass headers.
         self.passthrough_headers = passthrough_headers  # type: str
+        # The region to which the API group belongs.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The RPC mode.
         self.rpc_pattern = rpc_pattern  # type: str
+        # The runtime environment information.
         self.stage_items = stage_items  # type: DescribeApiGroupResponseBodyStageItems
+        # The status of the API group.
+        # 
+        # *   **NORMAL**: The API group is normal.
+        # *   **DELETE**: The API group is deleted.
         self.status = status  # type: str
+        # The second-level domain name automatically assigned to the API group.
         self.sub_domain = sub_domain  # type: str
+        # The upper QPS limit of the API group. The default value is 500. You can increase the upper limit by submitting an application.
         self.traffic_limit = traffic_limit  # type: int
+        # The user log settings.
         self.user_log_config = user_log_config  # type: str
+        # The VPC domain name.
         self.vpc_domain = vpc_domain  # type: str
+        # The VPC SLB domain name.
         self.vpc_slb_intranet_domain = vpc_slb_intranet_domain  # type: str
 
     def validate(self):
@@ -8620,6 +9426,7 @@ class DescribeApiGroupResponse(TeaModel):
 
 class DescribeApiGroupVpcWhitelistRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -8649,7 +9456,9 @@ class DescribeApiGroupVpcWhitelistRequest(TeaModel):
 
 class DescribeApiGroupVpcWhitelistResponseBody(TeaModel):
     def __init__(self, request_id=None, vpc_ids=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the VPC.
         self.vpc_ids = vpc_ids  # type: str
 
     def validate(self):
@@ -8717,7 +9526,9 @@ class DescribeApiGroupVpcWhitelistResponse(TeaModel):
 
 class DescribeApiGroupsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # The number of pages to return the results on.
         self.value = value  # type: str
 
     def validate(self):
@@ -8747,14 +9558,25 @@ class DescribeApiGroupsRequestTag(TeaModel):
 class DescribeApiGroupsRequest(TeaModel):
     def __init__(self, enable_tag_auth=None, group_id=None, group_name=None, instance_id=None, page_number=None,
                  page_size=None, security_token=None, sort=None, tag=None):
+        # The ID of the instance.
         self.enable_tag_auth = enable_tag_auth  # type: bool
+        # The keyword that can be specified in the name of the API group.
         self.group_id = group_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.group_name = group_name  # type: str
+        # The order. Valid values: asc and desc. Default value: desc.
+        # 
+        # *   asc: The API groups are displayed in ascending order of modification time.
+        # *   desc: The API groups are displayed in descending order of modification time.
         self.instance_id = instance_id  # type: str
+        # The number of entries to return on each page. Maximum value: 50. Default value: 10.
         self.page_number = page_number  # type: int
+        # Specifies whether to enable tag verification.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The list of tags.
         self.sort = sort  # type: str
+        # The key of the tag.
         self.tag = tag  # type: list[DescribeApiGroupsRequestTag]
 
     def validate(self):
@@ -8819,7 +9641,9 @@ class DescribeApiGroupsRequest(TeaModel):
 
 class DescribeApiGroupsResponseBodyApiGroupAttributesApiGroupAttributeTagsTagInfo(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # auditing
         self.value = value  # type: str
 
     def validate(self):
@@ -8882,20 +9706,41 @@ class DescribeApiGroupsResponseBodyApiGroupAttributesApiGroupAttribute(TeaModel)
     def __init__(self, base_path=None, billing_status=None, created_time=None, description=None, group_id=None,
                  group_name=None, https_policy=None, illegal_status=None, instance_id=None, instance_type=None,
                  modified_time=None, region_id=None, sub_domain=None, tags=None, traffic_limit=None):
+        # The billing status of the API group. Valid values:
+        # 
+        # *   **NORMAL**: The instance is normal.
+        # *   **LOCKED**: The API group is locked due to overdue payments.
         self.base_path = base_path  # type: str
+        # The upper QPS limit of the API group. The default value is 500. You can increase the upper limit by submitting an application.
         self.billing_status = billing_status  # type: str
+        # The list of tags.
         self.created_time = created_time  # type: str
+        # The validity status of the API group. Valid values:
+        # 
+        # *   **NORMAL**: The instance is normal.
+        # *   **LOCKED**: The API group is locked because it is not valid.
         self.description = description  # type: str
+        # The name of the API group.
         self.group_id = group_id  # type: str
+        # Group Description
         self.group_name = group_name  # type: str
+        # The second-level domain name that corresponds to the API group and is used by the CNAME of the custom domain name.
         self.https_policy = https_policy  # type: str
+        # The HTTPS security policy
         self.illegal_status = illegal_status  # type: str
+        # The type of the instance.
         self.instance_id = instance_id  # type: str
+        # The region to which the API group belongs.
         self.instance_type = instance_type  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.modified_time = modified_time  # type: str
+        # The last modification time (UTC) of the API group.
         self.region_id = region_id  # type: str
+        # The creation time (UTC) of the API group.
         self.sub_domain = sub_domain  # type: str
+        # The key of the tag.
         self.tags = tags  # type: DescribeApiGroupsResponseBodyApiGroupAttributesApiGroupAttributeTags
+        # The ID of the instance.
         self.traffic_limit = traffic_limit  # type: int
 
     def validate(self):
@@ -9011,10 +9856,15 @@ class DescribeApiGroupsResponseBodyApiGroupAttributes(TeaModel):
 class DescribeApiGroupsResponseBody(TeaModel):
     def __init__(self, api_group_attributes=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The basepath.
         self.api_group_attributes = api_group_attributes  # type: DescribeApiGroupsResponseBodyApiGroupAttributes
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned group set.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -9097,12 +9947,21 @@ class DescribeApiGroupsResponse(TeaModel):
 class DescribeApiHistoriesRequest(TeaModel):
     def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None,
                  security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API. The name is used for fuzzy match.
         self.api_name = api_name  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST: the test environment**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -9152,15 +10011,28 @@ class DescribeApiHistoriesRequest(TeaModel):
 class DescribeApiHistoriesResponseBodyApiHisItemsApiHisItem(TeaModel):
     def __init__(self, api_id=None, api_name=None, deployed_time=None, description=None, group_id=None,
                  group_name=None, history_version=None, region_id=None, stage_name=None, status=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The publishing time (UTC) of the API.
         self.deployed_time = deployed_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the group to which an API belongs.
         self.group_name = group_name  # type: str
+        # The historical version of the API.
         self.history_version = history_version  # type: str
+        # The region where the API is located.
         self.region_id = region_id  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST.
         self.stage_name = stage_name  # type: str
+        # Indicates whether an API version is effective. Valid values: ONLINE and OFFLINE.
         self.status = status  # type: str
 
     def validate(self):
@@ -9253,10 +10125,15 @@ class DescribeApiHistoriesResponseBodyApiHisItems(TeaModel):
 
 class DescribeApiHistoriesResponseBody(TeaModel):
     def __init__(self, api_his_items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned API information. It is an array consisting of ApiHisItem data.
         self.api_his_items = api_his_items  # type: DescribeApiHistoriesResponseBodyApiHisItems
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -9338,10 +10215,18 @@ class DescribeApiHistoriesResponse(TeaModel):
 
 class DescribeApiHistoryRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, history_version=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The version you want to query.
         self.history_version = history_version  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
+        # *   PRE: the pre-release environment
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -9382,8 +10267,11 @@ class DescribeApiHistoryRequest(TeaModel):
 
 class DescribeApiHistoryResponseBodyBackendConfig(TeaModel):
     def __init__(self, backend_id=None, backend_name=None, backend_type=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
 
     def validate(self):
@@ -9416,9 +10304,13 @@ class DescribeApiHistoryResponseBodyBackendConfig(TeaModel):
 
 class DescribeApiHistoryResponseBodyConstantParametersConstantParameter(TeaModel):
     def __init__(self, constant_value=None, description=None, location=None, service_parameter_name=None):
+        # The constant value.
         self.constant_value = constant_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -9488,10 +10380,15 @@ class DescribeApiHistoryResponseBodyConstantParameters(TeaModel):
 class DescribeApiHistoryResponseBodyCustomSystemParametersCustomSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # The description of the custom system parameter.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the custom system parameter.
         self.parameter_name = parameter_name  # type: str
+        # The name of the corresponding backend parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -9564,8 +10461,11 @@ class DescribeApiHistoryResponseBodyCustomSystemParameters(TeaModel):
 
 class DescribeApiHistoryResponseBodyErrorCodeSamplesErrorCodeSample(TeaModel):
     def __init__(self, code=None, description=None, message=None):
+        # The error code.
         self.code = code  # type: str
+        # The description.
         self.description = description  # type: str
+        # The error message.
         self.message = message  # type: str
 
     def validate(self):
@@ -9630,9 +10530,16 @@ class DescribeApiHistoryResponseBodyErrorCodeSamples(TeaModel):
 
 class DescribeApiHistoryResponseBodyOpenIdConnectConfig(TeaModel):
     def __init__(self, id_token_param_name=None, open_id_api_type=None, public_key=None, public_key_id=None):
+        # The name of the parameter that corresponds to the token.
         self.id_token_param_name = id_token_param_name  # type: str
+        # The OpenID Connect mode. Valid values:
+        # 
+        # *   **IDTOKEN: OpenID Connect calls the authentication API to issue tokens. If this value is specified, the PublicKeyId parameter and the PublicKey parameter are required.**\
+        # *   **BUSINESS: OpenID Connect calls the business API to verify identities by using existing tokens. If this value is specified, the IdTokenParamName parameter is required.
         self.open_id_api_type = open_id_api_type  # type: str
+        # The public key of the API.
         self.public_key = public_key  # type: str
+        # The ID of the public key.
         self.public_key_id = public_key_id  # type: str
 
     def validate(self):
@@ -9670,12 +10577,23 @@ class DescribeApiHistoryResponseBodyOpenIdConnectConfig(TeaModel):
 class DescribeApiHistoryResponseBodyRequestConfig(TeaModel):
     def __init__(self, body_format=None, body_model=None, post_body_description=None, request_http_method=None,
                  request_mode=None, request_path=None, request_protocol=None):
+        # The format in which data is transmitted to the server for POST and PUT requests. Valid values: FORM and STREAM. FORM indicates that data is transmitted in the key-value pair format. STREAM indicates that data is transmitted as byte streams. This parameter takes effect only when the RequestMode parameter is set to MAPPING.
         self.body_format = body_format  # type: str
+        # The body model.
         self.body_model = body_model  # type: str
+        # The description of the request body.
         self.post_body_description = post_body_description  # type: str
+        # The HTTP method that was used to make the request. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.request_http_method = request_http_method  # type: str
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
+        # *   MAPPING_PASSTHROUGH: Parameters are mapped. Unknown parameters are passed through.
         self.request_mode = request_mode  # type: str
+        # API path
         self.request_path = request_path  # type: str
+        # The protocol type supported by the API. Valid values: HTTP, HTTPS, and WebSocket. Separate multiple values with commas (,), such as "HTTP,HTTPS".
         self.request_protocol = request_protocol  # type: str
 
     def validate(self):
@@ -9727,22 +10645,39 @@ class DescribeApiHistoryResponseBodyRequestParametersRequestParameter(TeaModel):
                  description=None, doc_order=None, doc_show=None, enum_value=None, json_scheme=None, location=None,
                  max_length=None, max_value=None, min_length=None, min_value=None, parameter_type=None,
                  regular_expression=None, required=None):
+        # The name of the API parameter.
         self.api_parameter_name = api_parameter_name  # type: str
+        # The type of the array element.
         self.array_items_type = array_items_type  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The order in the document.
         self.doc_order = doc_order  # type: int
+        # Indicates whether the document is public. Valid values: PUBLIC and PRIVATE.
         self.doc_show = doc_show  # type: str
+        # The hash values that can be entered when ParameterType is set to Int, Long, Float, Double, or String. Different values are separated with commas (,), such as 1,2,3,4,9 or A,B,C,E,F.
         self.enum_value = enum_value  # type: str
+        # JSON scheme
         self.json_scheme = json_scheme  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The maximum parameter length when ParameterType is set to String.
         self.max_length = max_length  # type: long
+        # The maximum parameter value when ParameterType is set to Int, Long, Float, or Double.
         self.max_value = max_value  # type: long
+        # The minimum parameter length when ParameterType is set to String.
         self.min_length = min_length  # type: long
+        # The minimum parameter value when ParameterType is set to Int, Long, Float, or Double.
         self.min_value = min_value  # type: long
+        # The data type of the parameter. Valid values: String, Int, Long, Float, Double, and Boolean.
         self.parameter_type = parameter_type  # type: str
+        # The regular expression used for parameter validation when ParameterType is set to String.
         self.regular_expression = regular_expression  # type: str
+        # Indicates whether the parameter is required. Valid values: REQUIRED and OPTIONAL.
         self.required = required  # type: str
 
     def validate(self):
@@ -9864,13 +10799,21 @@ class DescribeApiHistoryResponseBodyRequestParameters(TeaModel):
 class DescribeApiHistoryResponseBodyResultDescriptionsResultDescription(TeaModel):
     def __init__(self, description=None, has_child=None, id=None, key=None, mandatory=None, name=None, pid=None,
                  type=None):
+        # The description.
         self.description = description  # type: str
+        # Indicates whether a child node exists.
         self.has_child = has_child  # type: bool
+        # The ID of the result.
         self.id = id  # type: str
+        # The primary key of the result.
         self.key = key  # type: str
+        # Indicates whether the parameter is required.
         self.mandatory = mandatory  # type: bool
+        # The name of the result.
         self.name = name  # type: str
+        # The ID of the parent node.
         self.pid = pid  # type: str
+        # The type of the result.
         self.type = type  # type: str
 
     def validate(self):
@@ -9955,9 +10898,13 @@ class DescribeApiHistoryResponseBodyResultDescriptions(TeaModel):
 
 class DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig(TeaModel):
     def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        # The ID of the region where the EventBridge instance is located.
         self.event_bridge_region_id = event_bridge_region_id  # type: str
+        # The event bus.
         self.event_bus = event_bus  # type: str
+        # The event source.
         self.event_source = event_source  # type: str
+        # The ARN of the RAM role assigned to EventBridge.
         self.role_arn = role_arn  # type: str
 
     def validate(self):
@@ -9996,17 +10943,33 @@ class DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig(TeaModel)
     def __init__(self, content_type_catagory=None, content_type_value=None, fc_base_url=None, fc_type=None,
                  function_name=None, method=None, only_business_path=None, path=None, qualifier=None, region_id=None,
                  role_arn=None, service_name=None):
+        # The ContentType header used when you called the backend service over HTTP. Valid values:
+        # 
+        # *   **DEFAULT: the default header in API Gateway**\
+        # *   **CUSTOM: a custom header**\
+        # *   **CLIENT: the ContentType header specified by the client**\
         self.content_type_catagory = content_type_catagory  # type: str
+        # The value of the ContentType header when the ServiceProtocol parameter is set to HTTP and the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.content_type_value = content_type_value  # type: str
+        # The root path of Function Compute.
         self.fc_base_url = fc_base_url  # type: str
+        # The type of the Function Compute instance.
         self.fc_type = fc_type  # type: str
+        # The function name defined in Function Compute.
         self.function_name = function_name  # type: str
+        # The request method.
         self.method = method  # type: str
+        # Indicates whether the backend only receives the service path.
         self.only_business_path = only_business_path  # type: bool
+        # The API request path.
         self.path = path  # type: str
+        # The alias of the function.
         self.qualifier = qualifier  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role assumed by API Gateway to access Function Compute.
         self.role_arn = role_arn  # type: str
+        # The service name defined in Function Compute.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -10075,7 +11038,9 @@ class DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig(TeaModel)
 
 class DescribeApiHistoryResponseBodyServiceConfigMockHeadersMockHeader(TeaModel):
     def __init__(self, header_name=None, header_value=None):
+        # The name of the HTTP header parameter.
         self.header_name = header_name  # type: str
+        # The value of the HTTP header parameter.
         self.header_value = header_value  # type: str
 
     def validate(self):
@@ -10137,8 +11102,10 @@ class DescribeApiHistoryResponseBodyServiceConfigMockHeaders(TeaModel):
 class DescribeApiHistoryResponseBodyServiceConfigOssConfig(TeaModel):
     def __init__(self, action=None, bucket_name=None, key=None, oss_region_id=None):
         self.action = action  # type: str
+        # The OSS bucket.
         self.bucket_name = bucket_name  # type: str
         self.key = key  # type: str
+        # The ID of the region where the OSS instance is located.
         self.oss_region_id = oss_region_id  # type: str
 
     def validate(self):
@@ -10175,10 +11142,15 @@ class DescribeApiHistoryResponseBodyServiceConfigOssConfig(TeaModel):
 
 class DescribeApiHistoryResponseBodyServiceConfigVpcConfig(TeaModel):
     def __init__(self, instance_id=None, name=None, port=None, vpc_id=None, vpc_scheme=None):
+        # The ID of the Elastic Compute Service (ECS) or Server Load Balancer (SLB) instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the VPC.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The VPC protocol.
         self.vpc_scheme = vpc_scheme  # type: str
 
     def validate(self):
@@ -10222,22 +11194,51 @@ class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
                  function_compute_config=None, mock=None, mock_headers=None, mock_result=None, mock_status_code=None, oss_config=None,
                  service_address=None, service_http_method=None, service_path=None, service_protocol=None, service_timeout=None,
                  service_vpc_enable=None, vpc_config=None, vpc_id=None):
+        # The ContentType header used when you called the backend service over HTTP. Valid values:
+        # 
+        # *   DEFAULT: the default header type in API Gateway
+        # *   CUSTOM: a custom header
+        # *   CLIENT: the ContentType header specified by the client
         self.content_type_catagory = content_type_catagory  # type: str
+        # The value of the ContentType header when the ServiceProtocol parameter is set to HTTP and the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.content_type_value = content_type_value  # type: str
+        # The configuration items of EventBridge.
         self.event_bridge_config = event_bridge_config  # type: DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig
+        # The backend configuration items when the backend service is Function Compute.
         self.function_compute_config = function_compute_config  # type: DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig
+        # Indicates whether the Mock mode is enabled. Valid values:
+        # 
+        # *   TRUE: The Mock mode is enabled.
+        # *   FALSE: The Mock mode is not enabled.
         self.mock = mock  # type: str
+        # The mock headers.
         self.mock_headers = mock_headers  # type: DescribeApiHistoryResponseBodyServiceConfigMockHeaders
+        # The result returned when the Mock mode is enabled.
         self.mock_result = mock_result  # type: str
+        # The status code returned for service mocking.
         self.mock_status_code = mock_status_code  # type: int
+        # The information returned when the backend service is OSS.
         self.oss_config = oss_config  # type: DescribeApiHistoryResponseBodyServiceConfigOssConfig
+        # The URL used to call the backend service.
         self.service_address = service_address  # type: str
+        # The HTTP request method used when you called the backend service. Valid values: PUT, GET, POST, DELETE, PATCH, HEAD, OPTIONS, and ANY.
         self.service_http_method = service_http_method  # type: str
+        # The path used when you called the backend service.
         self.service_path = service_path  # type: str
+        # The backend service protocol. Currently, only HTTP, HTTPS, and FunctionCompute are supported.
         self.service_protocol = service_protocol  # type: str
+        # The timeout period of the backend service. Unit: milliseconds.
         self.service_timeout = service_timeout  # type: int
+        # Indicates whether the VPC channel is enabled. Valid values:
+        # 
+        # *   TRUE: The VPC channel is enabled.
+        # *   FALSE: The VPC channel is not enabled.
+        # 
+        # You must create the corresponding VPC access authorization before you can enable a VPC channel.
         self.service_vpc_enable = service_vpc_enable  # type: str
+        # The configuration items of the VPC channel.
         self.vpc_config = vpc_config  # type: DescribeApiHistoryResponseBodyServiceConfigVpcConfig
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -10340,8 +11341,11 @@ class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
 
 class DescribeApiHistoryResponseBodyServiceParametersServiceParameter(TeaModel):
     def __init__(self, location=None, parameter_type=None, service_parameter_name=None):
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The data type of the back-end service parameter. Valid values: STRING, NUMBER, BOOLEAN.
         self.parameter_type = parameter_type  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -10406,7 +11410,9 @@ class DescribeApiHistoryResponseBodyServiceParameters(TeaModel):
 
 class DescribeApiHistoryResponseBodyServiceParametersMapServiceParameterMap(TeaModel):
     def __init__(self, request_parameter_name=None, service_parameter_name=None):
+        # The corresponding frontend parameter. It must be included in RequestParametersObject and matches ApiParameterName in RequestParameter data.
         self.request_parameter_name = request_parameter_name  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -10468,10 +11474,15 @@ class DescribeApiHistoryResponseBodyServiceParametersMap(TeaModel):
 class DescribeApiHistoryResponseBodySystemParametersSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # The sample value of the parameter.
         self.demo_value = demo_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the system parameter. Valid values: CaClientIp, CaDomain, CaRequestHandleTime, CaAppId, CaRequestId, CaHttpSchema, CaProxy.
         self.parameter_name = parameter_name  # type: str
+        # The name of the corresponding backend parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -10551,40 +11562,115 @@ class DescribeApiHistoryResponseBody(TeaModel):
                  result_body_model=None, result_descriptions=None, result_sample=None, result_type=None, service_config=None,
                  service_parameters=None, service_parameters_map=None, stage_name=None, status=None, system_parameters=None,
                  visibility=None, web_socket_api_type=None):
+        # If **AuthType** is set to **APP**, this parameter is required and it is used to specify the signature algorithm. If you did not specify a value, HmacSHA256 is used by default. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.allow_signature_method = allow_signature_method  # type: str
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The way in which AppCode authentication is supported. Default value: DEFAULT. Valid values:
+        # 
+        # *   DEFAULT: supported after being made available in Alibaba Cloud Marketplace.
+        # *   DISABLE: not supported.
+        # *   HEADER : supported only in the Header requests.
+        # *   HEADER_QUERY: supported in the Header or Query requests.
         self.app_code_auth_type = app_code_auth_type  # type: str
+        # The authentication method of the API. Valid values:
+        # 
+        # *   **APP: Only authorized applications can call the API.**\
+        # 
+        # *   **ANONYMOUS: Anonymous users can call the API. Take note of the following rules:**\
+        # 
+        #     *   All users who have obtained the API service information can call this API. API Gateway neither authenticates callers nor sets user-specific throttling policies. If this API is a public one, set throttling policies for it.
         self.auth_type = auth_type  # type: str
+        # The backend configurations.
         self.backend_config = backend_config  # type: DescribeApiHistoryResponseBodyBackendConfig
+        # Indicates whether the backend service is enabled.
         self.backend_enable = backend_enable  # type: bool
+        # The constant parameters.
         self.constant_parameters = constant_parameters  # type: DescribeApiHistoryResponseBodyConstantParameters
+        # The custom system parameters.
         self.custom_system_parameters = custom_system_parameters  # type: DescribeApiHistoryResponseBodyCustomSystemParameters
+        # The publishing time (UTC) of the API.
         self.deployed_time = deployed_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # *   If the value of **DisableInternet** is set to **true**, API calls are limited within the VPC.
+        # *   If the value of **DisableInternet** is set to **false**, the limit is lifted. The default value is false when you create an API.
         self.disable_internet = disable_internet  # type: bool
+        # The sample error codes returned by the backend service.
+        # 
+        # For more information, see [ErrorCodeSample](~~44392~~).
         self.error_code_samples = error_code_samples  # type: DescribeApiHistoryResponseBodyErrorCodeSamples
+        # The sample error response from the backend service.
         self.fail_result_sample = fail_result_sample  # type: str
+        # *   If the value of **ForceNonceCheck** is set to **true**, X-Ca-Nonce must be checked during the request. This is the unique identifier of the request and is identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If the value of **ForceNonceCheck** is set to **false**, the X-Ca-Nonce is not checked. The default value is false when you create an API.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The historical version number.
         self.history_version = history_version  # type: str
+        # The configuration items of the third-party OpenID Connect authentication method.
         self.open_id_connect_config = open_id_connect_config  # type: DescribeApiHistoryResponseBodyOpenIdConnectConfig
+        # The region where the API is located.
         self.region_id = region_id  # type: str
+        # The configuration items of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestConfig](~~43985~~).
         self.request_config = request_config  # type: DescribeApiHistoryResponseBodyRequestConfig
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The parameters of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestParameter](~~43986~~).
         self.request_parameters = request_parameters  # type: DescribeApiHistoryResponseBodyRequestParameters
+        # The return description of the API.
         self.result_body_model = result_body_model  # type: str
+        # The return description of the API.
         self.result_descriptions = result_descriptions  # type: DescribeApiHistoryResponseBodyResultDescriptions
+        # The sample response.
         self.result_sample = result_sample  # type: str
+        # The format of the return data.
         self.result_type = result_type  # type: str
+        # The information about a backend service call.
         self.service_config = service_config  # type: DescribeApiHistoryResponseBodyServiceConfig
+        # The parameters of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameter](~~43988~~).
         self.service_parameters = service_parameters  # type: DescribeApiHistoryResponseBodyServiceParameters
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameterMap](~~43989~~).
         self.service_parameters_map = service_parameters_map  # type: DescribeApiHistoryResponseBodyServiceParametersMap
+        # The environment to which the API is published.
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # The status of the API you called.
         self.status = status  # type: str
+        # The common parameters of APIs in JSON format.
         self.system_parameters = system_parameters  # type: DescribeApiHistoryResponseBodySystemParameters
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC: The API is public. Public APIs are displayed on the APIs page for all users after the APIs are published to the production environment.**\
+        # *   **PRIVATE: The API is private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.visibility = visibility  # type: str
+        # The type of the WebSocket API. Valid values:
+        # 
+        # *   **COMMON**: general APIs
+        # *   **REGISTER**: APIs for registration
+        # *   **UNREGISTER**: APIs for deregistration
+        # *   **NOTIFY**: APIs for downstream notification
+        # 
+        # For more information, see [Two-way communication](~~66031~~).
         self.web_socket_api_type = web_socket_api_type  # type: str
 
     def validate(self):
@@ -10820,11 +11906,19 @@ class DescribeApiHistoryResponse(TeaModel):
 class DescribeApiIpControlsRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, page_number=None, page_size=None, security_token=None,
                  stage_name=None):
+        # The IDs of APIs. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -10869,10 +11963,15 @@ class DescribeApiIpControlsRequest(TeaModel):
 
 class DescribeApiIpControlsResponseBodyApiIpControlsApiIpControlItem(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, ip_control_id=None, ip_control_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The time of binding.
         self.bound_time = bound_time  # type: str
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
+        # The name of the ACL.
         self.ip_control_name = ip_control_name  # type: str
 
     def validate(self):
@@ -10945,10 +12044,15 @@ class DescribeApiIpControlsResponseBodyApiIpControls(TeaModel):
 
 class DescribeApiIpControlsResponseBody(TeaModel):
     def __init__(self, api_ip_controls=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The information about the ACLs. The information is an array of ApiIpControlItem data.
         self.api_ip_controls = api_ip_controls  # type: DescribeApiIpControlsResponseBodyApiIpControls
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11031,11 +12135,20 @@ class DescribeApiIpControlsResponse(TeaModel):
 class DescribeApiLatencyDataRequest(TeaModel):
     def __init__(self, api_id=None, end_time=None, group_id=None, security_token=None, stage_name=None,
                  start_time=None):
+        # The ID of the API group.
         self.api_id = api_id  # type: str
+        # The environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
         self.end_time = end_time  # type: str
+        # The start time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
+        # The end time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -11080,7 +12193,9 @@ class DescribeApiLatencyDataRequest(TeaModel):
 
 class DescribeApiLatencyDataResponseBodyCallLatencysMonitorItem(TeaModel):
     def __init__(self, item_time=None, item_value=None):
+        # auditing
         self.item_time = item_time  # type: str
+        # The time of the monitoring metric. The time format follows the ISO 8601 standard and UTC time is used. Format: YYYY-MM-DDThh:mm:ssZ
         self.item_value = item_value  # type: str
 
     def validate(self):
@@ -11141,7 +12256,9 @@ class DescribeApiLatencyDataResponseBodyCallLatencys(TeaModel):
 
 class DescribeApiLatencyDataResponseBody(TeaModel):
     def __init__(self, call_latencys=None, request_id=None):
+        # The value corresponding to the monitoring metric.
         self.call_latencys = call_latencys  # type: DescribeApiLatencyDataResponseBodyCallLatencys
+        # The returned information about API call latency. It is an array consisting of MonitorItem data.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11211,7 +12328,9 @@ class DescribeApiLatencyDataResponse(TeaModel):
 
 class DescribeApiMarketAttributesRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -11245,9 +12364,13 @@ class DescribeApiMarketAttributesRequest(TeaModel):
 
 class DescribeApiMarketAttributesResponseBody(TeaModel):
     def __init__(self, api_id=None, market_charging_mode=None, need_charging=None, request_id=None):
+        # The ID of the request.
         self.api_id = api_id  # type: str
+        # Indicates whether fees are charged.
         self.market_charging_mode = market_charging_mode  # type: str
+        # auditing
         self.need_charging = need_charging  # type: str
+        # The billing mode used by the Alibaba Cloud Marketplace.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11324,11 +12447,20 @@ class DescribeApiMarketAttributesResponse(TeaModel):
 class DescribeApiQpsDataRequest(TeaModel):
     def __init__(self, api_id=None, end_time=None, group_id=None, security_token=None, stage_name=None,
                  start_time=None):
+        # The ID of the API group.
         self.api_id = api_id  # type: str
+        # The environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
         self.end_time = end_time  # type: str
+        # The start time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
+        # The end time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -11373,7 +12505,9 @@ class DescribeApiQpsDataRequest(TeaModel):
 
 class DescribeApiQpsDataResponseBodyCallFailsMonitorItem(TeaModel):
     def __init__(self, item_time=None, item_value=None):
+        # auditing
         self.item_time = item_time  # type: str
+        # The time of the monitoring metric. The time format follows the ISO 8601 standard and UTC time is used. Format: YYYY-MM-DDThh:mm:ssZ
         self.item_value = item_value  # type: str
 
     def validate(self):
@@ -11434,7 +12568,9 @@ class DescribeApiQpsDataResponseBodyCallFails(TeaModel):
 
 class DescribeApiQpsDataResponseBodyCallSuccessesMonitorItem(TeaModel):
     def __init__(self, item_time=None, item_value=None):
+        # The returned information about failed API calls. It is an array consisting of MonitorItem data.
         self.item_time = item_time  # type: str
+        # The time of the monitoring metric. The time format follows the ISO 8601 standard and UTC time is used. Format: YYYY-MM-DDThh:mm:ssZ
         self.item_value = item_value  # type: str
 
     def validate(self):
@@ -11495,8 +12631,11 @@ class DescribeApiQpsDataResponseBodyCallSuccesses(TeaModel):
 
 class DescribeApiQpsDataResponseBody(TeaModel):
     def __init__(self, call_fails=None, call_successes=None, request_id=None):
+        # The value corresponding to the monitoring metric.
         self.call_fails = call_fails  # type: DescribeApiQpsDataResponseBodyCallFails
+        # The value corresponding to the monitoring metric.
         self.call_successes = call_successes  # type: DescribeApiQpsDataResponseBodyCallSuccesses
+        # The returned information about successful API calls. It is an array consisting of MonitorItem data.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11574,11 +12713,16 @@ class DescribeApiQpsDataResponse(TeaModel):
 class DescribeApiSignaturesRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, page_number=None, page_size=None, security_token=None,
                  stage_name=None):
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.api_ids = api_ids  # type: str
+        # The IDs of the APIs that you want to query. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.group_id = group_id  # type: str
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the API group.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -11623,10 +12767,16 @@ class DescribeApiSignaturesRequest(TeaModel):
 
 class DescribeApiSignaturesResponseBodyApiSignaturesApiSignatureItem(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, signature_id=None, signature_name=None):
+        # The ID of the backend signature key.
         self.api_id = api_id  # type: str
+        # *   This API is intended for API providers.
+        # *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         self.api_name = api_name  # type: str
+        # The ID of the API.
         self.bound_time = bound_time  # type: str
+        # The name of the backend signature key.
         self.signature_id = signature_id  # type: str
+        # The name of the API.
         self.signature_name = signature_name  # type: str
 
     def validate(self):
@@ -11699,10 +12849,15 @@ class DescribeApiSignaturesResponseBodyApiSignatures(TeaModel):
 
 class DescribeApiSignaturesResponseBody(TeaModel):
     def __init__(self, api_signatures=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The time when the backend signature key was bound.
         self.api_signatures = api_signatures  # type: DescribeApiSignaturesResponseBodyApiSignatures
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned signature key information. It is an array consisting of ApiSignatureItem data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11785,11 +12940,16 @@ class DescribeApiSignaturesResponse(TeaModel):
 class DescribeApiTrafficControlsRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, page_number=None, page_size=None, security_token=None,
                  stage_name=None):
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.api_ids = api_ids  # type: str
+        # The IDs of APIs that you want to query. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.group_id = group_id  # type: str
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the API group that you want to query.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -11835,10 +12995,16 @@ class DescribeApiTrafficControlsRequest(TeaModel):
 class DescribeApiTrafficControlsResponseBodyApiTrafficControlsApiTrafficControlItem(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, traffic_control_id=None,
                  traffic_control_name=None):
+        # The ID of the throttling policy.
         self.api_id = api_id  # type: str
+        # *   This API is intended for API providers.
+        # *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         self.api_name = api_name  # type: str
+        # The ID of the API.
         self.bound_time = bound_time  # type: str
+        # The name of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
+        # API operation
         self.traffic_control_name = traffic_control_name  # type: str
 
     def validate(self):
@@ -11912,10 +13078,15 @@ class DescribeApiTrafficControlsResponseBodyApiTrafficControls(TeaModel):
 class DescribeApiTrafficControlsResponseBody(TeaModel):
     def __init__(self, api_traffic_controls=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The binding time of the throttling policy.
         self.api_traffic_controls = api_traffic_controls  # type: DescribeApiTrafficControlsResponseBodyApiTrafficControls
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned throttling policy information. It is an array consisting of ApiTrafficControlItem data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11998,11 +13169,20 @@ class DescribeApiTrafficControlsResponse(TeaModel):
 class DescribeApiTrafficDataRequest(TeaModel):
     def __init__(self, api_id=None, end_time=None, group_id=None, security_token=None, stage_name=None,
                  start_time=None):
+        # The ID of the API group.
         self.api_id = api_id  # type: str
+        # The environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**: the test environment
+        # *   PRE: the pre-release environment
         self.end_time = end_time  # type: str
+        # The start time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
+        # The end time in UTC. Format: YYYY-MM-DDThh:mm:ssZ
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12047,7 +13227,9 @@ class DescribeApiTrafficDataRequest(TeaModel):
 
 class DescribeApiTrafficDataResponseBodyCallDownloadsMonitorItem(TeaModel):
     def __init__(self, item_time=None, item_value=None):
+        # auditing
         self.item_time = item_time  # type: str
+        # The time of the monitoring metric. The time format follows the ISO 8601 standard and UTC time is used. Format: YYYY-MM-DDThh:mm:ssZ
         self.item_value = item_value  # type: str
 
     def validate(self):
@@ -12108,7 +13290,9 @@ class DescribeApiTrafficDataResponseBodyCallDownloads(TeaModel):
 
 class DescribeApiTrafficDataResponseBodyCallUploadsMonitorItem(TeaModel):
     def __init__(self, item_time=None, item_value=None):
+        # The returned downlink traffic data of API calls. It is an array consisting of MonitorItem data.
         self.item_time = item_time  # type: str
+        # The time of the monitoring metric. The time format follows the ISO 8601 standard and UTC time is used. Format: YYYY-MM-DDThh:mm:ssZ
         self.item_value = item_value  # type: str
 
     def validate(self):
@@ -12169,8 +13353,11 @@ class DescribeApiTrafficDataResponseBodyCallUploads(TeaModel):
 
 class DescribeApiTrafficDataResponseBody(TeaModel):
     def __init__(self, call_downloads=None, call_uploads=None, request_id=None):
+        # The value corresponding to the monitoring metric.
         self.call_downloads = call_downloads  # type: DescribeApiTrafficDataResponseBodyCallDownloads
+        # The value corresponding to the monitoring metric.
         self.call_uploads = call_uploads  # type: DescribeApiTrafficDataResponseBodyCallUploads
+        # The returned uplink traffic data of API calls. It is an array consisting of MonitorItem data.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12247,7 +13434,9 @@ class DescribeApiTrafficDataResponse(TeaModel):
 
 class DescribeApisRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -12276,20 +13465,33 @@ class DescribeApisRequestTag(TeaModel):
 
 class DescribeApisRequest(TeaModel):
     def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, catalog_id=None,
-                 enable_tag_auth=None, group_id=None, page_number=None, page_size=None, security_token=None, tag=None,
-                 un_deployed=None, visibility=None):
+                 enable_tag_auth=None, group_id=None, page_number=None, page_size=None, security_token=None, stage_name=None,
+                 tag=None, un_deployed=None, visibility=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
         self.api_method = api_method  # type: str
+        # The name of the API operation. The name is used for fuzzy match.
         self.api_name = api_name  # type: str
         self.api_path = api_path  # type: str
+        # The ID of the category.
         self.catalog_id = catalog_id  # type: str
+        # Specifies whether to enable tag verification.
         self.enable_tag_auth = enable_tag_auth  # type: bool
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        self.stage_name = stage_name  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[DescribeApisRequestTag]
         self.un_deployed = un_deployed  # type: bool
+        # Specifies whether to make the API public. Valid values:
+        # 
+        # *   **PUBLIC: Make the API public. If you set this parameter to PUBLIC, this API is displayed on the APIs page for all users after the API is published to the production environment.**\
+        # *   **PRIVATE: Make the API private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -12324,6 +13526,8 @@ class DescribeApisRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -12356,6 +13560,8 @@ class DescribeApisRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -12368,23 +13574,104 @@ class DescribeApisRequest(TeaModel):
         return self
 
 
-class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
-    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, created_time=None,
-                 description=None, group_id=None, group_name=None, modified_time=None, region_id=None, visibility=None):
-        self.api_id = api_id  # type: str
-        self.api_method = api_method  # type: str
-        self.api_name = api_name  # type: str
-        self.api_path = api_path  # type: str
-        self.created_time = created_time  # type: str
-        self.description = description  # type: str
-        self.group_id = group_id  # type: str
-        self.group_name = group_name  # type: str
-        self.modified_time = modified_time  # type: str
-        self.region_id = region_id  # type: str
-        self.visibility = visibility  # type: str
+class DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfosDeployedInfo(TeaModel):
+    def __init__(self, deployed_status=None, effective_version=None, stage_name=None):
+        self.deployed_status = deployed_status  # type: str
+        self.effective_version = effective_version  # type: str
+        self.stage_name = stage_name  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfosDeployedInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deployed_status is not None:
+            result['DeployedStatus'] = self.deployed_status
+        if self.effective_version is not None:
+            result['EffectiveVersion'] = self.effective_version
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeployedStatus') is not None:
+            self.deployed_status = m.get('DeployedStatus')
+        if m.get('EffectiveVersion') is not None:
+            self.effective_version = m.get('EffectiveVersion')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
+        return self
+
+
+class DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfos(TeaModel):
+    def __init__(self, deployed_info=None):
+        self.deployed_info = deployed_info  # type: list[DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfosDeployedInfo]
+
+    def validate(self):
+        if self.deployed_info:
+            for k in self.deployed_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DeployedInfo'] = []
+        if self.deployed_info is not None:
+            for k in self.deployed_info:
+                result['DeployedInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.deployed_info = []
+        if m.get('DeployedInfo') is not None:
+            for k in m.get('DeployedInfo'):
+                temp_model = DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfosDeployedInfo()
+                self.deployed_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
+    def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, created_time=None,
+                 deployed_infos=None, description=None, group_id=None, group_name=None, modified_time=None, region_id=None,
+                 visibility=None):
+        # The ID of the API.
+        self.api_id = api_id  # type: str
+        self.api_method = api_method  # type: str
+        # The name of the API operation.
+        self.api_name = api_name  # type: str
+        self.api_path = api_path  # type: str
+        # The creation time (UTC) of the query task.
+        self.created_time = created_time  # type: str
+        self.deployed_infos = deployed_infos  # type: DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfos
+        # The description of the API.
+        self.description = description  # type: str
+        # The ID of the API group.
+        self.group_id = group_id  # type: str
+        # The name of the group to which the API belongs.
+        self.group_name = group_name  # type: str
+        # The modification time (UTC) of the API.
+        self.modified_time = modified_time  # type: str
+        # The ID of the region in which the API resides.
+        self.region_id = region_id  # type: str
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**\
+        # *   **PRIVATE**\
+        self.visibility = visibility  # type: str
+
+    def validate(self):
+        if self.deployed_infos:
+            self.deployed_infos.validate()
 
     def to_map(self):
         _map = super(DescribeApisResponseBodyApiSummarysApiSummary, self).to_map()
@@ -12402,6 +13689,8 @@ class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
             result['ApiPath'] = self.api_path
         if self.created_time is not None:
             result['CreatedTime'] = self.created_time
+        if self.deployed_infos is not None:
+            result['DeployedInfos'] = self.deployed_infos.to_map()
         if self.description is not None:
             result['Description'] = self.description
         if self.group_id is not None:
@@ -12428,6 +13717,9 @@ class DescribeApisResponseBodyApiSummarysApiSummary(TeaModel):
             self.api_path = m.get('ApiPath')
         if m.get('CreatedTime') is not None:
             self.created_time = m.get('CreatedTime')
+        if m.get('DeployedInfos') is not None:
+            temp_model = DescribeApisResponseBodyApiSummarysApiSummaryDeployedInfos()
+            self.deployed_infos = temp_model.from_map(m['DeployedInfos'])
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('GroupId') is not None:
@@ -12477,10 +13769,15 @@ class DescribeApisResponseBodyApiSummarys(TeaModel):
 
 class DescribeApisResponseBody(TeaModel):
     def __init__(self, api_summarys=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned API definition. It is an array that consists of ApiSummary data.
         self.api_summarys = api_summarys  # type: DescribeApisResponseBodyApiSummarys
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12563,13 +13860,21 @@ class DescribeApisResponse(TeaModel):
 class DescribeApisByAppRequest(TeaModel):
     def __init__(self, api_name=None, api_uid=None, app_id=None, description=None, method=None, page_number=None,
                  page_size=None, path=None, security_token=None):
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The ID of the API operation.
         self.api_uid = api_uid  # type: str
+        # The ID of the application.
         self.app_id = app_id  # type: long
+        # The description of the API.
         self.description = description  # type: str
+        # The request HTTP method for the API.
         self.method = method  # type: str
+        # The page number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The API request path.
         self.path = path  # type: str
         self.security_token = security_token  # type: str
 
@@ -12629,18 +13934,34 @@ class DescribeApisByAppResponseBodyAppApiRelationInfosAppApiRelationInfo(TeaMode
     def __init__(self, api_id=None, api_name=None, auth_vaild_time=None, authorization_source=None,
                  created_time=None, description=None, group_id=None, group_name=None, method=None, operator=None, path=None,
                  region_id=None, stage_name=None):
+        # The ID of the API operation.
         self.api_id = api_id  # type: str
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The validity period of the authorization.
         self.auth_vaild_time = auth_vaild_time  # type: str
+        # The source of the authorization.
         self.authorization_source = authorization_source  # type: str
+        # The time when the authorization was created.
         self.created_time = created_time  # type: str
+        # The description of authorization.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The request HTTP method for the API.
         self.method = method  # type: str
+        # The authorizer. Valid values:
+        # 
+        # *   **PROVIDER:** the API owner
+        # *   **CONSUMER:** the API caller
         self.operator = operator  # type: str
+        # The API request path.
         self.path = path  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the environment.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -12746,10 +14067,15 @@ class DescribeApisByAppResponseBodyAppApiRelationInfos(TeaModel):
 class DescribeApisByAppResponseBody(TeaModel):
     def __init__(self, app_api_relation_infos=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The authorization information of the API.
         self.app_api_relation_infos = app_api_relation_infos  # type: DescribeApisByAppResponseBodyAppApiRelationInfos
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12831,10 +14157,20 @@ class DescribeApisByAppResponse(TeaModel):
 
 class DescribeApisByBackendRequest(TeaModel):
     def __init__(self, backend_id=None, page_number=None, page_size=None, security_token=None, stage_name=None):
+        # The environment to which the API is published.
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
+        # 
+        # If you do not specify this parameter, APIs in the draft state are returned.
         self.backend_id = backend_id  # type: str
+        # The number of the current page.
         self.page_number = page_number  # type: int
+        # The number of the current page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The number of entries to return on each page.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -12876,12 +14212,19 @@ class DescribeApisByBackendRequest(TeaModel):
 class DescribeApisByBackendResponseBodyApiInfoListApiInfo(TeaModel):
     def __init__(self, api_id=None, api_name=None, description=None, group_id=None, group_name=None, method=None,
                  path=None):
+        # The description of the API.
         self.api_id = api_id  # type: str
+        # auditing
         self.api_name = api_name  # type: str
+        # The name of the API group.
         self.description = description  # type: str
+        # The request path of the API.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.group_name = group_name  # type: str
+        # The name of the API.
         self.method = method  # type: str
+        # The request method of the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -12962,10 +14305,15 @@ class DescribeApisByBackendResponseBodyApiInfoList(TeaModel):
 
 class DescribeApisByBackendResponseBody(TeaModel):
     def __init__(self, api_info_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The ID of API.
         self.api_info_list = api_info_list  # type: DescribeApisByBackendResponseBodyApiInfoList
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of entries returned.
         self.page_size = page_size  # type: int
+        # The number of entries to return on each page.
         self.request_id = request_id  # type: str
+        # The information about the returned API list.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13047,8 +14395,11 @@ class DescribeApisByBackendResponse(TeaModel):
 
 class DescribeApisByIpControlRequest(TeaModel):
     def __init__(self, ip_control_id=None, page_number=None, page_size=None, security_token=None):
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -13087,14 +14438,29 @@ class DescribeApisByIpControlRequest(TeaModel):
 class DescribeApisByIpControlResponseBodyApiInfosApiInfo(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, description=None, group_id=None, group_name=None,
                  region_id=None, stage_name=None, visibility=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The API operation.
         self.api_name = api_name  # type: str
+        # The binding time of the API.
         self.bound_time = bound_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The region where the API is located.
         self.region_id = region_id  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**\
+        # *   **PRIVATE**\
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -13183,10 +14549,15 @@ class DescribeApisByIpControlResponseBodyApiInfos(TeaModel):
 
 class DescribeApisByIpControlResponseBody(TeaModel):
     def __init__(self, api_infos=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned API information. It is an array consisting of ApiInfo data.
         self.api_infos = api_infos  # type: DescribeApisByIpControlResponseBodyApiInfos
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13268,9 +14639,12 @@ class DescribeApisByIpControlResponse(TeaModel):
 
 class DescribeApisBySignatureRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, security_token=None, signature_id=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.signature_id = signature_id  # type: str
 
     def validate(self):
@@ -13308,14 +14682,30 @@ class DescribeApisBySignatureRequest(TeaModel):
 class DescribeApisBySignatureResponseBodyApiInfosApiInfo(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, description=None, group_id=None, group_name=None,
                  region_id=None, stage_name=None, visibility=None):
+        # The description of the API.
         self.api_id = api_id  # type: str
+        # The region where the API is located.
         self.api_name = api_name  # type: str
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**\
+        # *   **PRIVATE**\
         self.bound_time = bound_time  # type: str
+        # Description
         self.description = description  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.group_name = group_name  # type: str
+        # *   This API is intended for API providers.
+        # *   The results are returned on separate pages. You can specify PageNumber to obtain the result on the specified page.
         self.region_id = region_id  # type: str
+        # The name of the API.
         self.stage_name = stage_name  # type: str
+        # The ID of the API.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -13404,10 +14794,15 @@ class DescribeApisBySignatureResponseBodyApiInfos(TeaModel):
 
 class DescribeApisBySignatureResponseBody(TeaModel):
     def __init__(self, api_infos=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The binding time of the API.
         self.api_infos = api_infos  # type: DescribeApisBySignatureResponseBodyApiInfos
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned API information. It is an array consisting of ApiInfo data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13489,9 +14884,12 @@ class DescribeApisBySignatureResponse(TeaModel):
 
 class DescribeApisByTrafficControlRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, security_token=None, traffic_control_id=None):
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the throttling policy that you want to query.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -13529,14 +14927,29 @@ class DescribeApisByTrafficControlRequest(TeaModel):
 class DescribeApisByTrafficControlResponseBodyApiInfosApiInfo(TeaModel):
     def __init__(self, api_id=None, api_name=None, bound_time=None, description=None, group_id=None, group_name=None,
                  region_id=None, stage_name=None, visibility=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API
         self.api_name = api_name  # type: str
+        # The binding time of the API.
         self.bound_time = bound_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the group to which an API belongs.
         self.group_name = group_name  # type: str
+        # The region where the API is located.
         self.region_id = region_id  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**\
+        # *   **PRIVATE**\
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -13625,10 +15038,15 @@ class DescribeApisByTrafficControlResponseBodyApiInfos(TeaModel):
 
 class DescribeApisByTrafficControlResponseBody(TeaModel):
     def __init__(self, api_infos=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned API information. It is an array consisting of ApiInfo data.
         self.api_infos = api_infos  # type: DescribeApisByTrafficControlResponseBodyApiInfos
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13710,6 +15128,7 @@ class DescribeApisByTrafficControlResponse(TeaModel):
 
 class DescribeAppRequest(TeaModel):
     def __init__(self, app_id=None, security_token=None):
+        # The ID of the app. The ID is generated by the system and globally unique.
         self.app_id = app_id  # type: long
         self.security_token = security_token  # type: str
 
@@ -13740,11 +15159,17 @@ class DescribeAppRequest(TeaModel):
 class DescribeAppResponseBody(TeaModel):
     def __init__(self, app_id=None, app_name=None, created_time=None, description=None, modified_time=None,
                  request_id=None):
+        # The ID of the app.
         self.app_id = app_id  # type: long
+        # The name of the app.
         self.app_name = app_name  # type: str
+        # The time when the app was created.
         self.created_time = created_time  # type: str
+        # The description of the app.
         self.description = description  # type: str
+        # The time when the app was modified.
         self.modified_time = modified_time  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13828,7 +15253,11 @@ class DescribeAppResponse(TeaModel):
 
 class DescribeAppAttributesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The page number of the returned page.
         self.value = value  # type: str
 
     def validate(self):
@@ -13858,15 +15287,29 @@ class DescribeAppAttributesRequestTag(TeaModel):
 class DescribeAppAttributesRequest(TeaModel):
     def __init__(self, app_code=None, app_id=None, app_key=None, app_name=None, enable_tag_auth=None,
                  page_number=None, page_size=None, security_token=None, sort=None, tag=None):
+        # The app key that is used to make an API call.
         self.app_code = app_code  # type: str
+        # The name of the app.
         self.app_id = app_id  # type: long
+        # The order. Valid values: asc and desc. Default value: desc.
+        # 
+        # *   asc: The apps are displayed in ascending order of modification time.
+        # *   desc: The apps are displayed in descending order of modification time.
         self.app_key = app_key  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.app_name = app_name  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.enable_tag_auth = enable_tag_auth  # type: bool
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The AppCode of the app.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # Specifies whether to enable tag verification.
         self.sort = sort  # type: str
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.tag = tag  # type: list[DescribeAppAttributesRequestTag]
 
     def validate(self):
@@ -13935,7 +15378,9 @@ class DescribeAppAttributesRequest(TeaModel):
 
 class DescribeAppAttributesResponseBodyAppsAppAttributeTagsTagInfo(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # auditing
         self.value = value  # type: str
 
     def validate(self):
@@ -13997,11 +15442,17 @@ class DescribeAppAttributesResponseBodyAppsAppAttributeTags(TeaModel):
 class DescribeAppAttributesResponseBodyAppsAppAttribute(TeaModel):
     def __init__(self, app_id=None, app_name=None, created_time=None, description=None, modified_time=None,
                  tags=None):
+        # The tags.
         self.app_id = app_id  # type: long
+        # The modification time (UTC) of the app.
         self.app_name = app_name  # type: str
+        # The ID of the app.
         self.created_time = created_time  # type: str
+        # The creation time (UTC) of the app.
         self.description = description  # type: str
+        # The description of the app.
         self.modified_time = modified_time  # type: str
+        # The key of the tag.
         self.tags = tags  # type: DescribeAppAttributesResponseBodyAppsAppAttributeTags
 
     def validate(self):
@@ -14080,10 +15531,15 @@ class DescribeAppAttributesResponseBodyApps(TeaModel):
 
 class DescribeAppAttributesResponseBody(TeaModel):
     def __init__(self, apps=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The name of the app.
         self.apps = apps  # type: DescribeAppAttributesResponseBodyApps
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned application information. It is an array that consists of AppAttribute data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14165,7 +15621,9 @@ class DescribeAppAttributesResponse(TeaModel):
 
 class DescribeAppSecurityRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # The password of the app.
         self.value = value  # type: str
 
     def validate(self):
@@ -14194,8 +15652,10 @@ class DescribeAppSecurityRequestTag(TeaModel):
 
 class DescribeAppSecurityRequest(TeaModel):
     def __init__(self, app_id=None, security_token=None, tag=None):
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.app_id = app_id  # type: long
         self.security_token = security_token  # type: str
+        # The key of the tag.
         self.tag = tag  # type: list[DescribeAppSecurityRequestTag]
 
     def validate(self):
@@ -14237,11 +15697,17 @@ class DescribeAppSecurityRequest(TeaModel):
 class DescribeAppSecurityResponseBody(TeaModel):
     def __init__(self, app_code=None, app_key=None, app_secret=None, created_time=None, modified_time=None,
                  request_id=None):
+        # The creation time (UTC) of the key, which is the same as the app creation time.
         self.app_code = app_code  # type: str
+        # The modification time (UTC) of the key.
         self.app_key = app_key  # type: str
+        # The ID of the request.
         self.app_secret = app_secret  # type: str
+        # auditing
         self.created_time = created_time  # type: str
+        # The AppCode of the app.
         self.modified_time = modified_time  # type: str
+        # The key of the app.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14325,9 +15791,13 @@ class DescribeAppSecurityResponse(TeaModel):
 
 class DescribeAppsRequest(TeaModel):
     def __init__(self, app_id=None, app_owner=None, page_number=None, page_size=None, security_token=None):
+        # The Alibaba Cloud account of the app owner. For more information, see [Account Management](https://account.console.aliyun.com/?spm=a2c4g.11186623.2.15.3a8c196eVWxvQB#/secure).
         self.app_id = app_id  # type: long
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.app_owner = app_owner  # type: long
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -14369,8 +15839,13 @@ class DescribeAppsRequest(TeaModel):
 
 class DescribeAppsResponseBodyAppsAppItem(TeaModel):
     def __init__(self, app_id=None, app_name=None, description=None):
+        # *   This API is intended for API providers.
+        # *   API providers can use the app IDs or their Apsara Stack tenant accounts to query app information.
+        # *   Each provider can call this operation for a maximum of 200 times every day in a region.
         self.app_id = app_id  # type: long
+        # The description of the app.
         self.app_name = app_name  # type: str
+        # The ID of the app.
         self.description = description  # type: str
 
     def validate(self):
@@ -14435,10 +15910,15 @@ class DescribeAppsResponseBodyApps(TeaModel):
 
 class DescribeAppsResponseBody(TeaModel):
     def __init__(self, apps=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The name of the app.
         self.apps = apps  # type: DescribeAppsResponseBodyApps
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned app information. It is an array consisting of AppItem data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14520,8 +16000,11 @@ class DescribeAppsResponse(TeaModel):
 
 class DescribeAuthorizedApisRequest(TeaModel):
     def __init__(self, app_id=None, page_number=None, page_size=None, security_token=None):
+        # The application ID, which is generated by the system and globally unique.
         self.app_id = app_id  # type: long
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -14561,16 +16044,36 @@ class DescribeAuthorizedApisResponseBodyAuthorizedApisAuthorizedApi(TeaModel):
     def __init__(self, api_id=None, api_name=None, auth_vaild_time=None, authorization_source=None,
                  authorized_time=None, description=None, group_id=None, group_name=None, operator=None, region_id=None,
                  stage_name=None):
+        # The unique identifier of the API, which is generated by the system.
         self.api_id = api_id  # type: str
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The expiration time of the authorization in UTC.
         self.auth_vaild_time = auth_vaild_time  # type: str
+        # The authorization source. Valid values:
+        # 
+        # *   **CONSOLE**\
+        # *   **API**\
         self.authorization_source = authorization_source  # type: str
+        # The authorization time in UTC.
         self.authorized_time = authorized_time  # type: str
+        # The description of the authorization.
         self.description = description  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The authorizer. Valid values:
+        # 
+        # *   **PROVIDER:** the API owner
+        # *   **CONSUMER:** the API caller
         self.operator = operator  # type: str
+        # The region to which the API belongs.
         self.region_id = region_id  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -14667,10 +16170,15 @@ class DescribeAuthorizedApisResponseBodyAuthorizedApis(TeaModel):
 
 class DescribeAuthorizedApisResponseBody(TeaModel):
     def __init__(self, authorized_apis=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The authorized API set.
         self.authorized_apis = authorized_apis  # type: DescribeAuthorizedApisResponseBodyAuthorizedApis
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14753,14 +16261,25 @@ class DescribeAuthorizedApisResponse(TeaModel):
 class DescribeAuthorizedAppsRequest(TeaModel):
     def __init__(self, api_id=None, app_id=None, app_name=None, app_owner_id=None, group_id=None, page_number=None,
                  page_size=None, security_token=None, stage_name=None):
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.api_id = api_id  # type: str
+        # The name of the app.
         self.app_id = app_id  # type: long
+        # The Alibaba Cloud account of the app owner.
         self.app_name = app_name  # type: str
+        # The page number of the returned page.
         self.app_owner_id = app_owner_id  # type: long
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.group_id = group_id  # type: str
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The ID of the app.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the API. This ID is generated by the system and globally unique.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -14818,13 +16337,27 @@ class DescribeAuthorizedAppsRequest(TeaModel):
 class DescribeAuthorizedAppsResponseBodyAuthorizedAppsAuthorizedApp(TeaModel):
     def __init__(self, app_id=None, app_name=None, auth_vaild_time=None, authorization_source=None,
                  authorized_time=None, description=None, operator=None, stage_name=None):
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.app_id = app_id  # type: long
+        # Weather
         self.app_name = app_name  # type: str
+        # The description of the authorization.
         self.auth_vaild_time = auth_vaild_time  # type: str
+        # The name of the app.
         self.authorization_source = authorization_source  # type: str
+        # The ID, which is generated by the system and globally unique.
         self.authorized_time = authorized_time  # type: str
+        # Queries weather based on the region name
         self.description = description  # type: str
+        # auditing
         self.operator = operator  # type: str
+        # The authorizer. Valid values:
+        # 
+        # *   **PROVIDER: API owner**\
+        # *   **CONSUMER: API caller**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -14909,10 +16442,15 @@ class DescribeAuthorizedAppsResponseBodyAuthorizedApps(TeaModel):
 
 class DescribeAuthorizedAppsResponseBody(TeaModel):
     def __init__(self, authorized_apps=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The name of the app.
         self.authorized_apps = authorized_apps  # type: DescribeAuthorizedAppsResponseBodyAuthorizedApps
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned group set.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14994,6 +16532,7 @@ class DescribeAuthorizedAppsResponse(TeaModel):
 
 class DescribeBackendInfoRequest(TeaModel):
     def __init__(self, backend_id=None, security_token=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -15023,9 +16562,13 @@ class DescribeBackendInfoRequest(TeaModel):
 
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig(TeaModel):
     def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        # The region ID of the event bus in EventBridge.
         self.event_bridge_region_id = event_bridge_region_id  # type: str
+        # The name of the event bus.
         self.event_bus = event_bus  # type: str
+        # The event source.
         self.event_source = event_source  # type: str
+        # The ARN of the RAM role to be assumed by API Gateway to access EventBridge.
         self.role_arn = role_arn  # type: str
 
     def validate(self):
@@ -15063,13 +16606,21 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventB
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig(TeaModel):
     def __init__(self, fc_base_url=None, fc_region_id=None, fc_type=None, function_name=None,
                  only_business_path=None, qualifier=None, role_arn=None, service_name=None):
+        # The root path of the Function Compute service.
         self.fc_base_url = fc_base_url  # type: str
+        # The region ID of the Function Compute service.
         self.fc_region_id = fc_region_id  # type: str
+        # The type of the Function Compute service.
         self.fc_type = fc_type  # type: str
+        # The function name defined in Function Compute.
         self.function_name = function_name  # type: str
+        # The backend service path.
         self.only_business_path = only_business_path  # type: bool
+        # The alias of the function.
         self.qualifier = qualifier  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role to be assumed by API Gateway to access Function Compute.
         self.role_arn = role_arn  # type: str
+        # The service name defined in Function Compute.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -15193,7 +16744,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigMockCo
 
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigOssConfig(TeaModel):
     def __init__(self, bucket_name=None, oss_region_id=None):
+        # The name of the OSS bucket.
         self.bucket_name = bucket_name  # type: str
+        # The region ID of the Object Storage Service (OSS) bucket.
         self.oss_region_id = oss_region_id  # type: str
 
     def validate(self):
@@ -15223,11 +16776,17 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigOssCon
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcConfig(TeaModel):
     def __init__(self, instance_id=None, name=None, port=None, vpc_access_id=None, vpc_id=None, vpc_scheme=None,
                  vpc_target_host_name=None):
+        # The ID of the Elastic Compute Service (ECS) or Server Load Balancer (SLB) instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the VPC Configuration.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: long
+        # The ID of the VPC access authorization.
         self.vpc_access_id = vpc_access_id  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # http/https
         self.vpc_scheme = vpc_scheme  # type: str
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
@@ -15278,12 +16837,18 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcCon
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaModel):
     def __init__(self, event_bridge_config=None, function_compute_config=None, mock_config=None, oss_config=None,
                  service_address=None, type=None, vpc_config=None):
+        # The information about the backend service that is EventBridge.
         self.event_bridge_config = event_bridge_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig
+        # The information about the backend service whose type is FC_EVENT or FC_HTTP.
         self.function_compute_config = function_compute_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig
         self.mock_config = mock_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigMockConfig
+        # The information about the backend service whose type is OSS.
         self.oss_config = oss_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigOssConfig
+        # The URL of the backend service.
         self.service_address = service_address  # type: str
+        # The type of the backend service.
         self.type = type  # type: str
+        # The information about the virtual private cloud (VPC). This parameter is available only for backend services whose type is VPC.
         self.vpc_config = vpc_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcConfig
 
     def validate(self):
@@ -15347,12 +16912,19 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
 class DescribeBackendInfoResponseBodyBackendInfoBackendModels(TeaModel):
     def __init__(self, backend_config=None, backend_model_id=None, description=None, gmt_create=None,
                  gmt_modified=None, stage_mode_id=None, stage_name=None):
+        # The backend configurations.
         self.backend_config = backend_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig
+        # The ID of the backend service in the environment.
         self.backend_model_id = backend_model_id  # type: str
+        # The description of the backend service.
         self.description = description  # type: str
+        # The time when the backend service was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the backend service was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the environment.
         self.stage_mode_id = stage_mode_id  # type: str
+        # The name of the environment.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -15404,12 +16976,19 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModels(TeaModel):
 class DescribeBackendInfoResponseBodyBackendInfo(TeaModel):
     def __init__(self, backend_id=None, backend_models=None, backend_name=None, backend_type=None,
                  created_time=None, description=None, modified_time=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The time when the backend service was created.
         self.backend_models = backend_models  # type: list[DescribeBackendInfoResponseBodyBackendInfoBackendModels]
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The time when the backend service was created.
         self.created_time = created_time  # type: str
+        # The description of the backend service.
         self.description = description  # type: str
+        # The time when the backend service was modified.
         self.modified_time = modified_time  # type: str
 
     def validate(self):
@@ -15466,7 +17045,9 @@ class DescribeBackendInfoResponseBodyBackendInfo(TeaModel):
 
 class DescribeBackendInfoResponseBody(TeaModel):
     def __init__(self, backend_info=None, request_id=None):
+        # The information about the backend service.
         self.backend_info = backend_info  # type: DescribeBackendInfoResponseBodyBackendInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15536,9 +17117,13 @@ class DescribeBackendInfoResponse(TeaModel):
 
 class DescribeBackendListRequest(TeaModel):
     def __init__(self, backend_name=None, backend_type=None, page_number=None, page_size=None, security_token=None):
+        # The name of the backend service. You can use \* to perform fuzzy queries.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -15581,11 +17166,17 @@ class DescribeBackendListRequest(TeaModel):
 class DescribeBackendListResponseBodyBackendInfoList(TeaModel):
     def __init__(self, backend_id=None, backend_name=None, backend_type=None, created_time=None, description=None,
                  modified_time=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The time when the backend service was created.
         self.created_time = created_time  # type: str
+        # The description of the backend service.
         self.description = description  # type: str
+        # The time when the backend service was modified.
         self.modified_time = modified_time  # type: str
 
     def validate(self):
@@ -15630,10 +17221,15 @@ class DescribeBackendListResponseBodyBackendInfoList(TeaModel):
 
 class DescribeBackendListResponseBody(TeaModel):
     def __init__(self, backend_info_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The backend services.
         self.backend_info_list = backend_info_list  # type: list[DescribeBackendListResponseBodyBackendInfoList]
+        # The number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15721,6 +17317,7 @@ class DescribeBackendListResponse(TeaModel):
 
 class DescribeDatasetInfoRequest(TeaModel):
     def __init__(self, dataset_id=None, security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -15750,10 +17347,19 @@ class DescribeDatasetInfoRequest(TeaModel):
 
 class DescribeDatasetInfoResponseBodyDatasetInfo(TeaModel):
     def __init__(self, created_time=None, dataset_id=None, dataset_name=None, dataset_type=None, modified_time=None):
+        # The creation time (UTC) of the dataset.
         self.created_time = created_time  # type: str
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The name of the dataset.
         self.dataset_name = dataset_name  # type: str
+        # The type of the dataset. Valid values:
+        # 
+        # *   JWT_BLOCKING: a JSON Web Token (JWT) blacklist
+        # *   IP_WHITELIST_CIDR : an IP address whitelist
+        # *   PARAMETER_ACCESS : parameter-based access control
         self.dataset_type = dataset_type  # type: str
+        # The last modification time (UTC) of the dataset.
         self.modified_time = modified_time  # type: str
 
     def validate(self):
@@ -15795,6 +17401,7 @@ class DescribeDatasetInfoResponseBodyDatasetInfo(TeaModel):
 class DescribeDatasetInfoResponseBody(TeaModel):
     def __init__(self, dataset_info=None, request_id=None):
         self.dataset_info = dataset_info  # type: DescribeDatasetInfoResponseBodyDatasetInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15864,9 +17471,12 @@ class DescribeDatasetInfoResponse(TeaModel):
 
 class DescribeDatasetItemInfoRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_item_id=None, security_token=None, value=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
         self.security_token = security_token  # type: str
+        # The value of the data entry.
         self.value = value  # type: str
 
     def validate(self):
@@ -15904,12 +17514,19 @@ class DescribeDatasetItemInfoRequest(TeaModel):
 class DescribeDatasetItemInfoResponseBodyDatasetItemInfo(TeaModel):
     def __init__(self, created_time=None, dataset_id=None, dataset_item_id=None, description=None,
                  expired_time=None, modified_time=None, value=None):
+        # The creation time (UTC) of the data entry.
         self.created_time = created_time  # type: str
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
+        # The description of the data entry.
         self.description = description  # type: str
+        # The time in UTC when the data entry expires. The time is in the **yyyy-MM-ddTHH:mm:ssZ** format. If this parameter is empty, the data entry does not expire.
         self.expired_time = expired_time  # type: str
+        # The last modification time (UTC) of the data entry.
         self.modified_time = modified_time  # type: str
+        # The value of the data entry.
         self.value = value  # type: str
 
     def validate(self):
@@ -15959,6 +17576,7 @@ class DescribeDatasetItemInfoResponseBodyDatasetItemInfo(TeaModel):
 class DescribeDatasetItemInfoResponseBody(TeaModel):
     def __init__(self, dataset_item_info=None, request_id=None):
         self.dataset_item_info = dataset_item_info  # type: DescribeDatasetItemInfoResponseBodyDatasetItemInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16029,9 +17647,13 @@ class DescribeDatasetItemInfoResponse(TeaModel):
 class DescribeDatasetItemListRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_item_ids=None, page_number=None, page_size=None,
                  security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry. You can enter multiple IDs. Separate them with commas (,).
         self.dataset_item_ids = dataset_item_ids  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -16074,12 +17696,19 @@ class DescribeDatasetItemListRequest(TeaModel):
 class DescribeDatasetItemListResponseBodyDatasetItemInfoList(TeaModel):
     def __init__(self, created_time=None, dataset_id=None, dataset_item_id=None, description=None,
                  expired_time=None, modified_time=None, value=None):
+        # The time when the data entry was created.
         self.created_time = created_time  # type: str
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
+        # The description of the data entry.
         self.description = description  # type: str
+        # The time in UTC when the data entry expires. The time is in the **yyyy-MM-ddTHH:mm:ssZ** format. If this parameter is empty, the data entry does not expire.
         self.expired_time = expired_time  # type: str
+        # The last modification time (UTC) of the data entry.
         self.modified_time = modified_time  # type: str
+        # The value of the data entry.
         self.value = value  # type: str
 
     def validate(self):
@@ -16130,9 +17759,13 @@ class DescribeDatasetItemListResponseBody(TeaModel):
     def __init__(self, dataset_item_info_list=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
         self.dataset_item_info_list = dataset_item_info_list  # type: list[DescribeDatasetItemListResponseBodyDatasetItemInfoList]
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16220,8 +17853,11 @@ class DescribeDatasetItemListResponse(TeaModel):
 
 class DescribeDatasetListRequest(TeaModel):
     def __init__(self, dataset_ids=None, page_number=None, page_size=None, security_token=None):
+        # The ID of the dataset. You can enter multiple dataset IDs. Separate the IDs with commas (,).
         self.dataset_ids = dataset_ids  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -16259,10 +17895,19 @@ class DescribeDatasetListRequest(TeaModel):
 
 class DescribeDatasetListResponseBodyDatasetInfoList(TeaModel):
     def __init__(self, created_time=None, dataset_id=None, dataset_name=None, dataset_type=None, modified_time=None):
+        # The creation time (UTC) of the dataset.
         self.created_time = created_time  # type: str
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The name of the dataset.
         self.dataset_name = dataset_name  # type: str
+        # The type of the dataset. Valid values:
+        # 
+        # *   JWT_BLOCKING: a JSON Web Token (JWT) blacklist
+        # *   IP_WHITELIST_CIDR : an IP address whitelist
+        # *   PARAMETER_ACCESS : parameter-based access control
         self.dataset_type = dataset_type  # type: str
+        # The last modification time (UTC) of the dataset.
         self.modified_time = modified_time  # type: str
 
     def validate(self):
@@ -16304,9 +17949,13 @@ class DescribeDatasetListResponseBodyDatasetInfoList(TeaModel):
 class DescribeDatasetListResponseBody(TeaModel):
     def __init__(self, dataset_info_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.dataset_info_list = dataset_info_list  # type: list[DescribeDatasetListResponseBodyDatasetInfoList]
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16394,6 +18043,7 @@ class DescribeDatasetListResponse(TeaModel):
 
 class DescribeDeployApiTaskRequest(TeaModel):
     def __init__(self, operation_uid=None, security_token=None):
+        # The ID of the request.
         self.operation_uid = operation_uid  # type: str
         self.security_token = security_token  # type: str
 
@@ -16423,10 +18073,18 @@ class DescribeDeployApiTaskRequest(TeaModel):
 
 class DescribeDeployApiTaskResponseBodyDeployedResultsDeployedResult(TeaModel):
     def __init__(self, api_uid=None, deployed_status=None, error_msg=None, group_id=None, stage_name=None):
+        # The deployment status of the API.
         self.api_uid = api_uid  # type: str
+        # auditing
         self.deployed_status = deployed_status  # type: str
+        # The runtime environment of the API. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.error_msg = error_msg  # type: str
+        # The ID of the API.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -16499,7 +18157,9 @@ class DescribeDeployApiTaskResponseBodyDeployedResults(TeaModel):
 
 class DescribeDeployApiTaskResponseBody(TeaModel):
     def __init__(self, deployed_results=None, request_id=None):
+        # The result returned.
         self.deployed_results = deployed_results  # type: DescribeDeployApiTaskResponseBodyDeployedResults
+        # The result returned.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16569,9 +18229,16 @@ class DescribeDeployApiTaskResponse(TeaModel):
 
 class DescribeDeployedApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -16608,9 +18275,13 @@ class DescribeDeployedApiRequest(TeaModel):
 
 class DescribeDeployedApiResponseBodyConstantParametersConstantParameter(TeaModel):
     def __init__(self, constant_value=None, description=None, location=None, service_parameter_name=None):
+        # The constant value.
         self.constant_value = constant_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -16680,10 +18351,15 @@ class DescribeDeployedApiResponseBodyConstantParameters(TeaModel):
 class DescribeDeployedApiResponseBodyCustomSystemParametersCustomSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the custom system parameter.
         self.parameter_name = parameter_name  # type: str
+        # The name of the corresponding backend parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -16756,8 +18432,11 @@ class DescribeDeployedApiResponseBodyCustomSystemParameters(TeaModel):
 
 class DescribeDeployedApiResponseBodyErrorCodeSamplesErrorCodeSample(TeaModel):
     def __init__(self, code=None, description=None, message=None):
+        # The error code.
         self.code = code  # type: str
+        # The description.
         self.description = description  # type: str
+        # The error message.
         self.message = message  # type: str
 
     def validate(self):
@@ -16822,9 +18501,16 @@ class DescribeDeployedApiResponseBodyErrorCodeSamples(TeaModel):
 
 class DescribeDeployedApiResponseBodyOpenIdConnectConfig(TeaModel):
     def __init__(self, id_token_param_name=None, open_id_api_type=None, public_key=None, public_key_id=None):
+        # The name of the parameter that corresponds to the token.
         self.id_token_param_name = id_token_param_name  # type: str
+        # The OpenID Connect mode. Valid values:
+        # 
+        # *   **IDTOKEN: OpenID Connect calls the authentication API to issue tokens. If this value is specified, the PublicKeyId parameter and the PublicKey parameter are required.**\
+        # *   **BUSINESS: OpenID Connect calls the business API to verify identities by using existing tokens. If this value is specified, the IdTokenParamName parameter is required.
         self.open_id_api_type = open_id_api_type  # type: str
+        # The public key of the API.
         self.public_key = public_key  # type: str
+        # The ID of the public key.
         self.public_key_id = public_key_id  # type: str
 
     def validate(self):
@@ -16862,12 +18548,25 @@ class DescribeDeployedApiResponseBodyOpenIdConnectConfig(TeaModel):
 class DescribeDeployedApiResponseBodyRequestConfig(TeaModel):
     def __init__(self, body_format=None, body_model=None, post_body_description=None, request_http_method=None,
                  request_mode=None, request_path=None, request_protocol=None):
+        # This parameter takes effect only when the RequestMode parameter is set to MAPPING.********\
+        # 
+        # The format in which data is transmitted to the server for POST and PUT requests. Valid values: FORM and STREAM. FORM indicates that data is transmitted in the key-value pair format. STREAM indicates that data is transmitted as byte streams.
         self.body_format = body_format  # type: str
+        # The body model.
         self.body_model = body_model  # type: str
+        # The description of the request body.
         self.post_body_description = post_body_description  # type: str
+        # The HTTP method that was used to make the request. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.request_http_method = request_http_method  # type: str
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
+        # *   MAPPING_PASSTHROUGH: Parameters are mapped. Unknown parameters are passed through.
         self.request_mode = request_mode  # type: str
+        # The API request path. If the complete API URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the API request path is ` /object/add  `.
         self.request_path = request_path  # type: str
+        # The protocol type supported by the API. Valid values: HTTP, HTTPS, and WebSocket. Separate multiple values with commas (,), such as "HTTP,HTTPS".
         self.request_protocol = request_protocol  # type: str
 
     def validate(self):
@@ -16919,22 +18618,39 @@ class DescribeDeployedApiResponseBodyRequestParametersRequestParameter(TeaModel)
                  description=None, doc_order=None, doc_show=None, enum_value=None, json_scheme=None, location=None,
                  max_length=None, max_value=None, min_length=None, min_value=None, parameter_type=None,
                  regular_expression=None, required=None):
+        # The name of the API parameter.
         self.api_parameter_name = api_parameter_name  # type: str
+        # The type of the array element.
         self.array_items_type = array_items_type  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # The parameter description.
         self.description = description  # type: str
+        # The order in the document.
         self.doc_order = doc_order  # type: int
+        # Indicates whether the document is public. Valid values: PUBLIC and PRIVATE.
         self.doc_show = doc_show  # type: str
+        # The hash values that can be entered when ParameterType is set to Int, Long, Float, Double, or String. Different values are separated with commas (,), such as 1,2,3,4,9 or A,B,C,E,F.
         self.enum_value = enum_value  # type: str
+        # JSON scheme
         self.json_scheme = json_scheme  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The maximum parameter length when ParameterType is set to String.
         self.max_length = max_length  # type: long
+        # The maximum parameter value when ParameterType is set to Int, Long, Float, or Double.
         self.max_value = max_value  # type: long
+        # The minimum parameter length when ParameterType is set to String.
         self.min_length = min_length  # type: long
+        # The minimum parameter value when ParameterType is set to Int, Long, Float, or Double.
         self.min_value = min_value  # type: long
+        # The data type of the parameter. Valid values: String, Int, Long, Float, Double, and Boolean.
         self.parameter_type = parameter_type  # type: str
+        # The regular expression used for parameter validation when ParameterType is set to String.
         self.regular_expression = regular_expression  # type: str
+        # Indicates whether the parameter is required. Valid values: REQUIRED and OPTIONAL.
         self.required = required  # type: str
 
     def validate(self):
@@ -17056,10 +18772,12 @@ class DescribeDeployedApiResponseBodyRequestParameters(TeaModel):
 class DescribeDeployedApiResponseBodyResultDescriptionsResultDescription(TeaModel):
     def __init__(self, description=None, has_child=None, id=None, key=None, mandatory=None, name=None, pid=None,
                  type=None):
+        # The description.
         self.description = description  # type: str
         self.has_child = has_child  # type: bool
         self.id = id  # type: str
         self.key = key  # type: str
+        # Indicates whether the parameter is required.
         self.mandatory = mandatory  # type: bool
         self.name = name  # type: str
         self.pid = pid  # type: str
@@ -17149,17 +18867,33 @@ class DescribeDeployedApiResponseBodyServiceConfigFunctionComputeConfig(TeaModel
     def __init__(self, content_type_catagory=None, content_type_value=None, fc_base_url=None, fc_type=None,
                  function_name=None, method=None, only_business_path=None, path=None, qualifier=None, region_id=None,
                  role_arn=None, service_name=None):
+        # The ContentType header type used when you call the backend service over HTTP. Valid values:
+        # 
+        # *   **DEFAULT: the default header in API Gateway**\
+        # *   **CUSTOM: a custom header**\
+        # *   **CLIENT: the ContentType header specified by the client**\
         self.content_type_catagory = content_type_catagory  # type: str
+        # The value of the ContentType header when the ServiceProtocol parameter is set to HTTP and the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.content_type_value = content_type_value  # type: str
+        # The root path of Function Compute.
         self.fc_base_url = fc_base_url  # type: str
+        # The type of the Function Compute instance.
         self.fc_type = fc_type  # type: str
+        # The function name defined in Function Compute.
         self.function_name = function_name  # type: str
+        # The request method.
         self.method = method  # type: str
+        # Indicates whether the backend only receives the service path.
         self.only_business_path = only_business_path  # type: bool
+        # The API request path.
         self.path = path  # type: str
+        # The alias of the function.
         self.qualifier = qualifier  # type: str
+        # The region where the API is located.
         self.region_id = region_id  # type: str
+        # The ARN of the RAM role assumed by API Gateway to access Function Compute.
         self.role_arn = role_arn  # type: str
+        # The service name defined in Function Compute.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -17228,7 +18962,9 @@ class DescribeDeployedApiResponseBodyServiceConfigFunctionComputeConfig(TeaModel
 
 class DescribeDeployedApiResponseBodyServiceConfigMockHeadersMockHeader(TeaModel):
     def __init__(self, header_name=None, header_value=None):
+        # The name of the HTTP header parameter.
         self.header_name = header_name  # type: str
+        # The value of the HTTP header parameter.
         self.header_value = header_value  # type: str
 
     def validate(self):
@@ -17289,9 +19025,13 @@ class DescribeDeployedApiResponseBodyServiceConfigMockHeaders(TeaModel):
 
 class DescribeDeployedApiResponseBodyServiceConfigVpcConfig(TeaModel):
     def __init__(self, instance_id=None, name=None, port=None, vpc_id=None):
+        # The ID of the ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the VPC access authorization.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -17330,18 +19070,37 @@ class DescribeDeployedApiResponseBodyServiceConfig(TeaModel):
     def __init__(self, function_compute_config=None, mock=None, mock_headers=None, mock_result=None,
                  mock_status_code=None, service_address=None, service_http_method=None, service_path=None, service_protocol=None,
                  service_timeout=None, service_vpc_enable=None, vpc_config=None, vpc_id=None):
+        # The backend configuration items when the backend service is Function Compute.
         self.function_compute_config = function_compute_config  # type: DescribeDeployedApiResponseBodyServiceConfigFunctionComputeConfig
+        # Indicates whether the Mock mode is enabled. Valid values:
+        # 
+        # *   **TRUE: The Mock mode is enabled.**\
+        # *   **FALSE: The Mock mode is not enabled.
         self.mock = mock  # type: str
+        # The mock headers.
         self.mock_headers = mock_headers  # type: DescribeDeployedApiResponseBodyServiceConfigMockHeaders
+        # The result returned when the Mock mode is enabled.
         self.mock_result = mock_result  # type: str
+        # The status code returned for service mocking.
         self.mock_status_code = mock_status_code  # type: int
+        # The URL used to call the back-end service. If the complete back-end service URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the value of ServiceAddress is **http://api.a.com:8080**.``
         self.service_address = service_address  # type: str
+        # The HTTP method used to call a backend service. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.service_http_method = service_http_method  # type: str
+        # The path used to call the back-end service. If the complete back-end service path is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, ServicePath is **/object/add**.``
         self.service_path = service_path  # type: str
+        # The backend service protocol. Currently, only HTTP, HTTPS, and FunctionCompute are supported.
         self.service_protocol = service_protocol  # type: str
+        # The timeout period of the backend service. Unit: milliseconds.
         self.service_timeout = service_timeout  # type: int
+        # Indicates whether the VPC channel is enabled. Valid values:
+        # 
+        # *   **TRUE**: The VPC channel is enabled. You must create the corresponding VPC access authorization before you can enable a VPC channel.
+        # *   **FALSE**: The VPC channel is not enabled.
         self.service_vpc_enable = service_vpc_enable  # type: str
+        # The configuration items of the VPC channel.
         self.vpc_config = vpc_config  # type: DescribeDeployedApiResponseBodyServiceConfigVpcConfig
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -17422,8 +19181,11 @@ class DescribeDeployedApiResponseBodyServiceConfig(TeaModel):
 
 class DescribeDeployedApiResponseBodyServiceParametersServiceParameter(TeaModel):
     def __init__(self, location=None, parameter_type=None, service_parameter_name=None):
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The data type of the back-end service parameter. Valid values: STRING, NUMBER, BOOLEAN.
         self.parameter_type = parameter_type  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -17488,7 +19250,9 @@ class DescribeDeployedApiResponseBodyServiceParameters(TeaModel):
 
 class DescribeDeployedApiResponseBodyServiceParametersMapServiceParameterMap(TeaModel):
     def __init__(self, request_parameter_name=None, service_parameter_name=None):
+        # The name of the front-end input parameter.
         self.request_parameter_name = request_parameter_name  # type: str
+        # The name of the backend service parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -17550,10 +19314,15 @@ class DescribeDeployedApiResponseBodyServiceParametersMap(TeaModel):
 class DescribeDeployedApiResponseBodySystemParametersSystemParameter(TeaModel):
     def __init__(self, demo_value=None, description=None, location=None, parameter_name=None,
                  service_parameter_name=None):
+        # The example value.
         self.demo_value = demo_value  # type: str
+        # The description.
         self.description = description  # type: str
+        # The parameter location. Valid values: BODY, HEAD, QUERY, and PATH.
         self.location = location  # type: str
+        # The name of the system parameter. Valid values: CaClientIp, CaDomain, CaRequestHandleTime, CaAppId, CaRequestId, CaHttpSchema, CaProxy.
         self.parameter_name = parameter_name  # type: str
+        # The name of the corresponding backend parameter.
         self.service_parameter_name = service_parameter_name  # type: str
 
     def validate(self):
@@ -17631,34 +19400,95 @@ class DescribeDeployedApiResponseBody(TeaModel):
                  open_id_connect_config=None, region_id=None, request_config=None, request_id=None, request_parameters=None,
                  result_body_model=None, result_descriptions=None, result_sample=None, result_type=None, service_config=None,
                  service_parameters=None, service_parameters_map=None, stage_name=None, system_parameters=None, visibility=None):
+        # The signature method used by the client. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.allow_signature_method = allow_signature_method  # type: str
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The authentication method of the API. Valid values:
+        # 
+        # *   **APP: Only authorized applications can call the API.**\
+        # 
+        # *   **ANONYMOUS: Anonymous users can call the API. Take note of the following rules:**\
+        # 
+        #     *   All users who have obtained the API service information can call this API. API Gateway neither authenticates callers nor sets user-specific throttling policies. If this API is a public one, set throttling policies for it.
         self.auth_type = auth_type  # type: str
+        # The constant parameters.
         self.constant_parameters = constant_parameters  # type: DescribeDeployedApiResponseBodyConstantParameters
+        # The custom system parameters.
         self.custom_system_parameters = custom_system_parameters  # type: DescribeDeployedApiResponseBodyCustomSystemParameters
+        # The deployment time. Format: yyyy-mm-ddhh:mm:ss.
         self.deployed_time = deployed_time  # type: str
+        # Description
         self.description = description  # type: str
+        # *   If the value of DisableInternet is set to **true**, API calls are limited within the VPC.
+        # *   If the value of DisableInternet is set to **false**, the limit is lifted.
+        # 
+        # >  If you do not configure this parameter when you modify the API, the original value is used.
         self.disable_internet = disable_internet  # type: bool
+        # The sample error codes returned by the backend service.
+        # 
+        # For more information, see [ErrorCodeSample](~~44392~~).
         self.error_code_samples = error_code_samples  # type: DescribeDeployedApiResponseBodyErrorCodeSamples
+        # The sample error response from the backend service.
         self.fail_result_sample = fail_result_sample  # type: str
+        # *   If the value of **ForceNonceCheck** is set to **true**, X-Ca-Nonce must be checked during the request. This is the unique identifier of the request and is identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If the value of **ForceNonceCheck** is set to **false**, the X-Ca-Nonce is not checked. The default value is false when you create an API.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The configuration items of the third-party OpenID Connect authentication method.
         self.open_id_connect_config = open_id_connect_config  # type: DescribeDeployedApiResponseBodyOpenIdConnectConfig
+        # The region to which the API group belongs.
         self.region_id = region_id  # type: str
+        # The configuration items of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestConfig](~~43985~~).
         self.request_config = request_config  # type: DescribeDeployedApiResponseBodyRequestConfig
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The parameters of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestParameter](~~43986~~).
         self.request_parameters = request_parameters  # type: DescribeDeployedApiResponseBodyRequestParameters
+        # The return description of the API.
         self.result_body_model = result_body_model  # type: str
+        # The return descriptions of the API.
         self.result_descriptions = result_descriptions  # type: DescribeDeployedApiResponseBodyResultDescriptions
+        # The sample response from the backend service.
         self.result_sample = result_sample  # type: str
+        # The format of the response from the backend service. Valid values: JSON, TEXT, BINARY, XML, and HTML. Default value: JSON.
         self.result_type = result_type  # type: str
+        # The configuration items of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceConfig](~~43987~~).
         self.service_config = service_config  # type: DescribeDeployedApiResponseBodyServiceConfig
+        # The parameters of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameter](~~43988~~).
         self.service_parameters = service_parameters  # type: DescribeDeployedApiResponseBodyServiceParameters
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameterMap](~~43989~~).
         self.service_parameters_map = service_parameters_map  # type: DescribeDeployedApiResponseBodyServiceParametersMap
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**: the pre-release environment
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # The system parameters.
         self.system_parameters = system_parameters  # type: DescribeDeployedApiResponseBodySystemParameters
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC: The API is public. Public APIs are displayed on the APIs page for all users after the APIs are published to the production environment.**\
+        # *   **PRIVATE: The API is private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -17866,7 +19696,9 @@ class DescribeDeployedApiResponse(TeaModel):
 
 class DescribeDeployedApisRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag value.
         self.key = key  # type: str
+        # The page number of the returned page.
         self.value = value  # type: str
 
     def validate(self):
@@ -17896,16 +19728,27 @@ class DescribeDeployedApisRequestTag(TeaModel):
 class DescribeDeployedApisRequest(TeaModel):
     def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, enable_tag_auth=None,
                  group_id=None, page_number=None, page_size=None, security_token=None, stage_name=None, tag=None):
+        # The name of the API. The name is used for fuzzy match.
         self.api_id = api_id  # type: str
         self.api_method = api_method  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.api_name = api_name  # type: str
         self.api_path = api_path  # type: str
+        # The list of tags.
         self.enable_tag_auth = enable_tag_auth  # type: bool
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.group_id = group_id  # type: str
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # Specifies whether to enable tag verification.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the API.
         self.stage_name = stage_name  # type: str
+        # The tag key.
         self.tag = tag  # type: list[DescribeDeployedApisRequestTag]
 
     def validate(self):
@@ -17979,16 +19822,28 @@ class DescribeDeployedApisRequest(TeaModel):
 class DescribeDeployedApisResponseBodyDeployedApisDeployedApiItem(TeaModel):
     def __init__(self, api_id=None, api_method=None, api_name=None, api_path=None, deployed_time=None,
                  description=None, group_id=None, group_name=None, region_id=None, stage_name=None, visibility=None):
+        # The description of the API.
         self.api_id = api_id  # type: str
         self.api_method = api_method  # type: str
+        # DescribeObjects
         self.api_name = api_name  # type: str
         self.api_path = api_path  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.deployed_time = deployed_time  # type: str
+        # Queries objects by page
         self.description = description  # type: str
+        # The publishing time (UTC) of the API.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.group_name = group_name  # type: str
+        # auditing
         self.region_id = region_id  # type: str
+        # The name of the API.
         self.stage_name = stage_name  # type: str
+        # The ID of the API.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -18085,10 +19940,18 @@ class DescribeDeployedApisResponseBodyDeployedApis(TeaModel):
 
 class DescribeDeployedApisResponseBody(TeaModel):
     def __init__(self, deployed_apis=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # Indicates whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**\
+        # *   **PRIVATE**\
         self.deployed_apis = deployed_apis  # type: DescribeDeployedApisResponseBodyDeployedApis
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The returned API information. It is an array consisting of DeployedApiItem data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18170,7 +20033,9 @@ class DescribeDeployedApisResponse(TeaModel):
 
 class DescribeDomainRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, security_token=None):
+        # The private key of the SSL certificate.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -18207,18 +20072,40 @@ class DescribeDomainResponseBody(TeaModel):
                  certificate_private_key=None, domain_binding_status=None, domain_cnamestatus=None, domain_legal_status=None,
                  domain_name=None, domain_remark=None, domain_web_socket_status=None, group_id=None, request_id=None,
                  sub_domain=None):
+        # The second-level domain name that is automatically assigned to the API group.
         self.certificate_body = certificate_body  # type: str
+        # The status of the domain name that uses WebSocket.
         self.certificate_id = certificate_id  # type: str
+        # The validity status of the domain name. Valid values:
+        # 
+        # *   NORMAL
+        # *   ABNORMAL: This status affects API calls and must be resolved as soon as possible.
         self.certificate_name = certificate_name  # type: str
+        # The custom domain name.
         self.certificate_private_key = certificate_private_key  # type: str
+        # Remarks about the domain name, such as the cause of an exception.
         self.domain_binding_status = domain_binding_status  # type: str
+        # *   This operation is intended for API providers.
         self.domain_cnamestatus = domain_cnamestatus  # type: str
+        # The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
         self.domain_legal_status = domain_legal_status  # type: str
+        # The binding status of the custom domain name. Valid values:
+        # 
+        # *   BINDING: The domain name has been bound.
+        # *   BOUND: The domain name has not been bound.
         self.domain_name = domain_name  # type: str
+        # The domain name does not have an ICP filing.
         self.domain_remark = domain_remark  # type: str
+        # The ID of the request.
         self.domain_web_socket_status = domain_web_socket_status  # type: str
+        # The content of the certificate.
         self.group_id = group_id  # type: str
+        # The name of the SSL certificate.
         self.request_id = request_id  # type: str
+        # The domain name resolution status. Valid values:
+        # 
+        # *   RESOLVED: The domain name has been resolved.
+        # *   UNRESOLVED: The domain name has not been resolved.
         self.sub_domain = sub_domain  # type: str
 
     def validate(self):
@@ -18331,12 +20218,21 @@ class DescribeDomainResponse(TeaModel):
 class DescribeHistoryApisRequest(TeaModel):
     def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None,
                  security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API. The name is used for fuzzy match.
         self.api_name = api_name  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The page number of the current page.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -18386,15 +20282,28 @@ class DescribeHistoryApisRequest(TeaModel):
 class DescribeHistoryApisResponseBodyApiHisItemsApiHisItem(TeaModel):
     def __init__(self, api_id=None, api_name=None, deployed_time=None, description=None, group_id=None,
                  group_name=None, history_version=None, region_id=None, stage_name=None, status=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The publising time (UTC) of the API.
         self.deployed_time = deployed_time  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the group to which the API belongs.
         self.group_name = group_name  # type: str
+        # The historical version of the API definition.
         self.history_version = history_version  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST.
         self.stage_name = stage_name  # type: str
+        # Indicates whether an API version is effective. Valid values: ONLINE and OFFLINE.
         self.status = status  # type: str
 
     def validate(self):
@@ -18487,10 +20396,15 @@ class DescribeHistoryApisResponseBodyApiHisItems(TeaModel):
 
 class DescribeHistoryApisResponseBody(TeaModel):
     def __init__(self, api_his_items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned API information. It is an array consisting of ApiHisItem data.
         self.api_his_items = api_his_items  # type: DescribeHistoryApisResponseBodyApiHisItems
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 50. Default value: 10.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18570,9 +20484,291 @@ class DescribeHistoryApisResponse(TeaModel):
         return self
 
 
+class DescribeImportOASTaskRequest(TeaModel):
+    def __init__(self, operation_id=None, security_token=None):
+        self.operation_id = operation_id  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operation_id is not None:
+            result['OperationId'] = self.operation_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OperationId') is not None:
+            self.operation_id = m.get('OperationId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeImportOASTaskResponseBodyApiResultsApiResult(TeaModel):
+    def __init__(self, api_id=None, api_name=None, description=None, error_message=None, group_id=None, method=None,
+                 path=None, update_status=None):
+        self.api_id = api_id  # type: str
+        self.api_name = api_name  # type: str
+        self.description = description  # type: str
+        self.error_message = error_message  # type: str
+        self.group_id = group_id  # type: str
+        self.method = method  # type: str
+        self.path = path  # type: str
+        self.update_status = update_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponseBodyApiResultsApiResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.update_status is not None:
+            result['UpdateStatus'] = self.update_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('UpdateStatus') is not None:
+            self.update_status = m.get('UpdateStatus')
+        return self
+
+
+class DescribeImportOASTaskResponseBodyApiResults(TeaModel):
+    def __init__(self, api_result=None):
+        self.api_result = api_result  # type: list[DescribeImportOASTaskResponseBodyApiResultsApiResult]
+
+    def validate(self):
+        if self.api_result:
+            for k in self.api_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponseBodyApiResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApiResult'] = []
+        if self.api_result is not None:
+            for k in self.api_result:
+                result['ApiResult'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.api_result = []
+        if m.get('ApiResult') is not None:
+            for k in m.get('ApiResult'):
+                temp_model = DescribeImportOASTaskResponseBodyApiResultsApiResult()
+                self.api_result.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeImportOASTaskResponseBodyModelResultsModelResult(TeaModel):
+    def __init__(self, error_message=None, group_id=None, model_id=None, model_name=None, update_status=None):
+        self.error_message = error_message  # type: str
+        self.group_id = group_id  # type: str
+        self.model_id = model_id  # type: str
+        self.model_name = model_name  # type: str
+        self.update_status = update_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponseBodyModelResultsModelResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.model_id is not None:
+            result['ModelId'] = self.model_id
+        if self.model_name is not None:
+            result['ModelName'] = self.model_name
+        if self.update_status is not None:
+            result['UpdateStatus'] = self.update_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('ModelId') is not None:
+            self.model_id = m.get('ModelId')
+        if m.get('ModelName') is not None:
+            self.model_name = m.get('ModelName')
+        if m.get('UpdateStatus') is not None:
+            self.update_status = m.get('UpdateStatus')
+        return self
+
+
+class DescribeImportOASTaskResponseBodyModelResults(TeaModel):
+    def __init__(self, model_result=None):
+        self.model_result = model_result  # type: list[DescribeImportOASTaskResponseBodyModelResultsModelResult]
+
+    def validate(self):
+        if self.model_result:
+            for k in self.model_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponseBodyModelResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ModelResult'] = []
+        if self.model_result is not None:
+            for k in self.model_result:
+                result['ModelResult'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.model_result = []
+        if m.get('ModelResult') is not None:
+            for k in m.get('ModelResult'):
+                temp_model = DescribeImportOASTaskResponseBodyModelResultsModelResult()
+                self.model_result.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeImportOASTaskResponseBody(TeaModel):
+    def __init__(self, api_results=None, model_results=None, request_id=None, task_status=None):
+        self.api_results = api_results  # type: DescribeImportOASTaskResponseBodyApiResults
+        self.model_results = model_results  # type: DescribeImportOASTaskResponseBodyModelResults
+        self.request_id = request_id  # type: str
+        self.task_status = task_status  # type: str
+
+    def validate(self):
+        if self.api_results:
+            self.api_results.validate()
+        if self.model_results:
+            self.model_results.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_results is not None:
+            result['ApiResults'] = self.api_results.to_map()
+        if self.model_results is not None:
+            result['ModelResults'] = self.model_results.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_status is not None:
+            result['TaskStatus'] = self.task_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiResults') is not None:
+            temp_model = DescribeImportOASTaskResponseBodyApiResults()
+            self.api_results = temp_model.from_map(m['ApiResults'])
+        if m.get('ModelResults') is not None:
+            temp_model = DescribeImportOASTaskResponseBodyModelResults()
+            self.model_results = temp_model.from_map(m['ModelResults'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskStatus') is not None:
+            self.task_status = m.get('TaskStatus')
+        return self
+
+
+class DescribeImportOASTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeImportOASTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportOASTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeImportOASTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The values of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -18602,10 +20798,18 @@ class DescribeInstancesRequestTag(TeaModel):
 class DescribeInstancesRequest(TeaModel):
     def __init__(self, enable_tag_authorization=None, instance_id=None, language=None, security_token=None,
                  tag=None):
+        # Specifies whether tag authorization is enabled.
         self.enable_tag_authorization = enable_tag_authorization  # type: bool
+        # The ID of the instance. If you do not specify this parameter, all instances are queried.
         self.instance_id = instance_id  # type: str
+        # The language that is used to return the description of the system policy. Valid values:
+        # 
+        # *   en: English
+        # *   zh: Chinese
+        # *   ja: Japanese
         self.language = language  # type: str
         self.security_token = security_token  # type: str
+        # The tags that are bound to the instance.
         self.tag = tag  # type: list[DescribeInstancesRequestTag]
 
     def validate(self):
@@ -18654,7 +20858,9 @@ class DescribeInstancesRequest(TeaModel):
 
 class DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributesSpecAttribute(TeaModel):
     def __init__(self, local_name=None, value=None):
+        # The variable name.
         self.local_name = local_name  # type: str
+        # The variable value.
         self.value = value  # type: str
 
     def validate(self):
@@ -18721,39 +20927,79 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
                  instance_type=None, internet_egress_address=None, intranet_segments=None, region_id=None, status=None,
                  support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None, vpc_egress_address=None,
                  vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None, zone_local_name=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
+        # Indicates whether access control is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the access control policy. Valid values:
+        # 
+        # *   black: blacklist
+        # *   white: whitelist
         self.acl_type = acl_type  # type: str
+        # The outbound IP address.
         self.classic_egress_address = classic_egress_address  # type: str
+        # The time when the instance was created.
         self.created_time = created_time  # type: str
+        # Indicates whether outbound IPv6 is supported.
         self.egress_ipv_6enable = egress_ipv_6enable  # type: bool
+        # The time when the instance expires.
         self.expired_time = expired_time  # type: str
+        # The HTTPS security policy.
         self.https_policies = https_policies  # type: str
         self.ipv6acl_id = ipv6acl_id  # type: str
         self.ipv6acl_name = ipv6acl_name  # type: str
         self.ipv6acl_status = ipv6acl_status  # type: str
         self.ipv6acl_type = ipv6acl_type  # type: str
+        # The billing method of the instance. Valid values:
+        # 
+        # *   PrePaid: subscription
+        # *   PayAsYouGo: pay-as-you-go
         self.instance_charge_type = instance_charge_type  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # The records per second (RPS) limit on the instance.
         self.instance_rps_limit = instance_rps_limit  # type: int
+        # The specifications of the instance.
         self.instance_spec = instance_spec  # type: str
+        # The specifications of the instance.
         self.instance_spec_attributes = instance_spec_attributes  # type: DescribeInstancesResponseBodyInstancesInstanceAttributeInstanceSpecAttributes
+        # The instance type.
+        # 
+        # *   VPC_SHARED: shared instance (VPC)
+        # *   VPC_DEDICATED: dedicated instance (VPC)
         self.instance_type = instance_type  # type: str
+        # The outbound public IP address.
         self.internet_egress_address = internet_egress_address  # type: str
         self.intranet_segments = intranet_segments  # type: str
+        # The region where the instance is located.
         self.region_id = region_id  # type: str
+        # The instance status.
         self.status = status  # type: str
+        # Indicates whether IPv6 is supported.
         self.support_ipv_6 = support_ipv_6  # type: bool
+        # The ID of the user\"s VPC.
         self.user_vpc_id = user_vpc_id  # type: str
+        # The ID of the user interaction machine.
         self.user_vswitch_id = user_vswitch_id  # type: str
         self.vip_type_list = vip_type_list  # type: str
+        # The outbound CIDR block of the VPC.
         self.vpc_egress_address = vpc_egress_address  # type: str
+        # Indicates whether VPC is enabled.
         self.vpc_intranet_enable = vpc_intranet_enable  # type: bool
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
         self.vpc_owner_id = vpc_owner_id  # type: long
+        # Indicates whether VPC SLB is enabled.
         self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: bool
+        # The zone ID.
         self.zone_id = zone_id  # type: str
+        # The zone.
         self.zone_local_name = zone_local_name  # type: str
 
     def validate(self):
@@ -18944,10 +21190,15 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
 
 class DescribeInstancesResponseBody(TeaModel):
     def __init__(self, instances=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The details of the instances.
         self.instances = instances  # type: DescribeInstancesResponseBodyInstances
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of items returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19030,9 +21281,13 @@ class DescribeInstancesResponse(TeaModel):
 class DescribeIpControlPolicyItemsRequest(TeaModel):
     def __init__(self, ip_control_id=None, page_number=None, page_size=None, policy_item_id=None,
                  security_token=None):
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
+        # The ID of the policy.
         self.policy_item_id = policy_item_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -19074,10 +21329,15 @@ class DescribeIpControlPolicyItemsRequest(TeaModel):
 
 class DescribeIpControlPolicyItemsResponseBodyIpControlPolicyItemsIpControlPolicyItem(TeaModel):
     def __init__(self, app_id=None, cidr_ip=None, create_time=None, modified_time=None, policy_item_id=None):
+        # The ID of the application.
         self.app_id = app_id  # type: str
+        # The IP addresses or CIDR blocks.
         self.cidr_ip = cidr_ip  # type: str
+        # The time when the policy was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the policy was modified. The time is displayed in UTC.
         self.modified_time = modified_time  # type: str
+        # The ID of the policy.
         self.policy_item_id = policy_item_id  # type: str
 
     def validate(self):
@@ -19151,10 +21411,15 @@ class DescribeIpControlPolicyItemsResponseBodyIpControlPolicyItems(TeaModel):
 class DescribeIpControlPolicyItemsResponseBody(TeaModel):
     def __init__(self, ip_control_policy_items=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The information about policies. The information is an array of IpControlPolicyItem data.
         self.ip_control_policy_items = ip_control_policy_items  # type: DescribeIpControlPolicyItemsResponseBodyIpControlPolicyItems
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19237,10 +21502,18 @@ class DescribeIpControlPolicyItemsResponse(TeaModel):
 class DescribeIpControlsRequest(TeaModel):
     def __init__(self, ip_control_id=None, ip_control_name=None, ip_control_type=None, page_number=None,
                  page_size=None, security_token=None):
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
+        # The name of the ACL.
         self.ip_control_name = ip_control_name  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **ALLOW**: an IP address whitelist
+        # *   **REFUSE**: an IP address blacklist
         self.ip_control_type = ip_control_type  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -19287,12 +21560,19 @@ class DescribeIpControlsRequest(TeaModel):
 class DescribeIpControlsResponseBodyIpControlInfosIpControlInfo(TeaModel):
     def __init__(self, create_time=None, description=None, ip_control_id=None, ip_control_name=None,
                  ip_control_type=None, modified_time=None, region_id=None):
+        # The time when the ACL was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # Description
         self.description = description  # type: str
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
+        # The name of the ACL.
         self.ip_control_name = ip_control_name  # type: str
+        # The type of the ACL.
         self.ip_control_type = ip_control_type  # type: str
+        # The time when the ACL was modified. The time is displayed in UTC.
         self.modified_time = modified_time  # type: str
+        # The region in which the API is located.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -19373,10 +21653,15 @@ class DescribeIpControlsResponseBodyIpControlInfos(TeaModel):
 
 class DescribeIpControlsResponseBody(TeaModel):
     def __init__(self, ip_control_infos=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The information about the ACL. The information is an array of IpControlInfo data. The information does not include specific policies.
         self.ip_control_infos = ip_control_infos  # type: DescribeIpControlsResponseBodyIpControlInfos
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19458,6 +21743,7 @@ class DescribeIpControlsResponse(TeaModel):
 
 class DescribeLogConfigRequest(TeaModel):
     def __init__(self, log_type=None, security_token=None):
+        # The log type.
         self.log_type = log_type  # type: str
         self.security_token = security_token  # type: str
 
@@ -19487,9 +21773,13 @@ class DescribeLogConfigRequest(TeaModel):
 
 class DescribeLogConfigResponseBodyLogInfosLogInfo(TeaModel):
     def __init__(self, log_type=None, region_id=None, sls_log_store=None, sls_project=None):
+        # The log type.
         self.log_type = log_type  # type: str
+        # The region ID of Log Service.
         self.region_id = region_id  # type: str
+        # The log store value of Log Service (SLS).
         self.sls_log_store = sls_log_store  # type: str
+        # The SLS project.
         self.sls_project = sls_project  # type: str
 
     def validate(self):
@@ -19558,7 +21848,9 @@ class DescribeLogConfigResponseBodyLogInfos(TeaModel):
 
 class DescribeLogConfigResponseBody(TeaModel):
     def __init__(self, log_infos=None, request_id=None):
+        # The log data.
         self.log_infos = log_infos  # type: DescribeLogConfigResponseBodyLogInfos
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19628,6 +21920,7 @@ class DescribeLogConfigResponse(TeaModel):
 
 class DescribeMarketRemainsQuotaRequest(TeaModel):
     def __init__(self, domain_name=None, security_token=None):
+        # The remaining quota.
         self.domain_name = domain_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -19657,7 +21950,9 @@ class DescribeMarketRemainsQuotaRequest(TeaModel):
 
 class DescribeMarketRemainsQuotaResponseBody(TeaModel):
     def __init__(self, remains_quota=None, request_id=None):
+        # The ID of the request.
         self.remains_quota = remains_quota  # type: long
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19725,10 +22020,15 @@ class DescribeMarketRemainsQuotaResponse(TeaModel):
 
 class DescribeModelsRequest(TeaModel):
     def __init__(self, group_id=None, model_id=None, model_name=None, page_number=None, page_size=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the model.
         self.model_id = model_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19770,13 +22070,21 @@ class DescribeModelsRequest(TeaModel):
 class DescribeModelsResponseBodyModelDetailsModelDetail(TeaModel):
     def __init__(self, created_time=None, description=None, group_id=None, model_id=None, model_name=None,
                  model_ref=None, modified_time=None, schema=None):
+        # The time when the model was created.
         self.created_time = created_time  # type: str
+        # The definition of the model description.
         self.description = description  # type: str
+        # The ID of the API group to which the model belongs.
         self.group_id = group_id  # type: str
+        # The ID of the model.
         self.model_id = model_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The URI of the model.
         self.model_ref = model_ref  # type: str
+        # The last modification time of the model.
         self.modified_time = modified_time  # type: str
+        # The definition of the model.
         self.schema = schema  # type: str
 
     def validate(self):
@@ -19861,10 +22169,15 @@ class DescribeModelsResponseBodyModelDetails(TeaModel):
 
 class DescribeModelsResponseBody(TeaModel):
     def __init__(self, model_details=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The returned information about models. It is an array consisting of ModelDetail data.
         self.model_details = model_details  # type: DescribeModelsResponseBodyModelDetails
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -20198,6 +22511,11 @@ class DescribePluginApisResponse(TeaModel):
 
 class DescribePluginSchemasRequest(TeaModel):
     def __init__(self, language=None, security_token=None):
+        # The language that is used to return the descriptions of the access control policies. Default value: zh-CN. Valid values:
+        # 
+        # *   zh-CN (default value): Chinese
+        # *   en: English
+        # *   ja: Japanese
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -20227,10 +22545,15 @@ class DescribePluginSchemasRequest(TeaModel):
 
 class DescribePluginSchemasResponseBodyPluginSchemasPluginSchema(TeaModel):
     def __init__(self, description=None, document_id=None, name=None, support_classic=None, title=None):
+        # The plug-in description.
         self.description = description  # type: str
+        # The ID of the document.
         self.document_id = document_id  # type: str
+        # The name of the plug-in.
         self.name = name  # type: str
+        # Indicates whether classification is supported.
         self.support_classic = support_classic  # type: bool
+        # The plug-in title.
         self.title = title  # type: str
 
     def validate(self):
@@ -20303,7 +22626,9 @@ class DescribePluginSchemasResponseBodyPluginSchemas(TeaModel):
 
 class DescribePluginSchemasResponseBody(TeaModel):
     def __init__(self, plugin_schemas=None, request_id=None):
+        # The plug-in modes.
         self.plugin_schemas = plugin_schemas  # type: DescribePluginSchemasResponseBodyPluginSchemas
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20373,7 +22698,13 @@ class DescribePluginSchemasResponse(TeaModel):
 
 class DescribePluginTemplatesRequest(TeaModel):
     def __init__(self, language=None, plugin_name=None, security_token=None):
+        # The language that is used to return the description of the system policy. Valid values:
+        # 
+        # *   en: English
+        # *   zh-CN: Chinese.
+        # *   ja: Japanese
         self.language = language  # type: str
+        # The name of the plug-in.
         self.plugin_name = plugin_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -20407,10 +22738,15 @@ class DescribePluginTemplatesRequest(TeaModel):
 
 class DescribePluginTemplatesResponseBodyTemplatesTemplate(TeaModel):
     def __init__(self, description=None, document_anchor=None, document_id=None, sample=None, title=None):
+        # The description.
         self.description = description  # type: str
+        # The document anchor point.
         self.document_anchor = document_anchor  # type: str
+        # The ID of the document.
         self.document_id = document_id  # type: str
+        # The sample.
         self.sample = sample  # type: str
+        # The title of the plug-in template title.
         self.title = title  # type: str
 
     def validate(self):
@@ -20483,7 +22819,9 @@ class DescribePluginTemplatesResponseBodyTemplates(TeaModel):
 
 class DescribePluginTemplatesResponseBody(TeaModel):
     def __init__(self, request_id=None, templates=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The templates.
         self.templates = templates  # type: DescribePluginTemplatesResponseBodyTemplates
 
     def validate(self):
@@ -20553,7 +22891,13 @@ class DescribePluginTemplatesResponse(TeaModel):
 
 class DescribePluginsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.value = value  # type: str
 
     def validate(self):
@@ -20583,12 +22927,18 @@ class DescribePluginsRequestTag(TeaModel):
 class DescribePluginsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, plugin_id=None, plugin_name=None, plugin_type=None,
                  security_token=None, tag=None):
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
+        # The ID of the plug-in.
         self.plugin_id = plugin_id  # type: str
+        # The name of the plug-in.
         self.plugin_name = plugin_name  # type: str
+        # The business type of the plug-in.
         self.plugin_type = plugin_type  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the lifecycle rule. You can specify multiple tags.
         self.tag = tag  # type: list[DescribePluginsRequestTag]
 
     def validate(self):
@@ -20645,7 +22995,9 @@ class DescribePluginsRequest(TeaModel):
 
 class DescribePluginsResponseBodyPluginsPluginAttributeTagsTagInfo(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -20707,14 +23059,23 @@ class DescribePluginsResponseBodyPluginsPluginAttributeTags(TeaModel):
 class DescribePluginsResponseBodyPluginsPluginAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, modified_time=None, plugin_data=None, plugin_id=None,
                  plugin_name=None, plugin_type=None, region_id=None, tags=None):
+        # The creation time (UTC) of the plug-in.
         self.created_time = created_time  # type: str
+        # The plug-in description.
         self.description = description  # type: str
+        # The last modification time (UTC) of the plug-in.
         self.modified_time = modified_time  # type: str
+        # The definition statement of the plug-in.
         self.plugin_data = plugin_data  # type: str
+        # The ID of the plug-in.
         self.plugin_id = plugin_id  # type: str
+        # The name of the plug-in.
         self.plugin_name = plugin_name  # type: str
+        # The type of the plug-in.
         self.plugin_type = plugin_type  # type: str
+        # The region where the plug-in is located.
         self.region_id = region_id  # type: str
+        # The tags.
         self.tags = tags  # type: DescribePluginsResponseBodyPluginsPluginAttributeTags
 
     def validate(self):
@@ -20805,10 +23166,15 @@ class DescribePluginsResponseBodyPlugins(TeaModel):
 
 class DescribePluginsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, plugins=None, request_id=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The returned information about the plug-in. It is an array consisting of PluginAttribute data.
         self.plugins = plugins  # type: DescribePluginsResponseBodyPlugins
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -20890,9 +23256,16 @@ class DescribePluginsResponse(TeaModel):
 
 class DescribePluginsByApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the group to which the API to be queried belongs.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The runtime environment of the API. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE: the pre-release environment**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -20930,13 +23303,21 @@ class DescribePluginsByApiRequest(TeaModel):
 class DescribePluginsByApiResponseBodyPluginsPluginAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, modified_time=None, plugin_data=None, plugin_id=None,
                  plugin_name=None, plugin_type=None, region_id=None):
+        # The creation time (UTC) of the plug-in.
         self.created_time = created_time  # type: str
+        # The plug-in description.
         self.description = description  # type: str
+        # The last modification time (UTC) of the plug-in.
         self.modified_time = modified_time  # type: str
+        # The definition statement of the plug-in.
         self.plugin_data = plugin_data  # type: str
+        # The ID of the plug-in.
         self.plugin_id = plugin_id  # type: str
+        # The name of the plug-in.
         self.plugin_name = plugin_name  # type: str
+        # The type of the plug-in.
         self.plugin_type = plugin_type  # type: str
+        # The region where the plug-in is located.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21021,10 +23402,15 @@ class DescribePluginsByApiResponseBodyPlugins(TeaModel):
 
 class DescribePluginsByApiResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, plugins=None, request_id=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The returned plug-in information. It is an array consisting of PluginAttribute data.
         self.plugins = plugins  # type: DescribePluginsByApiResponseBodyPlugins
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21106,6 +23492,10 @@ class DescribePluginsByApiResponse(TeaModel):
 
 class DescribePurchasedApiGroupRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None):
+        # The status of the API group.
+        # 
+        # *   **NORMAL**: The API group is normal.
+        # *   **DELETE**: The API group is deleted.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -21135,6 +23525,7 @@ class DescribePurchasedApiGroupRequest(TeaModel):
 
 class DescribePurchasedApiGroupResponseBodyDomainsDomainItem(TeaModel):
     def __init__(self, domain_name=None):
+        # auditing
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -21192,13 +23583,21 @@ class DescribePurchasedApiGroupResponseBodyDomains(TeaModel):
 class DescribePurchasedApiGroupResponseBody(TeaModel):
     def __init__(self, description=None, domains=None, group_id=None, group_name=None, purchased_time=None,
                  region_id=None, request_id=None, status=None):
+        # The region where the API group is located.
         self.description = description  # type: str
+        # The list of domain names.
         self.domains = domains  # type: DescribePurchasedApiGroupResponseBodyDomains
+        # The name of the API group.
         self.group_id = group_id  # type: str
+        # The description of the API group.
         self.group_name = group_name  # type: str
+        # The ID of the request.
         self.purchased_time = purchased_time  # type: str
+        # The list of domain names.
         self.region_id = region_id  # type: str
+        # The ID of the API group.
         self.request_id = request_id  # type: str
+        # The time when the API group was purchased.
         self.status = status  # type: str
 
     def validate(self):
@@ -21292,7 +23691,9 @@ class DescribePurchasedApiGroupResponse(TeaModel):
 
 class DescribePurchasedApiGroupsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, security_token=None):
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -21327,15 +23728,25 @@ class DescribePurchasedApiGroupsRequest(TeaModel):
 class DescribePurchasedApiGroupsResponseBodyPurchasedApiGroupAttributesPurchasedApiGroupAttribute(TeaModel):
     def __init__(self, billing_type=None, description=None, expire_time=None, group_id=None, group_name=None,
                  invoke_times_max=None, invoke_times_now=None, purchased_time=None, region_id=None, status=None):
+        # The ID of the region where the API group is located.
         self.billing_type = billing_type  # type: str
+        # The name of the API group.
         self.description = description  # type: str
+        # The description of the API group.
         self.expire_time = expire_time  # type: str
+        # The maximum number of calls.
         self.group_id = group_id  # type: str
+        # The ID of the API group.
         self.group_name = group_name  # type: str
+        # The current number of calls.
         self.invoke_times_max = invoke_times_max  # type: long
+        # The billing method.
         self.invoke_times_now = invoke_times_now  # type: long
+        # The time when the API group expires.
         self.purchased_time = purchased_time  # type: str
+        # auditing
         self.region_id = region_id  # type: str
+        # The time when the API group was purchased.
         self.status = status  # type: str
 
     def validate(self):
@@ -21429,10 +23840,15 @@ class DescribePurchasedApiGroupsResponseBodyPurchasedApiGroupAttributes(TeaModel
 class DescribePurchasedApiGroupsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, purchased_api_group_attributes=None, request_id=None,
                  total_count=None):
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of entries returned.
         self.page_size = page_size  # type: int
+        # The attributes of the API group.
         self.purchased_api_group_attributes = purchased_api_group_attributes  # type: DescribePurchasedApiGroupsResponseBodyPurchasedApiGroupAttributes
+        # The number of entries returned on each page.
         self.request_id = request_id  # type: str
+        # The attributes of the API group.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21515,13 +23931,24 @@ class DescribePurchasedApiGroupsResponse(TeaModel):
 class DescribePurchasedApisRequest(TeaModel):
     def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None,
                  security_token=None, stage_name=None, visibility=None):
+        # The name of the API.
         self.api_id = api_id  # type: str
+        # Cz88IpQuery
         self.api_name = api_name  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.group_id = group_id  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The page number of the page to return.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the API.
         self.stage_name = stage_name  # type: str
+        # The number of entries to return on each page.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -21575,16 +24002,31 @@ class DescribePurchasedApisRequest(TeaModel):
 class DescribePurchasedApisResponseBodyPurchasedApisPurchasedApi(TeaModel):
     def __init__(self, api_id=None, api_name=None, deployed_time=None, description=None, group_id=None,
                  group_name=None, modified_time=None, purchased_time=None, region_id=None, stage_name=None, visibility=None):
+        # The last modification time (UTC) of the API.
         self.api_id = api_id  # type: str
+        # The ID of the region in which the API is located.
         self.api_name = api_name  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.deployed_time = deployed_time  # type: str
+        # test
         self.description = description  # type: str
+        # The deployment time. Format: yyyy-mm-ddhh:mm:ss.
         self.group_id = group_id  # type: str
+        # The ID of the API group to which the API belongs. This ID is generated by the system and globally unique.
         self.group_name = group_name  # type: str
+        # The description of the API.
         self.modified_time = modified_time  # type: str
+        # The ID of the API.
         self.purchased_time = purchased_time  # type: str
+        # auditing
         self.region_id = region_id  # type: str
+        # The name of the API.
         self.stage_name = stage_name  # type: str
+        # The time when the API was purchased.
         self.visibility = visibility  # type: str
 
     def validate(self):
@@ -21681,10 +24123,15 @@ class DescribePurchasedApisResponseBodyPurchasedApis(TeaModel):
 
 class DescribePurchasedApisResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, purchased_apis=None, request_id=None, total_count=None):
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The monitoring information about API call delays. The returned information is an array consisting of purchased APIs.
         self.purchased_apis = purchased_apis  # type: DescribePurchasedApisResponseBodyPurchasedApis
+        # The number of entries returned on each page.
         self.request_id = request_id  # type: str
+        # The monitoring information about API call delays. The returned information is an array consisting of purchased APIs.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21766,6 +24213,11 @@ class DescribePurchasedApisResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, language=None, security_token=None):
+        # The language in which you want to return the descriptions of the access control policies. Valid values:
+        # 
+        # *   zh-CN (default value): Chinese
+        # *   en: English
+        # *   ja: Japanese
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -21795,8 +24247,11 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
+        # The endpoint of the service for the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21861,7 +24316,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The returned region information. It is an array that consists of Region data.
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21932,10 +24389,14 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeSignaturesRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, security_token=None, signature_id=None,
                  signature_name=None):
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The names of the keys to query.
         self.signature_id = signature_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.signature_name = signature_name  # type: str
 
     def validate(self):
@@ -21977,12 +24438,20 @@ class DescribeSignaturesRequest(TeaModel):
 class DescribeSignaturesResponseBodySignatureInfosSignatureInfo(TeaModel):
     def __init__(self, created_time=None, modified_time=None, region_id=None, signature_id=None, signature_key=None,
                  signature_name=None, signature_secret=None):
+        # The region where the key is located.
         self.created_time = created_time  # type: str
+        # The ID of the backend signature key.
         self.modified_time = modified_time  # type: str
+        # *   This API is intended for API providers.
+        # *   This operation is used to query the backend signature keys in a Region. Region is a system parameter.
         self.region_id = region_id  # type: str
+        # The Secret value of the backend signature key.
         self.signature_id = signature_id  # type: str
+        # The creation time of the key.
         self.signature_key = signature_key  # type: str
+        # The Key value of the backend signature key.
         self.signature_name = signature_name  # type: str
+        # The name of the backend signature key.
         self.signature_secret = signature_secret  # type: str
 
     def validate(self):
@@ -22063,10 +24532,15 @@ class DescribeSignaturesResponseBodySignatureInfos(TeaModel):
 
 class DescribeSignaturesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, signature_infos=None, total_count=None):
+        # The ID of the request.
         self.page_number = page_number  # type: int
+        # The total number of returned entries.
         self.page_size = page_size  # type: int
+        # The number of entries returned per page.
         self.request_id = request_id  # type: str
+        # The last modification time of the key.
         self.signature_infos = signature_infos  # type: DescribeSignaturesResponseBodySignatureInfos
+        # The returned signature information. It is an array consisting of SignatureInfo data.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -22148,9 +24622,15 @@ class DescribeSignaturesResponse(TeaModel):
 
 class DescribeSignaturesByApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.api_id = api_id  # type: str
+        # The ID of the API.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -22187,8 +24667,11 @@ class DescribeSignaturesByApiRequest(TeaModel):
 
 class DescribeSignaturesByApiResponseBodySignaturesSignatureItem(TeaModel):
     def __init__(self, bound_time=None, signature_id=None, signature_name=None):
+        # The ID of the backend signature key.
         self.bound_time = bound_time  # type: str
+        # The name of the backend signature key.
         self.signature_id = signature_id  # type: str
+        # *   This API is intended for API providers.
         self.signature_name = signature_name  # type: str
 
     def validate(self):
@@ -22253,7 +24736,9 @@ class DescribeSignaturesByApiResponseBodySignatures(TeaModel):
 
 class DescribeSignaturesByApiResponseBody(TeaModel):
     def __init__(self, request_id=None, signatures=None):
+        # The returned signature key information. It is an array consisting of SignatureItem data.
         self.request_id = request_id  # type: str
+        # The time when the key was bound.
         self.signatures = signatures  # type: DescribeSignaturesByApiResponseBodySignatures
 
     def validate(self):
@@ -22347,9 +24832,13 @@ class DescribeSystemParametersRequest(TeaModel):
 
 class DescribeSystemParametersResponseBodySystemParamsSystemParamItem(TeaModel):
     def __init__(self, demo_value=None, description=None, param_name=None, param_type=None):
+        # Examples
         self.demo_value = demo_value  # type: str
+        # The description of a parameter.
         self.description = description  # type: str
+        # The name of the parameter.
         self.param_name = param_name  # type: str
+        # The type of the parameter.
         self.param_type = param_type  # type: str
 
     def validate(self):
@@ -22418,7 +24907,9 @@ class DescribeSystemParametersResponseBodySystemParams(TeaModel):
 
 class DescribeSystemParametersResponseBody(TeaModel):
     def __init__(self, request_id=None, system_params=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned information about system parameters. It is an array that consists of SystemParam data.
         self.system_params = system_params  # type: DescribeSystemParametersResponseBodySystemParams
 
     def validate(self):
@@ -22489,13 +24980,23 @@ class DescribeSystemParametersResponse(TeaModel):
 class DescribeTrafficControlsRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, page_number=None, page_size=None, security_token=None,
                  stage_name=None, traffic_control_id=None, traffic_control_name=None):
+        # The specified API ID. This parameter must be specified together with GroupId and StageName.
         self.api_id = api_id  # type: str
+        # The specified group ID. This parameter must be specified together with ApiId and StageName.
         self.group_id = group_id  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The environment name. This parameter must be specified together with GroupId and ApiId. Valid values:********\
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
+        # The name of the throttling policy.
         self.traffic_control_name = traffic_control_name  # type: str
 
     def validate(self):
@@ -22548,7 +25049,9 @@ class DescribeTrafficControlsRequest(TeaModel):
 
 class DescribeTrafficControlsResponseBodyTrafficControlsTrafficControlSpecialPoliciesSpecialPolicySpecialsSpecial(TeaModel):
     def __init__(self, special_key=None, traffic_value=None):
+        # The AppId or user account corresponding to SpecialType.
         self.special_key = special_key  # type: str
+        # The throttling value.
         self.traffic_value = traffic_value  # type: int
 
     def validate(self):
@@ -22609,7 +25112,12 @@ class DescribeTrafficControlsResponseBodyTrafficControlsTrafficControlSpecialPol
 
 class DescribeTrafficControlsResponseBodyTrafficControlsTrafficControlSpecialPoliciesSpecialPolicy(TeaModel):
     def __init__(self, special_type=None, specials=None):
+        # The type of the special throttling policy. Valid values:
+        # 
+        # *   **APP**\
+        # *   **USER**\
         self.special_type = special_type  # type: str
+        # The returned information about a special throttling policy. It is an array consisting of Special data.
         self.specials = specials  # type: DescribeTrafficControlsResponseBodyTrafficControlsTrafficControlSpecialPoliciesSpecialPolicySpecials
 
     def validate(self):
@@ -22674,15 +25182,29 @@ class DescribeTrafficControlsResponseBodyTrafficControlsTrafficControl(TeaModel)
     def __init__(self, api_default=None, app_default=None, created_time=None, description=None, modified_time=None,
                  special_policies=None, traffic_control_id=None, traffic_control_name=None, traffic_control_unit=None,
                  user_default=None):
+        # The default throttling value for each API.
         self.api_default = api_default  # type: int
+        # The default throttling value for each app.
         self.app_default = app_default  # type: int
+        # The creation time (UTC) of the throttling policy.
         self.created_time = created_time  # type: str
+        # The description of the throttling policy.
         self.description = description  # type: str
+        # The last modification time (UTC) of the throttling policy.
         self.modified_time = modified_time  # type: str
+        # The returned information about a special throttling policy. It is an array consisting of SpecialPolicy data.
         self.special_policies = special_policies  # type: DescribeTrafficControlsResponseBodyTrafficControlsTrafficControlSpecialPolicies
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
+        # The name of the throttling policy.
         self.traffic_control_name = traffic_control_name  # type: str
+        # The unit to be used in the throttling policy. Valid values:
+        # 
+        # *   MINUTE
+        # *   HOUR
+        # *   DAY
         self.traffic_control_unit = traffic_control_unit  # type: str
+        # The default throttling value for each user.
         self.user_default = user_default  # type: int
 
     def validate(self):
@@ -22777,10 +25299,15 @@ class DescribeTrafficControlsResponseBodyTrafficControls(TeaModel):
 
 class DescribeTrafficControlsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, traffic_controls=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
+        # The returned throttling policy information. It is an array consisting of TrafficControl data.
         self.traffic_controls = traffic_controls  # type: DescribeTrafficControlsResponseBodyTrafficControls
 
     def validate(self):
@@ -22862,9 +25389,15 @@ class DescribeTrafficControlsResponse(TeaModel):
 
 class DescribeTrafficControlsByApiRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the group to which the API to be queried belongs.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The runtime environment of the API. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -22901,8 +25434,11 @@ class DescribeTrafficControlsByApiRequest(TeaModel):
 
 class DescribeTrafficControlsByApiResponseBodyTrafficControlItemsTrafficControlItem(TeaModel):
     def __init__(self, bound_time=None, traffic_control_item_id=None, traffic_control_item_name=None):
+        # The binding time of the policy.
         self.bound_time = bound_time  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_item_id = traffic_control_item_id  # type: str
+        # The name of the throttling policy.
         self.traffic_control_item_name = traffic_control_item_name  # type: str
 
     def validate(self):
@@ -22967,7 +25503,9 @@ class DescribeTrafficControlsByApiResponseBodyTrafficControlItems(TeaModel):
 
 class DescribeTrafficControlsByApiResponseBody(TeaModel):
     def __init__(self, request_id=None, traffic_control_items=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned throttling policy information. It is an array consisting of TrafficControlItem data.
         self.traffic_control_items = traffic_control_items  # type: DescribeTrafficControlsByApiResponseBodyTrafficControlItems
 
     def validate(self):
@@ -23037,6 +25575,7 @@ class DescribeTrafficControlsByApiResponse(TeaModel):
 
 class DescribeUpdateBackendTaskRequest(TeaModel):
     def __init__(self, operation_uid=None, security_token=None):
+        # The ID of the task.
         self.operation_uid = operation_uid  # type: str
         self.security_token = security_token  # type: str
 
@@ -23067,14 +25606,23 @@ class DescribeUpdateBackendTaskRequest(TeaModel):
 class DescribeUpdateBackendTaskResponseBodyApiUpdateBackendResultsApiUpdateBackendResult(TeaModel):
     def __init__(self, api_name=None, api_uid=None, backend_id=None, error_msg=None, group_id=None, group_name=None,
                  stage_id=None, stage_name=None, update_status=None):
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The ID of the API.
         self.api_uid = api_uid  # type: str
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The information about the rows that fail to be updated.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The ID of the runtime environment.
         self.stage_id = stage_id  # type: str
+        # The name of the environment.
         self.stage_name = stage_name  # type: str
+        # The update result of the API.
         self.update_status = update_status  # type: str
 
     def validate(self):
@@ -23163,7 +25711,9 @@ class DescribeUpdateBackendTaskResponseBodyApiUpdateBackendResults(TeaModel):
 
 class DescribeUpdateBackendTaskResponseBody(TeaModel):
     def __init__(self, api_update_backend_results=None, request_id=None):
+        # The update result of the API.
         self.api_update_backend_results = api_update_backend_results  # type: DescribeUpdateBackendTaskResponseBodyApiUpdateBackendResults
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23233,6 +25783,7 @@ class DescribeUpdateBackendTaskResponse(TeaModel):
 
 class DescribeUpdateVpcInfoTaskRequest(TeaModel):
     def __init__(self, operation_uid=None, security_token=None):
+        # The ID of the task.
         self.operation_uid = operation_uid  # type: str
         self.security_token = security_token  # type: str
 
@@ -23263,13 +25814,21 @@ class DescribeUpdateVpcInfoTaskRequest(TeaModel):
 class DescribeUpdateVpcInfoTaskResponseBodyApiUpdateVpcInfoResultsApiUpdateVpcInfoResult(TeaModel):
     def __init__(self, api_name=None, api_uid=None, error_msg=None, group_id=None, group_name=None, stage_id=None,
                  stage_name=None, update_status=None):
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The ID of the API.
         self.api_uid = api_uid  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The ID of the stage.
         self.stage_id = stage_id  # type: str
+        # The environment to which the API is published.
         self.stage_name = stage_name  # type: str
+        # The update status.
         self.update_status = update_status  # type: str
 
     def validate(self):
@@ -23354,7 +25913,9 @@ class DescribeUpdateVpcInfoTaskResponseBodyApiUpdateVpcInfoResults(TeaModel):
 
 class DescribeUpdateVpcInfoTaskResponseBody(TeaModel):
     def __init__(self, api_update_vpc_info_results=None, request_id=None):
+        # The result of the task.
         self.api_update_vpc_info_results = api_update_vpc_info_results  # type: DescribeUpdateVpcInfoTaskResponseBodyApiUpdateVpcInfoResults
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23425,13 +25986,20 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
 class DescribeVpcAccessesRequest(TeaModel):
     def __init__(self, instance_id=None, name=None, page_number=None, page_size=None, port=None, security_token=None,
                  vpc_access_id=None, vpc_id=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The unique custom name for authorization.
         self.name = name  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
+        # The service port.
         self.port = port  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the VPC authorization.
         self.vpc_access_id = vpc_access_id  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -23485,14 +26053,23 @@ class DescribeVpcAccessesRequest(TeaModel):
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, instance_id=None, name=None, port=None, region_id=None,
                  vpc_access_id=None, vpc_id=None, vpc_target_host_name=None):
+        # The time when the authorization was created.
         self.created_time = created_time  # type: str
+        # The description of the VPC authorization.
         self.description = description  # type: str
+        # The ID of an ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the authorization.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The ID of the VPC authorization.
         self.vpc_access_id = vpc_access_id  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The host of the backend service.
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
@@ -23582,10 +26159,15 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributes(TeaModel):
 class DescribeVpcAccessesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None,
                  vpc_access_attributes=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
+        # The information about the VPC authorization. The information is an array consisting of VpcAccessAttribute data.
         self.vpc_access_attributes = vpc_access_attributes  # type: DescribeVpcAccessesResponseBodyVpcAccessAttributes
 
     def validate(self):
@@ -23667,6 +26249,11 @@ class DescribeVpcAccessesResponse(TeaModel):
 
 class DescribeZonesRequest(TeaModel):
     def __init__(self, language=None, security_token=None):
+        # The language in which you want to use to return the description of the system policy. Valid values:
+        # 
+        # *   en: English
+        # *   zh-CN: Chinese
+        # *   ja: Japanese
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -23696,7 +26283,9 @@ class DescribeZonesRequest(TeaModel):
 
 class DescribeZonesResponseBodyZonesZone(TeaModel):
     def __init__(self, local_name=None, zone_id=None):
+        # The name of the zone.
         self.local_name = local_name  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -23757,7 +26346,9 @@ class DescribeZonesResponseBodyZones(TeaModel):
 
 class DescribeZonesResponseBody(TeaModel):
     def __init__(self, request_id=None, zones=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The zones available in the current region.
         self.zones = zones  # type: DescribeZonesResponseBodyZones
 
     def validate(self):
@@ -23827,10 +26418,18 @@ class DescribeZonesResponse(TeaModel):
 
 class DetachPluginRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, plugin_id=None, security_token=None, stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group to which the API belongs.
         self.group_id = group_id  # type: str
+        # The ID of the plug-in.
         self.plugin_id = plugin_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE: the pre-release environment**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -23871,6 +26470,7 @@ class DetachPluginRequest(TeaModel):
 
 class DetachPluginResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23934,8 +26534,10 @@ class DetachPluginResponse(TeaModel):
 
 class DisableInstanceAccessControlRequest(TeaModel):
     def __init__(self, acl_id=None, address_ipversion=None, instance_id=None, security_token=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
         self.address_ipversion = address_ipversion  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -23973,6 +26575,7 @@ class DisableInstanceAccessControlRequest(TeaModel):
 
 class DisableInstanceAccessControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24037,10 +26640,20 @@ class DisableInstanceAccessControlResponse(TeaModel):
 class DryRunSwaggerRequest(TeaModel):
     def __init__(self, data=None, data_format=None, global_condition=None, group_id=None, overwrite=None,
                  security_token=None):
+        # The Swagger text content.
         self.data = data  # type: str
+        # The Swagger text format:
+        # 
+        # *   json
+        # *   yaml
         self.data_format = data_format  # type: str
+        # The global condition.
         self.global_condition = global_condition  # type: dict[str, any]
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # Specifies whether to overwrite the existing API.
+        # 
+        # APIs with the same HTTP request type and backend request path are considered the same.
         self.overwrite = overwrite  # type: bool
         self.security_token = security_token  # type: str
 
@@ -24087,10 +26700,20 @@ class DryRunSwaggerRequest(TeaModel):
 class DryRunSwaggerShrinkRequest(TeaModel):
     def __init__(self, data=None, data_format=None, global_condition_shrink=None, group_id=None, overwrite=None,
                  security_token=None):
+        # The Swagger text content.
         self.data = data  # type: str
+        # The Swagger text format:
+        # 
+        # *   json
+        # *   yaml
         self.data_format = data_format  # type: str
+        # The global condition.
         self.global_condition_shrink = global_condition_shrink  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # Specifies whether to overwrite the existing API.
+        # 
+        # APIs with the same HTTP request type and backend request path are considered the same.
         self.overwrite = overwrite  # type: bool
         self.security_token = security_token  # type: str
 
@@ -24136,8 +26759,11 @@ class DryRunSwaggerShrinkRequest(TeaModel):
 
 class DryRunSwaggerResponseBodyFailedApiImportSwaggerFailed(TeaModel):
     def __init__(self, error_msg=None, http_method=None, path=None):
+        # The error message returned when the API is created.
         self.error_msg = error_msg  # type: str
+        # The HTTP method configured when the API is created.
         self.http_method = http_method  # type: str
+        # The request path configured when the API is created.
         self.path = path  # type: str
 
     def validate(self):
@@ -24202,8 +26828,11 @@ class DryRunSwaggerResponseBodyFailed(TeaModel):
 
 class DryRunSwaggerResponseBodyModelFailedApiImportModelFailed(TeaModel):
     def __init__(self, error_msg=None, group_id=None, model_name=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
 
     def validate(self):
@@ -24268,9 +26897,12 @@ class DryRunSwaggerResponseBodyModelFailed(TeaModel):
 
 class DryRunSwaggerResponseBodyModelSuccessApiImportModelSuccess(TeaModel):
     def __init__(self, group_id=None, model_name=None, model_operation=None, model_uid=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
         self.model_operation = model_operation  # type: str
+        # The UID of the model.
         self.model_uid = model_uid  # type: str
 
     def validate(self):
@@ -24339,10 +26971,15 @@ class DryRunSwaggerResponseBodyModelSuccess(TeaModel):
 
 class DryRunSwaggerResponseBodySuccessApiDryRunSwaggerSuccess(TeaModel):
     def __init__(self, api_operation=None, api_swagger=None, api_uid=None, http_method=None, path=None):
+        # Specifies whether the operation is CREATE or MODIFY.
         self.api_operation = api_operation  # type: str
+        # The API definition that complies with the Swagger specification.
         self.api_swagger = api_swagger  # type: str
+        # The UID of the successfully imported API.
         self.api_uid = api_uid  # type: str
+        # The HTTP method configured when the API is created.
         self.http_method = http_method  # type: str
+        # The request path configured when the API is created.
         self.path = path  # type: str
 
     def validate(self):
@@ -24416,11 +27053,17 @@ class DryRunSwaggerResponseBodySuccess(TeaModel):
 class DryRunSwaggerResponseBody(TeaModel):
     def __init__(self, failed=None, global_condition=None, model_failed=None, model_success=None, request_id=None,
                  success=None):
+        # The APIs that failed to be created based on the Swagger-compliant data imported this time.
         self.failed = failed  # type: DryRunSwaggerResponseBodyFailed
+        # The global condition.
         self.global_condition = global_condition  # type: str
+        # The models that failed to be imported through the Swagger-compliant data this time.
         self.model_failed = model_failed  # type: DryRunSwaggerResponseBodyModelFailed
+        # The models that failed to be imported through the Swagger-compliant data this time.
         self.model_success = model_success  # type: DryRunSwaggerResponseBodyModelSuccess
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The APIs that are created based on the Swagger-compliant data imported this time.
         self.success = success  # type: DryRunSwaggerResponseBodySuccess
 
     def validate(self):
@@ -24515,9 +27158,15 @@ class DryRunSwaggerResponse(TeaModel):
 
 class EnableInstanceAccessControlRequest(TeaModel):
     def __init__(self, acl_id=None, acl_type=None, address_ipversion=None, instance_id=None, security_token=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
+        # The type of the access control policy. Valid values:
+        # 
+        # *   black: blacklist
+        # *   white: whitelist
         self.acl_type = acl_type  # type: str
         self.address_ipversion = address_ipversion  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -24559,6 +27208,7 @@ class EnableInstanceAccessControlRequest(TeaModel):
 
 class EnableInstanceAccessControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24623,15 +27273,33 @@ class EnableInstanceAccessControlResponse(TeaModel):
 class ImportOASRequest(TeaModel):
     def __init__(self, auth_type=None, backend_name=None, data=None, group_id=None, ignore_warning=None,
                  oasversion=None, overwrite=None, request_mode=None, security_token=None, skip_dry_run=None):
+        # API安全认证类型，目前可以取值：
+        # 
+        # - **APP**：只允许已授权的APP调用
+        # - **ANONYMOUS**：允许匿名调用，设置为允许匿名调用需要注意：
+        #      - 任何能够获取该API服务信息的人，都将能够调用该API。网关不会对调用者做身份认证，也无法设置按用户的流量控制，若开放该API请设置好按API的流量控制。
         self.auth_type = auth_type  # type: str
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The OAS-compliant text file or OSS object URL.
         self.data = data  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # Specifies whether to ignore alerts.
         self.ignore_warning = ignore_warning  # type: bool
+        # The OAS version.
         self.oasversion = oasversion  # type: str
+        # Specifies whether to overwrite an existing API.
+        # 
+        # If an existing API has the same HTTP request type and backend request path as the API to be imported, the existing API is overwritten.
         self.overwrite = overwrite  # type: bool
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
         self.request_mode = request_mode  # type: str
         self.security_token = security_token  # type: str
+        # Specifies whether to directly import the API without performing a precheck.
         self.skip_dry_run = skip_dry_run  # type: bool
 
     def validate(self):
@@ -24716,8 +27384,11 @@ class ImportOASResponseBodyErrorMessages(TeaModel):
 
 class ImportOASResponseBodyFailedApisFailedApi(TeaModel):
     def __init__(self, error_msg=None, http_method=None, path=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP method configured when you created the API.
         self.http_method = http_method  # type: str
+        # The request path configured when you created the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -24782,8 +27453,11 @@ class ImportOASResponseBodyFailedApis(TeaModel):
 
 class ImportOASResponseBodyFailedModelsFailedModel(TeaModel):
     def __init__(self, error_msg=None, group_id=None, model_name=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
 
     def validate(self):
@@ -24848,9 +27522,13 @@ class ImportOASResponseBodyFailedModels(TeaModel):
 
 class ImportOASResponseBodySuccessApisSuccessApi(TeaModel):
     def __init__(self, api_id=None, api_operation=None, http_method=None, path=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # Indicates that the operation is CREATE or MODIFY.
         self.api_operation = api_operation  # type: str
+        # The HTTP method configured when you created the API.
         self.http_method = http_method  # type: str
+        # The request path configured when you created the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -24919,9 +27597,13 @@ class ImportOASResponseBodySuccessApis(TeaModel):
 
 class ImportOASResponseBodySuccessModelsSuccessModel(TeaModel):
     def __init__(self, group_id=None, model_name=None, model_operation=None, model_uid=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The operation of the model. Valid values: CREATE and MODIFY.
         self.model_operation = model_operation  # type: str
+        # The UID of the model.
         self.model_uid = model_uid  # type: str
 
     def validate(self):
@@ -25015,13 +27697,21 @@ class ImportOASResponseBodyWarningMessages(TeaModel):
 class ImportOASResponseBody(TeaModel):
     def __init__(self, error_messages=None, failed_apis=None, failed_models=None, operation_id=None,
                  request_id=None, success_apis=None, success_models=None, warning_messages=None):
+        # The error messages that appear due to the invalid data in the imported file.
         self.error_messages = error_messages  # type: ImportOASResponseBodyErrorMessages
+        # The APIs that failed to pass the precheck.
         self.failed_apis = failed_apis  # type: ImportOASResponseBodyFailedApis
+        # The information about the models that failed to pass the precheck.
         self.failed_models = failed_models  # type: ImportOASResponseBodyFailedModels
+        # The ID of the asynchronous API import task that was generated during the import operation. This ID is used to query the execution status of the API import task.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the APIs that have passed the precheck.
         self.success_apis = success_apis  # type: ImportOASResponseBodySuccessApis
+        # The information about the models that have passed the precheck.
         self.success_models = success_models  # type: ImportOASResponseBodySuccessModels
+        # The warning messages that appear due to the invalid data in the imported file.
         self.warning_messages = warning_messages  # type: ImportOASResponseBodyWarningMessages
 
     def validate(self):
@@ -25131,11 +27821,22 @@ class ImportOASResponse(TeaModel):
 class ImportSwaggerRequest(TeaModel):
     def __init__(self, data=None, data_format=None, dry_run=None, global_condition=None, group_id=None,
                  overwrite=None, security_token=None):
+        # The Swagger text content.
         self.data = data  # type: str
+        # The Swagger text format:
+        # 
+        # *   json
+        # *   yaml
         self.data_format = data_format  # type: str
+        # The pre-inspection.
         self.dry_run = dry_run  # type: bool
+        # The global conditions.
         self.global_condition = global_condition  # type: dict[str, any]
+        # The ID of the API group to which the Swagger is imported.
         self.group_id = group_id  # type: str
+        # Specifies whether to overwrite the existing API.
+        # 
+        # APIs with the same HTTP request type and backend request path are considered the same.
         self.overwrite = overwrite  # type: bool
         self.security_token = security_token  # type: str
 
@@ -25186,11 +27887,22 @@ class ImportSwaggerRequest(TeaModel):
 class ImportSwaggerShrinkRequest(TeaModel):
     def __init__(self, data=None, data_format=None, dry_run=None, global_condition_shrink=None, group_id=None,
                  overwrite=None, security_token=None):
+        # The Swagger text content.
         self.data = data  # type: str
+        # The Swagger text format:
+        # 
+        # *   json
+        # *   yaml
         self.data_format = data_format  # type: str
+        # The pre-inspection.
         self.dry_run = dry_run  # type: bool
+        # The global conditions.
         self.global_condition_shrink = global_condition_shrink  # type: str
+        # The ID of the API group to which the Swagger is imported.
         self.group_id = group_id  # type: str
+        # Specifies whether to overwrite the existing API.
+        # 
+        # APIs with the same HTTP request type and backend request path are considered the same.
         self.overwrite = overwrite  # type: bool
         self.security_token = security_token  # type: str
 
@@ -25240,8 +27952,11 @@ class ImportSwaggerShrinkRequest(TeaModel):
 
 class ImportSwaggerResponseBodyFailedApiImportSwaggerFailed(TeaModel):
     def __init__(self, error_msg=None, http_method=None, path=None):
+        # The error message returned.
         self.error_msg = error_msg  # type: str
+        # The HTTP method of the API.
         self.http_method = http_method  # type: str
+        # The request path of the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -25306,8 +28021,11 @@ class ImportSwaggerResponseBodyFailed(TeaModel):
 
 class ImportSwaggerResponseBodyModelFailedApiImportModelFailed(TeaModel):
     def __init__(self, error_msg=None, group_id=None, model_name=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
 
     def validate(self):
@@ -25372,9 +28090,13 @@ class ImportSwaggerResponseBodyModelFailed(TeaModel):
 
 class ImportSwaggerResponseBodyModelSuccessApiImportModelSuccess(TeaModel):
     def __init__(self, group_id=None, model_name=None, model_operation=None, model_uid=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The model operation.
         self.model_operation = model_operation  # type: str
+        # The UID of the model.
         self.model_uid = model_uid  # type: str
 
     def validate(self):
@@ -25443,9 +28165,13 @@ class ImportSwaggerResponseBodyModelSuccess(TeaModel):
 
 class ImportSwaggerResponseBodySuccessApiImportSwaggerSuccess(TeaModel):
     def __init__(self, api_operation=None, api_uid=None, http_method=None, path=None):
+        # Specifies that the operation is CREATE or MODIFY.
         self.api_operation = api_operation  # type: str
+        # The UID of the imported API.
         self.api_uid = api_uid  # type: str
+        # The HTTP method of the API.
         self.http_method = http_method  # type: str
+        # The request path of the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -25514,10 +28240,15 @@ class ImportSwaggerResponseBodySuccess(TeaModel):
 
 class ImportSwaggerResponseBody(TeaModel):
     def __init__(self, failed=None, model_failed=None, model_success=None, request_id=None, success=None):
+        # The APIs that failed to be created based on the Swagger-compliant data imported this time.
         self.failed = failed  # type: ImportSwaggerResponseBodyFailed
+        # The models that failed to be imported based on the Swagger-compliant data imported this time.
         self.model_failed = model_failed  # type: ImportSwaggerResponseBodyModelFailed
+        # The models that were imported based on the Swagger-compliant data imported this time.
         self.model_success = model_success  # type: ImportSwaggerResponseBodyModelSuccess
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The APIs that were created based on the Swagger-compliant data imported this time.
         self.success = success  # type: ImportSwaggerResponseBodySuccess
 
     def validate(self):
@@ -25608,7 +28339,13 @@ class ImportSwaggerResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # Valid values of N: `[1, 20]`.
         self.key = key  # type: str
+        # The value of the tag. If the parameter has a value, you must specify a value for the tag key with the same N as **tag.N.Key**. Otherwise, an error is reported.
+        # 
+        # Valid values of N: `[1, 20]`.
         self.value = value  # type: str
 
     def validate(self):
@@ -25637,9 +28374,22 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, resource_id=None, resource_type=None, tag=None):
+        # The token that determines the start point of the query.
         self.next_token = next_token  # type: str
+        # The ID of the resource.
+        # 
+        # Valid values of N: `[1, 50]`.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource.
+        # 
+        # Tags are supported for API groups, plug-ins, and apps. Operations performed on APIs are based on the tags of API groups.
+        # 
+        # *   **apiGroup**\
+        # *   **plugin**\
+        # *   **app**\
+        # *   **api**\
         self.resource_type = resource_type  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -25684,9 +28434,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The type of the resource.
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -25755,8 +28509,13 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token that determines the start point of the next query.
+        # 
+        # A NextToken value of \*\*-1\*\* indicates that a next query does not exist.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The resource list.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -25836,33 +28595,80 @@ class ModifyApiRequest(TeaModel):
                  result_descriptions=None, result_sample=None, result_type=None, security_token=None, service_config=None,
                  service_parameters=None, service_parameters_map=None, system_parameters=None, visibility=None,
                  web_socket_api_type=None):
+        # The returned description of the API.
         self.allow_signature_method = allow_signature_method  # type: str
+        # The name of the API. The name must be unique within the API group. The name must be 4 to 50 characters in length. It must start with a letter and can contain letters, digits, and underscores (\_).
         self.api_id = api_id  # type: str
+        # The description of the API. The description can be up to 180 characters in length.
         self.api_name = api_name  # type: str
+        # Specifies whether to enable backend services.
         self.app_code_auth_type = app_code_auth_type  # type: str
+        # The configuration items of API requests sent by API Gateway to the backend service.
         self.auth_type = auth_type  # type: str
+        # auditing
         self.backend_enable = backend_enable  # type: bool
+        # The ID of the request.
         self.backend_id = backend_id  # type: str
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
         self.constant_parameters = constant_parameters  # type: str
+        # Specifies whether the API is public. Valid values:
+        # 
+        # *   **PUBLIC**: Make the API public. If you set this parameter to PUBLIC, this API is displayed on the APIs page for all users after the API is published to the production environment.
+        # *   **PRIVATE**: Make the API private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.description = description  # type: str
+        # The ID of the backend service.
         self.disable_internet = disable_internet  # type: bool
+        # The configuration items of the third-party OpenID Connect authentication method.
         self.error_code_samples = error_code_samples  # type: str
+        # The returned description of the API.
         self.fail_result_sample = fail_result_sample  # type: str
+        # The AppCode authentication type supported. Valid values:
+        # 
+        # *   DEFAULT: supported after being made available in Alibaba Cloud Marketplace
+        # *   DISABLE: not supported
+        # *   HEADER : supported only in the Header parameter
+        # *   HEADER_QUERY: supported in the Header or Query parameter
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The ID of the API.
         self.group_id = group_id  # type: str
+        # The type of the two-way communication API. Valid values:
+        # 
+        # *   **COMMON**: general APIs
+        # *   **REGISTER**: registered APIs
+        # *   **UNREGISTER**: unregistered APIs
+        # *   **NOTIFY**: downstream notification
         self.open_id_connect_config = open_id_connect_config  # type: str
+        # The parameters of API requests sent by the consumer to API Gateway.
         self.request_config = request_config  # type: str
+        # System parameter
         self.request_parameters = request_parameters  # type: str
+        # *   Specifies whether to set DisableInternet to **true** to limit API calls to within the VPC.
+        # *   If you set DisableInternet to **false**, the limit if lifted.
+        # 
+        # >  If you do not set this parameter, the original value is used.
         self.result_body_model = result_body_model  # type: str
+        # The client-side request signature method of the API. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.result_descriptions = result_descriptions  # type: str
+        # The sample error codes returned by the backend service.
         self.result_sample = result_sample  # type: str
+        # The sample error response from the backend service.
         self.result_type = result_type  # type: str
         self.security_token = security_token  # type: str
+        # \[{"ParameterType":"Number","Required":"OPTIONAL","isHide":false,"ApiParameterName":"age","DefaultValue":"20","DemoValue":"20","Description":"age","MinValue":18,"MaxValue":100,"Location":"Head"},{"ParameterType":"String","Required":"OPTIONAL","isHide":false,"ApiParameterName":"sex","DefaultValue":"boy","DemoValue":"boy","Description":"gender","EnumValue":"boy,girl","Location":"Query"},{"ParameterType":"Number","Required":"REQUIRED","isHide":false,"ApiParameterName":"userId","MaxLength":10,"MinValue":10000000,"MaxValue":100000000,"Location":"Path"},{"ApiParameterName":"CaClientIp","ParameterLocation":{"name":"Head","orderNumber":0},"Location":"Head","ParameterType":"String","Required":"REQUIRED","Description":"Client IP"},{"ApiParameterName":"constance","ParameterLocation":{"name":"Head","orderNumber":0},"Location":"Head","ParameterType":"String","Required":"REQUIRED","DefaultValue":"constance","Description":"constance"}]
         self.service_config = service_config  # type: str
+        # The format of the response from the backend service. Valid values: JSON, TEXT, BINARY, XML, and HTML. This value is used only to generate documents. It does not affect the returned results.
         self.service_parameters = service_parameters  # type: str
+        # The sample response from the backend service.
         self.service_parameters_map = service_parameters_map  # type: str
+        # The parameters of API requests sent by API Gateway to the backend service.
         self.system_parameters = system_parameters  # type: str
+        # The configuration items of API requests sent by the consumer to API Gateway.
         self.visibility = visibility  # type: str
+        # *   Specifies whether to set **ForceNonceCheck** to **true** to force the check of X-Ca-Nonce during the request. This is the unique identifier of the request and is generally identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If you set **ForceNonceCheck** to **false**, the check is not performed. If you do not set this parameter, the original value is used.
         self.web_socket_api_type = web_socket_api_type  # type: str
 
     def validate(self):
@@ -25995,6 +28801,7 @@ class ModifyApiRequest(TeaModel):
 
 class ModifyApiResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # ModifyApi
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26065,41 +28872,123 @@ class ModifyApiConfigurationRequest(TeaModel):
                  request_parameters=None, request_path=None, request_protocol=None, result_sample=None, result_type=None,
                  security_token=None, service_parameters=None, service_parameters_map=None, service_protocol=None,
                  service_timeout=None, use_backend_service=None, visibility=None, vpc_config=None):
+        # If **AuthType** is set to **APP**, this value must be passed to specify the signature algorithm. If you do not specify a value, HmacSHA256 is used by default. Valid values:
+        # 
+        # *   HmacSHA256
+        # *   HmacSHA1,HmacSHA256
         self.allow_signature_method = allow_signature_method  # type: str
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # If **AuthType** is set to **APP**, the valid values are:
+        # 
+        # *   **DEFAULT**: The default value that is used if no other values are passed. This value means that the setting of the group is used.
+        # *   **DISABLE**: The authentication is disabled.
+        # *   **HEADER: AppCode can be placed in the Header parameter for authentication.**\
+        # *   **HEADER_QUERY: AppCode can be placed in the Header or Query parameter for authentication.
         self.app_code_auth_type = app_code_auth_type  # type: str
+        # API安全认证类型，目前可以取值：
+        # 
+        # - **APP**：只允许已授权的APP调用
+        # - **ANONYMOUS**：允许匿名调用，设置为允许匿名调用需要注意：
+        #      - 任何能够获取该API服务信息的人，都将能够调用该API。网关不会对调用者做身份认证，也无法设置按用户的流量控制，若开放该API请设置好按API的流量控制；
+        #      - AppCodeAuthType的值不会生效。
         self.auth_type = auth_type  # type: str
+        # The name of the backend service. This parameter takes effect only when UseBackendService is set to TRUE.
         self.backend_name = backend_name  # type: str
+        # This parameter takes effect only when the RequestMode parameter is set to MAPPING.********\
+        # 
+        # The server data transmission method used for POST and PUT requests. Valid values: FORM and STREAM. FORM indicates that data in key-value pairs is transmitted as forms. STREAM indicates that data is transmitted as byte streams.
         self.body_format = body_format  # type: str
+        # The body model.
         self.body_model = body_model  # type: str
+        # The ContentType configuration of the backend request.
+        # 
+        # *   DEFAULT: the default configuration in API Gateway
+        # *   CUSTOM: a custom configuration
         self.content_type_category = content_type_category  # type: str
+        # The value of the ContentType header when the ServiceProtocol parameter is set to HTTP and the ContentTypeCatagory parameter is set to DEFAULT or CUSTOM.
         self.content_type_value = content_type_value  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # *   Specifies whether to set **DisableInternet** to **true** to limit API calls to within the VPC.
+        # *   If you set **DisableInternet** to **false**, the limit if lifted.
         self.disable_internet = disable_internet  # type: bool
+        # The sample error codes returned by the backend service.
+        # 
+        # For more information, see [ErrorCodeSample](~~44392~~).
         self.error_code_samples = error_code_samples  # type: str
+        # The sample error response from the backend service. This value is used only to generate documents. It does not affect the returned result.
         self.fail_result_sample = fail_result_sample  # type: str
+        # *   Specifies whether to set **ForceNonceCheck** to **true** to force the check of X-Ca-Nonce during the request. This is the unique identifier of the request and is generally identified by UUID. After receiving this parameter, API Gateway verifies the validity of this parameter. The same value can be used only once within 15 minutes. This helps prevent replay attacks.
+        # *   If you set **ForceNonceCheck** to **false**, the check is not performed. If you do not set this parameter, the original value is used.
         self.force_nonce_check = force_nonce_check  # type: bool
+        # The Function Compute configuration.
         self.function_compute_config = function_compute_config  # type: str
+        # The HTTP configuration.
         self.http_config = http_config  # type: str
+        # The Mock configuration.
         self.mock_config = mock_config  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The OSS configuration.
         self.oss_config = oss_config  # type: str
+        # The description of the request body.
         self.post_body_description = post_body_description  # type: str
+        # The HTTP method used to make the request. Valid values: GET, POST, DELETE, PUT, HEADER, TRACE, PATCH, CONNECT, and OPTIONS.
         self.request_http_method = request_http_method  # type: str
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
+        # *   MAPPING_PASSTHROUGH: Parameters are mapped. Unknown parameters are passed through.
         self.request_mode = request_mode  # type: str
+        # The parameters of API requests sent by the consumer to API Gateway.
+        # 
+        # For more information, see [RequestParameter](~~43986~~).
         self.request_parameters = request_parameters  # type: str
+        # The API request path. If the complete API URL is `http://api.a.com:8080/object/add?key1=value1&key2=value2`, the API request path is ` /object/add  `.
         self.request_path = request_path  # type: str
+        # The protocol type supported by the API. Valid values: HTTP and HTTPS. Separate multiple values with commas (,), such as "HTTP,HTTPS".
         self.request_protocol = request_protocol  # type: str
+        # The sample response from the backend service. This value is used only to generate documents. It does not affect the returned result.
         self.result_sample = result_sample  # type: str
+        # The format of the response from the backend service. Valid values: JSON, TEXT, BINARY, XML, and HTML. This value is used only to generate documents. It does not affect the returned result.
         self.result_type = result_type  # type: str
         self.security_token = security_token  # type: str
+        # The parameters of API requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameter](~~43988~~).
         self.service_parameters = service_parameters  # type: str
+        # The mappings between parameters of requests sent by the consumer to API Gateway and parameters of requests sent by API Gateway to the backend service.
+        # 
+        # For more information, see [ServiceParameterMap](~~43989~~).
         self.service_parameters_map = service_parameters_map  # type: str
+        # The protocols that are used to access backend services. Valid values:
+        # 
+        # *   HTTP: for backend services that use HTTP or HTTPS
+        # *   VPC: for backend services that use VPC
+        # *   FC: for Function Compute
+        # *   OSS: for Object Storage Service
+        # *   Mock: for backend services that use the Mock mode
+        # *   EventBridge: for EventBridge
+        # 
+        # You must specify the config value for the corresponding backend service.
         self.service_protocol = service_protocol  # type: str
+        # The timeout period of the backend service, in millisecond.
         self.service_timeout = service_timeout  # type: int
+        # Specifies whether to use the created backend service. Valid values:
+        # 
+        # *   TRUE: The created backend service is used.
+        # *   FALSE: The custom backend service information is used.
         self.use_backend_service = use_backend_service  # type: bool
+        # Specifies whether to make the API public. Valid values:
+        # 
+        # *   **PUBLIC: Make the API public. If you set this parameter to PUBLIC, this API is displayed on the APIs page for all users after the API is published to the production environment.**\
+        # *   **PRIVATE: Make the API private. Private APIs are not displayed in the Alibaba Cloud Marketplace after the API group to which they belong is made available.
         self.visibility = visibility  # type: str
+        # The VPC configuration.
         self.vpc_config = vpc_config  # type: str
 
     def validate(self):
@@ -26264,6 +29153,7 @@ class ModifyApiConfigurationRequest(TeaModel):
 
 class ModifyApiConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26327,7 +29217,9 @@ class ModifyApiConfigurationResponse(TeaModel):
 
 class ModifyApiGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
         self.key = key  # type: str
+        # The ID of the request.
         self.value = value  # type: str
 
     def validate(self):
@@ -26358,18 +29250,30 @@ class ModifyApiGroupRequest(TeaModel):
     def __init__(self, base_path=None, compatible_flags=None, custom_trace_config=None, customer_configs=None,
                  default_domain=None, description=None, group_id=None, group_name=None, passthrough_headers=None, rpc_pattern=None,
                  security_token=None, tag=None, user_log_config=None):
+        # The API group description that you want to specify, which cannot exceed 180 characters. If this parameter is not specified, the group description is not modified.
         self.base_path = base_path  # type: str
+        # The data of custom configuration items.
         self.compatible_flags = compatible_flags  # type: str
+        # The list of associated tags. Separate multiple tags with commas (,).
         self.custom_trace_config = custom_trace_config  # type: str
+        # Specifies whether to pass headers.
         self.customer_configs = customer_configs  # type: str
+        # The RPC mode.
         self.default_domain = default_domain  # type: str
+        # The user log configuration.
         self.description = description  # type: str
+        # The API group name must be globally unique. The name must be 4 to 50 characters in length. It must start with a letter and can contain letters, digits, and underscores (\_). If this parameter is not specified, the group name is not modified.
         self.group_id = group_id  # type: str
+        # The root path of the API.
         self.group_name = group_name  # type: str
+        # The default domain name.
         self.passthrough_headers = passthrough_headers  # type: str
+        # The object tags that match the lifecycle rule. You can specify multiple tags.
         self.rpc_pattern = rpc_pattern  # type: str
         self.security_token = security_token  # type: str
+        # The tags that are attached to the resources.
         self.tag = tag  # type: list[ModifyApiGroupRequestTag]
+        # The custom trace configuration.
         self.user_log_config = user_log_config  # type: str
 
     def validate(self):
@@ -26451,11 +29355,17 @@ class ModifyApiGroupRequest(TeaModel):
 class ModifyApiGroupResponseBody(TeaModel):
     def __init__(self, base_path=None, description=None, group_id=None, group_name=None, request_id=None,
                  sub_domain=None):
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.base_path = base_path  # type: str
+        # The second-level domain name automatically assigned to the API group.
         self.description = description  # type: str
+        # The name of the group to which an API belongs.
         self.group_id = group_id  # type: str
+        # The description of the API group.
         self.group_name = group_name  # type: str
+        # The root path of the API.
         self.request_id = request_id  # type: str
+        # auditing
         self.sub_domain = sub_domain  # type: str
 
     def validate(self):
@@ -26539,8 +29449,10 @@ class ModifyApiGroupResponse(TeaModel):
 
 class ModifyApiGroupVpcWhitelistRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, vpc_ids=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the VPC instance.
         self.vpc_ids = vpc_ids  # type: str
 
     def validate(self):
@@ -26573,6 +29485,7 @@ class ModifyApiGroupVpcWhitelistRequest(TeaModel):
 
 class ModifyApiGroupVpcWhitelistResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26636,7 +29549,13 @@ class ModifyApiGroupVpcWhitelistResponse(TeaModel):
 
 class ModifyAppRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.value = value  # type: str
 
     def validate(self):
@@ -26665,10 +29584,18 @@ class ModifyAppRequestTag(TeaModel):
 
 class ModifyAppRequest(TeaModel):
     def __init__(self, app_id=None, app_name=None, description=None, security_token=None, tag=None):
+        # The ID of the app.
         self.app_id = app_id  # type: long
+        # The value must be 4 to 26 characters in length and can contain letters, digits, and underscores (\_). It must start with a letter.
+        # 
+        # This parameter is required only when you want to modify the value.
         self.app_name = app_name  # type: str
+        # The description of the app. The description can contain a maximum of 180 characters in length.
+        # 
+        # This parameter is required only when you want to modify the value.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[ModifyAppRequestTag]
 
     def validate(self):
@@ -26717,6 +29644,7 @@ class ModifyAppRequest(TeaModel):
 
 class ModifyAppResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26780,9 +29708,13 @@ class ModifyAppResponse(TeaModel):
 
 class ModifyBackendRequest(TeaModel):
     def __init__(self, backend_id=None, backend_name=None, backend_type=None, description=None, security_token=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The description of the backend service.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
 
@@ -26824,6 +29756,7 @@ class ModifyBackendRequest(TeaModel):
 
 class ModifyBackendResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26888,12 +29821,22 @@ class ModifyBackendResponse(TeaModel):
 class ModifyBackendModelRequest(TeaModel):
     def __init__(self, backend_id=None, backend_model_data=None, backend_model_id=None, backend_type=None,
                  description=None, security_token=None, stage_name=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The information about the backend model.
         self.backend_model_data = backend_model_data  # type: str
+        # The ID of the backend model.
         self.backend_model_id = backend_model_id  # type: str
+        # The type of the backend service.
         self.backend_type = backend_type  # type: str
+        # The definition of the backend model.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -26942,7 +29885,9 @@ class ModifyBackendModelRequest(TeaModel):
 
 class ModifyBackendModelResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27010,7 +29955,9 @@ class ModifyBackendModelResponse(TeaModel):
 
 class ModifyDatasetRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_name=None, security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The name of the dataset.
         self.dataset_name = dataset_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -27044,6 +29991,7 @@ class ModifyDatasetRequest(TeaModel):
 
 class ModifyDatasetResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27108,9 +30056,13 @@ class ModifyDatasetResponse(TeaModel):
 class ModifyDatasetItemRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_item_id=None, description=None, expired_time=None,
                  security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
+        # The description of the data entry. The description cannot exceed 180 characters in length.
         self.description = description  # type: str
+        # The time in UTC when the data entry expires. The time is in the **yyyy-MM-ddTHH:mm:ssZ** format.
         self.expired_time = expired_time  # type: str
         self.security_token = security_token  # type: str
 
@@ -27152,6 +30104,7 @@ class ModifyDatasetItemRequest(TeaModel):
 
 class ModifyDatasetItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27216,11 +30169,27 @@ class ModifyDatasetItemResponse(TeaModel):
 class ModifyInstanceSpecRequest(TeaModel):
     def __init__(self, auto_pay=None, instance_id=None, instance_spec=None, modify_action=None,
                  skip_wait_switch=None, token=None):
+        # The password.
         self.auto_pay = auto_pay  # type: bool
+        # The specifications of the instance.
         self.instance_id = instance_id  # type: str
+        # Specifies whether payment is automatically made during renewal. Valid values:
+        # 
+        # *   **True**: Automatic payment is enabled. Make sure that your Alibaba Cloud account has adequate balance.
+        # *   **False**: Automatic payment is disabled. You have to manually pay in the console. Log on to the console. In the upper-right corner, choose **Expenses > User Center**. In the left-side navigation pane, click **Orders**. On the page that appears, find your order and complete the payment.
+        # 
+        # Default value: **False**.
         self.instance_spec = instance_spec  # type: str
+        # Specifies whether to skip the Waiting for Traffic Switchover state. During the upgrade or downgrade, a new outbound IP address may be added to the API Gateway instance. The Waiting for Traffic Switchover state is used to remind users of adding the new outbound IP address to the whitelist. If you set the SkipWaitSwitch parameter to true, the instance does not enter the Waiting for Traffic Switchover state when a new outbound IP address is available. Instead, the system sends internal messages to the user.
         self.modify_action = modify_action  # type: str
+        # The ID of the request.
         self.skip_wait_switch = skip_wait_switch  # type: bool
+        # Specifies whether to upgrade or downgrade the instance. Valid values:
+        # 
+        # *   **UPGRADE**\
+        # *   **DOWNGRADE**\
+        # 
+        # Default value: **UPGRADE**.
         self.token = token  # type: str
 
     def validate(self):
@@ -27265,6 +30234,7 @@ class ModifyInstanceSpecRequest(TeaModel):
 
 class ModifyInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27328,8 +30298,11 @@ class ModifyInstanceSpecResponse(TeaModel):
 
 class ModifyIpControlRequest(TeaModel):
     def __init__(self, description=None, ip_control_id=None, ip_control_name=None, security_token=None):
+        # The description. The description can be up to 200 characters in length.
         self.description = description  # type: str
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
+        # The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\_). The name cannot start with an underscore (\_).
         self.ip_control_name = ip_control_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -27367,6 +30340,7 @@ class ModifyIpControlRequest(TeaModel):
 
 class ModifyIpControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27430,9 +30404,19 @@ class ModifyIpControlResponse(TeaModel):
 
 class ModifyIpControlPolicyItemRequest(TeaModel):
     def __init__(self, app_id=None, cidr_ip=None, ip_control_id=None, policy_item_id=None, security_token=None):
+        # The ID of the application that is restricted by the policy. You can configure the AppId parameter only when the value of the IpControlType parameter is ALLOW.
+        # 
+        # *   You can add only one application ID at a time.
+        # *   If this parameter is empty, no applications are restricted.
+        # *   If this parameter is not empty, not only IP addresses but also applications are restricted.
+        # *   If this parameter is not empty and no security authentication method is specified for the API, all API calls are restricted.
+        # *   If the value of the IpControlType parameter is REFUSE and the AppId parameter is not empty, API Gateway automatically ignores the AppId parameter and restricts only the IP addresses.
         self.app_id = app_id  # type: str
+        # The IP address or CIDR block that is defined in a policy. Separate multiple IP addresses or CIDR blocks with semicolons (;). You can add a maximum of 10 IP addresses or CIDR blocks.
         self.cidr_ip = cidr_ip  # type: str
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
+        # The ID of the policy.
         self.policy_item_id = policy_item_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -27474,6 +30458,7 @@ class ModifyIpControlPolicyItemRequest(TeaModel):
 
 class ModifyIpControlPolicyItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27537,9 +30522,12 @@ class ModifyIpControlPolicyItemResponse(TeaModel):
 
 class ModifyLogConfigRequest(TeaModel):
     def __init__(self, log_type=None, security_token=None, sls_log_store=None, sls_project=None):
+        # The log type. Valid values: **log** and **survey**.
         self.log_type = log_type  # type: str
         self.security_token = security_token  # type: str
+        # The name of the Logstore in Log Service.
         self.sls_log_store = sls_log_store  # type: str
+        # The name of the Log Service project.
         self.sls_project = sls_project  # type: str
 
     def validate(self):
@@ -27576,6 +30564,7 @@ class ModifyLogConfigRequest(TeaModel):
 
 class ModifyLogConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27639,10 +30628,15 @@ class ModifyLogConfigResponse(TeaModel):
 
 class ModifyModelRequest(TeaModel):
     def __init__(self, description=None, group_id=None, model_name=None, new_model_name=None, schema=None):
+        # The description of the new model definition.
         self.description = description  # type: str
+        # The ID of the API group to which the model belongs.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The new name of the model.
         self.new_model_name = new_model_name  # type: str
+        # The new definition of the model.
         self.schema = schema  # type: str
 
     def validate(self):
@@ -27683,6 +30677,7 @@ class ModifyModelRequest(TeaModel):
 
 class ModifyModelResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27746,7 +30741,13 @@ class ModifyModelResponse(TeaModel):
 
 class ModifyPluginRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.key = key  # type: str
+        # The value of the tag.
+        # 
+        # N can be an integer from 1 to 20.``
         self.value = value  # type: str
 
     def validate(self):
@@ -27776,11 +30777,16 @@ class ModifyPluginRequestTag(TeaModel):
 class ModifyPluginRequest(TeaModel):
     def __init__(self, description=None, plugin_data=None, plugin_id=None, plugin_name=None, security_token=None,
                  tag=None):
+        # The description of the plug-in. The description can contain a maximum of 200 characters in length.
         self.description = description  # type: str
+        # The statement that is used to modify the plug-in definition.
         self.plugin_data = plugin_data  # type: str
+        # The ID of the plug-in whose information you want to modify.
         self.plugin_id = plugin_id  # type: str
+        # The name of the plug-in. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). However, it cannot start with an underscore.
         self.plugin_name = plugin_name  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[ModifyPluginRequestTag]
 
     def validate(self):
@@ -27833,6 +30839,7 @@ class ModifyPluginRequest(TeaModel):
 
 class ModifyPluginResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27898,9 +30905,13 @@ class ModifySignatureRequest(TeaModel):
     def __init__(self, security_token=None, signature_id=None, signature_key=None, signature_name=None,
                  signature_secret=None):
         self.security_token = security_token  # type: str
+        # The ID of the signature key that you want to manage.
         self.signature_id = signature_id  # type: str
+        # The new Key value of the key. The value must be 6 to 20 characters in length and can contain letters, digits, and underscores (\_). It must start with a letter.
         self.signature_key = signature_key  # type: str
+        # The new name of the key. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). It must start with a letter.
         self.signature_name = signature_name  # type: str
+        # The new Secret value of the key. The value must be 6 to 30 characters in length and can contain letters, digits, and special characters. Special characters include underscores (\_), at signs (@), number signs (#), exclamation points (!), and asterisks (\*). The value must start with a letter.
         self.signature_secret = signature_secret  # type: str
 
     def validate(self):
@@ -27941,8 +30952,11 @@ class ModifySignatureRequest(TeaModel):
 
 class ModifySignatureResponseBody(TeaModel):
     def __init__(self, request_id=None, signature_id=None, signature_name=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the key.
         self.signature_id = signature_id  # type: str
+        # The name of the key.
         self.signature_name = signature_name  # type: str
 
     def validate(self):
@@ -28015,13 +31029,25 @@ class ModifySignatureResponse(TeaModel):
 class ModifyTrafficControlRequest(TeaModel):
     def __init__(self, api_default=None, app_default=None, description=None, security_token=None,
                  traffic_control_id=None, traffic_control_name=None, traffic_control_unit=None, user_default=None):
+        # The default throttling value for each API.
         self.api_default = api_default  # type: int
+        # The default throttling value for each app.
         self.app_default = app_default  # type: int
+        # The description of the throttling policy.
         self.description = description  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
+        # The throttling policy name. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\_). It cannot start with an underscore.
         self.traffic_control_name = traffic_control_name  # type: str
+        # The unit to be used in the throttling policy. Valid values:
+        # 
+        # *   **SECOND**\
+        # *   **MINUTE**\
+        # *   **HOUR**\
+        # *   **DAY**\
         self.traffic_control_unit = traffic_control_unit  # type: str
+        # The default throttling value for each user.
         self.user_default = user_default  # type: int
 
     def validate(self):
@@ -28074,6 +31100,7 @@ class ModifyTrafficControlRequest(TeaModel):
 
 class ModifyTrafficControlResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28138,14 +31165,22 @@ class ModifyTrafficControlResponse(TeaModel):
 class ModifyVpcAccessAndUpdateApisRequest(TeaModel):
     def __init__(self, instance_id=None, name=None, need_batch_work=None, port=None, refresh=None,
                  security_token=None, token=None, vpc_id=None, vpc_target_host_name=None):
+        # The ID of the new instance.
         self.instance_id = instance_id  # type: str
+        # The unique custom name for the authorization.
         self.name = name  # type: str
+        # Specifies whether to update the associated API.
         self.need_batch_work = need_batch_work  # type: bool
+        # The port number to be modified.
         self.port = port  # type: int
+        # Specifies whether to refresh the VPC authorization.
         self.refresh = refresh  # type: bool
         self.security_token = security_token  # type: str
+        # The password.
         self.token = token  # type: str
+        # The ID of the new VPC.
         self.vpc_id = vpc_id  # type: str
+        # The authorized backend host.
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
@@ -28202,7 +31237,9 @@ class ModifyVpcAccessAndUpdateApisRequest(TeaModel):
 
 class ModifyVpcAccessAndUpdateApisResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The task ID.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28270,7 +31307,9 @@ class ModifyVpcAccessAndUpdateApisResponse(TeaModel):
 
 class OpenApiGatewayServiceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28338,6 +31377,7 @@ class OpenApiGatewayServiceResponse(TeaModel):
 
 class QueryRequestLogsRequest(TeaModel):
     def __init__(self, request_log_id=None, security_token=None):
+        # The ID of the request log.
         self.request_log_id = request_log_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -28373,40 +31413,75 @@ class QueryRequestLogsResponseBodyRequestLogsRequestLog(TeaModel):
                  request_query_string=None, request_size=None, request_time=None, response_body=None, response_headers=None,
                  response_size=None, service_latency=None, stage_id=None, stage_name=None, status_code=None, total_latency=None,
                  plugin=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The IP address of the client that sent the request.
         self.client_ip = client_ip  # type: str
+        # The X-Ca-Nonce header included in the request from the client.
         self.client_nonce = client_nonce  # type: str
+        # The ID of the application from which an API request is sent.
         self.consumer_app_id = consumer_app_id  # type: str
+        # The application key used by the caller.
         self.consumer_app_key = consumer_app_key  # type: str
+        # The ID of the custom trace.
         self.custom_trace_id = custom_trace_id  # type: str
+        # The requested domain name.
         self.domain = domain  # type: str
+        # The error code.
         self.error_code = error_code  # type: str
+        # The error message returned if the request fails.
         self.error_message = error_message  # type: str
+        # The specific error message that was returned by the backend service.
         self.exception = exception  # type: str
+        # The ID of the group to which the API belongs.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The HTTP method used to send the request.
         self.http_method = http_method  # type: str
+        # The path of the request.
         self.http_path = http_path  # type: str
+        # The initial request ID when API Gateway calls an API. For example, if API-1 calls API-2, initialRequestId in the log of API-2 represents the ID of the request from API-1.
         self.initial_request_id = initial_request_id  # type: str
+        # The ID of the gateway instance to which the API belongs.
         self.instance_id = instance_id  # type: str
+        # The JSON web token (JWT) claims. The claims can be configured at the group level.
         self.jwt_claims = jwt_claims  # type: str
+        # The ID of the region.
         self.region = region  # type: str
+        # The request body. The maximum size of the request body is 1,024 bytes.
         self.request_body = request_body  # type: str
+        # The request headers.
         self.request_headers = request_headers  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The protocol used by the client to send the request. Valid values: HTTP, HTTPS, and WS.
         self.request_protocol = request_protocol  # type: str
+        # The query string for the request.
         self.request_query_string = request_query_string  # type: str
+        # The size of the request. Unit: bytes.
         self.request_size = request_size  # type: str
+        # The request time. The time is displayed in UTC.
         self.request_time = request_time  # type: str
+        # The response body. The maximum size of the response body is 1,024 bytes.
         self.response_body = response_body  # type: str
+        # The response headers.
         self.response_headers = response_headers  # type: str
+        # The size of returned data. Unit: bytes.
         self.response_size = response_size  # type: str
+        # The total time that was consumed to access backend resources. The total time includes the time consumed to request a connection to the resources, the time consumed to establish the connection, and the time consumed to call the backend service. Unit: milliseconds.
         self.service_latency = service_latency  # type: str
+        # The ID of the API environment.
         self.stage_id = stage_id  # type: str
+        # The name of the API environment.
         self.stage_name = stage_name  # type: str
+        # The HTTP status code.
         self.status_code = status_code  # type: str
+        # The total period of time that the request consumed. Unit: milliseconds.
         self.total_latency = total_latency  # type: str
+        # The list of plug-ins hit by the request and the relevant context.
         self.plugin = plugin  # type: str
 
     def validate(self):
@@ -28599,7 +31674,9 @@ class QueryRequestLogsResponseBodyRequestLogs(TeaModel):
 
 class QueryRequestLogsResponseBody(TeaModel):
     def __init__(self, request_id=None, request_logs=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Details about request logs returned.
         self.request_logs = request_logs  # type: QueryRequestLogsResponseBodyRequestLogs
 
     def validate(self):
@@ -28669,7 +31746,9 @@ class QueryRequestLogsResponse(TeaModel):
 
 class ReactivateDomainRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, security_token=None):
+        # The ID of the request.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -28703,6 +31782,10 @@ class ReactivateDomainRequest(TeaModel):
 
 class ReactivateDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # *   This operation is intended for API providers.
+        # *   You must solve the problem that is mentioned in the domain name exception prompt before you can reactivate the domain name.
+        # *   A typical reason why a custom domain name becomes abnormal is that the domain name does not have an ICP filing or the domain name is included in a blacklist by the administration. When a custom domain name is abnormal, users cannot use it to access APIs.
+        # *   You can call this operation to reactivate the domain name to resume normal access.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28766,7 +31849,14 @@ class ReactivateDomainResponse(TeaModel):
 
 class RemoveAccessControlListEntryRequest(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, security_token=None):
+        # Sets the access control list (ACL).
+        # 
+        # *   entry: the IP addresses or CIDR blocks that you want to add to the ACL. Separate multiple IP addresses or CIDR blocks with commas (,).
+        # *   comment: the description of the ACL.
+        # 
+        # > If the ACL is associated with a listener, you cannot remove all IP addresses from the ACL.
         self.acl_entrys = acl_entrys  # type: str
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -28800,6 +31890,7 @@ class RemoveAccessControlListEntryRequest(TeaModel):
 
 class RemoveAccessControlListEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28864,11 +31955,19 @@ class RemoveAccessControlListEntryResponse(TeaModel):
 class RemoveApisAuthoritiesRequest(TeaModel):
     def __init__(self, api_ids=None, app_id=None, description=None, group_id=None, security_token=None,
                  stage_name=None):
+        # The API ID for the specified operation. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the app. The ID is generated by the system and globally unique.
         self.app_id = app_id  # type: long
+        # The description of the authorization.
         self.description = description  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -28913,6 +32012,7 @@ class RemoveApisAuthoritiesRequest(TeaModel):
 
 class RemoveApisAuthoritiesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28976,10 +32076,17 @@ class RemoveApisAuthoritiesResponse(TeaModel):
 
 class RemoveAppsAuthoritiesRequest(TeaModel):
     def __init__(self, api_id=None, app_ids=None, group_id=None, security_token=None, stage_name=None):
+        # The ID of the API. This ID is generated by the system and globally unique.
         self.api_id = api_id  # type: str
+        # The IDs of applications. Separate multiple application IDs with commas (,). A maximum of 100 applications IDs can be entered.
         self.app_ids = app_ids  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -29020,6 +32127,7 @@ class RemoveAppsAuthoritiesRequest(TeaModel):
 
 class RemoveAppsAuthoritiesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29083,10 +32191,20 @@ class RemoveAppsAuthoritiesResponse(TeaModel):
 
 class RemoveIpControlApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, ip_control_id=None, security_token=None, stage_name=None):
+        # The ID of the API to be managed.
+        # 
+        # *   If this parameter is not specified, all APIs of the API group are unbound in the specified environment by default.
+        # *   The IDs of the APIs that you want to query. Separate multiple IDs with commas (,). A maximum of 100 IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group containing the API to be managed.
         self.group_id = group_id  # type: str
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -29127,6 +32245,7 @@ class RemoveIpControlApisRequest(TeaModel):
 
 class RemoveIpControlApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29190,7 +32309,9 @@ class RemoveIpControlApisResponse(TeaModel):
 
 class RemoveIpControlPolicyItemRequest(TeaModel):
     def __init__(self, ip_control_id=None, policy_item_ids=None, security_token=None):
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
+        # The ID of a policy. Separate multiple IDs with semicolons (;). A maximum of 100 IDs can be entered.
         self.policy_item_ids = policy_item_ids  # type: str
         self.security_token = security_token  # type: str
 
@@ -29224,6 +32345,7 @@ class RemoveIpControlPolicyItemRequest(TeaModel):
 
 class RemoveIpControlPolicyItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29287,10 +32409,20 @@ class RemoveIpControlPolicyItemResponse(TeaModel):
 
 class RemoveSignatureApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, security_token=None, signature_id=None, stage_name=None):
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.api_ids = api_ids  # type: str
+        # The IDs of the APIs from which you want to unbind the signature key.
+        # 
+        # *   If this parameter is not specified, the signature key is unbound from all the APIs in the specified environment of the API group.
+        # *   The IDs of the APIs that you want to manage. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the API group to which the API that you want to manage belongs.
         self.signature_id = signature_id  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -29331,6 +32463,8 @@ class RemoveSignatureApisRequest(TeaModel):
 
 class RemoveSignatureApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # *   This API is intended for API providers.
+        # *   The operation takes effect immediately. The request sent from API Gateway to the backend service does not contain the signature string. The corresponding verification step can be removed from the backend.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29394,10 +32528,20 @@ class RemoveSignatureApisResponse(TeaModel):
 
 class RemoveTrafficControlApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, security_token=None, stage_name=None, traffic_control_id=None):
+        # The IDs of the APIs from which you want to unbind a specified throttling policy.
+        # 
+        # *   If this parameter is not specified, the throttling policy is unbound from all the APIs in the specified environment of the API group.
+        # *   Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group containing the APIs from which you want to unbind a specified throttling policy.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # The ID of the throttling policy that you want to unbind from APIs.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -29438,6 +32582,7 @@ class RemoveTrafficControlApisRequest(TeaModel):
 
 class RemoveTrafficControlApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29501,10 +32646,14 @@ class RemoveTrafficControlApisResponse(TeaModel):
 
 class RemoveVpcAccessRequest(TeaModel):
     def __init__(self, instance_id=None, need_batch_work=None, port=None, security_token=None, vpc_id=None):
+        # The ID of an ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # Specifies whether batch work is required.
         self.need_batch_work = need_batch_work  # type: bool
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -29545,8 +32694,11 @@ class RemoveVpcAccessRequest(TeaModel):
 
 class RemoveVpcAccessResponseBodyApisApi(TeaModel):
     def __init__(self, api_id=None, group_id=None, stage_id=None):
+        # API Id
         self.api_id = api_id  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the runtime environment.
         self.stage_id = stage_id  # type: str
 
     def validate(self):
@@ -29611,7 +32763,9 @@ class RemoveVpcAccessResponseBodyApis(TeaModel):
 
 class RemoveVpcAccessResponseBody(TeaModel):
     def __init__(self, apis=None, request_id=None):
+        # API operations
         self.apis = apis  # type: RemoveVpcAccessResponseBodyApis
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29681,10 +32835,14 @@ class RemoveVpcAccessResponse(TeaModel):
 
 class RemoveVpcAccessAndAbolishApisRequest(TeaModel):
     def __init__(self, instance_id=None, need_batch_work=None, port=None, security_token=None, vpc_id=None):
+        # The ID of the ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # Specifies whether batch work is required.
         self.need_batch_work = need_batch_work  # type: bool
+        # The service port.
         self.port = port  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the VPC to be operated.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -29725,7 +32883,9 @@ class RemoveVpcAccessAndAbolishApisRequest(TeaModel):
 
 class RemoveVpcAccessAndAbolishApisResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29793,7 +32953,9 @@ class RemoveVpcAccessAndAbolishApisResponse(TeaModel):
 
 class ResetAppCodeRequest(TeaModel):
     def __init__(self, app_code=None, new_app_code=None, security_token=None):
+        # The new AppCode of the app.
         self.app_code = app_code  # type: str
+        # The ID of the request.
         self.new_app_code = new_app_code  # type: str
         self.security_token = security_token  # type: str
 
@@ -29827,6 +32989,7 @@ class ResetAppCodeRequest(TeaModel):
 
 class ResetAppCodeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29890,7 +33053,9 @@ class ResetAppCodeResponse(TeaModel):
 
 class ResetAppSecretRequest(TeaModel):
     def __init__(self, app_key=None, new_app_secret=None, security_token=None):
+        # The key of the application that is used to make an API call.
         self.app_key = app_key  # type: str
+        # The new key of the application. To improve compatibility, we recommend that you use other parameters.
         self.new_app_secret = new_app_secret  # type: str
         self.security_token = security_token  # type: str
 
@@ -29924,6 +33089,7 @@ class ResetAppSecretRequest(TeaModel):
 
 class ResetAppSecretResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29987,7 +33153,9 @@ class ResetAppSecretResponse(TeaModel):
 
 class SdkGenerateByAppRequest(TeaModel):
     def __init__(self, app_id=None, language=None, security_token=None):
+        # The ID of the app. This ID is unique.
         self.app_id = app_id  # type: long
+        # The programming language in which the SDK is generated.
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -30021,7 +33189,9 @@ class SdkGenerateByAppRequest(TeaModel):
 
 class SdkGenerateByAppResponseBody(TeaModel):
     def __init__(self, download_link=None, request_id=None):
+        # The code of the SDK by using the Base64 scheme. You can obtain the file by using the Base64 decoding scheme.
         self.download_link = download_link  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30089,7 +33259,9 @@ class SdkGenerateByAppResponse(TeaModel):
 
 class SdkGenerateByAppForRegionRequest(TeaModel):
     def __init__(self, app_id=None, language=None, security_token=None):
+        # The ID of the app. This ID is generated by the system and globally unique.
         self.app_id = app_id  # type: long
+        # The programming language in which the SDK is generated.
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -30123,7 +33295,9 @@ class SdkGenerateByAppForRegionRequest(TeaModel):
 
 class SdkGenerateByAppForRegionResponseBody(TeaModel):
     def __init__(self, download_link=None, request_id=None):
+        # The code of the SDK by using the Base64 scheme. You can obtain the file by using the Base64 decoding scheme.
         self.download_link = download_link  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30191,7 +33365,9 @@ class SdkGenerateByAppForRegionResponse(TeaModel):
 
 class SdkGenerateByGroupRequest(TeaModel):
     def __init__(self, group_id=None, language=None, security_token=None):
+        # The ID of the API group. This ID is generated by the system and is globally unique.
         self.group_id = group_id  # type: str
+        # The language in which the result is returned. Valid values: **zh-cn** (Chinese) and **en-us** (English). The default value is zh-cn.
         self.language = language  # type: str
         self.security_token = security_token  # type: str
 
@@ -30225,7 +33401,9 @@ class SdkGenerateByGroupRequest(TeaModel):
 
 class SdkGenerateByGroupResponseBody(TeaModel):
     def __init__(self, download_link=None, request_id=None):
+        # The download link of the SDK.
         self.download_link = download_link  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30293,7 +33471,9 @@ class SdkGenerateByGroupResponse(TeaModel):
 
 class SetAccessControlListAttributeRequest(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, security_token=None):
+        # The ID of the ACL.
         self.acl_id = acl_id  # type: str
+        # The name of the ACL.
         self.acl_name = acl_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -30327,6 +33507,7 @@ class SetAccessControlListAttributeRequest(TeaModel):
 
 class SetAccessControlListAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30391,12 +33572,21 @@ class SetAccessControlListAttributeResponse(TeaModel):
 class SetApisAuthoritiesRequest(TeaModel):
     def __init__(self, api_ids=None, app_id=None, auth_valid_time=None, description=None, group_id=None,
                  security_token=None, stage_name=None):
+        # The API ID for the specified operation. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the app. This ID is generated by the system and globally unique.
         self.app_id = app_id  # type: long
+        # The time (UTC) when the authorization expires. If this parameter is empty, the authorization does not expire.
         self.auth_valid_time = auth_valid_time  # type: str
+        # The description of the authorization.
         self.description = description  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -30445,6 +33635,7 @@ class SetApisAuthoritiesRequest(TeaModel):
 
 class SetApisAuthoritiesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30509,12 +33700,21 @@ class SetApisAuthoritiesResponse(TeaModel):
 class SetAppsAuthoritiesRequest(TeaModel):
     def __init__(self, api_id=None, app_ids=None, auth_valid_time=None, description=None, group_id=None,
                  security_token=None, stage_name=None):
+        # The ID of the API. This ID is generated by the system and globally unique.
         self.api_id = api_id  # type: str
+        # The API ID for the specified operation. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.app_ids = app_ids  # type: str
+        # The time (UTC) when the authorization expires. If this parameter is empty, the authorization does not expire.
         self.auth_valid_time = auth_valid_time  # type: str
+        # The description of the authorization.
         self.description = description  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -30563,6 +33763,7 @@ class SetAppsAuthoritiesRequest(TeaModel):
 
 class SetAppsAuthoritiesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30627,11 +33828,28 @@ class SetAppsAuthoritiesResponse(TeaModel):
 class SetDomainRequest(TeaModel):
     def __init__(self, bind_stage_name=None, custom_domain_type=None, domain_name=None, group_id=None,
                  is_force=None, is_http_redirect_to_https=None):
+        # The network type of the domain name to be bound. Default value: INTERNET. Valid values:
+        # 
+        # *   INTERNET
+        # *   INTRANET. If you set this parameter to this value, the domain name cannot be used on the Internet.
         self.bind_stage_name = bind_stage_name  # type: str
+        # Specifies whether this binding relationship takes precedence over the binding relationships between the domain name and other API groups. If you set this parameter to true, this binding relationship takes precedence, and the domain name is automatically unbound from other API groups. This operation brings risks. Proceed with caution.
         self.custom_domain_type = custom_domain_type  # type: str
+        # The environment which you can access by using the domain name. If you do not specify this parameter, the domain name can be used to access all environments.
+        # 
+        # If you specify an environment, the domain name can be used to access only the specified environment. Valid values:
+        # 
+        # *   TEST
+        # *   PRE
+        # *   RELEASE
+        # 
+        # If you want to use the domain name to access all environments, set this parameter to an empty string ("").
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
+        # Specifies whether to redirect HTTP requests to HTTPS requests.
         self.is_force = is_force  # type: bool
+        # The ID of the request.
         self.is_http_redirect_to_https = is_http_redirect_to_https  # type: bool
 
     def validate(self):
@@ -30677,13 +33895,27 @@ class SetDomainRequest(TeaModel):
 class SetDomainResponseBody(TeaModel):
     def __init__(self, domain_binding_status=None, domain_legal_status=None, domain_name=None, domain_remark=None,
                  domain_web_socket_status=None, group_id=None, request_id=None, sub_domain=None):
+        # The remarks on the domain name, such as the cause of an exception.
         self.domain_binding_status = domain_binding_status  # type: str
+        # The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
         self.domain_legal_status = domain_legal_status  # type: str
+        # The binding status of the custom domain name. Valid values:
+        # 
+        # *   **BINDING: The domain name has been bound.**\
+        # *   **BOUND: The domain name has not been bound.
         self.domain_name = domain_name  # type: str
+        # None
         self.domain_remark = domain_remark  # type: str
+        # auditing
         self.domain_web_socket_status = domain_web_socket_status  # type: str
+        # The second-level domain name bound to the API group. This domain name is used to test API calls.
         self.group_id = group_id  # type: str
+        # The validity status of the domain name. Valid values:
+        # 
+        # *   **NORMAL**: The domain name is valid.
+        # *   **ABNORMAL**: The domain name is invalid. This status affects API calls and must be resolved as soon as possible.
         self.request_id = request_id  # type: str
+        # The custom domain name.
         self.sub_domain = sub_domain  # type: str
 
     def validate(self):
@@ -30776,13 +34008,20 @@ class SetDomainResponse(TeaModel):
 class SetDomainCertificateRequest(TeaModel):
     def __init__(self, ca_certificate_body=None, certificate_body=None, certificate_name=None,
                  certificate_private_key=None, domain_name=None, group_id=None, security_token=None, ssl_verify_depth=None):
+        # Content of the CA certificate
         self.ca_certificate_body = ca_certificate_body  # type: str
+        # For more information, see the following request examples
         self.certificate_body = certificate_body  # type: str
+        # The content of the certificate.
         self.certificate_name = certificate_name  # type: str
+        # For more information, see the following request examples
         self.certificate_private_key = certificate_private_key  # type: str
+        # The name of the SSL certificate.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.ssl_verify_depth = ssl_verify_depth  # type: str
 
     def validate(self):
@@ -30835,6 +34074,7 @@ class SetDomainCertificateRequest(TeaModel):
 
 class SetDomainCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30898,8 +34138,11 @@ class SetDomainCertificateResponse(TeaModel):
 
 class SetDomainWebSocketStatusRequest(TeaModel):
     def __init__(self, action_value=None, domain_name=None, group_id=None, security_token=None, wssenable=None):
+        # The ID of the request.
         self.action_value = action_value  # type: str
+        # The action.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
         self.wssenable = wssenable  # type: str
@@ -30942,6 +34185,7 @@ class SetDomainWebSocketStatusRequest(TeaModel):
 
 class SetDomainWebSocketStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31005,10 +34249,18 @@ class SetDomainWebSocketStatusResponse(TeaModel):
 
 class SetIpControlApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, ip_control_id=None, security_token=None, stage_name=None):
+        # The API IDs. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the ACL.
         self.ip_control_id = ip_control_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -31049,6 +34301,7 @@ class SetIpControlApisRequest(TeaModel):
 
 class SetIpControlApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31112,10 +34365,18 @@ class SetIpControlApisResponse(TeaModel):
 
 class SetSignatureApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, security_token=None, signature_id=None, stage_name=None):
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
         self.api_ids = api_ids  # type: str
+        # The API ID for the specified operation. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the API group to which the API that you want to manage belongs.
         self.signature_id = signature_id  # type: str
+        # The ID of the request.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -31156,6 +34417,8 @@ class SetSignatureApisRequest(TeaModel):
 
 class SetSignatureApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # *   This API is intended for API providers.
+        # *   This operation allows you to bind a signature key to an API. You can bind signature keys for up to 100 APIs at a time.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31219,10 +34482,17 @@ class SetSignatureApisResponse(TeaModel):
 
 class SetTrafficControlApisRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, security_token=None, stage_name=None, traffic_control_id=None):
+        # The API ID for the specified operation. Separate multiple API IDs with commas (,). A maximum of 100 API IDs can be entered.
         self.api_ids = api_ids  # type: str
+        # The ID of the API group containing the APIs to which you want to bind a specified throttling policy.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
+        # The ID of the throttling policy.
         self.traffic_control_id = traffic_control_id  # type: str
 
     def validate(self):
@@ -31263,6 +34533,7 @@ class SetTrafficControlApisRequest(TeaModel):
 
 class SetTrafficControlApisResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31327,12 +34598,18 @@ class SetTrafficControlApisResponse(TeaModel):
 class SetVpcAccessRequest(TeaModel):
     def __init__(self, description=None, instance_id=None, name=None, port=None, security_token=None, vpc_id=None,
                  vpc_target_host_name=None):
+        # The description.
         self.description = description  # type: str
+        # The ID of an ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The unique custom name for authorization.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
         self.security_token = security_token  # type: str
+        # The ID of the VPC. The VPC must be an available one that belongs to the same account as the API.
         self.vpc_id = vpc_id  # type: str
+        # The host of the backend service.
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
@@ -31381,6 +34658,7 @@ class SetVpcAccessRequest(TeaModel):
 
 class SetVpcAccessResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31444,9 +34722,12 @@ class SetVpcAccessResponse(TeaModel):
 
 class SetWildcardDomainPatternsRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, security_token=None, wildcard_domain_patterns=None):
+        # The wildcard domain name mode.
         self.domain_name = domain_name  # type: str
+        # The custom domain name.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The ID of the request.
         self.wildcard_domain_patterns = wildcard_domain_patterns  # type: str
 
     def validate(self):
@@ -31483,6 +34764,7 @@ class SetWildcardDomainPatternsRequest(TeaModel):
 
 class SetWildcardDomainPatternsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # auditing
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31547,11 +34829,19 @@ class SetWildcardDomainPatternsResponse(TeaModel):
 class SwitchApiRequest(TeaModel):
     def __init__(self, api_id=None, description=None, group_id=None, history_version=None, security_token=None,
                  stage_name=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The description of the switch operation.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The historical version you want to switch to.
         self.history_version = history_version  # type: str
         self.security_token = security_token  # type: str
+        # The name of the runtime environment. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -31596,6 +34886,7 @@ class SwitchApiRequest(TeaModel):
 
 class SwitchApiResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31659,7 +34950,13 @@ class SwitchApiResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # Valid values of N: `1 to 20.`
         self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # Valid values of N: `1 to 20.`
         self.value = value  # type: str
 
     def validate(self):
@@ -31689,6 +34986,11 @@ class TagResourcesRequestTag(TeaModel):
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, security_token=None, tag=None):
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Tags are bound to API groups, plug-ins, and applications. You can use tags to manage cloud resources by group. Valid values:
+        # 
+        # *   **apiGroup**\
+        # *   **plugin**\
+        # *   **app**\
         self.resource_type = resource_type  # type: str
         self.security_token = security_token  # type: str
         self.tag = tag  # type: list[TagResourcesRequestTag]
@@ -31735,6 +35037,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31798,8 +35101,17 @@ class TagResourcesResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, resource_id=None, resource_type=None, security_token=None, tag_key=None):
+        # Specifies whether to delete all tags. This parameter is valid only when the **TagKey.N**parameter is not specified. Default value: false. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.all = all  # type: bool
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Tags are bound to API groups, plug-ins, and applications. You can use tags to manage cloud resources by group. Valid values:
+        # 
+        # *   **apiGroup**\
+        # *   **plugin**\
+        # *   **app**\
         self.resource_type = resource_type  # type: str
         self.security_token = security_token  # type: str
         self.tag_key = tag_key  # type: list[str]
@@ -31842,6 +35154,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
