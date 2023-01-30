@@ -325,20 +325,170 @@ class CancelOtaTaskResponse(TeaModel):
         return self
 
 
+class CreateAppInstanceGroupRequestNetworkRoutes(TeaModel):
+    def __init__(self, destination=None, mode=None):
+        self.destination = destination  # type: str
+        self.mode = mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestNetworkRoutes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        return self
+
+
+class CreateAppInstanceGroupRequestNetwork(TeaModel):
+    def __init__(self, routes=None, strategy_type=None):
+        self.routes = routes  # type: list[CreateAppInstanceGroupRequestNetworkRoutes]
+        self.strategy_type = strategy_type  # type: str
+
+    def validate(self):
+        if self.routes:
+            for k in self.routes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestNetwork, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Routes'] = []
+        if self.routes is not None:
+            for k in self.routes:
+                result['Routes'].append(k.to_map() if k else None)
+        if self.strategy_type is not None:
+            result['StrategyType'] = self.strategy_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.routes = []
+        if m.get('Routes') is not None:
+            for k in m.get('Routes'):
+                temp_model = CreateAppInstanceGroupRequestNetworkRoutes()
+                self.routes.append(temp_model.from_map(k))
+        if m.get('StrategyType') is not None:
+            self.strategy_type = m.get('StrategyType')
+        return self
+
+
+class CreateAppInstanceGroupRequestNodePoolRecurrenceSchedulesTimerPeriods(TeaModel):
+    def __init__(self, amount=None, end_time=None, start_time=None):
+        self.amount = amount  # type: int
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestNodePoolRecurrenceSchedulesTimerPeriods, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class CreateAppInstanceGroupRequestNodePoolRecurrenceSchedules(TeaModel):
+    def __init__(self, recurrence_type=None, recurrence_values=None, timer_periods=None):
+        self.recurrence_type = recurrence_type  # type: str
+        self.recurrence_values = recurrence_values  # type: list[int]
+        self.timer_periods = timer_periods  # type: list[CreateAppInstanceGroupRequestNodePoolRecurrenceSchedulesTimerPeriods]
+
+    def validate(self):
+        if self.timer_periods:
+            for k in self.timer_periods:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestNodePoolRecurrenceSchedules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.recurrence_type is not None:
+            result['RecurrenceType'] = self.recurrence_type
+        if self.recurrence_values is not None:
+            result['RecurrenceValues'] = self.recurrence_values
+        result['TimerPeriods'] = []
+        if self.timer_periods is not None:
+            for k in self.timer_periods:
+                result['TimerPeriods'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RecurrenceType') is not None:
+            self.recurrence_type = m.get('RecurrenceType')
+        if m.get('RecurrenceValues') is not None:
+            self.recurrence_values = m.get('RecurrenceValues')
+        self.timer_periods = []
+        if m.get('TimerPeriods') is not None:
+            for k in m.get('TimerPeriods'):
+                temp_model = CreateAppInstanceGroupRequestNodePoolRecurrenceSchedulesTimerPeriods()
+                self.timer_periods.append(temp_model.from_map(k))
+        return self
+
+
 class CreateAppInstanceGroupRequestNodePool(TeaModel):
     def __init__(self, max_scaling_amount=None, node_amount=None, node_capacity=None, node_instance_type=None,
-                 scaling_down_after_idle_minutes=None, scaling_step=None, scaling_usage_threshold=None, strategy_type=None):
+                 recurrence_schedules=None, scaling_down_after_idle_minutes=None, scaling_step=None, scaling_usage_threshold=None,
+                 strategy_disable_date=None, strategy_enable_date=None, strategy_type=None, warm_up=None):
         self.max_scaling_amount = max_scaling_amount  # type: int
         self.node_amount = node_amount  # type: int
         self.node_capacity = node_capacity  # type: int
         self.node_instance_type = node_instance_type  # type: str
+        self.recurrence_schedules = recurrence_schedules  # type: list[CreateAppInstanceGroupRequestNodePoolRecurrenceSchedules]
         self.scaling_down_after_idle_minutes = scaling_down_after_idle_minutes  # type: int
         self.scaling_step = scaling_step  # type: int
         self.scaling_usage_threshold = scaling_usage_threshold  # type: str
+        self.strategy_disable_date = strategy_disable_date  # type: str
+        self.strategy_enable_date = strategy_enable_date  # type: str
         self.strategy_type = strategy_type  # type: str
+        self.warm_up = warm_up  # type: bool
 
     def validate(self):
-        pass
+        if self.recurrence_schedules:
+            for k in self.recurrence_schedules:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateAppInstanceGroupRequestNodePool, self).to_map()
@@ -354,14 +504,24 @@ class CreateAppInstanceGroupRequestNodePool(TeaModel):
             result['NodeCapacity'] = self.node_capacity
         if self.node_instance_type is not None:
             result['NodeInstanceType'] = self.node_instance_type
+        result['RecurrenceSchedules'] = []
+        if self.recurrence_schedules is not None:
+            for k in self.recurrence_schedules:
+                result['RecurrenceSchedules'].append(k.to_map() if k else None)
         if self.scaling_down_after_idle_minutes is not None:
             result['ScalingDownAfterIdleMinutes'] = self.scaling_down_after_idle_minutes
         if self.scaling_step is not None:
             result['ScalingStep'] = self.scaling_step
         if self.scaling_usage_threshold is not None:
             result['ScalingUsageThreshold'] = self.scaling_usage_threshold
+        if self.strategy_disable_date is not None:
+            result['StrategyDisableDate'] = self.strategy_disable_date
+        if self.strategy_enable_date is not None:
+            result['StrategyEnableDate'] = self.strategy_enable_date
         if self.strategy_type is not None:
             result['StrategyType'] = self.strategy_type
+        if self.warm_up is not None:
+            result['WarmUp'] = self.warm_up
         return result
 
     def from_map(self, m=None):
@@ -374,14 +534,25 @@ class CreateAppInstanceGroupRequestNodePool(TeaModel):
             self.node_capacity = m.get('NodeCapacity')
         if m.get('NodeInstanceType') is not None:
             self.node_instance_type = m.get('NodeInstanceType')
+        self.recurrence_schedules = []
+        if m.get('RecurrenceSchedules') is not None:
+            for k in m.get('RecurrenceSchedules'):
+                temp_model = CreateAppInstanceGroupRequestNodePoolRecurrenceSchedules()
+                self.recurrence_schedules.append(temp_model.from_map(k))
         if m.get('ScalingDownAfterIdleMinutes') is not None:
             self.scaling_down_after_idle_minutes = m.get('ScalingDownAfterIdleMinutes')
         if m.get('ScalingStep') is not None:
             self.scaling_step = m.get('ScalingStep')
         if m.get('ScalingUsageThreshold') is not None:
             self.scaling_usage_threshold = m.get('ScalingUsageThreshold')
+        if m.get('StrategyDisableDate') is not None:
+            self.strategy_disable_date = m.get('StrategyDisableDate')
+        if m.get('StrategyEnableDate') is not None:
+            self.strategy_enable_date = m.get('StrategyEnableDate')
         if m.get('StrategyType') is not None:
             self.strategy_type = m.get('StrategyType')
+        if m.get('WarmUp') is not None:
+            self.warm_up = m.get('WarmUp')
         return self
 
 
@@ -411,8 +582,9 @@ class CreateAppInstanceGroupRequestUserInfo(TeaModel):
 
 class CreateAppInstanceGroupRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
-                 biz_region_id=None, charge_resource_mode=None, charge_type=None, node_pool=None, period=None, period_unit=None,
-                 product_type=None, promotion_id=None, session_timeout=None, user_info=None, users=None):
+                 biz_region_id=None, charge_resource_mode=None, charge_type=None, network=None, node_pool=None, period=None,
+                 period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None, session_timeout=None,
+                 user_info=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -420,9 +592,11 @@ class CreateAppInstanceGroupRequest(TeaModel):
         self.biz_region_id = biz_region_id  # type: str
         self.charge_resource_mode = charge_resource_mode  # type: str
         self.charge_type = charge_type  # type: str
+        self.network = network  # type: CreateAppInstanceGroupRequestNetwork
         self.node_pool = node_pool  # type: CreateAppInstanceGroupRequestNodePool
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
+        self.pre_open_app_id = pre_open_app_id  # type: str
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
         self.session_timeout = session_timeout  # type: int
@@ -430,6 +604,8 @@ class CreateAppInstanceGroupRequest(TeaModel):
         self.users = users  # type: list[str]
 
     def validate(self):
+        if self.network:
+            self.network.validate()
         if self.node_pool:
             self.node_pool.validate()
         if self.user_info:
@@ -455,12 +631,16 @@ class CreateAppInstanceGroupRequest(TeaModel):
             result['ChargeResourceMode'] = self.charge_resource_mode
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.network is not None:
+            result['Network'] = self.network.to_map()
         if self.node_pool is not None:
             result['NodePool'] = self.node_pool.to_map()
         if self.period is not None:
             result['Period'] = self.period
         if self.period_unit is not None:
             result['PeriodUnit'] = self.period_unit
+        if self.pre_open_app_id is not None:
+            result['PreOpenAppId'] = self.pre_open_app_id
         if self.product_type is not None:
             result['ProductType'] = self.product_type
         if self.promotion_id is not None:
@@ -489,6 +669,9 @@ class CreateAppInstanceGroupRequest(TeaModel):
             self.charge_resource_mode = m.get('ChargeResourceMode')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('Network') is not None:
+            temp_model = CreateAppInstanceGroupRequestNetwork()
+            self.network = temp_model.from_map(m['Network'])
         if m.get('NodePool') is not None:
             temp_model = CreateAppInstanceGroupRequestNodePool()
             self.node_pool = temp_model.from_map(m['NodePool'])
@@ -496,6 +679,8 @@ class CreateAppInstanceGroupRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('PeriodUnit') is not None:
             self.period_unit = m.get('PeriodUnit')
+        if m.get('PreOpenAppId') is not None:
+            self.pre_open_app_id = m.get('PreOpenAppId')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
         if m.get('PromotionId') is not None:
@@ -512,9 +697,9 @@ class CreateAppInstanceGroupRequest(TeaModel):
 
 class CreateAppInstanceGroupShrinkRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
-                 biz_region_id=None, charge_resource_mode=None, charge_type=None, node_pool_shrink=None, period=None,
-                 period_unit=None, product_type=None, promotion_id=None, session_timeout=None, user_info_shrink=None,
-                 users=None):
+                 biz_region_id=None, charge_resource_mode=None, charge_type=None, network_shrink=None, node_pool_shrink=None,
+                 period=None, period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None,
+                 session_timeout=None, user_info_shrink=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -522,9 +707,11 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
         self.biz_region_id = biz_region_id  # type: str
         self.charge_resource_mode = charge_resource_mode  # type: str
         self.charge_type = charge_type  # type: str
+        self.network_shrink = network_shrink  # type: str
         self.node_pool_shrink = node_pool_shrink  # type: str
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
+        self.pre_open_app_id = pre_open_app_id  # type: str
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
         self.session_timeout = session_timeout  # type: int
@@ -554,12 +741,16 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             result['ChargeResourceMode'] = self.charge_resource_mode
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.network_shrink is not None:
+            result['Network'] = self.network_shrink
         if self.node_pool_shrink is not None:
             result['NodePool'] = self.node_pool_shrink
         if self.period is not None:
             result['Period'] = self.period
         if self.period_unit is not None:
             result['PeriodUnit'] = self.period_unit
+        if self.pre_open_app_id is not None:
+            result['PreOpenAppId'] = self.pre_open_app_id
         if self.product_type is not None:
             result['ProductType'] = self.product_type
         if self.promotion_id is not None:
@@ -588,12 +779,16 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             self.charge_resource_mode = m.get('ChargeResourceMode')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('Network') is not None:
+            self.network_shrink = m.get('Network')
         if m.get('NodePool') is not None:
             self.node_pool_shrink = m.get('NodePool')
         if m.get('Period') is not None:
             self.period = m.get('Period')
         if m.get('PeriodUnit') is not None:
             self.period_unit = m.get('PeriodUnit')
+        if m.get('PreOpenAppId') is not None:
+            self.pre_open_app_id = m.get('PreOpenAppId')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
         if m.get('PromotionId') is not None:
@@ -707,6 +902,98 @@ class CreateAppInstanceGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAppInstanceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAppInstanceGroupRequest(TeaModel):
+    def __init__(self, app_instance_group_id=None, product_type=None):
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAppInstanceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class DeleteAppInstanceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAppInstanceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteAppInstanceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAppInstanceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAppInstanceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAppInstanceGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1124,6 +1411,280 @@ class GetResourcePriceResponse(TeaModel):
         return self
 
 
+class GetResourceRenewPriceRequest(TeaModel):
+    def __init__(self, app_instance_group_id=None, period=None, period_unit=None, product_type=None):
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.period = period  # type: long
+        self.period_unit = period_unit  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class GetResourceRenewPriceResponseBodyDataPricePromotions(TeaModel):
+    def __init__(self, option_code=None, promotion_desc=None, promotion_id=None, promotion_name=None, selected=None):
+        self.option_code = option_code  # type: str
+        self.promotion_desc = promotion_desc  # type: str
+        self.promotion_id = promotion_id  # type: str
+        self.promotion_name = promotion_name  # type: str
+        self.selected = selected  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponseBodyDataPricePromotions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.option_code is not None:
+            result['OptionCode'] = self.option_code
+        if self.promotion_desc is not None:
+            result['PromotionDesc'] = self.promotion_desc
+        if self.promotion_id is not None:
+            result['PromotionId'] = self.promotion_id
+        if self.promotion_name is not None:
+            result['PromotionName'] = self.promotion_name
+        if self.selected is not None:
+            result['Selected'] = self.selected
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OptionCode') is not None:
+            self.option_code = m.get('OptionCode')
+        if m.get('PromotionDesc') is not None:
+            self.promotion_desc = m.get('PromotionDesc')
+        if m.get('PromotionId') is not None:
+            self.promotion_id = m.get('PromotionId')
+        if m.get('PromotionName') is not None:
+            self.promotion_name = m.get('PromotionName')
+        if m.get('Selected') is not None:
+            self.selected = m.get('Selected')
+        return self
+
+
+class GetResourceRenewPriceResponseBodyDataPrice(TeaModel):
+    def __init__(self, currency=None, discount_price=None, original_price=None, promotions=None, trade_price=None):
+        self.currency = currency  # type: str
+        self.discount_price = discount_price  # type: str
+        self.original_price = original_price  # type: str
+        self.promotions = promotions  # type: list[GetResourceRenewPriceResponseBodyDataPricePromotions]
+        self.trade_price = trade_price  # type: str
+
+    def validate(self):
+        if self.promotions:
+            for k in self.promotions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponseBodyDataPrice, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.discount_price is not None:
+            result['DiscountPrice'] = self.discount_price
+        if self.original_price is not None:
+            result['OriginalPrice'] = self.original_price
+        result['Promotions'] = []
+        if self.promotions is not None:
+            for k in self.promotions:
+                result['Promotions'].append(k.to_map() if k else None)
+        if self.trade_price is not None:
+            result['TradePrice'] = self.trade_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('DiscountPrice') is not None:
+            self.discount_price = m.get('DiscountPrice')
+        if m.get('OriginalPrice') is not None:
+            self.original_price = m.get('OriginalPrice')
+        self.promotions = []
+        if m.get('Promotions') is not None:
+            for k in m.get('Promotions'):
+                temp_model = GetResourceRenewPriceResponseBodyDataPricePromotions()
+                self.promotions.append(temp_model.from_map(k))
+        if m.get('TradePrice') is not None:
+            self.trade_price = m.get('TradePrice')
+        return self
+
+
+class GetResourceRenewPriceResponseBodyDataRules(TeaModel):
+    def __init__(self, description=None, rule_id=None):
+        self.description = description  # type: str
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponseBodyDataRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class GetResourceRenewPriceResponseBodyData(TeaModel):
+    def __init__(self, price=None, rules=None):
+        self.price = price  # type: GetResourceRenewPriceResponseBodyDataPrice
+        self.rules = rules  # type: list[GetResourceRenewPriceResponseBodyDataRules]
+
+    def validate(self):
+        if self.price:
+            self.price.validate()
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.price is not None:
+            result['Price'] = self.price.to_map()
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Price') is not None:
+            temp_model = GetResourceRenewPriceResponseBodyDataPrice()
+            self.price = temp_model.from_map(m['Price'])
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = GetResourceRenewPriceResponseBodyDataRules()
+                self.rules.append(temp_model.from_map(k))
+        return self
+
+
+class GetResourceRenewPriceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: GetResourceRenewPriceResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = GetResourceRenewPriceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetResourceRenewPriceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetResourceRenewPriceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetResourceRenewPriceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetResourceRenewPriceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAppInstanceGroupRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_id=None, app_instance_group_name=None,
                  page_number=None, page_size=None, product_type=None, region_id=None, status=None):
@@ -1441,8 +2002,8 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo(TeaModel):
 class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
     def __init__(self, amount=None, app_center_image_id=None, app_instance_group_id=None,
                  app_instance_group_name=None, app_instance_type=None, apps=None, charge_type=None, expired_time=None, gmt_create=None,
-                 node_pool=None, os_type=None, ota_info=None, product_type=None, region_id=None, session_timeout=None,
-                 spec_id=None, status=None):
+                 node_pool=None, os_type=None, ota_info=None, product_type=None, region_id=None, resource_status=None,
+                 session_timeout=None, spec_id=None, status=None):
         self.amount = amount  # type: int
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_id = app_instance_group_id  # type: str
@@ -1457,6 +2018,7 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
         self.ota_info = ota_info  # type: ListAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo
         self.product_type = product_type  # type: str
         self.region_id = region_id  # type: str
+        self.resource_status = resource_status  # type: str
         self.session_timeout = session_timeout  # type: str
         self.spec_id = spec_id  # type: str
         self.status = status  # type: str
@@ -1511,6 +2073,8 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ProductType'] = self.product_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_status is not None:
+            result['ResourceStatus'] = self.resource_status
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
         if self.spec_id is not None:
@@ -1556,6 +2120,8 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceStatus') is not None:
+            self.resource_status = m.get('ResourceStatus')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
         if m.get('SpecId') is not None:
@@ -2128,6 +2694,202 @@ class ListRegionsResponse(TeaModel):
         return self
 
 
+class ListTenantConfigResponseBodyTenantConfigModel(TeaModel):
+    def __init__(self, app_instance_group_expire_remind=None):
+        self.app_instance_group_expire_remind = app_instance_group_expire_remind  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTenantConfigResponseBodyTenantConfigModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_expire_remind is not None:
+            result['AppInstanceGroupExpireRemind'] = self.app_instance_group_expire_remind
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupExpireRemind') is not None:
+            self.app_instance_group_expire_remind = m.get('AppInstanceGroupExpireRemind')
+        return self
+
+
+class ListTenantConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, tenant_config_model=None):
+        self.request_id = request_id  # type: str
+        self.tenant_config_model = tenant_config_model  # type: ListTenantConfigResponseBodyTenantConfigModel
+
+    def validate(self):
+        if self.tenant_config_model:
+            self.tenant_config_model.validate()
+
+    def to_map(self):
+        _map = super(ListTenantConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.tenant_config_model is not None:
+            result['TenantConfigModel'] = self.tenant_config_model.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TenantConfigModel') is not None:
+            temp_model = ListTenantConfigResponseBodyTenantConfigModel()
+            self.tenant_config_model = temp_model.from_map(m['TenantConfigModel'])
+        return self
+
+
+class ListTenantConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTenantConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTenantConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTenantConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class LogOffAllSessionsInAppInstanceGroupRequest(TeaModel):
+    def __init__(self, app_instance_group_id=None, product_type=None):
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LogOffAllSessionsInAppInstanceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class LogOffAllSessionsInAppInstanceGroupResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LogOffAllSessionsInAppInstanceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class LogOffAllSessionsInAppInstanceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: LogOffAllSessionsInAppInstanceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(LogOffAllSessionsInAppInstanceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = LogOffAllSessionsInAppInstanceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyAppInstanceGroupAttributeRequestNodePool(TeaModel):
     def __init__(self, node_capacity=None, node_pool_id=None):
         self.node_capacity = node_capacity  # type: int
@@ -2532,6 +3294,93 @@ class ModifyNodePoolAttributeResponse(TeaModel):
         return self
 
 
+class ModifyTenantConfigRequest(TeaModel):
+    def __init__(self, app_instance_group_expire_remind=None):
+        self.app_instance_group_expire_remind = app_instance_group_expire_remind  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTenantConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_expire_remind is not None:
+            result['AppInstanceGroupExpireRemind'] = self.app_instance_group_expire_remind
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupExpireRemind') is not None:
+            self.app_instance_group_expire_remind = m.get('AppInstanceGroupExpireRemind')
+        return self
+
+
+class ModifyTenantConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTenantConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyTenantConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyTenantConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyTenantConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyTenantConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PageListAppInstanceGroupUserRequest(TeaModel):
     def __init__(self, app_instance_group_id=None, page_number=None, page_size=None, product_type=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
@@ -2639,12 +3488,142 @@ class PageListAppInstanceGroupUserResponse(TeaModel):
         return self
 
 
+class RenewAppInstanceGroupRequest(TeaModel):
+    def __init__(self, app_instance_group_id=None, auto_pay=None, period=None, period_unit=None, product_type=None,
+                 promotion_id=None):
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.auto_pay = auto_pay  # type: bool
+        self.period = period  # type: int
+        self.period_unit = period_unit  # type: str
+        self.product_type = product_type  # type: str
+        self.promotion_id = promotion_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenewAppInstanceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.auto_pay is not None:
+            result['AutoPay'] = self.auto_pay
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.promotion_id is not None:
+            result['PromotionId'] = self.promotion_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('AutoPay') is not None:
+            self.auto_pay = m.get('AutoPay')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('PromotionId') is not None:
+            self.promotion_id = m.get('PromotionId')
+        return self
+
+
+class RenewAppInstanceGroupResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, order_id=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenewAppInstanceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RenewAppInstanceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RenewAppInstanceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RenewAppInstanceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RenewAppInstanceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateAppInstanceGroupImageRequest(TeaModel):
-    def __init__(self, app_center_image_id=None, app_instance_group_id=None, biz_region_id=None, product_type=None):
+    def __init__(self, app_center_image_id=None, app_instance_group_id=None, biz_region_id=None, product_type=None,
+                 update_mode=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.biz_region_id = biz_region_id  # type: str
         self.product_type = product_type  # type: str
+        self.update_mode = update_mode  # type: str
 
     def validate(self):
         pass
@@ -2663,6 +3642,8 @@ class UpdateAppInstanceGroupImageRequest(TeaModel):
             result['BizRegionId'] = self.biz_region_id
         if self.product_type is not None:
             result['ProductType'] = self.product_type
+        if self.update_mode is not None:
+            result['UpdateMode'] = self.update_mode
         return result
 
     def from_map(self, m=None):
@@ -2675,6 +3656,8 @@ class UpdateAppInstanceGroupImageRequest(TeaModel):
             self.biz_region_id = m.get('BizRegionId')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
+        if m.get('UpdateMode') is not None:
+            self.update_mode = m.get('UpdateMode')
         return self
 
 

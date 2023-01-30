@@ -134,10 +134,12 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = appstream_center_20210901_models.CreateAppInstanceGroupShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.network):
+            request.network_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.network, 'Network', 'json')
         if not UtilClient.is_unset(tmp_req.node_pool):
-            request.node_pool_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.node_pool), 'NodePool', 'json')
+            request.node_pool_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_pool, 'NodePool', 'json')
         if not UtilClient.is_unset(tmp_req.user_info):
-            request.user_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.user_info), 'UserInfo', 'json')
+            request.user_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_info, 'UserInfo', 'json')
         body = {}
         if not UtilClient.is_unset(request.app_center_image_id):
             body['AppCenterImageId'] = request.app_center_image_id
@@ -153,12 +155,16 @@ class Client(OpenApiClient):
             body['ChargeResourceMode'] = request.charge_resource_mode
         if not UtilClient.is_unset(request.charge_type):
             body['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.network_shrink):
+            body['Network'] = request.network_shrink
         if not UtilClient.is_unset(request.node_pool_shrink):
             body['NodePool'] = request.node_pool_shrink
         if not UtilClient.is_unset(request.period):
             body['Period'] = request.period
         if not UtilClient.is_unset(request.period_unit):
             body['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.pre_open_app_id):
+            body['PreOpenAppId'] = request.pre_open_app_id
         if not UtilClient.is_unset(request.product_type):
             body['ProductType'] = request.product_type
         if not UtilClient.is_unset(request.promotion_id):
@@ -191,6 +197,36 @@ class Client(OpenApiClient):
     def create_app_instance_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_app_instance_group_with_options(request, runtime)
+
+    def delete_app_instance_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_instance_group_id):
+            body['AppInstanceGroupId'] = request.app_instance_group_id
+        if not UtilClient.is_unset(request.product_type):
+            body['ProductType'] = request.product_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteAppInstanceGroup',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.DeleteAppInstanceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_app_instance_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_app_instance_group_with_options(request, runtime)
 
     def get_ota_task_by_task_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -259,6 +295,40 @@ class Client(OpenApiClient):
     def get_resource_price(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_resource_price_with_options(request, runtime)
+
+    def get_resource_renew_price_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_instance_group_id):
+            query['AppInstanceGroupId'] = request.app_instance_group_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.product_type):
+            query['ProductType'] = request.product_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceRenewPrice',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.GetResourceRenewPriceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_resource_renew_price(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_resource_renew_price_with_options(request, runtime)
 
     def list_app_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -398,12 +468,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_regions_with_options(runtime)
 
+    def list_tenant_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListTenantConfig',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ListTenantConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tenant_config(self):
+        runtime = util_models.RuntimeOptions()
+        return self.list_tenant_config_with_options(runtime)
+
+    def log_off_all_sessions_in_app_instance_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_instance_group_id):
+            body['AppInstanceGroupId'] = request.app_instance_group_id
+        if not UtilClient.is_unset(request.product_type):
+            body['ProductType'] = request.product_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='LogOffAllSessionsInAppInstanceGroup',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.LogOffAllSessionsInAppInstanceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def log_off_all_sessions_in_app_instance_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.log_off_all_sessions_in_app_instance_group_with_options(request, runtime)
+
     def modify_app_instance_group_attribute_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = appstream_center_20210901_models.ModifyAppInstanceGroupAttributeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.node_pool):
-            request.node_pool_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.node_pool), 'NodePool', 'json')
+            request.node_pool_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_pool, 'NodePool', 'json')
         query = {}
         if not UtilClient.is_unset(request.app_instance_group_id):
             query['AppInstanceGroupId'] = request.app_instance_group_id
@@ -443,7 +565,7 @@ class Client(OpenApiClient):
         request = appstream_center_20210901_models.ModifyNodePoolAttributeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.node_pool_strategy):
-            request.node_pool_strategy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.node_pool_strategy), 'NodePoolStrategy', 'json')
+            request.node_pool_strategy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_pool_strategy, 'NodePoolStrategy', 'json')
         body = {}
         if not UtilClient.is_unset(request.biz_region_id):
             body['BizRegionId'] = request.biz_region_id
@@ -477,6 +599,34 @@ class Client(OpenApiClient):
     def modify_node_pool_attribute(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_node_pool_attribute_with_options(request, runtime)
+
+    def modify_tenant_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_instance_group_expire_remind):
+            body['AppInstanceGroupExpireRemind'] = request.app_instance_group_expire_remind
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyTenantConfig',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ModifyTenantConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_tenant_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_tenant_config_with_options(request, runtime)
 
     def page_list_app_instance_group_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -512,6 +662,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.page_list_app_instance_group_user_with_options(request, runtime)
 
+    def renew_app_instance_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_instance_group_id):
+            query['AppInstanceGroupId'] = request.app_instance_group_id
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.product_type):
+            query['ProductType'] = request.product_type
+        if not UtilClient.is_unset(request.promotion_id):
+            query['PromotionId'] = request.promotion_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewAppInstanceGroup',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.RenewAppInstanceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def renew_app_instance_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.renew_app_instance_group_with_options(request, runtime)
+
     def update_app_instance_group_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -523,6 +711,8 @@ class Client(OpenApiClient):
             query['BizRegionId'] = request.biz_region_id
         if not UtilClient.is_unset(request.product_type):
             query['ProductType'] = request.product_type
+        if not UtilClient.is_unset(request.update_mode):
+            query['UpdateMode'] = request.update_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
