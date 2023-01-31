@@ -4603,7 +4603,7 @@ class Client(OpenApiClient):
 
     def describe_domain_realtime_log_delivery_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        >  You can call this API operation up to 100 times per second per account.
         
 
         @param request: DescribeDomainRealtimeLogDeliveryRequest
@@ -4635,7 +4635,7 @@ class Client(OpenApiClient):
 
     def describe_domain_realtime_log_delivery(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        >  You can call this API operation up to 100 times per second per account.
         
 
         @param request: DescribeDomainRealtimeLogDeliveryRequest
@@ -6123,8 +6123,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.task_id):
             query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
