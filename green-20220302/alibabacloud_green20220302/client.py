@@ -109,3 +109,93 @@ class Client(OpenApiClient):
     def text_moderation(self, request):
         runtime = util_models.RuntimeOptions()
         return self.text_moderation_with_options(request, runtime)
+
+    def voice_moderation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='VoiceModeration',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.VoiceModerationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def voice_moderation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.voice_moderation_with_options(request, runtime)
+
+    def voice_moderation_cancel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='VoiceModerationCancel',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.VoiceModerationCancelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def voice_moderation_cancel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.voice_moderation_cancel_with_options(request, runtime)
+
+    def voice_moderation_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='VoiceModerationResult',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.VoiceModerationResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def voice_moderation_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.voice_moderation_result_with_options(request, runtime)
