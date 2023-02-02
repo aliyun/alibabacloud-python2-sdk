@@ -465,18 +465,20 @@ class AddNodesRequestDataDisks(TeaModel):
 
 class AddNodesRequest(TeaModel):
     def __init__(self, allocate_public_address=None, auto_renew=None, auto_renew_period=None, client_token=None,
-                 cluster_id=None, compute_enable_ht=None, compute_spot_price_limit=None, compute_spot_strategy=None,
-                 count=None, create_mode=None, data_disks=None, ecs_charge_type=None, host_name_prefix=None,
-                 host_name_suffix=None, image_id=None, image_owner_alias=None, instance_type=None, internet_charge_type=None,
-                 internet_max_band_width_in=None, internet_max_band_width_out=None, job_queue=None, min_count=None, period=None,
-                 period_unit=None, sync=None, system_disk_level=None, system_disk_size=None, system_disk_type=None,
-                 v_switch_id=None, zone_id=None):
+                 cluster_id=None, compute_enable_ht=None, compute_spot_duration=None,
+                 compute_spot_interruption_behavior=None, compute_spot_price_limit=None, compute_spot_strategy=None, count=None, create_mode=None,
+                 data_disks=None, ecs_charge_type=None, host_name_prefix=None, host_name_suffix=None, image_id=None,
+                 image_owner_alias=None, instance_type=None, internet_charge_type=None, internet_max_band_width_in=None,
+                 internet_max_band_width_out=None, job_queue=None, min_count=None, period=None, period_unit=None, sync=None,
+                 system_disk_level=None, system_disk_size=None, system_disk_type=None, v_switch_id=None, zone_id=None):
         self.allocate_public_address = allocate_public_address  # type: bool
         self.auto_renew = auto_renew  # type: str
         self.auto_renew_period = auto_renew_period  # type: int
         self.client_token = client_token  # type: str
         self.cluster_id = cluster_id  # type: str
         self.compute_enable_ht = compute_enable_ht  # type: bool
+        self.compute_spot_duration = compute_spot_duration  # type: int
+        self.compute_spot_interruption_behavior = compute_spot_interruption_behavior  # type: str
         self.compute_spot_price_limit = compute_spot_price_limit  # type: str
         self.compute_spot_strategy = compute_spot_strategy  # type: str
         self.count = count  # type: int
@@ -526,6 +528,10 @@ class AddNodesRequest(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.compute_enable_ht is not None:
             result['ComputeEnableHt'] = self.compute_enable_ht
+        if self.compute_spot_duration is not None:
+            result['ComputeSpotDuration'] = self.compute_spot_duration
+        if self.compute_spot_interruption_behavior is not None:
+            result['ComputeSpotInterruptionBehavior'] = self.compute_spot_interruption_behavior
         if self.compute_spot_price_limit is not None:
             result['ComputeSpotPriceLimit'] = self.compute_spot_price_limit
         if self.compute_spot_strategy is not None:
@@ -592,6 +598,10 @@ class AddNodesRequest(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('ComputeEnableHt') is not None:
             self.compute_enable_ht = m.get('ComputeEnableHt')
+        if m.get('ComputeSpotDuration') is not None:
+            self.compute_spot_duration = m.get('ComputeSpotDuration')
+        if m.get('ComputeSpotInterruptionBehavior') is not None:
+            self.compute_spot_interruption_behavior = m.get('ComputeSpotInterruptionBehavior')
         if m.get('ComputeSpotPriceLimit') is not None:
             self.compute_spot_price_limit = m.get('ComputeSpotPriceLimit')
         if m.get('ComputeSpotStrategy') is not None:
@@ -969,7 +979,8 @@ class AddUsersRequestUser(TeaModel):
 
 
 class AddUsersRequest(TeaModel):
-    def __init__(self, cluster_id=None, user=None):
+    def __init__(self, async=None, cluster_id=None, user=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[AddUsersRequestUser]
 
@@ -985,6 +996,8 @@ class AddUsersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         result['User'] = []
@@ -995,6 +1008,8 @@ class AddUsersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         self.user = []
@@ -2186,6 +2201,7 @@ class CreateGWSClusterRequest(TeaModel):
         self.cluster_type = cluster_type  # type: str
         self.name = name  # type: str
         self.v_switch_id = v_switch_id  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -4567,7 +4583,8 @@ class DeleteUsersRequestUser(TeaModel):
 
 
 class DeleteUsersRequest(TeaModel):
-    def __init__(self, cluster_id=None, user=None):
+    def __init__(self, async=None, cluster_id=None, user=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[DeleteUsersRequestUser]
 
@@ -4583,6 +4600,8 @@ class DeleteUsersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         result['User'] = []
@@ -4593,6 +4612,8 @@ class DeleteUsersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         self.user = []
@@ -5218,9 +5239,10 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
     def __init__(self, account_type=None, applications=None, base_os_tag=None, client_version=None,
                  create_time=None, deploy_mode=None, description=None, ecs_charge_type=None, ecs_info=None, ha_enable=None,
                  id=None, image_id=None, image_name=None, image_owner_alias=None, key_pair_name=None, location=None,
-                 name=None, on_premise_info=None, os_tag=None, post_install_scripts=None, region_id=None,
-                 remote_directory=None, scc_cluster_id=None, scheduler_type=None, security_group_id=None, status=None,
-                 v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None):
+                 name=None, on_premise_info=None, os_tag=None, post_install_scripts=None, ram_node_types=None,
+                 ram_role_name=None, region_id=None, remote_directory=None, scc_cluster_id=None, scheduler_type=None,
+                 security_group_id=None, status=None, v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None,
+                 volume_type=None, vpc_id=None):
         self.account_type = account_type  # type: str
         self.applications = applications  # type: DescribeClusterResponseBodyClusterInfoApplications
         self.base_os_tag = base_os_tag  # type: str
@@ -5241,6 +5263,8 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
         self.on_premise_info = on_premise_info  # type: DescribeClusterResponseBodyClusterInfoOnPremiseInfo
         self.os_tag = os_tag  # type: str
         self.post_install_scripts = post_install_scripts  # type: DescribeClusterResponseBodyClusterInfoPostInstallScripts
+        self.ram_node_types = ram_node_types  # type: str
+        self.ram_role_name = ram_role_name  # type: str
         self.region_id = region_id  # type: str
         self.remote_directory = remote_directory  # type: str
         self.scc_cluster_id = scc_cluster_id  # type: str
@@ -5310,6 +5334,10 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
             result['OsTag'] = self.os_tag
         if self.post_install_scripts is not None:
             result['PostInstallScripts'] = self.post_install_scripts.to_map()
+        if self.ram_node_types is not None:
+            result['RamNodeTypes'] = self.ram_node_types
+        if self.ram_role_name is not None:
+            result['RamRoleName'] = self.ram_role_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.remote_directory is not None:
@@ -5382,6 +5410,10 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
         if m.get('PostInstallScripts') is not None:
             temp_model = DescribeClusterResponseBodyClusterInfoPostInstallScripts()
             self.post_install_scripts = temp_model.from_map(m['PostInstallScripts'])
+        if m.get('RamNodeTypes') is not None:
+            self.ram_node_types = m.get('RamNodeTypes')
+        if m.get('RamRoleName') is not None:
+            self.ram_role_name = m.get('RamRoleName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RemoteDirectory') is not None:
@@ -7162,7 +7194,8 @@ class DescribeImagePriceResponse(TeaModel):
 
 
 class DescribeJobRequest(TeaModel):
-    def __init__(self, cluster_id=None, job_id=None):
+    def __init__(self, async=None, cluster_id=None, job_id=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.job_id = job_id  # type: str
 
@@ -7175,6 +7208,8 @@ class DescribeJobRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.job_id is not None:
@@ -7183,6 +7218,8 @@ class DescribeJobRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('JobId') is not None:
@@ -8225,10 +8262,12 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks(TeaModel):
 
 
 class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypesInstanceTypeInfo(TeaModel):
-    def __init__(self, host_name_prefix=None, instance_type=None, spot_price_limit=None, spot_strategy=None,
-                 v_switch_id=None, zone_id=None):
+    def __init__(self, host_name_prefix=None, instance_type=None, spot_duration=None,
+                 spot_interruption_behavior=None, spot_price_limit=None, spot_strategy=None, v_switch_id=None, zone_id=None):
         self.host_name_prefix = host_name_prefix  # type: str
         self.instance_type = instance_type  # type: str
+        self.spot_duration = spot_duration  # type: int
+        self.spot_interruption_behavior = spot_interruption_behavior  # type: str
         self.spot_price_limit = spot_price_limit  # type: float
         self.spot_strategy = spot_strategy  # type: str
         self.v_switch_id = v_switch_id  # type: str
@@ -8247,6 +8286,10 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypesInstanceTypeInfo
             result['HostNamePrefix'] = self.host_name_prefix
         if self.instance_type is not None:
             result['InstanceType'] = self.instance_type
+        if self.spot_duration is not None:
+            result['SpotDuration'] = self.spot_duration
+        if self.spot_interruption_behavior is not None:
+            result['SpotInterruptionBehavior'] = self.spot_interruption_behavior
         if self.spot_price_limit is not None:
             result['SpotPriceLimit'] = self.spot_price_limit
         if self.spot_strategy is not None:
@@ -8263,6 +8306,10 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypesInstanceTypeInfo
             self.host_name_prefix = m.get('HostNamePrefix')
         if m.get('InstanceType') is not None:
             self.instance_type = m.get('InstanceType')
+        if m.get('SpotDuration') is not None:
+            self.spot_duration = m.get('SpotDuration')
+        if m.get('SpotInterruptionBehavior') is not None:
+            self.spot_interruption_behavior = m.get('SpotInterruptionBehavior')
         if m.get('SpotPriceLimit') is not None:
             self.spot_price_limit = m.get('SpotPriceLimit')
         if m.get('SpotStrategy') is not None:
@@ -19337,12 +19384,15 @@ class ListVolumesResponse(TeaModel):
 
 
 class ModifyClusterAttributesRequest(TeaModel):
-    def __init__(self, cluster_id=None, description=None, image_id=None, image_owner_alias=None, name=None):
+    def __init__(self, cluster_id=None, description=None, image_id=None, image_owner_alias=None, name=None,
+                 ram_node_types=None, ram_role_name=None):
         self.cluster_id = cluster_id  # type: str
         self.description = description  # type: str
         self.image_id = image_id  # type: str
         self.image_owner_alias = image_owner_alias  # type: str
         self.name = name  # type: str
+        self.ram_node_types = ram_node_types  # type: list[str]
+        self.ram_role_name = ram_role_name  # type: str
 
     def validate(self):
         pass
@@ -19363,6 +19413,10 @@ class ModifyClusterAttributesRequest(TeaModel):
             result['ImageOwnerAlias'] = self.image_owner_alias
         if self.name is not None:
             result['Name'] = self.name
+        if self.ram_node_types is not None:
+            result['RamNodeTypes'] = self.ram_node_types
+        if self.ram_role_name is not None:
+            result['RamRoleName'] = self.ram_role_name
         return result
 
     def from_map(self, m=None):
@@ -19377,6 +19431,10 @@ class ModifyClusterAttributesRequest(TeaModel):
             self.image_owner_alias = m.get('ImageOwnerAlias')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('RamNodeTypes') is not None:
+            self.ram_node_types = m.get('RamNodeTypes')
+        if m.get('RamRoleName') is not None:
+            self.ram_role_name = m.get('RamRoleName')
         return self
 
 
@@ -19735,7 +19793,8 @@ class ModifyUserGroupsRequestUser(TeaModel):
 
 
 class ModifyUserGroupsRequest(TeaModel):
-    def __init__(self, cluster_id=None, user=None):
+    def __init__(self, async=None, cluster_id=None, user=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[ModifyUserGroupsRequestUser]
 
@@ -19751,6 +19810,8 @@ class ModifyUserGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         result['User'] = []
@@ -19761,6 +19822,8 @@ class ModifyUserGroupsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         self.user = []
@@ -19864,7 +19927,8 @@ class ModifyUserPasswordsRequestUser(TeaModel):
 
 
 class ModifyUserPasswordsRequest(TeaModel):
-    def __init__(self, cluster_id=None, user=None):
+    def __init__(self, async=None, cluster_id=None, user=None):
+        self.async = async  # type: bool
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[ModifyUserPasswordsRequestUser]
 
@@ -19880,6 +19944,8 @@ class ModifyUserPasswordsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.async is not None:
+            result['Async'] = self.async
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         result['User'] = []
@@ -19890,6 +19956,8 @@ class ModifyUserPasswordsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Async') is not None:
+            self.async = m.get('Async')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         self.user = []
@@ -20973,9 +21041,11 @@ class SetAutoScaleConfigRequestQueuesDataDisks(TeaModel):
 
 
 class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
-    def __init__(self, instance_type=None, spot_price_limit=None, spot_strategy=None, v_switch_id=None,
-                 zone_id=None):
+    def __init__(self, instance_type=None, spot_duration=None, spot_interruption_behavior=None,
+                 spot_price_limit=None, spot_strategy=None, v_switch_id=None, zone_id=None):
         self.instance_type = instance_type  # type: str
+        self.spot_duration = spot_duration  # type: int
+        self.spot_interruption_behavior = spot_interruption_behavior  # type: str
         self.spot_price_limit = spot_price_limit  # type: float
         self.spot_strategy = spot_strategy  # type: str
         self.v_switch_id = v_switch_id  # type: str
@@ -20992,6 +21062,10 @@ class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
         result = dict()
         if self.instance_type is not None:
             result['InstanceType'] = self.instance_type
+        if self.spot_duration is not None:
+            result['SpotDuration'] = self.spot_duration
+        if self.spot_interruption_behavior is not None:
+            result['SpotInterruptionBehavior'] = self.spot_interruption_behavior
         if self.spot_price_limit is not None:
             result['SpotPriceLimit'] = self.spot_price_limit
         if self.spot_strategy is not None:
@@ -21006,6 +21080,10 @@ class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
         m = m or dict()
         if m.get('InstanceType') is not None:
             self.instance_type = m.get('InstanceType')
+        if m.get('SpotDuration') is not None:
+            self.spot_duration = m.get('SpotDuration')
+        if m.get('SpotInterruptionBehavior') is not None:
+            self.spot_interruption_behavior = m.get('SpotInterruptionBehavior')
         if m.get('SpotPriceLimit') is not None:
             self.spot_price_limit = m.get('SpotPriceLimit')
         if m.get('SpotStrategy') is not None:

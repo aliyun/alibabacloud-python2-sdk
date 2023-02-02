@@ -1077,6 +1077,16 @@ class Client(OpenApiClient):
         return self.describe_nfsclient_status_with_options(request, runtime)
 
     def describe_price_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: DescribePriceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePriceResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -1099,6 +1109,14 @@ class Client(OpenApiClient):
         )
 
     def describe_price(self, request):
+        """
+        ***\
+        
+
+        @param request: DescribePriceRequest
+
+        @return: DescribePriceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_price_with_options(request, runtime)
 
