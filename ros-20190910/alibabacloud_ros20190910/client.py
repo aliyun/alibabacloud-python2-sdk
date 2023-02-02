@@ -2525,6 +2525,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.disable_rollback):
             query['DisableRollback'] = request.disable_rollback
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.parallelism):
             query['Parallelism'] = request.parallelism
         if not UtilClient.is_unset(request.parameters):
