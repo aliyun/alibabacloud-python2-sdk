@@ -630,6 +630,138 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_cost_unit_with_options(request, runtime)
 
+    def describe_cost_budgets_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.budget_name):
+            query['BudgetName'] = request.budget_name
+        if not UtilClient.is_unset(request.budget_status):
+            query['BudgetStatus'] = request.budget_status
+        if not UtilClient.is_unset(request.budget_type):
+            query['BudgetType'] = request.budget_type
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCostBudgetsSummary',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeCostBudgetsSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cost_budgets_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cost_budgets_summary_with_options(request, runtime)
+
+    def describe_instance_amortized_cost_by_amortization_period_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.bill_owner_id_list):
+            body['BillOwnerIdList'] = request.bill_owner_id_list
+        if not UtilClient.is_unset(request.bill_user_id_list):
+            body['BillUserIdList'] = request.bill_user_id_list
+        if not UtilClient.is_unset(request.billing_cycle):
+            body['BillingCycle'] = request.billing_cycle
+        if not UtilClient.is_unset(request.consume_period_filter):
+            body['ConsumePeriodFilter'] = request.consume_period_filter
+        if not UtilClient.is_unset(request.cost_unit_code):
+            body['CostUnitCode'] = request.cost_unit_code
+        if not UtilClient.is_unset(request.instance_id_list):
+            body['InstanceIdList'] = request.instance_id_list
+        if not UtilClient.is_unset(request.max_results):
+            body['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            body['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.product_detail):
+            body['ProductDetail'] = request.product_detail
+        if not UtilClient.is_unset(request.subscription_type):
+            body['SubscriptionType'] = request.subscription_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceAmortizedCostByAmortizationPeriod',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeInstanceAmortizedCostByAmortizationPeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_instance_amortized_cost_by_amortization_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_instance_amortized_cost_by_amortization_period_with_options(request, runtime)
+
+    def describe_instance_amortized_cost_by_consume_period_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.amortization_period_filter):
+            body['AmortizationPeriodFilter'] = request.amortization_period_filter
+        if not UtilClient.is_unset(request.bill_owner_id_list):
+            body['BillOwnerIdList'] = request.bill_owner_id_list
+        if not UtilClient.is_unset(request.bill_user_id_list):
+            body['BillUserIdList'] = request.bill_user_id_list
+        if not UtilClient.is_unset(request.billing_cycle):
+            body['BillingCycle'] = request.billing_cycle
+        if not UtilClient.is_unset(request.cost_unit_code):
+            body['CostUnitCode'] = request.cost_unit_code
+        if not UtilClient.is_unset(request.instance_id_list):
+            body['InstanceIdList'] = request.instance_id_list
+        if not UtilClient.is_unset(request.max_results):
+            body['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            body['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.product_detail):
+            body['ProductDetail'] = request.product_detail
+        if not UtilClient.is_unset(request.subscription_type):
+            body['SubscriptionType'] = request.subscription_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceAmortizedCostByConsumePeriod',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeInstanceAmortizedCostByConsumePeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_instance_amortized_cost_by_consume_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_instance_amortized_cost_by_consume_period_with_options(request, runtime)
+
     def describe_instance_bill_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -716,7 +848,111 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_pricing_module_with_options(request, runtime)
 
+    def describe_product_amortized_cost_by_amortization_period_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.bill_owner_id_list):
+            body['BillOwnerIdList'] = request.bill_owner_id_list
+        if not UtilClient.is_unset(request.bill_user_id_list):
+            body['BillUserIdList'] = request.bill_user_id_list
+        if not UtilClient.is_unset(request.billing_cycle):
+            body['BillingCycle'] = request.billing_cycle
+        if not UtilClient.is_unset(request.consume_period_filter):
+            body['ConsumePeriodFilter'] = request.consume_period_filter
+        if not UtilClient.is_unset(request.cost_unit_code):
+            body['CostUnitCode'] = request.cost_unit_code
+        if not UtilClient.is_unset(request.max_results):
+            body['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            body['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.product_detail):
+            body['ProductDetail'] = request.product_detail
+        if not UtilClient.is_unset(request.subscription_type):
+            body['SubscriptionType'] = request.subscription_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeProductAmortizedCostByAmortizationPeriod',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeProductAmortizedCostByAmortizationPeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_product_amortized_cost_by_amortization_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_product_amortized_cost_by_amortization_period_with_options(request, runtime)
+
+    def describe_product_amortized_cost_by_consume_period_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.amortization_period_filter):
+            body['AmortizationPeriodFilter'] = request.amortization_period_filter
+        if not UtilClient.is_unset(request.bill_owner_id_list):
+            body['BillOwnerIdList'] = request.bill_owner_id_list
+        if not UtilClient.is_unset(request.bill_user_id_list):
+            body['BillUserIdList'] = request.bill_user_id_list
+        if not UtilClient.is_unset(request.billing_cycle):
+            body['BillingCycle'] = request.billing_cycle
+        if not UtilClient.is_unset(request.cost_unit_code):
+            body['CostUnitCode'] = request.cost_unit_code
+        if not UtilClient.is_unset(request.max_results):
+            body['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            body['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.product_code):
+            body['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.product_detail):
+            body['ProductDetail'] = request.product_detail
+        if not UtilClient.is_unset(request.subscription_type):
+            body['SubscriptionType'] = request.subscription_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeProductAmortizedCostByConsumePeriod',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeProductAmortizedCostByConsumePeriodResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_product_amortized_cost_by_consume_period(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_product_amortized_cost_by_consume_period_with_options(request, runtime)
+
     def describe_resource_coverage_detail_with_options(self, request, runtime):
+        """
+        1\\. The queried coverage details are the same as those displayed in the table on the Coverage tab of the Manage Reserved Instances page in the Billing Management console.
+        2\\. You can call this operation to query the coverage details of RIs or SCUs.
+        3\\. You can call this operation to query coverage details at an hourly, daily, or monthly granularity.
+        
+
+        @param request: DescribeResourceCoverageDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeResourceCoverageDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bill_owner_id):
@@ -753,10 +989,31 @@ class Client(OpenApiClient):
         )
 
     def describe_resource_coverage_detail(self, request):
+        """
+        1\\. The queried coverage details are the same as those displayed in the table on the Coverage tab of the Manage Reserved Instances page in the Billing Management console.
+        2\\. You can call this operation to query the coverage details of RIs or SCUs.
+        3\\. You can call this operation to query coverage details at an hourly, daily, or monthly granularity.
+        
+
+        @param request: DescribeResourceCoverageDetailRequest
+
+        @return: DescribeResourceCoverageDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_resource_coverage_detail_with_options(request, runtime)
 
     def describe_resource_coverage_total_with_options(self, request, runtime):
+        """
+        The queried total coverage data is the same as the aggregated data displayed on the Coverage tab of the Manage Reserved Instances page in the Billing Management console.
+        You can call this operation to query the total coverage data of RIs or SCUs.
+        
+
+        @param request: DescribeResourceCoverageTotalRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeResourceCoverageTotalResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bill_owner_id):
@@ -789,6 +1046,15 @@ class Client(OpenApiClient):
         )
 
     def describe_resource_coverage_total(self, request):
+        """
+        The queried total coverage data is the same as the aggregated data displayed on the Coverage tab of the Manage Reserved Instances page in the Billing Management console.
+        You can call this operation to query the total coverage data of RIs or SCUs.
+        
+
+        @param request: DescribeResourceCoverageTotalRequest
+
+        @return: DescribeResourceCoverageTotalResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_resource_coverage_total_with_options(request, runtime)
 
@@ -1852,6 +2118,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_cash_coupons_with_options(request, runtime)
 
+    def query_commodity_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryCommodityList',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.QueryCommodityListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_commodity_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_commodity_list_with_options(request, runtime)
+
     def query_cost_unit_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2224,74 +2516,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_invoicing_customer_list_with_options(request, runtime)
 
-    def query_monthly_bill_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.billing_cycle):
-            query['BillingCycle'] = request.billing_cycle
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryMonthlyBill',
-            version='2017-12-14',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bss_open_api_20171214_models.QueryMonthlyBillResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_monthly_bill(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_monthly_bill_with_options(request, runtime)
-
-    def query_monthly_instance_consumption_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.billing_cycle):
-            query['BillingCycle'] = request.billing_cycle
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.page_num):
-            query['PageNum'] = request.page_num
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.product_code):
-            query['ProductCode'] = request.product_code
-        if not UtilClient.is_unset(request.product_type):
-            query['ProductType'] = request.product_type
-        if not UtilClient.is_unset(request.subscription_type):
-            query['SubscriptionType'] = request.subscription_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryMonthlyInstanceConsumption',
-            version='2017-12-14',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bss_open_api_20171214_models.QueryMonthlyInstanceConsumptionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_monthly_instance_consumption(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_monthly_instance_consumption_with_options(request, runtime)
-
     def query_orders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2397,6 +2621,32 @@ class Client(OpenApiClient):
     def query_prepaid_cards(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_prepaid_cards_with_options(request, runtime)
+
+    def query_price_entity_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPriceEntityList',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.QueryPriceEntityListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_price_entity_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_price_entity_list_with_options(request, runtime)
 
     def query_product_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2642,6 +2892,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_savings_plans_deduct_log_with_options(request, runtime)
 
+    def query_savings_plans_discount_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QuerySavingsPlansDiscount',
+            version='2017-12-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.QuerySavingsPlansDiscountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_savings_plans_discount(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_savings_plans_discount_with_options(request, runtime)
+
     def query_savings_plans_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2732,53 +3008,35 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_settle_bill_with_options(request, runtime)
 
-    def query_settlement_bill_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.billing_cycle):
-            query['BillingCycle'] = request.billing_cycle
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.is_hide_zero_charge):
-            query['IsHideZeroCharge'] = request.is_hide_zero_charge
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.page_num):
-            query['PageNum'] = request.page_num
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.product_code):
-            query['ProductCode'] = request.product_code
-        if not UtilClient.is_unset(request.product_type):
-            query['ProductType'] = request.product_type
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        if not UtilClient.is_unset(request.subscription_type):
-            query['SubscriptionType'] = request.subscription_type
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
+    def query_sku_price_list_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = bss_open_api_20171214_models.QuerySkuPriceListShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.price_factor_condition_map):
+            request.price_factor_condition_map_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.price_factor_condition_map, 'PriceFactorConditionMap', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='QuerySettlementBill',
+            action='QuerySkuPriceList',
             version='2017-12-14',
             protocol='HTTPS',
             pathname='/',
-            method='POST',
+            method='GET',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
-            bss_open_api_20171214_models.QuerySettlementBillResponse(),
+            bss_open_api_20171214_models.QuerySkuPriceListResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def query_settlement_bill(self, request):
+    def query_sku_price_list(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.query_settlement_bill_with_options(request, runtime)
+        return self.query_sku_price_list_with_options(request, runtime)
 
     def query_split_item_bill_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3297,6 +3555,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.stop_mode):
+            query['StopMode'] = request.stop_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

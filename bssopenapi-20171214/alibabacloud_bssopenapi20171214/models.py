@@ -60,6 +60,7 @@ class AddAccountRelationRequest(TeaModel):
 
 class AddAccountRelationResponseBodyData(TeaModel):
     def __init__(self, host_id=None, relation_id=None):
+        # HostId
         self.host_id = host_id  # type: str
         self.relation_id = relation_id  # type: long
 
@@ -900,6 +901,7 @@ class ConfirmRelationRequest(TeaModel):
 
 class ConfirmRelationResponseBodyData(TeaModel):
     def __init__(self, host_id=None):
+        # HostId
         self.host_id = host_id  # type: str
 
     def validate(self):
@@ -1233,6 +1235,7 @@ class CreateAgAccountRequest(TeaModel):
 
 class CreateAgAccountResponseBodyAgRelationDto(TeaModel):
     def __init__(self, mpk=None, pk=None, ram_admin_role_name=None, type=None):
+        # MPK（UID）
         self.mpk = mpk  # type: str
         self.pk = pk  # type: str
         self.ram_admin_role_name = ram_admin_role_name  # type: str
@@ -2097,25 +2100,15 @@ class CreateResourcePackageResponse(TeaModel):
 class CreateSavingsPlansInstanceRequest(TeaModel):
     def __init__(self, commodity_code=None, duration=None, effective_date=None, pay_mode=None, pool_value=None,
                  pricing_cycle=None, region=None, spec_type=None, specification=None, type=None):
-        # commodityCode
         self.commodity_code = commodity_code  # type: str
-        # duration
         self.duration = duration  # type: str
-        # effectiveDate
         self.effective_date = effective_date  # type: str
-        # payMode
         self.pay_mode = pay_mode  # type: str
-        # poolValue
         self.pool_value = pool_value  # type: str
-        # pricingCycle
         self.pricing_cycle = pricing_cycle  # type: str
-        # region
         self.region = region  # type: str
-        # specType
         self.spec_type = spec_type  # type: str
-        # specification
         self.specification = specification  # type: str
-        # type
         self.type = type  # type: str
 
     def validate(self):
@@ -2176,7 +2169,6 @@ class CreateSavingsPlansInstanceRequest(TeaModel):
 
 class CreateSavingsPlansInstanceResponseBodyData(TeaModel):
     def __init__(self, order_id=None):
-        # orderId
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -2201,15 +2193,10 @@ class CreateSavingsPlansInstanceResponseBodyData(TeaModel):
 
 class CreateSavingsPlansInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # code
         self.code = code  # type: str
-        # data
         self.data = data  # type: CreateSavingsPlansInstanceResponseBodyData
-        # message
         self.message = message  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -2433,6 +2420,1327 @@ class DeleteCostUnitResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteCostUnitResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeCostBudgetsSummaryRequest(TeaModel):
+    def __init__(self, budget_name=None, budget_status=None, budget_type=None, max_results=None, next_token=None):
+        self.budget_name = budget_name  # type: str
+        self.budget_status = budget_status  # type: str
+        self.budget_type = budget_type  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCostBudgetsSummaryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.budget_name is not None:
+            result['BudgetName'] = self.budget_name
+        if self.budget_status is not None:
+            result['BudgetStatus'] = self.budget_status
+        if self.budget_type is not None:
+            result['BudgetType'] = self.budget_type
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BudgetName') is not None:
+            self.budget_name = m.get('BudgetName')
+        if m.get('BudgetStatus') is not None:
+            self.budget_status = m.get('BudgetStatus')
+        if m.get('BudgetType') is not None:
+            self.budget_type = m.get('BudgetType')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        return self
+
+
+class DescribeCostBudgetsSummaryResponseBodyDataItems(TeaModel):
+    def __init__(self, budget=None, budget_name=None, budget_status=None, budget_type=None, calculated_values=None,
+                 consume_period=None):
+        self.budget = budget  # type: dict[str, any]
+        self.budget_name = budget_name  # type: str
+        self.budget_status = budget_status  # type: str
+        self.budget_type = budget_type  # type: str
+        self.calculated_values = calculated_values  # type: dict[str, any]
+        self.consume_period = consume_period  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCostBudgetsSummaryResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.budget is not None:
+            result['Budget'] = self.budget
+        if self.budget_name is not None:
+            result['BudgetName'] = self.budget_name
+        if self.budget_status is not None:
+            result['BudgetStatus'] = self.budget_status
+        if self.budget_type is not None:
+            result['BudgetType'] = self.budget_type
+        if self.calculated_values is not None:
+            result['CalculatedValues'] = self.calculated_values
+        if self.consume_period is not None:
+            result['ConsumePeriod'] = self.consume_period
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Budget') is not None:
+            self.budget = m.get('Budget')
+        if m.get('BudgetName') is not None:
+            self.budget_name = m.get('BudgetName')
+        if m.get('BudgetStatus') is not None:
+            self.budget_status = m.get('BudgetStatus')
+        if m.get('BudgetType') is not None:
+            self.budget_type = m.get('BudgetType')
+        if m.get('CalculatedValues') is not None:
+            self.calculated_values = m.get('CalculatedValues')
+        if m.get('ConsumePeriod') is not None:
+            self.consume_period = m.get('ConsumePeriod')
+        return self
+
+
+class DescribeCostBudgetsSummaryResponseBodyData(TeaModel):
+    def __init__(self, host_id=None, items=None, max_results=None, next_token=None, total_count=None):
+        self.host_id = host_id  # type: str
+        self.items = items  # type: list[DescribeCostBudgetsSummaryResponseBodyDataItems]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCostBudgetsSummaryResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host_id is not None:
+            result['HostId'] = self.host_id
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HostId') is not None:
+            self.host_id = m.get('HostId')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeCostBudgetsSummaryResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeCostBudgetsSummaryResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DescribeCostBudgetsSummaryResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeCostBudgetsSummaryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeCostBudgetsSummaryResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeCostBudgetsSummaryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCostBudgetsSummaryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCostBudgetsSummaryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCostBudgetsSummaryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInstanceAmortizedCostByAmortizationPeriodRequest(TeaModel):
+    def __init__(self, bill_owner_id_list=None, bill_user_id_list=None, billing_cycle=None,
+                 consume_period_filter=None, cost_unit_code=None, instance_id_list=None, max_results=None, next_token=None,
+                 product_code=None, product_detail=None, subscription_type=None):
+        self.bill_owner_id_list = bill_owner_id_list  # type: list[str]
+        self.bill_user_id_list = bill_user_id_list  # type: list[str]
+        self.billing_cycle = billing_cycle  # type: str
+        self.consume_period_filter = consume_period_filter  # type: list[str]
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.instance_id_list = instance_id_list  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByAmortizationPeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_owner_id_list is not None:
+            result['BillOwnerIdList'] = self.bill_owner_id_list
+        if self.bill_user_id_list is not None:
+            result['BillUserIdList'] = self.bill_user_id_list
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.consume_period_filter is not None:
+            result['ConsumePeriodFilter'] = self.consume_period_filter
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.instance_id_list is not None:
+            result['InstanceIdList'] = self.instance_id_list
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BillOwnerIdList') is not None:
+            self.bill_owner_id_list = m.get('BillOwnerIdList')
+        if m.get('BillUserIdList') is not None:
+            self.bill_user_id_list = m.get('BillUserIdList')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('ConsumePeriodFilter') is not None:
+            self.consume_period_filter = m.get('ConsumePeriodFilter')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('InstanceIdList') is not None:
+            self.instance_id_list = m.get('InstanceIdList')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyDataItems(TeaModel):
+    def __init__(self, amortization_period=None, amortization_status=None, bill_account_id=None,
+                 bill_account_name=None, bill_owner_id=None, bill_owner_name=None, biz_type=None, consume_period=None, cost_unit=None,
+                 cost_unit_code=None, current_amortization_deducted_by_cash_coupons=None,
+                 current_amortization_deducted_by_coupons=None, current_amortization_deducted_by_prepaid_card=None,
+                 current_amortization_expenditure_amount=None, current_amortization_invoice_discount=None, current_amortization_pretax_amount=None,
+                 current_amortization_pretax_gross_amount=None, current_amortization_round_down_discount=None, deducted_by_cash_coupons=None,
+                 deducted_by_coupons=None, deducted_by_prepaid_card=None, expenditure_amount=None, instance_id=None, internet_ip=None,
+                 intranet_ip=None, invoice_discount=None, pretax_amount=None, pretax_gross_amount=None,
+                 previously_amortized_deducted_by_cash_coupons=None, previously_amortized_deducted_by_coupons=None,
+                 previously_amortized_deducted_by_prepaid_card=None, previously_amortized_expenditure_amount=None, previously_amortized_invoice_discount=None,
+                 previously_amortized_pretax_amount=None, previously_amortized_pretax_gross_amount=None,
+                 previously_amortized_round_down_discount=None, product_code=None, product_detail=None, product_detail_code=None, product_name=None,
+                 region=None, remaining_amortization_deducted_by_cash_coupons=None,
+                 remaining_amortization_deducted_by_coupons=None, remaining_amortization_deducted_by_prepaid_card=None,
+                 remaining_amortization_expenditure_amount=None, remaining_amortization_invoice_discount=None, remaining_amortization_pretax_amount=None,
+                 remaining_amortization_pretax_gross_amount=None, remaining_amortization_round_down_discount=None, resource_group=None,
+                 round_down_discount=None, split_account_name=None, split_item_id=None, split_item_name=None,
+                 split_product_detail=None, subscription_type=None, tag=None, zone=None):
+        self.amortization_period = amortization_period  # type: str
+        self.amortization_status = amortization_status  # type: str
+        self.bill_account_id = bill_account_id  # type: long
+        self.bill_account_name = bill_account_name  # type: str
+        self.bill_owner_id = bill_owner_id  # type: long
+        self.bill_owner_name = bill_owner_name  # type: str
+        self.biz_type = biz_type  # type: str
+        self.consume_period = consume_period  # type: str
+        self.cost_unit = cost_unit  # type: str
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.current_amortization_deducted_by_cash_coupons = current_amortization_deducted_by_cash_coupons  # type: float
+        self.current_amortization_deducted_by_coupons = current_amortization_deducted_by_coupons  # type: float
+        self.current_amortization_deducted_by_prepaid_card = current_amortization_deducted_by_prepaid_card  # type: float
+        self.current_amortization_expenditure_amount = current_amortization_expenditure_amount  # type: float
+        self.current_amortization_invoice_discount = current_amortization_invoice_discount  # type: float
+        self.current_amortization_pretax_amount = current_amortization_pretax_amount  # type: float
+        self.current_amortization_pretax_gross_amount = current_amortization_pretax_gross_amount  # type: float
+        self.current_amortization_round_down_discount = current_amortization_round_down_discount  # type: float
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.expenditure_amount = expenditure_amount  # type: float
+        self.instance_id = instance_id  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
+        self.invoice_discount = invoice_discount  # type: float
+        self.pretax_amount = pretax_amount  # type: float
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.previously_amortized_deducted_by_cash_coupons = previously_amortized_deducted_by_cash_coupons  # type: float
+        self.previously_amortized_deducted_by_coupons = previously_amortized_deducted_by_coupons  # type: float
+        self.previously_amortized_deducted_by_prepaid_card = previously_amortized_deducted_by_prepaid_card  # type: float
+        self.previously_amortized_expenditure_amount = previously_amortized_expenditure_amount  # type: float
+        self.previously_amortized_invoice_discount = previously_amortized_invoice_discount  # type: float
+        self.previously_amortized_pretax_amount = previously_amortized_pretax_amount  # type: float
+        self.previously_amortized_pretax_gross_amount = previously_amortized_pretax_gross_amount  # type: float
+        self.previously_amortized_round_down_discount = previously_amortized_round_down_discount  # type: float
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_detail_code = product_detail_code  # type: str
+        self.product_name = product_name  # type: str
+        self.region = region  # type: str
+        self.remaining_amortization_deducted_by_cash_coupons = remaining_amortization_deducted_by_cash_coupons  # type: float
+        self.remaining_amortization_deducted_by_coupons = remaining_amortization_deducted_by_coupons  # type: float
+        self.remaining_amortization_deducted_by_prepaid_card = remaining_amortization_deducted_by_prepaid_card  # type: float
+        self.remaining_amortization_expenditure_amount = remaining_amortization_expenditure_amount  # type: float
+        self.remaining_amortization_invoice_discount = remaining_amortization_invoice_discount  # type: float
+        self.remaining_amortization_pretax_amount = remaining_amortization_pretax_amount  # type: float
+        self.remaining_amortization_pretax_gross_amount = remaining_amortization_pretax_gross_amount  # type: float
+        self.remaining_amortization_round_down_discount = remaining_amortization_round_down_discount  # type: float
+        self.resource_group = resource_group  # type: str
+        self.round_down_discount = round_down_discount  # type: float
+        self.split_account_name = split_account_name  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.split_item_name = split_item_name  # type: str
+        self.split_product_detail = split_product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
+        self.zone = zone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period is not None:
+            result['AmortizationPeriod'] = self.amortization_period
+        if self.amortization_status is not None:
+            result['AmortizationStatus'] = self.amortization_status
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
+        if self.bill_owner_id is not None:
+            result['BillOwnerID'] = self.bill_owner_id
+        if self.bill_owner_name is not None:
+            result['BillOwnerName'] = self.bill_owner_name
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.consume_period is not None:
+            result['ConsumePeriod'] = self.consume_period
+        if self.cost_unit is not None:
+            result['CostUnit'] = self.cost_unit
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.current_amortization_deducted_by_cash_coupons is not None:
+            result['CurrentAmortizationDeductedByCashCoupons'] = self.current_amortization_deducted_by_cash_coupons
+        if self.current_amortization_deducted_by_coupons is not None:
+            result['CurrentAmortizationDeductedByCoupons'] = self.current_amortization_deducted_by_coupons
+        if self.current_amortization_deducted_by_prepaid_card is not None:
+            result['CurrentAmortizationDeductedByPrepaidCard'] = self.current_amortization_deducted_by_prepaid_card
+        if self.current_amortization_expenditure_amount is not None:
+            result['CurrentAmortizationExpenditureAmount'] = self.current_amortization_expenditure_amount
+        if self.current_amortization_invoice_discount is not None:
+            result['CurrentAmortizationInvoiceDiscount'] = self.current_amortization_invoice_discount
+        if self.current_amortization_pretax_amount is not None:
+            result['CurrentAmortizationPretaxAmount'] = self.current_amortization_pretax_amount
+        if self.current_amortization_pretax_gross_amount is not None:
+            result['CurrentAmortizationPretaxGrossAmount'] = self.current_amortization_pretax_gross_amount
+        if self.current_amortization_round_down_discount is not None:
+            result['CurrentAmortizationRoundDownDiscount'] = self.current_amortization_round_down_discount
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.deducted_by_coupons is not None:
+            result['DeductedByCoupons'] = self.deducted_by_coupons
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.expenditure_amount is not None:
+            result['ExpenditureAmount'] = self.expenditure_amount
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
+        if self.internet_ip is not None:
+            result['InternetIP'] = self.internet_ip
+        if self.intranet_ip is not None:
+            result['IntranetIP'] = self.intranet_ip
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.pretax_gross_amount is not None:
+            result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.previously_amortized_deducted_by_cash_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCashCoupons'] = self.previously_amortized_deducted_by_cash_coupons
+        if self.previously_amortized_deducted_by_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCoupons'] = self.previously_amortized_deducted_by_coupons
+        if self.previously_amortized_deducted_by_prepaid_card is not None:
+            result['PreviouslyAmortizedDeductedByPrepaidCard'] = self.previously_amortized_deducted_by_prepaid_card
+        if self.previously_amortized_expenditure_amount is not None:
+            result['PreviouslyAmortizedExpenditureAmount'] = self.previously_amortized_expenditure_amount
+        if self.previously_amortized_invoice_discount is not None:
+            result['PreviouslyAmortizedInvoiceDiscount'] = self.previously_amortized_invoice_discount
+        if self.previously_amortized_pretax_amount is not None:
+            result['PreviouslyAmortizedPretaxAmount'] = self.previously_amortized_pretax_amount
+        if self.previously_amortized_pretax_gross_amount is not None:
+            result['PreviouslyAmortizedPretaxGrossAmount'] = self.previously_amortized_pretax_gross_amount
+        if self.previously_amortized_round_down_discount is not None:
+            result['PreviouslyAmortizedRoundDownDiscount'] = self.previously_amortized_round_down_discount
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.product_detail_code is not None:
+            result['ProductDetailCode'] = self.product_detail_code
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.remaining_amortization_deducted_by_cash_coupons is not None:
+            result['RemainingAmortizationDeductedByCashCoupons'] = self.remaining_amortization_deducted_by_cash_coupons
+        if self.remaining_amortization_deducted_by_coupons is not None:
+            result['RemainingAmortizationDeductedByCoupons'] = self.remaining_amortization_deducted_by_coupons
+        if self.remaining_amortization_deducted_by_prepaid_card is not None:
+            result['RemainingAmortizationDeductedByPrepaidCard'] = self.remaining_amortization_deducted_by_prepaid_card
+        if self.remaining_amortization_expenditure_amount is not None:
+            result['RemainingAmortizationExpenditureAmount'] = self.remaining_amortization_expenditure_amount
+        if self.remaining_amortization_invoice_discount is not None:
+            result['RemainingAmortizationInvoiceDiscount'] = self.remaining_amortization_invoice_discount
+        if self.remaining_amortization_pretax_amount is not None:
+            result['RemainingAmortizationPretaxAmount'] = self.remaining_amortization_pretax_amount
+        if self.remaining_amortization_pretax_gross_amount is not None:
+            result['RemainingAmortizationPretaxGrossAmount'] = self.remaining_amortization_pretax_gross_amount
+        if self.remaining_amortization_round_down_discount is not None:
+            result['RemainingAmortizationRoundDownDiscount'] = self.remaining_amortization_round_down_discount
+        if self.resource_group is not None:
+            result['ResourceGroup'] = self.resource_group
+        if self.round_down_discount is not None:
+            result['RoundDownDiscount'] = self.round_down_discount
+        if self.split_account_name is not None:
+            result['SplitAccountName'] = self.split_account_name
+        if self.split_item_id is not None:
+            result['SplitItemID'] = self.split_item_id
+        if self.split_item_name is not None:
+            result['SplitItemName'] = self.split_item_name
+        if self.split_product_detail is not None:
+            result['SplitProductDetail'] = self.split_product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.zone is not None:
+            result['Zone'] = self.zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriod') is not None:
+            self.amortization_period = m.get('AmortizationPeriod')
+        if m.get('AmortizationStatus') is not None:
+            self.amortization_status = m.get('AmortizationStatus')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
+        if m.get('BillOwnerID') is not None:
+            self.bill_owner_id = m.get('BillOwnerID')
+        if m.get('BillOwnerName') is not None:
+            self.bill_owner_name = m.get('BillOwnerName')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ConsumePeriod') is not None:
+            self.consume_period = m.get('ConsumePeriod')
+        if m.get('CostUnit') is not None:
+            self.cost_unit = m.get('CostUnit')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('CurrentAmortizationDeductedByCashCoupons') is not None:
+            self.current_amortization_deducted_by_cash_coupons = m.get('CurrentAmortizationDeductedByCashCoupons')
+        if m.get('CurrentAmortizationDeductedByCoupons') is not None:
+            self.current_amortization_deducted_by_coupons = m.get('CurrentAmortizationDeductedByCoupons')
+        if m.get('CurrentAmortizationDeductedByPrepaidCard') is not None:
+            self.current_amortization_deducted_by_prepaid_card = m.get('CurrentAmortizationDeductedByPrepaidCard')
+        if m.get('CurrentAmortizationExpenditureAmount') is not None:
+            self.current_amortization_expenditure_amount = m.get('CurrentAmortizationExpenditureAmount')
+        if m.get('CurrentAmortizationInvoiceDiscount') is not None:
+            self.current_amortization_invoice_discount = m.get('CurrentAmortizationInvoiceDiscount')
+        if m.get('CurrentAmortizationPretaxAmount') is not None:
+            self.current_amortization_pretax_amount = m.get('CurrentAmortizationPretaxAmount')
+        if m.get('CurrentAmortizationPretaxGrossAmount') is not None:
+            self.current_amortization_pretax_gross_amount = m.get('CurrentAmortizationPretaxGrossAmount')
+        if m.get('CurrentAmortizationRoundDownDiscount') is not None:
+            self.current_amortization_round_down_discount = m.get('CurrentAmortizationRoundDownDiscount')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('DeductedByCoupons') is not None:
+            self.deducted_by_coupons = m.get('DeductedByCoupons')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('ExpenditureAmount') is not None:
+            self.expenditure_amount = m.get('ExpenditureAmount')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
+        if m.get('InternetIP') is not None:
+            self.internet_ip = m.get('InternetIP')
+        if m.get('IntranetIP') is not None:
+            self.intranet_ip = m.get('IntranetIP')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('PretaxGrossAmount') is not None:
+            self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('PreviouslyAmortizedDeductedByCashCoupons') is not None:
+            self.previously_amortized_deducted_by_cash_coupons = m.get('PreviouslyAmortizedDeductedByCashCoupons')
+        if m.get('PreviouslyAmortizedDeductedByCoupons') is not None:
+            self.previously_amortized_deducted_by_coupons = m.get('PreviouslyAmortizedDeductedByCoupons')
+        if m.get('PreviouslyAmortizedDeductedByPrepaidCard') is not None:
+            self.previously_amortized_deducted_by_prepaid_card = m.get('PreviouslyAmortizedDeductedByPrepaidCard')
+        if m.get('PreviouslyAmortizedExpenditureAmount') is not None:
+            self.previously_amortized_expenditure_amount = m.get('PreviouslyAmortizedExpenditureAmount')
+        if m.get('PreviouslyAmortizedInvoiceDiscount') is not None:
+            self.previously_amortized_invoice_discount = m.get('PreviouslyAmortizedInvoiceDiscount')
+        if m.get('PreviouslyAmortizedPretaxAmount') is not None:
+            self.previously_amortized_pretax_amount = m.get('PreviouslyAmortizedPretaxAmount')
+        if m.get('PreviouslyAmortizedPretaxGrossAmount') is not None:
+            self.previously_amortized_pretax_gross_amount = m.get('PreviouslyAmortizedPretaxGrossAmount')
+        if m.get('PreviouslyAmortizedRoundDownDiscount') is not None:
+            self.previously_amortized_round_down_discount = m.get('PreviouslyAmortizedRoundDownDiscount')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('ProductDetailCode') is not None:
+            self.product_detail_code = m.get('ProductDetailCode')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RemainingAmortizationDeductedByCashCoupons') is not None:
+            self.remaining_amortization_deducted_by_cash_coupons = m.get('RemainingAmortizationDeductedByCashCoupons')
+        if m.get('RemainingAmortizationDeductedByCoupons') is not None:
+            self.remaining_amortization_deducted_by_coupons = m.get('RemainingAmortizationDeductedByCoupons')
+        if m.get('RemainingAmortizationDeductedByPrepaidCard') is not None:
+            self.remaining_amortization_deducted_by_prepaid_card = m.get('RemainingAmortizationDeductedByPrepaidCard')
+        if m.get('RemainingAmortizationExpenditureAmount') is not None:
+            self.remaining_amortization_expenditure_amount = m.get('RemainingAmortizationExpenditureAmount')
+        if m.get('RemainingAmortizationInvoiceDiscount') is not None:
+            self.remaining_amortization_invoice_discount = m.get('RemainingAmortizationInvoiceDiscount')
+        if m.get('RemainingAmortizationPretaxAmount') is not None:
+            self.remaining_amortization_pretax_amount = m.get('RemainingAmortizationPretaxAmount')
+        if m.get('RemainingAmortizationPretaxGrossAmount') is not None:
+            self.remaining_amortization_pretax_gross_amount = m.get('RemainingAmortizationPretaxGrossAmount')
+        if m.get('RemainingAmortizationRoundDownDiscount') is not None:
+            self.remaining_amortization_round_down_discount = m.get('RemainingAmortizationRoundDownDiscount')
+        if m.get('ResourceGroup') is not None:
+            self.resource_group = m.get('ResourceGroup')
+        if m.get('RoundDownDiscount') is not None:
+            self.round_down_discount = m.get('RoundDownDiscount')
+        if m.get('SplitAccountName') is not None:
+            self.split_account_name = m.get('SplitAccountName')
+        if m.get('SplitItemID') is not None:
+            self.split_item_id = m.get('SplitItemID')
+        if m.get('SplitItemName') is not None:
+            self.split_item_name = m.get('SplitItemName')
+        if m.get('SplitProductDetail') is not None:
+            self.split_product_detail = m.get('SplitProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
+        return self
+
+
+class DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, items=None, max_results=None, next_token=None,
+                 total_count=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.items = items  # type: list[DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyDataItems]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountID'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountID') is not None:
+            self.account_id = m.get('AccountID')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeInstanceAmortizedCostByAmortizationPeriodResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByAmortizationPeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeInstanceAmortizedCostByAmortizationPeriodResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeInstanceAmortizedCostByAmortizationPeriodResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInstanceAmortizedCostByAmortizationPeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByAmortizationPeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInstanceAmortizedCostByAmortizationPeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInstanceAmortizedCostByConsumePeriodRequest(TeaModel):
+    def __init__(self, amortization_period_filter=None, bill_owner_id_list=None, bill_user_id_list=None,
+                 billing_cycle=None, cost_unit_code=None, instance_id_list=None, max_results=None, next_token=None,
+                 product_code=None, product_detail=None, subscription_type=None):
+        self.amortization_period_filter = amortization_period_filter  # type: list[str]
+        self.bill_owner_id_list = bill_owner_id_list  # type: list[str]
+        self.bill_user_id_list = bill_user_id_list  # type: list[str]
+        self.billing_cycle = billing_cycle  # type: str
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.instance_id_list = instance_id_list  # type: list[str]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByConsumePeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period_filter is not None:
+            result['AmortizationPeriodFilter'] = self.amortization_period_filter
+        if self.bill_owner_id_list is not None:
+            result['BillOwnerIdList'] = self.bill_owner_id_list
+        if self.bill_user_id_list is not None:
+            result['BillUserIdList'] = self.bill_user_id_list
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.instance_id_list is not None:
+            result['InstanceIdList'] = self.instance_id_list
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriodFilter') is not None:
+            self.amortization_period_filter = m.get('AmortizationPeriodFilter')
+        if m.get('BillOwnerIdList') is not None:
+            self.bill_owner_id_list = m.get('BillOwnerIdList')
+        if m.get('BillUserIdList') is not None:
+            self.bill_user_id_list = m.get('BillUserIdList')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('InstanceIdList') is not None:
+            self.instance_id_list = m.get('InstanceIdList')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeInstanceAmortizedCostByConsumePeriodResponseBodyDataItems(TeaModel):
+    def __init__(self, amortization_period=None, amortization_status=None, bill_account_id=None,
+                 bill_account_name=None, bill_owner_id=None, bill_owner_name=None, biz_type=None, consume_period=None, cost_unit=None,
+                 cost_unit_code=None, current_amortization_deducted_by_cash_coupons=None,
+                 current_amortization_deducted_by_coupons=None, current_amortization_deducted_by_prepaid_card=None,
+                 current_amortization_expenditure_amount=None, current_amortization_invoice_discount=None, current_amortization_pretax_amount=None,
+                 current_amortization_pretax_gross_amount=None, current_amortization_round_down_discount=None, deducted_by_cash_coupons=None,
+                 deducted_by_coupons=None, deducted_by_prepaid_card=None, expenditure_amount=None, instance_id=None, internet_ip=None,
+                 intranet_ip=None, invoice_discount=None, pretax_amount=None, pretax_gross_amount=None,
+                 previously_amortized_deducted_by_cash_coupons=None, previously_amortized_deducted_by_coupons=None,
+                 previously_amortized_deducted_by_prepaid_card=None, previously_amortized_expenditure_amount=None, previously_amortized_invoice_discount=None,
+                 previously_amortized_pretax_amount=None, previously_amortized_pretax_gross_amount=None,
+                 previously_amortized_round_down_discount=None, product_code=None, product_detail=None, product_detail_code=None, product_name=None,
+                 region=None, remaining_amortization_deducted_by_cash_coupons=None,
+                 remaining_amortization_deducted_by_coupons=None, remaining_amortization_deducted_by_prepaid_card=None,
+                 remaining_amortization_expenditure_amount=None, remaining_amortization_invoice_discount=None, remaining_amortization_pretax_amount=None,
+                 remaining_amortization_pretax_gross_amount=None, remaining_amortization_round_down_discount=None, resource_group=None,
+                 round_down_discount=None, split_account_name=None, split_item_id=None, split_item_name=None,
+                 split_product_detail=None, subscription_type=None, tag=None, zone=None):
+        self.amortization_period = amortization_period  # type: str
+        self.amortization_status = amortization_status  # type: str
+        self.bill_account_id = bill_account_id  # type: long
+        self.bill_account_name = bill_account_name  # type: str
+        self.bill_owner_id = bill_owner_id  # type: long
+        self.bill_owner_name = bill_owner_name  # type: str
+        self.biz_type = biz_type  # type: str
+        self.consume_period = consume_period  # type: str
+        self.cost_unit = cost_unit  # type: str
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.current_amortization_deducted_by_cash_coupons = current_amortization_deducted_by_cash_coupons  # type: float
+        self.current_amortization_deducted_by_coupons = current_amortization_deducted_by_coupons  # type: float
+        self.current_amortization_deducted_by_prepaid_card = current_amortization_deducted_by_prepaid_card  # type: float
+        self.current_amortization_expenditure_amount = current_amortization_expenditure_amount  # type: float
+        self.current_amortization_invoice_discount = current_amortization_invoice_discount  # type: float
+        self.current_amortization_pretax_amount = current_amortization_pretax_amount  # type: float
+        self.current_amortization_pretax_gross_amount = current_amortization_pretax_gross_amount  # type: float
+        self.current_amortization_round_down_discount = current_amortization_round_down_discount  # type: float
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.expenditure_amount = expenditure_amount  # type: float
+        self.instance_id = instance_id  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
+        self.invoice_discount = invoice_discount  # type: float
+        self.pretax_amount = pretax_amount  # type: float
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.previously_amortized_deducted_by_cash_coupons = previously_amortized_deducted_by_cash_coupons  # type: float
+        self.previously_amortized_deducted_by_coupons = previously_amortized_deducted_by_coupons  # type: float
+        self.previously_amortized_deducted_by_prepaid_card = previously_amortized_deducted_by_prepaid_card  # type: float
+        self.previously_amortized_expenditure_amount = previously_amortized_expenditure_amount  # type: float
+        self.previously_amortized_invoice_discount = previously_amortized_invoice_discount  # type: float
+        self.previously_amortized_pretax_amount = previously_amortized_pretax_amount  # type: float
+        self.previously_amortized_pretax_gross_amount = previously_amortized_pretax_gross_amount  # type: float
+        self.previously_amortized_round_down_discount = previously_amortized_round_down_discount  # type: float
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_detail_code = product_detail_code  # type: str
+        self.product_name = product_name  # type: str
+        self.region = region  # type: str
+        self.remaining_amortization_deducted_by_cash_coupons = remaining_amortization_deducted_by_cash_coupons  # type: float
+        self.remaining_amortization_deducted_by_coupons = remaining_amortization_deducted_by_coupons  # type: float
+        self.remaining_amortization_deducted_by_prepaid_card = remaining_amortization_deducted_by_prepaid_card  # type: float
+        self.remaining_amortization_expenditure_amount = remaining_amortization_expenditure_amount  # type: float
+        self.remaining_amortization_invoice_discount = remaining_amortization_invoice_discount  # type: float
+        self.remaining_amortization_pretax_amount = remaining_amortization_pretax_amount  # type: float
+        self.remaining_amortization_pretax_gross_amount = remaining_amortization_pretax_gross_amount  # type: float
+        self.remaining_amortization_round_down_discount = remaining_amortization_round_down_discount  # type: float
+        self.resource_group = resource_group  # type: str
+        self.round_down_discount = round_down_discount  # type: float
+        self.split_account_name = split_account_name  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.split_item_name = split_item_name  # type: str
+        self.split_product_detail = split_product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
+        self.zone = zone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByConsumePeriodResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period is not None:
+            result['AmortizationPeriod'] = self.amortization_period
+        if self.amortization_status is not None:
+            result['AmortizationStatus'] = self.amortization_status
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
+        if self.bill_owner_id is not None:
+            result['BillOwnerID'] = self.bill_owner_id
+        if self.bill_owner_name is not None:
+            result['BillOwnerName'] = self.bill_owner_name
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.consume_period is not None:
+            result['ConsumePeriod'] = self.consume_period
+        if self.cost_unit is not None:
+            result['CostUnit'] = self.cost_unit
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.current_amortization_deducted_by_cash_coupons is not None:
+            result['CurrentAmortizationDeductedByCashCoupons'] = self.current_amortization_deducted_by_cash_coupons
+        if self.current_amortization_deducted_by_coupons is not None:
+            result['CurrentAmortizationDeductedByCoupons'] = self.current_amortization_deducted_by_coupons
+        if self.current_amortization_deducted_by_prepaid_card is not None:
+            result['CurrentAmortizationDeductedByPrepaidCard'] = self.current_amortization_deducted_by_prepaid_card
+        if self.current_amortization_expenditure_amount is not None:
+            result['CurrentAmortizationExpenditureAmount'] = self.current_amortization_expenditure_amount
+        if self.current_amortization_invoice_discount is not None:
+            result['CurrentAmortizationInvoiceDiscount'] = self.current_amortization_invoice_discount
+        if self.current_amortization_pretax_amount is not None:
+            result['CurrentAmortizationPretaxAmount'] = self.current_amortization_pretax_amount
+        if self.current_amortization_pretax_gross_amount is not None:
+            result['CurrentAmortizationPretaxGrossAmount'] = self.current_amortization_pretax_gross_amount
+        if self.current_amortization_round_down_discount is not None:
+            result['CurrentAmortizationRoundDownDiscount'] = self.current_amortization_round_down_discount
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.deducted_by_coupons is not None:
+            result['DeductedByCoupons'] = self.deducted_by_coupons
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.expenditure_amount is not None:
+            result['ExpenditureAmount'] = self.expenditure_amount
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
+        if self.internet_ip is not None:
+            result['InternetIP'] = self.internet_ip
+        if self.intranet_ip is not None:
+            result['IntranetIP'] = self.intranet_ip
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.pretax_gross_amount is not None:
+            result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.previously_amortized_deducted_by_cash_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCashCoupons'] = self.previously_amortized_deducted_by_cash_coupons
+        if self.previously_amortized_deducted_by_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCoupons'] = self.previously_amortized_deducted_by_coupons
+        if self.previously_amortized_deducted_by_prepaid_card is not None:
+            result['PreviouslyAmortizedDeductedByPrepaidCard'] = self.previously_amortized_deducted_by_prepaid_card
+        if self.previously_amortized_expenditure_amount is not None:
+            result['PreviouslyAmortizedExpenditureAmount'] = self.previously_amortized_expenditure_amount
+        if self.previously_amortized_invoice_discount is not None:
+            result['PreviouslyAmortizedInvoiceDiscount'] = self.previously_amortized_invoice_discount
+        if self.previously_amortized_pretax_amount is not None:
+            result['PreviouslyAmortizedPretaxAmount'] = self.previously_amortized_pretax_amount
+        if self.previously_amortized_pretax_gross_amount is not None:
+            result['PreviouslyAmortizedPretaxGrossAmount'] = self.previously_amortized_pretax_gross_amount
+        if self.previously_amortized_round_down_discount is not None:
+            result['PreviouslyAmortizedRoundDownDiscount'] = self.previously_amortized_round_down_discount
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.product_detail_code is not None:
+            result['ProductDetailCode'] = self.product_detail_code
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.remaining_amortization_deducted_by_cash_coupons is not None:
+            result['RemainingAmortizationDeductedByCashCoupons'] = self.remaining_amortization_deducted_by_cash_coupons
+        if self.remaining_amortization_deducted_by_coupons is not None:
+            result['RemainingAmortizationDeductedByCoupons'] = self.remaining_amortization_deducted_by_coupons
+        if self.remaining_amortization_deducted_by_prepaid_card is not None:
+            result['RemainingAmortizationDeductedByPrepaidCard'] = self.remaining_amortization_deducted_by_prepaid_card
+        if self.remaining_amortization_expenditure_amount is not None:
+            result['RemainingAmortizationExpenditureAmount'] = self.remaining_amortization_expenditure_amount
+        if self.remaining_amortization_invoice_discount is not None:
+            result['RemainingAmortizationInvoiceDiscount'] = self.remaining_amortization_invoice_discount
+        if self.remaining_amortization_pretax_amount is not None:
+            result['RemainingAmortizationPretaxAmount'] = self.remaining_amortization_pretax_amount
+        if self.remaining_amortization_pretax_gross_amount is not None:
+            result['RemainingAmortizationPretaxGrossAmount'] = self.remaining_amortization_pretax_gross_amount
+        if self.remaining_amortization_round_down_discount is not None:
+            result['RemainingAmortizationRoundDownDiscount'] = self.remaining_amortization_round_down_discount
+        if self.resource_group is not None:
+            result['ResourceGroup'] = self.resource_group
+        if self.round_down_discount is not None:
+            result['RoundDownDiscount'] = self.round_down_discount
+        if self.split_account_name is not None:
+            result['SplitAccountName'] = self.split_account_name
+        if self.split_item_id is not None:
+            result['SplitItemID'] = self.split_item_id
+        if self.split_item_name is not None:
+            result['SplitItemName'] = self.split_item_name
+        if self.split_product_detail is not None:
+            result['SplitProductDetail'] = self.split_product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.zone is not None:
+            result['Zone'] = self.zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriod') is not None:
+            self.amortization_period = m.get('AmortizationPeriod')
+        if m.get('AmortizationStatus') is not None:
+            self.amortization_status = m.get('AmortizationStatus')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
+        if m.get('BillOwnerID') is not None:
+            self.bill_owner_id = m.get('BillOwnerID')
+        if m.get('BillOwnerName') is not None:
+            self.bill_owner_name = m.get('BillOwnerName')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ConsumePeriod') is not None:
+            self.consume_period = m.get('ConsumePeriod')
+        if m.get('CostUnit') is not None:
+            self.cost_unit = m.get('CostUnit')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('CurrentAmortizationDeductedByCashCoupons') is not None:
+            self.current_amortization_deducted_by_cash_coupons = m.get('CurrentAmortizationDeductedByCashCoupons')
+        if m.get('CurrentAmortizationDeductedByCoupons') is not None:
+            self.current_amortization_deducted_by_coupons = m.get('CurrentAmortizationDeductedByCoupons')
+        if m.get('CurrentAmortizationDeductedByPrepaidCard') is not None:
+            self.current_amortization_deducted_by_prepaid_card = m.get('CurrentAmortizationDeductedByPrepaidCard')
+        if m.get('CurrentAmortizationExpenditureAmount') is not None:
+            self.current_amortization_expenditure_amount = m.get('CurrentAmortizationExpenditureAmount')
+        if m.get('CurrentAmortizationInvoiceDiscount') is not None:
+            self.current_amortization_invoice_discount = m.get('CurrentAmortizationInvoiceDiscount')
+        if m.get('CurrentAmortizationPretaxAmount') is not None:
+            self.current_amortization_pretax_amount = m.get('CurrentAmortizationPretaxAmount')
+        if m.get('CurrentAmortizationPretaxGrossAmount') is not None:
+            self.current_amortization_pretax_gross_amount = m.get('CurrentAmortizationPretaxGrossAmount')
+        if m.get('CurrentAmortizationRoundDownDiscount') is not None:
+            self.current_amortization_round_down_discount = m.get('CurrentAmortizationRoundDownDiscount')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('DeductedByCoupons') is not None:
+            self.deducted_by_coupons = m.get('DeductedByCoupons')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('ExpenditureAmount') is not None:
+            self.expenditure_amount = m.get('ExpenditureAmount')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
+        if m.get('InternetIP') is not None:
+            self.internet_ip = m.get('InternetIP')
+        if m.get('IntranetIP') is not None:
+            self.intranet_ip = m.get('IntranetIP')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('PretaxGrossAmount') is not None:
+            self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('PreviouslyAmortizedDeductedByCashCoupons') is not None:
+            self.previously_amortized_deducted_by_cash_coupons = m.get('PreviouslyAmortizedDeductedByCashCoupons')
+        if m.get('PreviouslyAmortizedDeductedByCoupons') is not None:
+            self.previously_amortized_deducted_by_coupons = m.get('PreviouslyAmortizedDeductedByCoupons')
+        if m.get('PreviouslyAmortizedDeductedByPrepaidCard') is not None:
+            self.previously_amortized_deducted_by_prepaid_card = m.get('PreviouslyAmortizedDeductedByPrepaidCard')
+        if m.get('PreviouslyAmortizedExpenditureAmount') is not None:
+            self.previously_amortized_expenditure_amount = m.get('PreviouslyAmortizedExpenditureAmount')
+        if m.get('PreviouslyAmortizedInvoiceDiscount') is not None:
+            self.previously_amortized_invoice_discount = m.get('PreviouslyAmortizedInvoiceDiscount')
+        if m.get('PreviouslyAmortizedPretaxAmount') is not None:
+            self.previously_amortized_pretax_amount = m.get('PreviouslyAmortizedPretaxAmount')
+        if m.get('PreviouslyAmortizedPretaxGrossAmount') is not None:
+            self.previously_amortized_pretax_gross_amount = m.get('PreviouslyAmortizedPretaxGrossAmount')
+        if m.get('PreviouslyAmortizedRoundDownDiscount') is not None:
+            self.previously_amortized_round_down_discount = m.get('PreviouslyAmortizedRoundDownDiscount')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('ProductDetailCode') is not None:
+            self.product_detail_code = m.get('ProductDetailCode')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RemainingAmortizationDeductedByCashCoupons') is not None:
+            self.remaining_amortization_deducted_by_cash_coupons = m.get('RemainingAmortizationDeductedByCashCoupons')
+        if m.get('RemainingAmortizationDeductedByCoupons') is not None:
+            self.remaining_amortization_deducted_by_coupons = m.get('RemainingAmortizationDeductedByCoupons')
+        if m.get('RemainingAmortizationDeductedByPrepaidCard') is not None:
+            self.remaining_amortization_deducted_by_prepaid_card = m.get('RemainingAmortizationDeductedByPrepaidCard')
+        if m.get('RemainingAmortizationExpenditureAmount') is not None:
+            self.remaining_amortization_expenditure_amount = m.get('RemainingAmortizationExpenditureAmount')
+        if m.get('RemainingAmortizationInvoiceDiscount') is not None:
+            self.remaining_amortization_invoice_discount = m.get('RemainingAmortizationInvoiceDiscount')
+        if m.get('RemainingAmortizationPretaxAmount') is not None:
+            self.remaining_amortization_pretax_amount = m.get('RemainingAmortizationPretaxAmount')
+        if m.get('RemainingAmortizationPretaxGrossAmount') is not None:
+            self.remaining_amortization_pretax_gross_amount = m.get('RemainingAmortizationPretaxGrossAmount')
+        if m.get('RemainingAmortizationRoundDownDiscount') is not None:
+            self.remaining_amortization_round_down_discount = m.get('RemainingAmortizationRoundDownDiscount')
+        if m.get('ResourceGroup') is not None:
+            self.resource_group = m.get('ResourceGroup')
+        if m.get('RoundDownDiscount') is not None:
+            self.round_down_discount = m.get('RoundDownDiscount')
+        if m.get('SplitAccountName') is not None:
+            self.split_account_name = m.get('SplitAccountName')
+        if m.get('SplitItemID') is not None:
+            self.split_item_id = m.get('SplitItemID')
+        if m.get('SplitItemName') is not None:
+            self.split_item_name = m.get('SplitItemName')
+        if m.get('SplitProductDetail') is not None:
+            self.split_product_detail = m.get('SplitProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
+        return self
+
+
+class DescribeInstanceAmortizedCostByConsumePeriodResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, items=None, max_results=None, next_token=None,
+                 total_count=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.items = items  # type: list[DescribeInstanceAmortizedCostByConsumePeriodResponseBodyDataItems]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByConsumePeriodResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountID'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountID') is not None:
+            self.account_id = m.get('AccountID')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeInstanceAmortizedCostByConsumePeriodResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeInstanceAmortizedCostByConsumePeriodResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DescribeInstanceAmortizedCostByConsumePeriodResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByConsumePeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeInstanceAmortizedCostByConsumePeriodResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeInstanceAmortizedCostByConsumePeriodResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInstanceAmortizedCostByConsumePeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceAmortizedCostByConsumePeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInstanceAmortizedCostByConsumePeriodResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3332,15 +4640,970 @@ class DescribePricingModuleResponse(TeaModel):
         return self
 
 
+class DescribeProductAmortizedCostByAmortizationPeriodRequest(TeaModel):
+    def __init__(self, bill_owner_id_list=None, bill_user_id_list=None, billing_cycle=None,
+                 consume_period_filter=None, cost_unit_code=None, max_results=None, next_token=None, product_code=None,
+                 product_detail=None, subscription_type=None):
+        self.bill_owner_id_list = bill_owner_id_list  # type: list[str]
+        self.bill_user_id_list = bill_user_id_list  # type: list[str]
+        self.billing_cycle = billing_cycle  # type: str
+        self.consume_period_filter = consume_period_filter  # type: list[str]
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByAmortizationPeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_owner_id_list is not None:
+            result['BillOwnerIdList'] = self.bill_owner_id_list
+        if self.bill_user_id_list is not None:
+            result['BillUserIdList'] = self.bill_user_id_list
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.consume_period_filter is not None:
+            result['ConsumePeriodFilter'] = self.consume_period_filter
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BillOwnerIdList') is not None:
+            self.bill_owner_id_list = m.get('BillOwnerIdList')
+        if m.get('BillUserIdList') is not None:
+            self.bill_user_id_list = m.get('BillUserIdList')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('ConsumePeriodFilter') is not None:
+            self.consume_period_filter = m.get('ConsumePeriodFilter')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeProductAmortizedCostByAmortizationPeriodResponseBodyDataItems(TeaModel):
+    def __init__(self, amortization_period=None, amortization_status=None, bill_account_id=None,
+                 bill_account_name=None, bill_owner_id=None, bill_owner_name=None, biz_type=None, consume_period=None,
+                 current_amortization_deducted_by_cash_coupons=None, current_amortization_deducted_by_coupons=None,
+                 current_amortization_deducted_by_prepaid_card=None, current_amortization_expenditure_amount=None, current_amortization_invoice_discount=None,
+                 current_amortization_pretax_amount=None, current_amortization_pretax_gross_amount=None,
+                 current_amortization_round_down_discount=None, deducted_by_cash_coupons=None, deducted_by_coupons=None, deducted_by_prepaid_card=None,
+                 expenditure_amount=None, invoice_discount=None, pretax_amount=None, pretax_gross_amount=None,
+                 previously_amortized_deducted_by_cash_coupons=None, previously_amortized_deducted_by_coupons=None,
+                 previously_amortized_deducted_by_prepaid_card=None, previously_amortized_expenditure_amount=None, previously_amortized_invoice_discount=None,
+                 previously_amortized_pretax_amount=None, previously_amortized_pretax_gross_amount=None,
+                 previously_amortized_round_down_discount=None, product_code=None, product_detail=None, product_detail_code=None, product_name=None,
+                 remaining_amortization_deducted_by_cash_coupons=None, remaining_amortization_deducted_by_coupons=None,
+                 remaining_amortization_deducted_by_prepaid_card=None, remaining_amortization_expenditure_amount=None,
+                 remaining_amortization_invoice_discount=None, remaining_amortization_pretax_amount=None,
+                 remaining_amortization_pretax_gross_amount=None, remaining_amortization_round_down_discount=None, round_down_discount=None,
+                 subscription_type=None):
+        self.amortization_period = amortization_period  # type: str
+        self.amortization_status = amortization_status  # type: str
+        self.bill_account_id = bill_account_id  # type: long
+        self.bill_account_name = bill_account_name  # type: str
+        self.bill_owner_id = bill_owner_id  # type: long
+        self.bill_owner_name = bill_owner_name  # type: str
+        self.biz_type = biz_type  # type: str
+        self.consume_period = consume_period  # type: str
+        self.current_amortization_deducted_by_cash_coupons = current_amortization_deducted_by_cash_coupons  # type: float
+        self.current_amortization_deducted_by_coupons = current_amortization_deducted_by_coupons  # type: float
+        self.current_amortization_deducted_by_prepaid_card = current_amortization_deducted_by_prepaid_card  # type: float
+        self.current_amortization_expenditure_amount = current_amortization_expenditure_amount  # type: float
+        self.current_amortization_invoice_discount = current_amortization_invoice_discount  # type: float
+        self.current_amortization_pretax_amount = current_amortization_pretax_amount  # type: float
+        self.current_amortization_pretax_gross_amount = current_amortization_pretax_gross_amount  # type: float
+        self.current_amortization_round_down_discount = current_amortization_round_down_discount  # type: float
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.expenditure_amount = expenditure_amount  # type: float
+        self.invoice_discount = invoice_discount  # type: float
+        self.pretax_amount = pretax_amount  # type: float
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.previously_amortized_deducted_by_cash_coupons = previously_amortized_deducted_by_cash_coupons  # type: float
+        self.previously_amortized_deducted_by_coupons = previously_amortized_deducted_by_coupons  # type: float
+        self.previously_amortized_deducted_by_prepaid_card = previously_amortized_deducted_by_prepaid_card  # type: float
+        self.previously_amortized_expenditure_amount = previously_amortized_expenditure_amount  # type: float
+        self.previously_amortized_invoice_discount = previously_amortized_invoice_discount  # type: float
+        self.previously_amortized_pretax_amount = previously_amortized_pretax_amount  # type: float
+        self.previously_amortized_pretax_gross_amount = previously_amortized_pretax_gross_amount  # type: float
+        self.previously_amortized_round_down_discount = previously_amortized_round_down_discount  # type: float
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_detail_code = product_detail_code  # type: str
+        self.product_name = product_name  # type: str
+        self.remaining_amortization_deducted_by_cash_coupons = remaining_amortization_deducted_by_cash_coupons  # type: float
+        self.remaining_amortization_deducted_by_coupons = remaining_amortization_deducted_by_coupons  # type: float
+        self.remaining_amortization_deducted_by_prepaid_card = remaining_amortization_deducted_by_prepaid_card  # type: float
+        self.remaining_amortization_expenditure_amount = remaining_amortization_expenditure_amount  # type: float
+        self.remaining_amortization_invoice_discount = remaining_amortization_invoice_discount  # type: float
+        self.remaining_amortization_pretax_amount = remaining_amortization_pretax_amount  # type: float
+        self.remaining_amortization_pretax_gross_amount = remaining_amortization_pretax_gross_amount  # type: float
+        self.remaining_amortization_round_down_discount = remaining_amortization_round_down_discount  # type: float
+        self.round_down_discount = round_down_discount  # type: float
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByAmortizationPeriodResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period is not None:
+            result['AmortizationPeriod'] = self.amortization_period
+        if self.amortization_status is not None:
+            result['AmortizationStatus'] = self.amortization_status
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
+        if self.bill_owner_id is not None:
+            result['BillOwnerID'] = self.bill_owner_id
+        if self.bill_owner_name is not None:
+            result['BillOwnerName'] = self.bill_owner_name
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.consume_period is not None:
+            result['ConsumePeriod'] = self.consume_period
+        if self.current_amortization_deducted_by_cash_coupons is not None:
+            result['CurrentAmortizationDeductedByCashCoupons'] = self.current_amortization_deducted_by_cash_coupons
+        if self.current_amortization_deducted_by_coupons is not None:
+            result['CurrentAmortizationDeductedByCoupons'] = self.current_amortization_deducted_by_coupons
+        if self.current_amortization_deducted_by_prepaid_card is not None:
+            result['CurrentAmortizationDeductedByPrepaidCard'] = self.current_amortization_deducted_by_prepaid_card
+        if self.current_amortization_expenditure_amount is not None:
+            result['CurrentAmortizationExpenditureAmount'] = self.current_amortization_expenditure_amount
+        if self.current_amortization_invoice_discount is not None:
+            result['CurrentAmortizationInvoiceDiscount'] = self.current_amortization_invoice_discount
+        if self.current_amortization_pretax_amount is not None:
+            result['CurrentAmortizationPretaxAmount'] = self.current_amortization_pretax_amount
+        if self.current_amortization_pretax_gross_amount is not None:
+            result['CurrentAmortizationPretaxGrossAmount'] = self.current_amortization_pretax_gross_amount
+        if self.current_amortization_round_down_discount is not None:
+            result['CurrentAmortizationRoundDownDiscount'] = self.current_amortization_round_down_discount
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.deducted_by_coupons is not None:
+            result['DeductedByCoupons'] = self.deducted_by_coupons
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.expenditure_amount is not None:
+            result['ExpenditureAmount'] = self.expenditure_amount
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.pretax_gross_amount is not None:
+            result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.previously_amortized_deducted_by_cash_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCashCoupons'] = self.previously_amortized_deducted_by_cash_coupons
+        if self.previously_amortized_deducted_by_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCoupons'] = self.previously_amortized_deducted_by_coupons
+        if self.previously_amortized_deducted_by_prepaid_card is not None:
+            result['PreviouslyAmortizedDeductedByPrepaidCard'] = self.previously_amortized_deducted_by_prepaid_card
+        if self.previously_amortized_expenditure_amount is not None:
+            result['PreviouslyAmortizedExpenditureAmount'] = self.previously_amortized_expenditure_amount
+        if self.previously_amortized_invoice_discount is not None:
+            result['PreviouslyAmortizedInvoiceDiscount'] = self.previously_amortized_invoice_discount
+        if self.previously_amortized_pretax_amount is not None:
+            result['PreviouslyAmortizedPretaxAmount'] = self.previously_amortized_pretax_amount
+        if self.previously_amortized_pretax_gross_amount is not None:
+            result['PreviouslyAmortizedPretaxGrossAmount'] = self.previously_amortized_pretax_gross_amount
+        if self.previously_amortized_round_down_discount is not None:
+            result['PreviouslyAmortizedRoundDownDiscount'] = self.previously_amortized_round_down_discount
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.product_detail_code is not None:
+            result['ProductDetailCode'] = self.product_detail_code
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.remaining_amortization_deducted_by_cash_coupons is not None:
+            result['RemainingAmortizationDeductedByCashCoupons'] = self.remaining_amortization_deducted_by_cash_coupons
+        if self.remaining_amortization_deducted_by_coupons is not None:
+            result['RemainingAmortizationDeductedByCoupons'] = self.remaining_amortization_deducted_by_coupons
+        if self.remaining_amortization_deducted_by_prepaid_card is not None:
+            result['RemainingAmortizationDeductedByPrepaidCard'] = self.remaining_amortization_deducted_by_prepaid_card
+        if self.remaining_amortization_expenditure_amount is not None:
+            result['RemainingAmortizationExpenditureAmount'] = self.remaining_amortization_expenditure_amount
+        if self.remaining_amortization_invoice_discount is not None:
+            result['RemainingAmortizationInvoiceDiscount'] = self.remaining_amortization_invoice_discount
+        if self.remaining_amortization_pretax_amount is not None:
+            result['RemainingAmortizationPretaxAmount'] = self.remaining_amortization_pretax_amount
+        if self.remaining_amortization_pretax_gross_amount is not None:
+            result['RemainingAmortizationPretaxGrossAmount'] = self.remaining_amortization_pretax_gross_amount
+        if self.remaining_amortization_round_down_discount is not None:
+            result['RemainingAmortizationRoundDownDiscount'] = self.remaining_amortization_round_down_discount
+        if self.round_down_discount is not None:
+            result['RoundDownDiscount'] = self.round_down_discount
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriod') is not None:
+            self.amortization_period = m.get('AmortizationPeriod')
+        if m.get('AmortizationStatus') is not None:
+            self.amortization_status = m.get('AmortizationStatus')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
+        if m.get('BillOwnerID') is not None:
+            self.bill_owner_id = m.get('BillOwnerID')
+        if m.get('BillOwnerName') is not None:
+            self.bill_owner_name = m.get('BillOwnerName')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ConsumePeriod') is not None:
+            self.consume_period = m.get('ConsumePeriod')
+        if m.get('CurrentAmortizationDeductedByCashCoupons') is not None:
+            self.current_amortization_deducted_by_cash_coupons = m.get('CurrentAmortizationDeductedByCashCoupons')
+        if m.get('CurrentAmortizationDeductedByCoupons') is not None:
+            self.current_amortization_deducted_by_coupons = m.get('CurrentAmortizationDeductedByCoupons')
+        if m.get('CurrentAmortizationDeductedByPrepaidCard') is not None:
+            self.current_amortization_deducted_by_prepaid_card = m.get('CurrentAmortizationDeductedByPrepaidCard')
+        if m.get('CurrentAmortizationExpenditureAmount') is not None:
+            self.current_amortization_expenditure_amount = m.get('CurrentAmortizationExpenditureAmount')
+        if m.get('CurrentAmortizationInvoiceDiscount') is not None:
+            self.current_amortization_invoice_discount = m.get('CurrentAmortizationInvoiceDiscount')
+        if m.get('CurrentAmortizationPretaxAmount') is not None:
+            self.current_amortization_pretax_amount = m.get('CurrentAmortizationPretaxAmount')
+        if m.get('CurrentAmortizationPretaxGrossAmount') is not None:
+            self.current_amortization_pretax_gross_amount = m.get('CurrentAmortizationPretaxGrossAmount')
+        if m.get('CurrentAmortizationRoundDownDiscount') is not None:
+            self.current_amortization_round_down_discount = m.get('CurrentAmortizationRoundDownDiscount')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('DeductedByCoupons') is not None:
+            self.deducted_by_coupons = m.get('DeductedByCoupons')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('ExpenditureAmount') is not None:
+            self.expenditure_amount = m.get('ExpenditureAmount')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('PretaxGrossAmount') is not None:
+            self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('PreviouslyAmortizedDeductedByCashCoupons') is not None:
+            self.previously_amortized_deducted_by_cash_coupons = m.get('PreviouslyAmortizedDeductedByCashCoupons')
+        if m.get('PreviouslyAmortizedDeductedByCoupons') is not None:
+            self.previously_amortized_deducted_by_coupons = m.get('PreviouslyAmortizedDeductedByCoupons')
+        if m.get('PreviouslyAmortizedDeductedByPrepaidCard') is not None:
+            self.previously_amortized_deducted_by_prepaid_card = m.get('PreviouslyAmortizedDeductedByPrepaidCard')
+        if m.get('PreviouslyAmortizedExpenditureAmount') is not None:
+            self.previously_amortized_expenditure_amount = m.get('PreviouslyAmortizedExpenditureAmount')
+        if m.get('PreviouslyAmortizedInvoiceDiscount') is not None:
+            self.previously_amortized_invoice_discount = m.get('PreviouslyAmortizedInvoiceDiscount')
+        if m.get('PreviouslyAmortizedPretaxAmount') is not None:
+            self.previously_amortized_pretax_amount = m.get('PreviouslyAmortizedPretaxAmount')
+        if m.get('PreviouslyAmortizedPretaxGrossAmount') is not None:
+            self.previously_amortized_pretax_gross_amount = m.get('PreviouslyAmortizedPretaxGrossAmount')
+        if m.get('PreviouslyAmortizedRoundDownDiscount') is not None:
+            self.previously_amortized_round_down_discount = m.get('PreviouslyAmortizedRoundDownDiscount')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('ProductDetailCode') is not None:
+            self.product_detail_code = m.get('ProductDetailCode')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('RemainingAmortizationDeductedByCashCoupons') is not None:
+            self.remaining_amortization_deducted_by_cash_coupons = m.get('RemainingAmortizationDeductedByCashCoupons')
+        if m.get('RemainingAmortizationDeductedByCoupons') is not None:
+            self.remaining_amortization_deducted_by_coupons = m.get('RemainingAmortizationDeductedByCoupons')
+        if m.get('RemainingAmortizationDeductedByPrepaidCard') is not None:
+            self.remaining_amortization_deducted_by_prepaid_card = m.get('RemainingAmortizationDeductedByPrepaidCard')
+        if m.get('RemainingAmortizationExpenditureAmount') is not None:
+            self.remaining_amortization_expenditure_amount = m.get('RemainingAmortizationExpenditureAmount')
+        if m.get('RemainingAmortizationInvoiceDiscount') is not None:
+            self.remaining_amortization_invoice_discount = m.get('RemainingAmortizationInvoiceDiscount')
+        if m.get('RemainingAmortizationPretaxAmount') is not None:
+            self.remaining_amortization_pretax_amount = m.get('RemainingAmortizationPretaxAmount')
+        if m.get('RemainingAmortizationPretaxGrossAmount') is not None:
+            self.remaining_amortization_pretax_gross_amount = m.get('RemainingAmortizationPretaxGrossAmount')
+        if m.get('RemainingAmortizationRoundDownDiscount') is not None:
+            self.remaining_amortization_round_down_discount = m.get('RemainingAmortizationRoundDownDiscount')
+        if m.get('RoundDownDiscount') is not None:
+            self.round_down_discount = m.get('RoundDownDiscount')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeProductAmortizedCostByAmortizationPeriodResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, items=None, max_results=None, next_token=None,
+                 total_count=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.items = items  # type: list[DescribeProductAmortizedCostByAmortizationPeriodResponseBodyDataItems]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByAmortizationPeriodResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountID'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountID') is not None:
+            self.account_id = m.get('AccountID')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeProductAmortizedCostByAmortizationPeriodResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeProductAmortizedCostByAmortizationPeriodResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DescribeProductAmortizedCostByAmortizationPeriodResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByAmortizationPeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeProductAmortizedCostByAmortizationPeriodResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeProductAmortizedCostByAmortizationPeriodResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeProductAmortizedCostByAmortizationPeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByAmortizationPeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeProductAmortizedCostByAmortizationPeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeProductAmortizedCostByConsumePeriodRequest(TeaModel):
+    def __init__(self, amortization_period_filter=None, bill_owner_id_list=None, bill_user_id_list=None,
+                 billing_cycle=None, cost_unit_code=None, max_results=None, next_token=None, product_code=None,
+                 product_detail=None, subscription_type=None):
+        self.amortization_period_filter = amortization_period_filter  # type: list[str]
+        self.bill_owner_id_list = bill_owner_id_list  # type: list[str]
+        self.bill_user_id_list = bill_user_id_list  # type: list[str]
+        self.billing_cycle = billing_cycle  # type: str
+        self.cost_unit_code = cost_unit_code  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByConsumePeriodRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period_filter is not None:
+            result['AmortizationPeriodFilter'] = self.amortization_period_filter
+        if self.bill_owner_id_list is not None:
+            result['BillOwnerIdList'] = self.bill_owner_id_list
+        if self.bill_user_id_list is not None:
+            result['BillUserIdList'] = self.bill_user_id_list
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.cost_unit_code is not None:
+            result['CostUnitCode'] = self.cost_unit_code
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriodFilter') is not None:
+            self.amortization_period_filter = m.get('AmortizationPeriodFilter')
+        if m.get('BillOwnerIdList') is not None:
+            self.bill_owner_id_list = m.get('BillOwnerIdList')
+        if m.get('BillUserIdList') is not None:
+            self.bill_user_id_list = m.get('BillUserIdList')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('CostUnitCode') is not None:
+            self.cost_unit_code = m.get('CostUnitCode')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeProductAmortizedCostByConsumePeriodResponseBodyDataItems(TeaModel):
+    def __init__(self, amortization_period=None, amortization_status=None, bill_account_id=None,
+                 bill_account_name=None, bill_owner_id=None, bill_owner_name=None, biz_type=None, consume_period=None,
+                 current_amortization_deducted_by_cash_coupons=None, current_amortization_deducted_by_coupons=None,
+                 current_amortization_deducted_by_prepaid_card=None, current_amortization_expenditure_amount=None, current_amortization_invoice_discount=None,
+                 current_amortization_pretax_amount=None, current_amortization_pretax_gross_amount=None,
+                 current_amortization_round_down_discount=None, deducted_by_cash_coupons=None, deducted_by_coupons=None, deducted_by_prepaid_card=None,
+                 expenditure_amount=None, invoice_discount=None, pretax_amount=None, pretax_gross_amount=None,
+                 previously_amortized_deducted_by_cash_coupons=None, previously_amortized_deducted_by_coupons=None,
+                 previously_amortized_deducted_by_prepaid_card=None, previously_amortized_expenditure_amount=None, previously_amortized_invoice_discount=None,
+                 previously_amortized_pretax_amount=None, previously_amortized_pretax_gross_amount=None,
+                 previously_amortized_round_down_discount=None, product_code=None, product_detail=None, product_detail_code=None, product_name=None,
+                 remaining_amortization_deducted_by_cash_coupons=None, remaining_amortization_deducted_by_coupons=None,
+                 remaining_amortization_deducted_by_prepaid_card=None, remaining_amortization_expenditure_amount=None,
+                 remaining_amortization_invoice_discount=None, remaining_amortization_pretax_amount=None,
+                 remaining_amortization_pretax_gross_amount=None, remaining_amortization_round_down_discount=None, round_down_discount=None,
+                 subscription_type=None):
+        self.amortization_period = amortization_period  # type: str
+        self.amortization_status = amortization_status  # type: str
+        self.bill_account_id = bill_account_id  # type: long
+        self.bill_account_name = bill_account_name  # type: str
+        self.bill_owner_id = bill_owner_id  # type: long
+        self.bill_owner_name = bill_owner_name  # type: str
+        self.biz_type = biz_type  # type: str
+        self.consume_period = consume_period  # type: str
+        self.current_amortization_deducted_by_cash_coupons = current_amortization_deducted_by_cash_coupons  # type: float
+        self.current_amortization_deducted_by_coupons = current_amortization_deducted_by_coupons  # type: float
+        self.current_amortization_deducted_by_prepaid_card = current_amortization_deducted_by_prepaid_card  # type: float
+        self.current_amortization_expenditure_amount = current_amortization_expenditure_amount  # type: float
+        self.current_amortization_invoice_discount = current_amortization_invoice_discount  # type: float
+        self.current_amortization_pretax_amount = current_amortization_pretax_amount  # type: float
+        self.current_amortization_pretax_gross_amount = current_amortization_pretax_gross_amount  # type: float
+        self.current_amortization_round_down_discount = current_amortization_round_down_discount  # type: float
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.expenditure_amount = expenditure_amount  # type: float
+        self.invoice_discount = invoice_discount  # type: float
+        self.pretax_amount = pretax_amount  # type: float
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.previously_amortized_deducted_by_cash_coupons = previously_amortized_deducted_by_cash_coupons  # type: float
+        self.previously_amortized_deducted_by_coupons = previously_amortized_deducted_by_coupons  # type: float
+        self.previously_amortized_deducted_by_prepaid_card = previously_amortized_deducted_by_prepaid_card  # type: float
+        self.previously_amortized_expenditure_amount = previously_amortized_expenditure_amount  # type: float
+        self.previously_amortized_invoice_discount = previously_amortized_invoice_discount  # type: float
+        self.previously_amortized_pretax_amount = previously_amortized_pretax_amount  # type: float
+        self.previously_amortized_pretax_gross_amount = previously_amortized_pretax_gross_amount  # type: float
+        self.previously_amortized_round_down_discount = previously_amortized_round_down_discount  # type: float
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_detail_code = product_detail_code  # type: str
+        self.product_name = product_name  # type: str
+        self.remaining_amortization_deducted_by_cash_coupons = remaining_amortization_deducted_by_cash_coupons  # type: float
+        self.remaining_amortization_deducted_by_coupons = remaining_amortization_deducted_by_coupons  # type: float
+        self.remaining_amortization_deducted_by_prepaid_card = remaining_amortization_deducted_by_prepaid_card  # type: float
+        self.remaining_amortization_expenditure_amount = remaining_amortization_expenditure_amount  # type: float
+        self.remaining_amortization_invoice_discount = remaining_amortization_invoice_discount  # type: float
+        self.remaining_amortization_pretax_amount = remaining_amortization_pretax_amount  # type: float
+        self.remaining_amortization_pretax_gross_amount = remaining_amortization_pretax_gross_amount  # type: float
+        self.remaining_amortization_round_down_discount = remaining_amortization_round_down_discount  # type: float
+        self.round_down_discount = round_down_discount  # type: float
+        self.subscription_type = subscription_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByConsumePeriodResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amortization_period is not None:
+            result['AmortizationPeriod'] = self.amortization_period
+        if self.amortization_status is not None:
+            result['AmortizationStatus'] = self.amortization_status
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
+        if self.bill_owner_id is not None:
+            result['BillOwnerID'] = self.bill_owner_id
+        if self.bill_owner_name is not None:
+            result['BillOwnerName'] = self.bill_owner_name
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.consume_period is not None:
+            result['ConsumePeriod'] = self.consume_period
+        if self.current_amortization_deducted_by_cash_coupons is not None:
+            result['CurrentAmortizationDeductedByCashCoupons'] = self.current_amortization_deducted_by_cash_coupons
+        if self.current_amortization_deducted_by_coupons is not None:
+            result['CurrentAmortizationDeductedByCoupons'] = self.current_amortization_deducted_by_coupons
+        if self.current_amortization_deducted_by_prepaid_card is not None:
+            result['CurrentAmortizationDeductedByPrepaidCard'] = self.current_amortization_deducted_by_prepaid_card
+        if self.current_amortization_expenditure_amount is not None:
+            result['CurrentAmortizationExpenditureAmount'] = self.current_amortization_expenditure_amount
+        if self.current_amortization_invoice_discount is not None:
+            result['CurrentAmortizationInvoiceDiscount'] = self.current_amortization_invoice_discount
+        if self.current_amortization_pretax_amount is not None:
+            result['CurrentAmortizationPretaxAmount'] = self.current_amortization_pretax_amount
+        if self.current_amortization_pretax_gross_amount is not None:
+            result['CurrentAmortizationPretaxGrossAmount'] = self.current_amortization_pretax_gross_amount
+        if self.current_amortization_round_down_discount is not None:
+            result['CurrentAmortizationRoundDownDiscount'] = self.current_amortization_round_down_discount
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.deducted_by_coupons is not None:
+            result['DeductedByCoupons'] = self.deducted_by_coupons
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.expenditure_amount is not None:
+            result['ExpenditureAmount'] = self.expenditure_amount
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.pretax_gross_amount is not None:
+            result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.previously_amortized_deducted_by_cash_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCashCoupons'] = self.previously_amortized_deducted_by_cash_coupons
+        if self.previously_amortized_deducted_by_coupons is not None:
+            result['PreviouslyAmortizedDeductedByCoupons'] = self.previously_amortized_deducted_by_coupons
+        if self.previously_amortized_deducted_by_prepaid_card is not None:
+            result['PreviouslyAmortizedDeductedByPrepaidCard'] = self.previously_amortized_deducted_by_prepaid_card
+        if self.previously_amortized_expenditure_amount is not None:
+            result['PreviouslyAmortizedExpenditureAmount'] = self.previously_amortized_expenditure_amount
+        if self.previously_amortized_invoice_discount is not None:
+            result['PreviouslyAmortizedInvoiceDiscount'] = self.previously_amortized_invoice_discount
+        if self.previously_amortized_pretax_amount is not None:
+            result['PreviouslyAmortizedPretaxAmount'] = self.previously_amortized_pretax_amount
+        if self.previously_amortized_pretax_gross_amount is not None:
+            result['PreviouslyAmortizedPretaxGrossAmount'] = self.previously_amortized_pretax_gross_amount
+        if self.previously_amortized_round_down_discount is not None:
+            result['PreviouslyAmortizedRoundDownDiscount'] = self.previously_amortized_round_down_discount
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.product_detail_code is not None:
+            result['ProductDetailCode'] = self.product_detail_code
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.remaining_amortization_deducted_by_cash_coupons is not None:
+            result['RemainingAmortizationDeductedByCashCoupons'] = self.remaining_amortization_deducted_by_cash_coupons
+        if self.remaining_amortization_deducted_by_coupons is not None:
+            result['RemainingAmortizationDeductedByCoupons'] = self.remaining_amortization_deducted_by_coupons
+        if self.remaining_amortization_deducted_by_prepaid_card is not None:
+            result['RemainingAmortizationDeductedByPrepaidCard'] = self.remaining_amortization_deducted_by_prepaid_card
+        if self.remaining_amortization_expenditure_amount is not None:
+            result['RemainingAmortizationExpenditureAmount'] = self.remaining_amortization_expenditure_amount
+        if self.remaining_amortization_invoice_discount is not None:
+            result['RemainingAmortizationInvoiceDiscount'] = self.remaining_amortization_invoice_discount
+        if self.remaining_amortization_pretax_amount is not None:
+            result['RemainingAmortizationPretaxAmount'] = self.remaining_amortization_pretax_amount
+        if self.remaining_amortization_pretax_gross_amount is not None:
+            result['RemainingAmortizationPretaxGrossAmount'] = self.remaining_amortization_pretax_gross_amount
+        if self.remaining_amortization_round_down_discount is not None:
+            result['RemainingAmortizationRoundDownDiscount'] = self.remaining_amortization_round_down_discount
+        if self.round_down_discount is not None:
+            result['RoundDownDiscount'] = self.round_down_discount
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AmortizationPeriod') is not None:
+            self.amortization_period = m.get('AmortizationPeriod')
+        if m.get('AmortizationStatus') is not None:
+            self.amortization_status = m.get('AmortizationStatus')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
+        if m.get('BillOwnerID') is not None:
+            self.bill_owner_id = m.get('BillOwnerID')
+        if m.get('BillOwnerName') is not None:
+            self.bill_owner_name = m.get('BillOwnerName')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ConsumePeriod') is not None:
+            self.consume_period = m.get('ConsumePeriod')
+        if m.get('CurrentAmortizationDeductedByCashCoupons') is not None:
+            self.current_amortization_deducted_by_cash_coupons = m.get('CurrentAmortizationDeductedByCashCoupons')
+        if m.get('CurrentAmortizationDeductedByCoupons') is not None:
+            self.current_amortization_deducted_by_coupons = m.get('CurrentAmortizationDeductedByCoupons')
+        if m.get('CurrentAmortizationDeductedByPrepaidCard') is not None:
+            self.current_amortization_deducted_by_prepaid_card = m.get('CurrentAmortizationDeductedByPrepaidCard')
+        if m.get('CurrentAmortizationExpenditureAmount') is not None:
+            self.current_amortization_expenditure_amount = m.get('CurrentAmortizationExpenditureAmount')
+        if m.get('CurrentAmortizationInvoiceDiscount') is not None:
+            self.current_amortization_invoice_discount = m.get('CurrentAmortizationInvoiceDiscount')
+        if m.get('CurrentAmortizationPretaxAmount') is not None:
+            self.current_amortization_pretax_amount = m.get('CurrentAmortizationPretaxAmount')
+        if m.get('CurrentAmortizationPretaxGrossAmount') is not None:
+            self.current_amortization_pretax_gross_amount = m.get('CurrentAmortizationPretaxGrossAmount')
+        if m.get('CurrentAmortizationRoundDownDiscount') is not None:
+            self.current_amortization_round_down_discount = m.get('CurrentAmortizationRoundDownDiscount')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('DeductedByCoupons') is not None:
+            self.deducted_by_coupons = m.get('DeductedByCoupons')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('ExpenditureAmount') is not None:
+            self.expenditure_amount = m.get('ExpenditureAmount')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('PretaxGrossAmount') is not None:
+            self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('PreviouslyAmortizedDeductedByCashCoupons') is not None:
+            self.previously_amortized_deducted_by_cash_coupons = m.get('PreviouslyAmortizedDeductedByCashCoupons')
+        if m.get('PreviouslyAmortizedDeductedByCoupons') is not None:
+            self.previously_amortized_deducted_by_coupons = m.get('PreviouslyAmortizedDeductedByCoupons')
+        if m.get('PreviouslyAmortizedDeductedByPrepaidCard') is not None:
+            self.previously_amortized_deducted_by_prepaid_card = m.get('PreviouslyAmortizedDeductedByPrepaidCard')
+        if m.get('PreviouslyAmortizedExpenditureAmount') is not None:
+            self.previously_amortized_expenditure_amount = m.get('PreviouslyAmortizedExpenditureAmount')
+        if m.get('PreviouslyAmortizedInvoiceDiscount') is not None:
+            self.previously_amortized_invoice_discount = m.get('PreviouslyAmortizedInvoiceDiscount')
+        if m.get('PreviouslyAmortizedPretaxAmount') is not None:
+            self.previously_amortized_pretax_amount = m.get('PreviouslyAmortizedPretaxAmount')
+        if m.get('PreviouslyAmortizedPretaxGrossAmount') is not None:
+            self.previously_amortized_pretax_gross_amount = m.get('PreviouslyAmortizedPretaxGrossAmount')
+        if m.get('PreviouslyAmortizedRoundDownDiscount') is not None:
+            self.previously_amortized_round_down_discount = m.get('PreviouslyAmortizedRoundDownDiscount')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('ProductDetailCode') is not None:
+            self.product_detail_code = m.get('ProductDetailCode')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('RemainingAmortizationDeductedByCashCoupons') is not None:
+            self.remaining_amortization_deducted_by_cash_coupons = m.get('RemainingAmortizationDeductedByCashCoupons')
+        if m.get('RemainingAmortizationDeductedByCoupons') is not None:
+            self.remaining_amortization_deducted_by_coupons = m.get('RemainingAmortizationDeductedByCoupons')
+        if m.get('RemainingAmortizationDeductedByPrepaidCard') is not None:
+            self.remaining_amortization_deducted_by_prepaid_card = m.get('RemainingAmortizationDeductedByPrepaidCard')
+        if m.get('RemainingAmortizationExpenditureAmount') is not None:
+            self.remaining_amortization_expenditure_amount = m.get('RemainingAmortizationExpenditureAmount')
+        if m.get('RemainingAmortizationInvoiceDiscount') is not None:
+            self.remaining_amortization_invoice_discount = m.get('RemainingAmortizationInvoiceDiscount')
+        if m.get('RemainingAmortizationPretaxAmount') is not None:
+            self.remaining_amortization_pretax_amount = m.get('RemainingAmortizationPretaxAmount')
+        if m.get('RemainingAmortizationPretaxGrossAmount') is not None:
+            self.remaining_amortization_pretax_gross_amount = m.get('RemainingAmortizationPretaxGrossAmount')
+        if m.get('RemainingAmortizationRoundDownDiscount') is not None:
+            self.remaining_amortization_round_down_discount = m.get('RemainingAmortizationRoundDownDiscount')
+        if m.get('RoundDownDiscount') is not None:
+            self.round_down_discount = m.get('RoundDownDiscount')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        return self
+
+
+class DescribeProductAmortizedCostByConsumePeriodResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, items=None, max_results=None, next_token=None,
+                 total_count=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.items = items  # type: list[DescribeProductAmortizedCostByConsumePeriodResponseBodyDataItems]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByConsumePeriodResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountID'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountID') is not None:
+            self.account_id = m.get('AccountID')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeProductAmortizedCostByConsumePeriodResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeProductAmortizedCostByConsumePeriodResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DescribeProductAmortizedCostByConsumePeriodResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByConsumePeriodResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeProductAmortizedCostByConsumePeriodResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeProductAmortizedCostByConsumePeriodResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeProductAmortizedCostByConsumePeriodResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeProductAmortizedCostByConsumePeriodResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeProductAmortizedCostByConsumePeriodResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeResourceCoverageDetailRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, max_results=None, next_token=None, period_type=None,
                  resource_type=None, start_period=None):
+        # The ID of the account for which you want to query coverage details. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The maximum number of entries to return. Default value: 20. Maximum value: 300.
         self.max_results = max_results  # type: int
+        # The token that is used to retrieve the next page of results. You do not need to set this parameter if you query coverage details within a specific time range for the first time. The response returns a token that you can use to query coverage details that are displayed on the next page. If a null value is returned for the NextToken parameter, no more coverage details can be queried.
         self.next_token = next_token  # type: str
+        # The time granularity at which coverage details are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The type of deduction plans whose coverage details are queried. Valid values: RI and SCU.
         self.resource_type = resource_type  # type: str
+        # The beginning of the time range to query.
+        # 
+        # The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
 
     def validate(self):
@@ -3392,25 +5655,45 @@ class DescribeResourceCoverageDetailResponseBodyDataItems(TeaModel):
                  currency=None, deduct_quantity=None, end_time=None, instance_id=None, instance_spec=None,
                  payment_amount=None, product_code=None, product_name=None, region=None, region_no=None, start_time=None,
                  total_quantity=None, user_id=None, user_name=None, zone=None, zone_name=None):
+        # The unit that is used to measure the resources deducted from deduction plans.
         self.capacity_unit = capacity_unit  # type: str
+        # The code of the service.
         self.commodity_code = commodity_code  # type: str
+        # The name and billing method of the service.
         self.commodity_name = commodity_name  # type: str
+        # The coverage rate of a deduction plan.
         self.coverage_percentage = coverage_percentage  # type: float
+        # The currency in which deduction plans were priced.
         self.currency = currency  # type: str
+        # The amount of the resources deducted from a deduction plan.
         self.deduct_quantity = deduct_quantity  # type: float
+        # The end of the time range in which the coverage details were queried.
         self.end_time = end_time  # type: str
+        # The ID of a pay-as-you-go instance.
         self.instance_id = instance_id  # type: str
+        # The specifications of a deduction plan.
         self.instance_spec = instance_spec  # type: str
+        # The amount of the bill.
         self.payment_amount = payment_amount  # type: float
+        # The code of the service.
         self.product_code = product_code  # type: str
+        # The name of the service.
         self.product_name = product_name  # type: str
+        # The region.
         self.region = region  # type: str
+        # The code of the region.
         self.region_no = region_no  # type: str
+        # The beginning of the time range in which the coverage details were queried.
         self.start_time = start_time  # type: str
+        # The total amount of resources consumed.
         self.total_quantity = total_quantity  # type: float
+        # The ID of the account.
         self.user_id = user_id  # type: str
+        # The username of the account.
         self.user_name = user_name  # type: str
+        # The code of the zone.
         self.zone = zone  # type: str
+        # The zone.
         self.zone_name = zone_name  # type: str
 
     def validate(self):
@@ -3511,9 +5794,13 @@ class DescribeResourceCoverageDetailResponseBodyDataItems(TeaModel):
 
 class DescribeResourceCoverageDetailResponseBodyData(TeaModel):
     def __init__(self, items=None, max_results=None, next_token=None, total_count=None):
+        # The data entries.
         self.items = items  # type: list[DescribeResourceCoverageDetailResponseBodyDataItems]
+        # The number of entries returned on the current page.
         self.max_results = max_results  # type: int
+        # The token of the next page.
         self.next_token = next_token  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -3558,10 +5845,15 @@ class DescribeResourceCoverageDetailResponseBodyData(TeaModel):
 
 class DescribeResourceCoverageDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: DescribeResourceCoverageDetailResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3643,10 +5935,15 @@ class DescribeResourceCoverageDetailResponse(TeaModel):
 
 class DescribeResourceCoverageTotalRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, period_type=None, resource_type=None, start_period=None):
+        # The ID of the account for which you want to query total coverage data. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The time granularity at which total coverage data is queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The type of deduction plans whose total coverage data is queried. Valid values: RI and SCU.
         self.resource_type = resource_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
 
     def validate(self):
@@ -3687,7 +5984,11 @@ class DescribeResourceCoverageTotalRequest(TeaModel):
 
 class DescribeResourceCoverageTotalResponseBodyDataPeriodCoverage(TeaModel):
     def __init__(self, coverage_percentage=None, period=None):
+        # The coverage rate of deduction plans within the specified period.
         self.coverage_percentage = coverage_percentage  # type: float
+        # The period.
+        # 
+        # The value is in the format of yyyyMMddHH.
         self.period = period  # type: str
 
     def validate(self):
@@ -3716,9 +6017,13 @@ class DescribeResourceCoverageTotalResponseBodyDataPeriodCoverage(TeaModel):
 
 class DescribeResourceCoverageTotalResponseBodyDataTotalCoverage(TeaModel):
     def __init__(self, capacity_unit=None, coverage_percentage=None, deduct_quantity=None, total_quantity=None):
+        # The unit that is used to measure the resources deducted from deduction plans.
         self.capacity_unit = capacity_unit  # type: str
+        # The total coverage rate of deduction plans.
         self.coverage_percentage = coverage_percentage  # type: float
+        # The total amount of the resources deducted from deduction plans.
         self.deduct_quantity = deduct_quantity  # type: float
+        # The total amount of resources consumed.
         self.total_quantity = total_quantity  # type: float
 
     def validate(self):
@@ -3755,7 +6060,9 @@ class DescribeResourceCoverageTotalResponseBodyDataTotalCoverage(TeaModel):
 
 class DescribeResourceCoverageTotalResponseBodyData(TeaModel):
     def __init__(self, period_coverage=None, total_coverage=None):
+        # The information about the coverage rate of deduction plans within a period.
         self.period_coverage = period_coverage  # type: list[DescribeResourceCoverageTotalResponseBodyDataPeriodCoverage]
+        # The information about the total coverage data of deduction plans.
         self.total_coverage = total_coverage  # type: DescribeResourceCoverageTotalResponseBodyDataTotalCoverage
 
     def validate(self):
@@ -3795,10 +6102,15 @@ class DescribeResourceCoverageTotalResponseBodyData(TeaModel):
 
 class DescribeResourceCoverageTotalResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: DescribeResourceCoverageTotalResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4366,11 +6678,17 @@ class DescribeResourceUsageDetailRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, max_results=None, next_token=None, period_type=None,
                  resource_type=None, start_period=None):
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The maximum number of entries to return. Default value: 20. Maximum value: 300.
         self.max_results = max_results  # type: int
+        # The token that is used to retrieve the next page of results. You do not need to set this parameter if you query usage details within a specific time range for the first time. The response returns a token that you can use to query usage details that are displayed on the next page. If a null value is returned for the NextToken parameter, no more usage details can be queried.
         self.next_token = next_token  # type: str
+        # The time granularity at which usage details are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The type of deduction plans whose usage details are queried. Valid values: RI and SCU.
         self.resource_type = resource_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
 
     def validate(self):
@@ -4422,28 +6740,51 @@ class DescribeResourceUsageDetailResponseBodyDataItems(TeaModel):
                  instance_spec=None, postpaid_cost=None, potential_saved_cost=None, quantity=None, region=None, region_no=None,
                  reservation_cost=None, resource_instance_id=None, saved_cost=None, start_time=None, status=None, status_name=None,
                  total_quantity=None, usage_percentage=None, user_id=None, user_name=None, zone=None, zone_name=None):
+        # The unit that is used to measure the resources deducted from deduction plans.
         self.capacity_unit = capacity_unit  # type: str
+        # The currency in which deduction plans were priced.
         self.currency = currency  # type: str
+        # The amount of the resources deducted from deduction plans.
         self.deduct_quantity = deduct_quantity  # type: float
+        # The end of the time range in which the usage details were queried.
         self.end_time = end_time  # type: str
+        # The operating system.
         self.image_type = image_type  # type: str
+        # The specifications of a deduction plan.
         self.instance_spec = instance_spec  # type: str
+        # The equivalent of pay-as-you-go costs.
         self.postpaid_cost = postpaid_cost  # type: str
+        # The potential net savings.
         self.potential_saved_cost = potential_saved_cost  # type: str
+        # The number of deduction plans.
         self.quantity = quantity  # type: long
+        # The region.
         self.region = region  # type: str
+        # The code of the region.
         self.region_no = region_no  # type: str
+        # The fee of purchased deduction plans.
         self.reservation_cost = reservation_cost  # type: str
+        # The ID of a deduction plan.
         self.resource_instance_id = resource_instance_id  # type: str
+        # The net savings.
         self.saved_cost = saved_cost  # type: str
+        # The beginning of the time range in which the usage details were queried.
         self.start_time = start_time  # type: str
+        # The status of the deduction plan.
         self.status = status  # type: str
+        # The name of the state.
         self.status_name = status_name  # type: str
+        # The total capacity of deduction plans.
         self.total_quantity = total_quantity  # type: float
+        # The usage of deduction plans.
         self.usage_percentage = usage_percentage  # type: float
+        # The ID of the account.
         self.user_id = user_id  # type: str
+        # The username of the account.
         self.user_name = user_name  # type: str
+        # The code of the zone.
         self.zone = zone  # type: str
+        # The zone.
         self.zone_name = zone_name  # type: str
 
     def validate(self):
@@ -4556,9 +6897,13 @@ class DescribeResourceUsageDetailResponseBodyDataItems(TeaModel):
 
 class DescribeResourceUsageDetailResponseBodyData(TeaModel):
     def __init__(self, items=None, max_results=None, next_token=None, total_count=None):
+        # The data entries.
         self.items = items  # type: list[DescribeResourceUsageDetailResponseBodyDataItems]
+        # The number of entries returned on the current page.
         self.max_results = max_results  # type: int
+        # The token of the next page.
         self.next_token = next_token  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4603,10 +6948,15 @@ class DescribeResourceUsageDetailResponseBodyData(TeaModel):
 
 class DescribeResourceUsageDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: DescribeResourceUsageDetailResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4732,7 +7082,9 @@ class DescribeResourceUsageTotalRequest(TeaModel):
 
 class DescribeResourceUsageTotalResponseBodyDataPeriodCoverage(TeaModel):
     def __init__(self, period=None, usage_percentage=None):
+        # The period.
         self.period = period  # type: str
+        # The usage of deduction plans within the specified period.
         self.usage_percentage = usage_percentage  # type: float
 
     def validate(self):
@@ -4762,10 +7114,15 @@ class DescribeResourceUsageTotalResponseBodyDataPeriodCoverage(TeaModel):
 class DescribeResourceUsageTotalResponseBodyDataTotalUsage(TeaModel):
     def __init__(self, postpaid_cost=None, potential_saved_cost=None, reservation_cost=None, saved_cost=None,
                  usage_percentage=None):
+        # The total costs of pay-as-you-go instances.
         self.postpaid_cost = postpaid_cost  # type: float
+        # The total potential savings.
         self.potential_saved_cost = potential_saved_cost  # type: float
+        # The fee of purchased deduction plans.
         self.reservation_cost = reservation_cost  # type: float
+        # The total savings.
         self.saved_cost = saved_cost  # type: float
+        # The total usage of deduction plans.
         self.usage_percentage = usage_percentage  # type: float
 
     def validate(self):
@@ -4806,7 +7163,9 @@ class DescribeResourceUsageTotalResponseBodyDataTotalUsage(TeaModel):
 
 class DescribeResourceUsageTotalResponseBodyData(TeaModel):
     def __init__(self, period_coverage=None, total_usage=None):
+        # The information about the usage of deduction plans within a period.
         self.period_coverage = period_coverage  # type: list[DescribeResourceUsageTotalResponseBodyDataPeriodCoverage]
+        # The information about the total usage data of deduction plans.
         self.total_usage = total_usage  # type: DescribeResourceUsageTotalResponseBodyDataTotalUsage
 
     def validate(self):
@@ -4846,10 +7205,15 @@ class DescribeResourceUsageTotalResponseBodyData(TeaModel):
 
 class DescribeResourceUsageTotalResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: DescribeResourceUsageTotalResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4932,11 +7296,17 @@ class DescribeResourceUsageTotalResponse(TeaModel):
 class DescribeSavingsPlansCoverageDetailRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, max_results=None, period_type=None, start_period=None,
                  token=None):
+        # The ID of the account for which you want to query coverage details. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The maximum number of entries to return. Default value: 20. Maximum value: 300.
         self.max_results = max_results  # type: int
+        # The time granularity at which coverage details are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
+        # The token that is used to retrieve the next page of results. You do not need to set this parameter if you query coverage details within a specific time range for the first time. The response returns a token that you can use to query coverage details that are displayed on the next page. If a null value is returned for the NextToken parameter, no more coverage details can be queried.
         self.token = token  # type: str
 
     def validate(self):
@@ -4983,17 +7353,29 @@ class DescribeSavingsPlansCoverageDetailResponseBodyDataItems(TeaModel):
     def __init__(self, coverage_percentage=None, currency=None, deduct_amount=None, end_period=None,
                  instance_id=None, instance_spec=None, postpaid_cost=None, region=None, start_period=None, total_amount=None,
                  user_id=None, user_name=None):
+        # The coverage.
         self.coverage_percentage = coverage_percentage  # type: float
+        # The currency.
         self.currency = currency  # type: str
+        # The deducted amount.
         self.deduct_amount = deduct_amount  # type: float
+        # The end time.
         self.end_period = end_period  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The specifications.
         self.instance_spec = instance_spec  # type: str
+        # The pay-as-you-go cost.
         self.postpaid_cost = postpaid_cost  # type: float
+        # The region.
         self.region = region  # type: str
+        # The start time.
         self.start_period = start_period  # type: str
+        # The total expenditure.
         self.total_amount = total_amount  # type: float
+        # The ID of the account.
         self.user_id = user_id  # type: long
+        # The username of the account.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -5062,8 +7444,11 @@ class DescribeSavingsPlansCoverageDetailResponseBodyDataItems(TeaModel):
 
 class DescribeSavingsPlansCoverageDetailResponseBodyData(TeaModel):
     def __init__(self, items=None, next_token=None, total_count=None):
+        # The data entries.
         self.items = items  # type: list[DescribeSavingsPlansCoverageDetailResponseBodyDataItems]
+        # The token of the next page.
         self.next_token = next_token  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5104,10 +7489,15 @@ class DescribeSavingsPlansCoverageDetailResponseBodyData(TeaModel):
 
 class DescribeSavingsPlansCoverageDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: DescribeSavingsPlansCoverageDetailResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5189,9 +7579,13 @@ class DescribeSavingsPlansCoverageDetailResponse(TeaModel):
 
 class DescribeSavingsPlansCoverageTotalRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, period_type=None, start_period=None):
+        # The ID of the account for which you want to query coverage summary. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The time granularity at which coverage summary are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
 
     def validate(self):
@@ -5228,7 +7622,11 @@ class DescribeSavingsPlansCoverageTotalRequest(TeaModel):
 
 class DescribeSavingsPlansCoverageTotalResponseBodyDataPeriodCoverage(TeaModel):
     def __init__(self, percentage=None, period=None):
+        # The coverage.
         self.percentage = percentage  # type: float
+        # The period.
+        # 
+        # The value is in the format of yyyyMMddHH.
         self.period = period  # type: str
 
     def validate(self):
@@ -5257,7 +7655,9 @@ class DescribeSavingsPlansCoverageTotalResponseBodyDataPeriodCoverage(TeaModel):
 
 class DescribeSavingsPlansCoverageTotalResponseBodyDataTotalCoverage(TeaModel):
     def __init__(self, coverage_percentage=None, deduct_amount=None):
+        # The total coverage.
         self.coverage_percentage = coverage_percentage  # type: float
+        # The total deducted amount.
         self.deduct_amount = deduct_amount  # type: float
 
     def validate(self):
@@ -5286,7 +7686,9 @@ class DescribeSavingsPlansCoverageTotalResponseBodyDataTotalCoverage(TeaModel):
 
 class DescribeSavingsPlansCoverageTotalResponseBodyData(TeaModel):
     def __init__(self, period_coverage=None, total_coverage=None):
+        # The coverage in different periods.
         self.period_coverage = period_coverage  # type: list[DescribeSavingsPlansCoverageTotalResponseBodyDataPeriodCoverage]
+        # The coverage summary.
         self.total_coverage = total_coverage  # type: DescribeSavingsPlansCoverageTotalResponseBodyDataTotalCoverage
 
     def validate(self):
@@ -5326,10 +7728,15 @@ class DescribeSavingsPlansCoverageTotalResponseBodyData(TeaModel):
 
 class DescribeSavingsPlansCoverageTotalResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: DescribeSavingsPlansCoverageTotalResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5412,11 +7819,17 @@ class DescribeSavingsPlansCoverageTotalResponse(TeaModel):
 class DescribeSavingsPlansUsageDetailRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, max_results=None, period_type=None, start_period=None,
                  token=None):
+        # The ID of the account for which you want to query usage details. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The maximum number of entries to return. Default value: 20. Maximum value: 300.
         self.max_results = max_results  # type: int
+        # The time granularity at which usage details are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
+        # The token that is used to retrieve the next page of results. You do not need to set this parameter if you query usage details within a specific time range for the first time. The response returns a token that you can use to query usage details that are displayed on the next page. If a null value is returned for the NextToken parameter, no more coverage details can be queried.
         self.token = token  # type: str
 
     def validate(self):
@@ -5463,18 +7876,33 @@ class DescribeSavingsPlansUsageDetailResponseBodyDataItems(TeaModel):
     def __init__(self, currency=None, deduct_value=None, end_period=None, instance_id=None, pool_value=None,
                  postpaid_cost=None, saved_cost=None, start_period=None, status=None, type=None, usage_percentage=None,
                  user_id=None, user_name=None):
+        # The currency.
         self.currency = currency  # type: str
+        # The used amount of the savings plan.
         self.deduct_value = deduct_value  # type: float
+        # The end time.
         self.end_period = end_period  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The total amount of the savings plan.
         self.pool_value = pool_value  # type: float
+        # The pay-as-you-go cost.
         self.postpaid_cost = postpaid_cost  # type: float
+        # The amount that is saved.
         self.saved_cost = saved_cost  # type: float
+        # The start time.
         self.start_period = start_period  # type: str
+        # The status of the instance.
+        # 
+        # A value of -1 indicates that the payment is overdue. A value of 1 indicates that the instance is active.
         self.status = status  # type: str
+        # The type of the savings plan. Valid values: universal and ECS compute.
         self.type = type  # type: str
+        # The usage.
         self.usage_percentage = usage_percentage  # type: float
+        # The ID of the account.
         self.user_id = user_id  # type: long
+        # The username of the account.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -5547,8 +7975,11 @@ class DescribeSavingsPlansUsageDetailResponseBodyDataItems(TeaModel):
 
 class DescribeSavingsPlansUsageDetailResponseBodyData(TeaModel):
     def __init__(self, items=None, next_token=None, total_count=None):
+        # The data entries.
         self.items = items  # type: list[DescribeSavingsPlansUsageDetailResponseBodyDataItems]
+        # The token of the next page.
         self.next_token = next_token  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5589,10 +8020,15 @@ class DescribeSavingsPlansUsageDetailResponseBodyData(TeaModel):
 
 class DescribeSavingsPlansUsageDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: DescribeSavingsPlansUsageDetailResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5674,9 +8110,13 @@ class DescribeSavingsPlansUsageDetailResponse(TeaModel):
 
 class DescribeSavingsPlansUsageTotalRequest(TeaModel):
     def __init__(self, bill_owner_id=None, end_period=None, period_type=None, start_period=None):
+        # The ID of the account for which you want to query usage summary. If you do not set this parameter, the data of the current Alibaba Cloud account and its RAM users is queried. To query the data of a RAM user, specify the ID of the RAM user.
         self.bill_owner_id = bill_owner_id  # type: long
+        # The end of the time range to query. The end is excluded from the time range. If you do not set this parameter, the end time is the current time. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_period = end_period  # type: str
+        # The time granularity at which usage summary are queried. Valid values: MONTH, DAY, and HOUR.
         self.period_type = period_type  # type: str
+        # The beginning of the time range to query. The beginning is included in the time range. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_period = start_period  # type: str
 
     def validate(self):
@@ -5713,7 +8153,11 @@ class DescribeSavingsPlansUsageTotalRequest(TeaModel):
 
 class DescribeSavingsPlansUsageTotalResponseBodyDataPeriodCoverage(TeaModel):
     def __init__(self, percentage=None, period=None):
+        # The usage.
         self.percentage = percentage  # type: float
+        # The period.
+        # 
+        # The value is in the format of yyyyMMddHH.
         self.period = period  # type: str
 
     def validate(self):
@@ -5742,9 +8186,13 @@ class DescribeSavingsPlansUsageTotalResponseBodyDataPeriodCoverage(TeaModel):
 
 class DescribeSavingsPlansUsageTotalResponseBodyDataTotalUsage(TeaModel):
     def __init__(self, pool_value=None, postpaid_cost=None, saved_cost=None, usage_percentage=None):
+        # The total amount of the savings plan.
         self.pool_value = pool_value  # type: float
+        # The pay-as-you-go cost.
         self.postpaid_cost = postpaid_cost  # type: float
+        # The amount that is saved.
         self.saved_cost = saved_cost  # type: float
+        # The total usage.
         self.usage_percentage = usage_percentage  # type: float
 
     def validate(self):
@@ -5781,7 +8229,9 @@ class DescribeSavingsPlansUsageTotalResponseBodyDataTotalUsage(TeaModel):
 
 class DescribeSavingsPlansUsageTotalResponseBodyData(TeaModel):
     def __init__(self, period_coverage=None, total_usage=None):
+        # The usage in different periods.
         self.period_coverage = period_coverage  # type: list[DescribeSavingsPlansUsageTotalResponseBodyDataPeriodCoverage]
+        # The usage summary.
         self.total_usage = total_usage  # type: DescribeSavingsPlansUsageTotalResponseBodyDataTotalUsage
 
     def validate(self):
@@ -5821,10 +8271,15 @@ class DescribeSavingsPlansUsageTotalResponseBodyData(TeaModel):
 
 class DescribeSavingsPlansUsageTotalResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: DescribeSavingsPlansUsageTotalResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6614,9 +9069,7 @@ class EnableBillGenerationResponse(TeaModel):
 
 class GetAccountRelationRequest(TeaModel):
     def __init__(self, relation_id=None, request_id=None):
-        # relationId
         self.relation_id = relation_id  # type: long
-        # requestId
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6649,13 +9102,10 @@ class GetAccountRelationResponseBodyData(TeaModel):
         self.child_user_id = child_user_id  # type: long
         self.end_time = end_time  # type: long
         self.gmt_modified = gmt_modified  # type: long
-        # id
         self.id = id  # type: long
-        # parentUserId
         self.parent_user_id = parent_user_id  # type: long
         self.start_time = start_time  # type: long
         self.status = status  # type: str
-        # type
         self.type = type  # type: str
 
     def validate(self):
@@ -6708,15 +9158,11 @@ class GetAccountRelationResponseBodyData(TeaModel):
 
 class GetAccountRelationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # code
         self.code = code  # type: str
         # data
         self.data = data  # type: GetAccountRelationResponseBodyData
-        # message
         self.message = message  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -8443,13 +10889,9 @@ class GetSubscriptionPriceResponse(TeaModel):
 
 class InquiryPriceRefundInstanceRequest(TeaModel):
     def __init__(self, client_token=None, instance_id=None, product_code=None, product_type=None):
-        # clientToken
         self.client_token = client_token  # type: str
-        # instanceId
         self.instance_id = instance_id  # type: str
-        # productCode
         self.product_code = product_code  # type: str
-        # productType
         self.product_type = product_type  # type: str
 
     def validate(self):
@@ -8486,13 +10928,9 @@ class InquiryPriceRefundInstanceRequest(TeaModel):
 
 class InquiryPriceRefundInstanceResponseBodyData(TeaModel):
     def __init__(self, currency=None, host_id=None, instance_id=None, refund_amount=None):
-        # currency
         self.currency = currency  # type: str
-        # hostId
         self.host_id = host_id  # type: str
-        # instanceId
         self.instance_id = instance_id  # type: str
-        # refundAmount
         self.refund_amount = refund_amount  # type: float
 
     def validate(self):
@@ -8529,15 +10967,11 @@ class InquiryPriceRefundInstanceResponseBodyData(TeaModel):
 
 class InquiryPriceRefundInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # code
         self.code = code  # type: str
         # data
         self.data = data  # type: InquiryPriceRefundInstanceResponseBodyData
-        # message
         self.message = message  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -8684,6 +11118,7 @@ class ModifyAccountRelationRequest(TeaModel):
 
 class ModifyAccountRelationResponseBodyData(TeaModel):
     def __init__(self, host_id=None):
+        # HostId
         self.host_id = host_id  # type: str
 
     def validate(self):
@@ -11888,6 +14323,182 @@ class QueryCashCouponsResponse(TeaModel):
         return self
 
 
+class QueryCommodityListRequest(TeaModel):
+    def __init__(self, product_code=None):
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCommodityListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        return self
+
+
+class QueryCommodityListResponseBodyDataCommodityList(TeaModel):
+    def __init__(self, charge_type=None, commodity_code=None, commodity_name=None):
+        self.charge_type = charge_type  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.commodity_name = commodity_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCommodityListResponseBodyDataCommodityList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.commodity_name is not None:
+            result['CommodityName'] = self.commodity_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('CommodityName') is not None:
+            self.commodity_name = m.get('CommodityName')
+        return self
+
+
+class QueryCommodityListResponseBodyData(TeaModel):
+    def __init__(self, commodity_list=None):
+        self.commodity_list = commodity_list  # type: list[QueryCommodityListResponseBodyDataCommodityList]
+
+    def validate(self):
+        if self.commodity_list:
+            for k in self.commodity_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryCommodityListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CommodityList'] = []
+        if self.commodity_list is not None:
+            for k in self.commodity_list:
+                result['CommodityList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.commodity_list = []
+        if m.get('CommodityList') is not None:
+            for k in m.get('CommodityList'):
+                temp_model = QueryCommodityListResponseBodyDataCommodityList()
+                self.commodity_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryCommodityListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryCommodityListResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryCommodityListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryCommodityListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryCommodityListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryCommodityListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryCommodityListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryCommodityListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryCostUnitRequest(TeaModel):
     def __init__(self, owner_uid=None, page_num=None, page_size=None, parent_unit_id=None):
         self.owner_uid = owner_uid  # type: long
@@ -12498,6 +15109,7 @@ class QueryCustomerAddressListResponseBodyDataCustomerInvoiceAddressListCustomer
         self.city = city  # type: str
         self.county = county  # type: str
         self.delivery_address = delivery_address  # type: str
+        # ID。
         self.id = id  # type: long
         self.phone = phone  # type: str
         self.postal_code = postal_code  # type: str
@@ -15096,637 +17708,6 @@ class QueryInvoicingCustomerListResponse(TeaModel):
         return self
 
 
-class QueryMonthlyBillRequest(TeaModel):
-    def __init__(self, billing_cycle=None):
-        self.billing_cycle = billing_cycle  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        return self
-
-
-class QueryMonthlyBillResponseBodyDataItemsItem(TeaModel):
-    def __init__(self, after_tax_amount=None, currency=None, deducted_by_cash_coupons=None,
-                 deducted_by_coupons=None, deducted_by_prepaid_card=None, invoice_discount=None, item=None, outstanding_amount=None,
-                 payment_amount=None, payment_currency=None, pretax_amount=None, pretax_amount_local=None,
-                 pretax_gross_amount=None, product_code=None, product_type=None, solution_code=None, solution_name=None,
-                 subscription_type=None, tax=None):
-        self.after_tax_amount = after_tax_amount  # type: float
-        self.currency = currency  # type: str
-        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
-        self.deducted_by_coupons = deducted_by_coupons  # type: float
-        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
-        self.invoice_discount = invoice_discount  # type: float
-        self.item = item  # type: str
-        self.outstanding_amount = outstanding_amount  # type: float
-        self.payment_amount = payment_amount  # type: float
-        self.payment_currency = payment_currency  # type: str
-        self.pretax_amount = pretax_amount  # type: float
-        self.pretax_amount_local = pretax_amount_local  # type: float
-        self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = product_code  # type: str
-        self.product_type = product_type  # type: str
-        self.solution_code = solution_code  # type: str
-        self.solution_name = solution_name  # type: str
-        self.subscription_type = subscription_type  # type: str
-        self.tax = tax  # type: float
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillResponseBodyDataItemsItem, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.after_tax_amount is not None:
-            result['AfterTaxAmount'] = self.after_tax_amount
-        if self.currency is not None:
-            result['Currency'] = self.currency
-        if self.deducted_by_cash_coupons is not None:
-            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
-        if self.deducted_by_coupons is not None:
-            result['DeductedByCoupons'] = self.deducted_by_coupons
-        if self.deducted_by_prepaid_card is not None:
-            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
-        if self.invoice_discount is not None:
-            result['InvoiceDiscount'] = self.invoice_discount
-        if self.item is not None:
-            result['Item'] = self.item
-        if self.outstanding_amount is not None:
-            result['OutstandingAmount'] = self.outstanding_amount
-        if self.payment_amount is not None:
-            result['PaymentAmount'] = self.payment_amount
-        if self.payment_currency is not None:
-            result['PaymentCurrency'] = self.payment_currency
-        if self.pretax_amount is not None:
-            result['PretaxAmount'] = self.pretax_amount
-        if self.pretax_amount_local is not None:
-            result['PretaxAmountLocal'] = self.pretax_amount_local
-        if self.pretax_gross_amount is not None:
-            result['PretaxGrossAmount'] = self.pretax_gross_amount
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
-        if self.product_type is not None:
-            result['ProductType'] = self.product_type
-        if self.solution_code is not None:
-            result['SolutionCode'] = self.solution_code
-        if self.solution_name is not None:
-            result['SolutionName'] = self.solution_name
-        if self.subscription_type is not None:
-            result['SubscriptionType'] = self.subscription_type
-        if self.tax is not None:
-            result['Tax'] = self.tax
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AfterTaxAmount') is not None:
-            self.after_tax_amount = m.get('AfterTaxAmount')
-        if m.get('Currency') is not None:
-            self.currency = m.get('Currency')
-        if m.get('DeductedByCashCoupons') is not None:
-            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
-        if m.get('DeductedByCoupons') is not None:
-            self.deducted_by_coupons = m.get('DeductedByCoupons')
-        if m.get('DeductedByPrepaidCard') is not None:
-            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
-        if m.get('InvoiceDiscount') is not None:
-            self.invoice_discount = m.get('InvoiceDiscount')
-        if m.get('Item') is not None:
-            self.item = m.get('Item')
-        if m.get('OutstandingAmount') is not None:
-            self.outstanding_amount = m.get('OutstandingAmount')
-        if m.get('PaymentAmount') is not None:
-            self.payment_amount = m.get('PaymentAmount')
-        if m.get('PaymentCurrency') is not None:
-            self.payment_currency = m.get('PaymentCurrency')
-        if m.get('PretaxAmount') is not None:
-            self.pretax_amount = m.get('PretaxAmount')
-        if m.get('PretaxAmountLocal') is not None:
-            self.pretax_amount_local = m.get('PretaxAmountLocal')
-        if m.get('PretaxGrossAmount') is not None:
-            self.pretax_gross_amount = m.get('PretaxGrossAmount')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
-        if m.get('ProductType') is not None:
-            self.product_type = m.get('ProductType')
-        if m.get('SolutionCode') is not None:
-            self.solution_code = m.get('SolutionCode')
-        if m.get('SolutionName') is not None:
-            self.solution_name = m.get('SolutionName')
-        if m.get('SubscriptionType') is not None:
-            self.subscription_type = m.get('SubscriptionType')
-        if m.get('Tax') is not None:
-            self.tax = m.get('Tax')
-        return self
-
-
-class QueryMonthlyBillResponseBodyDataItems(TeaModel):
-    def __init__(self, item=None):
-        self.item = item  # type: list[QueryMonthlyBillResponseBodyDataItemsItem]
-
-    def validate(self):
-        if self.item:
-            for k in self.item:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillResponseBodyDataItems, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Item'] = []
-        if self.item is not None:
-            for k in self.item:
-                result['Item'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.item = []
-        if m.get('Item') is not None:
-            for k in m.get('Item'):
-                temp_model = QueryMonthlyBillResponseBodyDataItemsItem()
-                self.item.append(temp_model.from_map(k))
-        return self
-
-
-class QueryMonthlyBillResponseBodyData(TeaModel):
-    def __init__(self, billing_cycle=None, items=None, new_invoice_amount=None, outstanding_amount=None,
-                 total_outstanding_amount=None):
-        self.billing_cycle = billing_cycle  # type: str
-        self.items = items  # type: QueryMonthlyBillResponseBodyDataItems
-        self.new_invoice_amount = new_invoice_amount  # type: float
-        self.outstanding_amount = outstanding_amount  # type: float
-        self.total_outstanding_amount = total_outstanding_amount  # type: float
-
-    def validate(self):
-        if self.items:
-            self.items.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.items is not None:
-            result['Items'] = self.items.to_map()
-        if self.new_invoice_amount is not None:
-            result['NewInvoiceAmount'] = self.new_invoice_amount
-        if self.outstanding_amount is not None:
-            result['OutstandingAmount'] = self.outstanding_amount
-        if self.total_outstanding_amount is not None:
-            result['TotalOutstandingAmount'] = self.total_outstanding_amount
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('Items') is not None:
-            temp_model = QueryMonthlyBillResponseBodyDataItems()
-            self.items = temp_model.from_map(m['Items'])
-        if m.get('NewInvoiceAmount') is not None:
-            self.new_invoice_amount = m.get('NewInvoiceAmount')
-        if m.get('OutstandingAmount') is not None:
-            self.outstanding_amount = m.get('OutstandingAmount')
-        if m.get('TotalOutstandingAmount') is not None:
-            self.total_outstanding_amount = m.get('TotalOutstandingAmount')
-        return self
-
-
-class QueryMonthlyBillResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: QueryMonthlyBillResponseBodyData
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = QueryMonthlyBillResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class QueryMonthlyBillResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: QueryMonthlyBillResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyBillResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = QueryMonthlyBillResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class QueryMonthlyInstanceConsumptionRequest(TeaModel):
-    def __init__(self, billing_cycle=None, owner_id=None, page_num=None, page_size=None, product_code=None,
-                 product_type=None, subscription_type=None):
-        self.billing_cycle = billing_cycle  # type: str
-        self.owner_id = owner_id  # type: long
-        self.page_num = page_num  # type: int
-        self.page_size = page_size  # type: int
-        self.product_code = product_code  # type: str
-        self.product_type = product_type  # type: str
-        self.subscription_type = subscription_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.page_num is not None:
-            result['PageNum'] = self.page_num
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
-        if self.product_type is not None:
-            result['ProductType'] = self.product_type
-        if self.subscription_type is not None:
-            result['SubscriptionType'] = self.subscription_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('PageNum') is not None:
-            self.page_num = m.get('PageNum')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
-        if m.get('ProductType') is not None:
-            self.product_type = m.get('ProductType')
-        if m.get('SubscriptionType') is not None:
-            self.subscription_type = m.get('SubscriptionType')
-        return self
-
-
-class QueryMonthlyInstanceConsumptionResponseBodyDataItemsItem(TeaModel):
-    def __init__(self, after_tax_amount=None, currency=None, discount_amount=None, instance_id=None, owner_id=None,
-                 payer_account=None, payment_currency=None, pretax_amount=None, pretax_amount_local=None,
-                 pretax_gross_amount=None, product_code=None, product_type=None, region=None, resource_group=None,
-                 subscription_type=None, tag=None, tax=None):
-        self.after_tax_amount = after_tax_amount  # type: float
-        self.currency = currency  # type: str
-        self.discount_amount = discount_amount  # type: float
-        self.instance_id = instance_id  # type: str
-        self.owner_id = owner_id  # type: str
-        self.payer_account = payer_account  # type: str
-        self.payment_currency = payment_currency  # type: str
-        self.pretax_amount = pretax_amount  # type: float
-        self.pretax_amount_local = pretax_amount_local  # type: float
-        self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = product_code  # type: str
-        self.product_type = product_type  # type: str
-        self.region = region  # type: str
-        self.resource_group = resource_group  # type: str
-        self.subscription_type = subscription_type  # type: str
-        self.tag = tag  # type: str
-        self.tax = tax  # type: float
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionResponseBodyDataItemsItem, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.after_tax_amount is not None:
-            result['AfterTaxAmount'] = self.after_tax_amount
-        if self.currency is not None:
-            result['Currency'] = self.currency
-        if self.discount_amount is not None:
-            result['DiscountAmount'] = self.discount_amount
-        if self.instance_id is not None:
-            result['InstanceID'] = self.instance_id
-        if self.owner_id is not None:
-            result['OwnerID'] = self.owner_id
-        if self.payer_account is not None:
-            result['PayerAccount'] = self.payer_account
-        if self.payment_currency is not None:
-            result['PaymentCurrency'] = self.payment_currency
-        if self.pretax_amount is not None:
-            result['PretaxAmount'] = self.pretax_amount
-        if self.pretax_amount_local is not None:
-            result['PretaxAmountLocal'] = self.pretax_amount_local
-        if self.pretax_gross_amount is not None:
-            result['PretaxGrossAmount'] = self.pretax_gross_amount
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
-        if self.product_type is not None:
-            result['ProductType'] = self.product_type
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.resource_group is not None:
-            result['ResourceGroup'] = self.resource_group
-        if self.subscription_type is not None:
-            result['SubscriptionType'] = self.subscription_type
-        if self.tag is not None:
-            result['Tag'] = self.tag
-        if self.tax is not None:
-            result['Tax'] = self.tax
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AfterTaxAmount') is not None:
-            self.after_tax_amount = m.get('AfterTaxAmount')
-        if m.get('Currency') is not None:
-            self.currency = m.get('Currency')
-        if m.get('DiscountAmount') is not None:
-            self.discount_amount = m.get('DiscountAmount')
-        if m.get('InstanceID') is not None:
-            self.instance_id = m.get('InstanceID')
-        if m.get('OwnerID') is not None:
-            self.owner_id = m.get('OwnerID')
-        if m.get('PayerAccount') is not None:
-            self.payer_account = m.get('PayerAccount')
-        if m.get('PaymentCurrency') is not None:
-            self.payment_currency = m.get('PaymentCurrency')
-        if m.get('PretaxAmount') is not None:
-            self.pretax_amount = m.get('PretaxAmount')
-        if m.get('PretaxAmountLocal') is not None:
-            self.pretax_amount_local = m.get('PretaxAmountLocal')
-        if m.get('PretaxGrossAmount') is not None:
-            self.pretax_gross_amount = m.get('PretaxGrossAmount')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
-        if m.get('ProductType') is not None:
-            self.product_type = m.get('ProductType')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('ResourceGroup') is not None:
-            self.resource_group = m.get('ResourceGroup')
-        if m.get('SubscriptionType') is not None:
-            self.subscription_type = m.get('SubscriptionType')
-        if m.get('Tag') is not None:
-            self.tag = m.get('Tag')
-        if m.get('Tax') is not None:
-            self.tax = m.get('Tax')
-        return self
-
-
-class QueryMonthlyInstanceConsumptionResponseBodyDataItems(TeaModel):
-    def __init__(self, item=None):
-        self.item = item  # type: list[QueryMonthlyInstanceConsumptionResponseBodyDataItemsItem]
-
-    def validate(self):
-        if self.item:
-            for k in self.item:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionResponseBodyDataItems, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Item'] = []
-        if self.item is not None:
-            for k in self.item:
-                result['Item'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.item = []
-        if m.get('Item') is not None:
-            for k in m.get('Item'):
-                temp_model = QueryMonthlyInstanceConsumptionResponseBodyDataItemsItem()
-                self.item.append(temp_model.from_map(k))
-        return self
-
-
-class QueryMonthlyInstanceConsumptionResponseBodyData(TeaModel):
-    def __init__(self, billing_cycle=None, items=None, page_num=None, page_size=None, total_count=None):
-        self.billing_cycle = billing_cycle  # type: str
-        self.items = items  # type: QueryMonthlyInstanceConsumptionResponseBodyDataItems
-        self.page_num = page_num  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        if self.items:
-            self.items.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.items is not None:
-            result['Items'] = self.items.to_map()
-        if self.page_num is not None:
-            result['PageNum'] = self.page_num
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('Items') is not None:
-            temp_model = QueryMonthlyInstanceConsumptionResponseBodyDataItems()
-            self.items = temp_model.from_map(m['Items'])
-        if m.get('PageNum') is not None:
-            self.page_num = m.get('PageNum')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class QueryMonthlyInstanceConsumptionResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: QueryMonthlyInstanceConsumptionResponseBodyData
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = QueryMonthlyInstanceConsumptionResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class QueryMonthlyInstanceConsumptionResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: QueryMonthlyInstanceConsumptionResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(QueryMonthlyInstanceConsumptionResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = QueryMonthlyInstanceConsumptionResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class QueryOrdersRequest(TeaModel):
     def __init__(self, create_time_end=None, create_time_start=None, order_type=None, owner_id=None, page_num=None,
                  page_size=None, payment_status=None, product_code=None, product_type=None, subscription_type=None):
@@ -16501,6 +18482,224 @@ class QueryPrepaidCardsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryPrepaidCardsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryPriceEntityListRequest(TeaModel):
+    def __init__(self, commodity_code=None):
+        self.commodity_code = commodity_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        return self
+
+
+class QueryPriceEntityListResponseBodyDataPriceEntityInfoListPriceFactorList(TeaModel):
+    def __init__(self, price_factor_code=None, price_factor_name=None, price_factor_value_list=None):
+        self.price_factor_code = price_factor_code  # type: str
+        self.price_factor_name = price_factor_name  # type: str
+        self.price_factor_value_list = price_factor_value_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListResponseBodyDataPriceEntityInfoListPriceFactorList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.price_factor_code is not None:
+            result['PriceFactorCode'] = self.price_factor_code
+        if self.price_factor_name is not None:
+            result['PriceFactorName'] = self.price_factor_name
+        if self.price_factor_value_list is not None:
+            result['PriceFactorValueList'] = self.price_factor_value_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PriceFactorCode') is not None:
+            self.price_factor_code = m.get('PriceFactorCode')
+        if m.get('PriceFactorName') is not None:
+            self.price_factor_name = m.get('PriceFactorName')
+        if m.get('PriceFactorValueList') is not None:
+            self.price_factor_value_list = m.get('PriceFactorValueList')
+        return self
+
+
+class QueryPriceEntityListResponseBodyDataPriceEntityInfoList(TeaModel):
+    def __init__(self, price_entity_code=None, price_entity_name=None, price_factor_list=None):
+        self.price_entity_code = price_entity_code  # type: str
+        self.price_entity_name = price_entity_name  # type: str
+        self.price_factor_list = price_factor_list  # type: list[QueryPriceEntityListResponseBodyDataPriceEntityInfoListPriceFactorList]
+
+    def validate(self):
+        if self.price_factor_list:
+            for k in self.price_factor_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListResponseBodyDataPriceEntityInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.price_entity_code is not None:
+            result['PriceEntityCode'] = self.price_entity_code
+        if self.price_entity_name is not None:
+            result['PriceEntityName'] = self.price_entity_name
+        result['PriceFactorList'] = []
+        if self.price_factor_list is not None:
+            for k in self.price_factor_list:
+                result['PriceFactorList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PriceEntityCode') is not None:
+            self.price_entity_code = m.get('PriceEntityCode')
+        if m.get('PriceEntityName') is not None:
+            self.price_entity_name = m.get('PriceEntityName')
+        self.price_factor_list = []
+        if m.get('PriceFactorList') is not None:
+            for k in m.get('PriceFactorList'):
+                temp_model = QueryPriceEntityListResponseBodyDataPriceEntityInfoListPriceFactorList()
+                self.price_factor_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPriceEntityListResponseBodyData(TeaModel):
+    def __init__(self, price_entity_info_list=None):
+        self.price_entity_info_list = price_entity_info_list  # type: list[QueryPriceEntityListResponseBodyDataPriceEntityInfoList]
+
+    def validate(self):
+        if self.price_entity_info_list:
+            for k in self.price_entity_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PriceEntityInfoList'] = []
+        if self.price_entity_info_list is not None:
+            for k in self.price_entity_info_list:
+                result['PriceEntityInfoList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.price_entity_info_list = []
+        if m.get('PriceEntityInfoList') is not None:
+            for k in m.get('PriceEntityInfoList'):
+                temp_model = QueryPriceEntityListResponseBodyDataPriceEntityInfoList()
+                self.price_entity_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPriceEntityListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryPriceEntityListResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryPriceEntityListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryPriceEntityListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryPriceEntityListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryPriceEntityListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryPriceEntityListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -17726,10 +19925,11 @@ class QueryResourcePackageInstancesResponseBodyDataInstancesInstanceApplicablePr
 
 
 class QueryResourcePackageInstancesResponseBodyDataInstancesInstance(TeaModel):
-    def __init__(self, applicable_products=None, deduct_type=None, effective_time=None, expiry_time=None,
-                 instance_id=None, package_type=None, region=None, remaining_amount=None, remaining_amount_unit=None,
-                 remark=None, status=None, total_amount=None, total_amount_unit=None):
+    def __init__(self, applicable_products=None, commodity_code=None, deduct_type=None, effective_time=None,
+                 expiry_time=None, instance_id=None, package_type=None, region=None, remaining_amount=None,
+                 remaining_amount_unit=None, remark=None, status=None, total_amount=None, total_amount_unit=None):
         self.applicable_products = applicable_products  # type: QueryResourcePackageInstancesResponseBodyDataInstancesInstanceApplicableProducts
+        self.commodity_code = commodity_code  # type: str
         self.deduct_type = deduct_type  # type: str
         self.effective_time = effective_time  # type: str
         self.expiry_time = expiry_time  # type: str
@@ -17755,6 +19955,8 @@ class QueryResourcePackageInstancesResponseBodyDataInstancesInstance(TeaModel):
         result = dict()
         if self.applicable_products is not None:
             result['ApplicableProducts'] = self.applicable_products.to_map()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
         if self.deduct_type is not None:
             result['DeductType'] = self.deduct_type
         if self.effective_time is not None:
@@ -17786,6 +19988,8 @@ class QueryResourcePackageInstancesResponseBodyDataInstancesInstance(TeaModel):
         if m.get('ApplicableProducts') is not None:
             temp_model = QueryResourcePackageInstancesResponseBodyDataInstancesInstanceApplicableProducts()
             self.applicable_products = temp_model.from_map(m['ApplicableProducts'])
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
         if m.get('DeductType') is not None:
             self.deduct_type = m.get('DeductType')
         if m.get('EffectiveTime') is not None:
@@ -17995,12 +20199,25 @@ class QueryResourcePackageInstancesResponse(TeaModel):
 class QuerySavingsPlansDeductLogRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, instance_type=None, locale=None, page_num=None,
                  page_size=None, start_time=None):
+        # The end of the time range to query. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_time = end_time  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The type of the instance ID based on which the data is queried. Valid values:
+        # 
+        # *   spn: queries data based on the ID of the savings plan instance.
+        # *   product: queries data based on the ID of the cloud service instance.
         self.instance_type = instance_type  # type: str
+        # The language of the return data. Valid values:
+        # 
+        # *   ZH: Chinese
+        # *   EN: English
         self.locale = locale  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The beginning of the time range to query. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -18051,17 +20268,31 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
     def __init__(self, bill_module=None, deduct_commodity=None, deduct_fee=None, deduct_instance_id=None,
                  deduct_rate=None, discount_rate=None, end_time=None, instance_id=None, owner_id=None, savings_type=None,
                  start_time=None, user_id=None):
+        # The billable item for which the fee is deducted.
         self.bill_module = bill_module  # type: str
+        # The service for which the fee is deducted.
         self.deduct_commodity = deduct_commodity  # type: str
+        # The deducted amount.
         self.deduct_fee = deduct_fee  # type: str
+        # The ID of the instance for which the fee is deducted.
         self.deduct_instance_id = deduct_instance_id  # type: str
+        # The deduction rate.
         self.deduct_rate = deduct_rate  # type: str
+        # The discount used for the current deduction.
         self.discount_rate = discount_rate  # type: str
+        # The end of the billing cycle for which the fee is deducted.
         self.end_time = end_time  # type: str
+        # The ID of the savings plan instance.
         self.instance_id = instance_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The type of the savings plan. Valid values:
+        # 
+        # *   universal: general-purpose
+        # *   ecs: ECS compute
         self.savings_type = savings_type  # type: str
+        # The beginning of the billing cycle for which the fee is deducted. The time is in the format of yyyy-MM-dd HH:mm:ss.
         self.start_time = start_time  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -18130,9 +20361,13 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
 
 class QuerySavingsPlansDeductLogResponseBodyData(TeaModel):
     def __init__(self, items=None, page_num=None, page_size=None, total_count=None):
+        # The deduction details.
         self.items = items  # type: list[QuerySavingsPlansDeductLogResponseBodyDataItems]
+        # The page number of the returned page.
         self.page_num = page_num  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18177,10 +20412,15 @@ class QuerySavingsPlansDeductLogResponseBodyData(TeaModel):
 
 class QuerySavingsPlansDeductLogResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: QuerySavingsPlansDeductLogResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -18260,9 +20500,269 @@ class QuerySavingsPlansDeductLogResponse(TeaModel):
         return self
 
 
+class QuerySavingsPlansDiscountRequest(TeaModel):
+    def __init__(self, commodity_code=None, cycle=None, locale=None, module_code=None, page_num=None, page_size=None,
+                 pay_mode=None, region=None, spec=None, spn_type=None):
+        self.commodity_code = commodity_code  # type: str
+        self.cycle = cycle  # type: str
+        self.locale = locale  # type: str
+        self.module_code = module_code  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.pay_mode = pay_mode  # type: str
+        self.region = region  # type: str
+        self.spec = spec  # type: str
+        self.spn_type = spn_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansDiscountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.cycle is not None:
+            result['Cycle'] = self.cycle
+        if self.locale is not None:
+            result['Locale'] = self.locale
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.pay_mode is not None:
+            result['PayMode'] = self.pay_mode
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.spn_type is not None:
+            result['SpnType'] = self.spn_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('Cycle') is not None:
+            self.cycle = m.get('Cycle')
+        if m.get('Locale') is not None:
+            self.locale = m.get('Locale')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PayMode') is not None:
+            self.pay_mode = m.get('PayMode')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('SpnType') is not None:
+            self.spn_type = m.get('SpnType')
+        return self
+
+
+class QuerySavingsPlansDiscountResponseBodyDataItems(TeaModel):
+    def __init__(self, commodity_name=None, contract_discount_rate=None, cycle=None, discount_rate=None,
+                 module_name=None, pay_mode=None, region=None, spec=None, spn_type=None):
+        self.commodity_name = commodity_name  # type: str
+        self.contract_discount_rate = contract_discount_rate  # type: str
+        self.cycle = cycle  # type: str
+        self.discount_rate = discount_rate  # type: str
+        self.module_name = module_name  # type: str
+        self.pay_mode = pay_mode  # type: str
+        self.region = region  # type: str
+        self.spec = spec  # type: str
+        self.spn_type = spn_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansDiscountResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_name is not None:
+            result['CommodityName'] = self.commodity_name
+        if self.contract_discount_rate is not None:
+            result['ContractDiscountRate'] = self.contract_discount_rate
+        if self.cycle is not None:
+            result['Cycle'] = self.cycle
+        if self.discount_rate is not None:
+            result['DiscountRate'] = self.discount_rate
+        if self.module_name is not None:
+            result['ModuleName'] = self.module_name
+        if self.pay_mode is not None:
+            result['PayMode'] = self.pay_mode
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        if self.spn_type is not None:
+            result['SpnType'] = self.spn_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityName') is not None:
+            self.commodity_name = m.get('CommodityName')
+        if m.get('ContractDiscountRate') is not None:
+            self.contract_discount_rate = m.get('ContractDiscountRate')
+        if m.get('Cycle') is not None:
+            self.cycle = m.get('Cycle')
+        if m.get('DiscountRate') is not None:
+            self.discount_rate = m.get('DiscountRate')
+        if m.get('ModuleName') is not None:
+            self.module_name = m.get('ModuleName')
+        if m.get('PayMode') is not None:
+            self.pay_mode = m.get('PayMode')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        if m.get('SpnType') is not None:
+            self.spn_type = m.get('SpnType')
+        return self
+
+
+class QuerySavingsPlansDiscountResponseBodyData(TeaModel):
+    def __init__(self, host_id=None, items=None):
+        self.host_id = host_id  # type: str
+        self.items = items  # type: list[QuerySavingsPlansDiscountResponseBodyDataItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansDiscountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host_id is not None:
+            result['HostId'] = self.host_id
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HostId') is not None:
+            self.host_id = m.get('HostId')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = QuerySavingsPlansDiscountResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySavingsPlansDiscountResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        # data
+        self.data = data  # type: QuerySavingsPlansDiscountResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansDiscountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QuerySavingsPlansDiscountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QuerySavingsPlansDiscountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QuerySavingsPlansDiscountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansDiscountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QuerySavingsPlansDiscountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QuerySavingsPlansInstanceRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag to query.
         self.key = key  # type: str
+        # The value of the tag to query.
         self.value = value  # type: str
 
     def validate(self):
@@ -18292,11 +20792,20 @@ class QuerySavingsPlansInstanceRequestTag(TeaModel):
 class QuerySavingsPlansInstanceRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, locale=None, page_num=None, page_size=None, start_time=None,
                  tag=None):
+        # The end of the time range to query. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.end_time = end_time  # type: str
+        # The ID of the savings plan instance.
         self.instance_id = instance_id  # type: str
+        # The language of the return data. Valid values:
+        # 
+        # *   ZH: Chinese
+        # *   EN: English
         self.locale = locale  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The beginning of the time range to query. Specify the time in the format of yyyy-MM-dd HH:mm:ss.
         self.start_time = start_time  # type: str
         self.tag = tag  # type: list[QuerySavingsPlansInstanceRequestTag]
 
@@ -18354,7 +20863,9 @@ class QuerySavingsPlansInstanceRequest(TeaModel):
 
 class QuerySavingsPlansInstanceResponseBodyDataItemsTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -18382,29 +20893,60 @@ class QuerySavingsPlansInstanceResponseBodyDataItemsTags(TeaModel):
 
 
 class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
-    def __init__(self, allocation_status=None, currency=None, cycle=None, end_time=None, end_timestamp=None,
-                 instance_family=None, instance_id=None, last_bill_total_usage=None, last_bill_utilization=None, pay_mode=None,
-                 pool_value=None, prepay_fee=None, region=None, savings_type=None, start_time=None, start_timestamp=None,
-                 status=None, tags=None, total_save=None, utilization=None):
+    def __init__(self, allocation_status=None, currency=None, cycle=None, deduct_cycle_type=None, end_time=None,
+                 end_timestamp=None, instance_family=None, instance_id=None, last_bill_total_usage=None,
+                 last_bill_utilization=None, pay_mode=None, pool_value=None, prepay_fee=None, region=None, savings_type=None,
+                 start_time=None, start_timestamp=None, status=None, tags=None, total_save=None, utilization=None):
+        # The allocation status. Valid values:
+        # 
+        # *   unallocated
+        # *   allocated
+        # *   beAllocated
         self.allocation_status = allocation_status  # type: str
+        # The currency. Valid values: CNY and USD.
         self.currency = currency  # type: str
         self.cycle = cycle  # type: str
+        self.deduct_cycle_type = deduct_cycle_type  # type: str
+        # The time when the instance expires. The time is in the format of yyyy-MM-dd HH:mm:ss.
         self.end_time = end_time  # type: str
         self.end_timestamp = end_timestamp  # type: long
+        # The instance family information. For an instance of the Elastic Compute Service (ECS) compute type, the value indicates the ECS instance family or the ECS instance family package.
         self.instance_family = instance_family  # type: str
+        # The ID of the savings plan instance.
         self.instance_id = instance_id  # type: str
         self.last_bill_total_usage = last_bill_total_usage  # type: str
         self.last_bill_utilization = last_bill_utilization  # type: str
+        # The payment type. Valid values:
+        # 
+        # *   total: All Upfront
+        # *   half: Partial Upfront
+        # *   zero: No Upfront
         self.pay_mode = pay_mode  # type: str
+        # The commitment.
         self.pool_value = pool_value  # type: str
+        # The prepaid amount.
         self.prepay_fee = prepay_fee  # type: str
+        # The region.
         self.region = region  # type: str
+        # The type of the savings plan. Valid values:
+        # 
+        # *   universal: general-purpose
+        # *   ecs: ECS compute
         self.savings_type = savings_type  # type: str
+        # The time when the instance takes effect. The time is in the format of yyyy-MM-dd HH:mm:ss.
         self.start_time = start_time  # type: str
         self.start_timestamp = start_timestamp  # type: long
+        # The status of the instance. Valid values:
+        # 
+        # *   NORMAL: normal
+        # *   LIMIT: stopped due to overdue payment
+        # *   RELEASE: released
         self.status = status  # type: str
+        # The details about the tags.
         self.tags = tags  # type: list[QuerySavingsPlansInstanceResponseBodyDataItemsTags]
+        # The total amount that is saved.
         self.total_save = total_save  # type: str
+        # The total usage.
         self.utilization = utilization  # type: str
 
     def validate(self):
@@ -18425,6 +20967,8 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
             result['Currency'] = self.currency
         if self.cycle is not None:
             result['Cycle'] = self.cycle
+        if self.deduct_cycle_type is not None:
+            result['DeductCycleType'] = self.deduct_cycle_type
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.end_timestamp is not None:
@@ -18471,6 +21015,8 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
             self.currency = m.get('Currency')
         if m.get('Cycle') is not None:
             self.cycle = m.get('Cycle')
+        if m.get('DeductCycleType') is not None:
+            self.deduct_cycle_type = m.get('DeductCycleType')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('EndTimestamp') is not None:
@@ -18513,9 +21059,13 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
 
 class QuerySavingsPlansInstanceResponseBodyData(TeaModel):
     def __init__(self, items=None, page_num=None, page_size=None, total_count=None):
+        # The details about the instances.
         self.items = items  # type: list[QuerySavingsPlansInstanceResponseBodyDataItems]
+        # The page number of the returned page.
         self.page_num = page_num  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18560,10 +21110,15 @@ class QuerySavingsPlansInstanceResponseBodyData(TeaModel):
 
 class QuerySavingsPlansInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The return data.
         self.data = data  # type: QuerySavingsPlansInstanceResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the operation was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -19098,406 +21653,320 @@ class QuerySettleBillResponse(TeaModel):
         return self
 
 
-class QuerySettlementBillRequest(TeaModel):
-    def __init__(self, billing_cycle=None, end_time=None, is_hide_zero_charge=None, owner_id=None, page_num=None,
-                 page_size=None, product_code=None, product_type=None, start_time=None, subscription_type=None, type=None):
-        self.billing_cycle = billing_cycle  # type: str
-        self.end_time = end_time  # type: str
-        self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
-        self.owner_id = owner_id  # type: long
-        self.page_num = page_num  # type: int
+class QuerySkuPriceListRequest(TeaModel):
+    def __init__(self, commodity_code=None, next_page_token=None, page_size=None, price_entity_code=None,
+                 price_factor_condition_map=None):
+        self.commodity_code = commodity_code  # type: str
+        self.next_page_token = next_page_token  # type: str
         self.page_size = page_size  # type: int
-        self.product_code = product_code  # type: str
-        self.product_type = product_type  # type: str
-        self.start_time = start_time  # type: str
-        self.subscription_type = subscription_type  # type: str
+        self.price_entity_code = price_entity_code  # type: str
+        self.price_factor_condition_map = price_factor_condition_map  # type: dict[str, list[str]]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySkuPriceListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.next_page_token is not None:
+            result['NextPageToken'] = self.next_page_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.price_entity_code is not None:
+            result['PriceEntityCode'] = self.price_entity_code
+        if self.price_factor_condition_map is not None:
+            result['PriceFactorConditionMap'] = self.price_factor_condition_map
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('NextPageToken') is not None:
+            self.next_page_token = m.get('NextPageToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PriceEntityCode') is not None:
+            self.price_entity_code = m.get('PriceEntityCode')
+        if m.get('PriceFactorConditionMap') is not None:
+            self.price_factor_condition_map = m.get('PriceFactorConditionMap')
+        return self
+
+
+class QuerySkuPriceListShrinkRequest(TeaModel):
+    def __init__(self, commodity_code=None, next_page_token=None, page_size=None, price_entity_code=None,
+                 price_factor_condition_map_shrink=None):
+        self.commodity_code = commodity_code  # type: str
+        self.next_page_token = next_page_token  # type: str
+        self.page_size = page_size  # type: int
+        self.price_entity_code = price_entity_code  # type: str
+        self.price_factor_condition_map_shrink = price_factor_condition_map_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySkuPriceListShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.next_page_token is not None:
+            result['NextPageToken'] = self.next_page_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.price_entity_code is not None:
+            result['PriceEntityCode'] = self.price_entity_code
+        if self.price_factor_condition_map_shrink is not None:
+            result['PriceFactorConditionMap'] = self.price_factor_condition_map_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('NextPageToken') is not None:
+            self.next_page_token = m.get('NextPageToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PriceEntityCode') is not None:
+            self.price_entity_code = m.get('PriceEntityCode')
+        if m.get('PriceFactorConditionMap') is not None:
+            self.price_factor_condition_map_shrink = m.get('PriceFactorConditionMap')
+        return self
+
+
+class QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceListRangeList(TeaModel):
+    def __init__(self, factor_code=None, max=None, min=None, type=None):
+        self.factor_code = factor_code  # type: str
+        self.max = max  # type: str
+        self.min = min  # type: str
         self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(QuerySettlementBillRequest, self).to_map()
+        _map = super(QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceListRangeList, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.is_hide_zero_charge is not None:
-            result['IsHideZeroCharge'] = self.is_hide_zero_charge
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.page_num is not None:
-            result['PageNum'] = self.page_num
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
-        if self.product_type is not None:
-            result['ProductType'] = self.product_type
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.subscription_type is not None:
-            result['SubscriptionType'] = self.subscription_type
+        if self.factor_code is not None:
+            result['FactorCode'] = self.factor_code
+        if self.max is not None:
+            result['Max'] = self.max
+        if self.min is not None:
+            result['Min'] = self.min
         if self.type is not None:
             result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('IsHideZeroCharge') is not None:
-            self.is_hide_zero_charge = m.get('IsHideZeroCharge')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('PageNum') is not None:
-            self.page_num = m.get('PageNum')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
-        if m.get('ProductType') is not None:
-            self.product_type = m.get('ProductType')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('SubscriptionType') is not None:
-            self.subscription_type = m.get('SubscriptionType')
+        if m.get('FactorCode') is not None:
+            self.factor_code = m.get('FactorCode')
+        if m.get('Max') is not None:
+            self.max = m.get('Max')
+        if m.get('Min') is not None:
+            self.min = m.get('Min')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
 
 
-class QuerySettlementBillResponseBodyDataItemsItem(TeaModel):
-    def __init__(self, account_discount=None, after_tax_amount=None, bill_id=None, charge_discount=None,
-                 cleared_time=None, config=None, create_time=None, currency=None, deducted_by_cash_coupons=None,
-                 deducted_by_coupons=None, deducted_by_prepaid_card=None, invoice_no=None, item=None, linked_customer_order_id=None,
-                 mybank_payment_amount=None, order_id=None, order_type=None, original_order_id=None, outstanding_amount=None,
-                 owner_id=None, payer_account=None, payment_amount=None, payment_currency=None, payment_time=None,
-                 pretax_amount=None, pretax_amount_local=None, pretax_gross_amount=None, previous_billing_cycle_balance=None,
-                 product_code=None, product_type=None, promotion=None, quantity=None, record_id=None, region=None, seller=None,
-                 solution_id=None, solution_name=None, status=None, suborder_id=None, subscription_type=None, tax=None,
-                 usage_end_time=None, usage_start_time=None):
-        self.account_discount = account_discount  # type: float
-        self.after_tax_amount = after_tax_amount  # type: float
-        self.bill_id = bill_id  # type: str
-        self.charge_discount = charge_discount  # type: float
-        self.cleared_time = cleared_time  # type: str
-        self.config = config  # type: str
-        self.create_time = create_time  # type: str
+class QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceList(TeaModel):
+    def __init__(self, csku_code=None, currency=None, price=None, price_mode=None, price_type=None, price_unit=None,
+                 range_list=None, usage_unit=None):
+        self.csku_code = csku_code  # type: str
         self.currency = currency  # type: str
-        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
-        self.deducted_by_coupons = deducted_by_coupons  # type: float
-        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
-        self.invoice_no = invoice_no  # type: str
-        self.item = item  # type: str
-        self.linked_customer_order_id = linked_customer_order_id  # type: str
-        self.mybank_payment_amount = mybank_payment_amount  # type: float
-        self.order_id = order_id  # type: str
-        self.order_type = order_type  # type: str
-        self.original_order_id = original_order_id  # type: str
-        self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = owner_id  # type: str
-        self.payer_account = payer_account  # type: str
-        self.payment_amount = payment_amount  # type: float
-        self.payment_currency = payment_currency  # type: str
-        self.payment_time = payment_time  # type: str
-        self.pretax_amount = pretax_amount  # type: float
-        self.pretax_amount_local = pretax_amount_local  # type: float
-        self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.previous_billing_cycle_balance = previous_billing_cycle_balance  # type: float
-        self.product_code = product_code  # type: str
-        self.product_type = product_type  # type: str
-        self.promotion = promotion  # type: str
-        self.quantity = quantity  # type: str
-        self.record_id = record_id  # type: str
-        self.region = region  # type: str
-        self.seller = seller  # type: str
-        self.solution_id = solution_id  # type: str
-        self.solution_name = solution_name  # type: str
-        self.status = status  # type: str
-        self.suborder_id = suborder_id  # type: str
-        self.subscription_type = subscription_type  # type: str
-        self.tax = tax  # type: float
-        self.usage_end_time = usage_end_time  # type: str
-        self.usage_start_time = usage_start_time  # type: str
+        self.price = price  # type: str
+        self.price_mode = price_mode  # type: str
+        self.price_type = price_type  # type: str
+        self.price_unit = price_unit  # type: str
+        self.range_list = range_list  # type: list[QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceListRangeList]
+        self.usage_unit = usage_unit  # type: str
 
     def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QuerySettlementBillResponseBodyDataItemsItem, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.account_discount is not None:
-            result['AccountDiscount'] = self.account_discount
-        if self.after_tax_amount is not None:
-            result['AfterTaxAmount'] = self.after_tax_amount
-        if self.bill_id is not None:
-            result['BillID'] = self.bill_id
-        if self.charge_discount is not None:
-            result['ChargeDiscount'] = self.charge_discount
-        if self.cleared_time is not None:
-            result['ClearedTime'] = self.cleared_time
-        if self.config is not None:
-            result['Config'] = self.config
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.currency is not None:
-            result['Currency'] = self.currency
-        if self.deducted_by_cash_coupons is not None:
-            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
-        if self.deducted_by_coupons is not None:
-            result['DeductedByCoupons'] = self.deducted_by_coupons
-        if self.deducted_by_prepaid_card is not None:
-            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
-        if self.invoice_no is not None:
-            result['InvoiceNo'] = self.invoice_no
-        if self.item is not None:
-            result['Item'] = self.item
-        if self.linked_customer_order_id is not None:
-            result['LinkedCustomerOrderID'] = self.linked_customer_order_id
-        if self.mybank_payment_amount is not None:
-            result['MybankPaymentAmount'] = self.mybank_payment_amount
-        if self.order_id is not None:
-            result['OrderID'] = self.order_id
-        if self.order_type is not None:
-            result['OrderType'] = self.order_type
-        if self.original_order_id is not None:
-            result['OriginalOrderID'] = self.original_order_id
-        if self.outstanding_amount is not None:
-            result['OutstandingAmount'] = self.outstanding_amount
-        if self.owner_id is not None:
-            result['OwnerID'] = self.owner_id
-        if self.payer_account is not None:
-            result['PayerAccount'] = self.payer_account
-        if self.payment_amount is not None:
-            result['PaymentAmount'] = self.payment_amount
-        if self.payment_currency is not None:
-            result['PaymentCurrency'] = self.payment_currency
-        if self.payment_time is not None:
-            result['PaymentTime'] = self.payment_time
-        if self.pretax_amount is not None:
-            result['PretaxAmount'] = self.pretax_amount
-        if self.pretax_amount_local is not None:
-            result['PretaxAmountLocal'] = self.pretax_amount_local
-        if self.pretax_gross_amount is not None:
-            result['PretaxGrossAmount'] = self.pretax_gross_amount
-        if self.previous_billing_cycle_balance is not None:
-            result['PreviousBillingCycleBalance'] = self.previous_billing_cycle_balance
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
-        if self.product_type is not None:
-            result['ProductType'] = self.product_type
-        if self.promotion is not None:
-            result['Promotion'] = self.promotion
-        if self.quantity is not None:
-            result['Quantity'] = self.quantity
-        if self.record_id is not None:
-            result['RecordID'] = self.record_id
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.seller is not None:
-            result['Seller'] = self.seller
-        if self.solution_id is not None:
-            result['SolutionID'] = self.solution_id
-        if self.solution_name is not None:
-            result['SolutionName'] = self.solution_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.suborder_id is not None:
-            result['SuborderID'] = self.suborder_id
-        if self.subscription_type is not None:
-            result['SubscriptionType'] = self.subscription_type
-        if self.tax is not None:
-            result['Tax'] = self.tax
-        if self.usage_end_time is not None:
-            result['UsageEndTime'] = self.usage_end_time
-        if self.usage_start_time is not None:
-            result['UsageStartTime'] = self.usage_start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccountDiscount') is not None:
-            self.account_discount = m.get('AccountDiscount')
-        if m.get('AfterTaxAmount') is not None:
-            self.after_tax_amount = m.get('AfterTaxAmount')
-        if m.get('BillID') is not None:
-            self.bill_id = m.get('BillID')
-        if m.get('ChargeDiscount') is not None:
-            self.charge_discount = m.get('ChargeDiscount')
-        if m.get('ClearedTime') is not None:
-            self.cleared_time = m.get('ClearedTime')
-        if m.get('Config') is not None:
-            self.config = m.get('Config')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('Currency') is not None:
-            self.currency = m.get('Currency')
-        if m.get('DeductedByCashCoupons') is not None:
-            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
-        if m.get('DeductedByCoupons') is not None:
-            self.deducted_by_coupons = m.get('DeductedByCoupons')
-        if m.get('DeductedByPrepaidCard') is not None:
-            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
-        if m.get('InvoiceNo') is not None:
-            self.invoice_no = m.get('InvoiceNo')
-        if m.get('Item') is not None:
-            self.item = m.get('Item')
-        if m.get('LinkedCustomerOrderID') is not None:
-            self.linked_customer_order_id = m.get('LinkedCustomerOrderID')
-        if m.get('MybankPaymentAmount') is not None:
-            self.mybank_payment_amount = m.get('MybankPaymentAmount')
-        if m.get('OrderID') is not None:
-            self.order_id = m.get('OrderID')
-        if m.get('OrderType') is not None:
-            self.order_type = m.get('OrderType')
-        if m.get('OriginalOrderID') is not None:
-            self.original_order_id = m.get('OriginalOrderID')
-        if m.get('OutstandingAmount') is not None:
-            self.outstanding_amount = m.get('OutstandingAmount')
-        if m.get('OwnerID') is not None:
-            self.owner_id = m.get('OwnerID')
-        if m.get('PayerAccount') is not None:
-            self.payer_account = m.get('PayerAccount')
-        if m.get('PaymentAmount') is not None:
-            self.payment_amount = m.get('PaymentAmount')
-        if m.get('PaymentCurrency') is not None:
-            self.payment_currency = m.get('PaymentCurrency')
-        if m.get('PaymentTime') is not None:
-            self.payment_time = m.get('PaymentTime')
-        if m.get('PretaxAmount') is not None:
-            self.pretax_amount = m.get('PretaxAmount')
-        if m.get('PretaxAmountLocal') is not None:
-            self.pretax_amount_local = m.get('PretaxAmountLocal')
-        if m.get('PretaxGrossAmount') is not None:
-            self.pretax_gross_amount = m.get('PretaxGrossAmount')
-        if m.get('PreviousBillingCycleBalance') is not None:
-            self.previous_billing_cycle_balance = m.get('PreviousBillingCycleBalance')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
-        if m.get('ProductType') is not None:
-            self.product_type = m.get('ProductType')
-        if m.get('Promotion') is not None:
-            self.promotion = m.get('Promotion')
-        if m.get('Quantity') is not None:
-            self.quantity = m.get('Quantity')
-        if m.get('RecordID') is not None:
-            self.record_id = m.get('RecordID')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('Seller') is not None:
-            self.seller = m.get('Seller')
-        if m.get('SolutionID') is not None:
-            self.solution_id = m.get('SolutionID')
-        if m.get('SolutionName') is not None:
-            self.solution_name = m.get('SolutionName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('SuborderID') is not None:
-            self.suborder_id = m.get('SuborderID')
-        if m.get('SubscriptionType') is not None:
-            self.subscription_type = m.get('SubscriptionType')
-        if m.get('Tax') is not None:
-            self.tax = m.get('Tax')
-        if m.get('UsageEndTime') is not None:
-            self.usage_end_time = m.get('UsageEndTime')
-        if m.get('UsageStartTime') is not None:
-            self.usage_start_time = m.get('UsageStartTime')
-        return self
-
-
-class QuerySettlementBillResponseBodyDataItems(TeaModel):
-    def __init__(self, item=None):
-        self.item = item  # type: list[QuerySettlementBillResponseBodyDataItemsItem]
-
-    def validate(self):
-        if self.item:
-            for k in self.item:
+        if self.range_list:
+            for k in self.range_list:
                 if k:
                     k.validate()
 
     def to_map(self):
-        _map = super(QuerySettlementBillResponseBodyDataItems, self).to_map()
+        _map = super(QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceList, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        result['Item'] = []
-        if self.item is not None:
-            for k in self.item:
-                result['Item'].append(k.to_map() if k else None)
+        if self.csku_code is not None:
+            result['CskuCode'] = self.csku_code
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.price is not None:
+            result['Price'] = self.price
+        if self.price_mode is not None:
+            result['PriceMode'] = self.price_mode
+        if self.price_type is not None:
+            result['PriceType'] = self.price_type
+        if self.price_unit is not None:
+            result['PriceUnit'] = self.price_unit
+        result['RangeList'] = []
+        if self.range_list is not None:
+            for k in self.range_list:
+                result['RangeList'].append(k.to_map() if k else None)
+        if self.usage_unit is not None:
+            result['UsageUnit'] = self.usage_unit
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        self.item = []
-        if m.get('Item') is not None:
-            for k in m.get('Item'):
-                temp_model = QuerySettlementBillResponseBodyDataItemsItem()
-                self.item.append(temp_model.from_map(k))
+        if m.get('CskuCode') is not None:
+            self.csku_code = m.get('CskuCode')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
+        if m.get('PriceMode') is not None:
+            self.price_mode = m.get('PriceMode')
+        if m.get('PriceType') is not None:
+            self.price_type = m.get('PriceType')
+        if m.get('PriceUnit') is not None:
+            self.price_unit = m.get('PriceUnit')
+        self.range_list = []
+        if m.get('RangeList') is not None:
+            for k in m.get('RangeList'):
+                temp_model = QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceListRangeList()
+                self.range_list.append(temp_model.from_map(k))
+        if m.get('UsageUnit') is not None:
+            self.usage_unit = m.get('UsageUnit')
         return self
 
 
-class QuerySettlementBillResponseBodyData(TeaModel):
-    def __init__(self, billing_cycle=None, items=None, page_num=None, page_size=None, total_count=None):
-        self.billing_cycle = billing_cycle  # type: str
-        self.items = items  # type: QuerySettlementBillResponseBodyDataItems
-        self.page_num = page_num  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
+class QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceList(TeaModel):
+    def __init__(self, csku_price_list=None, sku_code=None, sku_factor_map=None):
+        self.csku_price_list = csku_price_list  # type: list[QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceList]
+        # sku code
+        self.sku_code = sku_code  # type: str
+        self.sku_factor_map = sku_factor_map  # type: dict[str, str]
 
     def validate(self):
-        if self.items:
-            self.items.validate()
+        if self.csku_price_list:
+            for k in self.csku_price_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
-        _map = super(QuerySettlementBillResponseBodyData, self).to_map()
+        _map = super(QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceList, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.items is not None:
-            result['Items'] = self.items.to_map()
-        if self.page_num is not None:
-            result['PageNum'] = self.page_num
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
+        result['CskuPriceList'] = []
+        if self.csku_price_list is not None:
+            for k in self.csku_price_list:
+                result['CskuPriceList'].append(k.to_map() if k else None)
+        if self.sku_code is not None:
+            result['SkuCode'] = self.sku_code
+        if self.sku_factor_map is not None:
+            result['SkuFactorMap'] = self.sku_factor_map
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.csku_price_list = []
+        if m.get('CskuPriceList') is not None:
+            for k in m.get('CskuPriceList'):
+                temp_model = QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceListCskuPriceList()
+                self.csku_price_list.append(temp_model.from_map(k))
+        if m.get('SkuCode') is not None:
+            self.sku_code = m.get('SkuCode')
+        if m.get('SkuFactorMap') is not None:
+            self.sku_factor_map = m.get('SkuFactorMap')
+        return self
+
+
+class QuerySkuPriceListResponseBodyDataSkuPricePage(TeaModel):
+    def __init__(self, next_page_token=None, sku_price_list=None, total_count=None):
+        self.next_page_token = next_page_token  # type: str
+        self.sku_price_list = sku_price_list  # type: list[QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceList]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.sku_price_list:
+            for k in self.sku_price_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QuerySkuPriceListResponseBodyDataSkuPricePage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_page_token is not None:
+            result['NextPageToken'] = self.next_page_token
+        result['SkuPriceList'] = []
+        if self.sku_price_list is not None:
+            for k in self.sku_price_list:
+                result['SkuPriceList'].append(k.to_map() if k else None)
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('Items') is not None:
-            temp_model = QuerySettlementBillResponseBodyDataItems()
-            self.items = temp_model.from_map(m['Items'])
-        if m.get('PageNum') is not None:
-            self.page_num = m.get('PageNum')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
+        if m.get('NextPageToken') is not None:
+            self.next_page_token = m.get('NextPageToken')
+        self.sku_price_list = []
+        if m.get('SkuPriceList') is not None:
+            for k in m.get('SkuPriceList'):
+                temp_model = QuerySkuPriceListResponseBodyDataSkuPricePageSkuPriceList()
+                self.sku_price_list.append(temp_model.from_map(k))
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
         return self
 
 
-class QuerySettlementBillResponseBody(TeaModel):
+class QuerySkuPriceListResponseBodyData(TeaModel):
+    def __init__(self, sku_price_page=None):
+        self.sku_price_page = sku_price_page  # type: QuerySkuPriceListResponseBodyDataSkuPricePage
+
+    def validate(self):
+        if self.sku_price_page:
+            self.sku_price_page.validate()
+
+    def to_map(self):
+        _map = super(QuerySkuPriceListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sku_price_page is not None:
+            result['SkuPricePage'] = self.sku_price_page.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SkuPricePage') is not None:
+            temp_model = QuerySkuPriceListResponseBodyDataSkuPricePage()
+            self.sku_price_page = temp_model.from_map(m['SkuPricePage'])
+        return self
+
+
+class QuerySkuPriceListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
         self.code = code  # type: str
-        self.data = data  # type: QuerySettlementBillResponseBodyData
+        self.data = data  # type: QuerySkuPriceListResponseBodyData
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -19506,7 +21975,7 @@ class QuerySettlementBillResponseBody(TeaModel):
             self.data.validate()
 
     def to_map(self):
-        _map = super(QuerySettlementBillResponseBody, self).to_map()
+        _map = super(QuerySkuPriceListResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -19528,7 +21997,7 @@ class QuerySettlementBillResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            temp_model = QuerySettlementBillResponseBodyData()
+            temp_model = QuerySkuPriceListResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
@@ -19539,11 +22008,11 @@ class QuerySettlementBillResponseBody(TeaModel):
         return self
 
 
-class QuerySettlementBillResponse(TeaModel):
+class QuerySkuPriceListResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
-        self.body = body  # type: QuerySettlementBillResponseBody
+        self.body = body  # type: QuerySkuPriceListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -19553,7 +22022,7 @@ class QuerySettlementBillResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(QuerySettlementBillResponse, self).to_map()
+        _map = super(QuerySkuPriceListResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -19573,7 +22042,7 @@ class QuerySettlementBillResponse(TeaModel):
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = QuerySettlementBillResponseBody()
+            temp_model = QuerySkuPriceListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -20257,15 +22726,10 @@ class QueryUserOmsDataResponse(TeaModel):
 class RefundInstanceRequest(TeaModel):
     def __init__(self, client_token=None, immediately_release=None, instance_id=None, product_code=None,
                  product_type=None):
-        # clientToken
         self.client_token = client_token  # type: str
-        # immediatelyRelease
         self.immediately_release = immediately_release  # type: str
-        # instanceId
         self.instance_id = instance_id  # type: str
-        # productCode
         self.product_code = product_code  # type: str
-        # productType
         self.product_type = product_type  # type: str
 
     def validate(self):
@@ -20306,9 +22770,7 @@ class RefundInstanceRequest(TeaModel):
 
 class RefundInstanceResponseBodyData(TeaModel):
     def __init__(self, host_id=None, order_id=None):
-        # hostId
         self.host_id = host_id  # type: str
-        # orderId
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -20337,15 +22799,11 @@ class RefundInstanceResponseBodyData(TeaModel):
 
 class RefundInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # code
         self.code = code  # type: str
         # data
         self.data = data  # type: RefundInstanceResponseBodyData
-        # message
         self.message = message  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -20428,19 +22886,12 @@ class RefundInstanceResponse(TeaModel):
 class ReleaseInstanceRequest(TeaModel):
     def __init__(self, instance_ids=None, owner_id=None, product_code=None, product_type=None, region=None,
                  renew_status=None, subscription_type=None):
-        # instanceIds
         self.instance_ids = instance_ids  # type: str
-        # ownerId
         self.owner_id = owner_id  # type: long
-        # productCode
         self.product_code = product_code  # type: str
-        # productType
         self.product_type = product_type  # type: str
-        # region
         self.region = region  # type: str
-        # renewStatus
         self.renew_status = renew_status  # type: str
-        # subscriptionType
         self.subscription_type = subscription_type  # type: str
 
     def validate(self):
@@ -20489,9 +22940,7 @@ class ReleaseInstanceRequest(TeaModel):
 
 class ReleaseInstanceResponseBodyData(TeaModel):
     def __init__(self, host_id=None, release_result=None):
-        # hostId
         self.host_id = host_id  # type: str
-        # releaseResult
         self.release_result = release_result  # type: bool
 
     def validate(self):
@@ -20520,14 +22969,11 @@ class ReleaseInstanceResponseBodyData(TeaModel):
 
 class ReleaseInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # code
         self.code = code  # type: str
+        # data
         self.data = data  # type: ReleaseInstanceResponseBodyData
-        # message
         self.message = message  # type: str
-        # requestId
         self.request_id = request_id  # type: str
-        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -20654,6 +23100,7 @@ class RelieveAccountRelationRequest(TeaModel):
 
 class RelieveAccountRelationResponseBodyData(TeaModel):
     def __init__(self, host_id=None):
+        # hostid
         self.host_id = host_id  # type: str
 
     def validate(self):
@@ -21896,10 +24343,11 @@ class SetResellerUserQuotaResponse(TeaModel):
 
 
 class SetResellerUserStatusRequest(TeaModel):
-    def __init__(self, business_type=None, owner_id=None, status=None):
+    def __init__(self, business_type=None, owner_id=None, status=None, stop_mode=None):
         self.business_type = business_type  # type: str
         self.owner_id = owner_id  # type: str
         self.status = status  # type: str
+        self.stop_mode = stop_mode  # type: str
 
     def validate(self):
         pass
@@ -21916,6 +24364,8 @@ class SetResellerUserStatusRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.stop_mode is not None:
+            result['StopMode'] = self.stop_mode
         return result
 
     def from_map(self, m=None):
@@ -21926,6 +24376,8 @@ class SetResellerUserStatusRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StopMode') is not None:
+            self.stop_mode = m.get('StopMode')
         return self
 
 
@@ -22017,7 +24469,6 @@ class SubscribeBillToOSSRequest(TeaModel):
                  mult_account_rel_subscribe=None, subscribe_bucket=None, subscribe_type=None):
         self.begin_billing_cycle = begin_billing_cycle  # type: str
         self.bucket_owner_id = bucket_owner_id  # type: long
-        # OSS Bucket存储路径
         self.bucket_path = bucket_path  # type: str
         self.mult_account_rel_subscribe = mult_account_rel_subscribe  # type: str
         self.subscribe_bucket = subscribe_bucket  # type: str

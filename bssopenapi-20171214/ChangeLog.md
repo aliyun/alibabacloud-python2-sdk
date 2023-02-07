@@ -1,3 +1,6 @@
+2023-02-07 Version: 1.0.9
+- Add other language.
+
 2022-06-28 Version: 1.0.8
 - Update QuerySavingsPlansDeductLog add field OwnerId.
 
