@@ -122,142 +122,20 @@ class AttachClusterToHubResponse(TeaModel):
         return self
 
 
-class CreateHubClusterRequestClusterConfigurationWorkflowUnitsVSwitches(TeaModel):
-    def __init__(self, vswitch_id=None, zone_id=None):
-        self.vswitch_id = vswitch_id  # type: str
-        self.zone_id = zone_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateHubClusterRequestClusterConfigurationWorkflowUnitsVSwitches, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.vswitch_id is not None:
-            result['VswitchId'] = self.vswitch_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('VswitchId') is not None:
-            self.vswitch_id = m.get('VswitchId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        return self
-
-
-class CreateHubClusterRequestClusterConfigurationWorkflowUnits(TeaModel):
-    def __init__(self, region_id=None, v_switches=None, vpc_id=None):
-        self.region_id = region_id  # type: str
-        self.v_switches = v_switches  # type: list[CreateHubClusterRequestClusterConfigurationWorkflowUnitsVSwitches]
-        self.vpc_id = vpc_id  # type: str
-
-    def validate(self):
-        if self.v_switches:
-            for k in self.v_switches:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(CreateHubClusterRequestClusterConfigurationWorkflowUnits, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        result['VSwitches'] = []
-        if self.v_switches is not None:
-            for k in self.v_switches:
-                result['VSwitches'].append(k.to_map() if k else None)
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        self.v_switches = []
-        if m.get('VSwitches') is not None:
-            for k in m.get('VSwitches'):
-                temp_model = CreateHubClusterRequestClusterConfigurationWorkflowUnitsVSwitches()
-                self.v_switches.append(temp_model.from_map(k))
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
-        return self
-
-
-class CreateHubClusterRequestClusterConfiguration(TeaModel):
-    def __init__(self, argo_server_enabled=None, price_limit=None, worflow_enabled=None,
-                 workflow_schedule_mode=None, workflow_units=None):
-        self.argo_server_enabled = argo_server_enabled  # type: bool
-        self.price_limit = price_limit  # type: str
-        self.worflow_enabled = worflow_enabled  # type: bool
-        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
-        self.workflow_units = workflow_units  # type: list[CreateHubClusterRequestClusterConfigurationWorkflowUnits]
-
-    def validate(self):
-        if self.workflow_units:
-            for k in self.workflow_units:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(CreateHubClusterRequestClusterConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.argo_server_enabled is not None:
-            result['ArgoServerEnabled'] = self.argo_server_enabled
-        if self.price_limit is not None:
-            result['PriceLimit'] = self.price_limit
-        if self.worflow_enabled is not None:
-            result['WorflowEnabled'] = self.worflow_enabled
-        if self.workflow_schedule_mode is not None:
-            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
-        result['WorkflowUnits'] = []
-        if self.workflow_units is not None:
-            for k in self.workflow_units:
-                result['WorkflowUnits'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ArgoServerEnabled') is not None:
-            self.argo_server_enabled = m.get('ArgoServerEnabled')
-        if m.get('PriceLimit') is not None:
-            self.price_limit = m.get('PriceLimit')
-        if m.get('WorflowEnabled') is not None:
-            self.worflow_enabled = m.get('WorflowEnabled')
-        if m.get('WorkflowScheduleMode') is not None:
-            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
-        self.workflow_units = []
-        if m.get('WorkflowUnits') is not None:
-            for k in m.get('WorkflowUnits'):
-                temp_model = CreateHubClusterRequestClusterConfigurationWorkflowUnits()
-                self.workflow_units.append(temp_model.from_map(k))
-        return self
-
-
 class CreateHubClusterRequest(TeaModel):
-    def __init__(self, api_server_public_eip=None, audit_log_enabled=None, cluster_configuration=None,
-                 is_enterprise_security_group=None, name=None, profile=None, region_id=None, v_switches=None, vpc_id=None):
+    def __init__(self, api_server_public_eip=None, argo_server_enabled=None, audit_log_enabled=None,
+                 is_enterprise_security_group=None, name=None, price_limit=None, profile=None, region_id=None, v_switches=None, vpc_id=None,
+                 workflow_schedule_mode=None):
         # Specifies whether to use a public IP address to expose the API server. Valid values: - true: uses a public IP address to expose the API server. - true: uses an internal IP address to expose the API server.
         self.api_server_public_eip = api_server_public_eip  # type: bool
+        self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable audit logs. Valid values: - true: enables audit logs. - false: disables audit logs.
         self.audit_log_enabled = audit_log_enabled  # type: bool
-        self.cluster_configuration = cluster_configuration  # type: CreateHubClusterRequestClusterConfiguration
         # Specifies whether the security group is an advanced security group.
         self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
         # The name of the master instance.
         self.name = name  # type: str
+        self.price_limit = price_limit  # type: str
         # Scenario-oriented master control type. The value can be:
         # 
         # - `Default`: Standard scenario Master instance.
@@ -271,10 +149,10 @@ class CreateHubClusterRequest(TeaModel):
         self.v_switches = v_switches  # type: str
         # The ID of the virtual private cloud (VPC) to which the master instance belongs. You can call the DescribeVpcs operation to query available VPCs.
         self.vpc_id = vpc_id  # type: str
+        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
-        if self.cluster_configuration:
-            self.cluster_configuration.validate()
+        pass
 
     def to_map(self):
         _map = super(CreateHubClusterRequest, self).to_map()
@@ -284,14 +162,16 @@ class CreateHubClusterRequest(TeaModel):
         result = dict()
         if self.api_server_public_eip is not None:
             result['ApiServerPublicEip'] = self.api_server_public_eip
+        if self.argo_server_enabled is not None:
+            result['ArgoServerEnabled'] = self.argo_server_enabled
         if self.audit_log_enabled is not None:
             result['AuditLogEnabled'] = self.audit_log_enabled
-        if self.cluster_configuration is not None:
-            result['ClusterConfiguration'] = self.cluster_configuration.to_map()
         if self.is_enterprise_security_group is not None:
             result['IsEnterpriseSecurityGroup'] = self.is_enterprise_security_group
         if self.name is not None:
             result['Name'] = self.name
+        if self.price_limit is not None:
+            result['PriceLimit'] = self.price_limit
         if self.profile is not None:
             result['Profile'] = self.profile
         if self.region_id is not None:
@@ -300,21 +180,24 @@ class CreateHubClusterRequest(TeaModel):
             result['VSwitches'] = self.v_switches
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
+        if self.workflow_schedule_mode is not None:
+            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ApiServerPublicEip') is not None:
             self.api_server_public_eip = m.get('ApiServerPublicEip')
+        if m.get('ArgoServerEnabled') is not None:
+            self.argo_server_enabled = m.get('ArgoServerEnabled')
         if m.get('AuditLogEnabled') is not None:
             self.audit_log_enabled = m.get('AuditLogEnabled')
-        if m.get('ClusterConfiguration') is not None:
-            temp_model = CreateHubClusterRequestClusterConfiguration()
-            self.cluster_configuration = temp_model.from_map(m['ClusterConfiguration'])
         if m.get('IsEnterpriseSecurityGroup') is not None:
             self.is_enterprise_security_group = m.get('IsEnterpriseSecurityGroup')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('PriceLimit') is not None:
+            self.price_limit = m.get('PriceLimit')
         if m.get('Profile') is not None:
             self.profile = m.get('Profile')
         if m.get('RegionId') is not None:
@@ -323,84 +206,8 @@ class CreateHubClusterRequest(TeaModel):
             self.v_switches = m.get('VSwitches')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
-        return self
-
-
-class CreateHubClusterShrinkRequest(TeaModel):
-    def __init__(self, api_server_public_eip=None, audit_log_enabled=None, cluster_configuration_shrink=None,
-                 is_enterprise_security_group=None, name=None, profile=None, region_id=None, v_switches=None, vpc_id=None):
-        # Specifies whether to use a public IP address to expose the API server. Valid values: - true: uses a public IP address to expose the API server. - true: uses an internal IP address to expose the API server.
-        self.api_server_public_eip = api_server_public_eip  # type: bool
-        # Specifies whether to enable audit logs. Valid values: - true: enables audit logs. - false: disables audit logs.
-        self.audit_log_enabled = audit_log_enabled  # type: bool
-        self.cluster_configuration_shrink = cluster_configuration_shrink  # type: str
-        # Specifies whether the security group is an advanced security group.
-        self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
-        # The name of the master instance.
-        self.name = name  # type: str
-        # Scenario-oriented master control type. The value can be:
-        # 
-        # - `Default`: Standard scenario Master instance.
-        # - `XFlow`: Workflow scenario master instance.
-        # 
-        # Default Value: `Default`.
-        self.profile = profile  # type: str
-        # The ID of the region. You can call the DescribeRegions operation to query available regions.
-        self.region_id = region_id  # type: str
-        # The ID of the vSwitch.
-        self.v_switches = v_switches  # type: str
-        # The ID of the virtual private cloud (VPC) to which the master instance belongs. You can call the DescribeVpcs operation to query available VPCs.
-        self.vpc_id = vpc_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateHubClusterShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.api_server_public_eip is not None:
-            result['ApiServerPublicEip'] = self.api_server_public_eip
-        if self.audit_log_enabled is not None:
-            result['AuditLogEnabled'] = self.audit_log_enabled
-        if self.cluster_configuration_shrink is not None:
-            result['ClusterConfiguration'] = self.cluster_configuration_shrink
-        if self.is_enterprise_security_group is not None:
-            result['IsEnterpriseSecurityGroup'] = self.is_enterprise_security_group
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.profile is not None:
-            result['Profile'] = self.profile
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.v_switches is not None:
-            result['VSwitches'] = self.v_switches
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiServerPublicEip') is not None:
-            self.api_server_public_eip = m.get('ApiServerPublicEip')
-        if m.get('AuditLogEnabled') is not None:
-            self.audit_log_enabled = m.get('AuditLogEnabled')
-        if m.get('ClusterConfiguration') is not None:
-            self.cluster_configuration_shrink = m.get('ClusterConfiguration')
-        if m.get('IsEnterpriseSecurityGroup') is not None:
-            self.is_enterprise_security_group = m.get('IsEnterpriseSecurityGroup')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Profile') is not None:
-            self.profile = m.get('Profile')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('VSwitches') is not None:
-            self.v_switches = m.get('VSwitches')
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
+        if m.get('WorkflowScheduleMode') is not None:
+            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
         return self
 
 
@@ -772,16 +579,16 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
 
 class DescribeHubClusterDetailsResponseBodyClusterConditions(TeaModel):
     def __init__(self, message=None, reason=None, status=None, type=None):
-        # 删除条件错误信息
+        # The error message of the deletion condition.
         self.message = message  # type: str
-        # 删除条件原因
+        # The reason for the deletion condition.
         self.reason = reason  # type: str
-        # 删除条件状态，取值
-        # - True 不能删除
-        # - False 允许删除
-        # - Unknow 未知
+        # The status of the deletion condition. Valid values:
+        # - True: The master instance cannot be deleted.
+        # - False: The master instance can be deleted.
+        # - Unknow: Whether the master instance can be deleted is unknown.
         self.status = status  # type: str
-        # 删除条件类型
+        # The type of deletion condition.
         self.type = type  # type: str
 
     def validate(self):
@@ -964,14 +771,133 @@ class DescribeHubClusterDetailsResponseBodyClusterNetwork(TeaModel):
         return self
 
 
+class DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSwitches(TeaModel):
+    def __init__(self, vswitch_id=None, zone_id=None):
+        self.vswitch_id = vswitch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSwitches, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vswitch_id is not None:
+            result['VswitchId'] = self.vswitch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('VswitchId') is not None:
+            self.vswitch_id = m.get('VswitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnits(TeaModel):
+    def __init__(self, region_id=None, v_switches=None, vpc_id=None):
+        self.region_id = region_id  # type: str
+        self.v_switches = v_switches  # type: list[DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSwitches]
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.v_switches:
+            for k in self.v_switches:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnits, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        result['VSwitches'] = []
+        if self.v_switches is not None:
+            for k in self.v_switches:
+                result['VSwitches'].append(k.to_map() if k else None)
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        self.v_switches = []
+        if m.get('VSwitches') is not None:
+            for k in m.get('VSwitches'):
+                temp_model = DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSwitches()
+                self.v_switches.append(temp_model.from_map(k))
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class DescribeHubClusterDetailsResponseBodyClusterWorkflowConfig(TeaModel):
+    def __init__(self, argo_server_enabled=None, price_limit=None, workflow_schedule_mode=None,
+                 workflow_units=None):
+        self.argo_server_enabled = argo_server_enabled  # type: bool
+        self.price_limit = price_limit  # type: str
+        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
+        self.workflow_units = workflow_units  # type: list[DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnits]
+
+    def validate(self):
+        if self.workflow_units:
+            for k in self.workflow_units:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeHubClusterDetailsResponseBodyClusterWorkflowConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.argo_server_enabled is not None:
+            result['ArgoServerEnabled'] = self.argo_server_enabled
+        if self.price_limit is not None:
+            result['PriceLimit'] = self.price_limit
+        if self.workflow_schedule_mode is not None:
+            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
+        result['WorkflowUnits'] = []
+        if self.workflow_units is not None:
+            for k in self.workflow_units:
+                result['WorkflowUnits'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArgoServerEnabled') is not None:
+            self.argo_server_enabled = m.get('ArgoServerEnabled')
+        if m.get('PriceLimit') is not None:
+            self.price_limit = m.get('PriceLimit')
+        if m.get('WorkflowScheduleMode') is not None:
+            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
+        self.workflow_units = []
+        if m.get('WorkflowUnits') is not None:
+            for k in m.get('WorkflowUnits'):
+                temp_model = DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnits()
+                self.workflow_units.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeHubClusterDetailsResponseBodyCluster(TeaModel):
     def __init__(self, api_server=None, cluster_info=None, conditions=None, endpoints=None, log_config=None,
-                 mesh_config=None, network=None):
+                 mesh_config=None, network=None, workflow_config=None):
         # Information about the API server of the master instance.
         self.api_server = api_server  # type: DescribeHubClusterDetailsResponseBodyClusterApiServer
         # The details about the master instance.
         self.cluster_info = cluster_info  # type: DescribeHubClusterDetailsResponseBodyClusterClusterInfo
-        # 集群删除条件信息列表
+        # The list of the deletion conditions of the master instance.
         self.conditions = conditions  # type: list[DescribeHubClusterDetailsResponseBodyClusterConditions]
         # The endpoint of the master instance.
         self.endpoints = endpoints  # type: DescribeHubClusterDetailsResponseBodyClusterEndpoints
@@ -981,6 +907,7 @@ class DescribeHubClusterDetailsResponseBodyCluster(TeaModel):
         self.mesh_config = mesh_config  # type: DescribeHubClusterDetailsResponseBodyClusterMeshConfig
         # The network configurations of the master instance.
         self.network = network  # type: DescribeHubClusterDetailsResponseBodyClusterNetwork
+        self.workflow_config = workflow_config  # type: DescribeHubClusterDetailsResponseBodyClusterWorkflowConfig
 
     def validate(self):
         if self.api_server:
@@ -999,6 +926,8 @@ class DescribeHubClusterDetailsResponseBodyCluster(TeaModel):
             self.mesh_config.validate()
         if self.network:
             self.network.validate()
+        if self.workflow_config:
+            self.workflow_config.validate()
 
     def to_map(self):
         _map = super(DescribeHubClusterDetailsResponseBodyCluster, self).to_map()
@@ -1022,6 +951,8 @@ class DescribeHubClusterDetailsResponseBodyCluster(TeaModel):
             result['MeshConfig'] = self.mesh_config.to_map()
         if self.network is not None:
             result['Network'] = self.network.to_map()
+        if self.workflow_config is not None:
+            result['WorkflowConfig'] = self.workflow_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -1049,6 +980,9 @@ class DescribeHubClusterDetailsResponseBodyCluster(TeaModel):
         if m.get('Network') is not None:
             temp_model = DescribeHubClusterDetailsResponseBodyClusterNetwork()
             self.network = temp_model.from_map(m['Network'])
+        if m.get('WorkflowConfig') is not None:
+            temp_model = DescribeHubClusterDetailsResponseBodyClusterWorkflowConfig()
+            self.workflow_config = temp_model.from_map(m['WorkflowConfig'])
         return self
 
 
@@ -2454,111 +2388,32 @@ class DetachClusterFromHubResponse(TeaModel):
         return self
 
 
-class UpdateHubClusterFeatureRequestUnitsVSwitches(TeaModel):
-    def __init__(self, vswitch_id=None, zone_id=None):
-        self.vswitch_id = vswitch_id  # type: str
-        self.zone_id = zone_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateHubClusterFeatureRequestUnitsVSwitches, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.vswitch_id is not None:
-            result['VswitchId'] = self.vswitch_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('VswitchId') is not None:
-            self.vswitch_id = m.get('VswitchId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        return self
-
-
-class UpdateHubClusterFeatureRequestUnits(TeaModel):
-    def __init__(self, region_id=None, v_switches=None, vpc_id=None):
-        self.region_id = region_id  # type: str
-        self.v_switches = v_switches  # type: list[UpdateHubClusterFeatureRequestUnitsVSwitches]
-        self.vpc_id = vpc_id  # type: str
-
-    def validate(self):
-        if self.v_switches:
-            for k in self.v_switches:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(UpdateHubClusterFeatureRequestUnits, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        result['VSwitches'] = []
-        if self.v_switches is not None:
-            for k in self.v_switches:
-                result['VSwitches'].append(k.to_map() if k else None)
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        self.v_switches = []
-        if m.get('VSwitches') is not None:
-            for k in m.get('VSwitches'):
-                temp_model = UpdateHubClusterFeatureRequestUnitsVSwitches()
-                self.v_switches.append(temp_model.from_map(k))
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
-        return self
-
-
 class UpdateHubClusterFeatureRequest(TeaModel):
-    def __init__(self, api_server_eip_id=None, audit_log_enabled=None, cluster_id=None, deletion_protection=None,
-                 enable_argo_cd=None, enable_mesh=None, enabled=None, name=None, price_limit=None, public_api_server_enabled=None,
-                 schedule_mode=None, server_enabled=None, units=None):
+    def __init__(self, api_server_eip_id=None, argo_cdenabled=None, argo_server_enabled=None,
+                 audit_log_enabled=None, cluster_id=None, deletion_protection=None, enable_mesh=None, name=None, price_limit=None,
+                 public_api_server_enabled=None, v_switches=None, workflow_schedule_mode=None):
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
+        self.argo_cdenabled = argo_cdenabled  # type: bool
+        self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable audit logs. Valid values: - true: enable audit logs. - false: disables audit logs.
         self.audit_log_enabled = audit_log_enabled  # type: bool
         # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to enable deletion protection for the master instance. After you enable deletion protection, you cannot delete the master instance in the console or by calling API operations. Valid values:
         self.deletion_protection = deletion_protection  # type: bool
-        # Whether to enable ArgoCD.
-        # 
-        # - true Enabled
-        # - false Disabled
-        self.enable_argo_cd = enable_argo_cd  # type: bool
         # Specifies whether to enable Service Mesh (ASM). Valid values: true: enables ASM. false: disables ASM.
         self.enable_mesh = enable_mesh  # type: bool
-        self.enabled = enabled  # type: bool
         # The name of the master instance. The name must be 1 to 63 characters in length, and can contain letters and digits. The name must start with a letter. The name can contain letters, digits, underscores (_), and hyphens (-).
         self.name = name  # type: str
         self.price_limit = price_limit  # type: str
         # Specifies whether to associate an elastic IP address (EIP) with the API server. Default value: false. To associate an EIP with the API server, set the value to true. You can use a custom EIP by setting the ApiServerEipId parameter. If you do not set the ApiServerEipId parameter, the system automatically creates an EIP.
         self.public_api_server_enabled = public_api_server_enabled  # type: bool
-        self.schedule_mode = schedule_mode  # type: str
-        self.server_enabled = server_enabled  # type: bool
-        self.units = units  # type: list[UpdateHubClusterFeatureRequestUnits]
+        self.v_switches = v_switches  # type: list[str]
+        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
-        if self.units:
-            for k in self.units:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         _map = super(UpdateHubClusterFeatureRequest, self).to_map()
@@ -2568,96 +2423,82 @@ class UpdateHubClusterFeatureRequest(TeaModel):
         result = dict()
         if self.api_server_eip_id is not None:
             result['ApiServerEipId'] = self.api_server_eip_id
+        if self.argo_cdenabled is not None:
+            result['ArgoCDEnabled'] = self.argo_cdenabled
+        if self.argo_server_enabled is not None:
+            result['ArgoServerEnabled'] = self.argo_server_enabled
         if self.audit_log_enabled is not None:
             result['AuditLogEnabled'] = self.audit_log_enabled
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.deletion_protection is not None:
             result['DeletionProtection'] = self.deletion_protection
-        if self.enable_argo_cd is not None:
-            result['EnableArgoCD'] = self.enable_argo_cd
         if self.enable_mesh is not None:
             result['EnableMesh'] = self.enable_mesh
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         if self.name is not None:
             result['Name'] = self.name
         if self.price_limit is not None:
             result['PriceLimit'] = self.price_limit
         if self.public_api_server_enabled is not None:
             result['PublicApiServerEnabled'] = self.public_api_server_enabled
-        if self.schedule_mode is not None:
-            result['ScheduleMode'] = self.schedule_mode
-        if self.server_enabled is not None:
-            result['ServerEnabled'] = self.server_enabled
-        result['Units'] = []
-        if self.units is not None:
-            for k in self.units:
-                result['Units'].append(k.to_map() if k else None)
+        if self.v_switches is not None:
+            result['VSwitches'] = self.v_switches
+        if self.workflow_schedule_mode is not None:
+            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ApiServerEipId') is not None:
             self.api_server_eip_id = m.get('ApiServerEipId')
+        if m.get('ArgoCDEnabled') is not None:
+            self.argo_cdenabled = m.get('ArgoCDEnabled')
+        if m.get('ArgoServerEnabled') is not None:
+            self.argo_server_enabled = m.get('ArgoServerEnabled')
         if m.get('AuditLogEnabled') is not None:
             self.audit_log_enabled = m.get('AuditLogEnabled')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('DeletionProtection') is not None:
             self.deletion_protection = m.get('DeletionProtection')
-        if m.get('EnableArgoCD') is not None:
-            self.enable_argo_cd = m.get('EnableArgoCD')
         if m.get('EnableMesh') is not None:
             self.enable_mesh = m.get('EnableMesh')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PriceLimit') is not None:
             self.price_limit = m.get('PriceLimit')
         if m.get('PublicApiServerEnabled') is not None:
             self.public_api_server_enabled = m.get('PublicApiServerEnabled')
-        if m.get('ScheduleMode') is not None:
-            self.schedule_mode = m.get('ScheduleMode')
-        if m.get('ServerEnabled') is not None:
-            self.server_enabled = m.get('ServerEnabled')
-        self.units = []
-        if m.get('Units') is not None:
-            for k in m.get('Units'):
-                temp_model = UpdateHubClusterFeatureRequestUnits()
-                self.units.append(temp_model.from_map(k))
+        if m.get('VSwitches') is not None:
+            self.v_switches = m.get('VSwitches')
+        if m.get('WorkflowScheduleMode') is not None:
+            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
         return self
 
 
 class UpdateHubClusterFeatureShrinkRequest(TeaModel):
-    def __init__(self, api_server_eip_id=None, audit_log_enabled=None, cluster_id=None, deletion_protection=None,
-                 enable_argo_cd=None, enable_mesh=None, enabled=None, name=None, price_limit=None, public_api_server_enabled=None,
-                 schedule_mode=None, server_enabled=None, units_shrink=None):
+    def __init__(self, api_server_eip_id=None, argo_cdenabled=None, argo_server_enabled=None,
+                 audit_log_enabled=None, cluster_id=None, deletion_protection=None, enable_mesh=None, name=None, price_limit=None,
+                 public_api_server_enabled=None, v_switches_shrink=None, workflow_schedule_mode=None):
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
+        self.argo_cdenabled = argo_cdenabled  # type: bool
+        self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable audit logs. Valid values: - true: enable audit logs. - false: disables audit logs.
         self.audit_log_enabled = audit_log_enabled  # type: bool
         # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to enable deletion protection for the master instance. After you enable deletion protection, you cannot delete the master instance in the console or by calling API operations. Valid values:
         self.deletion_protection = deletion_protection  # type: bool
-        # Whether to enable ArgoCD.
-        # 
-        # - true Enabled
-        # - false Disabled
-        self.enable_argo_cd = enable_argo_cd  # type: bool
         # Specifies whether to enable Service Mesh (ASM). Valid values: true: enables ASM. false: disables ASM.
         self.enable_mesh = enable_mesh  # type: bool
-        self.enabled = enabled  # type: bool
         # The name of the master instance. The name must be 1 to 63 characters in length, and can contain letters and digits. The name must start with a letter. The name can contain letters, digits, underscores (_), and hyphens (-).
         self.name = name  # type: str
         self.price_limit = price_limit  # type: str
         # Specifies whether to associate an elastic IP address (EIP) with the API server. Default value: false. To associate an EIP with the API server, set the value to true. You can use a custom EIP by setting the ApiServerEipId parameter. If you do not set the ApiServerEipId parameter, the system automatically creates an EIP.
         self.public_api_server_enabled = public_api_server_enabled  # type: bool
-        self.schedule_mode = schedule_mode  # type: str
-        self.server_enabled = server_enabled  # type: bool
-        self.units_shrink = units_shrink  # type: str
+        self.v_switches_shrink = v_switches_shrink  # type: str
+        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
         pass
@@ -2670,60 +2511,56 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
         result = dict()
         if self.api_server_eip_id is not None:
             result['ApiServerEipId'] = self.api_server_eip_id
+        if self.argo_cdenabled is not None:
+            result['ArgoCDEnabled'] = self.argo_cdenabled
+        if self.argo_server_enabled is not None:
+            result['ArgoServerEnabled'] = self.argo_server_enabled
         if self.audit_log_enabled is not None:
             result['AuditLogEnabled'] = self.audit_log_enabled
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.deletion_protection is not None:
             result['DeletionProtection'] = self.deletion_protection
-        if self.enable_argo_cd is not None:
-            result['EnableArgoCD'] = self.enable_argo_cd
         if self.enable_mesh is not None:
             result['EnableMesh'] = self.enable_mesh
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         if self.name is not None:
             result['Name'] = self.name
         if self.price_limit is not None:
             result['PriceLimit'] = self.price_limit
         if self.public_api_server_enabled is not None:
             result['PublicApiServerEnabled'] = self.public_api_server_enabled
-        if self.schedule_mode is not None:
-            result['ScheduleMode'] = self.schedule_mode
-        if self.server_enabled is not None:
-            result['ServerEnabled'] = self.server_enabled
-        if self.units_shrink is not None:
-            result['Units'] = self.units_shrink
+        if self.v_switches_shrink is not None:
+            result['VSwitches'] = self.v_switches_shrink
+        if self.workflow_schedule_mode is not None:
+            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ApiServerEipId') is not None:
             self.api_server_eip_id = m.get('ApiServerEipId')
+        if m.get('ArgoCDEnabled') is not None:
+            self.argo_cdenabled = m.get('ArgoCDEnabled')
+        if m.get('ArgoServerEnabled') is not None:
+            self.argo_server_enabled = m.get('ArgoServerEnabled')
         if m.get('AuditLogEnabled') is not None:
             self.audit_log_enabled = m.get('AuditLogEnabled')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('DeletionProtection') is not None:
             self.deletion_protection = m.get('DeletionProtection')
-        if m.get('EnableArgoCD') is not None:
-            self.enable_argo_cd = m.get('EnableArgoCD')
         if m.get('EnableMesh') is not None:
             self.enable_mesh = m.get('EnableMesh')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PriceLimit') is not None:
             self.price_limit = m.get('PriceLimit')
         if m.get('PublicApiServerEnabled') is not None:
             self.public_api_server_enabled = m.get('PublicApiServerEnabled')
-        if m.get('ScheduleMode') is not None:
-            self.schedule_mode = m.get('ScheduleMode')
-        if m.get('ServerEnabled') is not None:
-            self.server_enabled = m.get('ServerEnabled')
-        if m.get('Units') is not None:
-            self.units_shrink = m.get('Units')
+        if m.get('VSwitches') is not None:
+            self.v_switches_shrink = m.get('VSwitches')
+        if m.get('WorkflowScheduleMode') is not None:
+            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
         return self
 
 

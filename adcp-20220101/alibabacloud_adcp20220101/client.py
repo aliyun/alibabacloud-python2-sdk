@@ -90,24 +90,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_cluster_to_hub_with_options(request, runtime)
 
-    def create_hub_cluster_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = adcp_20220101_models.CreateHubClusterShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.cluster_configuration):
-            request.cluster_configuration_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.cluster_configuration, 'ClusterConfiguration', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.cluster_configuration_shrink):
-            query['ClusterConfiguration'] = request.cluster_configuration_shrink
+    def create_hub_cluster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_server_public_eip):
             body['ApiServerPublicEip'] = request.api_server_public_eip
+        if not UtilClient.is_unset(request.argo_server_enabled):
+            body['ArgoServerEnabled'] = request.argo_server_enabled
         if not UtilClient.is_unset(request.audit_log_enabled):
             body['AuditLogEnabled'] = request.audit_log_enabled
         if not UtilClient.is_unset(request.is_enterprise_security_group):
             body['IsEnterpriseSecurityGroup'] = request.is_enterprise_security_group
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
+        if not UtilClient.is_unset(request.price_limit):
+            body['PriceLimit'] = request.price_limit
         if not UtilClient.is_unset(request.profile):
             body['Profile'] = request.profile
         if not UtilClient.is_unset(request.region_id):
@@ -116,8 +113,9 @@ class Client(OpenApiClient):
             body['VSwitches'] = request.v_switches
         if not UtilClient.is_unset(request.vpc_id):
             body['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.workflow_schedule_mode):
+            body['WorkflowScheduleMode'] = request.workflow_schedule_mode
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -382,35 +380,33 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = adcp_20220101_models.UpdateHubClusterFeatureShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.units):
-            request.units_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.units, 'Units', 'json')
+        if not UtilClient.is_unset(tmp_req.v_switches):
+            request.v_switches_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switches, 'VSwitches', 'json')
         query = {}
         if not UtilClient.is_unset(request.api_server_eip_id):
             query['ApiServerEipId'] = request.api_server_eip_id
+        if not UtilClient.is_unset(request.argo_cdenabled):
+            query['ArgoCDEnabled'] = request.argo_cdenabled
+        if not UtilClient.is_unset(request.argo_server_enabled):
+            query['ArgoServerEnabled'] = request.argo_server_enabled
         if not UtilClient.is_unset(request.audit_log_enabled):
             query['AuditLogEnabled'] = request.audit_log_enabled
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.deletion_protection):
             query['DeletionProtection'] = request.deletion_protection
-        if not UtilClient.is_unset(request.enable_argo_cd):
-            query['EnableArgoCD'] = request.enable_argo_cd
         if not UtilClient.is_unset(request.enable_mesh):
             query['EnableMesh'] = request.enable_mesh
-        if not UtilClient.is_unset(request.enabled):
-            query['Enabled'] = request.enabled
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.price_limit):
             query['PriceLimit'] = request.price_limit
         if not UtilClient.is_unset(request.public_api_server_enabled):
             query['PublicApiServerEnabled'] = request.public_api_server_enabled
-        if not UtilClient.is_unset(request.schedule_mode):
-            query['ScheduleMode'] = request.schedule_mode
-        if not UtilClient.is_unset(request.server_enabled):
-            query['ServerEnabled'] = request.server_enabled
-        if not UtilClient.is_unset(request.units_shrink):
-            query['Units'] = request.units_shrink
+        if not UtilClient.is_unset(request.v_switches_shrink):
+            query['VSwitches'] = request.v_switches_shrink
+        if not UtilClient.is_unset(request.workflow_schedule_mode):
+            query['WorkflowScheduleMode'] = request.workflow_schedule_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
