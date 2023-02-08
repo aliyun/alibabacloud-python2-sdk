@@ -3,6 +3,144 @@
 from Tea.model import TeaModel
 
 
+class ChangeResourceGroupRequest(TeaModel):
+    def __init__(self, region_id=None, resource_group_id=None, resource_id=None, resource_type=None):
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['regionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
+        if self.resource_id is not None:
+            result['resourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('regionId') is not None:
+            self.region_id = m.get('regionId')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
+        if m.get('resourceId') is not None:
+            self.resource_id = m.get('resourceId')
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
+        return self
+
+
+class ChangeResourceGroupResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
+                 message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data
+        if self.dynamic_code is not None:
+            result['dynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['dynamicMessage'] = self.dynamic_message
+        if self.http_status_code is not None:
+            result['httpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('dynamicCode') is not None:
+            self.dynamic_code = m.get('dynamicCode')
+        if m.get('dynamicMessage') is not None:
+            self.dynamic_message = m.get('dynamicMessage')
+        if m.get('httpStatusCode') is not None:
+            self.http_status_code = m.get('httpStatusCode')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ChangeResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeResourceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
     def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
         self.dead_letter_target_topic = dead_letter_target_topic  # type: str
@@ -2151,10 +2289,11 @@ class ListConsumerGroupsResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None):
+    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None):
         self.filter = filter  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -2171,6 +2310,8 @@ class ListInstancesRequest(TeaModel):
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
             result['pageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -2181,14 +2322,16 @@ class ListInstancesRequest(TeaModel):
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
 class ListInstancesResponseBodyDataList(TeaModel):
     def __init__(self, commodity_code=None, create_time=None, expire_time=None, group_count=None, instance_id=None,
-                 instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, series_code=None,
-                 service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None, update_time=None,
-                 user_id=None):
+                 instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, resource_group_id=None,
+                 series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None,
+                 update_time=None, user_id=None):
         self.commodity_code = commodity_code  # type: str
         self.create_time = create_time  # type: str
         self.expire_time = expire_time  # type: str
@@ -2199,6 +2342,7 @@ class ListInstancesResponseBodyDataList(TeaModel):
         self.region_id = region_id  # type: str
         self.release_time = release_time  # type: str
         self.remark = remark  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.series_code = series_code  # type: str
         self.service_code = service_code  # type: str
         self.start_time = start_time  # type: str
@@ -2237,6 +2381,8 @@ class ListInstancesResponseBodyDataList(TeaModel):
             result['releaseTime'] = self.release_time
         if self.remark is not None:
             result['remark'] = self.remark
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
         if self.series_code is not None:
             result['seriesCode'] = self.series_code
         if self.service_code is not None:
@@ -2277,6 +2423,8 @@ class ListInstancesResponseBodyDataList(TeaModel):
             self.release_time = m.get('releaseTime')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
         if m.get('seriesCode') is not None:
             self.series_code = m.get('seriesCode')
         if m.get('serviceCode') is not None:
@@ -2731,7 +2879,8 @@ class ListTopicsResponse(TeaModel):
 
 
 class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
-    def __init__(self, max_retry_times=None, retry_policy=None):
+    def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        self.dead_letter_target_topic = dead_letter_target_topic  # type: str
         self.max_retry_times = max_retry_times  # type: int
         self.retry_policy = retry_policy  # type: str
 
@@ -2744,6 +2893,8 @@ class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.dead_letter_target_topic is not None:
+            result['deadLetterTargetTopic'] = self.dead_letter_target_topic
         if self.max_retry_times is not None:
             result['maxRetryTimes'] = self.max_retry_times
         if self.retry_policy is not None:
@@ -2752,6 +2903,8 @@ class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('deadLetterTargetTopic') is not None:
+            self.dead_letter_target_topic = m.get('deadLetterTargetTopic')
         if m.get('maxRetryTimes') is not None:
             self.max_retry_times = m.get('maxRetryTimes')
         if m.get('retryPolicy') is not None:
