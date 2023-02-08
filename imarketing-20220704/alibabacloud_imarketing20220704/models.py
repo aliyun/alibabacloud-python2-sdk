@@ -187,9 +187,11 @@ class CreateDeviceShrinkRequest(TeaModel):
 
 class CreateDeviceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, model=None, request_id=None, success=None):
+        # Id of the request
         self.code = code  # type: str
         self.message = message  # type: str
         self.model = model  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -3047,6 +3049,7 @@ class QueryAuditResultResponse(TeaModel):
 
 class ReportImpressionRequest(TeaModel):
     def __init__(self, impressionlink=None):
+        # impressionlink
         self.impressionlink = impressionlink  # type: str
 
     def validate(self):
@@ -3071,9 +3074,13 @@ class ReportImpressionRequest(TeaModel):
 
 class ReportImpressionResponseBodyHeader(TeaModel):
     def __init__(self, cost_time=None, rpc_id=None, trace_id=None, version=None):
+        # costTime
         self.cost_time = cost_time  # type: long
+        # rpcId
         self.rpc_id = rpc_id  # type: str
+        # traceId
         self.trace_id = trace_id  # type: str
+        # version
         self.version = version  # type: str
 
     def validate(self):
@@ -3140,12 +3147,17 @@ class ReportImpressionResponseBodyResult(TeaModel):
 class ReportImpressionResponseBody(TeaModel):
     def __init__(self, error_code=None, error_msg=None, ext=None, header=None, request_id=None, result=None,
                  success=None):
+        # errorCode
         self.error_code = error_code  # type: str
+        # errorMsg
         self.error_msg = error_msg  # type: str
+        # ext
         self.ext = ext  # type: dict[str, str]
+        # header
         self.header = header  # type: ReportImpressionResponseBodyHeader
         self.request_id = request_id  # type: str
         self.result = result  # type: ReportImpressionResponseBodyResult
+        # success
         self.success = success  # type: bool
 
     def validate(self):
@@ -3608,16 +3620,21 @@ class UpdateAdxCreativeContentRequestAdNativead(TeaModel):
 
 
 class UpdateAdxCreativeContentRequestAd(TeaModel):
-    def __init__(self, clicks=None, crid=None, enddate=None, imps=None, interacttype=None, nativead=None, op=None,
-                 ostype=None, startdate=None, template=None, type=None):
+    def __init__(self, bundle=None, clicks=None, crid=None, enddate=None, imps=None, interacttype=None,
+                 media_id_list=None, nativead=None, op=None, ostype=None, prereview=None, seat=None, startdate=None, template=None,
+                 type=None):
+        self.bundle = bundle  # type: list[str]
         self.clicks = clicks  # type: list[str]
         self.crid = crid  # type: str
         self.enddate = enddate  # type: str
         self.imps = imps  # type: list[str]
         self.interacttype = interacttype  # type: int
+        self.media_id_list = media_id_list  # type: list[str]
         self.nativead = nativead  # type: list[UpdateAdxCreativeContentRequestAdNativead]
         self.op = op  # type: int
         self.ostype = ostype  # type: str
+        self.prereview = prereview  # type: bool
+        self.seat = seat  # type: str
         self.startdate = startdate  # type: str
         self.template = template  # type: int
         self.type = type  # type: int
@@ -3634,6 +3651,8 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
             return _map
 
         result = dict()
+        if self.bundle is not None:
+            result['Bundle'] = self.bundle
         if self.clicks is not None:
             result['Clicks'] = self.clicks
         if self.crid is not None:
@@ -3644,6 +3663,8 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
             result['Imps'] = self.imps
         if self.interacttype is not None:
             result['Interacttype'] = self.interacttype
+        if self.media_id_list is not None:
+            result['MediaIdList'] = self.media_id_list
         result['Nativead'] = []
         if self.nativead is not None:
             for k in self.nativead:
@@ -3652,6 +3673,10 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
             result['Op'] = self.op
         if self.ostype is not None:
             result['Ostype'] = self.ostype
+        if self.prereview is not None:
+            result['Prereview'] = self.prereview
+        if self.seat is not None:
+            result['Seat'] = self.seat
         if self.startdate is not None:
             result['Startdate'] = self.startdate
         if self.template is not None:
@@ -3662,6 +3687,8 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Bundle') is not None:
+            self.bundle = m.get('Bundle')
         if m.get('Clicks') is not None:
             self.clicks = m.get('Clicks')
         if m.get('Crid') is not None:
@@ -3672,6 +3699,8 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
             self.imps = m.get('Imps')
         if m.get('Interacttype') is not None:
             self.interacttype = m.get('Interacttype')
+        if m.get('MediaIdList') is not None:
+            self.media_id_list = m.get('MediaIdList')
         self.nativead = []
         if m.get('Nativead') is not None:
             for k in m.get('Nativead'):
@@ -3681,6 +3710,10 @@ class UpdateAdxCreativeContentRequestAd(TeaModel):
             self.op = m.get('Op')
         if m.get('Ostype') is not None:
             self.ostype = m.get('Ostype')
+        if m.get('Prereview') is not None:
+            self.prereview = m.get('Prereview')
+        if m.get('Seat') is not None:
+            self.seat = m.get('Seat')
         if m.get('Startdate') is not None:
             self.startdate = m.get('Startdate')
         if m.get('Template') is not None:
@@ -3796,6 +3829,954 @@ class UpdateAdxCreativeContentResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateAdxCreativeContentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class VerifyAdvertisingRequestApp(TeaModel):
+    def __init__(self, ext=None, mediaid=None, sn=None):
+        # ext
+        self.ext = ext  # type: dict[str, any]
+        # mediaid
+        self.mediaid = mediaid  # type: str
+        # sn
+        self.sn = sn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestApp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.mediaid is not None:
+            result['Mediaid'] = self.mediaid
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Mediaid') is not None:
+            self.mediaid = m.get('Mediaid')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        return self
+
+
+class VerifyAdvertisingRequestDeviceGeo(TeaModel):
+    def __init__(self, city=None, district=None, lat=None, lon=None, province=None):
+        self.city = city  # type: str
+        self.district = district  # type: str
+        # lat
+        self.lat = lat  # type: float
+        # lon
+        self.lon = lon  # type: float
+        self.province = province  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestDeviceGeo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city is not None:
+            result['City'] = self.city
+        if self.district is not None:
+            result['District'] = self.district
+        if self.lat is not None:
+            result['Lat'] = self.lat
+        if self.lon is not None:
+            result['Lon'] = self.lon
+        if self.province is not None:
+            result['Province'] = self.province
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('District') is not None:
+            self.district = m.get('District')
+        if m.get('Lat') is not None:
+            self.lat = m.get('Lat')
+        if m.get('Lon') is not None:
+            self.lon = m.get('Lon')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        return self
+
+
+class VerifyAdvertisingRequestDevice(TeaModel):
+    def __init__(self, androidid=None, androidmd_5=None, caid=None, carrier=None, connectiontype=None,
+                 devicetype=None, geo=None, idfa=None, imei=None, imeimd_5=None, ip=None, language=None, mac=None, macmd_5=None,
+                 make=None, model=None, oaid=None, os=None, osv=None, ua=None, utdid=None):
+        # androidid
+        self.androidid = androidid  # type: str
+        # androidmd5
+        self.androidmd_5 = androidmd_5  # type: str
+        # Caid
+        self.caid = caid  # type: str
+        self.carrier = carrier  # type: str
+        self.connectiontype = connectiontype  # type: int
+        # deviceType
+        self.devicetype = devicetype  # type: int
+        self.geo = geo  # type: VerifyAdvertisingRequestDeviceGeo
+        # Idfa
+        self.idfa = idfa  # type: str
+        # imei
+        self.imei = imei  # type: str
+        # imeimd5
+        self.imeimd_5 = imeimd_5  # type: str
+        self.ip = ip  # type: str
+        self.language = language  # type: str
+        self.mac = mac  # type: str
+        # Macmd5
+        self.macmd_5 = macmd_5  # type: str
+        # make
+        self.make = make  # type: str
+        # model
+        self.model = model  # type: str
+        # oaid
+        self.oaid = oaid  # type: str
+        # os
+        self.os = os  # type: str
+        # osv
+        self.osv = osv  # type: str
+        # ua
+        self.ua = ua  # type: str
+        # Utdid
+        self.utdid = utdid  # type: str
+
+    def validate(self):
+        if self.geo:
+            self.geo.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestDevice, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.androidid is not None:
+            result['Androidid'] = self.androidid
+        if self.androidmd_5 is not None:
+            result['Androidmd5'] = self.androidmd_5
+        if self.caid is not None:
+            result['Caid'] = self.caid
+        if self.carrier is not None:
+            result['Carrier'] = self.carrier
+        if self.connectiontype is not None:
+            result['Connectiontype'] = self.connectiontype
+        if self.devicetype is not None:
+            result['Devicetype'] = self.devicetype
+        if self.geo is not None:
+            result['Geo'] = self.geo.to_map()
+        if self.idfa is not None:
+            result['Idfa'] = self.idfa
+        if self.imei is not None:
+            result['Imei'] = self.imei
+        if self.imeimd_5 is not None:
+            result['Imeimd5'] = self.imeimd_5
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.mac is not None:
+            result['Mac'] = self.mac
+        if self.macmd_5 is not None:
+            result['Macmd5'] = self.macmd_5
+        if self.make is not None:
+            result['Make'] = self.make
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.oaid is not None:
+            result['Oaid'] = self.oaid
+        if self.os is not None:
+            result['Os'] = self.os
+        if self.osv is not None:
+            result['Osv'] = self.osv
+        if self.ua is not None:
+            result['Ua'] = self.ua
+        if self.utdid is not None:
+            result['Utdid'] = self.utdid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Androidid') is not None:
+            self.androidid = m.get('Androidid')
+        if m.get('Androidmd5') is not None:
+            self.androidmd_5 = m.get('Androidmd5')
+        if m.get('Caid') is not None:
+            self.caid = m.get('Caid')
+        if m.get('Carrier') is not None:
+            self.carrier = m.get('Carrier')
+        if m.get('Connectiontype') is not None:
+            self.connectiontype = m.get('Connectiontype')
+        if m.get('Devicetype') is not None:
+            self.devicetype = m.get('Devicetype')
+        if m.get('Geo') is not None:
+            temp_model = VerifyAdvertisingRequestDeviceGeo()
+            self.geo = temp_model.from_map(m['Geo'])
+        if m.get('Idfa') is not None:
+            self.idfa = m.get('Idfa')
+        if m.get('Imei') is not None:
+            self.imei = m.get('Imei')
+        if m.get('Imeimd5') is not None:
+            self.imeimd_5 = m.get('Imeimd5')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('Mac') is not None:
+            self.mac = m.get('Mac')
+        if m.get('Macmd5') is not None:
+            self.macmd_5 = m.get('Macmd5')
+        if m.get('Make') is not None:
+            self.make = m.get('Make')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('Oaid') is not None:
+            self.oaid = m.get('Oaid')
+        if m.get('Os') is not None:
+            self.os = m.get('Os')
+        if m.get('Osv') is not None:
+            self.osv = m.get('Osv')
+        if m.get('Ua') is not None:
+            self.ua = m.get('Ua')
+        if m.get('Utdid') is not None:
+            self.utdid = m.get('Utdid')
+        return self
+
+
+class VerifyAdvertisingRequestImp(TeaModel):
+    def __init__(self, id=None, tagid=None):
+        # id
+        self.id = id  # type: str
+        # tagid
+        self.tagid = tagid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestImp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.tagid is not None:
+            result['Tagid'] = self.tagid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Tagid') is not None:
+            self.tagid = m.get('Tagid')
+        return self
+
+
+class VerifyAdvertisingRequestUser(TeaModel):
+    def __init__(self, id=None, usertype=None):
+        # uid
+        self.id = id  # type: str
+        # uidtype
+        self.usertype = usertype  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestUser, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.usertype is not None:
+            result['Usertype'] = self.usertype
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Usertype') is not None:
+            self.usertype = m.get('Usertype')
+        return self
+
+
+class VerifyAdvertisingRequestVerifyad(TeaModel):
+    def __init__(self, id=None, seat=None):
+        self.id = id  # type: long
+        self.seat = seat  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequestVerifyad, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.seat is not None:
+            result['Seat'] = self.seat
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Seat') is not None:
+            self.seat = m.get('Seat')
+        return self
+
+
+class VerifyAdvertisingRequest(TeaModel):
+    def __init__(self, app=None, dealtype=None, device=None, ext=None, id=None, imp=None, test=None, user=None,
+                 verifyad=None):
+        # app
+        self.app = app  # type: VerifyAdvertisingRequestApp
+        self.dealtype = dealtype  # type: int
+        # device
+        self.device = device  # type: VerifyAdvertisingRequestDevice
+        # ext
+        self.ext = ext  # type: dict[str, any]
+        # id
+        self.id = id  # type: str
+        # imp
+        self.imp = imp  # type: list[VerifyAdvertisingRequestImp]
+        # test
+        self.test = test  # type: int
+        # user
+        self.user = user  # type: VerifyAdvertisingRequestUser
+        self.verifyad = verifyad  # type: list[VerifyAdvertisingRequestVerifyad]
+
+    def validate(self):
+        if self.app:
+            self.app.validate()
+        if self.device:
+            self.device.validate()
+        if self.imp:
+            for k in self.imp:
+                if k:
+                    k.validate()
+        if self.user:
+            self.user.validate()
+        if self.verifyad:
+            for k in self.verifyad:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['App'] = self.app.to_map()
+        if self.dealtype is not None:
+            result['Dealtype'] = self.dealtype
+        if self.device is not None:
+            result['Device'] = self.device.to_map()
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.id is not None:
+            result['Id'] = self.id
+        result['Imp'] = []
+        if self.imp is not None:
+            for k in self.imp:
+                result['Imp'].append(k.to_map() if k else None)
+        if self.test is not None:
+            result['Test'] = self.test
+        if self.user is not None:
+            result['User'] = self.user.to_map()
+        result['Verifyad'] = []
+        if self.verifyad is not None:
+            for k in self.verifyad:
+                result['Verifyad'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            temp_model = VerifyAdvertisingRequestApp()
+            self.app = temp_model.from_map(m['App'])
+        if m.get('Dealtype') is not None:
+            self.dealtype = m.get('Dealtype')
+        if m.get('Device') is not None:
+            temp_model = VerifyAdvertisingRequestDevice()
+            self.device = temp_model.from_map(m['Device'])
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        self.imp = []
+        if m.get('Imp') is not None:
+            for k in m.get('Imp'):
+                temp_model = VerifyAdvertisingRequestImp()
+                self.imp.append(temp_model.from_map(k))
+        if m.get('Test') is not None:
+            self.test = m.get('Test')
+        if m.get('User') is not None:
+            temp_model = VerifyAdvertisingRequestUser()
+            self.user = temp_model.from_map(m['User'])
+        self.verifyad = []
+        if m.get('Verifyad') is not None:
+            for k in m.get('Verifyad'):
+                temp_model = VerifyAdvertisingRequestVerifyad()
+                self.verifyad.append(temp_model.from_map(k))
+        return self
+
+
+class VerifyAdvertisingShrinkRequest(TeaModel):
+    def __init__(self, app_shrink=None, dealtype=None, device_shrink=None, ext_shrink=None, id=None, imp_shrink=None,
+                 test=None, user_shrink=None, verifyad_shrink=None):
+        # app
+        self.app_shrink = app_shrink  # type: str
+        self.dealtype = dealtype  # type: int
+        # device
+        self.device_shrink = device_shrink  # type: str
+        # ext
+        self.ext_shrink = ext_shrink  # type: str
+        # id
+        self.id = id  # type: str
+        # imp
+        self.imp_shrink = imp_shrink  # type: str
+        # test
+        self.test = test  # type: int
+        # user
+        self.user_shrink = user_shrink  # type: str
+        self.verifyad_shrink = verifyad_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_shrink is not None:
+            result['App'] = self.app_shrink
+        if self.dealtype is not None:
+            result['Dealtype'] = self.dealtype
+        if self.device_shrink is not None:
+            result['Device'] = self.device_shrink
+        if self.ext_shrink is not None:
+            result['Ext'] = self.ext_shrink
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.imp_shrink is not None:
+            result['Imp'] = self.imp_shrink
+        if self.test is not None:
+            result['Test'] = self.test
+        if self.user_shrink is not None:
+            result['User'] = self.user_shrink
+        if self.verifyad_shrink is not None:
+            result['Verifyad'] = self.verifyad_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            self.app_shrink = m.get('App')
+        if m.get('Dealtype') is not None:
+            self.dealtype = m.get('Dealtype')
+        if m.get('Device') is not None:
+            self.device_shrink = m.get('Device')
+        if m.get('Ext') is not None:
+            self.ext_shrink = m.get('Ext')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Imp') is not None:
+            self.imp_shrink = m.get('Imp')
+        if m.get('Test') is not None:
+            self.test = m.get('Test')
+        if m.get('User') is not None:
+            self.user_shrink = m.get('User')
+        if m.get('Verifyad') is not None:
+            self.verifyad_shrink = m.get('Verifyad')
+        return self
+
+
+class VerifyAdvertisingResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, rpc_id=None, trace_id=None, version=None):
+        # costTime
+        self.cost_time = cost_time  # type: long
+        # rpcId
+        self.rpc_id = rpc_id  # type: str
+        # traceId
+        self.trace_id = trace_id  # type: str
+        # version
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbidBidAdsIcon(TeaModel):
+    def __init__(self, url=None):
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbidBidAdsIcon, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbidBidAdsImages(TeaModel):
+    def __init__(self, desc=None, format=None, url=None):
+        self.desc = desc  # type: str
+        self.format = format  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbidBidAdsImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['Desc'] = self.desc
+        if self.format is not None:
+            result['Format'] = self.format
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Desc') is not None:
+            self.desc = m.get('Desc')
+        if m.get('Format') is not None:
+            self.format = m.get('Format')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbidBidAdsTrackers(TeaModel):
+    def __init__(self, imps=None):
+        self.imps = imps  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbidBidAdsTrackers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.imps is not None:
+            result['Imps'] = self.imps
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Imps') is not None:
+            self.imps = m.get('Imps')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbidBidAds(TeaModel):
+    def __init__(self, crid=None, crurl=None, icon=None, id=None, images=None, interacttype=None, labeltype=None,
+                 landingurls=None, marketingtype=None, objective=None, price=None, seat=None, style=None, title=None,
+                 trackers=None, type=None):
+        # crid
+        self.crid = crid  # type: str
+        self.crurl = crurl  # type: str
+        self.icon = icon  # type: VerifyAdvertisingResponseBodyResultSeatbidBidAdsIcon
+        self.id = id  # type: str
+        self.images = images  # type: list[VerifyAdvertisingResponseBodyResultSeatbidBidAdsImages]
+        # Interacttype
+        self.interacttype = interacttype  # type: int
+        self.labeltype = labeltype  # type: str
+        self.landingurls = landingurls  # type: list[str]
+        self.marketingtype = marketingtype  # type: str
+        self.objective = objective  # type: str
+        self.price = price  # type: str
+        # seat
+        self.seat = seat  # type: str
+        self.style = style  # type: str
+        self.title = title  # type: str
+        self.trackers = trackers  # type: VerifyAdvertisingResponseBodyResultSeatbidBidAdsTrackers
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.icon:
+            self.icon.validate()
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+        if self.trackers:
+            self.trackers.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbidBidAds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.crid is not None:
+            result['Crid'] = self.crid
+        if self.crurl is not None:
+            result['Crurl'] = self.crurl
+        if self.icon is not None:
+            result['Icon'] = self.icon.to_map()
+        if self.id is not None:
+            result['Id'] = self.id
+        result['Images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['Images'].append(k.to_map() if k else None)
+        if self.interacttype is not None:
+            result['Interacttype'] = self.interacttype
+        if self.labeltype is not None:
+            result['Labeltype'] = self.labeltype
+        if self.landingurls is not None:
+            result['Landingurls'] = self.landingurls
+        if self.marketingtype is not None:
+            result['Marketingtype'] = self.marketingtype
+        if self.objective is not None:
+            result['Objective'] = self.objective
+        if self.price is not None:
+            result['Price'] = self.price
+        if self.seat is not None:
+            result['Seat'] = self.seat
+        if self.style is not None:
+            result['Style'] = self.style
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.trackers is not None:
+            result['Trackers'] = self.trackers.to_map()
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Crid') is not None:
+            self.crid = m.get('Crid')
+        if m.get('Crurl') is not None:
+            self.crurl = m.get('Crurl')
+        if m.get('Icon') is not None:
+            temp_model = VerifyAdvertisingResponseBodyResultSeatbidBidAdsIcon()
+            self.icon = temp_model.from_map(m['Icon'])
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        self.images = []
+        if m.get('Images') is not None:
+            for k in m.get('Images'):
+                temp_model = VerifyAdvertisingResponseBodyResultSeatbidBidAdsImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('Interacttype') is not None:
+            self.interacttype = m.get('Interacttype')
+        if m.get('Labeltype') is not None:
+            self.labeltype = m.get('Labeltype')
+        if m.get('Landingurls') is not None:
+            self.landingurls = m.get('Landingurls')
+        if m.get('Marketingtype') is not None:
+            self.marketingtype = m.get('Marketingtype')
+        if m.get('Objective') is not None:
+            self.objective = m.get('Objective')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
+        if m.get('Seat') is not None:
+            self.seat = m.get('Seat')
+        if m.get('Style') is not None:
+            self.style = m.get('Style')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Trackers') is not None:
+            temp_model = VerifyAdvertisingResponseBodyResultSeatbidBidAdsTrackers()
+            self.trackers = temp_model.from_map(m['Trackers'])
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbidBid(TeaModel):
+    def __init__(self, ads=None, impid=None):
+        self.ads = ads  # type: list[VerifyAdvertisingResponseBodyResultSeatbidBidAds]
+        # impId
+        self.impid = impid  # type: str
+
+    def validate(self):
+        if self.ads:
+            for k in self.ads:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbidBid, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Ads'] = []
+        if self.ads is not None:
+            for k in self.ads:
+                result['Ads'].append(k.to_map() if k else None)
+        if self.impid is not None:
+            result['Impid'] = self.impid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.ads = []
+        if m.get('Ads') is not None:
+            for k in m.get('Ads'):
+                temp_model = VerifyAdvertisingResponseBodyResultSeatbidBidAds()
+                self.ads.append(temp_model.from_map(k))
+        if m.get('Impid') is not None:
+            self.impid = m.get('Impid')
+        return self
+
+
+class VerifyAdvertisingResponseBodyResultSeatbid(TeaModel):
+    def __init__(self, bid=None):
+        # bid
+        self.bid = bid  # type: list[VerifyAdvertisingResponseBodyResultSeatbidBid]
+
+    def validate(self):
+        if self.bid:
+            for k in self.bid:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResultSeatbid, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Bid'] = []
+        if self.bid is not None:
+            for k in self.bid:
+                result['Bid'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.bid = []
+        if m.get('Bid') is not None:
+            for k in m.get('Bid'):
+                temp_model = VerifyAdvertisingResponseBodyResultSeatbidBid()
+                self.bid.append(temp_model.from_map(k))
+        return self
+
+
+class VerifyAdvertisingResponseBodyResult(TeaModel):
+    def __init__(self, bidid=None, id=None, seatbid=None):
+        self.bidid = bidid  # type: str
+        # id
+        self.id = id  # type: str
+        self.seatbid = seatbid  # type: list[VerifyAdvertisingResponseBodyResultSeatbid]
+
+    def validate(self):
+        if self.seatbid:
+            for k in self.seatbid:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bidid is not None:
+            result['Bidid'] = self.bidid
+        if self.id is not None:
+            result['Id'] = self.id
+        result['Seatbid'] = []
+        if self.seatbid is not None:
+            for k in self.seatbid:
+                result['Seatbid'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bidid') is not None:
+            self.bidid = m.get('Bidid')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        self.seatbid = []
+        if m.get('Seatbid') is not None:
+            for k in m.get('Seatbid'):
+                temp_model = VerifyAdvertisingResponseBodyResultSeatbid()
+                self.seatbid.append(temp_model.from_map(k))
+        return self
+
+
+class VerifyAdvertisingResponseBody(TeaModel):
+    def __init__(self, errorcode=None, errormsg=None, ext=None, header=None, request_id=None, result=None,
+                 success=None):
+        # errorCode
+        self.errorcode = errorcode  # type: str
+        # errorMsg
+        self.errormsg = errormsg  # type: str
+        # ext
+        self.ext = ext  # type: dict[str, str]
+        # header
+        self.header = header  # type: VerifyAdvertisingResponseBodyHeader
+        self.request_id = request_id  # type: str
+        self.result = result  # type: VerifyAdvertisingResponseBodyResult
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.errorcode is not None:
+            result['Errorcode'] = self.errorcode
+        if self.errormsg is not None:
+            result['Errormsg'] = self.errormsg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Errorcode') is not None:
+            self.errorcode = m.get('Errorcode')
+        if m.get('Errormsg') is not None:
+            self.errormsg = m.get('Errormsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = VerifyAdvertisingResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = VerifyAdvertisingResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class VerifyAdvertisingResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: VerifyAdvertisingResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(VerifyAdvertisingResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = VerifyAdvertisingResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

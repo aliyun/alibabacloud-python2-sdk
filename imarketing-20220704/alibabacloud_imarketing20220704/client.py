@@ -385,15 +385,15 @@ class Client(OpenApiClient):
         request = imarketing_20220704_models.ListAdvertisingShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.app):
-            request.app_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.app), 'App', 'json')
+            request.app_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.app, 'App', 'json')
         if not UtilClient.is_unset(tmp_req.device):
-            request.device_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.device), 'Device', 'json')
+            request.device_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.device, 'Device', 'json')
         if not UtilClient.is_unset(tmp_req.ext):
             request.ext_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ext, 'Ext', 'json')
         if not UtilClient.is_unset(tmp_req.imp):
             request.imp_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.imp, 'Imp', 'json')
         if not UtilClient.is_unset(tmp_req.user):
-            request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.user), 'User', 'json')
+            request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user, 'User', 'json')
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
@@ -593,6 +593,46 @@ class Client(OpenApiClient):
     def update_adx_creative_content(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_adx_creative_content_with_options(request, runtime)
+
+    def verify_advertising_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imarketing_20220704_models.VerifyAdvertisingShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.app):
+            request.app_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.app, 'App', 'json')
+        if not UtilClient.is_unset(tmp_req.device):
+            request.device_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.device, 'Device', 'json')
+        if not UtilClient.is_unset(tmp_req.ext):
+            request.ext_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ext, 'Ext', 'json')
+        if not UtilClient.is_unset(tmp_req.imp):
+            request.imp_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.imp, 'Imp', 'json')
+        if not UtilClient.is_unset(tmp_req.user):
+            request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user, 'User', 'json')
+        if not UtilClient.is_unset(tmp_req.verifyad):
+            request.verifyad_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.verifyad, 'Verifyad', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='VerifyAdvertising',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.VerifyAdvertisingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def verify_advertising(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.verify_advertising_with_options(request, runtime)
 
     def verify_sms_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
