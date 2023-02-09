@@ -242,6 +242,8 @@ class Client(OpenApiClient):
             body['environmentVariables'] = request.environment_variables
         if not UtilClient.is_unset(request.function_name):
             body['functionName'] = request.function_name
+        if not UtilClient.is_unset(request.gpu_memory_size):
+            body['gpuMemorySize'] = request.gpu_memory_size
         if not UtilClient.is_unset(request.handler):
             body['handler'] = request.handler
         if not UtilClient.is_unset(request.initialization_timeout):
@@ -2925,6 +2927,8 @@ class Client(OpenApiClient):
             body['diskSize'] = request.disk_size
         if not UtilClient.is_unset(request.environment_variables):
             body['environmentVariables'] = request.environment_variables
+        if not UtilClient.is_unset(request.gpu_memory_size):
+            body['gpuMemorySize'] = request.gpu_memory_size
         if not UtilClient.is_unset(request.handler):
             body['handler'] = request.handler
         if not UtilClient.is_unset(request.initialization_timeout):

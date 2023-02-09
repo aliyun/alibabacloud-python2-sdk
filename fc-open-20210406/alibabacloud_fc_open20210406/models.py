@@ -1481,15 +1481,18 @@ class OutputCodeLocation(TeaModel):
 
 
 class PathConfig(TeaModel):
-    def __init__(self, function_name=None, methods=None, path=None, qualifier=None, service_name=None):
+    def __init__(self, function_name=None, methods=None, path=None, qualifier=None, rewrite_config=None,
+                 service_name=None):
         self.function_name = function_name  # type: str
         self.methods = methods  # type: list[str]
         self.path = path  # type: str
         self.qualifier = qualifier  # type: str
+        self.rewrite_config = rewrite_config  # type: RewriteConfig
         self.service_name = service_name  # type: str
 
     def validate(self):
-        pass
+        if self.rewrite_config:
+            self.rewrite_config.validate()
 
     def to_map(self):
         _map = super(PathConfig, self).to_map()
@@ -1505,6 +1508,8 @@ class PathConfig(TeaModel):
             result['path'] = self.path
         if self.qualifier is not None:
             result['qualifier'] = self.qualifier
+        if self.rewrite_config is not None:
+            result['rewriteConfig'] = self.rewrite_config.to_map()
         if self.service_name is not None:
             result['serviceName'] = self.service_name
         return result
@@ -1519,6 +1524,9 @@ class PathConfig(TeaModel):
             self.path = m.get('path')
         if m.get('qualifier') is not None:
             self.qualifier = m.get('qualifier')
+        if m.get('rewriteConfig') is not None:
+            temp_model = RewriteConfig()
+            self.rewrite_config = temp_model.from_map(m['rewriteConfig'])
         if m.get('serviceName') is not None:
             self.service_name = m.get('serviceName')
         return self
@@ -1686,6 +1694,153 @@ class Resource(TeaModel):
             self.resource_arn = m.get('resourceArn')
         if m.get('tags') is not None:
             self.tags = m.get('tags')
+        return self
+
+
+class RewriteConfigEqualRules(TeaModel):
+    def __init__(self, match=None, replacement=None):
+        self.match = match  # type: str
+        self.replacement = replacement  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RewriteConfigEqualRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.match is not None:
+            result['match'] = self.match
+        if self.replacement is not None:
+            result['replacement'] = self.replacement
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('match') is not None:
+            self.match = m.get('match')
+        if m.get('replacement') is not None:
+            self.replacement = m.get('replacement')
+        return self
+
+
+class RewriteConfigRegexRules(TeaModel):
+    def __init__(self, match=None, replacement=None):
+        self.match = match  # type: str
+        self.replacement = replacement  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RewriteConfigRegexRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.match is not None:
+            result['match'] = self.match
+        if self.replacement is not None:
+            result['replacement'] = self.replacement
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('match') is not None:
+            self.match = m.get('match')
+        if m.get('replacement') is not None:
+            self.replacement = m.get('replacement')
+        return self
+
+
+class RewriteConfigWildcardRules(TeaModel):
+    def __init__(self, match=None, replacement=None):
+        self.match = match  # type: str
+        self.replacement = replacement  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RewriteConfigWildcardRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.match is not None:
+            result['match'] = self.match
+        if self.replacement is not None:
+            result['replacement'] = self.replacement
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('match') is not None:
+            self.match = m.get('match')
+        if m.get('replacement') is not None:
+            self.replacement = m.get('replacement')
+        return self
+
+
+class RewriteConfig(TeaModel):
+    def __init__(self, equal_rules=None, regex_rules=None, wildcard_rules=None):
+        self.equal_rules = equal_rules  # type: list[RewriteConfigEqualRules]
+        self.regex_rules = regex_rules  # type: list[RewriteConfigRegexRules]
+        self.wildcard_rules = wildcard_rules  # type: list[RewriteConfigWildcardRules]
+
+    def validate(self):
+        if self.equal_rules:
+            for k in self.equal_rules:
+                if k:
+                    k.validate()
+        if self.regex_rules:
+            for k in self.regex_rules:
+                if k:
+                    k.validate()
+        if self.wildcard_rules:
+            for k in self.wildcard_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(RewriteConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['equalRules'] = []
+        if self.equal_rules is not None:
+            for k in self.equal_rules:
+                result['equalRules'].append(k.to_map() if k else None)
+        result['regexRules'] = []
+        if self.regex_rules is not None:
+            for k in self.regex_rules:
+                result['regexRules'].append(k.to_map() if k else None)
+        result['wildcardRules'] = []
+        if self.wildcard_rules is not None:
+            for k in self.wildcard_rules:
+                result['wildcardRules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.equal_rules = []
+        if m.get('equalRules') is not None:
+            for k in m.get('equalRules'):
+                temp_model = RewriteConfigEqualRules()
+                self.equal_rules.append(temp_model.from_map(k))
+        self.regex_rules = []
+        if m.get('regexRules') is not None:
+            for k in m.get('regexRules'):
+                temp_model = RewriteConfigRegexRules()
+                self.regex_rules.append(temp_model.from_map(k))
+        self.wildcard_rules = []
+        if m.get('wildcardRules') is not None:
+            for k in m.get('wildcardRules'):
+                temp_model = RewriteConfigWildcardRules()
+                self.wildcard_rules.append(temp_model.from_map(k))
         return self
 
 
@@ -2482,11 +2637,11 @@ class ClaimGPUInstanceRequest(TeaModel):
         self.sg_id = sg_id  # type: str
         # The source IPv4 CIDR block of the GPU rendering instance.
         self.source_cidr_ip = source_cidr_ip  # type: str
-        # The range of TCP ports that are open to the security group of the GPU-rendered instance.
+        # The range of TCP ports that are open to the security group of the GPU rendering instance.
         self.tcp_port_range = tcp_port_range  # type: list[str]
         # The range of UDP ports that are open to the security group of the GPU rendering instance.
         self.udp_port_range = udp_port_range  # type: list[str]
-        # The ID of the virtual private cloud (VPC).
+        # The ID of the VPC in which the instance resides.
         self.vpc_id = vpc_id  # type: str
         # The ID of the vSwitch.
         self.vsw_id = vsw_id  # type: str
@@ -2561,11 +2716,11 @@ class ClaimGPUInstanceRequest(TeaModel):
 
 class ClaimGPUInstanceResponseBody(TeaModel):
     def __init__(self, created_time=None, instance_id=None, public_ip=None):
-        # The time when the product instance was created.
+        # The time when the product instance is created.
         self.created_time = created_time  # type: str
-        # The ID of the instance.
+        # The ID of the instance that you query.
         self.instance_id = instance_id  # type: str
-        # The public IP address.
+        # The public IP address of the server.
         self.public_ip = public_ip  # type: str
 
     def validate(self):
@@ -2844,7 +2999,7 @@ class CreateCustomDomainHeaders(TeaModel):
         self.common_headers = common_headers  # type: dict[str, str]
         # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
+        # The time when the operation is called. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
         # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
@@ -2890,14 +3045,15 @@ class CreateCustomDomainRequest(TeaModel):
         self.domain_name = domain_name  # type: str
         # The protocol types supported by the domain name. Valid values:
         # 
-        # - **HTTP**: Only HTTP is supported. 
-        # - **HTTPS**: Only HTTPS is supported. 
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -2954,7 +3110,7 @@ class CreateCustomDomainRequest(TeaModel):
 class CreateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
-        # The ID of the account.
+        # The ID of your Alibaba Cloud account.
         self.account_id = account_id  # type: str
         # The version of the API.
         self.api_version = api_version  # type: str
@@ -2968,14 +3124,15 @@ class CreateCustomDomainResponseBody(TeaModel):
         self.last_modified_time = last_modified_time  # type: str
         # The protocol types supported by the domain name. Valid values:
         # 
-        # - **HTTP**: Only HTTP is supported. 
-        # - **HTTPS**: Only HTTPS is supported. 
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -3136,9 +3293,9 @@ class CreateFunctionHeaders(TeaModel):
 class CreateFunctionRequest(TeaModel):
     def __init__(self, ca_port=None, code=None, cpu=None, custom_container_config=None, custom_dns=None,
                  custom_health_check_config=None, custom_runtime_config=None, description=None, disk_size=None, environment_variables=None,
-                 function_name=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
-                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
-                 runtime=None, timeout=None):
+                 function_name=None, gpu_memory_size=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
+                 layers=None, memory_size=None, runtime=None, timeout=None):
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
         # The code of the function. The code must be packaged into a ZIP file. Choose **code** or **customContainerConfig** for the function.
@@ -3161,6 +3318,7 @@ class CreateFunctionRequest(TeaModel):
         self.environment_variables = environment_variables  # type: dict[str, str]
         # The name of the function. The name can contain letters, digits, underscores (\_), and hyphens (-) only. The name cannot start with a digit or a hyphen (-). The name must be 1 to 64 characters in length.
         self.function_name = function_name  # type: str
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function. The format varies based on the programming language. For more information, see [Function handlers](~~157704~~).
         self.handler = handler  # type: str
         # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period expires, the execution of the initializer function is terminated.
@@ -3233,6 +3391,8 @@ class CreateFunctionRequest(TeaModel):
             result['environmentVariables'] = self.environment_variables
         if self.function_name is not None:
             result['functionName'] = self.function_name
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -3286,6 +3446,8 @@ class CreateFunctionRequest(TeaModel):
             self.environment_variables = m.get('environmentVariables')
         if m.get('functionName') is not None:
             self.function_name = m.get('functionName')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
@@ -3316,7 +3478,7 @@ class CreateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
                  description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 gpu_memory_size=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
                  memory_size=None, runtime=None, timeout=None):
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
@@ -3347,6 +3509,7 @@ class CreateFunctionResponseBody(TeaModel):
         self.function_id = function_id  # type: str
         # The name of the function.
         self.function_name = function_name  # type: str
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function.
         self.handler = handler  # type: str
         # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
@@ -3425,6 +3588,8 @@ class CreateFunctionResponseBody(TeaModel):
             result['functionId'] = self.function_id
         if self.function_name is not None:
             result['functionName'] = self.function_name
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -3485,6 +3650,8 @@ class CreateFunctionResponseBody(TeaModel):
             self.function_id = m.get('functionId')
         if m.get('functionName') is not None:
             self.function_name = m.get('functionName')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
@@ -5570,7 +5737,7 @@ class GetCustomDomainHeaders(TeaModel):
         self.common_headers = common_headers  # type: dict[str, str]
         # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
+        # The time when the operation is called. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
         # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
@@ -5610,13 +5777,13 @@ class GetCustomDomainHeaders(TeaModel):
 class GetCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
-        # The version number of the API.
+        # The ID of your Alibaba Cloud account.
         self.account_id = account_id  # type: str
-        # The version number of the API.
+        # The version of the API.
         self.api_version = api_version  # type: str
         # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
-        # The time when the domain name was added.
+        # The time when the custom domain name was created.
         self.created_time = created_time  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
@@ -5624,14 +5791,15 @@ class GetCustomDomainResponseBody(TeaModel):
         self.last_modified_time = last_modified_time  # type: str
         # The protocol types supported by the domain name. Valid values:
         # 
-        # - **HTTP**: Only HTTP is supported. 
-        # - **HTTPS**: Only HTTPS is supported. 
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -5811,7 +5979,7 @@ class GetFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
                  description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 gpu_memory_size=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
                  layers_arn_v2=None, memory_size=None, runtime=None, timeout=None):
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
@@ -5842,6 +6010,7 @@ class GetFunctionResponseBody(TeaModel):
         self.function_id = function_id  # type: str
         # The name of the function.
         self.function_name = function_name  # type: str
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function. For more information, see [Function handler](~~157704~~).
         self.handler = handler  # type: str
         # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period ends, the execution of the initializer function is terminated.
@@ -5921,6 +6090,8 @@ class GetFunctionResponseBody(TeaModel):
             result['functionId'] = self.function_id
         if self.function_name is not None:
             result['functionName'] = self.function_name
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -5983,6 +6154,8 @@ class GetFunctionResponseBody(TeaModel):
             self.function_id = m.get('functionId')
         if m.get('functionName') is not None:
             self.function_name = m.get('functionName')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
@@ -7828,7 +8001,7 @@ class ListCustomDomainsHeaders(TeaModel):
         self.common_headers = common_headers  # type: dict[str, str]
         # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
+        # The time when the operation is called. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
         # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
@@ -7867,13 +8040,13 @@ class ListCustomDomainsHeaders(TeaModel):
 
 class ListCustomDomainsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
-        # The maximum number of resources to return. Default value: 20. Maximum value: 100. The number of returned resources is less than or equal to the specified number.
+        # The maximum number of resources to return. Valid values: \[0,100]. Default value: 20. The number of returned results is less than or equal to the specified number.
         self.limit = limit  # type: int
-        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
+        # The token that is required for pagination. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
         # The prefix that the returned domain names must contain.
         self.prefix = prefix  # type: str
-        # The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
+        # The starting position of the result list. The returned resources are sorted in alphabetical order, and the resources that include and follow the resource specified by the startKey parameter are returned.
         self.start_key = start_key  # type: str
 
     def validate(self):
@@ -7911,28 +8084,29 @@ class ListCustomDomainsRequest(TeaModel):
 class ListCustomDomainsResponseBodyCustomDomains(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
-        # The ID of the account.
+        # The ID of your Alibaba Cloud account.
         self.account_id = account_id  # type: str
         # The version of the API.
         self.api_version = api_version  # type: str
         # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
-        # The time when the domain name was added.
+        # The time when the custom domain name was created.
         self.created_time = created_time  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
         # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
-        # The protocol types supported by the domain name. Valid values: 
+        # The protocol type that is supported by the custom domain name.
         # 
-        # - **HTTP**: Only HTTP is supported. 
-        # - **HTTPS**: Only HTTPS is supported. 
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -8006,7 +8180,7 @@ class ListCustomDomainsResponseBody(TeaModel):
     def __init__(self, custom_domains=None, next_token=None):
         # The information about custom domain names.
         self.custom_domains = custom_domains  # type: list[ListCustomDomainsResponseBodyCustomDomains]
-        # The token used to obtain more results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
+        # The pagination token to use to request the next page of results. If the number of resources exceeds the limit, the nextToken parameter is returned. You can include the parameter in subsequent calls to obtain more results. You do not need to provide this parameter in the first call.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -8601,9 +8775,10 @@ class ListFunctionsRequest(TeaModel):
 class ListFunctionsResponseBodyFunctions(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_health_check_config=None, description=None, disk_size=None,
-                 environment_variables=None, function_id=None, function_name=None, handler=None, initialization_timeout=None,
-                 initializer=None, instance_concurrency=None, instance_lifecycle_config=None, instance_soft_concurrency=None,
-                 instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 environment_variables=None, function_id=None, function_name=None, gpu_memory_size=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
+                 instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
+                 timeout=None):
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
         # The CRC-64 value of the function code package.
@@ -8628,6 +8803,7 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
         self.function_id = function_id  # type: str
         # The name of the function.
         self.function_name = function_name  # type: str
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function.
         self.handler = handler  # type: str
         # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Valid values: 1 to 300. When this period ends, the execution of the initializer function is terminated.
@@ -8698,6 +8874,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             result['functionId'] = self.function_id
         if self.function_name is not None:
             result['functionName'] = self.function_name
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -8752,6 +8930,8 @@ class ListFunctionsResponseBodyFunctions(TeaModel):
             self.function_id = m.get('functionId')
         if m.get('functionName') is not None:
             self.function_name = m.get('functionName')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
@@ -9807,7 +9987,7 @@ class ListReservedCapacitiesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
         # The maximum number of resources to return. Valid values: \[1, 100].
         self.limit = limit  # type: str
-        # The token that is required for pagination.
+        # The token that determines the start point of the query.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -9836,7 +10016,7 @@ class ListReservedCapacitiesRequest(TeaModel):
 
 class ListReservedCapacitiesResponseBody(TeaModel):
     def __init__(self, next_token=None, reserved_capacities=None):
-        # The pagination token to request the next page of results.
+        # The token used to obtain more results.
         self.next_token = next_token  # type: str
         # The information about subscription instances.
         self.reserved_capacities = reserved_capacities  # type: list[OpenReservedCapacity]
@@ -12305,7 +12485,7 @@ class ReleaseGPUInstanceHeaders(TeaModel):
         self.common_headers = common_headers  # type: dict[str, str]
         # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # The time on which the function is invoked. The format of the value is: EEE,d MMM yyyy HH:mm:ss GMT.
+        # The time when the function is invoked. The format of the value is: EEE,d MMM yyyy HH:mm:ss GMT.
         self.x_fc_date = x_fc_date  # type: str
         # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
@@ -12898,7 +13078,7 @@ class UpdateCustomDomainHeaders(TeaModel):
         self.common_headers = common_headers  # type: dict[str, str]
         # The ID of your Alibaba Cloud account.
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # The time when Function Compute API is called. Specify the time in the **EEE,d MMM yyyy HH:mm:ss GMT** format.
+        # The time when the operation is called. The format is: **EEE,d MMM yyyy HH:mm:ss GMT**.
         self.x_fc_date = x_fc_date  # type: str
         # The custom request ID.
         self.x_fc_trace_id = x_fc_trace_id  # type: str
@@ -12941,14 +13121,15 @@ class UpdateCustomDomainRequest(TeaModel):
         self.cert_config = cert_config  # type: CertConfig
         # The protocol types supported by the domain name. Valid values:
         # 
-        # - **HTTP**: Only HTTP is supported.
-        # - **HTTPS**: Only HTTPS is supported.
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -13001,28 +13182,29 @@ class UpdateCustomDomainRequest(TeaModel):
 class UpdateCustomDomainResponseBody(TeaModel):
     def __init__(self, account_id=None, api_version=None, cert_config=None, created_time=None, domain_name=None,
                  last_modified_time=None, protocol=None, route_config=None, tls_config=None, waf_config=None):
-        # The ID of the account.
+        # The ID of your Alibaba Cloud account.
         self.account_id = account_id  # type: str
-        # The version number of the API.
+        # The version of the API.
         self.api_version = api_version  # type: str
         # The configurations of the HTTPS certificate.
         self.cert_config = cert_config  # type: CertConfig
-        # The time when the domain name was added.
+        # The time when the custom domain name was created.
         self.created_time = created_time  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
         # The time when the domain name was last modified.
         self.last_modified_time = last_modified_time  # type: str
-        # The protocol types supported by the domain name. Valid values: 
+        # The protocol type that is supported by the custom domain name.
         # 
-        # - **HTTP**: Only HTTP is supported.
-        # - **HTTPS**: Only HTTPS is supported.
-        # - **HTTP,HTTPS**: Both HTTP and HTTPS are supported.
+        # *   **HTTP**: Only HTTP is supported.
+        # *   **HTTPS**: Only HTTPS is supported.
+        # *   **HTTP,HTTPS**: HTTP and HTTPS are supported.
         self.protocol = protocol  # type: str
         # The route table that maps the paths to functions when the functions are invoked by using the custom domain name.
         self.route_config = route_config  # type: RouteConfig
-        # The configurations of the TLS.
+        # The Transport Layer Security (TLS) configuration.
         self.tls_config = tls_config  # type: TLSConfig
+        # The Web Application Firewall (WAF) configuration.
         self.waf_config = waf_config  # type: WAFConfig
 
     def validate(self):
@@ -13189,25 +13371,25 @@ class UpdateFunctionHeaders(TeaModel):
 class UpdateFunctionRequest(TeaModel):
     def __init__(self, instance_concurrency=None, ca_port=None, code=None, cpu=None, custom_container_config=None,
                  custom_dns=None, custom_health_check_config=None, custom_runtime_config=None, description=None,
-                 disk_size=None, environment_variables=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, layers=None, memory_size=None,
-                 runtime=None, timeout=None):
+                 disk_size=None, environment_variables=None, gpu_memory_size=None, handler=None, initialization_timeout=None,
+                 initializer=None, instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None,
+                 layers=None, memory_size=None, runtime=None, timeout=None):
         # The number of requests that can be concurrently processed by a single instance.
         self.instance_concurrency = instance_concurrency  # type: int
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
         self.ca_port = ca_port  # type: int
-        # **Function code packages** can be provided with the following two methods. You must use only one of the methods in a single request.
+        # **Function code packages** can be provided with the following two methods. You must use only one of the methods in a request.
         # 
-        # *   Specify the names of the **Object Storage Service (OSS) bucket** and **object** where the code package is stored.
-        # *   Set the **zipFile** parameter to the Base64-encoded content of the ZIP file.
+        # *   Specify the name of the **Object Storage Service (OSS) bucket** and **object** where the code package is stored.
+        # *   Specify that the **zipFile** parameter is used as the Base64-encoded content of the ZIP file.
         self.code = code  # type: Code
         # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
-        # The configurations of the custom container runtime. After you configure the custom container, Function Compute can execute functions in a container created from a custom image.
+        # The configuration of the custom container. After you configure the custom container, Function Compute can execute functions in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
-        # The custom Domain Name System (DNS) configurations of the function.
+        # The custom DNS configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
-        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
+        # The custom health check configurations of the function. This parameter is applicable to only custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
@@ -13215,34 +13397,35 @@ class UpdateFunctionRequest(TeaModel):
         self.description = description  # type: str
         # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
-        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
+        # The environment variables that are configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Environment variables](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function. The format varies based on the programming language. For more information, see [Function handlers](~~157704~~).
         self.handler = handler  # type: str
-        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When the period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
         # The handler of the initializer function. The format is determined by the programming language. For more information, see [Function handlers](~~157704~~).
         self.initializer = initializer  # type: str
         # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
-        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long time to start, you can specify a suitable soft concurrency to start the instance in advance.
         # 
-        # The value must be less than or equal to that of **instanceConcurrency**.
+        # The value must be less than or equal to that of the **instanceConcurrency** parameter.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         # The instance type of the function. Valid values:
         # 
         # *   **e1**: elastic instance
         # *   **c1**: performance instance
         self.instance_type = instance_type  # type: str
-        # An array that consists of the information of layers.
+        # The information about layers.
         # 
-        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
+        # > Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file that has the same name and a larger subscript in the layer.
         self.layers = layers  # type: list[str]
         # The memory size for the function. Unit: MB. The memory size must be a multiple of 64 MB. The memory size varies based on the function instance type. For more information, see [Instance types](~~179379~~).
         self.memory_size = memory_size  # type: int
-        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
+        # The runtime environment of the function. Valid values: **nodejs16**, **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore3.1**, **dotnetcore2.1**, **custom** and **custom-container**. For more information, see [Supported function runtime environments](~~73338~~).
         self.runtime = runtime  # type: str
-        # The timeout period for the execution of the function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the function is terminated.
+        # The timeout period for the execution of the function. Unit: seconds. Default value: 3. Minimum value: 1. When the period ends, the execution of the function is terminated.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -13287,6 +13470,8 @@ class UpdateFunctionRequest(TeaModel):
             result['diskSize'] = self.disk_size
         if self.environment_variables is not None:
             result['environmentVariables'] = self.environment_variables
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -13338,6 +13523,8 @@ class UpdateFunctionRequest(TeaModel):
             self.disk_size = m.get('diskSize')
         if m.get('environmentVariables') is not None:
             self.environment_variables = m.get('environmentVariables')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
@@ -13366,7 +13553,7 @@ class UpdateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, cpu=None, created_time=None,
                  custom_container_config=None, custom_dns=None, custom_health_check_config=None, custom_runtime_config=None,
                  description=None, disk_size=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
+                 gpu_memory_size=None, handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
                  instance_lifecycle_config=None, instance_soft_concurrency=None, instance_type=None, last_modified_time=None, layers=None,
                  memory_size=None, runtime=None, timeout=None):
         # The port on which the HTTP server listens for the custom runtime or custom container runtime.
@@ -13377,13 +13564,13 @@ class UpdateFunctionResponseBody(TeaModel):
         self.code_size = code_size  # type: long
         # The number of vCPUs of the function. The value must be a multiple of 0.05.
         self.cpu = cpu  # type: float
-        # The time when the function was created.
+        # The time when the function is created.
         self.created_time = created_time  # type: str
         # The configurations of the custom container runtime. After you configure the custom container runtime, Function Compute can execute the function in a container created from a custom image.
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
         # The custom DNS configurations of the function.
         self.custom_dns = custom_dns  # type: CustomDNS
-        # The custom health check configuration of the function. This parameter is applicable only to custom runtimes and custom containers.
+        # The custom health check configurations of the function. This parameter is applicable to only custom runtimes and custom containers.
         self.custom_health_check_config = custom_health_check_config  # type: CustomHealthCheckConfig
         # The configurations of the custom runtime.
         self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
@@ -13391,15 +13578,16 @@ class UpdateFunctionResponseBody(TeaModel):
         self.description = description  # type: str
         # The disk size of the function. Unit: MB. Valid values: 512 and 10240.
         self.disk_size = disk_size  # type: int
-        # The environment variables that you configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Overview](~~69777~~).
+        # The environment variables that are configured for the function. You can obtain the values of the environment variables from the function. For more information, see [Environment variables](~~69777~~).
         self.environment_variables = environment_variables  # type: dict[str, str]
-        # The unique ID generated by the system for the function.
+        # The unique ID that is generated by the system for the function.
         self.function_id = function_id  # type: str
         # The name of the function.
         self.function_name = function_name  # type: str
+        self.gpu_memory_size = gpu_memory_size  # type: int
         # The handler of the function.
         self.handler = handler  # type: str
-        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When this period ends, the execution of the initializer function is terminated.
+        # The timeout period for the execution of the initializer function. Unit: seconds. Default value: 3. Minimum value: 1. When the period ends, the execution of the initializer function is terminated.
         self.initialization_timeout = initialization_timeout  # type: int
         # The handler of the initializer function. The format is determined by the programming language.
         self.initializer = initializer  # type: str
@@ -13407,9 +13595,9 @@ class UpdateFunctionResponseBody(TeaModel):
         self.instance_concurrency = instance_concurrency  # type: int
         # The lifecycle configurations of the instance.
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
-        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long term to start, you can specify a suitable soft concurrency to start the instance in advance.
+        # The soft concurrency of the instance. You can use this parameter to implement graceful scale-up of instances. If the number of concurrent requests on an instance is greater than the number of the soft concurrency, the instance scale-up is triggered. For example, if your instance requires a long time to start, you can specify a suitable soft concurrency to start the instance in advance.
         # 
-        # The value must be less than or equal to that of **instanceConcurrency**.
+        # The value must be less than or equal to that of the **instanceConcurrency** parameter.
         self.instance_soft_concurrency = instance_soft_concurrency  # type: int
         # The instance type of the function. Valid values:
         # 
@@ -13418,13 +13606,13 @@ class UpdateFunctionResponseBody(TeaModel):
         self.instance_type = instance_type  # type: str
         # The time when the function was last modified.
         self.last_modified_time = last_modified_time  # type: str
-        # An array that consists of the information of layers.
+        # The information about layers.
         # 
-        # >  Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file with the same name in the layer with a larger subscript.
+        # > Multiple layers are merged based on the order of array subscripts. The content of a layer with a smaller subscript overwrites the file that has the same name and a larger subscript in the layer.
         self.layers = layers  # type: list[str]
-        # The memory size for the function. Unit: MB.
+        # The memory size that is configured for the function. Unit: MB.
         self.memory_size = memory_size  # type: int
-        # The runtime environment of the function. Valid values: **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore2.1**, **custom** and **custom-container**.
+        # The runtime environment of the function. Valid values: **nodejs16**, **nodejs14**, **nodejs12**, **nodejs10**, **nodejs8**, **nodejs6**, **nodejs4.4**, **python3.9**, **python3**, **python2.7**, **java11**, **java8**, **go1**, **php7.2**, **dotnetcore3.1**, **dotnetcore2.1**, **custom** and **custom-container**. For more information, see [Supported function runtime environments](~~73338~~).
         self.runtime = runtime  # type: str
         # The timeout period for the execution. Unit: seconds.
         self.timeout = timeout  # type: int
@@ -13475,6 +13663,8 @@ class UpdateFunctionResponseBody(TeaModel):
             result['functionId'] = self.function_id
         if self.function_name is not None:
             result['functionName'] = self.function_name
+        if self.gpu_memory_size is not None:
+            result['gpuMemorySize'] = self.gpu_memory_size
         if self.handler is not None:
             result['handler'] = self.handler
         if self.initialization_timeout is not None:
@@ -13535,6 +13725,8 @@ class UpdateFunctionResponseBody(TeaModel):
             self.function_id = m.get('functionId')
         if m.get('functionName') is not None:
             self.function_name = m.get('functionName')
+        if m.get('gpuMemorySize') is not None:
+            self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('handler') is not None:
             self.handler = m.get('handler')
         if m.get('initializationTimeout') is not None:
