@@ -1445,6 +1445,8 @@ class Client(OpenApiClient):
             query['ParametersOrder'] = request.parameters_order_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.stack_id):
+            query['StackId'] = request.stack_id
         if not UtilClient.is_unset(request.template_body):
             query['TemplateBody'] = request.template_body
         if not UtilClient.is_unset(request.template_id):
