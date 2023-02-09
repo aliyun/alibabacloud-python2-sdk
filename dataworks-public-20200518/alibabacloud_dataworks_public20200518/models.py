@@ -23566,9 +23566,10 @@ class GetPermissionApplyOrderDetailResponseBodyApplyOrderDetailApproveAccountLis
 
 
 class GetPermissionApplyOrderDetailResponseBodyApplyOrderDetailApproveContentProjectMetaObjectMetaListColumnMetaList(TeaModel):
-    def __init__(self, column_comment=None, column_name=None):
+    def __init__(self, column_comment=None, column_name=None, security_level=None):
         self.column_comment = column_comment  # type: str
         self.column_name = column_name  # type: str
+        self.security_level = security_level  # type: str
 
     def validate(self):
         pass
@@ -23583,6 +23584,8 @@ class GetPermissionApplyOrderDetailResponseBodyApplyOrderDetailApproveContentPro
             result['ColumnComment'] = self.column_comment
         if self.column_name is not None:
             result['ColumnName'] = self.column_name
+        if self.security_level is not None:
+            result['SecurityLevel'] = self.security_level
         return result
 
     def from_map(self, m=None):
@@ -23591,6 +23594,8 @@ class GetPermissionApplyOrderDetailResponseBodyApplyOrderDetailApproveContentPro
             self.column_comment = m.get('ColumnComment')
         if m.get('ColumnName') is not None:
             self.column_name = m.get('ColumnName')
+        if m.get('SecurityLevel') is not None:
+            self.security_level = m.get('SecurityLevel')
         return self
 
 
