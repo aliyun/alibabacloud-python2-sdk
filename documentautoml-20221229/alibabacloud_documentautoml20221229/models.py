@@ -6,7 +6,7 @@ from Tea.model import TeaModel
 class PredictClassifierModelRequest(TeaModel):
     def __init__(self, auto_prediction=None, classifier_id=None, content=None):
         self.auto_prediction = auto_prediction  # type: bool
-        self.classifier_id = classifier_id  # type: str
+        self.classifier_id = classifier_id  # type: long
         self.content = content  # type: str
 
     def validate(self):
@@ -235,9 +235,9 @@ class PredictModelResponse(TeaModel):
 
 
 class PredictTemplateModelRequest(TeaModel):
-    def __init__(self, content=None, project_id=None):
+    def __init__(self, content=None, task_id=None):
         self.content = content  # type: str
-        self.project_id = project_id  # type: long
+        self.task_id = task_id  # type: long
 
     def validate(self):
         pass
@@ -250,16 +250,16 @@ class PredictTemplateModelRequest(TeaModel):
         result = dict()
         if self.content is not None:
             result['Content'] = self.content
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Content') is not None:
             self.content = m.get('Content')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 

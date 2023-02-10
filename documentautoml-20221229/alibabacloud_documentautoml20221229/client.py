@@ -101,8 +101,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.content):
             query['Content'] = request.content
-        if not UtilClient.is_unset(request.project_id):
-            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
