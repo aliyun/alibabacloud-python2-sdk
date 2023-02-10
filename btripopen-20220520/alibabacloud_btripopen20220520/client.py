@@ -330,6 +330,47 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.ApplyApproveHeaders()
         return self.apply_approve_with_options(request, headers, runtime)
 
+    def apply_invoice_task_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.ApplyInvoiceTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.invoice_task_list):
+            request.invoice_task_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.invoice_task_list, 'invoice_task_list', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.bill_date):
+            body['bill_date'] = request.bill_date
+        if not UtilClient.is_unset(request.invoice_task_list_shrink):
+            body['invoice_task_list'] = request.invoice_task_list_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ApplyInvoiceTask',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/invoice/v1/apply-invoice-task',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.ApplyInvoiceTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def apply_invoice_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.ApplyInvoiceTaskHeaders()
+        return self.apply_invoice_task_with_options(request, headers, runtime)
+
     def apply_list_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1609,6 +1650,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.FlightExceedApplyQueryHeaders()
         return self.flight_exceed_apply_query_with_options(request, headers, runtime)
+
+    def flight_itinerary_scan_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bill_date):
+            query['bill_date'] = request.bill_date
+        if not UtilClient.is_unset(request.bill_id):
+            query['bill_id'] = request.bill_id
+        if not UtilClient.is_unset(request.invoice_sub_task_id):
+            query['invoice_sub_task_id'] = request.invoice_sub_task_id
+        if not UtilClient.is_unset(request.page_no):
+            query['page_no'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['page_size'] = request.page_size
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='FlightItineraryScanQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/scan/v1/flight-itinerary',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.FlightItineraryScanQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def flight_itinerary_scan_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.FlightItineraryScanQueryHeaders()
+        return self.flight_itinerary_scan_query_with_options(request, headers, runtime)
 
     def flight_order_detail_info_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3108,6 +3192,43 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.TrainOrderQueryHeaders()
         return self.train_order_query_with_options(request, headers, runtime)
 
+    def train_order_query_v2with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.user_id):
+            query['user_id'] = request.user_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TrainOrderQueryV2',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/train/v2/order',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.TrainOrderQueryV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def train_order_query_v2(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.TrainOrderQueryV2Headers()
+        return self.train_order_query_v2with_options(request, headers, runtime)
+
     def train_station_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3142,6 +3263,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.TrainStationSearchHeaders()
         return self.train_station_search_with_options(request, headers, runtime)
+
+    def train_ticket_scan_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bill_date):
+            query['bill_date'] = request.bill_date
+        if not UtilClient.is_unset(request.bill_id):
+            query['bill_id'] = request.bill_id
+        if not UtilClient.is_unset(request.invoice_sub_task_id):
+            query['invoice_sub_task_id'] = request.invoice_sub_task_id
+        if not UtilClient.is_unset(request.page_no):
+            query['page_no'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['page_size'] = request.page_size
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TrainTicketScanQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/scan/v1/train-ticket',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.TrainTicketScanQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def train_ticket_scan_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.TrainTicketScanQueryHeaders()
+        return self.train_ticket_scan_query_with_options(request, headers, runtime)
 
     def user_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3183,3 +3347,81 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.UserQueryHeaders()
         return self.user_query_with_options(request, headers, runtime)
+
+    def vat_invoice_scan_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bill_date):
+            query['bill_date'] = request.bill_date
+        if not UtilClient.is_unset(request.bill_id):
+            query['bill_id'] = request.bill_id
+        if not UtilClient.is_unset(request.invoice_sub_task_id):
+            query['invoice_sub_task_id'] = request.invoice_sub_task_id
+        if not UtilClient.is_unset(request.page_no):
+            query['page_no'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['page_size'] = request.page_size
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='VatInvoiceScanQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/scan/v1/vat-invoice',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.VatInvoiceScanQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def vat_invoice_scan_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.VatInvoiceScanQueryHeaders()
+        return self.vat_invoice_scan_query_with_options(request, headers, runtime)
+
+    def wait_apply_invoice_task_detail_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bill_date):
+            query['bill_date'] = request.bill_date
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='WaitApplyInvoiceTaskDetailQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/invoice/v1/wait-apply-task',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.WaitApplyInvoiceTaskDetailQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def wait_apply_invoice_task_detail_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.WaitApplyInvoiceTaskDetailQueryHeaders()
+        return self.wait_apply_invoice_task_detail_query_with_options(request, headers, runtime)

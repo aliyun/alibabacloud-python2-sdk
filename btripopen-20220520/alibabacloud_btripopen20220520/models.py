@@ -2017,6 +2017,299 @@ class ApplyApproveResponse(TeaModel):
         return self
 
 
+class ApplyInvoiceTaskHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class ApplyInvoiceTaskRequestInvoiceTaskList(TeaModel):
+    def __init__(self, contact=None, email=None, flight_invoice_fee=None, fu_point_invoice_fee=None,
+                 hotel_normal_invoice_fee=None, hotel_special_invoice_fee=None, international_flight_invoice_fee=None,
+                 invoice_third_part_id=None, mail_address=None, mail_city=None, mail_full_address=None, mail_province=None,
+                 penalty_fee=None, remark=None, service_fee=None, telephone=None, train_invoice_fee=None,
+                 vehicle_invoice_fee=None):
+        self.contact = contact  # type: str
+        self.email = email  # type: str
+        self.flight_invoice_fee = flight_invoice_fee  # type: str
+        self.fu_point_invoice_fee = fu_point_invoice_fee  # type: str
+        self.hotel_normal_invoice_fee = hotel_normal_invoice_fee  # type: str
+        self.hotel_special_invoice_fee = hotel_special_invoice_fee  # type: str
+        self.international_flight_invoice_fee = international_flight_invoice_fee  # type: str
+        self.invoice_third_part_id = invoice_third_part_id  # type: str
+        self.mail_address = mail_address  # type: str
+        self.mail_city = mail_city  # type: str
+        self.mail_full_address = mail_full_address  # type: str
+        self.mail_province = mail_province  # type: str
+        self.penalty_fee = penalty_fee  # type: str
+        self.remark = remark  # type: str
+        self.service_fee = service_fee  # type: str
+        self.telephone = telephone  # type: str
+        self.train_invoice_fee = train_invoice_fee  # type: str
+        self.vehicle_invoice_fee = vehicle_invoice_fee  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskRequestInvoiceTaskList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact is not None:
+            result['contact'] = self.contact
+        if self.email is not None:
+            result['email'] = self.email
+        if self.flight_invoice_fee is not None:
+            result['flight_invoice_fee'] = self.flight_invoice_fee
+        if self.fu_point_invoice_fee is not None:
+            result['fu_point_invoice_fee'] = self.fu_point_invoice_fee
+        if self.hotel_normal_invoice_fee is not None:
+            result['hotel_normal_invoice_fee'] = self.hotel_normal_invoice_fee
+        if self.hotel_special_invoice_fee is not None:
+            result['hotel_special_invoice_fee'] = self.hotel_special_invoice_fee
+        if self.international_flight_invoice_fee is not None:
+            result['international_flight_invoice_fee'] = self.international_flight_invoice_fee
+        if self.invoice_third_part_id is not None:
+            result['invoice_third_part_id'] = self.invoice_third_part_id
+        if self.mail_address is not None:
+            result['mail_address'] = self.mail_address
+        if self.mail_city is not None:
+            result['mail_city'] = self.mail_city
+        if self.mail_full_address is not None:
+            result['mail_full_address'] = self.mail_full_address
+        if self.mail_province is not None:
+            result['mail_province'] = self.mail_province
+        if self.penalty_fee is not None:
+            result['penalty_fee'] = self.penalty_fee
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.service_fee is not None:
+            result['service_fee'] = self.service_fee
+        if self.telephone is not None:
+            result['telephone'] = self.telephone
+        if self.train_invoice_fee is not None:
+            result['train_invoice_fee'] = self.train_invoice_fee
+        if self.vehicle_invoice_fee is not None:
+            result['vehicle_invoice_fee'] = self.vehicle_invoice_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact') is not None:
+            self.contact = m.get('contact')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('flight_invoice_fee') is not None:
+            self.flight_invoice_fee = m.get('flight_invoice_fee')
+        if m.get('fu_point_invoice_fee') is not None:
+            self.fu_point_invoice_fee = m.get('fu_point_invoice_fee')
+        if m.get('hotel_normal_invoice_fee') is not None:
+            self.hotel_normal_invoice_fee = m.get('hotel_normal_invoice_fee')
+        if m.get('hotel_special_invoice_fee') is not None:
+            self.hotel_special_invoice_fee = m.get('hotel_special_invoice_fee')
+        if m.get('international_flight_invoice_fee') is not None:
+            self.international_flight_invoice_fee = m.get('international_flight_invoice_fee')
+        if m.get('invoice_third_part_id') is not None:
+            self.invoice_third_part_id = m.get('invoice_third_part_id')
+        if m.get('mail_address') is not None:
+            self.mail_address = m.get('mail_address')
+        if m.get('mail_city') is not None:
+            self.mail_city = m.get('mail_city')
+        if m.get('mail_full_address') is not None:
+            self.mail_full_address = m.get('mail_full_address')
+        if m.get('mail_province') is not None:
+            self.mail_province = m.get('mail_province')
+        if m.get('penalty_fee') is not None:
+            self.penalty_fee = m.get('penalty_fee')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('service_fee') is not None:
+            self.service_fee = m.get('service_fee')
+        if m.get('telephone') is not None:
+            self.telephone = m.get('telephone')
+        if m.get('train_invoice_fee') is not None:
+            self.train_invoice_fee = m.get('train_invoice_fee')
+        if m.get('vehicle_invoice_fee') is not None:
+            self.vehicle_invoice_fee = m.get('vehicle_invoice_fee')
+        return self
+
+
+class ApplyInvoiceTaskRequest(TeaModel):
+    def __init__(self, bill_date=None, invoice_task_list=None):
+        self.bill_date = bill_date  # type: str
+        self.invoice_task_list = invoice_task_list  # type: list[ApplyInvoiceTaskRequestInvoiceTaskList]
+
+    def validate(self):
+        if self.invoice_task_list:
+            for k in self.invoice_task_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        result['invoice_task_list'] = []
+        if self.invoice_task_list is not None:
+            for k in self.invoice_task_list:
+                result['invoice_task_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        self.invoice_task_list = []
+        if m.get('invoice_task_list') is not None:
+            for k in m.get('invoice_task_list'):
+                temp_model = ApplyInvoiceTaskRequestInvoiceTaskList()
+                self.invoice_task_list.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyInvoiceTaskShrinkRequest(TeaModel):
+    def __init__(self, bill_date=None, invoice_task_list_shrink=None):
+        self.bill_date = bill_date  # type: str
+        self.invoice_task_list_shrink = invoice_task_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.invoice_task_list_shrink is not None:
+            result['invoice_task_list'] = self.invoice_task_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('invoice_task_list') is not None:
+            self.invoice_task_list_shrink = m.get('invoice_task_list')
+        return self
+
+
+class ApplyInvoiceTaskResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class ApplyInvoiceTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ApplyInvoiceTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ApplyInvoiceTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ApplyInvoiceTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ApplyListQueryHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -12179,6 +12472,329 @@ class FlightExceedApplyQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FlightExceedApplyQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightItineraryScanQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class FlightItineraryScanQueryRequest(TeaModel):
+    def __init__(self, bill_date=None, bill_id=None, invoice_sub_task_id=None, page_no=None, page_size=None):
+        self.bill_date = bill_date  # type: str
+        self.bill_id = bill_id  # type: long
+        self.invoice_sub_task_id = invoice_sub_task_id  # type: long
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.bill_id is not None:
+            result['bill_id'] = self.bill_id
+        if self.invoice_sub_task_id is not None:
+            result['invoice_sub_task_id'] = self.invoice_sub_task_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('bill_id') is not None:
+            self.bill_id = m.get('bill_id')
+        if m.get('invoice_sub_task_id') is not None:
+            self.invoice_sub_task_id = m.get('invoice_sub_task_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class FlightItineraryScanQueryResponseBodyModuleItems(TeaModel):
+    def __init__(self, bill_date=None, build=None, cost_center=None, department=None, fuel_surcharge=None,
+                 insurance=None, invoice_title=None, itinerary_num=None, order_id=None, oss_url=None, passenger_name=None,
+                 project=None, tax_amount=None, tax_rate=None, ticket_no=None, ticket_price=None, total_price=None):
+        self.bill_date = bill_date  # type: str
+        self.build = build  # type: str
+        self.cost_center = cost_center  # type: str
+        self.department = department  # type: str
+        self.fuel_surcharge = fuel_surcharge  # type: str
+        self.insurance = insurance  # type: str
+        self.invoice_title = invoice_title  # type: str
+        self.itinerary_num = itinerary_num  # type: str
+        self.order_id = order_id  # type: long
+        self.oss_url = oss_url  # type: str
+        self.passenger_name = passenger_name  # type: str
+        self.project = project  # type: str
+        self.tax_amount = tax_amount  # type: str
+        self.tax_rate = tax_rate  # type: str
+        self.ticket_no = ticket_no  # type: str
+        self.ticket_price = ticket_price  # type: str
+        self.total_price = total_price  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryResponseBodyModuleItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.build is not None:
+            result['build'] = self.build
+        if self.cost_center is not None:
+            result['cost_center'] = self.cost_center
+        if self.department is not None:
+            result['department'] = self.department
+        if self.fuel_surcharge is not None:
+            result['fuel_surcharge'] = self.fuel_surcharge
+        if self.insurance is not None:
+            result['insurance'] = self.insurance
+        if self.invoice_title is not None:
+            result['invoice_title'] = self.invoice_title
+        if self.itinerary_num is not None:
+            result['itinerary_num'] = self.itinerary_num
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.oss_url is not None:
+            result['oss_url'] = self.oss_url
+        if self.passenger_name is not None:
+            result['passenger_name'] = self.passenger_name
+        if self.project is not None:
+            result['project'] = self.project
+        if self.tax_amount is not None:
+            result['tax_amount'] = self.tax_amount
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
+        if self.ticket_no is not None:
+            result['ticket_no'] = self.ticket_no
+        if self.ticket_price is not None:
+            result['ticket_price'] = self.ticket_price
+        if self.total_price is not None:
+            result['total_price'] = self.total_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('build') is not None:
+            self.build = m.get('build')
+        if m.get('cost_center') is not None:
+            self.cost_center = m.get('cost_center')
+        if m.get('department') is not None:
+            self.department = m.get('department')
+        if m.get('fuel_surcharge') is not None:
+            self.fuel_surcharge = m.get('fuel_surcharge')
+        if m.get('insurance') is not None:
+            self.insurance = m.get('insurance')
+        if m.get('invoice_title') is not None:
+            self.invoice_title = m.get('invoice_title')
+        if m.get('itinerary_num') is not None:
+            self.itinerary_num = m.get('itinerary_num')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('oss_url') is not None:
+            self.oss_url = m.get('oss_url')
+        if m.get('passenger_name') is not None:
+            self.passenger_name = m.get('passenger_name')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('tax_amount') is not None:
+            self.tax_amount = m.get('tax_amount')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
+        if m.get('ticket_no') is not None:
+            self.ticket_no = m.get('ticket_no')
+        if m.get('ticket_price') is not None:
+            self.ticket_price = m.get('ticket_price')
+        if m.get('total_price') is not None:
+            self.total_price = m.get('total_price')
+        return self
+
+
+class FlightItineraryScanQueryResponseBodyModule(TeaModel):
+    def __init__(self, items=None, page_no=None, page_size=None, total_page=None, total_size=None):
+        self.items = items  # type: list[FlightItineraryScanQueryResponseBodyModuleItems]
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.total_page = total_page  # type: int
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = FlightItineraryScanQueryResponseBodyModuleItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        return self
+
+
+class FlightItineraryScanQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: FlightItineraryScanQueryResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightItineraryScanQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightItineraryScanQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightItineraryScanQueryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightItineraryScanQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightItineraryScanQueryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -30484,6 +31100,1058 @@ class TrainOrderQueryResponse(TeaModel):
         return self
 
 
+class TrainOrderQueryV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class TrainOrderQueryV2Request(TeaModel):
+    def __init__(self, order_id=None, user_id=None):
+        self.order_id = order_id  # type: long
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
+    def __init__(self, change_coach_no=None, change_gap_fee=None, change_handling_fee=None, change_seat_no=None,
+                 change_seat_type_name=None, change_service_fee=None, change_train_no=None, change_train_type_name=None,
+                 check_in_time=None, check_out_time=None, end_time=None, from_city_name=None, from_station_name=None,
+                 gmt_create=None, gmt_modify=None, origin_ticket_no=None, out_ticket_status=None, segment_index=None,
+                 start_time=None, ticket_no=None, to_city_name=None, to_station_name=None, use_ticket=None, user_id=None):
+        self.change_coach_no = change_coach_no  # type: str
+        self.change_gap_fee = change_gap_fee  # type: float
+        self.change_handling_fee = change_handling_fee  # type: float
+        self.change_seat_no = change_seat_no  # type: str
+        self.change_seat_type_name = change_seat_type_name  # type: str
+        self.change_service_fee = change_service_fee  # type: float
+        self.change_train_no = change_train_no  # type: str
+        self.change_train_type_name = change_train_type_name  # type: str
+        self.check_in_time = check_in_time  # type: str
+        self.check_out_time = check_out_time  # type: str
+        self.end_time = end_time  # type: str
+        self.from_city_name = from_city_name  # type: str
+        self.from_station_name = from_station_name  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modify = gmt_modify  # type: str
+        self.origin_ticket_no = origin_ticket_no  # type: str
+        self.out_ticket_status = out_ticket_status  # type: str
+        self.segment_index = segment_index  # type: int
+        self.start_time = start_time  # type: str
+        self.ticket_no = ticket_no  # type: str
+        self.to_city_name = to_city_name  # type: str
+        self.to_station_name = to_station_name  # type: str
+        self.use_ticket = use_ticket  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.change_coach_no is not None:
+            result['change_coach_no'] = self.change_coach_no
+        if self.change_gap_fee is not None:
+            result['change_gap_fee'] = self.change_gap_fee
+        if self.change_handling_fee is not None:
+            result['change_handling_fee'] = self.change_handling_fee
+        if self.change_seat_no is not None:
+            result['change_seat_no'] = self.change_seat_no
+        if self.change_seat_type_name is not None:
+            result['change_seat_type_name'] = self.change_seat_type_name
+        if self.change_service_fee is not None:
+            result['change_service_fee'] = self.change_service_fee
+        if self.change_train_no is not None:
+            result['change_train_no'] = self.change_train_no
+        if self.change_train_type_name is not None:
+            result['change_train_type_name'] = self.change_train_type_name
+        if self.check_in_time is not None:
+            result['check_in_time'] = self.check_in_time
+        if self.check_out_time is not None:
+            result['check_out_time'] = self.check_out_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.from_city_name is not None:
+            result['from_city_name'] = self.from_city_name
+        if self.from_station_name is not None:
+            result['from_station_name'] = self.from_station_name
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modify is not None:
+            result['gmt_modify'] = self.gmt_modify
+        if self.origin_ticket_no is not None:
+            result['origin_ticket_no'] = self.origin_ticket_no
+        if self.out_ticket_status is not None:
+            result['out_ticket_status'] = self.out_ticket_status
+        if self.segment_index is not None:
+            result['segment_index'] = self.segment_index
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.ticket_no is not None:
+            result['ticket_no'] = self.ticket_no
+        if self.to_city_name is not None:
+            result['to_city_name'] = self.to_city_name
+        if self.to_station_name is not None:
+            result['to_station_name'] = self.to_station_name
+        if self.use_ticket is not None:
+            result['use_ticket'] = self.use_ticket
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('change_coach_no') is not None:
+            self.change_coach_no = m.get('change_coach_no')
+        if m.get('change_gap_fee') is not None:
+            self.change_gap_fee = m.get('change_gap_fee')
+        if m.get('change_handling_fee') is not None:
+            self.change_handling_fee = m.get('change_handling_fee')
+        if m.get('change_seat_no') is not None:
+            self.change_seat_no = m.get('change_seat_no')
+        if m.get('change_seat_type_name') is not None:
+            self.change_seat_type_name = m.get('change_seat_type_name')
+        if m.get('change_service_fee') is not None:
+            self.change_service_fee = m.get('change_service_fee')
+        if m.get('change_train_no') is not None:
+            self.change_train_no = m.get('change_train_no')
+        if m.get('change_train_type_name') is not None:
+            self.change_train_type_name = m.get('change_train_type_name')
+        if m.get('check_in_time') is not None:
+            self.check_in_time = m.get('check_in_time')
+        if m.get('check_out_time') is not None:
+            self.check_out_time = m.get('check_out_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('from_city_name') is not None:
+            self.from_city_name = m.get('from_city_name')
+        if m.get('from_station_name') is not None:
+            self.from_station_name = m.get('from_station_name')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modify') is not None:
+            self.gmt_modify = m.get('gmt_modify')
+        if m.get('origin_ticket_no') is not None:
+            self.origin_ticket_no = m.get('origin_ticket_no')
+        if m.get('out_ticket_status') is not None:
+            self.out_ticket_status = m.get('out_ticket_status')
+        if m.get('segment_index') is not None:
+            self.segment_index = m.get('segment_index')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('ticket_no') is not None:
+            self.ticket_no = m.get('ticket_no')
+        if m.get('to_city_name') is not None:
+            self.to_city_name = m.get('to_city_name')
+        if m.get('to_station_name') is not None:
+            self.to_station_name = m.get('to_station_name')
+        if m.get('use_ticket') is not None:
+            self.use_ticket = m.get('use_ticket')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleInvoiceInfo(TeaModel):
+    def __init__(self, id=None, title=None):
+        self.id = id  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleInvoiceInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleOrderBaseInfo(TeaModel):
+    def __init__(self, apply_id=None, btrip_title=None, contact_name=None, contact_phone=None, corp_id=None,
+                 corp_name=None, depart_id=None, depart_name=None, exceed_apply_id=None, exceed_thirdpart_apply_id=None,
+                 gmt_create=None, gmt_modify=None, itinerary_id=None, order_id=None, order_status=None,
+                 thirdpart_apply_id=None, thirdpart_depart_id=None, thirdpart_itinerary_id=None, trip_type=None, user_id=None,
+                 user_nick=None):
+        self.apply_id = apply_id  # type: str
+        self.btrip_title = btrip_title  # type: str
+        self.contact_name = contact_name  # type: str
+        self.contact_phone = contact_phone  # type: str
+        self.corp_id = corp_id  # type: str
+        self.corp_name = corp_name  # type: str
+        self.depart_id = depart_id  # type: str
+        self.depart_name = depart_name  # type: str
+        self.exceed_apply_id = exceed_apply_id  # type: str
+        self.exceed_thirdpart_apply_id = exceed_thirdpart_apply_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modify = gmt_modify  # type: str
+        self.itinerary_id = itinerary_id  # type: str
+        self.order_id = order_id  # type: long
+        self.order_status = order_status  # type: int
+        self.thirdpart_apply_id = thirdpart_apply_id  # type: str
+        self.thirdpart_depart_id = thirdpart_depart_id  # type: str
+        self.thirdpart_itinerary_id = thirdpart_itinerary_id  # type: str
+        self.trip_type = trip_type  # type: int
+        self.user_id = user_id  # type: str
+        self.user_nick = user_nick  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleOrderBaseInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_id is not None:
+            result['apply_id'] = self.apply_id
+        if self.btrip_title is not None:
+            result['btrip_title'] = self.btrip_title
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.corp_id is not None:
+            result['corp_id'] = self.corp_id
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        if self.depart_id is not None:
+            result['depart_id'] = self.depart_id
+        if self.depart_name is not None:
+            result['depart_name'] = self.depart_name
+        if self.exceed_apply_id is not None:
+            result['exceed_apply_id'] = self.exceed_apply_id
+        if self.exceed_thirdpart_apply_id is not None:
+            result['exceed_thirdpart_apply_id'] = self.exceed_thirdpart_apply_id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modify is not None:
+            result['gmt_modify'] = self.gmt_modify
+        if self.itinerary_id is not None:
+            result['itinerary_id'] = self.itinerary_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.thirdpart_apply_id is not None:
+            result['thirdpart_apply_id'] = self.thirdpart_apply_id
+        if self.thirdpart_depart_id is not None:
+            result['thirdpart_depart_id'] = self.thirdpart_depart_id
+        if self.thirdpart_itinerary_id is not None:
+            result['thirdpart_itinerary_id'] = self.thirdpart_itinerary_id
+        if self.trip_type is not None:
+            result['trip_type'] = self.trip_type
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_nick is not None:
+            result['user_nick'] = self.user_nick
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_id') is not None:
+            self.apply_id = m.get('apply_id')
+        if m.get('btrip_title') is not None:
+            self.btrip_title = m.get('btrip_title')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('corp_id') is not None:
+            self.corp_id = m.get('corp_id')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        if m.get('depart_id') is not None:
+            self.depart_id = m.get('depart_id')
+        if m.get('depart_name') is not None:
+            self.depart_name = m.get('depart_name')
+        if m.get('exceed_apply_id') is not None:
+            self.exceed_apply_id = m.get('exceed_apply_id')
+        if m.get('exceed_thirdpart_apply_id') is not None:
+            self.exceed_thirdpart_apply_id = m.get('exceed_thirdpart_apply_id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modify') is not None:
+            self.gmt_modify = m.get('gmt_modify')
+        if m.get('itinerary_id') is not None:
+            self.itinerary_id = m.get('itinerary_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('thirdpart_apply_id') is not None:
+            self.thirdpart_apply_id = m.get('thirdpart_apply_id')
+        if m.get('thirdpart_depart_id') is not None:
+            self.thirdpart_depart_id = m.get('thirdpart_depart_id')
+        if m.get('thirdpart_itinerary_id') is not None:
+            self.thirdpart_itinerary_id = m.get('thirdpart_itinerary_id')
+        if m.get('trip_type') is not None:
+            self.trip_type = m.get('trip_type')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_nick') is not None:
+            self.user_nick = m.get('user_nick')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModulePassengerInfoList(TeaModel):
+    def __init__(self, cost_center_id=None, cost_center_name=None, cost_center_number=None, project_code=None,
+                 project_id=None, project_title=None, thirdpart_cost_center_id=None, thirdpart_project_id=None, user_id=None,
+                 user_name=None, user_type=None):
+        self.cost_center_id = cost_center_id  # type: long
+        self.cost_center_name = cost_center_name  # type: str
+        self.cost_center_number = cost_center_number  # type: str
+        self.project_code = project_code  # type: str
+        self.project_id = project_id  # type: long
+        self.project_title = project_title  # type: str
+        self.thirdpart_cost_center_id = thirdpart_cost_center_id  # type: str
+        self.thirdpart_project_id = thirdpart_project_id  # type: str
+        self.user_id = user_id  # type: str
+        self.user_name = user_name  # type: str
+        self.user_type = user_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModulePassengerInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_center_id is not None:
+            result['cost_center_id'] = self.cost_center_id
+        if self.cost_center_name is not None:
+            result['cost_center_name'] = self.cost_center_name
+        if self.cost_center_number is not None:
+            result['cost_center_number'] = self.cost_center_number
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.project_title is not None:
+            result['project_title'] = self.project_title
+        if self.thirdpart_cost_center_id is not None:
+            result['thirdpart_cost_center_id'] = self.thirdpart_cost_center_id
+        if self.thirdpart_project_id is not None:
+            result['thirdpart_project_id'] = self.thirdpart_project_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cost_center_id') is not None:
+            self.cost_center_id = m.get('cost_center_id')
+        if m.get('cost_center_name') is not None:
+            self.cost_center_name = m.get('cost_center_name')
+        if m.get('cost_center_number') is not None:
+            self.cost_center_number = m.get('cost_center_number')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('project_title') is not None:
+            self.project_title = m.get('project_title')
+        if m.get('thirdpart_cost_center_id') is not None:
+            self.thirdpart_cost_center_id = m.get('thirdpart_cost_center_id')
+        if m.get('thirdpart_project_id') is not None:
+            self.thirdpart_project_id = m.get('thirdpart_project_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModulePriceInfoList(TeaModel):
+    def __init__(self, category_code=None, gmt_create=None, passenger_name=None, pay_type=None, price=None,
+                 trade_id=None, type=None):
+        self.category_code = category_code  # type: int
+        self.gmt_create = gmt_create  # type: str
+        self.passenger_name = passenger_name  # type: str
+        self.pay_type = pay_type  # type: int
+        self.price = price  # type: float
+        self.trade_id = trade_id  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModulePriceInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.passenger_name is not None:
+            result['passenger_name'] = self.passenger_name
+        if self.pay_type is not None:
+            result['pay_type'] = self.pay_type
+        if self.price is not None:
+            result['price'] = self.price
+        if self.trade_id is not None:
+            result['trade_id'] = self.trade_id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('passenger_name') is not None:
+            self.passenger_name = m.get('passenger_name')
+        if m.get('pay_type') is not None:
+            self.pay_type = m.get('pay_type')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('trade_id') is not None:
+            self.trade_id = m.get('trade_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleRefundTicketInfoList(TeaModel):
+    def __init__(self, gmt_create=None, gmt_modify=None, refund_fee=None, refund_service_fee=None, ticket_no=None,
+                 user_id=None):
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modify = gmt_modify  # type: str
+        self.refund_fee = refund_fee  # type: float
+        self.refund_service_fee = refund_service_fee  # type: float
+        self.ticket_no = ticket_no  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleRefundTicketInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modify is not None:
+            result['gmt_modify'] = self.gmt_modify
+        if self.refund_fee is not None:
+            result['refund_fee'] = self.refund_fee
+        if self.refund_service_fee is not None:
+            result['refund_service_fee'] = self.refund_service_fee
+        if self.ticket_no is not None:
+            result['ticket_no'] = self.ticket_no
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modify') is not None:
+            self.gmt_modify = m.get('gmt_modify')
+        if m.get('refund_fee') is not None:
+            self.refund_fee = m.get('refund_fee')
+        if m.get('refund_service_fee') is not None:
+            self.refund_service_fee = m.get('refund_service_fee')
+        if m.get('ticket_no') is not None:
+            self.ticket_no = m.get('ticket_no')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketInfos(TeaModel):
+    def __init__(self, changed=None, check_in_time=None, check_out_time=None, coach_no=None, end_time=None,
+                 gmt_create=None, gmt_modify=None, out_ticket_status=None, pay_type=None, seat_no=None, seat_type_name=None,
+                 segment_index=None, service_fee=None, start_time=None, ticket_no=None, ticket_price=None, ticket_status=None,
+                 train_type_name=None, use_ticket=None, user_id=None):
+        self.changed = changed  # type: bool
+        self.check_in_time = check_in_time  # type: str
+        self.check_out_time = check_out_time  # type: str
+        self.coach_no = coach_no  # type: str
+        self.end_time = end_time  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modify = gmt_modify  # type: str
+        self.out_ticket_status = out_ticket_status  # type: str
+        self.pay_type = pay_type  # type: int
+        self.seat_no = seat_no  # type: str
+        self.seat_type_name = seat_type_name  # type: str
+        self.segment_index = segment_index  # type: int
+        self.service_fee = service_fee  # type: float
+        self.start_time = start_time  # type: str
+        self.ticket_no = ticket_no  # type: str
+        self.ticket_price = ticket_price  # type: float
+        self.ticket_status = ticket_status  # type: int
+        self.train_type_name = train_type_name  # type: str
+        self.use_ticket = use_ticket  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.changed is not None:
+            result['changed'] = self.changed
+        if self.check_in_time is not None:
+            result['check_in_time'] = self.check_in_time
+        if self.check_out_time is not None:
+            result['check_out_time'] = self.check_out_time
+        if self.coach_no is not None:
+            result['coach_no'] = self.coach_no
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modify is not None:
+            result['gmt_modify'] = self.gmt_modify
+        if self.out_ticket_status is not None:
+            result['out_ticket_status'] = self.out_ticket_status
+        if self.pay_type is not None:
+            result['pay_type'] = self.pay_type
+        if self.seat_no is not None:
+            result['seat_no'] = self.seat_no
+        if self.seat_type_name is not None:
+            result['seat_type_name'] = self.seat_type_name
+        if self.segment_index is not None:
+            result['segment_index'] = self.segment_index
+        if self.service_fee is not None:
+            result['service_fee'] = self.service_fee
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.ticket_no is not None:
+            result['ticket_no'] = self.ticket_no
+        if self.ticket_price is not None:
+            result['ticket_price'] = self.ticket_price
+        if self.ticket_status is not None:
+            result['ticket_status'] = self.ticket_status
+        if self.train_type_name is not None:
+            result['train_type_name'] = self.train_type_name
+        if self.use_ticket is not None:
+            result['use_ticket'] = self.use_ticket
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('changed') is not None:
+            self.changed = m.get('changed')
+        if m.get('check_in_time') is not None:
+            self.check_in_time = m.get('check_in_time')
+        if m.get('check_out_time') is not None:
+            self.check_out_time = m.get('check_out_time')
+        if m.get('coach_no') is not None:
+            self.coach_no = m.get('coach_no')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modify') is not None:
+            self.gmt_modify = m.get('gmt_modify')
+        if m.get('out_ticket_status') is not None:
+            self.out_ticket_status = m.get('out_ticket_status')
+        if m.get('pay_type') is not None:
+            self.pay_type = m.get('pay_type')
+        if m.get('seat_no') is not None:
+            self.seat_no = m.get('seat_no')
+        if m.get('seat_type_name') is not None:
+            self.seat_type_name = m.get('seat_type_name')
+        if m.get('segment_index') is not None:
+            self.segment_index = m.get('segment_index')
+        if m.get('service_fee') is not None:
+            self.service_fee = m.get('service_fee')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('ticket_no') is not None:
+            self.ticket_no = m.get('ticket_no')
+        if m.get('ticket_price') is not None:
+            self.ticket_price = m.get('ticket_price')
+        if m.get('ticket_status') is not None:
+            self.ticket_status = m.get('ticket_status')
+        if m.get('train_type_name') is not None:
+            self.train_type_name = m.get('train_type_name')
+        if m.get('use_ticket') is not None:
+            self.use_ticket = m.get('use_ticket')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoList(TeaModel):
+    def __init__(self, arr_time=None, dep_time=None, from_city_name=None, from_station_name=None, item_id=None,
+                 run_time=None, to_city_name=None, to_station_name=None, train_no=None, train_ticket_infos=None):
+        self.arr_time = arr_time  # type: str
+        self.dep_time = dep_time  # type: str
+        self.from_city_name = from_city_name  # type: str
+        self.from_station_name = from_station_name  # type: str
+        # itemId
+        self.item_id = item_id  # type: long
+        self.run_time = run_time  # type: long
+        self.to_city_name = to_city_name  # type: str
+        self.to_station_name = to_station_name  # type: str
+        self.train_no = train_no  # type: str
+        self.train_ticket_infos = train_ticket_infos  # type: list[TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketInfos]
+
+    def validate(self):
+        if self.train_ticket_infos:
+            for k in self.train_ticket_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.from_city_name is not None:
+            result['from_city_name'] = self.from_city_name
+        if self.from_station_name is not None:
+            result['from_station_name'] = self.from_station_name
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.run_time is not None:
+            result['run_time'] = self.run_time
+        if self.to_city_name is not None:
+            result['to_city_name'] = self.to_city_name
+        if self.to_station_name is not None:
+            result['to_station_name'] = self.to_station_name
+        if self.train_no is not None:
+            result['train_no'] = self.train_no
+        result['train_ticket_infos'] = []
+        if self.train_ticket_infos is not None:
+            for k in self.train_ticket_infos:
+                result['train_ticket_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('from_city_name') is not None:
+            self.from_city_name = m.get('from_city_name')
+        if m.get('from_station_name') is not None:
+            self.from_station_name = m.get('from_station_name')
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('run_time') is not None:
+            self.run_time = m.get('run_time')
+        if m.get('to_city_name') is not None:
+            self.to_city_name = m.get('to_city_name')
+        if m.get('to_station_name') is not None:
+            self.to_station_name = m.get('to_station_name')
+        if m.get('train_no') is not None:
+            self.train_no = m.get('train_no')
+        self.train_ticket_infos = []
+        if m.get('train_ticket_infos') is not None:
+            for k in m.get('train_ticket_infos'):
+                temp_model = TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketInfos()
+                self.train_ticket_infos.append(temp_model.from_map(k))
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainTransferInfo(TeaModel):
+    def __init__(self, cost_time=None, end_time=None, from_city_name=None, from_station_name=None, middle_city=None,
+                 middle_date=None, middle_station=None, middle_type=None, start_time=None, to_city_name=None,
+                 to_station_name=None, wait_time=None):
+        self.cost_time = cost_time  # type: str
+        self.end_time = end_time  # type: str
+        self.from_city_name = from_city_name  # type: str
+        self.from_station_name = from_station_name  # type: str
+        self.middle_city = middle_city  # type: str
+        self.middle_date = middle_date  # type: str
+        self.middle_station = middle_station  # type: str
+        self.middle_type = middle_type  # type: str
+        self.start_time = start_time  # type: str
+        self.to_city_name = to_city_name  # type: str
+        self.to_station_name = to_station_name  # type: str
+        self.wait_time = wait_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainTransferInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['cost_time'] = self.cost_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.from_city_name is not None:
+            result['from_city_name'] = self.from_city_name
+        if self.from_station_name is not None:
+            result['from_station_name'] = self.from_station_name
+        if self.middle_city is not None:
+            result['middle_city'] = self.middle_city
+        if self.middle_date is not None:
+            result['middle_date'] = self.middle_date
+        if self.middle_station is not None:
+            result['middle_station'] = self.middle_station
+        if self.middle_type is not None:
+            result['middle_type'] = self.middle_type
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.to_city_name is not None:
+            result['to_city_name'] = self.to_city_name
+        if self.to_station_name is not None:
+            result['to_station_name'] = self.to_station_name
+        if self.wait_time is not None:
+            result['wait_time'] = self.wait_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cost_time') is not None:
+            self.cost_time = m.get('cost_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('from_city_name') is not None:
+            self.from_city_name = m.get('from_city_name')
+        if m.get('from_station_name') is not None:
+            self.from_station_name = m.get('from_station_name')
+        if m.get('middle_city') is not None:
+            self.middle_city = m.get('middle_city')
+        if m.get('middle_date') is not None:
+            self.middle_date = m.get('middle_date')
+        if m.get('middle_station') is not None:
+            self.middle_station = m.get('middle_station')
+        if m.get('middle_type') is not None:
+            self.middle_type = m.get('middle_type')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('to_city_name') is not None:
+            self.to_city_name = m.get('to_city_name')
+        if m.get('to_station_name') is not None:
+            self.to_station_name = m.get('to_station_name')
+        if m.get('wait_time') is not None:
+            self.wait_time = m.get('wait_time')
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfo(TeaModel):
+    def __init__(self, train_info_list=None, train_transfer_info=None):
+        self.train_info_list = train_info_list  # type: list[TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoList]
+        self.train_transfer_info = train_transfer_info  # type: TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainTransferInfo
+
+    def validate(self):
+        if self.train_info_list:
+            for k in self.train_info_list:
+                if k:
+                    k.validate()
+        if self.train_transfer_info:
+            self.train_transfer_info.validate()
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModuleTrainOrderInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['train_info_list'] = []
+        if self.train_info_list is not None:
+            for k in self.train_info_list:
+                result['train_info_list'].append(k.to_map() if k else None)
+        if self.train_transfer_info is not None:
+            result['train_transfer_info'] = self.train_transfer_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.train_info_list = []
+        if m.get('train_info_list') is not None:
+            for k in m.get('train_info_list'):
+                temp_model = TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoList()
+                self.train_info_list.append(temp_model.from_map(k))
+        if m.get('train_transfer_info') is not None:
+            temp_model = TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainTransferInfo()
+            self.train_transfer_info = temp_model.from_map(m['train_transfer_info'])
+        return self
+
+
+class TrainOrderQueryV2ResponseBodyModule(TeaModel):
+    def __init__(self, change_ticket_info_list=None, invoice_info=None, order_base_info=None,
+                 passenger_info_list=None, price_info_list=None, refund_ticket_info_list=None, train_order_info=None):
+        self.change_ticket_info_list = change_ticket_info_list  # type: list[TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList]
+        self.invoice_info = invoice_info  # type: TrainOrderQueryV2ResponseBodyModuleInvoiceInfo
+        self.order_base_info = order_base_info  # type: TrainOrderQueryV2ResponseBodyModuleOrderBaseInfo
+        self.passenger_info_list = passenger_info_list  # type: list[TrainOrderQueryV2ResponseBodyModulePassengerInfoList]
+        self.price_info_list = price_info_list  # type: list[TrainOrderQueryV2ResponseBodyModulePriceInfoList]
+        self.refund_ticket_info_list = refund_ticket_info_list  # type: list[TrainOrderQueryV2ResponseBodyModuleRefundTicketInfoList]
+        self.train_order_info = train_order_info  # type: TrainOrderQueryV2ResponseBodyModuleTrainOrderInfo
+
+    def validate(self):
+        if self.change_ticket_info_list:
+            for k in self.change_ticket_info_list:
+                if k:
+                    k.validate()
+        if self.invoice_info:
+            self.invoice_info.validate()
+        if self.order_base_info:
+            self.order_base_info.validate()
+        if self.passenger_info_list:
+            for k in self.passenger_info_list:
+                if k:
+                    k.validate()
+        if self.price_info_list:
+            for k in self.price_info_list:
+                if k:
+                    k.validate()
+        if self.refund_ticket_info_list:
+            for k in self.refund_ticket_info_list:
+                if k:
+                    k.validate()
+        if self.train_order_info:
+            self.train_order_info.validate()
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['change_ticket_info_list'] = []
+        if self.change_ticket_info_list is not None:
+            for k in self.change_ticket_info_list:
+                result['change_ticket_info_list'].append(k.to_map() if k else None)
+        if self.invoice_info is not None:
+            result['invoice_info'] = self.invoice_info.to_map()
+        if self.order_base_info is not None:
+            result['order_base_info'] = self.order_base_info.to_map()
+        result['passenger_info_list'] = []
+        if self.passenger_info_list is not None:
+            for k in self.passenger_info_list:
+                result['passenger_info_list'].append(k.to_map() if k else None)
+        result['price_info_list'] = []
+        if self.price_info_list is not None:
+            for k in self.price_info_list:
+                result['price_info_list'].append(k.to_map() if k else None)
+        result['refund_ticket_info_list'] = []
+        if self.refund_ticket_info_list is not None:
+            for k in self.refund_ticket_info_list:
+                result['refund_ticket_info_list'].append(k.to_map() if k else None)
+        if self.train_order_info is not None:
+            result['train_order_info'] = self.train_order_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.change_ticket_info_list = []
+        if m.get('change_ticket_info_list') is not None:
+            for k in m.get('change_ticket_info_list'):
+                temp_model = TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList()
+                self.change_ticket_info_list.append(temp_model.from_map(k))
+        if m.get('invoice_info') is not None:
+            temp_model = TrainOrderQueryV2ResponseBodyModuleInvoiceInfo()
+            self.invoice_info = temp_model.from_map(m['invoice_info'])
+        if m.get('order_base_info') is not None:
+            temp_model = TrainOrderQueryV2ResponseBodyModuleOrderBaseInfo()
+            self.order_base_info = temp_model.from_map(m['order_base_info'])
+        self.passenger_info_list = []
+        if m.get('passenger_info_list') is not None:
+            for k in m.get('passenger_info_list'):
+                temp_model = TrainOrderQueryV2ResponseBodyModulePassengerInfoList()
+                self.passenger_info_list.append(temp_model.from_map(k))
+        self.price_info_list = []
+        if m.get('price_info_list') is not None:
+            for k in m.get('price_info_list'):
+                temp_model = TrainOrderQueryV2ResponseBodyModulePriceInfoList()
+                self.price_info_list.append(temp_model.from_map(k))
+        self.refund_ticket_info_list = []
+        if m.get('refund_ticket_info_list') is not None:
+            for k in m.get('refund_ticket_info_list'):
+                temp_model = TrainOrderQueryV2ResponseBodyModuleRefundTicketInfoList()
+                self.refund_ticket_info_list.append(temp_model.from_map(k))
+        if m.get('train_order_info') is not None:
+            temp_model = TrainOrderQueryV2ResponseBodyModuleTrainOrderInfo()
+            self.train_order_info = temp_model.from_map(m['train_order_info'])
+        return self
+
+
+class TrainOrderQueryV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: TrainOrderQueryV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = TrainOrderQueryV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class TrainOrderQueryV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TrainOrderQueryV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TrainOrderQueryV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TrainOrderQueryV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class TrainStationSearchHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -30685,6 +32353,334 @@ class TrainStationSearchResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TrainStationSearchResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TrainTicketScanQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class TrainTicketScanQueryRequest(TeaModel):
+    def __init__(self, bill_date=None, bill_id=None, invoice_sub_task_id=None, page_no=None, page_size=None):
+        self.bill_date = bill_date  # type: str
+        self.bill_id = bill_id  # type: long
+        self.invoice_sub_task_id = invoice_sub_task_id  # type: long
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.bill_id is not None:
+            result['bill_id'] = self.bill_id
+        if self.invoice_sub_task_id is not None:
+            result['invoice_sub_task_id'] = self.invoice_sub_task_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('bill_id') is not None:
+            self.bill_id = m.get('bill_id')
+        if m.get('invoice_sub_task_id') is not None:
+            self.invoice_sub_task_id = m.get('invoice_sub_task_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
+    def __init__(self, arr_station=None, bill_date=None, coach_name=None, cost_center=None, dep_station=None,
+                 dep_time=None, department=None, invoice_title=None, order_id=None, oss_url=None, passenger=None, price=None,
+                 project=None, seat=None, seat_no=None, serial_number=None, tax_amount=None, tax_rate=None):
+        self.arr_station = arr_station  # type: str
+        self.bill_date = bill_date  # type: str
+        self.coach_name = coach_name  # type: str
+        self.cost_center = cost_center  # type: str
+        self.dep_station = dep_station  # type: str
+        self.dep_time = dep_time  # type: str
+        self.department = department  # type: str
+        self.invoice_title = invoice_title  # type: str
+        self.order_id = order_id  # type: long
+        self.oss_url = oss_url  # type: str
+        self.passenger = passenger  # type: str
+        self.price = price  # type: str
+        self.project = project  # type: str
+        self.seat = seat  # type: str
+        self.seat_no = seat_no  # type: str
+        self.serial_number = serial_number  # type: str
+        self.tax_amount = tax_amount  # type: str
+        self.tax_rate = tax_rate  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryResponseBodyModuleItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arr_station is not None:
+            result['arr_station'] = self.arr_station
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.coach_name is not None:
+            result['coach_name'] = self.coach_name
+        if self.cost_center is not None:
+            result['cost_center'] = self.cost_center
+        if self.dep_station is not None:
+            result['dep_station'] = self.dep_station
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.department is not None:
+            result['department'] = self.department
+        if self.invoice_title is not None:
+            result['invoice_title'] = self.invoice_title
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.oss_url is not None:
+            result['oss_url'] = self.oss_url
+        if self.passenger is not None:
+            result['passenger'] = self.passenger
+        if self.price is not None:
+            result['price'] = self.price
+        if self.project is not None:
+            result['project'] = self.project
+        if self.seat is not None:
+            result['seat'] = self.seat
+        if self.seat_no is not None:
+            result['seat_no'] = self.seat_no
+        if self.serial_number is not None:
+            result['serial_number'] = self.serial_number
+        if self.tax_amount is not None:
+            result['tax_amount'] = self.tax_amount
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('arr_station') is not None:
+            self.arr_station = m.get('arr_station')
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('coach_name') is not None:
+            self.coach_name = m.get('coach_name')
+        if m.get('cost_center') is not None:
+            self.cost_center = m.get('cost_center')
+        if m.get('dep_station') is not None:
+            self.dep_station = m.get('dep_station')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('department') is not None:
+            self.department = m.get('department')
+        if m.get('invoice_title') is not None:
+            self.invoice_title = m.get('invoice_title')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('oss_url') is not None:
+            self.oss_url = m.get('oss_url')
+        if m.get('passenger') is not None:
+            self.passenger = m.get('passenger')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('seat') is not None:
+            self.seat = m.get('seat')
+        if m.get('seat_no') is not None:
+            self.seat_no = m.get('seat_no')
+        if m.get('serial_number') is not None:
+            self.serial_number = m.get('serial_number')
+        if m.get('tax_amount') is not None:
+            self.tax_amount = m.get('tax_amount')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
+        return self
+
+
+class TrainTicketScanQueryResponseBodyModule(TeaModel):
+    def __init__(self, items=None, page_no=None, page_size=None, total_page=None, total_size=None):
+        self.items = items  # type: list[TrainTicketScanQueryResponseBodyModuleItems]
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.total_page = total_page  # type: int
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = TrainTicketScanQueryResponseBodyModuleItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        return self
+
+
+class TrainTicketScanQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: TrainTicketScanQueryResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = TrainTicketScanQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class TrainTicketScanQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TrainTicketScanQueryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TrainTicketScanQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TrainTicketScanQueryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -30931,6 +32927,599 @@ class UserQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UserQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class VatInvoiceScanQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class VatInvoiceScanQueryRequest(TeaModel):
+    def __init__(self, bill_date=None, bill_id=None, invoice_sub_task_id=None, page_no=None, page_size=None):
+        self.bill_date = bill_date  # type: str
+        self.bill_id = bill_id  # type: long
+        self.invoice_sub_task_id = invoice_sub_task_id  # type: long
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.bill_id is not None:
+            result['bill_id'] = self.bill_id
+        if self.invoice_sub_task_id is not None:
+            result['invoice_sub_task_id'] = self.invoice_sub_task_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('bill_id') is not None:
+            self.bill_id = m.get('bill_id')
+        if m.get('invoice_sub_task_id') is not None:
+            self.invoice_sub_task_id = m.get('invoice_sub_task_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
+    def __init__(self, amount_with_tax=None, amount_without_tax=None, bill_date=None, invoice_code=None,
+                 invoice_day=None, invoice_detail=None, invoice_no=None, invoice_sub_task_id=None, invoice_type=None,
+                 invoice_type_desc=None, oss_url=None, purchaser_name=None, purchaser_tax_no=None, seller_name=None,
+                 seller_tax_no=None, tax_amount=None, tax_rate=None):
+        self.amount_with_tax = amount_with_tax  # type: str
+        self.amount_without_tax = amount_without_tax  # type: str
+        self.bill_date = bill_date  # type: str
+        self.invoice_code = invoice_code  # type: str
+        self.invoice_day = invoice_day  # type: str
+        self.invoice_detail = invoice_detail  # type: str
+        self.invoice_no = invoice_no  # type: str
+        self.invoice_sub_task_id = invoice_sub_task_id  # type: long
+        self.invoice_type = invoice_type  # type: int
+        self.invoice_type_desc = invoice_type_desc  # type: str
+        self.oss_url = oss_url  # type: str
+        self.purchaser_name = purchaser_name  # type: str
+        self.purchaser_tax_no = purchaser_tax_no  # type: str
+        self.seller_name = seller_name  # type: str
+        self.seller_tax_no = seller_tax_no  # type: str
+        self.tax_amount = tax_amount  # type: str
+        self.tax_rate = tax_rate  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryResponseBodyModuleItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount_with_tax is not None:
+            result['amount_with_tax'] = self.amount_with_tax
+        if self.amount_without_tax is not None:
+            result['amount_without_tax'] = self.amount_without_tax
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        if self.invoice_code is not None:
+            result['invoice_code'] = self.invoice_code
+        if self.invoice_day is not None:
+            result['invoice_day'] = self.invoice_day
+        if self.invoice_detail is not None:
+            result['invoice_detail'] = self.invoice_detail
+        if self.invoice_no is not None:
+            result['invoice_no'] = self.invoice_no
+        if self.invoice_sub_task_id is not None:
+            result['invoice_sub_task_id'] = self.invoice_sub_task_id
+        if self.invoice_type is not None:
+            result['invoice_type'] = self.invoice_type
+        if self.invoice_type_desc is not None:
+            result['invoice_type_desc'] = self.invoice_type_desc
+        if self.oss_url is not None:
+            result['oss_url'] = self.oss_url
+        if self.purchaser_name is not None:
+            result['purchaser_name'] = self.purchaser_name
+        if self.purchaser_tax_no is not None:
+            result['purchaser_tax_no'] = self.purchaser_tax_no
+        if self.seller_name is not None:
+            result['seller_name'] = self.seller_name
+        if self.seller_tax_no is not None:
+            result['seller_tax_no'] = self.seller_tax_no
+        if self.tax_amount is not None:
+            result['tax_amount'] = self.tax_amount
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('amount_with_tax') is not None:
+            self.amount_with_tax = m.get('amount_with_tax')
+        if m.get('amount_without_tax') is not None:
+            self.amount_without_tax = m.get('amount_without_tax')
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        if m.get('invoice_code') is not None:
+            self.invoice_code = m.get('invoice_code')
+        if m.get('invoice_day') is not None:
+            self.invoice_day = m.get('invoice_day')
+        if m.get('invoice_detail') is not None:
+            self.invoice_detail = m.get('invoice_detail')
+        if m.get('invoice_no') is not None:
+            self.invoice_no = m.get('invoice_no')
+        if m.get('invoice_sub_task_id') is not None:
+            self.invoice_sub_task_id = m.get('invoice_sub_task_id')
+        if m.get('invoice_type') is not None:
+            self.invoice_type = m.get('invoice_type')
+        if m.get('invoice_type_desc') is not None:
+            self.invoice_type_desc = m.get('invoice_type_desc')
+        if m.get('oss_url') is not None:
+            self.oss_url = m.get('oss_url')
+        if m.get('purchaser_name') is not None:
+            self.purchaser_name = m.get('purchaser_name')
+        if m.get('purchaser_tax_no') is not None:
+            self.purchaser_tax_no = m.get('purchaser_tax_no')
+        if m.get('seller_name') is not None:
+            self.seller_name = m.get('seller_name')
+        if m.get('seller_tax_no') is not None:
+            self.seller_tax_no = m.get('seller_tax_no')
+        if m.get('tax_amount') is not None:
+            self.tax_amount = m.get('tax_amount')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
+        return self
+
+
+class VatInvoiceScanQueryResponseBodyModule(TeaModel):
+    def __init__(self, items=None, page_no=None, page_size=None, total_page=None, total_size=None):
+        self.items = items  # type: list[VatInvoiceScanQueryResponseBodyModuleItems]
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.total_page = total_page  # type: int
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = VatInvoiceScanQueryResponseBodyModuleItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        return self
+
+
+class VatInvoiceScanQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: VatInvoiceScanQueryResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = VatInvoiceScanQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class VatInvoiceScanQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: VatInvoiceScanQueryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(VatInvoiceScanQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = VatInvoiceScanQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class WaitApplyInvoiceTaskDetailQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_so_corp_token = x_acs_btrip_so_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(WaitApplyInvoiceTaskDetailQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_so_corp_token is not None:
+            result['x-acs-btrip-so-corp-token'] = self.x_acs_btrip_so_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-so-corp-token') is not None:
+            self.x_acs_btrip_so_corp_token = m.get('x-acs-btrip-so-corp-token')
+        return self
+
+
+class WaitApplyInvoiceTaskDetailQueryRequest(TeaModel):
+    def __init__(self, bill_date=None):
+        self.bill_date = bill_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(WaitApplyInvoiceTaskDetailQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_date is not None:
+            result['bill_date'] = self.bill_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_date') is not None:
+            self.bill_date = m.get('bill_date')
+        return self
+
+
+class WaitApplyInvoiceTaskDetailQueryResponseBodyModule(TeaModel):
+    def __init__(self, contact=None, email=None, flight_invoice_fee=None, fu_point_invoice_fee=None,
+                 hotel_normal_invoice_fee=None, hotel_special_invoice_fee=None, international_flight_invoice_fee=None,
+                 invoice_third_part_id=None, invoice_title=None, mail_address=None, mail_city=None, mail_full_address=None,
+                 mail_province=None, penalty_fee=None, remark=None, service_fee=None, telephone=None, train_invoice_fee=None,
+                 vehicle_invoice_fee=None):
+        self.contact = contact  # type: str
+        self.email = email  # type: str
+        self.flight_invoice_fee = flight_invoice_fee  # type: str
+        self.fu_point_invoice_fee = fu_point_invoice_fee  # type: str
+        self.hotel_normal_invoice_fee = hotel_normal_invoice_fee  # type: str
+        self.hotel_special_invoice_fee = hotel_special_invoice_fee  # type: str
+        self.international_flight_invoice_fee = international_flight_invoice_fee  # type: str
+        self.invoice_third_part_id = invoice_third_part_id  # type: str
+        self.invoice_title = invoice_title  # type: str
+        self.mail_address = mail_address  # type: str
+        self.mail_city = mail_city  # type: str
+        self.mail_full_address = mail_full_address  # type: str
+        self.mail_province = mail_province  # type: str
+        self.penalty_fee = penalty_fee  # type: str
+        self.remark = remark  # type: str
+        self.service_fee = service_fee  # type: str
+        self.telephone = telephone  # type: str
+        self.train_invoice_fee = train_invoice_fee  # type: str
+        self.vehicle_invoice_fee = vehicle_invoice_fee  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(WaitApplyInvoiceTaskDetailQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact is not None:
+            result['contact'] = self.contact
+        if self.email is not None:
+            result['email'] = self.email
+        if self.flight_invoice_fee is not None:
+            result['flight_invoice_fee'] = self.flight_invoice_fee
+        if self.fu_point_invoice_fee is not None:
+            result['fu_point_invoice_fee'] = self.fu_point_invoice_fee
+        if self.hotel_normal_invoice_fee is not None:
+            result['hotel_normal_invoice_fee'] = self.hotel_normal_invoice_fee
+        if self.hotel_special_invoice_fee is not None:
+            result['hotel_special_invoice_fee'] = self.hotel_special_invoice_fee
+        if self.international_flight_invoice_fee is not None:
+            result['international_flight_invoice_fee'] = self.international_flight_invoice_fee
+        if self.invoice_third_part_id is not None:
+            result['invoice_third_part_id'] = self.invoice_third_part_id
+        if self.invoice_title is not None:
+            result['invoice_title'] = self.invoice_title
+        if self.mail_address is not None:
+            result['mail_address'] = self.mail_address
+        if self.mail_city is not None:
+            result['mail_city'] = self.mail_city
+        if self.mail_full_address is not None:
+            result['mail_full_address'] = self.mail_full_address
+        if self.mail_province is not None:
+            result['mail_province'] = self.mail_province
+        if self.penalty_fee is not None:
+            result['penalty_fee'] = self.penalty_fee
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.service_fee is not None:
+            result['service_fee'] = self.service_fee
+        if self.telephone is not None:
+            result['telephone'] = self.telephone
+        if self.train_invoice_fee is not None:
+            result['train_invoice_fee'] = self.train_invoice_fee
+        if self.vehicle_invoice_fee is not None:
+            result['vehicle_invoice_fee'] = self.vehicle_invoice_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact') is not None:
+            self.contact = m.get('contact')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('flight_invoice_fee') is not None:
+            self.flight_invoice_fee = m.get('flight_invoice_fee')
+        if m.get('fu_point_invoice_fee') is not None:
+            self.fu_point_invoice_fee = m.get('fu_point_invoice_fee')
+        if m.get('hotel_normal_invoice_fee') is not None:
+            self.hotel_normal_invoice_fee = m.get('hotel_normal_invoice_fee')
+        if m.get('hotel_special_invoice_fee') is not None:
+            self.hotel_special_invoice_fee = m.get('hotel_special_invoice_fee')
+        if m.get('international_flight_invoice_fee') is not None:
+            self.international_flight_invoice_fee = m.get('international_flight_invoice_fee')
+        if m.get('invoice_third_part_id') is not None:
+            self.invoice_third_part_id = m.get('invoice_third_part_id')
+        if m.get('invoice_title') is not None:
+            self.invoice_title = m.get('invoice_title')
+        if m.get('mail_address') is not None:
+            self.mail_address = m.get('mail_address')
+        if m.get('mail_city') is not None:
+            self.mail_city = m.get('mail_city')
+        if m.get('mail_full_address') is not None:
+            self.mail_full_address = m.get('mail_full_address')
+        if m.get('mail_province') is not None:
+            self.mail_province = m.get('mail_province')
+        if m.get('penalty_fee') is not None:
+            self.penalty_fee = m.get('penalty_fee')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('service_fee') is not None:
+            self.service_fee = m.get('service_fee')
+        if m.get('telephone') is not None:
+            self.telephone = m.get('telephone')
+        if m.get('train_invoice_fee') is not None:
+            self.train_invoice_fee = m.get('train_invoice_fee')
+        if m.get('vehicle_invoice_fee') is not None:
+            self.vehicle_invoice_fee = m.get('vehicle_invoice_fee')
+        return self
+
+
+class WaitApplyInvoiceTaskDetailQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: list[WaitApplyInvoiceTaskDetailQueryResponseBodyModule]
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            for k in self.module:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(WaitApplyInvoiceTaskDetailQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        result['module'] = []
+        if self.module is not None:
+            for k in self.module:
+                result['module'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        self.module = []
+        if m.get('module') is not None:
+            for k in m.get('module'):
+                temp_model = WaitApplyInvoiceTaskDetailQueryResponseBodyModule()
+                self.module.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class WaitApplyInvoiceTaskDetailQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: WaitApplyInvoiceTaskDetailQueryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(WaitApplyInvoiceTaskDetailQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = WaitApplyInvoiceTaskDetailQueryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
