@@ -522,10 +522,10 @@ class Client(OpenApiClient):
     def change_check_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.cycle_days):
-            query['CycleDays'] = request.cycle_days
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.standard_ids):
             query['StandardIds'] = request.standard_ids
         if not UtilClient.is_unset(request.start_time):
@@ -1282,16 +1282,6 @@ class Client(OpenApiClient):
         return self.create_jenkins_image_registry_with_options(request, runtime)
 
     def create_or_update_asset_group_with_options(self, request, runtime):
-        """
-        A server can belong only to one server group. If you call the CreateOrUpdateAssetGroup operation and the server specified in request parameters belongs to Server Group A, the server is removed from Server Group A and then added to the newly created or specified server group after the call is complete.
-        
-
-        @param request: CreateOrUpdateAssetGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateOrUpdateAssetGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -1320,14 +1310,6 @@ class Client(OpenApiClient):
         )
 
     def create_or_update_asset_group(self, request):
-        """
-        A server can belong only to one server group. If you call the CreateOrUpdateAssetGroup operation and the server specified in request parameters belongs to Server Group A, the server is removed from Server Group A and then added to the newly created or specified server group after the call is complete.
-        
-
-        @param request: CreateOrUpdateAssetGroupRequest
-
-        @return: CreateOrUpdateAssetGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.create_or_update_asset_group_with_options(request, runtime)
 
@@ -1790,16 +1772,6 @@ class Client(OpenApiClient):
         return self.delete_cycle_task_with_options(request, runtime)
 
     def delete_group_with_options(self, request, runtime):
-        """
-        The *Default** server group that is provided by Security Center cannot be deleted. After you delete a group, the assets in this group are moved to the **Default** group.
-        
-
-        @param request: DeleteGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -1826,14 +1798,6 @@ class Client(OpenApiClient):
         )
 
     def delete_group(self, request):
-        """
-        The *Default** server group that is provided by Security Center cannot be deleted. After you delete a group, the assets in this group are moved to the **Default** group.
-        
-
-        @param request: DeleteGroupRequest
-
-        @return: DeleteGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_group_with_options(request, runtime)
 
@@ -2186,16 +2150,6 @@ class Client(OpenApiClient):
         return self.delete_susp_event_node_with_options(request, runtime)
 
     def delete_tag_with_uuid_with_options(self, request, runtime):
-        """
-        Security Center provides asset importance tags and custom tags. You can call this operation to remove only the custom tag that is added to an asset.
-        
-
-        @param request: DeleteTagWithUuidRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteTagWithUuidResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.tag_name):
@@ -2222,14 +2176,6 @@ class Client(OpenApiClient):
         )
 
     def delete_tag_with_uuid(self, request):
-        """
-        Security Center provides asset importance tags and custom tags. You can call this operation to remove only the custom tag that is added to an asset.
-        
-
-        @param request: DeleteTagWithUuidRequest
-
-        @return: DeleteTagWithUuidResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_tag_with_uuid_with_options(request, runtime)
 
@@ -2550,20 +2496,6 @@ class Client(OpenApiClient):
         return self.describe_alarm_event_detail_with_options(request, runtime)
 
     def describe_alarm_event_list_with_options(self, request, runtime):
-        """
-        The alert aggregation feature of Security Center analyzes the paths of alerts to aggregate multiple alerts generated on the intrusions that are launched from the same IP address or service, or on the same user.
-        You can call the DescribeAlarmEventList or DescribeSuspEvents operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition and you turned on **Alert Association** on the **Feature Settings** page of the Security Center console, you can call the DescribeAlarmEventList operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition but you turned off **Alert Association** on the **Feature Settings** page of the Security Center console, you can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query alert events.
-        *   If your Security Center does not run the Enterprise or Ultimate edition, you can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query alert events.
-        
-
-        @param request: DescribeAlarmEventListRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeAlarmEventListResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alarm_event_name):
@@ -2630,18 +2562,6 @@ class Client(OpenApiClient):
         )
 
     def describe_alarm_event_list(self, request):
-        """
-        The alert aggregation feature of Security Center analyzes the paths of alerts to aggregate multiple alerts generated on the intrusions that are launched from the same IP address or service, or on the same user.
-        You can call the DescribeAlarmEventList or DescribeSuspEvents operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition and you turned on **Alert Association** on the **Feature Settings** page of the Security Center console, you can call the DescribeAlarmEventList operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition but you turned off **Alert Association** on the **Feature Settings** page of the Security Center console, you can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query alert events.
-        *   If your Security Center does not run the Enterprise or Ultimate edition, you can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query alert events.
-        
-
-        @param request: DescribeAlarmEventListRequest
-
-        @return: DescribeAlarmEventListResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_alarm_event_list_with_options(request, runtime)
 
@@ -2762,8 +2682,12 @@ class Client(OpenApiClient):
     def describe_anti_brute_force_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.source_ip):
@@ -3032,16 +2956,6 @@ class Client(OpenApiClient):
         return self.describe_back_up_export_info_with_options(request, runtime)
 
     def describe_backup_clients_with_options(self, request, runtime):
-        """
-        You can call the DescribeBackupClients operation to query the servers on which the anti-ransomware agent is installed in a specified region.
-        
-
-        @param request: DescribeBackupClientsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeBackupClientsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.support_region_id):
@@ -3066,14 +2980,6 @@ class Client(OpenApiClient):
         )
 
     def describe_backup_clients(self, request):
-        """
-        You can call the DescribeBackupClients operation to query the servers on which the anti-ransomware agent is installed in a specified region.
-        
-
-        @param request: DescribeBackupClientsRequest
-
-        @return: DescribeBackupClientsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_clients_with_options(request, runtime)
 
@@ -3210,16 +3116,6 @@ class Client(OpenApiClient):
         return self.describe_backup_policy_with_options(request, runtime)
 
     def describe_backup_restore_count_with_options(self, runtime):
-        """
-        If you have created restoration tasks, you can call this operation to query the number of restoration tasks that are in the *restored** or **being restored** state.
-        
-
-        @param request: DescribeBackupRestoreCountRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeBackupRestoreCountResponse
-        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeBackupRestoreCount',
@@ -3238,12 +3134,6 @@ class Client(OpenApiClient):
         )
 
     def describe_backup_restore_count(self):
-        """
-        If you have created restoration tasks, you can call this operation to query the number of restoration tasks that are in the *restored** or **being restored** state.
-        
-
-        @return: DescribeBackupRestoreCountResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_restore_count_with_options(runtime)
 
@@ -3600,16 +3490,6 @@ class Client(OpenApiClient):
         return self.describe_client_conf_strategy_with_options(request, runtime)
 
     def describe_cloud_center_instances_with_options(self, request, runtime):
-        """
-        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
-        
-
-        @param request: DescribeCloudCenterInstancesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeCloudCenterInstancesResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.criteria):
@@ -3650,14 +3530,6 @@ class Client(OpenApiClient):
         )
 
     def describe_cloud_center_instances(self, request):
-        """
-        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
-        
-
-        @param request: DescribeCloudCenterInstancesRequest
-
-        @return: DescribeCloudCenterInstancesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cloud_center_instances_with_options(request, runtime)
 
@@ -4018,16 +3890,6 @@ class Client(OpenApiClient):
         return self.describe_container_instances_with_options(request, runtime)
 
     def describe_container_statistics_with_options(self, request, runtime):
-        """
-        Only users who created a Container Registry Enterprise Edition instance can call this operation.
-        
-
-        @param request: DescribeContainerStatisticsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeContainerStatisticsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -4052,14 +3914,6 @@ class Client(OpenApiClient):
         )
 
     def describe_container_statistics(self, request):
-        """
-        Only users who created a Container Registry Enterprise Edition instance can call this operation.
-        
-
-        @param request: DescribeContainerStatisticsRequest
-
-        @return: DescribeContainerStatisticsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_container_statistics_with_options(request, runtime)
 
@@ -4817,6 +4671,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_front_vul_patch_list_with_options(request, runtime)
 
+    def describe_group_struct_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeGroupStruct',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeGroupStructResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_group_struct(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_group_struct_with_options(request, runtime)
+
     def describe_grouped_container_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4990,8 +4872,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alias_name):
             query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.asset_type):
+            query['AssetType'] = request.asset_type
         if not UtilClient.is_unset(request.attach_types):
             query['AttachTypes'] = request.attach_types
+        if not UtilClient.is_unset(request.container_field_name):
+            query['ContainerFieldName'] = request.container_field_name
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.dealed):
@@ -5006,6 +4892,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.search_tags):
             query['SearchTags'] = request.search_tags
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.uuids):
@@ -5914,17 +5802,6 @@ class Client(OpenApiClient):
         return self.describe_image_sensitive_file_list_with_options(request, runtime)
 
     def describe_image_statistics_with_options(self, runtime):
-        """
-        Security Center can scan for security risks and collect statistics only for *Container Registry Enterprise Edition instances**.
-        >  Security Center cannot scan for security risks or collect statistics for **default** Container Registry instances.
-        
-
-        @param request: DescribeImageStatisticsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeImageStatisticsResponse
-        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeImageStatistics',
@@ -5943,13 +5820,6 @@ class Client(OpenApiClient):
         )
 
     def describe_image_statistics(self):
-        """
-        Security Center can scan for security risks and collect statistics only for *Container Registry Enterprise Edition instances**.
-        >  Security Center cannot scan for security risks or collect statistics for **default** Container Registry instances.
-        
-
-        @return: DescribeImageStatisticsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_statistics_with_options(runtime)
 
@@ -6090,18 +5960,6 @@ class Client(OpenApiClient):
         return self.describe_install_code_with_options(runtime)
 
     def describe_install_codes_with_options(self, runtime):
-        """
-        You can call the DescribeInstallCodes operation to query the commands that are used to manually install the Security Center agent. The returned results contain the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
-        # Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: DescribeInstallCodesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeInstallCodesResponse
-        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeInstallCodes',
@@ -6120,14 +5978,6 @@ class Client(OpenApiClient):
         )
 
     def describe_install_codes(self):
-        """
-        You can call the DescribeInstallCodes operation to query the commands that are used to manually install the Security Center agent. The returned results contain the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
-        # Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @return: DescribeInstallCodesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_install_codes_with_options(runtime)
 
@@ -7318,17 +7168,6 @@ class Client(OpenApiClient):
         return self.describe_quara_file_download_info_with_options(request, runtime)
 
     def describe_restore_jobs_with_options(self, request, runtime):
-        """
-        If the data on your servers is encrypted by ransomware, you can create a restoration task to restore the data on your servers by using backup data in Security Center.
-        >  After you enable an anti-ransomware policy, the data on your servers is backed up based on the policy. For more information about anti-ransomware policies, see [Manage protection policies](~~164781~~).
-        
-
-        @param request: DescribeRestoreJobsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeRestoreJobsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -7359,15 +7198,6 @@ class Client(OpenApiClient):
         )
 
     def describe_restore_jobs(self, request):
-        """
-        If the data on your servers is encrypted by ransomware, you can create a restoration task to restore the data on your servers by using backup data in Security Center.
-        >  After you enable an anti-ransomware policy, the data on your servers is backed up based on the policy. For more information about anti-ransomware policies, see [Manage protection policies](~~164781~~).
-        
-
-        @param request: DescribeRestoreJobsRequest
-
-        @return: DescribeRestoreJobsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_restore_jobs_with_options(request, runtime)
 
@@ -8524,20 +8354,6 @@ class Client(OpenApiClient):
         return self.describe_susp_event_user_setting_with_options(request, runtime)
 
     def describe_susp_events_with_options(self, request, runtime):
-        """
-        The alert aggregation feature of Security Center analyzes the paths of alerts to aggregate multiple alerts generated on the intrusions that are launched from the same IP address or service, or on the same user.
-        You can call the  [DescribeAlarmEventList](~~DescribeAlarmEventList~~) or [DescribeSuspEvents ](~~DescribeSuspEvents~~)  operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition and you enabled the alert aggregation feature in the Security Center console, you can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition but you did not enable the alert aggregation feature in the Security Center console, you can call the [DescribeSuspEvents ](~~DescribeSuspEvents~~) operation to query alert events.
-        *   If your Security Center does not run the Enterprise or Ultimate edition, you can call the [DescribeSuspEvents ](~~DescribeSuspEvents~~) operation to query alert events.
-        
-
-        @param request: DescribeSuspEventsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeSuspEventsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alarm_unique_info):
@@ -8624,18 +8440,6 @@ class Client(OpenApiClient):
         )
 
     def describe_susp_events(self, request):
-        """
-        The alert aggregation feature of Security Center analyzes the paths of alerts to aggregate multiple alerts generated on the intrusions that are launched from the same IP address or service, or on the same user.
-        You can call the  [DescribeAlarmEventList](~~DescribeAlarmEventList~~) or [DescribeSuspEvents ](~~DescribeSuspEvents~~)  operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition and you enabled the alert aggregation feature in the Security Center console, you can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query alert events.
-        *   If your Security Center runs the Enterprise or Ultimate edition but you did not enable the alert aggregation feature in the Security Center console, you can call the [DescribeSuspEvents ](~~DescribeSuspEvents~~) operation to query alert events.
-        *   If your Security Center does not run the Enterprise or Ultimate edition, you can call the [DescribeSuspEvents ](~~DescribeSuspEvents~~) operation to query alert events.
-        
-
-        @param request: DescribeSuspEventsRequest
-
-        @return: DescribeSuspEventsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_susp_events_with_options(request, runtime)
 
@@ -8728,20 +8532,6 @@ class Client(OpenApiClient):
         return self.describe_target_with_options(request, runtime)
 
     def describe_task_error_log_with_options(self, request, runtime):
-        """
-        # Usage notes
-        You can call the DescribeTaskErrorLog operation to query the error logs that record tasks failed to fix image vulnerabilities. If a task fails to fix an image vulnerability, Security Center generates an error log. You can identify the cause of the failure based on the error log.
-        
-        # Limits
-        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: DescribeTaskErrorLogRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeTaskErrorLogResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.build_task_id):
@@ -8766,18 +8556,6 @@ class Client(OpenApiClient):
         )
 
     def describe_task_error_log(self, request):
-        """
-        # Usage notes
-        You can call the DescribeTaskErrorLog operation to query the error logs that record tasks failed to fix image vulnerabilities. If a task fails to fix an image vulnerability, Security Center generates an error log. You can identify the cause of the failure based on the error log.
-        
-        # Limits
-        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: DescribeTaskErrorLogRequest
-
-        @return: DescribeTaskErrorLogResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_task_error_log_with_options(request, runtime)
 
@@ -10282,20 +10060,6 @@ class Client(OpenApiClient):
         return self.exec_strategy_with_options(request, runtime)
 
     def export_record_with_options(self, request, runtime):
-        """
-        You can call the operation to export the following check result lists:
-        *   The list of servers on the Host page.
-        *   The lists of image system vulnerabilities, image application vulnerabilities, image baseline check results, and malicious image samples on the Image Security page.
-        *   The list of attack analysis data on the Attack Awareness page.
-        *   The list of check results for AccessKey pair leaks on the AccessKey Leak page.
-        
-
-        @param request: ExportRecordRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ExportRecordResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.export_type):
@@ -10324,18 +10088,6 @@ class Client(OpenApiClient):
         )
 
     def export_record(self, request):
-        """
-        You can call the operation to export the following check result lists:
-        *   The list of servers on the Host page.
-        *   The lists of image system vulnerabilities, image application vulnerabilities, image baseline check results, and malicious image samples on the Image Security page.
-        *   The list of attack analysis data on the Attack Awareness page.
-        *   The list of check results for AccessKey pair leaks on the AccessKey Leak page.
-        
-
-        @param request: ExportRecordRequest
-
-        @return: ExportRecordResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.export_record_with_options(request, runtime)
 
@@ -10402,19 +10154,6 @@ class Client(OpenApiClient):
         return self.export_susp_events_with_options(request, runtime)
 
     def export_vul_with_options(self, request, runtime):
-        """
-        You can call the ExportVul operation to export the following types of vulnerabilities: Linux software vulnerabilities, Windows system vulnerabilities, Web-CMS vulnerabilities, application vulnerabilities, and urgent vulnerabilities.
-        You can use this operation together with the DescribeVulExportInfo operation. After you call the ExportVul operation to create a vulnerability export task, you can call the DescribeVulExportInfo operation to query the progress of the task by specifying the ID of the task.
-        ### Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ExportVulRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ExportVulResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alias_name):
@@ -10457,17 +10196,6 @@ class Client(OpenApiClient):
         )
 
     def export_vul(self, request):
-        """
-        You can call the ExportVul operation to export the following types of vulnerabilities: Linux software vulnerabilities, Windows system vulnerabilities, Web-CMS vulnerabilities, application vulnerabilities, and urgent vulnerabilities.
-        You can use this operation together with the DescribeVulExportInfo operation. After you call the ExportVul operation to create a vulnerability export task, you can call the DescribeVulExportInfo operation to query the progress of the task by specifying the ID of the task.
-        ### Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ExportVulRequest
-
-        @return: ExportVulResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.export_vul_with_options(request, runtime)
 
@@ -10801,14 +10529,8 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_backup_storage_count_with_options(runtime)
 
-    def get_check_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
+    def get_check_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='GetCheckConfig',
             version='2018-12-03',
@@ -10825,9 +10547,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_check_config(self, request):
+    def get_check_config(self):
         runtime = util_models.RuntimeOptions()
-        return self.get_check_config_with_options(request, runtime)
+        return self.get_check_config_with_options(runtime)
 
     def get_check_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -10976,6 +10698,36 @@ class Client(OpenApiClient):
     def get_client_user_define_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_client_user_define_rule_with_options(request, runtime)
+
+    def get_cloud_asset_criteria_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cloud_asset_types):
+            query['CloudAssetTypes'] = request.cloud_asset_types
+        if not UtilClient.is_unset(request.value):
+            query['Value'] = request.value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCloudAssetCriteria',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetCloudAssetCriteriaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_cloud_asset_criteria(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_cloud_asset_criteria_with_options(request, runtime)
 
     def get_cloud_asset_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -11142,16 +10894,6 @@ class Client(OpenApiClient):
         return self.get_file_detect_api_invoke_info_with_options(runtime)
 
     def get_file_detect_result_with_options(self, request, runtime):
-        """
-        The HashKey parameter is included in all API operations that are related to the file detection feature. The parameter specifies the unique identifier of a file. Only MD5 hash values are supported. Before you call this operation, calculate the MD5 hash value of the file.
-        
-
-        @param request: GetFileDetectResultRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetFileDetectResultResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.hash_key_list):
@@ -11180,14 +10922,6 @@ class Client(OpenApiClient):
         )
 
     def get_file_detect_result(self, request):
-        """
-        The HashKey parameter is included in all API operations that are related to the file detection feature. The parameter specifies the unique identifier of a file. Only MD5 hash values are supported. Before you call this operation, calculate the MD5 hash value of the file.
-        
-
-        @param request: GetFileDetectResultRequest
-
-        @return: GetFileDetectResultResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.get_file_detect_result_with_options(request, runtime)
 
@@ -11804,16 +11538,6 @@ class Client(OpenApiClient):
         return self.install_backup_client_with_options(request, runtime)
 
     def install_cloud_monitor_with_options(self, request, runtime):
-        """
-        >  Before you call this operation, make sure that the Security Center agent on your servers is online and the servers can access Alibaba Cloud services.
-        
-
-        @param request: InstallCloudMonitorRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: InstallCloudMonitorResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_access_key):
@@ -11846,14 +11570,6 @@ class Client(OpenApiClient):
         )
 
     def install_cloud_monitor(self, request):
-        """
-        >  Before you call this operation, make sure that the Security Center agent on your servers is online and the servers can access Alibaba Cloud services.
-        
-
-        @param request: InstallCloudMonitorRequest
-
-        @return: InstallCloudMonitorResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
 
@@ -12259,6 +11975,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_client_user_define_rules_with_options(request, runtime)
 
+    def list_cloud_asset_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cloud_asset_types):
+            query['CloudAssetTypes'] = request.cloud_asset_types
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.logical_exp):
+            query['LogicalExp'] = request.logical_exp
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCloudAssetInstances',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCloudAssetInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_cloud_asset_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_cloud_asset_instances_with_options(request, runtime)
+
     def list_cluster_cnnf_status_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -12558,6 +12312,34 @@ class Client(OpenApiClient):
     def list_image_risk(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_image_risk_with_options(request, runtime)
+
+    def list_instance_catalog_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceCatalog',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListInstanceCatalogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_catalog(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_instance_catalog_with_options(request, runtime)
 
     def list_interception_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -13182,18 +12964,6 @@ class Client(OpenApiClient):
         return self.modify_app_vul_scan_cycle_with_options(request, runtime)
 
     def modify_asset_group_with_options(self, request, runtime):
-        """
-        You can call the ModifyAssetGroup operation to change the server group to which one or more servers belong. After you create a server group by calling the [CreateOrUpdateAssetGroup](~~CreateOrUpdateAssetGroup~~) operation, you can call the ModifyAssetGroup operation to change the server group to which your servers belong.
-        ### Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ModifyAssetGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyAssetGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -13222,16 +12992,6 @@ class Client(OpenApiClient):
         )
 
     def modify_asset_group(self, request):
-        """
-        You can call the ModifyAssetGroup operation to change the server group to which one or more servers belong. After you create a server group by calling the [CreateOrUpdateAssetGroup](~~CreateOrUpdateAssetGroup~~) operation, you can call the ModifyAssetGroup operation to change the server group to which your servers belong.
-        ### Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ModifyAssetGroupRequest
-
-        @return: ModifyAssetGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_asset_group_with_options(request, runtime)
 
@@ -13266,20 +13026,6 @@ class Client(OpenApiClient):
         return self.modify_asset_important_with_options(request, runtime)
 
     def modify_auto_del_config_with_options(self, request, runtime):
-        """
-        # *Usage notes**\
-        You can call the ModifyAutoDelConfig operation to specify the number of days after which a detected vulnerability is automatically deleted. If you do not handle a detected vulnerability and the vulnerability is no longer detected in multiple subsequent detection, the vulnerability is automatically deleted from the Vulnerabilities page after the specified number of days. If vulnerabilities of the same type are detected, Security Center still generates alerts.
-        
-        # **Limits**\
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ModifyAutoDelConfigRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyAutoDelConfigResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.days):
@@ -13304,18 +13050,6 @@ class Client(OpenApiClient):
         )
 
     def modify_auto_del_config(self, request):
-        """
-        # *Usage notes**\
-        You can call the ModifyAutoDelConfig operation to specify the number of days after which a detected vulnerability is automatically deleted. If you do not handle a detected vulnerability and the vulnerability is no longer detected in multiple subsequent detection, the vulnerability is automatically deleted from the Vulnerabilities page after the specified number of days. If vulnerabilities of the same type are detected, Security Center still generates alerts.
-        
-        # **Limits**\
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: ModifyAutoDelConfigRequest
-
-        @return: ModifyAutoDelConfigResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_auto_del_config_with_options(request, runtime)
 
@@ -13394,16 +13128,6 @@ class Client(OpenApiClient):
         return self.modify_backup_policy_status_with_options(request, runtime)
 
     def modify_clear_logstore_storage_with_options(self, request, runtime):
-        """
-        Deleted logs cannot be restored. Before you call this operation to delete all logs and free up log storage, we recommend that you export and save your logs to your computer.
-        
-
-        @param request: ModifyClearLogstoreStorageRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyClearLogstoreStorageResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.from_):
@@ -13434,14 +13158,6 @@ class Client(OpenApiClient):
         )
 
     def modify_clear_logstore_storage(self, request):
-        """
-        Deleted logs cannot be restored. Before you call this operation to delete all logs and free up log storage, we recommend that you export and save your logs to your computer.
-        
-
-        @param request: ModifyClearLogstoreStorageRequest
-
-        @return: ModifyClearLogstoreStorageResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_clear_logstore_storage_with_options(request, runtime)
 
@@ -14090,16 +13806,6 @@ class Client(OpenApiClient):
         return self.modify_notice_config_with_options(request, runtime)
 
     def modify_open_log_shipper_with_options(self, request, runtime):
-        """
-        *Prerequisites** A service-linked role is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create service-linked roles and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the ModifyOpenLogShipper operation to activate Log Service.
-        
-
-        @param request: ModifyOpenLogShipperRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyOpenLogShipperResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.from_):
@@ -14124,14 +13830,6 @@ class Client(OpenApiClient):
         )
 
     def modify_open_log_shipper(self, request):
-        """
-        *Prerequisites** A service-linked role is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create service-linked roles and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the ModifyOpenLogShipper operation to activate Log Service.
-        
-
-        @param request: ModifyOpenLogShipperRequest
-
-        @return: ModifyOpenLogShipperResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_open_log_shipper_with_options(request, runtime)
 
@@ -14848,16 +14546,6 @@ class Client(OpenApiClient):
         return self.modify_web_lock_create_config_with_options(request, runtime)
 
     def modify_web_lock_delete_config_with_options(self, request, runtime):
-        """
-        After you delete a directory that has web tamper proofing enabled on a server, files in the directory are no longer protected by web tamper proofing. The information about the websites that are hosted on the server may be maliciously modified by attackers. Proceed with caution.
-        
-
-        @param request: ModifyWebLockDeleteConfigRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyWebLockDeleteConfigResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id):
@@ -14888,14 +14576,6 @@ class Client(OpenApiClient):
         )
 
     def modify_web_lock_delete_config(self, request):
-        """
-        After you delete a directory that has web tamper proofing enabled on a server, files in the directory are no longer protected by web tamper proofing. The information about the websites that are hosted on the server may be maliciously modified by attackers. Proceed with caution.
-        
-
-        @param request: ModifyWebLockDeleteConfigRequest
-
-        @return: ModifyWebLockDeleteConfigResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_web_lock_delete_config_with_options(request, runtime)
 
@@ -15630,16 +15310,6 @@ class Client(OpenApiClient):
         return self.pause_client_with_options(request, runtime)
 
     def public_create_image_scan_task_with_options(self, request, runtime):
-        """
-        Before you call the PublicCreateImageScanTask operation, we recommend that you call the [PublicPreCheckImageScanTask](~~PublicPreCheckImageScanTask~~) operation to query the number of images to scan and the quota for container image scan to be consumed by the image scan task. Make sure that the remaining quota for container image scan is sufficient. This prevents the task from being stopped due to an insufficient quota.
-        
-
-        @param request: PublicCreateImageScanTaskRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: PublicCreateImageScanTaskResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.digests):
@@ -15680,29 +15350,10 @@ class Client(OpenApiClient):
         )
 
     def public_create_image_scan_task(self, request):
-        """
-        Before you call the PublicCreateImageScanTask operation, we recommend that you call the [PublicPreCheckImageScanTask](~~PublicPreCheckImageScanTask~~) operation to query the number of images to scan and the quota for container image scan to be consumed by the image scan task. Make sure that the remaining quota for container image scan is sufficient. This prevents the task from being stopped due to an insufficient quota.
-        
-
-        @param request: PublicCreateImageScanTaskRequest
-
-        @return: PublicCreateImageScanTaskResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.public_create_image_scan_task_with_options(request, runtime)
 
     def public_pre_check_image_scan_task_with_options(self, request, runtime):
-        """
-        You can call the PublicPreCheckImageScanTask operation to estimate the quota for container image scan to be consumed by the task. This ensures that you know the quota to be consumed before you perform the task. If the remaining quota for container image scan is less than the quota to be consumed by the task, you must purchase a sufficient quota. This prevents the task from being stopped due to an insufficient quota.
-        If you do not specify the optional parameters when you call this operation, the total number of protected images and the quota for container image scan to be consumed by scanning all the protected images are queried. If you specify the optional parameters, the number of images that meet the specified conditions and the quota for container image scan to be consumed by scanning the images are queried.
-        
-
-        @param request: PublicPreCheckImageScanTaskRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: PublicPreCheckImageScanTaskResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.digests):
@@ -15743,15 +15394,6 @@ class Client(OpenApiClient):
         )
 
     def public_pre_check_image_scan_task(self, request):
-        """
-        You can call the PublicPreCheckImageScanTask operation to estimate the quota for container image scan to be consumed by the task. This ensures that you know the quota to be consumed before you perform the task. If the remaining quota for container image scan is less than the quota to be consumed by the task, you must purchase a sufficient quota. This prevents the task from being stopped due to an insufficient quota.
-        If you do not specify the optional parameters when you call this operation, the total number of protected images and the quota for container image scan to be consumed by scanning all the protected images are queried. If you specify the optional parameters, the number of images that meet the specified conditions and the quota for container image scan to be consumed by scanning the images are queried.
-        
-
-        @param request: PublicPreCheckImageScanTaskRequest
-
-        @return: PublicPreCheckImageScanTaskResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.public_pre_check_image_scan_task_with_options(request, runtime)
 
@@ -15814,18 +15456,6 @@ class Client(OpenApiClient):
         return self.query_discover_database_with_options(request, runtime)
 
     def query_group_id_by_group_name_with_options(self, request, runtime):
-        """
-        You can call the QueryGroupIdByGroupName operation to query the ID of an asset group to which your assets belong by using the name of the asset group. When you call operations such as [GetSuspiciousStatistics](~~GetSuspiciousStatistics~~) and [DeleteGroup](~~DeleteGroup~~), you must specify the ID of the asset group. To query the ID of an asset group, call the QueryGroupIdByGroupName operation.
-        ### Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: QueryGroupIdByGroupNameRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: QueryGroupIdByGroupNameResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_name):
@@ -15852,16 +15482,6 @@ class Client(OpenApiClient):
         )
 
     def query_group_id_by_group_name(self, request):
-        """
-        You can call the QueryGroupIdByGroupName operation to query the ID of an asset group to which your assets belong by using the name of the asset group. When you call operations such as [GetSuspiciousStatistics](~~GetSuspiciousStatistics~~) and [DeleteGroup](~~DeleteGroup~~), you must specify the ID of the asset group. To query the ID of an asset group, call the QueryGroupIdByGroupName operation.
-        ### Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: QueryGroupIdByGroupNameRequest
-
-        @return: QueryGroupIdByGroupNameResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.query_group_id_by_group_name_with_options(request, runtime)
 
