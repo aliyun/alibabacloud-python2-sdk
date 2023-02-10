@@ -46,10 +46,10 @@ class Client(OpenApiClient):
     def add_cdn_domain_with_options(self, request, runtime):
         """
         You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
-        *   The domain name that you want to add has a valid Internet Content Provider (ICP) number.
-        *   You can add only one domain name to Alibaba Cloud CDN in each call. Each Alibaba Cloud account can add a maximum of 50 domain names to Alibaba Cloud CDN.
-        *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. The review will be completed by the end of the next business day after you submit the application.
-        *   The maximum number of times that each user can call this operation per second is 30.
+        *   If the acceleration region is Chinese Mainland Only or Global, you must apply for an ICP filing for the domain name.
+        *   You can specify multiple domain names and separate them with commas (,). You can specify at most 50 domain names in each call.
+        *   For more information, see [Add a domain name](~~122181~~).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: AddCdnDomainRequest
@@ -104,10 +104,10 @@ class Client(OpenApiClient):
     def add_cdn_domain(self, request):
         """
         You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
-        *   The domain name that you want to add has a valid Internet Content Provider (ICP) number.
-        *   You can add only one domain name to Alibaba Cloud CDN in each call. Each Alibaba Cloud account can add a maximum of 50 domain names to Alibaba Cloud CDN.
-        *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. The review will be completed by the end of the next business day after you submit the application.
-        *   The maximum number of times that each user can call this operation per second is 30.
+        *   If the acceleration region is Chinese Mainland Only or Global, you must apply for an ICP filing for the domain name.
+        *   You can specify multiple domain names and separate them with commas (,). You can specify at most 50 domain names in each call.
+        *   For more information, see [Add a domain name](~~122181~~).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: AddCdnDomainRequest
@@ -161,11 +161,11 @@ class Client(OpenApiClient):
 
     def batch_add_cdn_domain_with_options(self, request, runtime):
         """
-        - You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
-        - The domain name that you want to add has a valid Internet Content Provider (ICP) number.
-        - If the content from the origin server is not stored on Alibaba Cloud, the content must be reviewed by Alibaba Cloud. The review will be completed by the end of the next business day after you submit the application.
-        - You can specify multiple domain names (no more than 50) and separate them with commas (,).
-        - The maximum number of times that each user can call this operation per second is 30.
+        You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
+        *   If the acceleration region is Chinese Mainland Only or Global, you must apply for an ICP filing for the domain name.
+        *   You can specify multiple domain names and separate them with commas (,). You can specify at most 50 domain names in each call.
+        *   For more information, see [Add a domain name](~~122181~~).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchAddCdnDomainRequest
@@ -217,11 +217,11 @@ class Client(OpenApiClient):
 
     def batch_add_cdn_domain(self, request):
         """
-        - You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
-        - The domain name that you want to add has a valid Internet Content Provider (ICP) number.
-        - If the content from the origin server is not stored on Alibaba Cloud, the content must be reviewed by Alibaba Cloud. The review will be completed by the end of the next business day after you submit the application.
-        - You can specify multiple domain names (no more than 50) and separate them with commas (,).
-        - The maximum number of times that each user can call this operation per second is 30.
+        You must activate Alibaba Cloud CDN before you can add a domain name to it. For more information, see [Activate Alibaba Cloud CDN](~~27272~~).
+        *   If the acceleration region is Chinese Mainland Only or Global, you must apply for an ICP filing for the domain name.
+        *   You can specify multiple domain names and separate them with commas (,). You can specify at most 50 domain names in each call.
+        *   For more information, see [Add a domain name](~~122181~~).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchAddCdnDomainRequest
@@ -1610,8 +1610,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.deliver_id):
             query['DeliverId'] = request.deliver_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1656,8 +1654,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.sslpub):
             query['SSLPub'] = request.sslpub
         if not UtilClient.is_unset(request.sslstatus):
@@ -1749,7 +1745,7 @@ class Client(OpenApiClient):
 
     def describe_cdn_domain_detail_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 30.
+        The maximum number of times that each user can call this operation per second is 30.
         
 
         @param request: DescribeCdnDomainDetailRequest
@@ -1787,7 +1783,7 @@ class Client(OpenApiClient):
 
     def describe_cdn_domain_detail(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 30.
+        The maximum number of times that each user can call this operation per second is 30.
         
 
         @param request: DescribeCdnDomainDetailRequest
@@ -1816,8 +1812,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2490,8 +2484,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.function_name):
             query['FunctionName'] = request.function_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2525,7 +2517,7 @@ class Client(OpenApiClient):
 
     def describe_cdn_user_domains_by_func_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeCdnUserDomainsByFuncRequest
@@ -2538,8 +2530,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.func_id):
             query['FuncId'] = request.func_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2567,7 +2557,7 @@ class Client(OpenApiClient):
 
     def describe_cdn_user_domains_by_func(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeCdnUserDomainsByFuncRequest
@@ -2825,8 +2815,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.time_merge):
@@ -2896,8 +2884,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -2972,8 +2958,6 @@ class Client(OpenApiClient):
             query['Layer'] = request.layer
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3037,8 +3021,6 @@ class Client(OpenApiClient):
             query['IspNames'] = request.isp_names
         if not UtilClient.is_unset(request.location_names):
             query['LocationNames'] = request.location_names
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.time_point):
             query['TimePoint'] = request.time_point
         req = open_api_models.OpenApiRequest(
@@ -3156,8 +3138,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3194,8 +3174,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3350,8 +3328,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3420,8 +3396,10 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3496,8 +3474,6 @@ class Client(OpenApiClient):
             query['Layer'] = request.layer
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3559,8 +3535,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3606,8 +3580,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.time_point):
@@ -3656,8 +3628,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3770,8 +3740,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3838,8 +3806,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -3914,8 +3880,6 @@ class Client(OpenApiClient):
             query['Layer'] = request.layer
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4154,8 +4118,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4346,8 +4308,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4418,8 +4378,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4486,8 +4444,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4558,8 +4514,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4665,8 +4619,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4730,8 +4682,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4800,8 +4750,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4870,8 +4818,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -4940,8 +4886,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -5066,8 +5010,6 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -5249,8 +5191,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.sort_by):
             query['SortBy'] = request.sort_by
         if not UtilClient.is_unset(request.start_time):
@@ -5320,8 +5260,6 @@ class Client(OpenApiClient):
             query['IspNameEn'] = request.isp_name_en
         if not UtilClient.is_unset(request.location_name_en):
             query['LocationNameEn'] = request.location_name_en
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -5396,8 +5334,6 @@ class Client(OpenApiClient):
             query['Field'] = request.field
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.type):
@@ -5461,8 +5397,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -5567,8 +5501,6 @@ class Client(OpenApiClient):
             query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -5969,8 +5901,6 @@ class Client(OpenApiClient):
             query['IspNames'] = request.isp_names
         if not UtilClient.is_unset(request.location_names):
             query['LocationNames'] = request.location_names
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -6160,8 +6090,8 @@ class Client(OpenApiClient):
     def describe_refresh_tasks_with_options(self, request, runtime):
         """
         You can query the status of tasks by task ID or URL.
-        * You can set both the **TaskId** and **ObjectPath** parameters. If you do not set the **TaskId** or **ObjectPath** parameter, data entries on the first page (20 entries) collected within the last three days are returned.
-        *   You can query data collected within the last three days.
+        *   You can set both the **TaskId** and **ObjectPath** parameters. If you do not set the **TaskId** or **ObjectPath** parameter, data entries on the first page (20 entries) collected in the last 3 days are returned.
+        *   You can query data collected in the last 3 days.
         *   If auto CDN cache update is enabled in the Object Storage Service (OSS) console, you cannot call the DescribeRefreshTasks operation to query automatic refresh tasks in OSS.
         *   You can call this operation up to 10 times per second per account. If you want to query tasks at a higher frequency, call the [DescribeRefreshTaskById](~~187709~~) operation. This operation allows you to query tasks by task ID.
         
@@ -6220,8 +6150,8 @@ class Client(OpenApiClient):
     def describe_refresh_tasks(self, request):
         """
         You can query the status of tasks by task ID or URL.
-        * You can set both the **TaskId** and **ObjectPath** parameters. If you do not set the **TaskId** or **ObjectPath** parameter, data entries on the first page (20 entries) collected within the last three days are returned.
-        *   You can query data collected within the last three days.
+        *   You can set both the **TaskId** and **ObjectPath** parameters. If you do not set the **TaskId** or **ObjectPath** parameter, data entries on the first page (20 entries) collected in the last 3 days are returned.
+        *   You can query data collected in the last 3 days.
         *   If auto CDN cache update is enabled in the Object Storage Service (OSS) console, you cannot call the DescribeRefreshTasks operation to query automatic refresh tasks in OSS.
         *   You can call this operation up to 10 times per second per account. If you want to query tasks at a higher frequency, call the [DescribeRefreshTaskById](~~187709~~) operation. This operation allows you to query tasks by task ID.
         
@@ -6273,7 +6203,7 @@ class Client(OpenApiClient):
 
     def describe_tag_resources_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 10.
+        > You can call this operation up to 10 times per second per account.
         
 
         @param request: DescribeTagResourcesRequest
@@ -6284,8 +6214,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -6313,7 +6241,7 @@ class Client(OpenApiClient):
 
     def describe_tag_resources(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 10.
+        > You can call this operation up to 10 times per second per account.
         
 
         @param request: DescribeTagResourcesRequest
@@ -8182,8 +8110,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.verify_type):
             query['VerifyType'] = request.verify_type
         req = open_api_models.OpenApiRequest(
