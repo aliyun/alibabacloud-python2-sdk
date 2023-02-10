@@ -2,15 +2,15 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
-from alibabacloud_eas20210701 import models as eas_20210701_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_eas20210701 import models as eas_20210701_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
@@ -48,10 +48,30 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_benchmark_task(self, request):
+    def commit_service_with_options(self, cluster_id, service_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CommitService',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/commit' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CommitServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def commit_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_benchmark_task_with_options(request, headers, runtime)
+        return self.commit_service_with_options(cluster_id, service_name, headers, runtime)
 
     def create_benchmark_task_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -75,10 +95,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_resource(self, request):
+    def create_benchmark_task(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_resource_with_options(request, headers, runtime)
+        return self.create_benchmark_task_with_options(request, headers, runtime)
 
     def create_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -111,10 +131,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_resource_instances(self, cluster_id, resource_id, request):
+    def create_resource(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.create_resource_with_options(request, headers, runtime)
 
     def create_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -149,10 +169,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_resource_log(self, cluster_id, resource_id, request):
+    def create_resource_instances(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_resource_log_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.create_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def create_resource_log_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -181,15 +201,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service(self, request):
+    def create_resource_log(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_with_options(request, headers, runtime)
+        return self.create_resource_log_with_options(cluster_id, resource_id, request, headers, runtime)
 
-    def create_service_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def create_service_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eas_20210701_models.CreateServiceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.labels):
+            request.labels_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.labels, 'Labels', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.develop):
+            query['Develop'] = request.develop
+        if not UtilClient.is_unset(request.labels_shrink):
+            query['Labels'] = request.labels_shrink
         req = open_api_models.OpenApiRequest(
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=request.body
         )
         params = open_api_models.Params(
@@ -208,10 +238,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_auto_scaler(self, cluster_id, service_name, request):
+    def create_service(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_auto_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.create_service_with_options(request, headers, runtime)
 
     def create_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -242,10 +272,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_cron_scaler(self, cluster_id, service_name, request):
+    def create_service_auto_scaler(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_cron_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.create_service_auto_scaler_with_options(cluster_id, service_name, request, headers, runtime)
 
     def create_service_cron_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -274,10 +304,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_service_mirror(self, cluster_id, service_name, request):
+    def create_service_cron_scaler(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_service_mirror_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.create_service_cron_scaler_with_options(cluster_id, service_name, request, headers, runtime)
 
     def create_service_mirror_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -306,10 +336,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_benchmark_task(self, cluster_id, task_name):
+    def create_service_mirror(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+        return self.create_service_mirror_with_options(cluster_id, service_name, request, headers, runtime)
 
     def delete_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -331,10 +361,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource(self, cluster_id, resource_id):
+    def delete_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_with_options(cluster_id, resource_id, headers, runtime)
+        return self.delete_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def delete_resource_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -356,10 +386,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource_dlink(self, cluster_id, resource_id):
+    def delete_resource(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
+        return self.delete_resource_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_resource_dlink_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -381,10 +411,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource_instances(self, cluster_id, resource_id, request):
+    def delete_resource_dlink(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.delete_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -413,10 +443,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_resource_log(self, cluster_id, resource_id):
+    def delete_resource_instances(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_resource_log_with_options(cluster_id, resource_id, headers, runtime)
+        return self.delete_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def delete_resource_log_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -438,10 +468,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service(self, cluster_id, service_name):
+    def delete_resource_log(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_with_options(cluster_id, service_name, headers, runtime)
+        return self.delete_resource_log_with_options(cluster_id, resource_id, headers, runtime)
 
     def delete_service_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -463,10 +493,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_auto_scaler(self, cluster_id, service_name):
+    def delete_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
+        return self.delete_service_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_auto_scaler_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -488,10 +518,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_cron_scaler(self, cluster_id, service_name):
+    def delete_service_auto_scaler(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
+        return self.delete_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_cron_scaler_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -513,10 +543,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_instances(self, cluster_id, service_name, request):
+    def delete_service_cron_scaler(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_instances_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.delete_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def delete_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -543,10 +573,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_service_mirror(self, cluster_id, service_name):
+    def delete_service_instances(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_service_mirror_with_options(cluster_id, service_name, headers, runtime)
+        return self.delete_service_instances_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def delete_service_label_with_options(self, cluster_id, service_name, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eas_20210701_models.DeleteServiceLabelShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.keys):
+            request.keys_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.keys, 'Keys', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.keys_shrink):
+            query['Keys'] = request.keys_shrink
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteServiceLabel',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/label' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DeleteServiceLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_service_label(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_service_label_with_options(cluster_id, service_name, request, headers, runtime)
 
     def delete_service_mirror_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -568,10 +632,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_benchmark_task(self, cluster_id, task_name):
+    def delete_service_mirror(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+        return self.delete_service_mirror_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -593,10 +657,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_benchmark_task_report(self, cluster_id, task_name, request):
+    def describe_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_benchmark_task_report_with_options(cluster_id, task_name, request, headers, runtime)
+        return self.describe_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def describe_benchmark_task_report_with_options(self, cluster_id, task_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -623,10 +687,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_group(self, cluster_id, group_name):
+    def describe_benchmark_task_report(self, cluster_id, task_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_group_with_options(cluster_id, group_name, headers, runtime)
+        return self.describe_benchmark_task_report_with_options(cluster_id, task_name, request, headers, runtime)
 
     def describe_group_with_options(self, cluster_id, group_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -648,10 +712,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_resource(self, cluster_id, resource_id):
+    def describe_group(self, cluster_id, group_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_resource_with_options(cluster_id, resource_id, headers, runtime)
+        return self.describe_group_with_options(cluster_id, group_name, headers, runtime)
 
     def describe_resource_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -673,10 +737,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_resource_dlink(self, cluster_id, resource_id):
+    def describe_resource(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
+        return self.describe_resource_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_resource_dlink_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -698,10 +762,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_resource_log(self, cluster_id, resource_id):
+    def describe_resource_dlink(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_resource_log_with_options(cluster_id, resource_id, headers, runtime)
+        return self.describe_resource_dlink_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_resource_log_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -723,10 +787,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service(self, cluster_id, service_name):
+    def describe_resource_log(self, cluster_id, resource_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_with_options(cluster_id, service_name, headers, runtime)
+        return self.describe_resource_log_with_options(cluster_id, resource_id, headers, runtime)
 
     def describe_service_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -748,10 +812,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_auto_scaler(self, cluster_id, service_name):
+    def describe_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
+        return self.describe_service_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_auto_scaler_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -773,10 +837,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_cron_scaler(self, cluster_id, service_name):
+    def describe_service_auto_scaler(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
+        return self.describe_service_auto_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_cron_scaler_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -798,10 +862,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_event(self, cluster_id, service_name, request):
+    def describe_service_cron_scaler(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_event_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.describe_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
 
     def describe_service_event_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -834,10 +898,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_log(self, cluster_id, service_name, request):
+    def describe_service_event(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_log_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.describe_service_event_with_options(cluster_id, service_name, request, headers, runtime)
 
     def describe_service_log_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -874,10 +938,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_service_mirror(self, cluster_id, service_name):
+    def describe_service_log(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_service_mirror_with_options(cluster_id, service_name, headers, runtime)
+        return self.describe_service_log_with_options(cluster_id, service_name, request, headers, runtime)
 
     def describe_service_mirror_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -899,10 +963,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_benchmark_task(self, request):
+    def describe_service_mirror(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_benchmark_task_with_options(request, headers, runtime)
+        return self.describe_service_mirror_with_options(cluster_id, service_name, headers, runtime)
+
+    def develop_service_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.exit):
+            query['Exit'] = request.exit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DevelopService',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/develop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DevelopServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def develop_service(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.develop_service_with_options(cluster_id, service_name, request, headers, runtime)
 
     def list_benchmark_task_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -935,10 +1029,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_groups(self, request):
+    def list_benchmark_task(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_groups_with_options(request, headers, runtime)
+        return self.list_benchmark_task_with_options(request, headers, runtime)
 
     def list_groups_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -969,10 +1063,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resource_instance_worker(self, cluster_id, resource_id, instance_name, request):
+    def list_groups(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_resource_instance_worker_with_options(cluster_id, resource_id, instance_name, request, headers, runtime)
+        return self.list_groups_with_options(request, headers, runtime)
 
     def list_resource_instance_worker_with_options(self, cluster_id, resource_id, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1001,10 +1095,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resource_instances(self, cluster_id, resource_id, request):
+    def list_resource_instance_worker(self, cluster_id, resource_id, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.list_resource_instance_worker_with_options(cluster_id, resource_id, instance_name, request, headers, runtime)
 
     def list_resource_instances_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1039,10 +1133,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resource_services(self, cluster_id, resource_id, request):
+    def list_resource_instances(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_resource_services_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.list_resource_instances_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def list_resource_services_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1071,10 +1165,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resources(self, request):
+    def list_resource_services(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_resources_with_options(request, headers, runtime)
+        return self.list_resource_services_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def list_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1107,10 +1201,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_service_instances(self, cluster_id, service_name, request):
+    def list_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_service_instances_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.list_resources_with_options(request, headers, runtime)
 
     def list_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1139,10 +1233,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_service_versions(self, cluster_id, service_name, request):
+    def list_service_instances(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_service_versions_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.list_service_instances_with_options(cluster_id, service_name, request, headers, runtime)
 
     def list_service_versions_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1171,24 +1265,34 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_services(self, request):
+    def list_service_versions(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_services_with_options(request, headers, runtime)
+        return self.list_service_versions_with_options(cluster_id, service_name, request, headers, runtime)
 
-    def list_services_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def list_services_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = eas_20210701_models.ListServicesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.label):
+            request.label_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.label, 'Label', 'json')
         query = {}
         if not UtilClient.is_unset(request.filter):
             query['Filter'] = request.filter
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.label_shrink):
+            query['Label'] = request.label_shrink
         if not UtilClient.is_unset(request.order):
             query['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_service_uid):
+            query['ParentServiceUid'] = request.parent_service_uid
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
         if not UtilClient.is_unset(request.sort):
             query['Sort'] = request.sort
         req = open_api_models.OpenApiRequest(
@@ -1211,10 +1315,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def release_service(self, cluster_id, service_name, request):
+    def list_services(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.release_service_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.list_services_with_options(request, headers, runtime)
 
     def release_service_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1243,10 +1347,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_benchmark_task(self, cluster_id, task_name):
+    def release_service(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+        return self.release_service_with_options(cluster_id, service_name, request, headers, runtime)
 
     def start_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1268,10 +1372,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_service(self, cluster_id, service_name):
+    def start_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_service_with_options(cluster_id, service_name, headers, runtime)
+        return self.start_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def start_service_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1293,10 +1397,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_benchmark_task(self, cluster_id, task_name):
+    def start_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+        return self.start_service_with_options(cluster_id, service_name, headers, runtime)
 
     def stop_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1318,10 +1422,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_service(self, cluster_id, service_name):
+    def stop_benchmark_task(self, cluster_id, task_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_service_with_options(cluster_id, service_name, headers, runtime)
+        return self.stop_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
 
     def stop_service_with_options(self, cluster_id, service_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1343,10 +1447,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_benchmark_task(self, cluster_id, task_name, request):
+    def stop_service(self, cluster_id, service_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_benchmark_task_with_options(cluster_id, task_name, request, headers, runtime)
+        return self.stop_service_with_options(cluster_id, service_name, headers, runtime)
 
     def update_benchmark_task_with_options(self, cluster_id, task_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1370,10 +1474,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_resource(self, cluster_id, resource_id, request):
+    def update_benchmark_task(self, cluster_id, task_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_resource_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.update_benchmark_task_with_options(cluster_id, task_name, request, headers, runtime)
 
     def update_resource_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1400,10 +1504,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_resource_dlink(self, cluster_id, resource_id, request):
+    def update_resource(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_resource_dlink_with_options(cluster_id, resource_id, request, headers, runtime)
+        return self.update_resource_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def update_resource_dlink_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1436,10 +1540,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_resource_instance(self, cluster_id, resource_id, instance_id, request):
+    def update_resource_dlink(self, cluster_id, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_resource_instance_with_options(cluster_id, resource_id, instance_id, request, headers, runtime)
+        return self.update_resource_dlink_with_options(cluster_id, resource_id, request, headers, runtime)
 
     def update_resource_instance_with_options(self, cluster_id, resource_id, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1466,10 +1570,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service(self, cluster_id, service_name, request):
+    def update_resource_instance(self, cluster_id, resource_id, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_resource_instance_with_options(cluster_id, resource_id, instance_id, request, headers, runtime)
 
     def update_service_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1493,10 +1597,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_auto_scaler(self, cluster_id, service_name, request):
+    def update_service(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_auto_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_service_with_options(cluster_id, service_name, request, headers, runtime)
 
     def update_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1527,10 +1631,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_cron_scaler(self, cluster_id, service_name, request):
+    def update_service_auto_scaler(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_cron_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_service_auto_scaler_with_options(cluster_id, service_name, request, headers, runtime)
 
     def update_service_cron_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1559,10 +1663,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_mirror(self, cluster_id, service_name, request):
+    def update_service_cron_scaler(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_mirror_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_service_cron_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def update_service_label_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.labels):
+            body['Labels'] = request.labels
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateServiceLabel',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/label' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateServiceLabelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_service_label(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_service_label_with_options(cluster_id, service_name, request, headers, runtime)
 
     def update_service_mirror_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1591,10 +1725,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_safety_lock(self, cluster_id, service_name, request):
+    def update_service_mirror(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_safety_lock_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_service_mirror_with_options(cluster_id, service_name, request, headers, runtime)
 
     def update_service_safety_lock_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1621,10 +1755,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_service_version(self, cluster_id, service_name, request):
+    def update_service_safety_lock(self, cluster_id, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_service_version_with_options(cluster_id, service_name, request, headers, runtime)
+        return self.update_service_safety_lock_with_options(cluster_id, service_name, request, headers, runtime)
 
     def update_service_version_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1650,3 +1784,8 @@ class Client(OpenApiClient):
             eas_20210701_models.UpdateServiceVersionResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_service_version(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_service_version_with_options(cluster_id, service_name, request, headers, runtime)
