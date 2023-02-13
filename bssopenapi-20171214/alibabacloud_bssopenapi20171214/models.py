@@ -8932,6 +8932,7 @@ class DescribeSplitItemBillResponse(TeaModel):
 class EnableBillGenerationRequest(TeaModel):
     def __init__(self, owner_id=None, product_code=None):
         self.owner_id = owner_id  # type: long
+        # The code of the product.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -8960,6 +8961,7 @@ class EnableBillGenerationRequest(TeaModel):
 
 class EnableBillGenerationResponseBodyData(TeaModel):
     def __init__(self, boolean=None):
+        # Indicates whether the feature is enabled.
         self.boolean = boolean  # type: bool
 
     def validate(self):
@@ -8984,10 +8986,15 @@ class EnableBillGenerationResponseBodyData(TeaModel):
 
 class EnableBillGenerationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The data returned.
         self.data = data  # type: EnableBillGenerationResponseBodyData
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13900,10 +13907,11 @@ class QueryBillOverviewResponse(TeaModel):
 
 
 class QueryBillToOSSSubscriptionResponseBodyDataItemsItem(TeaModel):
-    def __init__(self, bucket_owner_id=None, bucket_path=None, subscribe_bucket=None, subscribe_language=None,
-                 subscribe_time=None, subscribe_type=None):
+    def __init__(self, bucket_owner_id=None, bucket_path=None, row_limit_per_file=None, subscribe_bucket=None,
+                 subscribe_language=None, subscribe_time=None, subscribe_type=None):
         self.bucket_owner_id = bucket_owner_id  # type: long
         self.bucket_path = bucket_path  # type: str
+        self.row_limit_per_file = row_limit_per_file  # type: int
         self.subscribe_bucket = subscribe_bucket  # type: str
         self.subscribe_language = subscribe_language  # type: str
         self.subscribe_time = subscribe_time  # type: str
@@ -13922,6 +13930,8 @@ class QueryBillToOSSSubscriptionResponseBodyDataItemsItem(TeaModel):
             result['BucketOwnerId'] = self.bucket_owner_id
         if self.bucket_path is not None:
             result['BucketPath'] = self.bucket_path
+        if self.row_limit_per_file is not None:
+            result['RowLimitPerFile'] = self.row_limit_per_file
         if self.subscribe_bucket is not None:
             result['SubscribeBucket'] = self.subscribe_bucket
         if self.subscribe_language is not None:
@@ -13938,6 +13948,8 @@ class QueryBillToOSSSubscriptionResponseBodyDataItemsItem(TeaModel):
             self.bucket_owner_id = m.get('BucketOwnerId')
         if m.get('BucketPath') is not None:
             self.bucket_path = m.get('BucketPath')
+        if m.get('RowLimitPerFile') is not None:
+            self.row_limit_per_file = m.get('RowLimitPerFile')
         if m.get('SubscribeBucket') is not None:
             self.subscribe_bucket = m.get('SubscribeBucket')
         if m.get('SubscribeLanguage') is not None:
@@ -24466,11 +24478,12 @@ class SetResellerUserStatusResponse(TeaModel):
 
 class SubscribeBillToOSSRequest(TeaModel):
     def __init__(self, begin_billing_cycle=None, bucket_owner_id=None, bucket_path=None,
-                 mult_account_rel_subscribe=None, subscribe_bucket=None, subscribe_type=None):
+                 mult_account_rel_subscribe=None, row_limit_per_file=None, subscribe_bucket=None, subscribe_type=None):
         self.begin_billing_cycle = begin_billing_cycle  # type: str
         self.bucket_owner_id = bucket_owner_id  # type: long
         self.bucket_path = bucket_path  # type: str
         self.mult_account_rel_subscribe = mult_account_rel_subscribe  # type: str
+        self.row_limit_per_file = row_limit_per_file  # type: int
         self.subscribe_bucket = subscribe_bucket  # type: str
         self.subscribe_type = subscribe_type  # type: str
 
@@ -24491,6 +24504,8 @@ class SubscribeBillToOSSRequest(TeaModel):
             result['BucketPath'] = self.bucket_path
         if self.mult_account_rel_subscribe is not None:
             result['MultAccountRelSubscribe'] = self.mult_account_rel_subscribe
+        if self.row_limit_per_file is not None:
+            result['RowLimitPerFile'] = self.row_limit_per_file
         if self.subscribe_bucket is not None:
             result['SubscribeBucket'] = self.subscribe_bucket
         if self.subscribe_type is not None:
@@ -24507,6 +24522,8 @@ class SubscribeBillToOSSRequest(TeaModel):
             self.bucket_path = m.get('BucketPath')
         if m.get('MultAccountRelSubscribe') is not None:
             self.mult_account_rel_subscribe = m.get('MultAccountRelSubscribe')
+        if m.get('RowLimitPerFile') is not None:
+            self.row_limit_per_file = m.get('RowLimitPerFile')
         if m.get('SubscribeBucket') is not None:
             self.subscribe_bucket = m.get('SubscribeBucket')
         if m.get('SubscribeType') is not None:

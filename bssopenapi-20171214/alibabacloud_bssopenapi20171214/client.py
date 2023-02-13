@@ -3591,6 +3591,8 @@ class Client(OpenApiClient):
             query['BucketPath'] = request.bucket_path
         if not UtilClient.is_unset(request.mult_account_rel_subscribe):
             query['MultAccountRelSubscribe'] = request.mult_account_rel_subscribe
+        if not UtilClient.is_unset(request.row_limit_per_file):
+            query['RowLimitPerFile'] = request.row_limit_per_file
         if not UtilClient.is_unset(request.subscribe_bucket):
             query['SubscribeBucket'] = request.subscribe_bucket
         if not UtilClient.is_unset(request.subscribe_type):
