@@ -82,6 +82,18 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def create_client_certificate_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue client certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateClientCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateClientCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.after_time):
@@ -138,10 +150,32 @@ class Client(OpenApiClient):
         )
 
     def create_client_certificate(self, request):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue client certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateClientCertificateRequest
+
+        @return: CreateClientCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_client_certificate_with_options(request, runtime)
 
     def create_client_certificate_with_csr_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue client certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateClientCertificateWithCsrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateClientCertificateWithCsrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.after_time):
@@ -200,10 +234,33 @@ class Client(OpenApiClient):
         )
 
     def create_client_certificate_with_csr(self, request):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue client certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateClientCertificateWithCsrRequest
+
+        @return: CreateClientCertificateWithCsrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_client_certificate_with_csr_with_options(request, runtime)
 
     def create_revoke_client_certificate_with_options(self, request, runtime):
+        """
+        After a client certificate or a server certificate is revoked, the client or the server on which the certificate is installed cannot establish HTTPS connections with other devices.
+        After a client certificate or a server certificate is revoked, you can call the [DeleteClientCertificate](~~330880~~) operation to permanently delete the certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateRevokeClientCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRevokeClientCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -228,10 +285,34 @@ class Client(OpenApiClient):
         )
 
     def create_revoke_client_certificate(self, request):
+        """
+        After a client certificate or a server certificate is revoked, the client or the server on which the certificate is installed cannot establish HTTPS connections with other devices.
+        After a client certificate or a server certificate is revoked, you can call the [DeleteClientCertificate](~~330880~~) operation to permanently delete the certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateRevokeClientCertificateRequest
+
+        @return: CreateRevokeClientCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_revoke_client_certificate_with_options(request, runtime)
 
     def create_root_cacertificate_with_options(self, request, runtime):
+        """
+        You can call the CreateRootCACertificate operation to create a self-signed root CA certificate. A root CA certificate is the trust anchor in a chain of trust for private certificates that are used within an enterprise. You must create a root CA certificate before you can use the root CA certificate to issue intermediate CA certificates. Then, you can use the intermediate CA certificates to issue client certificates and server certificates.
+        Before you call this operation, make sure that you have purchased a private root CA instance by using the [Certificate Management Service console](https://yundun.console.aliyun.com/?p=cas#/pca/rootlist). For more information, see [Create a private CA](~~208553~~).
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateRootCACertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRootCACertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.algorithm):
@@ -270,10 +351,33 @@ class Client(OpenApiClient):
         )
 
     def create_root_cacertificate(self, request):
+        """
+        You can call the CreateRootCACertificate operation to create a self-signed root CA certificate. A root CA certificate is the trust anchor in a chain of trust for private certificates that are used within an enterprise. You must create a root CA certificate before you can use the root CA certificate to issue intermediate CA certificates. Then, you can use the intermediate CA certificates to issue client certificates and server certificates.
+        Before you call this operation, make sure that you have purchased a private root CA instance by using the [Certificate Management Service console](https://yundun.console.aliyun.com/?p=cas#/pca/rootlist). For more information, see [Create a private CA](~~208553~~).
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateRootCACertificateRequest
+
+        @return: CreateRootCACertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_root_cacertificate_with_options(request, runtime)
 
     def create_server_certificate_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue server certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateServerCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateServerCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.after_time):
@@ -328,10 +432,32 @@ class Client(OpenApiClient):
         )
 
     def create_server_certificate(self, request):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue server certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateServerCertificateRequest
+
+        @return: CreateServerCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_server_certificate_with_options(request, runtime)
 
     def create_server_certificate_with_csr_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue server certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateServerCertificateWithCsrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateServerCertificateWithCsrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.after_time):
@@ -388,10 +514,33 @@ class Client(OpenApiClient):
         )
 
     def create_server_certificate_with_csr(self, request):
+        """
+        Before you call this operation, make sure that you have created a root certificate authority (CA) certificate by calling the [CreateRootCACertificate](~~328093~~) operation and an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation. Only intermediate CA certificates can be used to issue server certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateServerCertificateWithCsrRequest
+
+        @return: CreateServerCertificateWithCsrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_server_certificate_with_csr_with_options(request, runtime)
 
     def create_sub_cacertificate_with_options(self, request, runtime):
+        """
+        You can call the CreateSubCACertificate operation to issue an intermediate CA certificate by using an existing root CA certificate. Intermediate CA certificates can be used to issue client certificates and server certificates.
+        Before you call this operation, make sure that you have created a root CA certificate by calling the [CreateRootCACertificate](~~328093~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateSubCACertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSubCACertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.algorithm):
@@ -432,10 +581,33 @@ class Client(OpenApiClient):
         )
 
     def create_sub_cacertificate(self, request):
+        """
+        You can call the CreateSubCACertificate operation to issue an intermediate CA certificate by using an existing root CA certificate. Intermediate CA certificates can be used to issue client certificates and server certificates.
+        Before you call this operation, make sure that you have created a root CA certificate by calling the [CreateRootCACertificate](~~328093~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateSubCACertificateRequest
+
+        @return: CreateSubCACertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_sub_cacertificate_with_options(request, runtime)
 
     def delete_client_certificate_with_options(self, request, runtime):
+        """
+        Before you call this operation, you must call the [CreateRevokeClientCertificate](~~330876~~) operation to revoke a client certificate or a server certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteClientCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteClientCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -460,10 +632,33 @@ class Client(OpenApiClient):
         )
 
     def delete_client_certificate(self, request):
+        """
+        Before you call this operation, you must call the [CreateRevokeClientCertificate](~~330876~~) operation to revoke a client certificate or a server certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteClientCertificateRequest
+
+        @return: DeleteClientCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_client_certificate_with_options(request, runtime)
 
     def describe_cacertificate_with_options(self, request, runtime):
+        """
+        You can call the DescribeCACertificate operation to query the details about a root CA certificate or an intermediate CA certificate by using the unique identifier of the root CA certificate or intermediate CA certificate. The details include the serial number, user information, and content of a CA certificate.
+        Before you call this operation, make sure that you have created a root CA by calling the [CreateRootCACertificate](~~328093~~) operation or an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCACertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCACertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -488,10 +683,33 @@ class Client(OpenApiClient):
         )
 
     def describe_cacertificate(self, request):
+        """
+        You can call the DescribeCACertificate operation to query the details about a root CA certificate or an intermediate CA certificate by using the unique identifier of the root CA certificate or intermediate CA certificate. The details include the serial number, user information, and content of a CA certificate.
+        Before you call this operation, make sure that you have created a root CA by calling the [CreateRootCACertificate](~~328093~~) operation or an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCACertificateRequest
+
+        @return: DescribeCACertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cacertificate_with_options(request, runtime)
 
     def describe_cacertificate_count_with_options(self, runtime):
+        """
+        You can call the DescribeCACertificateCount operation to query the number of created CA certificates, which includes root CA certificates and intermediate CA certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCACertificateCountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCACertificateCountResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeCACertificateCount',
@@ -510,10 +728,30 @@ class Client(OpenApiClient):
         )
 
     def describe_cacertificate_count(self):
+        """
+        You can call the DescribeCACertificateCount operation to query the number of created CA certificates, which includes root CA certificates and intermediate CA certificates.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @return: DescribeCACertificateCountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cacertificate_count_with_options(runtime)
 
     def describe_cacertificate_list_with_options(self, request, runtime):
+        """
+        You can call the DescribeCACertificateList operation to perform a paged query of the details about all CA certificates that you create. The details include the unique identifier, serial number, user information, and content of each root CA certificate or intermediate CA certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCACertificateListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCACertificateListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -540,10 +778,40 @@ class Client(OpenApiClient):
         )
 
     def describe_cacertificate_list(self, request):
+        """
+        You can call the DescribeCACertificateList operation to perform a paged query of the details about all CA certificates that you create. The details include the unique identifier, serial number, user information, and content of each root CA certificate or intermediate CA certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCACertificateListRequest
+
+        @return: DescribeCACertificateListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cacertificate_list_with_options(request, runtime)
 
     def describe_certificate_private_key_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call the DescribeCertificatePrivateKey operation to obtain the encrypted private key of a client certificate or a server certificate. The certificate is issued based on a system-generated certificate signing request (CSR). Before you call this operation, make sure that you have issued a client certificate or a server certificate by calling the following operation:
+        *   [CreateClientCertificate](~~330873~~)
+        *   [CreateServerCertificate](~~330877~~)
+        To ensure the security of private key transmission, the DescribeCertificatePrivateKey operation encrypts the private key by using the private key password that you specify and returns the encrypted private key. The private key password is an string that is used to encrypt the private key. After you obtain the encrypted private key of the certificate, you can use the following methods to decrypt the private key:
+        *   If the encryption algorithm of the certificate is RSA, you must run the `openssl rsa -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [OpenSSL](https://www.openssl.org/source/) or [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        *   If the encryption algorithm of the certificate is ECC, you must run the `openssl ec -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [OpenSSL](https://www.openssl.org/source/) or [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        *   If the encryption algorithm of the certificate is SM2, you must run the `openssl ec -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        >  You can call the [DescribeClientCertificate](~~329929~~) operation to query the encryption algorithm type of a client certificate or a server certificate.
+        ## Limits
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCertificatePrivateKeyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCertificatePrivateKeyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.encrypted_code):
@@ -570,10 +838,47 @@ class Client(OpenApiClient):
         )
 
     def describe_certificate_private_key(self, request):
+        """
+        ## Usage notes
+        You can call the DescribeCertificatePrivateKey operation to obtain the encrypted private key of a client certificate or a server certificate. The certificate is issued based on a system-generated certificate signing request (CSR). Before you call this operation, make sure that you have issued a client certificate or a server certificate by calling the following operation:
+        *   [CreateClientCertificate](~~330873~~)
+        *   [CreateServerCertificate](~~330877~~)
+        To ensure the security of private key transmission, the DescribeCertificatePrivateKey operation encrypts the private key by using the private key password that you specify and returns the encrypted private key. The private key password is an string that is used to encrypt the private key. After you obtain the encrypted private key of the certificate, you can use the following methods to decrypt the private key:
+        *   If the encryption algorithm of the certificate is RSA, you must run the `openssl rsa -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [OpenSSL](https://www.openssl.org/source/) or [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        *   If the encryption algorithm of the certificate is ECC, you must run the `openssl ec -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [OpenSSL](https://www.openssl.org/source/) or [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        *   If the encryption algorithm of the certificate is SM2, you must run the `openssl ec -in <Encrypted private key file> -passin pass:<Private key password> -out <Decrypted private key file>` command in the computer on which [BabaSSL](https://github.com/BabaSSL/BabaSSL) is installed.
+        >  You can call the [DescribeClientCertificate](~~329929~~) operation to query the encryption algorithm type of a client certificate or a server certificate.
+        ## Limits
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeCertificatePrivateKeyRequest
+
+        @return: DescribeCertificatePrivateKeyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_certificate_private_key_with_options(request, runtime)
 
     def describe_client_certificate_with_options(self, request, runtime):
+        """
+        You can call the DescribeClientCertificate operation to query the details about a client certificate or a server certificate by using the unique identifier of the certificate. The details include the serial number, user information, content, and status of each certificate.
+        Before you call this operation, make sure that you have created a client certificate or a server certificate.
+        For more information about how to call an operation to create a client certificate, see the following topics:
+        *   [CreateClientCertificate](~~330873~~)
+        *   [CreateClientCertificateWithCsr](~~330875~~)
+        For more information about how to call an operation to create a server certificate, see the following topics:
+        *   [CreateServerCertificate](~~330877~~)
+        *   [CreateServerCertificateWithCsr](~~330878~~)
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeClientCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClientCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -598,10 +903,39 @@ class Client(OpenApiClient):
         )
 
     def describe_client_certificate(self, request):
+        """
+        You can call the DescribeClientCertificate operation to query the details about a client certificate or a server certificate by using the unique identifier of the certificate. The details include the serial number, user information, content, and status of each certificate.
+        Before you call this operation, make sure that you have created a client certificate or a server certificate.
+        For more information about how to call an operation to create a client certificate, see the following topics:
+        *   [CreateClientCertificate](~~330873~~)
+        *   [CreateClientCertificateWithCsr](~~330875~~)
+        For more information about how to call an operation to create a server certificate, see the following topics:
+        *   [CreateServerCertificate](~~330877~~)
+        *   [CreateServerCertificateWithCsr](~~330878~~)
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeClientCertificateRequest
+
+        @return: DescribeClientCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_client_certificate_with_options(request, runtime)
 
     def describe_client_certificate_status_with_options(self, request, runtime):
+        """
+        You can call the DescribeClientCertificateStatus operation to query the status information about multiple client certificates or server certificates at a time by using the unique identifiers of the certificates. For example, you can check whether a certificate is revoked.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeClientCertificateStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClientCertificateStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -626,10 +960,33 @@ class Client(OpenApiClient):
         )
 
     def describe_client_certificate_status(self, request):
+        """
+        You can call the DescribeClientCertificateStatus operation to query the status information about multiple client certificates or server certificates at a time by using the unique identifiers of the certificates. For example, you can check whether a certificate is revoked.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeClientCertificateStatusRequest
+
+        @return: DescribeClientCertificateStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_client_certificate_status_with_options(request, runtime)
 
     def get_cainstance_status_with_options(self, request, runtime):
+        """
+        You can call the GetCAInstanceStatus operation to query the status information about a private CA instance by using the ID of the instance. The instance is purchased by using the Certificate Management Service console. The status information includes the status of the private CA instance, the number of certificates that can be issued by using the private CA instance, and the number of issued certificates.
+        Before you call this operation, make sure that you have purchased a private CA by using the [Certificate Management Service console](https://yundun.console.aliyun.com/?p=cas#/pca/rootlist). For more information, see [Create a private CA](~~208553~~).
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetCAInstanceStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCAInstanceStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -654,10 +1011,33 @@ class Client(OpenApiClient):
         )
 
     def get_cainstance_status(self, request):
+        """
+        You can call the GetCAInstanceStatus operation to query the status information about a private CA instance by using the ID of the instance. The instance is purchased by using the Certificate Management Service console. The status information includes the status of the private CA instance, the number of certificates that can be issued by using the private CA instance, and the number of issued certificates.
+        Before you call this operation, make sure that you have purchased a private CA by using the [Certificate Management Service console](https://yundun.console.aliyun.com/?p=cas#/pca/rootlist). For more information, see [Create a private CA](~~208553~~).
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetCAInstanceStatusRequest
+
+        @return: GetCAInstanceStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_cainstance_status_with_options(request, runtime)
 
     def list_client_certificate_with_options(self, request, runtime):
+        """
+        You can call the ListClientCertificate operation to perform a paged query of the details about all client certificates and server certificates that you create. The details include the unique identifier, serial number, user information, content, and status of each certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListClientCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListClientCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -684,10 +1064,32 @@ class Client(OpenApiClient):
         )
 
     def list_client_certificate(self, request):
+        """
+        You can call the ListClientCertificate operation to perform a paged query of the details about all client certificates and server certificates that you create. The details include the unique identifier, serial number, user information, content, and status of each certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListClientCertificateRequest
+
+        @return: ListClientCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_client_certificate_with_options(request, runtime)
 
     def list_revoke_certificate_with_options(self, request, runtime):
+        """
+        You can call the ListRevokeCertificate operation to perform a paged query of the details about all revoked client certificates and server certificates. The details include the unique identifier, serial number, and revocation date of each certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListRevokeCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListRevokeCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -714,10 +1116,33 @@ class Client(OpenApiClient):
         )
 
     def list_revoke_certificate(self, request):
+        """
+        You can call the ListRevokeCertificate operation to perform a paged query of the details about all revoked client certificates and server certificates. The details include the unique identifier, serial number, and revocation date of each certificate.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListRevokeCertificateRequest
+
+        @return: ListRevokeCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_revoke_certificate_with_options(request, runtime)
 
     def update_cacertificate_status_with_options(self, request, runtime):
+        """
+        After a CA certificate is created, the CA certificate is in the ISSUE state by default. You can call the UpdateCACertificateStatus operation to change the status of a CA certificate from ISSUE to REVOKE. If a CA certificate is in the ISSUE state, the CA certificate can be used to issue certificates. If a CA certificate is in the REVOKE state, the CA certificate cannot be used to issue certificates, and the certificates that are issued from the CA certificate become invalid.
+        Before you call this operation, make sure that you have created a root CA by calling the [CreateRootCACertificate](~~328093~~) operation or an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UpdateCACertificateStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCACertificateStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.identifier):
@@ -744,5 +1169,16 @@ class Client(OpenApiClient):
         )
 
     def update_cacertificate_status(self, request):
+        """
+        After a CA certificate is created, the CA certificate is in the ISSUE state by default. You can call the UpdateCACertificateStatus operation to change the status of a CA certificate from ISSUE to REVOKE. If a CA certificate is in the ISSUE state, the CA certificate can be used to issue certificates. If a CA certificate is in the REVOKE state, the CA certificate cannot be used to issue certificates, and the certificates that are issued from the CA certificate become invalid.
+        Before you call this operation, make sure that you have created a root CA by calling the [CreateRootCACertificate](~~328093~~) operation or an intermediate CA certificate by calling the [CreateSubCACertificate](~~328094~~) operation.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UpdateCACertificateStatusRequest
+
+        @return: UpdateCACertificateStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_cacertificate_status_with_options(request, runtime)
