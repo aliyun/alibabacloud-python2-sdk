@@ -1426,7 +1426,7 @@ class AddGatewayRouteRequestFallbackServices(TeaModel):
         self.agreement_type = agreement_type  # type: str
         # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
-        # The name of the application.
+        # The name.
         self.name = name  # type: str
         # The namespace in which the service resides.
         self.namespace = namespace  # type: str
@@ -1436,7 +1436,7 @@ class AddGatewayRouteRequestFallbackServices(TeaModel):
         self.service_id = service_id  # type: long
         # The service port number.
         self.service_port = service_port  # type: int
-        # The type of the service source.
+        # The source type.
         self.source_type = source_type  # type: str
         # The version of the service.
         self.version = version  # type: str
@@ -1540,7 +1540,7 @@ class AddGatewayRouteRequestPredicatesPathPredicates(TeaModel):
         # 
         # *   PRE: prefix matching
         # *   EQUAL: exact matching
-        # *   ERGULAR: regular expression matching
+        # *   REGULAR: regular expression matching
         self.type = type  # type: str
 
     def validate(self):
@@ -1908,7 +1908,7 @@ class AddGatewayRouteRequestServices(TeaModel):
         self.service_id = service_id  # type: long
         # The service port number.
         self.service_port = service_port  # type: int
-        # The type of the service source.
+        # The source type.
         self.source_type = source_type  # type: str
         # The version of the service.
         self.version = version  # type: str
@@ -1988,7 +1988,7 @@ class AddGatewayRouteRequest(TeaModel):
         self.domain_id = domain_id  # type: long
         # The list of domain names.
         self.domain_id_list_json = domain_id_list_json  # type: str
-        # Specifies whether to activate Web Application Firewall (WAF).
+        # Specifies whether to enable Web Application Firewall (WAF).
         self.enable_waf = enable_waf  # type: bool
         # Specifies whether to enable the Fallback service.
         self.fallback = fallback  # type: bool
@@ -2129,7 +2129,7 @@ class AddGatewayRouteShrinkRequest(TeaModel):
         self.domain_id = domain_id  # type: long
         # The list of domain names.
         self.domain_id_list_json = domain_id_list_json  # type: str
-        # Specifies whether to activate Web Application Firewall (WAF).
+        # Specifies whether to enable Web Application Firewall (WAF).
         self.enable_waf = enable_waf  # type: bool
         # Specifies whether to enable the Fallback service.
         self.fallback = fallback  # type: bool
@@ -2227,11 +2227,13 @@ class AddGatewayRouteShrinkRequest(TeaModel):
 
 
 class AddGatewayRouteResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, data=None, error_code=None, http_status_code=None, message=None, request_id=None,
+                 success=None):
         # The status code returned.
         self.code = code  # type: int
-        # The returned data.
+        # The response data.
         self.data = data  # type: long
+        self.error_code = error_code  # type: str
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
         # The message returned.
@@ -2257,6 +2259,8 @@ class AddGatewayRouteResponseBody(TeaModel):
             result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.http_status_code is not None:
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
@@ -2273,6 +2277,8 @@ class AddGatewayRouteResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('HttpStatusCode') is not None:
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
@@ -10908,6 +10914,489 @@ class ExportNacosConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExportNacosConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExportZookeeperDataRequest(TeaModel):
+    def __init__(self, accept_language=None, export_type=None, instance_id=None, region_id=None, request_pars=None):
+        self.accept_language = accept_language  # type: str
+        self.export_type = export_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.request_pars = request_pars  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportZookeeperDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.export_type is not None:
+            result['ExportType'] = self.export_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ExportType') is not None:
+            self.export_type = m.get('ExportType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
+        return self
+
+
+class ExportZookeeperDataResponseBodyData(TeaModel):
+    def __init__(self, content_map=None, create_time=None, export_type=None, extend=None, id=None, instance_id=None,
+                 kubeone_task_ids=None, status=None, update_time=None):
+        self.content_map = content_map  # type: dict[str, any]
+        self.create_time = create_time  # type: long
+        self.export_type = export_type  # type: str
+        self.extend = extend  # type: str
+        self.id = id  # type: int
+        self.instance_id = instance_id  # type: str
+        self.kubeone_task_ids = kubeone_task_ids  # type: str
+        self.status = status  # type: str
+        self.update_time = update_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportZookeeperDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_map is not None:
+            result['ContentMap'] = self.content_map
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.export_type is not None:
+            result['ExportType'] = self.export_type
+        if self.extend is not None:
+            result['Extend'] = self.extend
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kubeone_task_ids is not None:
+            result['KubeoneTaskIds'] = self.kubeone_task_ids
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContentMap') is not None:
+            self.content_map = m.get('ContentMap')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ExportType') is not None:
+            self.export_type = m.get('ExportType')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KubeoneTaskIds') is not None:
+            self.kubeone_task_ids = m.get('KubeoneTaskIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class ExportZookeeperDataResponseBody(TeaModel):
+    def __init__(self, data=None, dynamic_message=None, error_code=None, http_status_code=None, message=None,
+                 request_id=None, success=None):
+        self.data = data  # type: ExportZookeeperDataResponseBodyData
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ExportZookeeperDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ExportZookeeperDataResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ExportZookeeperDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExportZookeeperDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExportZookeeperDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExportZookeeperDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FetchLosslessRuleListRequest(TeaModel):
+    def __init__(self, accept_language=None, app_id=None, app_name=None, namespace=None, page_number=None,
+                 page_size=None, region_id=None, source=None):
+        self.accept_language = accept_language  # type: str
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        self.namespace = namespace  # type: str
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.region_id = region_id  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FetchLosslessRuleListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class FetchLosslessRuleListResponseBodyDataResults(TeaModel):
+    def __init__(self, aligned=None, app_id=None, app_name=None, count=None, delay_time=None, enable=None,
+                 func_type=None, loss_less_detail=None, notice=None, related=None, shutdown_wait_seconds=None,
+                 warmup_time=None):
+        self.aligned = aligned  # type: bool
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        self.count = count  # type: long
+        self.delay_time = delay_time  # type: long
+        self.enable = enable  # type: bool
+        self.func_type = func_type  # type: long
+        self.loss_less_detail = loss_less_detail  # type: bool
+        self.notice = notice  # type: bool
+        self.related = related  # type: bool
+        self.shutdown_wait_seconds = shutdown_wait_seconds  # type: int
+        self.warmup_time = warmup_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FetchLosslessRuleListResponseBodyDataResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aligned is not None:
+            result['Aligned'] = self.aligned
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.delay_time is not None:
+            result['DelayTime'] = self.delay_time
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.func_type is not None:
+            result['FuncType'] = self.func_type
+        if self.loss_less_detail is not None:
+            result['LossLessDetail'] = self.loss_less_detail
+        if self.notice is not None:
+            result['Notice'] = self.notice
+        if self.related is not None:
+            result['Related'] = self.related
+        if self.shutdown_wait_seconds is not None:
+            result['ShutdownWaitSeconds'] = self.shutdown_wait_seconds
+        if self.warmup_time is not None:
+            result['WarmupTime'] = self.warmup_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Aligned') is not None:
+            self.aligned = m.get('Aligned')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('DelayTime') is not None:
+            self.delay_time = m.get('DelayTime')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('FuncType') is not None:
+            self.func_type = m.get('FuncType')
+        if m.get('LossLessDetail') is not None:
+            self.loss_less_detail = m.get('LossLessDetail')
+        if m.get('Notice') is not None:
+            self.notice = m.get('Notice')
+        if m.get('Related') is not None:
+            self.related = m.get('Related')
+        if m.get('ShutdownWaitSeconds') is not None:
+            self.shutdown_wait_seconds = m.get('ShutdownWaitSeconds')
+        if m.get('WarmupTime') is not None:
+            self.warmup_time = m.get('WarmupTime')
+        return self
+
+
+class FetchLosslessRuleListResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, results=None, total_size=None):
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.results = results  # type: list[FetchLosslessRuleListResponseBodyDataResults]
+        self.total_size = total_size  # type: long
+
+    def validate(self):
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FetchLosslessRuleListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = FetchLosslessRuleListResponseBodyDataResults()
+                self.results.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class FetchLosslessRuleListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: FetchLosslessRuleListResponseBodyData
+        self.http_code = http_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(FetchLosslessRuleListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = FetchLosslessRuleListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class FetchLosslessRuleListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FetchLosslessRuleListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FetchLosslessRuleListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FetchLosslessRuleListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22035,7 +22524,7 @@ class ListEngineNamespacesRequest(TeaModel):
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
-        # The instance ID.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -22077,6 +22566,7 @@ class ListEngineNamespacesResponseBodyData(TeaModel):
         self.quota = quota  # type: int
         # The number of active services.
         self.service_count = service_count  # type: str
+        # The source from which the namespace was created.
         self.source_type = source_type  # type: str
         # The type of the namespace. Valid values:
         # 
@@ -22140,7 +22630,7 @@ class ListEngineNamespacesResponseBody(TeaModel):
         self.data = data  # type: list[ListEngineNamespacesResponseBodyData]
         # The error code returned if the request failed.
         self.error_code = error_code  # type: str
-        # The HTTP status code returned.
+        # The HTTP status code.
         self.http_code = http_code  # type: str
         # The message returned.
         self.message = message  # type: str
@@ -22763,6 +23253,212 @@ class ListEurekaServicesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListEurekaServicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListExportZookeeperDataRequest(TeaModel):
+    def __init__(self, accept_language=None, instance_id=None, page_number=None, page_size=None):
+        self.accept_language = accept_language  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExportZookeeperDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListExportZookeeperDataResponseBodyData(TeaModel):
+    def __init__(self, content_map=None, create_time=None, export_type=None, extend=None, id=None, instance_id=None,
+                 kubeone_task_ids=None, status=None, update_time=None):
+        self.content_map = content_map  # type: str
+        self.create_time = create_time  # type: long
+        self.export_type = export_type  # type: str
+        self.extend = extend  # type: str
+        self.id = id  # type: int
+        self.instance_id = instance_id  # type: str
+        self.kubeone_task_ids = kubeone_task_ids  # type: str
+        self.status = status  # type: str
+        self.update_time = update_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExportZookeeperDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_map is not None:
+            result['ContentMap'] = self.content_map
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.export_type is not None:
+            result['ExportType'] = self.export_type
+        if self.extend is not None:
+            result['Extend'] = self.extend
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kubeone_task_ids is not None:
+            result['KubeoneTaskIds'] = self.kubeone_task_ids
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContentMap') is not None:
+            self.content_map = m.get('ContentMap')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ExportType') is not None:
+            self.export_type = m.get('ExportType')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KubeoneTaskIds') is not None:
+            self.kubeone_task_ids = m.get('KubeoneTaskIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class ListExportZookeeperDataResponseBody(TeaModel):
+    def __init__(self, data=None, dynamic_message=None, error_code=None, http_status_code=None, message=None,
+                 request_id=None, success=None):
+        self.data = data  # type: list[ListExportZookeeperDataResponseBodyData]
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_code = error_code  # type: str
+        self.http_status_code = http_status_code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListExportZookeeperDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListExportZookeeperDataResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListExportZookeeperDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListExportZookeeperDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListExportZookeeperDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListExportZookeeperDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -26147,9 +26843,9 @@ class ListInstanceCountResponseBody(TeaModel):
         self.data = data  # type: list[int]
         # The dynamic part in the error message.
         self.dynamic_code = dynamic_code  # type: str
-        # The dynamic part in the error message. This parameter is used to replace the \*\*%s\*\* variable in the **ErrMessage** parameter.
+        # The dynamic part in the error message. This parameter is used to replace `%s` in the `ErrMessage` parameter.
         # 
-        # > If the return value of the **ErrMessage** parameter is **The Value of Input Parameter %s is not valid** and the return value of the **DynamicMessage** parameter is **DtsJobId**, the specified **DtsJobId** parameter is invalid.
+        # > If the return value of the `ErrMessage` parameter is `The Value of Input Parameter %s is not valid` and the return value of the `DynamicMessage` parameter is `DtsJobId`, the specified `DtsJobId` parameter is invalid.
         self.dynamic_message = dynamic_message  # type: str
         # The error code returned if the request failed. If the request failed, the ErrorCode parameter is returned. For more information, see the [Error codes](~~456441~~) section of this topic.
         self.error_code = error_code  # type: str
@@ -31580,9 +32276,9 @@ class QueryClusterDiskSpecificationRequest(TeaModel):
 
 class QueryClusterDiskSpecificationResponseBodyData(TeaModel):
     def __init__(self, max=None, min=None, step=None):
-        # The maximum capacity of the disk.
+        # The maximum disk capacity. Unit: GB.
         self.max = max  # type: int
-        # The minimum capacity of the disk.
+        # The minimum disk capacity. Unit: GB.
         self.min = min  # type: int
         # The step size of the disk capacity.
         self.step = step  # type: int
@@ -31624,7 +32320,7 @@ class QueryClusterDiskSpecificationResponseBody(TeaModel):
         self.data = data  # type: QueryClusterDiskSpecificationResponseBodyData
         # The dynamic part in the error message. This parameter is used to replace the \*\*%s\*\* variable in the **ErrMessage** parameter.
         # 
-        # > If the return value of the **ErrMessage** parameter is **The Value of Input Parameter %s is not valid** and the return value of the **DynamicMessage** parameter is **DtsJobId**, the specified **DtsJobId** parameter is invalid.
+        # >  If the return value of the **ErrMessage** parameter is **The Value of Input Parameter %s is not valid** and the return value of the **DynamicMessage** parameter is **DtsJobId**, the specified **DtsJobId** parameter is invalid.
         self.dynamic_message = dynamic_message  # type: str
         # The error code returned if the request failed.
         self.error_code = error_code  # type: str
@@ -33317,11 +34013,20 @@ class QueryGovernanceKubernetesClusterResponse(TeaModel):
 class QueryInstancesInfoRequest(TeaModel):
     def __init__(self, accept_language=None, cluster_id=None, instance_id=None, order_id=None, region_id=None,
                  request_pars=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
         self.accept_language = accept_language  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the region where the instance is deployed.
         self.region_id = region_id  # type: str
+        # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
 
     def validate(self):
@@ -33367,14 +34072,23 @@ class QueryInstancesInfoRequest(TeaModel):
 class QueryInstancesInfoResponseBodyData(TeaModel):
     def __init__(self, client_port=None, creation_timestamp=None, health_status=None, internet_ip=None, ip=None,
                  pod_name=None, role=None, single_tunnel_vip=None, zone=None):
+        # The enabled port.
         self.client_port = client_port  # type: str
+        # The creation time of the TIMESTAMP type.
         self.creation_timestamp = creation_timestamp  # type: str
+        # A reserved parameter.
         self.health_status = health_status  # type: str
+        # The public IP address.
         self.internet_ip = internet_ip  # type: str
+        # The IP address of the pod.
         self.ip = ip  # type: str
+        # The name of the pod.
         self.pod_name = pod_name  # type: str
+        # A reserved parameter.
         self.role = role  # type: str
+        # The internal IP address.
         self.single_tunnel_vip = single_tunnel_vip  # type: str
+        # The zone.
         self.zone = zone  # type: str
 
     def validate(self):
@@ -33431,11 +34145,23 @@ class QueryInstancesInfoResponseBodyData(TeaModel):
 
 class QueryInstancesInfoResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+        # The details of the data.
         self.data = data  # type: list[QueryInstancesInfoResponseBodyData]
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The HTTP status code returned.
         self.http_code = http_code  # type: str
+        # The message returned.
+        # 
+        # *   If the request is successful, a success message is returned.
+        # *   If the request fails, an error message is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -35521,8 +36247,9 @@ class UpdateClusterSpecRequest(TeaModel):
         self.cluster_specification = cluster_specification  # type: str
         # The number of destination nodes.
         self.instance_count = instance_count  # type: int
-        # The ID of the instance.
+        # The ID of the instance
         self.instance_id = instance_id  # type: str
+        # The MSE version.
         self.mse_version = mse_version  # type: str
 
     def validate(self):
@@ -35572,6 +36299,10 @@ class UpdateClusterSpecResponseBody(TeaModel):
         self.code = code  # type: int
         # A reserved parameter.
         self.data = data  # type: str
+        # The error code returned if the request failed. Take note of the following rules:
+        # 
+        # *   The **ErrorCode** parameter is not returned if the request succeeds.
+        # *   The **ErrorCode** parameter is returned if the request fails. For more information, see the **Error codes** section in this topic.
         self.error_code = error_code  # type: str
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
@@ -37536,11 +38267,13 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
 
 
 class UpdateGatewayRouteResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, data=None, error_code=None, http_status_code=None, message=None, request_id=None,
+                 success=None):
         # The status code.
         self.code = code  # type: int
         # The returned data.
         self.data = data  # type: long
+        self.error_code = error_code  # type: str
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
         # The message returned.
@@ -37566,6 +38299,8 @@ class UpdateGatewayRouteResponseBody(TeaModel):
             result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         if self.http_status_code is not None:
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
@@ -37582,6 +38317,8 @@ class UpdateGatewayRouteResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         if m.get('HttpStatusCode') is not None:
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
@@ -40988,7 +41725,7 @@ class UpdateNacosConfigRequest(TeaModel):
         self.desc = desc  # type: str
         # The encryption key.
         self.encrypted_data_key = encrypted_data_key  # type: str
-        # The group.
+        # The name of the group.
         self.group = group  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str

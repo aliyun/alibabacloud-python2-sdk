@@ -2069,6 +2069,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_nacos_config_with_options(request, runtime)
 
+    def export_zookeeper_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.export_type):
+            query['ExportType'] = request.export_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportZookeeperData',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ExportZookeeperDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def export_zookeeper_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_zookeeper_data_with_options(request, runtime)
+
+    def fetch_lossless_rule_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='FetchLosslessRuleList',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.FetchLosslessRuleListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def fetch_lossless_rule_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.fetch_lossless_rule_list_with_options(request, runtime)
+
     def get_app_message_queue_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3570,6 +3632,40 @@ class Client(OpenApiClient):
     def list_eureka_services(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_eureka_services_with_options(request, runtime)
+
+    def list_export_zookeeper_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExportZookeeperData',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListExportZookeeperDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_export_zookeeper_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_export_zookeeper_data_with_options(request, runtime)
 
     def list_gateway_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
