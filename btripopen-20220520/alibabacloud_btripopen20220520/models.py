@@ -24367,14 +24367,81 @@ class MonthBillGetRequest(TeaModel):
         return self
 
 
+class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
+    def __init__(self, car_amount=None, damage_amount=None, flight_amount=None, fu_point=None, hotel_amount=None,
+                 ie_flight_amount=None, mail_bill_date=None, service_amount=None, train_amount=None):
+        self.car_amount = car_amount  # type: float
+        self.damage_amount = damage_amount  # type: float
+        self.flight_amount = flight_amount  # type: float
+        self.fu_point = fu_point  # type: float
+        self.hotel_amount = hotel_amount  # type: float
+        self.ie_flight_amount = ie_flight_amount  # type: float
+        self.mail_bill_date = mail_bill_date  # type: long
+        self.service_amount = service_amount  # type: float
+        self.train_amount = train_amount  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MonthBillGetResponseBodyModuleMonthAccountBillDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.car_amount is not None:
+            result['carAmount'] = self.car_amount
+        if self.damage_amount is not None:
+            result['damageAmount'] = self.damage_amount
+        if self.flight_amount is not None:
+            result['flightAmount'] = self.flight_amount
+        if self.fu_point is not None:
+            result['fuPoint'] = self.fu_point
+        if self.hotel_amount is not None:
+            result['hotelAmount'] = self.hotel_amount
+        if self.ie_flight_amount is not None:
+            result['ieFlightAmount'] = self.ie_flight_amount
+        if self.mail_bill_date is not None:
+            result['mailBillDate'] = self.mail_bill_date
+        if self.service_amount is not None:
+            result['serviceAmount'] = self.service_amount
+        if self.train_amount is not None:
+            result['trainAmount'] = self.train_amount
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('carAmount') is not None:
+            self.car_amount = m.get('carAmount')
+        if m.get('damageAmount') is not None:
+            self.damage_amount = m.get('damageAmount')
+        if m.get('flightAmount') is not None:
+            self.flight_amount = m.get('flightAmount')
+        if m.get('fuPoint') is not None:
+            self.fu_point = m.get('fuPoint')
+        if m.get('hotelAmount') is not None:
+            self.hotel_amount = m.get('hotelAmount')
+        if m.get('ieFlightAmount') is not None:
+            self.ie_flight_amount = m.get('ieFlightAmount')
+        if m.get('mailBillDate') is not None:
+            self.mail_bill_date = m.get('mailBillDate')
+        if m.get('serviceAmount') is not None:
+            self.service_amount = m.get('serviceAmount')
+        if m.get('trainAmount') is not None:
+            self.train_amount = m.get('trainAmount')
+        return self
+
+
 class MonthBillGetResponseBodyModule(TeaModel):
-    def __init__(self, end_date=None, start_date=None, url=None):
+    def __init__(self, end_date=None, month_account_bill_detail=None, start_date=None, url=None):
         self.end_date = end_date  # type: str
+        self.month_account_bill_detail = month_account_bill_detail  # type: MonthBillGetResponseBodyModuleMonthAccountBillDetail
         self.start_date = start_date  # type: str
         self.url = url  # type: str
 
     def validate(self):
-        pass
+        if self.month_account_bill_detail:
+            self.month_account_bill_detail.validate()
 
     def to_map(self):
         _map = super(MonthBillGetResponseBodyModule, self).to_map()
@@ -24384,6 +24451,8 @@ class MonthBillGetResponseBodyModule(TeaModel):
         result = dict()
         if self.end_date is not None:
             result['end_date'] = self.end_date
+        if self.month_account_bill_detail is not None:
+            result['monthAccountBillDetail'] = self.month_account_bill_detail.to_map()
         if self.start_date is not None:
             result['start_date'] = self.start_date
         if self.url is not None:
@@ -24394,6 +24463,9 @@ class MonthBillGetResponseBodyModule(TeaModel):
         m = m or dict()
         if m.get('end_date') is not None:
             self.end_date = m.get('end_date')
+        if m.get('monthAccountBillDetail') is not None:
+            temp_model = MonthBillGetResponseBodyModuleMonthAccountBillDetail()
+            self.month_account_bill_detail = temp_model.from_map(m['monthAccountBillDetail'])
         if m.get('start_date') is not None:
             self.start_date = m.get('start_date')
         if m.get('url') is not None:
